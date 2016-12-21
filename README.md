@@ -15,3 +15,7 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 * Environmental plans
 * News
 * ...
+
+
+## Examples:
+<img src="http://i.imgur.com/pfRKcT7.png" width="400"> <img src="http://i.imgur.com/Sqhd1ab.png" width="400">
