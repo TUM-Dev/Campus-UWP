@@ -40,7 +40,21 @@ namespace TUMCampusApp.Pages
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
-            DataStorage.INSTANCE.setMainPage(this);
+            navigateToSelectedPage();
+        }
+
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 09/12/2016  Created [Fabian Sauter]
+        /// </history>
+        public MainPage(EnumPage page)
+        {
+            InitializeComponent();
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
+            navigateToPage(page);
         }
 
         #endregion
@@ -75,7 +89,7 @@ namespace TUMCampusApp.Pages
                     break;
 
                 case 2:
-                    //mainFrame.Navigate(typeof(PaymentsListPage));
+                    //mainFrame.Navigate(typeof(CanteensPage));
                     break;
 
                 case 3:
@@ -120,23 +134,9 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!DataStorage.INSTANCE.dataInitiallyLoaded)
-            {
-                await DataStorage.INSTANCE.loadAllDataTaskAsync();
-                DataStorage.INSTANCE.dataInitiallyLoaded = true;
-            }
-
-            if (DataStorage.INSTANCE.settingsData.initialRun)
-            {
-                mainFrame.Navigate(typeof(SetupPage));
-            }
-            else
-            {
-                navigateToSelectedPage();
-            }
-            navigateToSelectedPage();
+            
         }
 
         private void openSplitView_hbtn_Click(object sender, RoutedEventArgs e)

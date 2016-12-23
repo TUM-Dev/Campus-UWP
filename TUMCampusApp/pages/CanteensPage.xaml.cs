@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.classes;
 using TUMCampusApp.classes.canteen;
+using TUMCampusApp.classes.helpers;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.Controls;
 using Windows.Data.Json;
@@ -351,6 +352,11 @@ namespace TUMCampusApp.Pages
             {
 
             }
+        }
+
+        private void pinCanteenTile_btn_Click(object sender, RoutedEventArgs e)
+        {
+            TileHelper.PinTileAsync("Canteens", "Canteens", "canteens", "Assets/Images/CanteenTile.png");
         }
         #endregion
     }

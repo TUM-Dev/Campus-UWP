@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 
 namespace TUMCampusApp.classes
 {
@@ -14,7 +17,6 @@ namespace TUMCampusApp.classes
         #region --Attributes--
         public enum EnumPage
         {
-            SetupPage,
             HomePage,
             CanteensPage,
             NewsPage,
@@ -24,7 +26,8 @@ namespace TUMCampusApp.classes
             StudyRoomsPage,
             OpeningHoursPage,
             StudyPlansPage,
-            SettingsPage
+            SettingsPage,
+            SetupPage,
         }
 
         #endregion
@@ -66,11 +69,11 @@ namespace TUMCampusApp.classes
                 return new DateTime();
             }
         }
+
         #endregion
 
         #region --Misc Methods (Private)--
-
-
+        
 
         #endregion
 
@@ -86,4 +89,4 @@ namespace TUMCampusApp.classes
 
         #endregion
     }
-}
+    }

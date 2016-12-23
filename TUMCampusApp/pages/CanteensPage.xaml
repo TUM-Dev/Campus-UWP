@@ -37,6 +37,7 @@
                                     <MenuFlyoutItem x:Name="refreshCanteen_btn" Text="Canteens" Click="refreshCanteen_btn_Click"/>
                                     <MenuFlyoutItem x:Name="refreshCanteenMenus_btn" Text="Menus" Click="refreshCanteenMenus_btn_Click"/>
                                 </MenuFlyoutSubItem>
+                                <MenuFlyoutItem x:Name="pinCanteenTile_btn" Text="Pin to Start" Click="pinCanteenTile_btn_Click"/>
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>

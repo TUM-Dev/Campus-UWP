@@ -121,5 +121,12 @@ namespace TUMCampusApp.classes
 
         public static readonly string PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
         public static readonly string CHATTERMS_URL = "https://tumcabe.in.tum.de/landing/chatterms/";
+
+        public static readonly Uri Square44x44Logo = new Uri("ms-appx:///Assets/Square44x44Logo.png");
+        public static readonly Uri Square150x150Logo = new Uri("ms-appx:///Assets/Square150x150Logo.png");
+        public static readonly Uri Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
+        public static readonly Uri Square310x310Logo = new Uri("ms-appx:///Assets/Square310x310Logo.png");
+
+        public static readonly string TILE_ID_CANTEEN = "canteenTile";
     }
 }
