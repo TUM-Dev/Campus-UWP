@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.classes.canteen;
+using TUMCampusApp.classes.sync;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusApp.classes.managers
@@ -14,6 +15,7 @@ namespace TUMCampusApp.classes.managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static LocationManager INSTANCE;
+        private static readonly int TIME_TO_SYNC = 360; // 1Hour
         private static readonly double[][] CAMPUS_LOCATIONS = {
             new double[] {48.2648424, 11.6709511}, // Garching Forschungszentrum
             new double[] {48.249432, 11.633905}, // Garching HochbrÃ¼ck
@@ -72,6 +74,12 @@ namespace TUMCampusApp.classes.managers
         /// </history>
         public async Task<Geopoint> getCurrentLocationAsync()
         {
+            Geopoint p;
+            if(!SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC) && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
+            {
+                Debug.WriteLine("No need to get pos again :D");
+                return p;
+            }
             try
             {
                 var accessStatus = await Geolocator.RequestAccessAsync();
@@ -86,11 +94,11 @@ namespace TUMCampusApp.classes.managers
                 geoLocator.DesiredAccuracy = PositionAccuracy.Default;
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
                 UserDataManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
+                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
                 return pos.Coordinate.Point;
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.ToString());
                 return null;
             }
         }

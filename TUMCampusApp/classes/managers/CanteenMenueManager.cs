@@ -104,7 +104,6 @@ namespace TUMCampusApp.classes.managers
         {
             try
             {
-                SyncManager sM = new SyncManager();
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
                 {
                     Debug.WriteLine("Sync Not required! - CanteenMenuManager");
@@ -127,7 +126,7 @@ namespace TUMCampusApp.classes.managers
                 }
                 dB.DeleteAll<CanteenMenu>();
                 dB.InsertAll(menus);
-                sM.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
             catch (Exception e)
             {

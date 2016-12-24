@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.classes.managers;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusApp.classes.userData
@@ -16,6 +17,7 @@ namespace TUMCampusApp.classes.userData
         public string id { get; set; }
         public double lat { get; set; }
         public double lng { get; set; }
+        public long unixTimeSeconds { get; set; }
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -31,6 +33,7 @@ namespace TUMCampusApp.classes.userData
             this.lat = lastKnownDevicePosition.Position.Latitude;
             this.lng = lastKnownDevicePosition.Position.Longitude;
             this.id = DeviceInfo.INSTANCE.Id;
+            this.unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
         }
 
         /// <summary>
