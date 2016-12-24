@@ -103,9 +103,6 @@
     <Compile Include="classes\canteen\CanteenMenu.cs" />
     <Compile Include="classes\Const.cs" />
     <Compile Include="classes\CustomAccelerometer.cs" />
-    <Compile Include="classes\Data\DataStorage.cs" />
-    <Compile Include="classes\Data\SettingsData.cs" />
-    <Compile Include="classes\Data\UserData.cs" />
     <Compile Include="classes\canteen\Location.cs" />
     <Compile Include="classes\helpers\TileHelper.cs" />
     <Compile Include="classes\managers\CacheManager.cs" />
@@ -201,7 +198,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="classes\widgets\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
