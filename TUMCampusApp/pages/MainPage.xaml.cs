@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using TUMCampusApp.classes.managers;
 using TUMCampusApp.pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -28,6 +30,7 @@ namespace TUMCampusApp.Pages
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
+            setVisiblilityMyTum();
             navigateToSelectedPage();
         }
 
@@ -42,6 +45,7 @@ namespace TUMCampusApp.Pages
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
+            setVisiblilityMyTum();
             navigateToPage(page);
         }
 
@@ -54,8 +58,21 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public void navigateToPage(EnumPage page)
+        {
+            splitViewIcons_lb.SelectedIndex = (int)page;
+            navigateToSelectedPage();
+        }
 
+        public void enableBurgerMenue()
+        {
+            splitViewIcons_lb.IsEnabled = true;
+        }
 
+        public void disableBurgerMenue()
+        {
+            splitViewIcons_lb.IsEnabled = false;
+        }
 
         #endregion
 
@@ -66,22 +83,19 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
+            Debug.WriteLine(splitViewIcons_lb.SelectedIndex);
             switch (splitViewIcons_lb.SelectedIndex)
             {
-                case 0:
+                case 6:
                     mainFrame.Navigate(typeof(HomePage));
                     break;
 
-                case 1:
+                case 7:
                     mainFrame.Navigate(typeof(CanteensPage));
                     break;
 
-                case 2:
-                    //mainFrame.Navigate(typeof(CanteensPage));
-                    break;
-
-                case 3:
-                    //mainFrame.Navigate(typeof(SettingsPage));
+                case 15:
+                    mainFrame.Navigate(typeof(SettingsPage));
                     break;
 
                 default:
@@ -97,20 +111,22 @@ namespace TUMCampusApp.Pages
             }
         }
 
-        public void navigateToPage(EnumPage page)
+        private void setVisiblilityMyTum()
         {
-            splitViewIcons_lb.SelectedIndex = (int)page;
-            navigateToSelectedPage();
-        }
-
-        public void enableBurgerMenue()
-        {
-            splitViewIcons_lb.IsEnabled = true;
-        }
-
-        public void disableBurgerMenue()
-        {
-            splitViewIcons_lb.IsEnabled = false;
+            Visibility v;
+            if (TumManager.INSTANCE.isTUMOnlineEnabled())
+            {
+                v = Visibility.Visible;
+            }
+            else
+            {
+                v = Visibility.Collapsed;
+            }
+            myTUM_lbi.Visibility = v;
+            tumCalendar_lbi.Visibility = v;
+            tumMyLectures_lbi.Visibility = v;
+            tumMyGrades_lbi.Visibility = v;
+            tumTuitionFees_lbi.Visibility = v;
         }
 
         #endregion

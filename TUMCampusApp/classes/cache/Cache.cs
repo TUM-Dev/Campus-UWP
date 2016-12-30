@@ -11,10 +11,10 @@ namespace TUMCampusApp.classes.cache
     {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         [Unique]
-        public String url { get; set; }
+        public string url { get; set; }
         public byte[] data { get; set; }
-        public String validity { get; set; }
-        public String max_age { get; set; }
+        public string validity { get; set; }
+        public string max_age { get; set; }
         public int type { get; set; }
 
         #endregion

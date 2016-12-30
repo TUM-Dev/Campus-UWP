@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.userData;
+using TUMCampusApp.pages.setup;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -112,6 +113,9 @@ namespace TUMCampusApp.pages
             UserDataManager.INSTANCE = new UserDataManager();
             await incProgressAsync();
 
+            await invokeTbxAsync("Loading TumManager...");
+            TumManager.INSTANCE = new TumManager();
+            await incProgressAsync();
 
             await invokeTbxAsync("Initializing cache manager...");
             await CacheManager.INSTANCE.initManagerAsync();
@@ -133,8 +137,12 @@ namespace TUMCampusApp.pages
             await SyncManager.INSTANCE.initManagerAsync();
             await incProgressAsync();
 
-            await invokeTbxAsync("Loading device position...");
+            await invokeTbxAsync("Initializing device position...");
             await UserDataManager.INSTANCE.initManagerAsync();
+            await incProgressAsync();
+
+            await invokeTbxAsync("Initializing TumManager...");
+            await TumManager.INSTANCE.initManagerAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 splashProgressBar.Value = 100.0;
             });
@@ -159,11 +167,11 @@ namespace TUMCampusApp.pages
         {
             initAppAsync().Wait();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                DismissExtendedSplash();
+                DismissExtendedSplashAsync();
             }).AsTask().Wait();
         }
 
-        private void DismissExtendedSplash()
+        private async void DismissExtendedSplashAsync()
         {
             if (tileID.Equals(Const.TILE_ID_CANTEEN))
             {
@@ -171,9 +179,36 @@ namespace TUMCampusApp.pages
             }
             else
             {
-                Window.Current.Content = new MainPage();
+                Frame f = new Frame();
+                if (!UserDataManager.INSTANCE.shouldHideWizardOnStartup())
+                {
+                    bool wifiOnly = UserDataManager.INSTANCE.onlyUpdateWhileConnectedToWifi();
+                    if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi()))
+                    {
+                        if(TumManager.getToken() == null || TumManager.getToken() == "")
+                        {
+                            f.Navigate(typeof(SetupPageStep1));
+                        }
+                        else if (!await TumManager.INSTANCE.isTokenConfirmedAsync())
+                        {
+                            f.Navigate(typeof(SetupPageStep2));
+                        }
+                        else
+                        {
+                            TumManager.INSTANCE.setTUMOnlineEnabled(true);
+                            f.Navigate(typeof(MainPage));
+                        }
+                    }
+                }
+                else
+                {
+                    TumManager.INSTANCE.setTUMOnlineEnabled(false);
+                    f.Navigate(typeof(MainPage));
+                }
+                Window.Current.Content = f;
             }
         }
+
         #endregion
 
         #region --Misc Methods (Protected)--

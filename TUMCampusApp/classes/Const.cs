@@ -10,6 +10,7 @@ namespace TUMCampusApp.classes
     {
         public static readonly string MENSA_FOR_FAVORITEDISH = "FavoriteDishCafeteriaID";
         public static readonly string ACCESS_TOKEN = "access_token";
+        public static readonly string USER_ID = "user_id";
         public static readonly string ACTION_EXTRA = "action";
         public static readonly string ADDRESS_COLUMN = "address";
         public static readonly string BACKGROUND_MODE = "background_mode";
@@ -25,6 +26,7 @@ namespace TUMCampusApp.classes
         public static readonly string MESSAGE = "message";
         public static readonly string FORCE_DOWNLOAD = "force_download";
         public static readonly string HIDE_WIZARD_ON_STARTUP = "hide_wizard_on_startup";
+        public static readonly string ONLY_USE_WIFI_FOR_UPDATING = "only_use_wifi_for_updating";
         public static readonly string HOURS_COLUMN = "hours";
         public static readonly string ID_COLUMN = "_id";
         public static readonly string JSON_ADDRESS = "address";
@@ -81,6 +83,9 @@ namespace TUMCampusApp.classes
         public static readonly string JSON_LONGITUDE = "longitude";
         public static readonly string PREFERENCE_SCREEN = "preference_screen";
         public static readonly string P_TOKEN = "pToken";
+        public static readonly string P_TOKEN_NAME = "pTokenName";
+        public static readonly string P_USER_NAME = "pUsername";
+        public static readonly string P_SEARCH = "pSuche";
         public static readonly string APP_VERSION = "app_version";
         public static readonly string JSON_NEWS = "news";
         public static readonly string JSON_DATE = "date";

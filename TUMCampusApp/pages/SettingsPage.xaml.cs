@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.tum;
+using TUMCampusApp.pages.setup;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -18,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.pages
 {
-    public sealed partial class HomePage : Page
+    public sealed partial class SettingsPage : Page
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -31,11 +30,12 @@ namespace TUMCampusApp.pages
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
+        /// 24/12/2016  Created [Fabian Sauter]
         /// </history>
-        public HomePage()
+        public SettingsPage()
         {
             this.InitializeComponent();
+            initControls();
         }
 
         #endregion
@@ -51,7 +51,21 @@ namespace TUMCampusApp.pages
         #endregion
 
         #region --Misc Methods (Private)--
+        private void initControls()
+        {
+            initGeneralControls();
+            initTUMonlineControls();
+        }
 
+        private void initGeneralControls()
+        {
+            wifiOnly_tgls.IsOn = UserDataManager.INSTANCE.onlyUpdateWhileConnectedToWifi();
+        }
+
+        private void initTUMonlineControls()
+        {
+            hideWizardOnStartup_tgls.IsOn = UserDataManager.INSTANCE.shouldHideWizardOnStartup();
+        }
 
         #endregion
 
@@ -61,8 +75,21 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void showWizard_btn_Click(object sender, RoutedEventArgs e)
+        {
+            (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep1));
+        }
 
         #endregion
+
+        private void wifiOnly_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            UserDataManager.INSTANCE.setOnlyUpdateWhileConnectedToWifi(wifiOnly_tgls.IsOn);
+        }
+
+        private void hideWizardOnStartup_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            UserDataManager.INSTANCE.setShouldHideWizardOnStartup(hideWizardOnStartup_tgls.IsOn);
+        }
     }
 }

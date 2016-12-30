@@ -111,9 +111,13 @@
     <Compile Include="classes\managers\AbstractManager.cs" />
     <Compile Include="classes\managers\LocationManager.cs" />
     <Compile Include="classes\managers\SyncManager.cs" />
+    <Compile Include="classes\managers\TumManager.cs" />
     <Compile Include="classes\managers\UserDataManager.cs" />
     <Compile Include="classes\NetUtils.cs" />
     <Compile Include="classes\sync\Sync.cs" />
+    <Compile Include="classes\tum\TUMOnlineConst.cs" />
+    <Compile Include="classes\tum\TUMOnlineRequest.cs" />
+    <Compile Include="classes\tum\TUMUser.cs" />
     <Compile Include="classes\userData\DeviceInfo.cs" />
     <Compile Include="classes\userData\UserData.cs" />
     <Compile Include="classes\Utillities.cs" />
@@ -127,8 +131,14 @@
     <Compile Include="pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\SetupPage.xaml.cs">
-      <DependentUpon>SetupPage.xaml</DependentUpon>
+    <Compile Include="pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setup\SetupPageStep2.xaml.cs">
+      <DependentUpon>SetupPageStep2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setup\SetupPageStep1.xaml.cs">
+      <DependentUpon>SetupPageStep1.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\SplashScreenPage.xaml.cs">
       <DependentUpon>SplashScreenPage.xaml</DependentUpon>
@@ -143,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\CanteenTile.png" />
+    <Content Include="Assets\Images\TUMonlineSetup1.png" />
+    <Content Include="Assets\Images\TUMonlineSetup2.png" />
+    <Content Include="Assets\Images\TUMonlineSetup3.png" />
     <Content Include="Assets\Images\wear_tuition_fee.png" />
     <Content Include="classes\tiles\CanteenTile.xml" />
     <Content Include="Properties\Default.rd.xml" />
@@ -171,7 +184,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\SetupPage.xaml">
+    <Page Include="pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\setup\SetupPageStep2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="pages\setup\SetupPageStep1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="TUMCampusApp.pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TUMCampusApp.pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <StackPanel>
+                <TextBlock Text="Settings:" HorizontalAlignment="Center" FontSize="30"/>
+
+                <TextBlock Text="General Settings:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+                <TextBlock Text="Update app with wifi only" Margin="10,10,0,0"/>
+                <ToggleSwitch x:Name="wifiOnly_tgls"  Margin="10,0,0,0" Toggled="wifiOnly_tgls_Toggled"/>
+
+                <TextBlock Text="TUMonline:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+                <TextBlock Text="Hide TUMonline on startup" Margin="10,10,0,0"/>
+                <ToggleSwitch x:Name="hideWizardOnStartup_tgls"  Margin="10,0,0,0" Toggled="hideWizardOnStartup_tgls_Toggled"/>
+
+                <Button x:Name="showWizard_btn" Content="Launch TUMonline wizard" Margin="10,10,0,0" Click="showWizard_btn_Click"/>
+
+                <TextBlock Text="Services:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+
+                <TextBlock Text="Extras:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+
+                <TextBlock Text="About and links:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

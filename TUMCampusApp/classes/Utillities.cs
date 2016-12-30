@@ -17,6 +17,10 @@ namespace TUMCampusApp.classes
         #region --Attributes--
         public enum EnumPage
         {
+            MyCalendarPage,
+            MyLecturesPage,
+            MyGradesPage,
+            TuitionFeesPage,
             HomePage,
             CanteensPage,
             NewsPage,
@@ -38,8 +42,15 @@ namespace TUMCampusApp.classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        public static void setSetting(string token, object value)
+        {
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values[token] = value;
+        }
 
-
+        public static object getSetting(string token)
+        {
+            return Windows.Storage.ApplicationData.Current.LocalSettings.Values[token];
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

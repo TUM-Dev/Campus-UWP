@@ -49,6 +49,63 @@ namespace TUMCampusApp.classes.managers
             dB.InsertOrReplace(new UserData(pos));
         }
 
+        public bool isInitialRun()
+        {
+            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            if (list == null || list.Count <= 0)
+            {
+                return true;
+            }
+            return list[0].initialRun;
+        }
+
+        public void setInitialRun(bool initialRun)
+        {
+            UserData dat;
+            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            if (list == null || list.Count <= 0)
+            {
+                dat = new UserData();
+            }
+            else
+            {
+                dat = list[0];
+            }
+            dat.initialRun = initialRun;
+
+            dB.InsertOrReplace(dat);
+        }
+
+        public bool shouldHideWizardOnStartup()
+        {
+            var res = Utillities.getSetting(Const.HIDE_WIZARD_ON_STARTUP);
+            if (res == null)
+            {
+                return false;
+            }
+            return (bool)res;
+        }
+
+        public void setShouldHideWizardOnStartup(bool enabled)
+        {
+            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, enabled);
+        }
+
+        public bool onlyUpdateWhileConnectedToWifi()
+        {
+            var res = Utillities.getSetting(Const.ONLY_USE_WIFI_FOR_UPDATING);
+            if (res == null)
+            {
+                return false;
+            }
+            return (bool)res;
+        }
+
+        public void setOnlyUpdateWhileConnectedToWifi(bool enabled)
+        {
+            Utillities.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, enabled);
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--

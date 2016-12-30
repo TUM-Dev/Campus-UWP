@@ -32,6 +32,37 @@
                             </Grid.RowDefinitions>
                             <Image Source="ms-appx:///Assets/Images/wear_tuition_fee.png" Grid.Row="0"/>
                             <ListBox Name="splitViewIcons_lb" SelectionMode="Single" SelectionChanged="splitViewIcons_lb_SelectionChanged" VerticalAlignment="Stretch" Grid.Row="1">
+                                <ListBoxItem x:Name="myTUM_lbi" IsEnabled="False">
+                                    <TextBlock Text="My TUM"/>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="tumCalendar_lbi">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE787;" Margin="0, 0, 20, 0"/>
+                                        <TextBlock Text="My Calendar"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="tumMyLectures_lbi">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xEF16;" Margin="0, 0, 20, 0"/>
+                                        <TextBlock Text="My Lectures"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="tumMyGrades_lbi">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xEADF;" Margin="0, 0, 20, 0"/>
+                                        <TextBlock Text="My Grades"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="tumTuitionFees_lbi">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="24" Text="$" Margin="5, -7, 20, 0"/>
+                                        <TextBlock Text="Tuition Fees"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+
+                                <ListBoxItem x:Name="generalTUM_lbi" IsEnabled="False">
+                                    <TextBlock Text="General TUM"/>
+                                </ListBoxItem>
                                 <ListBoxItem x:Name="home_lbi" IsSelected="True">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE80F;" Margin="0, 0, 20, 0"/>

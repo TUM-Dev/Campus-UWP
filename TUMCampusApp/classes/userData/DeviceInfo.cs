@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
 
@@ -57,6 +58,42 @@ namespace TUMCampusApp.classes.userData
             }
 
             throw new Exception("NO API FOR DEVICE ID PRESENT!");
+        }
+
+        /// <summary>
+        /// Checks if the device is connected to the internet
+        /// </summary>
+        /// <history>
+        /// 30/12/2016  Created [Fabian Sauter]
+        /// </history>
+        public static bool isConnectedToInternet()
+        {
+            ConnectionProfile cP = NetworkInformation.GetInternetConnectionProfile();
+            return cP != null && cP.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+        }
+
+        /// <summary>
+        /// Checks if the device is connected to a wifi network and has access to the internet
+        /// </summary>
+        /// <history>
+        /// 30/12/2016  Created [Fabian Sauter]
+        /// </history>
+        public static bool isConnectedToWifi()
+        {
+            ConnectionProfile cP = NetworkInformation.GetInternetConnectionProfile();
+            return cP != null && cP.IsWlanConnectionProfile && cP.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+        }
+
+        /// <summary>
+        /// Checks if the device is connected to a celular network and has access to the internet
+        /// </summary>
+        /// <history>
+        /// 30/12/2016  Created [Fabian Sauter]
+        /// </history>
+        public static bool isConnectedToCelular()
+        {
+            ConnectionProfile cP = NetworkInformation.GetInternetConnectionProfile();
+            return cP != null && cP.IsWwanConnectionProfile && cP.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
         }
 
         #endregion

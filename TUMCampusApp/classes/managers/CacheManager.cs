@@ -40,11 +40,11 @@ namespace TUMCampusApp.classes.managers
             dB.CreateTable<cache.Cache>();
 
             // Delete all entries that are too old and delete corresponding image files
-            foreach (cache.Cache c in dB.Query<cache.Cache>("SELECT data FROM cache WHERE datetime()>max_age AND type = ?", 1))
+            foreach (cache.Cache c in dB.Query<cache.Cache>("SELECT data FROM cache WHERE datetime() > max_age AND type = ?", 1))
             {
                 File.Delete(c.url);
             }
-            dB.Execute("DELETE FROM cache WHERE datetime()>max_age");
+            dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
         }
 
         #endregion

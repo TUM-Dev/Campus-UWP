@@ -85,9 +85,7 @@ namespace TUMCampusApp.classes.managers
             //execute("DROP TABLE IF EXISTS faculties");
         }
 
-        public virtual async 
-        Task
-initManagerAsync()
+        public virtual async Task initManagerAsync()
         {
 
         }
