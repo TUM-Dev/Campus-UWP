@@ -16,6 +16,5 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 * News
 * ...
 
-
 ## Examples:
-<img src="http://i.imgur.com/pfRKcT7.png" width="400"> <img src="http://i.imgur.com/Sqhd1ab.png" width="400">
+<img src="http://i.imgur.com/a7isoJM.png" width="400"> <img src="http://i.imgur.com/Sqhd1ab.png" width="400">
