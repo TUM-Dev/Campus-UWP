@@ -83,7 +83,6 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            Debug.WriteLine(splitViewIcons_lb.SelectedIndex);
             switch (splitViewIcons_lb.SelectedIndex)
             {
                 case 6:

@@ -71,7 +71,7 @@
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="canteen_lbi">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock FontFamily="Segoe UI Symbol" FontSize="23" Text="&#x1f374;" Margin="0, 0, 20, 0"/>
+                                        <TextBlock FontFamily="Segoe UI Symbol" FontSize="23" Text="&#x1f374;" Margin="0, -3, 20, 0"/>
                                         <TextBlock Text="Canteens"/>
                                     </StackPanel>
                                 </ListBoxItem>
