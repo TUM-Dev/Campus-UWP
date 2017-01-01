@@ -71,8 +71,8 @@ namespace TUMCampusApp.pages.setup
         #region --Events--
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            TumManager.INSTANCE.setTUMOnlineEnabled(false);
-            UserDataManager.INSTANCE.setShouldHideWizardOnStartup(true);
+            Utillities.setSetting(Const.TUMO_ENABLED, false);
+            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
             (Window.Current.Content as Frame).Navigate(typeof(MainPage));
         }
 

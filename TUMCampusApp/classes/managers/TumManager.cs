@@ -87,27 +87,11 @@ namespace TUMCampusApp.classes.managers
             return list;
         }
 
-        public bool isTUMOnlineEnabled()
-        {
-            var res = Utillities.getSetting(Const.TUMO_DISABLED);
-            if (res == null)
-            {
-                return false;
-            }
-            return (bool)res;
-        }
-
-        public void setTUMOnlineEnabled(bool enabled)
-        {
-            Utillities.setSetting(Const.TUMO_DISABLED, enabled);
-        }
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override Task initManagerAsync()
+        public async override Task InitManagerAsync()
         {
-            return base.initManagerAsync();
         }
 
         public async Task<string> reqestNewTokenAsync(string userId)

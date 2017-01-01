@@ -18,7 +18,7 @@ namespace TUMCampusApp.classes.userData
         public double lat { get; set; }
         public double lng { get; set; }
         public long unixTimeSeconds { get; set; }
-        public bool initialRun { get; set; }
+        public int lastSelectedCanteenId { get; set; }
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -35,7 +35,6 @@ namespace TUMCampusApp.classes.userData
             this.lng = lastKnownDevicePosition.Position.Longitude;
             this.id = DeviceInfo.INSTANCE.Id;
             this.unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
-            this.initialRun = false;
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace TUMCampusApp.classes.userData
         /// </history>
         public UserData()
         {
-            this.initialRun = true;
             this.id = DeviceInfo.INSTANCE.Id;
         }
 

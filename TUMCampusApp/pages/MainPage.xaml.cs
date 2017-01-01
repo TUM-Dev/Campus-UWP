@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.pages;
 using Windows.UI.Core;
@@ -113,7 +114,7 @@ namespace TUMCampusApp.Pages
         private void setVisiblilityMyTum()
         {
             Visibility v;
-            if (TumManager.INSTANCE.isTUMOnlineEnabled())
+            if (Utillities.getSettingBoolean(Const.TUMO_ENABLED))
             {
                 v = Visibility.Visible;
             }

@@ -120,6 +120,9 @@ namespace TUMCampusApp.classes.managers
             dB.CreateTable<Sync>();
         }
 
+        public async override Task InitManagerAsync()
+        {
+        }
         #endregion
 
         #region --Misc Methods (Private)--

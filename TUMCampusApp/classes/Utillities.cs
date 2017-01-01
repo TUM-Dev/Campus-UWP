@@ -52,6 +52,12 @@ namespace TUMCampusApp.classes
             return Windows.Storage.ApplicationData.Current.LocalSettings.Values[token];
         }
 
+        public static bool getSettingBoolean(string token)
+        {
+            object obj = getSetting(token);
+            return obj != null && obj is bool && (bool)obj;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--

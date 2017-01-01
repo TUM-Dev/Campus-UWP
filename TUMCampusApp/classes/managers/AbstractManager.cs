@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TUMCampusApp.classes.cache;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
+using TUMCampusApp.classes.userData;
 using Windows.Storage;
 
 namespace TUMCampusApp.classes.managers
@@ -57,38 +58,27 @@ namespace TUMCampusApp.classes.managers
 
         public static void resetDB()
         {
-            dB.DropTable<CanteenMenu>();
-            dB.DropTable<Canteen>();
-            dB.DropTable<Sync>();
             dB.DropTable<Cache>();
-            //execute("DROP TABLE IF EXISTS cache");
-            //execute("DROP TABLE IF EXISTS canteens");
-            //execute("DROP TABLE IF EXISTS canteens_menus");
-            //execute("DROP TABLE IF EXISTS calendar");
-            //execute("DROP TABLE IF EXISTS kalendar_events");
-            //execute("DROP TABLE IF EXISTS locations");
-            //execute("DROP TABLE IF EXISTS news");
-            //execute("DROP TABLE IF EXISTS news_sources");
-            //execute("DROP TABLE IF EXISTS recents");
-            //execute("DROP TABLE IF EXISTS room_locations");
-            //execute("DROP TABLE IF EXISTS syncs");
-            //execute("DROP TABLE IF EXISTS suggestions_lecture");
-            //execute("DROP TABLE IF EXISTS suggestions_mvv");
-            //execute("DROP TABLE IF EXISTS suggestions_persons");
-            //execute("DROP TABLE IF EXISTS suggestions_rooms");
-            //execute("DROP TABLE IF EXISTS unsent_chat_message");
-            //execute("DROP TABLE IF EXISTS chat_message");
-            //execute("DROP TABLE IF EXISTS chat_room");
-            //execute("DROP TABLE IF EXISTS tumLocks");
-            //execute("DROP TABLE IF EXISTS openQuestions");
-            //execute("DROP TABLE IF EXISTS ownQuestions");
-            //execute("DROP TABLE IF EXISTS faculties");
+            dB.DropTable<Canteen>();
+            dB.DropTable<CanteenMenu>();
+            dB.DropTable<Sync>();
+            dB.DropTable<UserData>();
         }
 
-        public virtual async Task initManagerAsync()
+        public static void deleteDB()
         {
+            try
+            {
+                dB.Close();
+                File.Delete(AbstractManager.DB_PATH);
+            }
+            catch (Exception e)
+            {
 
+            }
         }
+
+        public abstract Task InitManagerAsync();
 
         public void execute(string querry, params object[] args)
         {

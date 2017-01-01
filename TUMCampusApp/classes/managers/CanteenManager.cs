@@ -83,20 +83,23 @@ namespace TUMCampusApp.classes.managers
             }
         }
 
+        public async override Task InitManagerAsync()
+        {
+        }
         #endregion
 
         #region --Misc Methods (Private)--
-        
+
 
         #endregion
 
         #region --Misc Methods (Protected)--
-        
+
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        
+
 
         #endregion
     }

@@ -120,7 +120,7 @@
                                 <ListBoxItem x:Name="settings_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE713;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Einstellungen"/>
+                                        <TextBlock Text="Settings"/>
                                     </StackPanel>
                                 </ListBoxItem>
                             </ListBox>

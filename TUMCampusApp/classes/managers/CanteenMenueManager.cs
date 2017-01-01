@@ -171,6 +171,9 @@ namespace TUMCampusApp.classes.managers
             return s;
         }
 
+        public async override Task InitManagerAsync()
+        {
+        }
         #endregion
 
         #region --Misc Methods (Private)--

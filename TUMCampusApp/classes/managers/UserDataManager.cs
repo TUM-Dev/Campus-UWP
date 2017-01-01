@@ -46,70 +46,39 @@ namespace TUMCampusApp.classes.managers
 
         public void setLastKnownDevicePosition(Geopoint pos)
         {
-            dB.InsertOrReplace(new UserData(pos));
-        }
-
-        public bool isInitialRun()
-        {
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                return true;
-            }
-            return list[0].initialRun;
-        }
-
-        public void setInitialRun(bool initialRun)
-        {
-            UserData dat;
-            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
-            if (list == null || list.Count <= 0)
-            {
-                dat = new UserData();
+                dB.Insert(new UserData(pos));
             }
             else
             {
-                dat = list[0];
+                list[0].lat = pos.Position.Latitude;
+                list[0].lng = pos.Position.Longitude;
+                list[0].unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
+                dB.InsertOrReplace(list[0]);
             }
-            dat.initialRun = initialRun;
-
-            dB.InsertOrReplace(dat);
         }
 
-        public bool shouldHideWizardOnStartup()
+        public int getLastSelectedCanteenId()
         {
-            var res = Utillities.getSetting(Const.HIDE_WIZARD_ON_STARTUP);
-            if (res == null)
+            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            if (list == null || list.Count <= 0)
             {
-                return false;
+                return -1;
             }
-            return (bool)res;
+            return list[0].lastSelectedCanteenId;
         }
 
-        public void setShouldHideWizardOnStartup(bool enabled)
+        public void setLastSelectedCanteenId(int id)
         {
-            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, enabled);
-        }
-
-        public bool onlyUpdateWhileConnectedToWifi()
-        {
-            var res = Utillities.getSetting(Const.ONLY_USE_WIFI_FOR_UPDATING);
-            if (res == null)
-            {
-                return false;
-            }
-            return (bool)res;
-        }
-
-        public void setOnlyUpdateWhileConnectedToWifi(bool enabled)
-        {
-            Utillities.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, enabled);
+            dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = " + DeviceInfo.INSTANCE.Id);
         }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task initManagerAsync()
+        public async override Task InitManagerAsync()
         {
             await initLoaction();
         }

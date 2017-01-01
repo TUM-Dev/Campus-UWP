@@ -35,8 +35,7 @@ namespace TUMCampusApp
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
-                bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
-                SplashScreenPage extendedSplash = new SplashScreenPage(args, loadState);
+                SplashScreenPage extendedSplash = new SplashScreenPage(args);
                 Window.Current.Content = extendedSplash;
             }
 

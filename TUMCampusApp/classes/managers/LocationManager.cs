@@ -203,6 +203,9 @@ namespace TUMCampusApp.classes.managers
             return (Math.PI / 180) * val;
         }
 
+        public async override Task InitManagerAsync()
+        {
+        }
         #endregion
 
         #region --Misc Methods (Protected)--

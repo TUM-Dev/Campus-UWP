@@ -68,7 +68,7 @@ namespace TUMCampusApp.classes
         public static readonly string PUBLIC_KEY_UPLOADED = "chat_member_public_key_uploaded";
 
         public static readonly string TUMO_PIDENT_NR = "pIdentNr";
-        public static readonly string TUMO_DISABLED = "tumo_is_disabled";
+        public static readonly string TUMO_ENABLED = "tumo_is_enabled";
 
         public static readonly string GCM_REG_ID = "gcm_registration_id";
         public static readonly string GCM_REG_ID_SENT_TO_SERVER = "gcm_registration_id_sent_to_server";

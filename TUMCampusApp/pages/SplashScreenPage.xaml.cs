@@ -29,7 +29,7 @@ namespace TUMCampusApp.pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        internal Rect splashImageRect;
+        private static Rect splashImageRect;
         private SplashScreen splash;
         internal bool dismissed = false;
         private string tileID;
@@ -43,7 +43,7 @@ namespace TUMCampusApp.pages
         /// <history>
         /// 18/12/2016  Created [Fabian Sauter]
         /// </history>
-        public SplashScreenPage(LaunchActivatedEventArgs args, bool loadState)
+        public SplashScreenPage(LaunchActivatedEventArgs args)
         {
             this.InitializeComponent();
             this.tileID = args.TileId;
@@ -52,9 +52,18 @@ namespace TUMCampusApp.pages
             if (splash != null)
             {
                 splashImageRect = splash.ImageLocation;
-                positionElements();
                 splash.Dismissed += new TypedEventHandler<SplashScreen, Object>(DismissedEventHandler);
             }
+            positionElements();
+        }
+
+        public SplashScreenPage()
+        {
+            this.InitializeComponent();
+            this.tileID = null;
+            Window.Current.SizeChanged += new WindowSizeChangedEventHandler(ExtendedSplash_OnResize);
+            DismissedEventHandler(null, null);
+            positionElements();
         }
 
         #endregion
@@ -118,31 +127,31 @@ namespace TUMCampusApp.pages
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing cache manager...");
-            await CacheManager.INSTANCE.initManagerAsync();
+            await CacheManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteen manager...");
-            await CanteenManager.INSTANCE.initManagerAsync();
+            await CanteenManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteenmenu manager...");
-            await CanteenMenueManager.INSTANCE.initManagerAsync();
+            await CanteenMenueManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing location manager...");
-            await LocationManager.INSTANCE.initManagerAsync();
+            await LocationManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing sync manager...");
-            await SyncManager.INSTANCE.initManagerAsync();
+            await SyncManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing device position...");
-            await UserDataManager.INSTANCE.initManagerAsync();
+            await UserDataManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing TumManager...");
-            await TumManager.INSTANCE.initManagerAsync();
+            await TumManager.INSTANCE.InitManagerAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 splashProgressBar.Value = 100.0;
             });
@@ -173,16 +182,16 @@ namespace TUMCampusApp.pages
 
         private async void DismissExtendedSplashAsync()
         {
-            if (tileID.Equals(Const.TILE_ID_CANTEEN))
+            if (tileID != null && tileID.Equals(Const.TILE_ID_CANTEEN))
             {
                 Window.Current.Content = new MainPage(EnumPage.CanteensPage);
             }
             else
             {
                 Frame f = new Frame();
-                if (!UserDataManager.INSTANCE.shouldHideWizardOnStartup())
+                if (!Utillities.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
                 {
-                    bool wifiOnly = UserDataManager.INSTANCE.onlyUpdateWhileConnectedToWifi();
+                    bool wifiOnly = Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
                     if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi()))
                     {
                         if(TumManager.getToken() == null || TumManager.getToken() == "")
@@ -195,14 +204,14 @@ namespace TUMCampusApp.pages
                         }
                         else
                         {
-                            TumManager.INSTANCE.setTUMOnlineEnabled(true);
+                            Utillities.setSetting(Const.TUMO_ENABLED, true);
                             f.Navigate(typeof(MainPage));
                         }
                     }
                 }
                 else
                 {
-                    TumManager.INSTANCE.setTUMOnlineEnabled(false);
+                    Utillities.setSetting(Const.TUMO_ENABLED, false);
                     f.Navigate(typeof(MainPage));
                 }
                 Window.Current.Content = f;

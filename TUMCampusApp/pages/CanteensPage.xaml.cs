@@ -196,7 +196,7 @@ namespace TUMCampusApp.Pages
                 + "3 with antioxidant\n"
                 + "4 with flavor enhancers\n"
                 + "5 sulphured\n"
-                + "6 backened (olive)\n"
+                + "6 blackened (olive)\n"
                 + "8 with phosphate\n"
                 + "9 with sweeteners\n"
                 + "10 contains a source of phenylalanine\n"

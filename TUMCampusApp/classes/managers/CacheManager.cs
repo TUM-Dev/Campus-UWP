@@ -55,7 +55,9 @@ namespace TUMCampusApp.classes.managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public async override Task InitManagerAsync()
+        {
+        }
 
         #endregion
 

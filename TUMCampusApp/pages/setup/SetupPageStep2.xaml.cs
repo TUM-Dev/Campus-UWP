@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.tum;
 using TUMCampusApp.Pages;
@@ -71,8 +72,8 @@ namespace TUMCampusApp.pages.setup
 
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            TumManager.INSTANCE.setTUMOnlineEnabled(false);
-            UserDataManager.INSTANCE.setShouldHideWizardOnStartup(true);
+            Utillities.setSetting(Const.TUMO_ENABLED, false);
+            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
             (Window.Current.Content as Frame).Navigate(typeof(MainPage));
         }
 
@@ -84,7 +85,7 @@ namespace TUMCampusApp.pages.setup
                 await message.ShowAsync();
                 return;
             }
-            TumManager.INSTANCE.setTUMOnlineEnabled(true);
+            Utillities.setSetting(Const.TUMO_ENABLED, true);
             Frame f = new Frame();
             f.Navigate(typeof(MainPage));
             Window.Current.Content = f;
