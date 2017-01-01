@@ -11,7 +11,7 @@ using TUMCampusApp.classes;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.helpers;
 using TUMCampusApp.classes.managers;
-using TUMCampusApp.Controls;
+using TUMCampusApp.controls;
 using Windows.Data.Json;
 using Windows.Devices.Sensors;
 using Windows.Foundation;
@@ -73,13 +73,14 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         private void setNewFavoriteCanteen(Canteen canteen)
         {
+            UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.id);
             selectedCanteen_tbx.Text = canteen.name;
             expand_btn.Content = "\xE019";
             canteens_scv.Visibility = Visibility.Collapsed;
             loadCanteenMenus(canteen);
         }
 
-        private void setMenuType(string name, bool contains)
+        private void setMenuType(string name, bool contains, DateTime date)
         {
             //Description:
             TextBlock tb = new TextBlock()
@@ -117,7 +118,7 @@ namespace TUMCampusApp.Pages
                 {
                     b = m.typeLong.Equals(name);
                 }
-                if (b && m.date.DayOfYear == DateTime.Now.AddDays(currentDayOffset - 1).DayOfYear)
+                if (b && m.date.DayOfYear == date.DayOfYear)
                 {
                     tb = new TextBlock()
                     {
@@ -138,7 +139,6 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
 
 
         #endregion
@@ -173,13 +173,18 @@ namespace TUMCampusApp.Pages
 
         private void showCurrentMenus()
         {
-            DateTime date = DateTime.Now.AddDays(currentDayOffset);
+            DateTime date = CanteenMenueManager.getFirstNextDate();
+            if (date.Equals(DateTime.MaxValue))
+            {
+                date = DateTime.Now;
+            }
+            date = date.AddDays(currentDayOffset + 1);
             day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
             menus_sckl.Children.Clear();
-            setMenuType("Tagesgericht" , true);
-            setMenuType("Aktionsessen", true);
-            setMenuType("Aktion", false);
-            setMenuType("Beilagen", true);
+            setMenuType("Tagesgericht" , true, date);
+            setMenuType("Aktionsessen", true, date);
+            setMenuType("Aktion", false, date);
+            setMenuType("Beilagen", true, date);
         }
 
         private async Task showInfoBoxAsync()
@@ -233,15 +238,11 @@ namespace TUMCampusApp.Pages
         #region --Misc Methods (Protected)--
 
 
-
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
         private async void Page_LoadedAsync(object sender, RoutedEventArgs e)
         {
-            //File.Delete(AbstractManager.DB_PATH);
-            //StorageFolder folder = ApplicationData.Current.LocalCacheFolder;
-            //await Windows.System.Launcher.LaunchFolderAsync(folder);
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await loadCanteensAsync();
 

@@ -42,6 +42,18 @@ namespace TUMCampusApp.classes.sync
             this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
         }
 
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 01/01/2017  Created [Fabian Sauter]
+        /// </history>
+        public Sync(string id)
+        {
+            this.id = id;
+            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
+        }
+
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--

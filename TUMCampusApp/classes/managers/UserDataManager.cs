@@ -72,7 +72,7 @@ namespace TUMCampusApp.classes.managers
 
         public void setLastSelectedCanteenId(int id)
         {
-            dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = " + DeviceInfo.INSTANCE.Id);
+            dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = ?", DeviceInfo.INSTANCE.Id);
         }
 
         #endregion

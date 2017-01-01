@@ -61,6 +61,12 @@ namespace TUMCampusApp.pages
             initTUMonlineControls();
         }
 
+        private void initWidgetControls()
+        {
+            disableExampleWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET);
+            disableCanteenWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
+        }
+
         private void initGeneralControls()
         {
             wifiOnly_tgls.IsOn = Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
@@ -75,6 +81,8 @@ namespace TUMCampusApp.pages
         {
             Utillities.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, false);
             Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
+            Utillities.setSetting(Const.DISABLE_EXAMPLE_WIDGET, false);
+            Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
             Utillities.setSetting(Const.ACCESS_TOKEN, null);
 
             deleteCache();
@@ -139,6 +147,16 @@ namespace TUMCampusApp.pages
         {
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             await Windows.System.Launcher.LaunchFolderAsync(folder);
+        }
+
+        private void diableExampleWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Utillities.setSetting(Const.DISABLE_EXAMPLE_WIDGET, disableExampleWidget_tgls.IsOn);
+        }
+
+        private void diableCanteenWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, disableCanteenWidget_tgls.IsOn);
         }
         #endregion
     }

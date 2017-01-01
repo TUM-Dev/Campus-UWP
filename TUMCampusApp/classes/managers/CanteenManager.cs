@@ -49,6 +49,16 @@ namespace TUMCampusApp.classes.managers
             return dB.Query<Canteen>("SELECT * FROM Canteen");
         }
 
+        public Canteen getCanteenById(int id)
+        {
+            List<Canteen> list = dB.Query<Canteen>("SELECT * FROM Canteen WHERE id = ?", id);
+            if(list != null && list.Count > 0)
+            {
+                return list[0];
+            }
+            return null;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--

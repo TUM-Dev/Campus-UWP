@@ -122,7 +122,15 @@
     <Compile Include="classes\userData\DeviceInfo.cs" />
     <Compile Include="classes\userData\UserData.cs" />
     <Compile Include="classes\Utillities.cs" />
-    <Compile Include="controls\CanteenControl.cs" />
+    <Compile Include="controls\CanteenControl.xaml.cs">
+      <DependentUpon>CanteenControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\CanteenWidget.xaml.cs">
+      <DependentUpon>CanteenWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ExampleWidget.xaml.cs">
+      <DependentUpon>ExampleWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
     </Compile>
@@ -173,6 +181,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="controls\CanteenControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="controls\CanteenWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="controls\ExampleWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\CanteensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -201,10 +221,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
@@ -220,9 +236,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="classes\widgets\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

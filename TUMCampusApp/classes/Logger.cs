@@ -23,7 +23,7 @@ namespace TUMCampusApp.classes
         private static string getFilename()
         {
             DateTime date = DateTime.Now;
-            return "Log-" + date.Day + "." + date.Month + "." + date.Year;
+            return "Log-" + date.Day + "." + date.Month + "." + date.Year + ".log";
         }
 
         private static string getTimeStamp()
@@ -83,7 +83,7 @@ namespace TUMCampusApp.classes
         #region --Misc Methods (Private)--
         private static void addToLog(string message, Exception e, string code)
         {
-            addToLogAsync(message, e, code).Wait();
+            Task t = addToLogAsync(message, e, code);
         }
 
         private static async Task addToLogAsync(string message, Exception e, string code)

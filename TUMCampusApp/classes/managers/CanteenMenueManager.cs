@@ -18,6 +18,8 @@ namespace TUMCampusApp.classes.managers
         #region --Attributes--
         public static CanteenMenueManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
+        private static List<CanteenMenu> menus = new List<CanteenMenu>();
+        private static int lastSelectedCanteenId = -2;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -77,22 +79,45 @@ namespace TUMCampusApp.classes.managers
                     json.GetNamedString(Const.JSON_NAME).Replace("\"", "\'"));
         }
 
+        public static DateTime getFirstNextDate()
+        {
+            DateTime time = DateTime.MaxValue;
+            List<CanteenMenu> menus = new List<CanteenMenu>();
+            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%'"))
+            {
+                if(m.date.CompareTo(time) < 0)
+                {
+                    time = m.date;
+                }
+            }
+            return time;
+        }
+
         public static List<CanteenMenu> getMenus(int id)
         {
-            List<CanteenMenu> menus = new List<CanteenMenu>();
-            if (id == -1)
+            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC))
             {
-                foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu"))
+                return menus;
+            }
+            else
+            {
+                menus = new List<CanteenMenu>();
+                lastSelectedCanteenId = id;
+                SyncManager.INSTANCE.replaceIntoDb(new Sync("last_selected_canteen"));
+                if (id == -1)
+                {
+                    foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu"))
+                    {
+                        m.name = replaceMenuStringWithImages(m.name);
+                        menus.Add(m);
+                    }
+                    return menus;
+                }
+                foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", id))
                 {
                     m.name = replaceMenuStringWithImages(m.name);
                     menus.Add(m);
                 }
-                return menus;
-            }
-            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", id))
-            {
-                m.name = replaceMenuStringWithImages(m.name);
-                menus.Add(m);
             }
             return menus;
         }

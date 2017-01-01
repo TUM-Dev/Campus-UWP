@@ -133,5 +133,8 @@ namespace TUMCampusApp.classes
         public static readonly Uri Square310x310Logo = new Uri("ms-appx:///Assets/Square310x310Logo.png");
 
         public static readonly string TILE_ID_CANTEEN = "canteenTile";
+
+        public static readonly string DISABLE_EXAMPLE_WIDGET = "disable_example_widget";
+        public static readonly string DISABLE_CANTEEN_WIDGET = "disable_canteen_widget";
     }
 }

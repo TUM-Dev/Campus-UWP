@@ -30,6 +30,13 @@
                 <TextBlock Text="Services:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
 
+                <TextBlock Text="Widgets:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+                <TextBlock Text="Disable Example Widget" Margin="10,10,0,0"/>
+                <ToggleSwitch x:Name="disableExampleWidget_tgls"  Margin="10,0,0,0" Toggled="diableExampleWidget_tgls_Toggled"/>
+                <TextBlock Text="Disable Canteen Widget" Margin="10,10,0,0"/>
+                <ToggleSwitch x:Name="disableCanteenWidget_tgls"  Margin="10,0,0,0" Toggled="diableCanteenWidget_tgls_Toggled"/>
+                
                 <TextBlock Text="Extras:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <Button x:Name="openLogFolder_btn" Content="Open Log Folder" Margin="10,10,0,0" Click="openLogFolder_btn_ClickAsync"/>
