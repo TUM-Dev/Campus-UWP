@@ -62,6 +62,7 @@ namespace TUMCampusApp.classes
             }
             catch(Exception e)
             {
+                Logger.Error("Unable to parse the downloaded string to a JsonObject", e);
             }
             return null;
         }
@@ -74,6 +75,7 @@ namespace TUMCampusApp.classes
             }
             catch (Exception e)
             {
+                Logger.Error("Unable to parse the downloaded string to a JsonArray", e);
             }
             return null;
         }

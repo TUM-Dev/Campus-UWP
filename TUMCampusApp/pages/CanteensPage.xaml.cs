@@ -329,7 +329,7 @@ namespace TUMCampusApp.Pages
             await openBrowserAsync();
         }
 
-        private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs e)
+        private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs args)
         {
             MessageDialog message = new MessageDialog("");
             message.Title = "Random menu:";
@@ -348,9 +348,9 @@ namespace TUMCampusApp.Pages
                 await message.ShowAsync();
                 messageBoxShown = false;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
+                Logger.Warn("Caught an exception during shake to show a random menu:\n" + e.StackTrace);
             }
         }
 

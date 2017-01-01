@@ -76,9 +76,8 @@ namespace TUMCampusApp.classes.managers
         {
             try
             {
-                List<Sync> list = dB.Query<Sync>(
-                        "SELECT lastSync FROM Sync WHERE id = ?", id);
-                if(list.Count <= 0)
+                List<Sync> list = dB.Query<Sync>("SELECT lastSync FROM Sync WHERE id = ?", id);
+                if(list == null || list.Count <= 0)
                 {
                     return true;
                 }
@@ -93,6 +92,7 @@ namespace TUMCampusApp.classes.managers
             }
             catch (SQLiteException e)
             {
+                Logger.Error("Unable to execute a querry for checking if the given object needs to sync again", e);
                 return true;
             }
         }

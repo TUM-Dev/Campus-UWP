@@ -77,7 +77,7 @@ namespace TUMCampusApp.classes.managers
             Geopoint p;
             if(!SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC) && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
             {
-                Debug.WriteLine("No need to get pos again :D");
+                Logger.Info("Position is still up to date, no need to refresh it again");
                 return p;
             }
             try
@@ -87,7 +87,7 @@ namespace TUMCampusApp.classes.managers
                 {
                     case GeolocationAccessStatus.Denied:
                     case GeolocationAccessStatus.Unspecified:
-                        Debug.WriteLine("No acces to GeoLocation");
+                        Logger.Warn("No acces to GeoLocation");
                         return null;
                 }
                 Geolocator geoLocator = new Geolocator();
@@ -99,6 +99,7 @@ namespace TUMCampusApp.classes.managers
             }
             catch (Exception e)
             {
+                Logger.Warn("Unable to get the current location:\n" + e.StackTrace);
                 return null;
             }
         }

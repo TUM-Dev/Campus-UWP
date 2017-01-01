@@ -58,7 +58,7 @@ namespace TUMCampusApp.classes.managers
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
                 {
-                    Debug.WriteLine("Sync Not required! - CanteenManager");
+                    Logger.Info("Sync not required! - CanteenManager");
                     return;
                 }
                 Uri url = new Uri("https://tumcabe.in.tum.de/Api/mensen");
@@ -79,7 +79,7 @@ namespace TUMCampusApp.classes.managers
             }
             catch (Exception e)
             {
-
+                Logger.Error("Unable to download Canteens", e);
             }
         }
 

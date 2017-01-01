@@ -105,6 +105,7 @@
     <Compile Include="classes\CustomAccelerometer.cs" />
     <Compile Include="classes\canteen\Location.cs" />
     <Compile Include="classes\helpers\TileHelper.cs" />
+    <Compile Include="classes\Logger.cs" />
     <Compile Include="classes\managers\CacheManager.cs" />
     <Compile Include="classes\managers\CanteenManager.cs" />
     <Compile Include="classes\managers\CanteenMenueManager.cs" />

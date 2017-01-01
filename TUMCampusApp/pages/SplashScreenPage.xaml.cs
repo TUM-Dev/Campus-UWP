@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
@@ -12,15 +7,9 @@ using TUMCampusApp.pages.setup;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using static TUMCampusApp.classes.Utillities;
 
 namespace TUMCampusApp.pages
@@ -94,6 +83,9 @@ namespace TUMCampusApp.pages
 
         private async Task initAppAsync()
         {
+            Logger.Info("Started loading app...");
+            long time = SyncManager.GetCurrentUnixTimestampMillis();
+
             await invokeTbxAsync("Gathering device infos...");
             DeviceInfo.INSTANCE = new DeviceInfo();
             await incProgressAsync();
@@ -156,6 +148,7 @@ namespace TUMCampusApp.pages
                 splashProgressBar.Value = 100.0;
             });
 
+            Logger.Info("Finished loading app in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
         private async Task invokeTbxAsync(string s)

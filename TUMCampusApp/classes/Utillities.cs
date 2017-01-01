@@ -82,7 +82,7 @@ namespace TUMCampusApp.classes
             }
             catch (FormatException e)
             {
-                //log(e, str);
+                Logger.Error("Unable to parse date string(" + s + ")", e);
                 return new DateTime();
             }
         }

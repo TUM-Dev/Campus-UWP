@@ -74,7 +74,7 @@ namespace TUMCampusApp.classes.managers
             }
             catch (Exception e)
             {
-
+                Logger.Error("Unable to close or delete the DB", e);
             }
         }
 

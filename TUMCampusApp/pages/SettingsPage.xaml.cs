@@ -9,6 +9,7 @@ using TUMCampusApp.classes.managers;
 using TUMCampusApp.pages.setup;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -133,7 +134,12 @@ namespace TUMCampusApp.pages
                 resetApp();
             }
         }
-        #endregion
 
+        private async void openLogFolder_btn_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            await Windows.System.Launcher.LaunchFolderAsync(folder);
+        }
+        #endregion
     }
 }

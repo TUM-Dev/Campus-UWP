@@ -107,7 +107,7 @@ namespace TUMCampusApp.Pages
             }
             catch(Exception e)
             {
-
+                Logger.Error("Unable to get the name from the selected ListBoxItem", e);
             }
         }
 

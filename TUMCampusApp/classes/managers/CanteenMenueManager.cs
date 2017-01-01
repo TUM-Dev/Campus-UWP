@@ -106,7 +106,7 @@ namespace TUMCampusApp.classes.managers
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
                 {
-                    Debug.WriteLine("Sync Not required! - CanteenMenuManager");
+                    Logger.Info("Sync not required! - CanteenMenuManager");
                     return;
                 }
                 Uri url = new Uri("http://lu32kap.typo3.lrz.de/mensaapp/exportDB.php?mensa_id=all");
@@ -130,7 +130,7 @@ namespace TUMCampusApp.classes.managers
             }
             catch (Exception e)
             {
-
+                Logger.Error("Unable to download Canteen Menus", e);
             }
         }
 
