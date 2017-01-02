@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TUMCampusApp.classes.userData;
+using TUMCampusApp.pages;
+using TUMCampusApp.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,7 +22,7 @@ namespace TUMCampusApp.controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -58,7 +61,10 @@ namespace TUMCampusApp.controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DeviceInfo.INSTANCE.mainPage.navigateToPage(classes.Utillities.EnumPage.SettingsPage);
+        }
 
         #endregion
     }

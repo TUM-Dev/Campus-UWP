@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.managers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -101,7 +103,47 @@ namespace TUMCampusApp.controls
         #endregion
 
         #region --Misc Methods (Private)--
+        private async void showMenusTaskAsync()
+        {
+            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            if (id <= 0)
+            {
+                id = 422;
+            }
+            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
+            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 
+            DateTime date = CanteenMenueManager.getFirstNextDate();
+            currentMenus = CanteenMenueManager.getMenus(id);
+
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                menus_sckl.Children.Clear();
+                setMenuType("Tagesgericht", true, date);
+                setMenuType("Aktionsessen", true, date);
+            }).AsTask().Wait();
+
+            if (date.CompareTo(DateTime.MaxValue) == 0)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    canteenName_tbx.Text = "Error!";
+                }).AsTask().Wait();
+                return;
+            }
+
+            date = date.AddDays(1);
+            Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(id);
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                canteenDate_tbx.Text = date.Day + "." + date.Month + "." + date.Year;
+                if (c == null)
+                {
+                    canteenName_tbx.Text = "Error No Canteen!";
+                }
+                else
+                {
+                    canteenName_tbx.Text = c.name;
+                }
+            }).AsTask().Wait();
+        }
 
         #endregion
 
@@ -113,27 +155,7 @@ namespace TUMCampusApp.controls
         #region --Events--
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            if (id < 0)
-            {
-                id = 422;
-            }
-            currentMenus = CanteenMenueManager.getMenus(id);
-            DateTime date = CanteenMenueManager.getFirstNextDate();
-            setMenuType("Tagesgericht", true, date);
-            setMenuType("Aktionsessen", true, date);
-
-            date = date.AddDays(1);
-            canteenDate_tbx.Text = date.Day + "." + date.Month + "." + date.Year;
-            Canteen c = CanteenManager.INSTANCE.getCanteenById(id);
-            if(c == null)
-            {
-                canteenName_tbx.Text = "Error";
-            }
-            else
-            {
-                canteenName_tbx.Text = c.name;
-            }
+            Task.Factory.StartNew(() => showMenusTaskAsync());
         }
 
         #endregion

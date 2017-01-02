@@ -50,12 +50,6 @@ namespace TUMCampusApp.classes.managers
             dB.CreateTable<CanteenMenu>();
         }
 
-        public void deleteCache()
-        {
-            dB.DropTable<Canteen>();
-            dB.DropTable<CanteenMenu>();
-        }
-
         public static void resetDB()
         {
             dB.DropTable<Cache>();
@@ -76,6 +70,7 @@ namespace TUMCampusApp.classes.managers
             {
                 Logger.Error("Unable to close or delete the DB", e);
             }
+            dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
         }
 
         public abstract Task InitManagerAsync();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.Pages;
 using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
@@ -20,6 +21,8 @@ namespace TUMCampusApp.classes.userData
         public string Manufracturer { get; private set; }
         public string Name { get; private set; }
         public static string OSName { get; set; }
+
+        public MainPage mainPage;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\

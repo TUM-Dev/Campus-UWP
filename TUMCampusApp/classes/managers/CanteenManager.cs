@@ -49,8 +49,9 @@ namespace TUMCampusApp.classes.managers
             return dB.Query<Canteen>("SELECT * FROM Canteen");
         }
 
-        public Canteen getCanteenById(int id)
+        public async Task<Canteen> getCanteenByIdAsync(int id)
         {
+            await downloadCanteensAsync(false);
             List<Canteen> list = dB.Query<Canteen>("SELECT * FROM Canteen WHERE id = ?", id);
             if(list != null && list.Count > 0)
             {

@@ -8,6 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="0, 10, 0, 10">
-        <TextBlock Text="You can disable widgets, if you switch over to the Settings page and disable them there." TextWrapping="WrapWholeWords" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock TextWrapping="WrapWholeWords" HorizontalAlignment="Center" VerticalAlignment="Center" Tapped="TextBlock_Tapped">
+            <Run Text="You can disable widgets, if you switch over to the "/>
+            <Run Text="Settings Page" Foreground="#FF0065BD"/>
+            <Run Text=" and disable them there."/>
+        </TextBlock>
     </Grid>
 </UserControl>

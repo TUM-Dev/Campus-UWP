@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
+using TUMCampusApp.classes.userData;
 using TUMCampusApp.pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -29,6 +30,7 @@ namespace TUMCampusApp.Pages
         public MainPage()
         {
             InitializeComponent();
+            DeviceInfo.INSTANCE.mainPage = this;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
@@ -55,13 +57,17 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
 
 
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         public void navigateToPage(EnumPage page)
         {
-            splitViewIcons_lb.SelectedIndex = (int)page;
+            int index = (int)page + 1;
+            if(index > 4)
+            {
+                index++;
+            }
+            splitViewIcons_lb.SelectedIndex = index;
             navigateToSelectedPage();
         }
 
