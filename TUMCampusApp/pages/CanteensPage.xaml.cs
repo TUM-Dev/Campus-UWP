@@ -40,7 +40,6 @@ namespace TUMCampusApp.Pages
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private Canteen currentCanteen;
-        private List<CanteenMenu> currentMenus;
         private int currentDayOffset;
         private MenuFlyout flyout;
         private string currentSelectedMenu;
@@ -134,12 +133,12 @@ namespace TUMCampusApp.Pages
             {
                 if(tMenu != null && tMenu.Count > 0)
                 {
-                    s += tMenu[r.Next(0,tMenu.Count)].name + "\n";
+                    s += "-" + tMenu[r.Next(0,tMenu.Count)].name + "\n";
                 }
             }
             else
             {
-                s += aMenu[r.Next(0, aMenu.Count)].name + "\n";
+                s += "-" + aMenu[r.Next(0, aMenu.Count)].name + "\n";
             }
 
             s += "\nSide Dishes:\n";
@@ -148,7 +147,7 @@ namespace TUMCampusApp.Pages
             {
                 if (bMenu != null && bMenu.Count > 0)
                 {
-                    s += bMenu[r.Next(0, bMenu.Count)].name + "\n";
+                    s += "-" + bMenu[r.Next(0, bMenu.Count)].name + "\n";
                 }
             }
 
@@ -201,7 +200,6 @@ namespace TUMCampusApp.Pages
         {
             if(currentCanteen != null)
             {
-                currentMenus = CanteenMenueManager.getMenus(currentCanteen.id);
                 showCurrentMenus();
             }
         }
