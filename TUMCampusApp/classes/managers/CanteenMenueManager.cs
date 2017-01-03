@@ -122,6 +122,35 @@ namespace TUMCampusApp.classes.managers
             return menus;
         }
 
+        public List<CanteenMenu> getMenusForType(int canteenID, string name, bool contains, DateTime date)
+        {
+            List<CanteenMenu> cM = getMenus(canteenID);
+            if(cM == null || cM.Count <= 0)
+            {
+                return null;
+            }
+
+            List<CanteenMenu> result = new List<CanteenMenu>();
+            bool b;
+            foreach (CanteenMenu m in cM)
+            {
+                b = false;
+                if (contains)
+                {
+                    b = m.typeLong.Contains(name);
+                }
+                else
+                {
+                    b = m.typeLong.Equals(name);
+                }
+                if (b && m.date.DayOfYear == date.DayOfYear)
+                {
+                    result.Add(m);
+                }
+            }
+            return result;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--

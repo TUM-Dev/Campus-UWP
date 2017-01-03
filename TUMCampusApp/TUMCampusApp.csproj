@@ -128,8 +128,8 @@
     <Compile Include="controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\ExampleWidget.xaml.cs">
-      <DependentUpon>ExampleWidget.xaml</DependentUpon>
+    <Compile Include="controls\TutWidget.xaml.cs">
+      <DependentUpon>TutWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
@@ -189,7 +189,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\ExampleWidget.xaml">
+    <Page Include="controls\TutWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,7 +226,7 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.16.0">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">

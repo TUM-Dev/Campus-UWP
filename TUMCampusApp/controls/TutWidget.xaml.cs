@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.classes.userData;
-using TUMCampusApp.pages;
-using TUMCampusApp.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -18,11 +16,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.controls
 {
-    public sealed partial class ExampleWidget : UserControl
+    public sealed partial class TutWidget : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        
+
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -31,9 +29,9 @@ namespace TUMCampusApp.controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 01/01/2017 Created [Fabian Sauter]
+        /// 03/01/2017 Created [Fabian Sauter]
         /// </history>
-        public ExampleWidget()
+        public TutWidget()
         {
             this.InitializeComponent();
         }

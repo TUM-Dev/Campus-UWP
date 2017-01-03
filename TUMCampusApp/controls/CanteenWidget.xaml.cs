@@ -44,7 +44,7 @@ namespace TUMCampusApp.controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private void setMenuType(string name, bool contains, DateTime date)
+        private void setMenuType(int canteenId, string name, bool contains, DateTime date)
         {
             //Description:
             TextBlock tb = new TextBlock()
@@ -67,31 +67,15 @@ namespace TUMCampusApp.controls
             menus_sckl.Children.Add(rect);
 
             //Menus:
-            if (currentMenus == null)
+            foreach (CanteenMenu m in CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date))
             {
-                return;
-            }
-            bool b = false;
-            foreach (CanteenMenu m in currentMenus)
-            {
-                if (contains)
+                tb = new TextBlock()
                 {
-                    b = m.typeLong.Contains(name);
-                }
-                else
-                {
-                    b = m.typeLong.Equals(name);
-                }
-                if (b && m.date.DayOfYear == date.DayOfYear)
-                {
-                    tb = new TextBlock()
-                    {
-                        Text = m.name,
-                        Margin = new Thickness(10, 10, 10, 10),
-                        TextWrapping = TextWrapping.WrapWholeWords
-                    };
-                    menus_sckl.Children.Add(tb);
-                }
+                    Text = m.name,
+                    Margin = new Thickness(10, 10, 10, 10),
+                    TextWrapping = TextWrapping.WrapWholeWords
+                };
+                menus_sckl.Children.Add(tb);
             }
         }
 
@@ -118,8 +102,8 @@ namespace TUMCampusApp.controls
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
-                setMenuType("Tagesgericht", true, date);
-                setMenuType("Aktionsessen", true, date);
+                setMenuType(id, "Tagesgericht", true, date);
+                setMenuType(id, "Aktionsessen", true, date);
             }).AsTask().Wait();
 
             if (date.CompareTo(DateTime.MaxValue) == 0)

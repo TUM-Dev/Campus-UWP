@@ -26,7 +26,7 @@
         <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollMode="Disabled">
             <StackPanel x:Name="widgets_stckp">
                 <controls:DropShadowPanel x:Name="exampleWidget_ds" Style="{StaticResource ShadowPanelStyle}">
-                    <controls1:ExampleWidget/>
+                    <controls1:TutWidget/>
                 </controls:DropShadowPanel>
                 
                 <controls:DropShadowPanel x:Name="canteenWidget_ds" Style="{StaticResource ShadowPanelStyle}">

@@ -73,11 +73,12 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         private void setNewFavoriteCanteen(Canteen canteen)
         {
+            currentCanteen = canteen;
             UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.id);
             selectedCanteen_tbx.Text = canteen.name;
             expand_btn.Content = "\xE019";
             canteens_scv.Visibility = Visibility.Collapsed;
-            loadCanteenMenus(canteen);
+            loadCanteenMenus();
         }
 
         private void setMenuType(string name, bool contains, DateTime date)
@@ -103,32 +104,15 @@ namespace TUMCampusApp.Pages
             menus_sckl.Children.Add(rect);
 
             //Menus:
-            if(currentMenus == null)
+            foreach (CanteenMenu m in CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date))
             {
-                return;
-            }
-            bool b = false;
-            foreach (CanteenMenu m in currentMenus)
-            {
-                if (contains)
+                tb = new TextBlock()
                 {
-                    b = m.typeLong.Contains(name);
-                }
-                else
-                {
-                    b = m.typeLong.Equals(name);
-                }
-                if (b && m.date.DayOfYear == date.DayOfYear)
-                {
-                    tb = new TextBlock()
-                    {
-                        Text = m.name,
-                        Margin = new Thickness(10, 10, 10, 10),
-                        TextWrapping = TextWrapping.WrapWholeWords
-                    };
-                    tb.RightTapped += Tb_RightTapped;
-                    menus_sckl.Children.Add(tb);
-                }
+                    Text = m.name,
+                    Margin = new Thickness(10, 10, 10, 10),
+                    TextWrapping = TextWrapping.WrapWholeWords
+                };
+                menus_sckl.Children.Add(tb);
             }
         }
 
@@ -162,11 +146,11 @@ namespace TUMCampusApp.Pages
             }
         }
 
-        private void loadCanteenMenus(Canteen c)
+        private void loadCanteenMenus()
         {
-            if(c != null)
+            if(currentCanteen != null)
             {
-                currentMenus = CanteenMenueManager.getMenus(c.id);
+                currentMenus = CanteenMenueManager.getMenus(currentCanteen.id);
                 showCurrentMenus();
             }
         }
@@ -247,7 +231,7 @@ namespace TUMCampusApp.Pages
             await loadCanteensAsync();
 
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
-            loadCanteenMenus(currentCanteen);
+            loadCanteenMenus();
             initAcc();
         }
 
@@ -284,7 +268,7 @@ namespace TUMCampusApp.Pages
         private async void refreshCanteenMenus_btn_Click(object sender, RoutedEventArgs e)
         {
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
-            loadCanteenMenus(currentCanteen);
+            loadCanteenMenus();
         }
 
         private async void refreshAll_btn_Click(object sender, RoutedEventArgs e)
@@ -292,7 +276,7 @@ namespace TUMCampusApp.Pages
             await CanteenManager.INSTANCE.downloadCanteensAsync(true);
             await loadCanteensAsync();
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
-            loadCanteenMenus(currentCanteen);
+            loadCanteenMenus();
         }
 
         private void right_btn_Click(object sender, RoutedEventArgs e)
