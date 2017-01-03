@@ -201,6 +201,11 @@ namespace TUMCampusApp.pages
                             f.Navigate(typeof(MainPage));
                         }
                     }
+                    else
+                    {
+                        Utillities.setSetting(Const.TUMO_ENABLED, false);
+                        f.Navigate(typeof(MainPage));
+                    }
                 }
                 else
                 {

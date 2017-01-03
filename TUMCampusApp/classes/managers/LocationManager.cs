@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
+using TUMCampusApp.classes.userData;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusApp.classes.managers
@@ -79,6 +80,11 @@ namespace TUMCampusApp.classes.managers
             {
                 Logger.Info("Position is still up to date, no need to refresh it again");
                 return p;
+            }
+            if (!DeviceInfo.isConnectedToInternet())
+            {
+                Logger.Info("Unable to get the devices position without a connection to the internet");
+                return null;
             }
             try
             {

@@ -118,7 +118,41 @@ namespace TUMCampusApp.Pages
 
         private string getRandomMenus()
         {
-            return "";
+            string s = "Main Course:\n";
+            Random r = new Random();
+            DateTime date = CanteenMenueManager.getFirstNextDate();
+            if (date.Equals(DateTime.MaxValue))
+            {
+                date = DateTime.Now;
+            }
+            date = date.AddDays(currentDayOffset + 1);
+            List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Tagesgericht", true, date);
+            List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Aktionsessen", true, date);
+            List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Beilagen", false, date);
+
+            if(aMenu == null || aMenu.Count <= 0 || r.Next(0,4) != 0)
+            {
+                if(tMenu != null && tMenu.Count > 0)
+                {
+                    s += tMenu[r.Next(0,tMenu.Count)].name + "\n";
+                }
+            }
+            else
+            {
+                s += aMenu[r.Next(0, aMenu.Count)].name + "\n";
+            }
+
+            s += "\nSide Dishes:\n";
+
+            for(int i = 0; i < 2; i++)
+            {
+                if (bMenu != null && bMenu.Count > 0)
+                {
+                    s += bMenu[r.Next(0, bMenu.Count)].name + "\n";
+                }
+            }
+
+            return s;
         }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -135,8 +169,25 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            selectedCanteen_tbx.Text = list[0].name;
-            currentCanteen = list[0];
+            Canteen temp = null;
+            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            if (id >= 0)
+            {
+                foreach (Canteen c in list)
+                {
+                    if(c.id == id)
+                    {
+                        temp = c;
+                        break;
+                    }
+                }
+            }
+            if (temp == null)
+            {
+                temp = list[0];
+            }
+            selectedCanteen_tbx.Text = temp.name;
+            currentCanteen = temp;
             foreach (Canteen c in list)
             {
                 CanteenControl cC = new CanteenControl(c);
@@ -316,7 +367,11 @@ namespace TUMCampusApp.Pages
 
         private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs args)
         {
-            MessageDialog message = new MessageDialog("");
+            if(currentCanteen == null)
+            {
+                return;
+            }
+            MessageDialog message = new MessageDialog(getRandomMenus());
             message.Title = "Random menu:";
             message.Content = getRandomMenus();
             try
