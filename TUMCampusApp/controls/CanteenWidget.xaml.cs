@@ -26,6 +26,8 @@ namespace TUMCampusApp.controls
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private List<CanteenMenu> currentMenus;
+        private MenuFlyout flyout;
+        private string currentSelectedMenu;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -39,6 +41,12 @@ namespace TUMCampusApp.controls
         public CanteenWidget()
         {
             this.InitializeComponent();
+
+            this.flyout = new MenuFlyout();
+            MenuFlyoutItem fOutI = new MenuFlyoutItem();
+            fOutI.Text = "Google it!";
+            fOutI.Click += FOutI_ClickAsync;
+            this.flyout.Items.Add(fOutI);
         }
 
         #endregion
@@ -75,6 +83,7 @@ namespace TUMCampusApp.controls
                     Margin = new Thickness(10, 10, 10, 10),
                     TextWrapping = TextWrapping.WrapWholeWords
                 };
+                tb.RightTapped += Tb_RightTapped;
                 menus_sckl.Children.Add(tb);
             }
         }
@@ -140,6 +149,21 @@ namespace TUMCampusApp.controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Task.Factory.StartNew(() => showMenusTaskAsync());
+        }
+
+        private async void FOutI_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            await CanteenMenueManager.INSTANCE.googleMenuString(currentSelectedMenu);
+        }
+
+        private void Tb_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (sender != null && sender is TextBlock)
+            {
+                TextBlock tb = sender as TextBlock;
+                currentSelectedMenu = tb.Text;
+                flyout.ShowAt(tb);
+            }
         }
 
         #endregion

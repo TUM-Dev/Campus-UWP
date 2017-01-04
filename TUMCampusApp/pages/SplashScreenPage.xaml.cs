@@ -203,7 +203,7 @@ namespace TUMCampusApp.pages
                     }
                     else
                     {
-                        Utillities.setSetting(Const.TUMO_ENABLED, false);
+                        Utillities.setSetting(Const.TUMO_ENABLED, !(TumManager.getToken() == null || TumManager.getToken() == ""));
                         f.Navigate(typeof(MainPage));
                     }
                 }

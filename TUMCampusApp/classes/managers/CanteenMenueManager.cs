@@ -9,6 +9,7 @@ using TUMCampusApp.classes;
 using Windows.Data.Json;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
+using System.Text.RegularExpressions;
 
 namespace TUMCampusApp.classes.managers
 {
@@ -154,6 +155,23 @@ namespace TUMCampusApp.classes.managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public async Task googleMenuString(string menu)
+        {
+            bool success = await Windows.System.Launcher.LaunchUriAsync(generateSearchString(menu));
+        }
+
+        private Uri generateSearchString(string menu)
+        {
+            if (menu.Contains('('))
+            {
+                menu = menu.Substring(0, menu.IndexOf('('));
+            }
+            menu = menu.Replace(' ', '+');
+
+            string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + menu + "&oq=" + menu;
+            return new Uri(result);
+        }
+
         public async Task downloadCanteenMenusAsync(bool force)
         {
             try

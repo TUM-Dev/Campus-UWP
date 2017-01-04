@@ -111,6 +111,7 @@ namespace TUMCampusApp.Pages
                     Margin = new Thickness(10, 10, 10, 10),
                     TextWrapping = TextWrapping.WrapWholeWords
                 };
+                tb.RightTapped += Tb_RightTapped;
                 menus_sckl.Children.Add(tb);
             }
         }
@@ -244,23 +245,6 @@ namespace TUMCampusApp.Pages
             await dialog.ShowAsync();
         } 
 
-        private async Task openBrowserAsync()
-        {
-            bool success = await Windows.System.Launcher.LaunchUriAsync(generateSearchString(currentSelectedMenu));
-        }
-
-        private Uri generateSearchString(string s)
-        {
-            if (s.Contains('('))
-            {
-                s = s.Substring(0, s.IndexOf('('));
-            }
-            s = s.Replace(' ', '+');
-
-            string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + s + "&oq=" + s;
-            return new Uri(result);
-        }
-
         private void initAcc()
         {
             CustomAccelerometer.Shaken += CustomAccelerometer_ShakenAsync;
@@ -360,7 +344,7 @@ namespace TUMCampusApp.Pages
 
         private async void FOutI_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await openBrowserAsync();
+            await CanteenMenueManager.INSTANCE.googleMenuString(currentSelectedMenu);
         }
 
         private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs args)
