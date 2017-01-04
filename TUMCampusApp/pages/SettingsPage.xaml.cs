@@ -59,6 +59,7 @@ namespace TUMCampusApp.pages
         {
             initGeneralControls();
             initTUMonlineControls();
+            initWidgetControls();
         }
 
         private void initWidgetControls()
