@@ -74,8 +74,13 @@ namespace TUMCampusApp.controls
             };
             menus_sckl.Children.Add(rect);
 
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
+            if (list == null)
+            {
+                return;
+            }
             //Menus:
-            foreach (CanteenMenu m in CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date))
+            foreach (CanteenMenu m in list)
             {
                 tb = new TextBlock()
                 {

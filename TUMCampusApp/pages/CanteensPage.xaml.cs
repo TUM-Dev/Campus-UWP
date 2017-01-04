@@ -102,8 +102,13 @@ namespace TUMCampusApp.Pages
             };
             menus_sckl.Children.Add(rect);
 
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
+            if (list == null)
+            {
+                return;
+            }
             //Menus:
-            foreach (CanteenMenu m in CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date))
+            foreach (CanteenMenu m in list)
             {
                 tb = new TextBlock()
                 {
@@ -212,13 +217,15 @@ namespace TUMCampusApp.Pages
             {
                 date = DateTime.Now;
             }
-            date = date.AddDays(currentDayOffset + 1);
-            day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
+            date = date.AddDays(currentDayOffset);
             menus_sckl.Children.Clear();
             setMenuType("Tagesgericht" , true, date);
             setMenuType("Aktionsessen", true, date);
             setMenuType("Aktion", false, date);
             setMenuType("Beilagen", true, date);
+
+            date = date.AddDays(1);
+            day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
         }
 
         private async Task showInfoBoxAsync()
