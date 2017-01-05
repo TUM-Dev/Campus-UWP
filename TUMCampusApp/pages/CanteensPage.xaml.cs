@@ -130,7 +130,7 @@ namespace TUMCampusApp.Pages
             {
                 date = DateTime.Now;
             }
-            date = date.AddDays(currentDayOffset + 1);
+            date = date.AddDays(currentDayOffset);
             List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Tagesgericht", true, date);
             List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Aktionsessen", true, date);
             List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Beilagen", false, date);
@@ -362,7 +362,6 @@ namespace TUMCampusApp.Pages
             }
             MessageDialog message = new MessageDialog(getRandomMenus());
             message.Title = "Random menu:";
-            message.Content = getRandomMenus();
             try
             {
                 if (!messageBoxShown)

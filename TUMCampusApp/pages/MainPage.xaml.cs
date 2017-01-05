@@ -45,6 +45,7 @@ namespace TUMCampusApp.Pages
         /// </history>
         public MainPage(EnumPage page)
         {
+            DeviceInfo.INSTANCE.mainPage = this;
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;

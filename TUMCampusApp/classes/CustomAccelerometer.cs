@@ -13,7 +13,7 @@ namespace TUMCampusApp.classes
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         // The minimum acceleration value to trigger the Shaken event
-        private const double AccelerationThreshold = 3.75;
+        private const double AccelerationThreshold = 3.25;
         // The minimum interval in milliseconds between two consecutive calls for the Shaken event
         private const int ShakenInterval = 500;
         private static bool _AccelerometerLoaded;
