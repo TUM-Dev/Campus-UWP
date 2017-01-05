@@ -140,6 +140,7 @@ namespace TUMCampusApp.controls
                 {
                     canteenName_tbx.Text = c.name;
                 }
+                splashProgressRing.Visibility = Visibility.Collapsed;
             }).AsTask().Wait();
         }
 
