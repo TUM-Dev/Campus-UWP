@@ -20,6 +20,7 @@ using Windows.Phone.Devices.Notification;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
@@ -77,7 +78,7 @@ namespace TUMCampusApp.Pages
             selectedCanteen_tbx.Text = canteen.name;
             expand_btn.Content = "\xE019";
             canteens_scv.Visibility = Visibility.Collapsed;
-            loadCanteenMenus();
+            Task.Factory.StartNew(() => showCurrentMenus());
         }
 
         private void setMenuType(string name, bool contains, DateTime date)
@@ -86,10 +87,10 @@ namespace TUMCampusApp.Pages
             TextBlock tb = new TextBlock()
             {
                 Text = name + ':',
-                Margin = new Thickness(10, 10, 10, 10)
+                Margin = new Thickness(10, 10, 10, 10),
+                FontWeight = FontWeights.ExtraBold
             };
             tb.FontSize += 5;
-            tb.FontWeight = FontWeights.ExtraBold;
             menus_sckl.Children.Add(tb);
 
             //Line:
@@ -107,6 +108,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
+
             //Menus:
             foreach (CanteenMenu m in list)
             {
@@ -191,41 +193,42 @@ namespace TUMCampusApp.Pages
             {
                 temp = list[0];
             }
-            selectedCanteen_tbx.Text = temp.name;
-            currentCanteen = temp;
-            foreach (Canteen c in list)
-            {
-                CanteenControl cC = new CanteenControl(c);
-                cC.HorizontalAlignment = HorizontalAlignment.Stretch;
-                cC.PointerReleased += canteen_Click;
-                canteens_sckl.Children.Add(cC);
-            }
-        }
-
-        private void loadCanteenMenus()
-        {
-            if(currentCanteen != null)
-            {
-                showCurrentMenus();
-            }
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                selectedCanteen_tbx.Text = temp.name;
+                currentCanteen = temp;
+                foreach (Canteen c in list)
+                {
+                    CanteenControl cC = new CanteenControl(c);
+                    cC.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    cC.PointerReleased += canteen_Click;
+                    canteens_sckl.Children.Add(cC);
+                }
+            }).AsTask();
         }
 
         private void showCurrentMenus()
         {
+            if (currentCanteen == null)
+            {
+                return;
+            }
             DateTime date = CanteenMenueManager.getFirstNextDate();
             if (date.Equals(DateTime.MaxValue))
             {
                 date = DateTime.Now;
             }
-            date = date.AddDays(currentDayOffset);
-            menus_sckl.Children.Clear();
-            setMenuType("Tagesgericht" , true, date);
-            setMenuType("Aktionsessen", true, date);
-            setMenuType("Aktion", false, date);
-            setMenuType("Beilagen", true, date);
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                menus_sckl.Children.Clear();
+                date = date.AddDays(currentDayOffset);
 
-            date = date.AddDays(1);
-            day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
+                setMenuType("Tagesgericht", true, date);
+                setMenuType("Aktionsessen", true, date);
+                setMenuType("Aktion", false, date);
+                setMenuType("Beilagen", true, date);
+
+                date = date.AddDays(1);
+                day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
+            }).AsTask().Wait();
         }
 
         private async Task showInfoBoxAsync()
@@ -257,6 +260,19 @@ namespace TUMCampusApp.Pages
             CustomAccelerometer.Shaken += CustomAccelerometer_ShakenAsync;
             CustomAccelerometer.Enabled = true;
         }
+
+        private async void loadCanteensAndMenusTask()
+        {
+            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
+            await loadCanteensAsync();
+
+            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
+            showCurrentMenus();
+            initAcc();
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                splashProgressRing.Visibility = Visibility.Collapsed;
+            }).AsTask();
+        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -265,14 +281,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void Page_LoadedAsync(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await loadCanteensAsync();
-
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
-            loadCanteenMenus();
-            initAcc();
+            splashProgressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => loadCanteensAndMenusTask());
         }
 
         private void expand_btn_Click(object sender, RoutedEventArgs e)
@@ -299,44 +311,65 @@ namespace TUMCampusApp.Pages
             setNewFavoriteCanteen((sender as CanteenControl).canteen);
         }
 
-        private async void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)
+        private void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)
         {
-            await CanteenManager.INSTANCE.downloadCanteensAsync(true);
-            await loadCanteensAsync();
+            splashProgressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => 
+            {
+                CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
+                loadCanteensAsync().Wait();
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    splashProgressRing.Visibility = Visibility.Collapsed;
+                }).AsTask().Wait();
+            });
         }
 
-        private async void refreshCanteenMenus_btn_Click(object sender, RoutedEventArgs e)
+        private void refreshCanteenMenus_btn_Click(object sender, RoutedEventArgs e)
         {
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
-            loadCanteenMenus();
+            splashProgressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() =>
+            {
+                CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
+                showCurrentMenus();
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    splashProgressRing.Visibility = Visibility.Collapsed;
+                }).AsTask().Wait();
+            });
         }
 
-        private async void refreshAll_btn_Click(object sender, RoutedEventArgs e)
+        private void refreshAll_btn_Click(object sender, RoutedEventArgs e)
         {
-            await CanteenManager.INSTANCE.downloadCanteensAsync(true);
-            await loadCanteensAsync();
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
-            loadCanteenMenus();
+            splashProgressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() =>
+            {
+                CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
+                loadCanteensAsync().Wait();
+                CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
+                showCurrentMenus();
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    splashProgressRing.Visibility = Visibility.Collapsed;
+                }).AsTask().Wait();
+            });
         }
 
         private void right_btn_Click(object sender, RoutedEventArgs e)
         {
             currentDayOffset++;
-            if(currentDayOffset >= 7)
+            if (currentDayOffset >= 7)
             {
                 currentDayOffset = 0;
             }
-            showCurrentMenus();
+            Task.Factory.StartNew(() => showCurrentMenus());
         }
 
         private void left_btn_Click(object sender, RoutedEventArgs e)
         {
             currentDayOffset--;
-            if(currentDayOffset < 0)
+            if (currentDayOffset < 0)
             {
                 currentDayOffset = 6;
             }
-            showCurrentMenus();
+            Task.Factory.StartNew(() => showCurrentMenus());
         }
 
         private void Tb_RightTapped(object sender, RightTappedRoutedEventArgs e)
