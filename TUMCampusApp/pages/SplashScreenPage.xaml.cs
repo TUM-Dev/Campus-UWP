@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
@@ -22,6 +23,7 @@ namespace TUMCampusApp.pages
         private SplashScreen splash;
         internal bool dismissed = false;
         private string tileID;
+        private List<AbstractManager> managers;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -83,6 +85,7 @@ namespace TUMCampusApp.pages
 
         private async Task initAppAsync()
         {
+            //17
             Logger.Info("Started loading app...");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
@@ -98,7 +101,7 @@ namespace TUMCampusApp.pages
             CanteenManager.INSTANCE = new CanteenManager();
             await incProgressAsync();
 
-            await invokeTbxAsync("Loading canteenmenu manager...");
+            await invokeTbxAsync("Loading canteen menu manager...");
             CanteenMenueManager.INSTANCE = new CanteenMenueManager();
             await incProgressAsync();
 
@@ -118,6 +121,12 @@ namespace TUMCampusApp.pages
             TumManager.INSTANCE = new TumManager();
             await incProgressAsync();
 
+            await invokeTbxAsync("Loading tuition fee manager...");
+            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+            await incProgressAsync();
+
+
+
             await invokeTbxAsync("Initializing cache manager...");
             await CacheManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
@@ -126,7 +135,7 @@ namespace TUMCampusApp.pages
             await CanteenManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
-            await invokeTbxAsync("Initializing canteenmenu manager...");
+            await invokeTbxAsync("Initializing cantee nmenu manager...");
             await CanteenMenueManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
@@ -142,8 +151,9 @@ namespace TUMCampusApp.pages
             await UserDataManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
-            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+            await invokeTbxAsync("Initializing tuition fee manager...");
             await TuitionFeeManager.INSTANCE.InitManagerAsync();
+            await incProgressAsync();
 
             await invokeTbxAsync("Initializing TumManager...");
             await TumManager.INSTANCE.InitManagerAsync();
@@ -164,7 +174,7 @@ namespace TUMCampusApp.pages
         private async Task incProgressAsync()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressBar.Value += 7;
+                splashProgressBar.Value += 5.8823529;
             });
         }
 

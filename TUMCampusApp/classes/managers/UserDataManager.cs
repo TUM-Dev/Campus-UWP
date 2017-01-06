@@ -82,7 +82,6 @@ namespace TUMCampusApp.classes.managers
         {
             await initLoaction();
         }
-
         #endregion
 
         #region --Misc Methods (Private)--
