@@ -157,7 +157,7 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async Task googleMenuString(string menu)
         {
-            bool success = await Windows.System.Launcher.LaunchUriAsync(generateSearchString(menu));
+            await Utillities.launchBrowser(generateSearchString(menu));
         }
 
         private Uri generateSearchString(string menu)

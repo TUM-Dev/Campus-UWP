@@ -142,6 +142,9 @@ namespace TUMCampusApp.pages
             await UserDataManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
+            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+            await TuitionFeeManager.INSTANCE.InitManagerAsync();
+
             await invokeTbxAsync("Initializing TumManager...");
             await TumManager.INSTANCE.InitManagerAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {

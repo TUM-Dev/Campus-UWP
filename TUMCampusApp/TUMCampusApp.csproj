@@ -112,12 +112,14 @@
     <Compile Include="classes\managers\AbstractManager.cs" />
     <Compile Include="classes\managers\LocationManager.cs" />
     <Compile Include="classes\managers\SyncManager.cs" />
+    <Compile Include="classes\managers\TuitionFeeManager.cs" />
     <Compile Include="classes\managers\TumManager.cs" />
     <Compile Include="classes\managers\UserDataManager.cs" />
     <Compile Include="classes\NetUtils.cs" />
     <Compile Include="classes\sync\Sync.cs" />
     <Compile Include="classes\tum\TUMOnlineConst.cs" />
     <Compile Include="classes\tum\TUMOnlineRequest.cs" />
+    <Compile Include="classes\tum\TUMTuitionFee.cs" />
     <Compile Include="classes\tum\TUMUser.cs" />
     <Compile Include="classes\userData\DeviceInfo.cs" />
     <Compile Include="classes\userData\UserData.cs" />
@@ -151,6 +153,9 @@
     </Compile>
     <Compile Include="pages\SplashScreenPage.xaml.cs">
       <DependentUpon>SplashScreenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\TuitionFeesPage.xaml.cs">
+      <DependentUpon>TuitionFeesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -218,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\SplashScreenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\TuitionFeesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

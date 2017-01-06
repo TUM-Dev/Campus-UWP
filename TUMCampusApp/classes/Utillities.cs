@@ -87,6 +87,11 @@ namespace TUMCampusApp.classes
             }
         }
 
+        public static async Task<bool> launchBrowser(Uri url)
+        {
+            return await Windows.System.Launcher.LaunchUriAsync(url);
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--

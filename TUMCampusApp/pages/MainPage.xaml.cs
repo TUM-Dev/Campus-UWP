@@ -93,6 +93,10 @@ namespace TUMCampusApp.Pages
             }
             switch (splitViewIcons_lb.SelectedIndex)
             {
+                case 4:
+                    mainFrame.Navigate(typeof(TuitionFeesPage));
+                    break;
+
                 case 6:
                     mainFrame.Navigate(typeof(HomePage));
                     break;
