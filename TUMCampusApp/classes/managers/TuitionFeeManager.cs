@@ -50,12 +50,16 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            await downloadFeesAsync(false);
+            //await downloadFeesAsync(false);
         }
 
         public async Task downloadFeesAsync(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if(!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            {
+                return;
+            }
+            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY)) && DeviceInfo.isConnectedToInternet())
             {
                 XmlDocument doc = await getFeeStatusAsync();
                 if (doc == null || doc.SelectSingleNode("/error") != null)

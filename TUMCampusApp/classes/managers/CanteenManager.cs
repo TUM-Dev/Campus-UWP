@@ -8,6 +8,7 @@ using TUMCampusApp.classes;
 using System.Diagnostics;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
+using TUMCampusApp.classes.userData;
 
 namespace TUMCampusApp.classes.managers
 {
@@ -65,6 +66,10 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async Task downloadCanteensAsync(bool force)
         {
+            if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            {
+                return;
+            }
             try
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))

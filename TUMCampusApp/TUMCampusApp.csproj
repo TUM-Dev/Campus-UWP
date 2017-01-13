@@ -111,6 +111,7 @@
     <Compile Include="classes\managers\CanteenMenueManager.cs" />
     <Compile Include="classes\managers\AbstractManager.cs" />
     <Compile Include="classes\managers\LocationManager.cs" />
+    <Compile Include="classes\managers\MyLecturesManager.cs" />
     <Compile Include="classes\managers\SyncManager.cs" />
     <Compile Include="classes\managers\TuitionFeeManager.cs" />
     <Compile Include="classes\managers\TumManager.cs" />
@@ -141,6 +142,15 @@
     </Compile>
     <Compile Include="pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\MyCalendarPage.xaml.cs">
+      <DependentUpon>MyCalendarPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\MyGradesPage.xaml.cs">
+      <DependentUpon>MyGradesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\MyLecturesPage.xaml.cs">
+      <DependentUpon>MyLecturesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -210,6 +220,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\MyCalendarPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\MyGradesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\MyLecturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,8 +257,8 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.16.1">
-      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.16.1%29</Name>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
+      <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>

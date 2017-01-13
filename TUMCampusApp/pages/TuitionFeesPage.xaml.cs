@@ -59,21 +59,28 @@ namespace TUMCampusApp.pages
             TuitionFeeManager.INSTANCE.downloadFeesAsync(forceRedownload).Wait();
             List<TUMTuitionFee> list = new List<TUMTuitionFee>();
             list = TuitionFeeManager.INSTANCE.getFees();
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                showFees(list);
+            }).AsTask().Wait();
+        }
+
+        private void showFees(List<TUMTuitionFee> list)
+        {
             if (list == null || list.Count <= 0)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    noFees_grid.Visibility = Visibility.Visible;
-                    splashProgressRing.Visibility = Visibility.Collapsed;
-                }).AsTask().Wait();
-                return;
+                noFees_grid.Visibility = Visibility.Visible;
+                fees_grid.Visibility = Visibility.Collapsed;
             }
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            else
+            {
                 fees_grid.Visibility = Visibility.Visible;
+                noFees_grid.Visibility = Visibility.Collapsed;
                 outsBalance_tbx.Text = list[0].money + "€";
                 semester_tbx.Text = list[0].semesterDescripion;
                 deadline_tbx.Text = list[0].deadline;
-                splashProgressRing.Visibility = Visibility.Collapsed;
-            }).AsTask().Wait();
+            }
+            refresh_btn.IsEnabled = true;
+            splashProgressRing.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -97,6 +104,7 @@ namespace TUMCampusApp.pages
 
         private void refresh_btn_Click(object sender, RoutedEventArgs e)
         {
+            refresh_btn.IsEnabled = false;
             splashProgressRing.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => downloadAndShowFees(true));
         }

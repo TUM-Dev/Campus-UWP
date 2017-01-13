@@ -10,6 +10,7 @@ using Windows.Data.Json;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
 using System.Text.RegularExpressions;
+using TUMCampusApp.classes.userData;
 
 namespace TUMCampusApp.classes.managers
 {
@@ -86,7 +87,7 @@ namespace TUMCampusApp.classes.managers
             List<CanteenMenu> menus = new List<CanteenMenu>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%'"))
             {
-                if(m.date.CompareTo(time) < 0)
+                if(m.date.CompareTo(time) < 0 && m.date.CompareTo(DateTime.Now) >= -1)
                 {
                     time = m.date;
                 }
@@ -174,6 +175,10 @@ namespace TUMCampusApp.classes.managers
 
         public async Task downloadCanteenMenusAsync(bool force)
         {
+            if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            {
+                return;
+            }
             try
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))

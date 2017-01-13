@@ -40,6 +40,7 @@ namespace TUMCampusApp.classes.tum
         #region --Misc Methods (Public)--
         public async Task<string> doRequestAsync()
         {
+            //Debug.WriteLine(buildUrl());
             return await NetUtils.downloadStringAsync(buildUrl());
         }
 

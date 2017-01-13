@@ -21,7 +21,7 @@
             <TextBlock x:Name="canteenName_tbx" Text="Loading..." FontSize="25" HorizontalAlignment="Left" Grid.Column="0" FontWeight="ExtraBold" TextTrimming="CharacterEllipsis"/>
             <TextBlock x:Name="canteenDate_tbx" HorizontalAlignment="Right" Grid.Column="1"/>
         </Grid>
-        <ProgressRing Name="splashProgressRing" IsActive="True" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+        <ProgressRing Name="splashProgressRing" IsActive="True" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="10,10,10,10"/>
         <StackPanel x:Name="menus_sckl" Grid.Row="1" Margin="0, 10, 0, 0">
             <!--Menus-->
         </StackPanel>
