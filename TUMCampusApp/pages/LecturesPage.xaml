@@ -24,10 +24,12 @@
                 <Button Name="openSearch_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE71E;" FontSize="25" Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" Click="openSearch_btn_Click"/>
             </Grid>
         </StackPanel>
-        <AutoSuggestBox x:Name="search_aSB" HorizontalAlignment="Stretch" Grid.Row="1" Visibility="Collapsed" QueryIcon="Find" Margin="0,2,0,0" TextChanged="search_aSB_TextChanged" SuggestionChosen="search_aSB_SuggestionChosen" QuerySubmitted="search_aSB_QuerySubmitted" PlaceholderText="Search for lectures..."/>
+        <StackPanel Grid.Row="1">
+            <AutoSuggestBox x:Name="search_aSB" HorizontalAlignment="Stretch" Visibility="Collapsed" QueryIcon="Find" Margin="0,2,0,0" TextChanged="search_aSB_TextChanged" SuggestionChosen="search_aSB_SuggestionChosen" QuerySubmitted="search_aSB_QuerySubmitted" PlaceholderText="Search for lectures..."/>
+            <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
+        </StackPanel>
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="2">
             <StackPanel>
-                <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
                 <StackPanel x:Name="lectures_stckp" Margin="10,0,10,0">
                     <!--Lectures-->
                 </StackPanel>
