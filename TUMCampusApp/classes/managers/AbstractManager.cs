@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TUMCampusApp.classes.cache;
 using TUMCampusApp.classes.canteen;
 using TUMCampusApp.classes.sync;
+using TUMCampusApp.classes.tum;
 using TUMCampusApp.classes.userData;
 using Windows.Storage;
 
@@ -57,6 +58,8 @@ namespace TUMCampusApp.classes.managers
             dB.DropTable<CanteenMenu>();
             dB.DropTable<Sync>();
             dB.DropTable<UserData>();
+            dB.DropTable<TUMOnlineLecture>();
+            dB.DropTable<TUMTuitionFee>();
         }
 
         public static void deleteDB()
