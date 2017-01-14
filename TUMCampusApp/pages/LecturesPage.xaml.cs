@@ -100,7 +100,7 @@ namespace TUMCampusApp.pages
                 semester_tbx.Text = list[0].semesterName;
                 for(var i = 0; i < list.Count; i++)
                 {
-                    LectureControl lC = new LectureControl(list[i]);
+                    LectureControl lC = new LectureControl(list[i], i == list.Count - 1);
                     lectures_stckp.Children.Add(lC);
                 }
             }

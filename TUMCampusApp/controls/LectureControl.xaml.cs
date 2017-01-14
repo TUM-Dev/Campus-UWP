@@ -31,7 +31,7 @@ namespace TUMCampusApp.controls
         /// <history>
         /// 14/01/2017 Created [Fabian Sauter]
         /// </history>
-        public LectureControl(TUMOnlineLecture lecture)
+        public LectureControl(TUMOnlineLecture lecture, bool last)
         {
             this.lecture = lecture;
             this.InitializeComponent();
@@ -43,6 +43,14 @@ namespace TUMCampusApp.controls
             name_tbx.Text = lecture.title;
             description_tbx.Text = lecture.typeLong + " - " + lecture.semesterId + " - " + lecture.duration + " SWS";
             profName_tbx.Text = lecture.existingContributors;
+            if (last)
+            {
+                rect.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                rect.Fill = profName_tbx.Foreground;
+            }
         }
 
         #endregion
