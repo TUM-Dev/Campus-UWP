@@ -44,7 +44,7 @@
                                 <ListBoxItem x:Name="tumMyLectures_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xEF16;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="My Lectures"/>
+                                        <TextBlock Text="Lectures"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="tumMyGrades_lbi">

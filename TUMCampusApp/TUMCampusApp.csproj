@@ -111,7 +111,7 @@
     <Compile Include="classes\managers\CanteenMenueManager.cs" />
     <Compile Include="classes\managers\AbstractManager.cs" />
     <Compile Include="classes\managers\LocationManager.cs" />
-    <Compile Include="classes\managers\MyLecturesManager.cs" />
+    <Compile Include="classes\managers\LecturesManager.cs" />
     <Compile Include="classes\managers\SyncManager.cs" />
     <Compile Include="classes\managers\TuitionFeeManager.cs" />
     <Compile Include="classes\managers\TumManager.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="classes\NetUtils.cs" />
     <Compile Include="classes\sync\Sync.cs" />
     <Compile Include="classes\tum\TUMOnlineConst.cs" />
+    <Compile Include="classes\tum\TUMOnlineLecture.cs" />
     <Compile Include="classes\tum\TUMOnlineRequest.cs" />
     <Compile Include="classes\tum\TUMTuitionFee.cs" />
     <Compile Include="classes\tum\TUMUser.cs" />
@@ -130,6 +131,9 @@
     </Compile>
     <Compile Include="controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\LectureControl.xaml.cs">
+      <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="controls\TutWidget.xaml.cs">
       <DependentUpon>TutWidget.xaml</DependentUpon>
@@ -149,8 +153,8 @@
     <Compile Include="pages\MyGradesPage.xaml.cs">
       <DependentUpon>MyGradesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\MyLecturesPage.xaml.cs">
-      <DependentUpon>MyLecturesPage.xaml</DependentUpon>
+    <Compile Include="pages\LecturesPage.xaml.cs">
+      <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -204,6 +208,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="controls\LectureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="controls\TutWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,7 +236,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\MyLecturesPage.xaml">
+    <Page Include="pages\LecturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

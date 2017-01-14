@@ -10,11 +10,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.classes.managers
 {
-    class TuitionFeeManager : AbstractManager
+    class LecturesManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static TuitionFeeManager INSTANCE;
+        public static LecturesManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -23,26 +23,35 @@ namespace TUMCampusApp.classes.managers
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 05/01/2017 Created [Fabian Sauter]
+        /// 06/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeManager()
+        public LecturesManager()
         {
-            dB.CreateTable<TUMTuitionFee>();
+
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private async Task<XmlDocument> getFeeStatusAsync()
+        public async Task<XmlDocument> getPersonalLecturesDocumentAsync()
         {
-            TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.TUITION_FEE_STATUS);
+            TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_PERSONAL);
             req.addToken();
             return await req.doRequestDocumentAsync();
         }
 
-        public List<TUMTuitionFee> getFees()
+        public async Task<XmlDocument> getQueryedLecturesDocumentAsync(string query)
         {
-            return dB.Query<TUMTuitionFee>("SELECT * FROM TUMTuitionFee");
+            TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_SEARCH);
+            req.addToken();
+            req.addParameter(Const.P_SEARCH, query);
+            req.setValidity(CacheManager.VALIDITY_FIFE_DAYS);
+            return await req.doRequestDocumentAsync();
+        }
+
+        public List<TUMOnlineLecture> getLectures()
+        {
+            return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
         }
 
         #endregion
@@ -50,33 +59,50 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            //await downloadFeesAsync(false);
+            dB.CreateTable<TUMOnlineLecture>();
         }
 
-        public async Task downloadFeesAsync(bool force)
+        public async Task downloadLecturesAsync(bool force)
         {
-            if(!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY)) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS)) && DeviceInfo.isConnectedToInternet())
             {
-                XmlDocument doc = await getFeeStatusAsync();
+                XmlDocument doc = await getPersonalLecturesDocumentAsync();
                 if (doc == null || doc.SelectSingleNode("/error") != null)
                 {
                     return;
                 }
-                dB.DropTable<TUMTuitionFee>();
-                dB.CreateTable<TUMTuitionFee>();
+                dB.DropTable<TUMOnlineLecture>();
+                dB.CreateTable<TUMOnlineLecture>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMTuitionFee(element));
+                    dB.Insert(new TUMOnlineLecture(element));
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new sync.Sync(this));
             }
-            return;
         }
 
+        public async Task<List<TUMOnlineLecture>> searchForLecturesAsync(string query)
+        {
+            List<TUMOnlineLecture> list = null;
+            if (DeviceInfo.isConnectedToInternet())
+            {
+                XmlDocument doc = await getQueryedLecturesDocumentAsync(query);
+                if (doc == null || doc.SelectSingleNode("/error") != null)
+                {
+                    return list;
+                }
+                list = new List<TUMOnlineLecture>();
+                foreach (var element in doc.SelectNodes("/rowset/row"))
+                {
+                    list.Add(new TUMOnlineLecture(element));
+                }
+            }
+            return list;
+        }
         #endregion
 
         #region --Misc Methods (Private)--

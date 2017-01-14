@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.classes.cache;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.userData;
 using Windows.Data.Xml.Dom;
@@ -17,6 +18,7 @@ namespace TUMCampusApp.classes.tum
         private string addition;
         private List<string> parameterArguments;
         private List<string> parameters;
+        private int validity;
 
         private static readonly string SERVICE_BASE_URL = "https://campus.tum.de/tumonline/wbservicesbasic.";
 
@@ -28,12 +30,21 @@ namespace TUMCampusApp.classes.tum
             this.addition = tumOC.ToString();
             this.parameterArguments = new List<string>();
             this.parameters = new List<string>();
+            this.validity = -1;
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        public void setValidity(int validity)
+        {
+            this.validity = validity;
+        }
 
+        public int getValidity()
+        {
+            return validity;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -41,11 +52,46 @@ namespace TUMCampusApp.classes.tum
         public async Task<string> doRequestAsync()
         {
             //Debug.WriteLine(buildUrl());
-            return await NetUtils.downloadStringAsync(buildUrl());
+            Uri url = buildUrl();
+            if(validity > 0)
+            {
+                string result = CacheManager.INSTANCE.isCached(url.ToString());
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    result = await NetUtils.downloadStringAsync(buildUrl());
+                    CacheManager.INSTANCE.cache(new Cache(url.ToString(), CacheManager.encodeString(result), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
+                    return result;
+                }
+            }
+            return await NetUtils.downloadStringAsync(url);
         }
 
         public async Task<XmlDocument> doRequestDocumentAsync()
         {
+            Uri url = buildUrl();
+            if (validity > 0)
+            {
+                string result = CacheManager.INSTANCE.isCached(url.ToString());
+                if (result != null)
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(result);
+                    return doc;
+                }
+                else
+                {
+                    XmlDocument doc = await XmlDocument.LoadFromUriAsync(url);
+                    if (doc != null)
+                    {
+                        CacheManager.INSTANCE.cache(new Cache(url.ToString(), CacheManager.encodeString(doc.GetXml()), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
+                    }
+                    return doc;
+                }
+            }
             return await XmlDocument.LoadFromUriAsync(buildUrl());
         }
 
@@ -59,6 +105,11 @@ namespace TUMCampusApp.classes.tum
         public void addToken()
         {
             addParameter(Const.P_TOKEN, TumManager.getToken());
+        }
+
+        public override string ToString()
+        {
+            return buildUrl().ToString();
         }
 
         #endregion

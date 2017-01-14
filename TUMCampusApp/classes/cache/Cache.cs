@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.classes.userData;
 
 namespace TUMCampusApp.classes.cache
 {
@@ -29,6 +30,22 @@ namespace TUMCampusApp.classes.cache
         public Cache()
         {
 
+        }
+
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 14/01/2017  Created [Fabian Sauter]
+        /// </history>
+        public Cache(string url, byte[] data, string validity, int max_age, int type)
+        {
+            this.url = url;
+            this.data = data;
+            this.validity = validity;
+            DateTime date = DateTime.Now.AddSeconds(max_age);
+            this.max_age = date.Year.ToString() + '-' + date.Month.ToString() + '-' + date.Day.ToString() + ' ' + date.Hour.ToString() + ':' + date.Minute.ToString() + ':' + date.Second.ToString();
+            this.type = type;
         }
 
         #endregion

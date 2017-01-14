@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.classes.cache;
 
 namespace TUMCampusApp.classes.managers
 {
@@ -37,14 +38,6 @@ namespace TUMCampusApp.classes.managers
         /// </history>
         public CacheManager()
         {
-            dB.CreateTable<cache.Cache>();
-
-            // Delete all entries that are too old and delete corresponding image files
-            foreach (cache.Cache c in dB.Query<cache.Cache>("SELECT data FROM cache WHERE datetime() > max_age AND type = ?", 1))
-            {
-                File.Delete(c.url);
-            }
-            dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
         }
 
         #endregion
@@ -57,8 +50,39 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
+            dB.CreateTable<Cache>();
+            // Delete all entries that are too old and delete corresponding image files
+            foreach (Cache c in dB.Query<Cache>("SELECT data FROM Cache WHERE datetime() > max_age AND type = ?", CACHE_TYP_IMAGE))
+            {
+                File.Delete(c.url);
+            }
+            dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
         }
 
+        public string isCached(string url)
+        {
+            List<Cache> list = dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() < max_age AND url LIKE ?", url);
+            if(list == null || list.Count <= 0)
+            {
+                return null;
+            }
+            return decodeString(list[0].data);
+        }
+
+        public void cache(Cache c)
+        {
+            dB.InsertOrReplace(c);
+        }
+
+        public static string decodeString(byte[] bytes)
+        {
+            return Encoding.UTF8.GetString(bytes);
+        }
+
+        public static byte[] encodeString(string s)
+        {
+            return Encoding.UTF8.GetBytes(s);
+        }
         #endregion
 
         #region --Misc Methods (Private)--

@@ -70,7 +70,7 @@ namespace TUMCampusApp.classes
         public static async Task showMessageBoxAsync(string message)
         {
             MessageDialog dialog = new MessageDialog(message);
-            dialog.Title = "Achtung!";
+            dialog.Title = "Attention!";
             await dialog.ShowAsync();
         }
 
