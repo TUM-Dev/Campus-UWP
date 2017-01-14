@@ -80,7 +80,7 @@ namespace TUMCampusApp.pages
                 deadline_tbx.Text = list[0].deadline;
             }
             refresh_btn.IsEnabled = true;
-            splashProgressRing.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -98,14 +98,14 @@ namespace TUMCampusApp.pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => downloadAndShowFees(false));
         }
 
         private void refresh_btn_Click(object sender, RoutedEventArgs e)
         {
             refresh_btn.IsEnabled = false;
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => downloadAndShowFees(true));
         }
 
