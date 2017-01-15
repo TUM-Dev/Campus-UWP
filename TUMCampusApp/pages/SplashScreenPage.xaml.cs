@@ -44,8 +44,8 @@ namespace TUMCampusApp.pages
             {
                 splashImageRect = splash.ImageLocation;
                 splash.Dismissed += new TypedEventHandler<SplashScreen, Object>(DismissedEventHandler);
+                positionElements();
             }
-            positionElements();
         }
 
         public SplashScreenPage()

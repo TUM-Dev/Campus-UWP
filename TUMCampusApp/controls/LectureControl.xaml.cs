@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TUMCampusApp.classes;
 using TUMCampusApp.classes.tum;
+using TUMCampusApp.classes.userData;
+using TUMCampusApp.pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -76,7 +79,10 @@ namespace TUMCampusApp.controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        protected override void OnTapped(TappedRoutedEventArgs e)
+        {
+            DeviceInfo.INSTANCE.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
+        }
 
         #endregion
     }

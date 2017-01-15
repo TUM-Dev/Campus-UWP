@@ -86,6 +86,7 @@ namespace TUMCampusApp.classes
         public static readonly string P_TOKEN_NAME = "pTokenName";
         public static readonly string P_USER_NAME = "pUsername";
         public static readonly string P_SEARCH = "pSuche";
+        public static readonly string P_LV_NR = "pLVNr";
         public static readonly string APP_VERSION = "app_version";
         public static readonly string JSON_NEWS = "news";
         public static readonly string JSON_DATE = "date";

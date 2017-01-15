@@ -45,21 +45,48 @@ namespace TUMCampusApp.classes.managers
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_SEARCH);
             req.addToken();
             req.addParameter(Const.P_SEARCH, query);
-            req.setValidity(CacheManager.VALIDITY_FIFE_DAYS);
+            req.setValidity(CacheManager.VALIDITY_TEN_DAYS);
+            return await req.doRequestDocumentAsync();
+        }
+
+        public async Task<XmlDocument> getLectureInformationDocumentAsync(string stp_sp_nr)
+        {
+            TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_DETAILS);
+            req.addToken();
+            req.addParameter(Const.P_LV_NR, stp_sp_nr);
+            req.setValidity(CacheManager.VALIDITY_TEN_DAYS);
             return await req.doRequestDocumentAsync();
         }
 
         public List<TUMOnlineLecture> getLectures()
         {
             return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
-        }
-
+        }        
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<TUMOnlineLecture>();
+        }
+
+        public async Task<List<TUMOnlineLectureInformation>> searchForLectureInformationAsync(string stp_sp_nr)
+        {
+            List<TUMOnlineLectureInformation> list = null;
+            if (DeviceInfo.isConnectedToInternet())
+            {
+                XmlDocument doc = await getLectureInformationDocumentAsync(stp_sp_nr);
+                if (doc == null || doc.SelectSingleNode("/error") != null)
+                {
+                    return list;
+                }
+                list = new List<TUMOnlineLectureInformation>();
+                foreach (var element in doc.SelectNodes("/rowset/row"))
+                {
+                    list.Add(new TUMOnlineLectureInformation(element));
+                }
+            }
+            return list;
         }
 
         public async Task downloadLecturesAsync(bool force)

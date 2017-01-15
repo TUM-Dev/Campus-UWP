@@ -61,6 +61,11 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public void navigateToPage(Type t, object args)
+        {
+            mainFrame.Navigate(t, args);
+        }
+
         public void navigateToPage(EnumPage page)
         {
             int index = (int)page + 1;
