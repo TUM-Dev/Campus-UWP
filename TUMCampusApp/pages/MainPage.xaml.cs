@@ -175,8 +175,9 @@ namespace TUMCampusApp.Pages
 
         private void goBackRequest(object sender, BackRequestedEventArgs e)
         {
-            if (mainFrame.CanGoBack && splitViewIcons_lb.IsEnabled)
+            if (mainFrame.CanGoBack && splitViewIcons_lb.IsEnabled && e.Handled == false)
             {
+                e.Handled = true;
                 mainFrame.GoBack();
             }
         }

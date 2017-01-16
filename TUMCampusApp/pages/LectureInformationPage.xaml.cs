@@ -102,7 +102,6 @@ namespace TUMCampusApp.pages
         {
             //DeviceInfo.INSTANCE.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
         }
-
         #endregion
     }
 }
