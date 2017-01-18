@@ -270,7 +270,7 @@ namespace TUMCampusApp.Pages
             showCurrentMenus();
             initAcc();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressRing.Visibility = Visibility.Collapsed;
+                progressBar.Visibility = Visibility.Collapsed;
             }).AsTask();
         }
         #endregion
@@ -283,7 +283,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => loadCanteensAndMenusTask());
         }
 
@@ -313,33 +313,33 @@ namespace TUMCampusApp.Pages
 
         private void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)
         {
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => 
             {
                 CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
                 loadCanteensAsync().Wait();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    splashProgressRing.Visibility = Visibility.Collapsed;
+                    progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
             });
         }
 
         private void refreshCanteenMenus_btn_Click(object sender, RoutedEventArgs e)
         {
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
                 CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
                 showCurrentMenus();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    splashProgressRing.Visibility = Visibility.Collapsed;
+                    progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
             });
         }
 
         private void refreshAll_btn_Click(object sender, RoutedEventArgs e)
         {
-            splashProgressRing.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
                 CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
@@ -347,7 +347,7 @@ namespace TUMCampusApp.Pages
                 CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
                 showCurrentMenus();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    splashProgressRing.Visibility = Visibility.Collapsed;
+                    progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
             });
         }
