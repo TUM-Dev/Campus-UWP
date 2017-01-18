@@ -51,48 +51,58 @@ namespace TUMCampusApp.classes.tum
         #region --Misc Methods (Public)--
         public async Task<string> doRequestAsync()
         {
-            //Debug.WriteLine(buildUrl());
             Uri url = buildUrl();
-            if(validity > 0)
+            string result = null;
+            if (validity > 0)
             {
-                string result = CacheManager.INSTANCE.isCached(url.ToString());
+                result = CacheManager.INSTANCE.isCached(url.ToString());
                 if (result != null)
                 {
                     return result;
                 }
-                else
+            }
+            if (!DeviceInfo.isConnectedToInternet())
+            {
+                return null;
+            }
+            result = await NetUtils.downloadStringAsync(buildUrl());
+            if (validity > 0)
+            {
+                if (result != null)
                 {
-                    result = await NetUtils.downloadStringAsync(buildUrl());
-                    CacheManager.INSTANCE.cache(new Cache(url.ToString(), CacheManager.encodeString(result), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
-                    return result;
+                    cacheResult(url.ToString(), result);
                 }
             }
-            return await NetUtils.downloadStringAsync(url);
+            return result;
         }
 
         public async Task<XmlDocument> doRequestDocumentAsync()
         {
             Uri url = buildUrl();
+            XmlDocument doc = null;
             if (validity > 0)
             {
                 string result = CacheManager.INSTANCE.isCached(url.ToString());
                 if (result != null)
                 {
-                    XmlDocument doc = new XmlDocument();
+                    doc = new XmlDocument();
                     doc.LoadXml(result);
                     return doc;
                 }
-                else
+            }
+            if (!DeviceInfo.isConnectedToInternet())
+            {
+                return null;
+            }
+            doc = await XmlDocument.LoadFromUriAsync(url);
+            if (validity > 0)
+            {
+                if (doc != null)
                 {
-                    XmlDocument doc = await XmlDocument.LoadFromUriAsync(url);
-                    if (doc != null)
-                    {
-                        CacheManager.INSTANCE.cache(new Cache(url.ToString(), CacheManager.encodeString(doc.GetXml()), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
-                    }
-                    return doc;
+                    cacheResult(url.ToString(), doc.GetXml());
                 }
             }
-            return await XmlDocument.LoadFromUriAsync(buildUrl());
+            return doc;
         }
 
         public void addParameter(string param, string arg)
@@ -115,6 +125,11 @@ namespace TUMCampusApp.classes.tum
         #endregion
 
         #region --Misc Methods (Private)--
+        private void cacheResult(string url, string result)
+        {
+            CacheManager.INSTANCE.cache(new Cache(url, CacheManager.encodeString(result), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
+        }
+
         private Uri buildUrl()
         {
             string s = SERVICE_BASE_URL + addition;

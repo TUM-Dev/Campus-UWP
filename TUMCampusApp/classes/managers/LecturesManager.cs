@@ -73,18 +73,15 @@ namespace TUMCampusApp.classes.managers
         public async Task<List<TUMOnlineLectureInformation>> searchForLectureInformationAsync(string stp_sp_nr)
         {
             List<TUMOnlineLectureInformation> list = null;
-            if (DeviceInfo.isConnectedToInternet())
+            XmlDocument doc = await getLectureInformationDocumentAsync(stp_sp_nr);
+            if (doc == null || doc.SelectSingleNode("/error") != null)
             {
-                XmlDocument doc = await getLectureInformationDocumentAsync(stp_sp_nr);
-                if (doc == null || doc.SelectSingleNode("/error") != null)
-                {
-                    return list;
-                }
-                list = new List<TUMOnlineLectureInformation>();
-                foreach (var element in doc.SelectNodes("/rowset/row"))
-                {
-                    list.Add(new TUMOnlineLectureInformation(element));
-                }
+                return list;
+            }
+            list = new List<TUMOnlineLectureInformation>();
+            foreach (var element in doc.SelectNodes("/rowset/row"))
+            {
+                list.Add(new TUMOnlineLectureInformation(element));
             }
             return list;
         }
@@ -115,18 +112,15 @@ namespace TUMCampusApp.classes.managers
         public async Task<List<TUMOnlineLecture>> searchForLecturesAsync(string query)
         {
             List<TUMOnlineLecture> list = null;
-            if (DeviceInfo.isConnectedToInternet())
+            XmlDocument doc = await getQueryedLecturesDocumentAsync(query);
+            if (doc == null || doc.SelectSingleNode("/error") != null)
             {
-                XmlDocument doc = await getQueryedLecturesDocumentAsync(query);
-                if (doc == null || doc.SelectSingleNode("/error") != null)
-                {
-                    return list;
-                }
-                list = new List<TUMOnlineLecture>();
-                foreach (var element in doc.SelectNodes("/rowset/row"))
-                {
-                    list.Add(new TUMOnlineLecture(element));
-                }
+                return list;
+            }
+            list = new List<TUMOnlineLecture>();
+            foreach (var element in doc.SelectNodes("/rowset/row"))
+            {
+                list.Add(new TUMOnlineLecture(element));
             }
             return list;
         }

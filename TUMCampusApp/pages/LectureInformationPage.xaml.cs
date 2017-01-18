@@ -58,18 +58,12 @@ namespace TUMCampusApp.pages
         #region --Misc Methods (Private)--
         private async void downloadAndShowLectureInformationTask()
         {
-            if (!DeviceInfo.isConnectedToInternet())
-            {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    lectureName_tbx.Text = "Unable to gather information!";
-                }).AsTask().Wait();
-                return;
-            }
             List<TUMOnlineLectureInformation> list = await LecturesManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
             if (list == null || list.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     lectureName_tbx.Text = "Unable to gather information!";
+                    progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
                 return;
             }
