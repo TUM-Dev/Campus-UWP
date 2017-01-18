@@ -8,7 +8,7 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 * TUMonline login
 
 ## ToDo:
-* TUMonline integration (10%)
+* TUMonline integration (80%)
 * Automatically import your TUMonline calendar
 * Study plans
 * Roomfinder
