@@ -40,7 +40,7 @@
             <Grid x:Name="noData_grid" Background="Red" Visibility="Collapsed">
                 <TextBlock Text="Unable to load data!" Margin="10,10,10,10" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
             </Grid>
-            <Button x:Name="refresh_btn" Content="Refresh" HorizontalAlignment="Stretch" Margin="10,10,10,0" Click="refresh_btn_Click"/>
+            <!--<Button x:Name="refresh_btn" Content="Refresh" HorizontalAlignment="Stretch" Margin="10,10,10,0" Click="refresh_btn_Click"/>-->
         </StackPanel>
     </Grid>
 </Page>
