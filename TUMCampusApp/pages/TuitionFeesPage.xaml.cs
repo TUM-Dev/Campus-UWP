@@ -79,7 +79,6 @@ namespace TUMCampusApp.pages
                 semester_tbx.Text = list[0].semesterDescripion;
                 deadline_tbx.Text = list[0].deadline;
             }
-            refresh_btn.IsEnabled = true;
             progressBar.Visibility = Visibility.Collapsed;
         }
 
@@ -101,14 +100,6 @@ namespace TUMCampusApp.pages
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => downloadAndShowFees(false));
         }
-
-        private void refresh_btn_Click(object sender, RoutedEventArgs e)
-        {
-            refresh_btn.IsEnabled = false;
-            progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => downloadAndShowFees(true));
-        }
-
         #endregion
     }
 }
