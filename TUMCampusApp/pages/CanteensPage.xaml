@@ -60,14 +60,12 @@
             <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="30"/>
             <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="30" HorizontalAlignment="Right" Grid.Column="2" Background="#FF0065BD" Click="right_btn_Click"/>
         </Grid>
-        
-        <StackPanel Grid.Row="2">
-            <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
-            <ScrollViewer x:Name="menus_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <StackPanel x:Name="menus_sckl" Padding="0,0,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <!--Content Menus-->
-                </StackPanel>
-            </ScrollViewer>
-        </StackPanel>
+
+        <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="2" VerticalAlignment="Top"/>
+        <ScrollViewer x:Name="menus_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2">
+            <StackPanel x:Name="menus_sckl" Padding="0,0,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <!--Content Menus-->
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
