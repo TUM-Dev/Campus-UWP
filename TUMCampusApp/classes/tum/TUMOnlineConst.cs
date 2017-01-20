@@ -14,7 +14,7 @@ namespace TUMCampusApp.classes.tum
         public static readonly TUMOnlineConst REQUEST_TOKEN = new TUMOnlineConst("requestToken", CacheManager.VALIDITY_DO_NOT_CACHE);
         public static readonly TUMOnlineConst TOKEN_CONFIRMED = new TUMOnlineConst("isTokenConfirmed", CacheManager.VALIDITY_DO_NOT_CACHE);
 
-        public static readonly TUMOnlineConst CALENDER = new TUMOnlineConst("kalender", CacheManager.VALIDITY_FIFE_DAYS);
+        public static readonly TUMOnlineConst CALENDAR = new TUMOnlineConst("kalender", CacheManager.VALIDITY_FIFE_DAYS);
         public static readonly TUMOnlineConst TUITION_FEE_STATUS = new TUMOnlineConst("studienbeitragsstatus", CacheManager.VALIDITY_TWO_DAYS);
         public static readonly TUMOnlineConst LECTURES_PERSONAL = new TUMOnlineConst("veranstaltungenEigene", CacheManager.VALIDITY_FIFE_DAYS);
         public static readonly TUMOnlineConst LECTURES_DETAILS = new TUMOnlineConst("veranstaltungenDetails", CacheManager.VALIDITY_TEN_DAYS);
