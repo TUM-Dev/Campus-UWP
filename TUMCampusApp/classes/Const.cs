@@ -16,6 +16,7 @@ namespace TUMCampusApp.classes
         public static readonly string BACKGROUND_MODE = "background_mode";
         public static readonly string CAFETERIA_ID = "cafeteriasId";
         public static readonly string CAFETERIAS = "cafeterias";
+        public static readonly string CALENDAR_NAME = "TUM Online";
         public static readonly string CALENDAR_WEEK_MODE = "calender_week_mode";
         public static readonly string COMPLETED = "completed";
         public static readonly string DATABASE_NAME = "database.db";
@@ -27,6 +28,7 @@ namespace TUMCampusApp.classes
         public static readonly string FORCE_DOWNLOAD = "force_download";
         public static readonly string HIDE_WIZARD_ON_STARTUP = "hide_wizard_on_startup";
         public static readonly string ONLY_USE_WIFI_FOR_UPDATING = "only_use_wifi_for_updating";
+        public static readonly string DISABLE_CALENDAR_INTEGRATION = "disable_calendar_integration";
         public static readonly string HOURS_COLUMN = "hours";
         public static readonly string ID_COLUMN = "_id";
         public static readonly string JSON_ADDRESS = "address";
@@ -83,6 +85,8 @@ namespace TUMCampusApp.classes
         public static readonly string JSON_LONGITUDE = "longitude";
         public static readonly string PREFERENCE_SCREEN = "preference_screen";
         public static readonly string P_TOKEN = "pToken";
+        public static readonly string P_MONTH_AHEAD = "pMonateVor";
+        public static readonly string P_MONTH_BACK = "pMonateNach";
         public static readonly string P_TOKEN_NAME = "pTokenName";
         public static readonly string P_USER_NAME = "pUsername";
         public static readonly string P_SEARCH = "pSuche";

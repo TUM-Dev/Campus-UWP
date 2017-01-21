@@ -114,10 +114,12 @@
     <Compile Include="classes\managers\LecturesManager.cs" />
     <Compile Include="classes\managers\SyncManager.cs" />
     <Compile Include="classes\managers\TuitionFeeManager.cs" />
+    <Compile Include="classes\managers\CalendarManager.cs" />
     <Compile Include="classes\managers\TumManager.cs" />
     <Compile Include="classes\managers\UserDataManager.cs" />
     <Compile Include="classes\NetUtils.cs" />
     <Compile Include="classes\sync\Sync.cs" />
+    <Compile Include="classes\tum\TUMOnlineCalendarEntry.cs" />
     <Compile Include="classes\tum\TUMOnlineConst.cs" />
     <Compile Include="classes\tum\TUMOnlineLecture.cs" />
     <Compile Include="classes\tum\TUMOnlineLectureInformation.cs" />
@@ -185,6 +187,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\CanteenTile.png" />
+    <Content Include="Assets\Images\github_logo.png" />
+    <Content Include="Assets\Images\github_mark.png" />
     <Content Include="Assets\Images\TUMonlineSetup1.png" />
     <Content Include="Assets\Images\TUMonlineSetup2.png" />
     <Content Include="Assets\Images\TUMonlineSetup3.png" />

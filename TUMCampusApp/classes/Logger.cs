@@ -78,6 +78,17 @@ namespace TUMCampusApp.classes
         {
             addToLog(message, e, "ERROR");
         }
+
+        /// <summary>
+        /// Adds a Error message to the log
+        /// </summary>
+        /// <history>
+        /// 01/01/2017 Created [Fabian Sauter]
+        /// </history>
+        public static void Error(string message)
+        {
+            Error(message, null);
+        }
         #endregion
 
         #region --Misc Methods (Private)--
@@ -88,7 +99,8 @@ namespace TUMCampusApp.classes
 
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
-            Windows.Storage.StorageFile logFile = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync(getFilename(), Windows.Storage.CreationCollisionOption.OpenIfExists);
+            await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", Windows.Storage.CreationCollisionOption.OpenIfExists);
+            Windows.Storage.StorageFile logFile = await (await Windows.Storage.ApplicationData.Current.LocalFolder.GetFolderAsync("Logs")).CreateFileAsync(getFilename(), Windows.Storage.CreationCollisionOption.OpenIfExists);
             string s = "[" + code + "][" + getTimeStamp() + "]: " + message;
             if (e != null)
             {

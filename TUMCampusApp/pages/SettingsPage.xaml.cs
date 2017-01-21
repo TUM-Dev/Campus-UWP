@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using TUMCampusApp.pages.setup;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -45,7 +47,14 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        private async Task<StorageFile> getTargetPathAsync()
+        {
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            savePicker.FileTypeChoices.Add("Logs", new List<string>() { ".zip" });
+            savePicker.SuggestedFileName = "Logs";
+            return await savePicker.PickSaveFileAsync(); ;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -60,12 +69,18 @@ namespace TUMCampusApp.pages
             initGeneralControls();
             initTUMonlineControls();
             initWidgetControls();
+            initServices();
         }
 
         private void initWidgetControls()
         {
             disableExampleWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET);
             disableCanteenWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
+        }
+
+        private void initServices()
+        {
+            disableCalendar_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
         }
 
         private void initGeneralControls()
@@ -80,13 +95,19 @@ namespace TUMCampusApp.pages
 
         private void resetApp()
         {
+            Task.Factory.StartNew(async () =>
+            {
+                await CalendarManager.INSTANCE.deleteCalendarAsync();
+            });
             Utillities.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, false);
             Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
             Utillities.setSetting(Const.DISABLE_EXAMPLE_WIDGET, false);
             Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
+            Utillities.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Utillities.setSetting(Const.ACCESS_TOKEN, null);
 
             deleteCache();
+            Logger.Info("Finished reseting the app.");
         }
 
         private void deleteCache()
@@ -96,6 +117,43 @@ namespace TUMCampusApp.pages
 
             SplashScreenPage extendedSplash = new SplashScreenPage();
             Window.Current.Content = extendedSplash;
+            Logger.Info("Finished deleting the app cache.");
+        }
+
+        private async Task exportLogs()
+        {
+            StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
+            if (folder != null)
+            {
+                StorageFile target = await getTargetPathAsync();
+                if (target == null)
+                {
+                    return;
+                }
+                await Task.Factory.StartNew(async () =>
+                 {
+                     try
+                     {
+                         IStorageItem file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
+                         if (file != null)
+                         {
+                             await file.DeleteAsync();
+                         }
+                         ZipFile.CreateFromDirectory(folder.Path, ApplicationData.Current.LocalFolder.Path + @"\Logs.zip", CompressionLevel.Optimal, false);
+                         file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
+                         if (file != null && file is StorageFile)
+                         {
+                             StorageFile f = file as StorageFile;
+                             await f.CopyAndReplaceAsync(target);
+                         }
+                         Logger.Info("Exported logs successfully.");
+                     }
+                     catch (Exception e)
+                     {
+                         Logger.Error("Error during exporting loggs", e);
+                     }
+                 });
+            }
         }
         #endregion
 
@@ -105,6 +163,20 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private async void disableCalendar_tgls_ToggledAsync(object sender, RoutedEventArgs e)
+        {
+            if (disableCalendar_tgls.IsOn)
+            {
+                await CalendarManager.INSTANCE.deleteCalendarAsync();
+            }
+            Utillities.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
+        }
+
+        private async void exportLogs_btn_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            await exportLogs();
+        }
+
         private void showWizard_btn_Click(object sender, RoutedEventArgs e)
         {
             (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep1));
@@ -160,5 +232,10 @@ namespace TUMCampusApp.pages
             Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, disableCanteenWidget_tgls.IsOn);
         }
         #endregion
+
+        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

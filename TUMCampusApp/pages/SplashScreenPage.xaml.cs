@@ -129,6 +129,9 @@ namespace TUMCampusApp.pages
             LecturesManager.INSTANCE = new LecturesManager();
             await incProgressAsync();
 
+            await invokeTbxAsync("Loading my TUM calendar manager...");
+            CalendarManager.INSTANCE = new CalendarManager();
+            await incProgressAsync();
 
 
             await invokeTbxAsync("Initializing cache manager...");
@@ -161,6 +164,10 @@ namespace TUMCampusApp.pages
 
             await invokeTbxAsync("Initializing my lectures manager...");
             await LecturesManager.INSTANCE.InitManagerAsync();
+            await incProgressAsync();
+
+            await invokeTbxAsync("Initializing my TUM calendar manager...");
+            await CalendarManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing TumManager...");
