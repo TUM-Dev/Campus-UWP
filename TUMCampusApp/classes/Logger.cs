@@ -106,9 +106,8 @@ namespace TUMCampusApp.classes
             {
                 s += ":\n" + e.Message + "\n" + e.StackTrace;
             }
-            s += "\n";
             System.Diagnostics.Debug.Write(s);
-            await Windows.Storage.FileIO.AppendTextAsync(logFile, s);
+            await Windows.Storage.FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
         }
 
         #endregion
