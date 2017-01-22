@@ -34,7 +34,32 @@ namespace TUMCampusApp.classes.managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public TUMOnlineCalendarEntry getNextEntry()
+        {
+            List<TUMOnlineCalendarEntry> list = dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+            if(list == null || list.Count <= 0)
+            {
+                return null;
+            }
+            TUMOnlineCalendarEntry entry = null;
+            foreach(TUMOnlineCalendarEntry e in list)
+            {
+                if(entry == null)
+                {
+                    if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0)
+                    {
+                        entry = e;
+                    }
+                    continue;
+                }
+                Debug.WriteLine(e.dTStrat);
+                if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0 && e.dTStrat.CompareTo(entry.dTStrat) < 0)
+                {
+                    entry = e;
+                }
+            }
+            return entry;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

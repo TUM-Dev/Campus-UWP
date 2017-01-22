@@ -1,56 +1,47 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.tum;
-using TUMCampusApp.controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Graphics.Imaging;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.controls
 {
-    public sealed partial class HomePage : Page
+    public sealed partial class CalendarControl : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private TUMOnlineCalendarEntry entry;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
+        /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public HomePage()
+        public CalendarControl(TUMOnlineCalendarEntry entry)
         {
+            this.entry = entry;
             this.InitializeComponent();
-            showWidgets();
+            showCalendar();
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -60,29 +51,17 @@ namespace TUMCampusApp.pages
         #endregion
 
         #region --Misc Methods (Private)--
-        private void showWidgets()
+        private void showCalendar()
         {
-            if (!Utillities.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET))
-            {
-                exampleWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
-            {
-                canteenWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
-            {
-                tutionFeeWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
-            {
-                calendarWidget_ds.Visibility = Visibility.Visible;
-            }
+            calendarEntryName_tbx.Text = entry.title;
+            location_tbx.Text = entry.location;
+            calendar_tbx.Text = entry.dTStrat.DayOfWeek.ToString() + ", " + entry.dTStrat.ToString("HH:mm") + " - " + entry.dTEnd.ToString("HH:mm") + " " + entry.dTStrat.ToString();
         }
+
         #endregion
 
         #region --Misc Methods (Protected)--
-
+        
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

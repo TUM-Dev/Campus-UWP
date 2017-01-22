@@ -129,6 +129,12 @@
     <Compile Include="classes\userData\DeviceInfo.cs" />
     <Compile Include="classes\userData\UserData.cs" />
     <Compile Include="classes\Utillities.cs" />
+    <Compile Include="controls\CalendarControl.xaml.cs">
+      <DependentUpon>CalendarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\CalendarWidget.xaml.cs">
+      <DependentUpon>CalendarWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="controls\CanteenControl.xaml.cs">
       <DependentUpon>CanteenControl.xaml</DependentUpon>
     </Compile>
@@ -211,6 +217,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="controls\CalendarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="controls\CalendarWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="controls\CanteenControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

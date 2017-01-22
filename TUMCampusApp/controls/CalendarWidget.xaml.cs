@@ -1,56 +1,48 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes;
+using System.Threading.Tasks;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.tum;
-using TUMCampusApp.controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Graphics.Imaging;
-using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.controls
 {
-    public sealed partial class HomePage : Page
+    public sealed partial class CalendarWidget : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
 
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
+        /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public HomePage()
+        public CalendarWidget()
         {
             this.InitializeComponent();
-            showWidgets();
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -60,25 +52,29 @@ namespace TUMCampusApp.pages
         #endregion
 
         #region --Misc Methods (Private)--
-        private void showWidgets()
+        private void ShowCalendarEntry()
         {
-            if (!Utillities.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET))
+            CalendarManager.INSTANCE.syncCalendar();
+            TUMOnlineCalendarEntry entry = CalendarManager.INSTANCE.getNextEntry();
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                exampleWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
-            {
-                canteenWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
-            {
-                tutionFeeWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
-            {
-                calendarWidget_ds.Visibility = Visibility.Visible;
-            }
+                showCalendarEntry(entry);
+            }).AsTask().Wait();
         }
+
+        private void showCalendarEntry(TUMOnlineCalendarEntry entry)
+        {
+            if (entry == null)
+            {
+                this.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                calendarEntrys_sckl.Children.Add(new CalendarControl(entry));
+            }
+            progressRing.Visibility = Visibility.Collapsed;
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -87,7 +83,11 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            progressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => ShowCalendarEntry());
+        }
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.classes.tum
 {
-    class TUMOnlineCalendarEntry
+    public class TUMOnlineCalendarEntry
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        [PrimaryKey]
         public int nr { get; set; }
         public string status { get; set; }
         public string title { get; set; }

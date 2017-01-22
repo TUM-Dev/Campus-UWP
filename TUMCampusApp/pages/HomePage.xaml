@@ -24,9 +24,13 @@
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
         <StackPanel x:Name="color_stckp" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="0"/>
         <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollMode="Disabled">
-            <StackPanel x:Name="widgets_stckp">
+            <StackPanel x:Name="widgets_stckp" Margin="0,0,0,10">
                 <controls:DropShadowPanel x:Name="exampleWidget_ds" Style="{StaticResource ShadowPanelStyle}">
                     <controls1:TutWidget/>
+                </controls:DropShadowPanel>
+
+                <controls:DropShadowPanel x:Name="calendarWidget_ds" Style="{StaticResource ShadowPanelStyle}">
+                    <controls1:CalendarWidget/>
                 </controls:DropShadowPanel>
                 
                 <controls:DropShadowPanel x:Name="canteenWidget_ds" Style="{StaticResource ShadowPanelStyle}">
