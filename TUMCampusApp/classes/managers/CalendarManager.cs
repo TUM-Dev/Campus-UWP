@@ -144,6 +144,7 @@ namespace TUMCampusApp.classes.managers
                     await calendar.SaveAppointmentAsync(entry.getAppointment());
                 }
             }
+            Logger.Info("Finished loading calendar.");
         }
 
         private async Task<XmlDocument> getCalendarEntriesDocumentAsync()

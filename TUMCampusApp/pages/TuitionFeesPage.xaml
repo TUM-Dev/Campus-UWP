@@ -16,7 +16,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Grid.Row="0">
+                <StackPanel x:Name="main_grid" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Grid.Row="0">
                     <TextBlock x:Name="semester_tbx" Text="SS2017" HorizontalAlignment="Center" Margin="0, 5, 0, 5"/>
                 </StackPanel>
                 <StackPanel Margin="10,10,10,0" Grid.Row="1">

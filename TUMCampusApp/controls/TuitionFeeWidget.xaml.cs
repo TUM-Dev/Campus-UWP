@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using TUMCampusApp.classes;
 using TUMCampusApp.classes.managers;
 using TUMCampusApp.classes.tum;
 using Windows.Foundation;
@@ -19,24 +17,24 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.controls
 {
-    public sealed partial class TuitionFeesPage : Page
+    public sealed partial class TuitionFeeWidget : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
 
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 05/01/2017 Created [Fabian Sauter]
+        /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeesPage()
+        public TuitionFeeWidget()
         {
             this.InitializeComponent();
         }
@@ -54,11 +52,10 @@ namespace TUMCampusApp.pages
         #endregion
 
         #region --Misc Methods (Private)--
-        private void downloadAndShowFees(bool forceRedownload)
+        private async Task ShowTuitionFeesAsync()
         {
-            TuitionFeeManager.INSTANCE.downloadFeesAsync(forceRedownload).Wait();
-            List<TUMTuitionFee> list = new List<TUMTuitionFee>();
-            list = TuitionFeeManager.INSTANCE.getFees();
+            await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+            List<TUMTuitionFee> list = TuitionFeeManager.INSTANCE.getFees();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showFees(list);
             }).AsTask().Wait();
@@ -68,13 +65,10 @@ namespace TUMCampusApp.pages
         {
             if (list == null || list.Count <= 0)
             {
-                noFees_grid.Visibility = Visibility.Visible;
-                fees_grid.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Collapsed;
             }
             else
             {
-                fees_grid.Visibility = Visibility.Visible;
-                noFees_grid.Visibility = Visibility.Collapsed;
                 outsBalance_tbx.Text = list[0].money + "€";
                 semester_tbx.Text = list[0].semesterDescripion;
                 DateTime deadLine = DateTime.Parse(list[0].deadline);
@@ -85,7 +79,7 @@ namespace TUMCampusApp.pages
                     main_grid.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);
                 }
             }
-            progressBar.Visibility = Visibility.Collapsed;
+            progressRing.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -96,16 +90,12 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void HyperlinkButton_ClickAsync(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            await Utillities.launchBrowser(new Uri(@"https://www.tum.de/en/studies/advising/student-financial-aid/"));
+            progressRing.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => ShowTuitionFeesAsync());
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => downloadAndShowFees(false));
-        }
         #endregion
     }
 }

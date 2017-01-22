@@ -32,6 +32,10 @@
                 <controls:DropShadowPanel x:Name="canteenWidget_ds" Style="{StaticResource ShadowPanelStyle}">
                     <controls1:CanteenWidget/>
                 </controls:DropShadowPanel>
+
+                <controls:DropShadowPanel x:Name="tutionFeeWidget_ds" Style="{StaticResource ShadowPanelStyle}">
+                    <controls1:TuitionFeeWidget/>
+                </controls:DropShadowPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

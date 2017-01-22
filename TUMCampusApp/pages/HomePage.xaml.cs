@@ -70,6 +70,10 @@ namespace TUMCampusApp.pages
             {
                 canteenWidget_ds.Visibility = Visibility.Visible;
             }
+            if (!Utillities.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
+            {
+                tutionFeeWidget_ds.Visibility = Visibility.Visible;
+            }
         }
         #endregion
 

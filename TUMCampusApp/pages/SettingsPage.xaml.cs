@@ -76,6 +76,8 @@ namespace TUMCampusApp.pages
         {
             disableExampleWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET);
             disableCanteenWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
+            disableCalendarWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET);
+            disableTuitionFeeWidget_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET);
         }
 
         private void initServices()
@@ -103,6 +105,8 @@ namespace TUMCampusApp.pages
             Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
             Utillities.setSetting(Const.DISABLE_EXAMPLE_WIDGET, false);
             Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
+            Utillities.setSetting(Const.DISABLE_CALENDAR_WIDGET, false);
+            Utillities.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
             Utillities.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Utillities.setSetting(Const.ACCESS_TOKEN, null);
 
@@ -231,11 +235,31 @@ namespace TUMCampusApp.pages
         {
             Utillities.setSetting(Const.DISABLE_CANTEEN_WIDGET, disableCanteenWidget_tgls.IsOn);
         }
-        #endregion
 
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        private void disableCalendarWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-
+            Utillities.setSetting(Const.DISABLE_CALENDAR_WIDGET, disableCalendar_tgls.IsOn);
         }
+
+        private void disableTuitionFeeWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Utillities.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, disableTuitionFeeWidget_tgls.IsOn);
+        }
+
+        private async void feedback_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
+        {
+           
+        }
+
+        private async void contributeGithub_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
+        {
+            await Utillities.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App"));
+        }
+
+        private async void reportBug_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
+        {
+            await Utillities.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/issues"));
+        }
+        #endregion
     }
 }

@@ -32,6 +32,8 @@
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="disableExampleWidget_tgls"  Margin="10,10,0,0" Toggled="diableExampleWidget_tgls_Toggled" Header="Disable Example Widget"/>
                 <ToggleSwitch x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
+                <ToggleSwitch x:Name="disableTuitionFeeWidget_tgls"  Margin="10,10,0,0" Toggled="disableTuitionFeeWidget_tgls_Toggled" Header="Disable Tuition Fee Widget"/>
+                <ToggleSwitch x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
                 
                 <TextBlock Text="Extras:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
@@ -40,13 +42,17 @@
 
                 <TextBlock Text="About and links:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <StackPanel Orientation="Horizontal" Margin="10,10,0,0" Tapped="StackPanel_Tapped">
+                <StackPanel x:Name="contributeGithub_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="contributeGithub_stckp_TappedAsync">
                     <Image Source="ms-appx:///Assets/Images/github_mark.png" Height="30"/>
                     <TextBlock Text="Contribute on Github" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10,10,0,0" Tapped="StackPanel_Tapped">
+                <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE730;" FontSize="30"/>
+                    <TextBlock Text="Report a bug" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel x:Name="feedback_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="feedback_stckp_TappedAsync">
                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE939;" FontSize="30"/>
-                    <TextBlock Text="Give feedback" Margin="10,0,0,0" FontSize="30"/>
+                    <TextBlock Text="Give feedback" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
                 <TextBlock Text="License" Margin="10,10,0,0" FontSize="30"/>
             </StackPanel>
