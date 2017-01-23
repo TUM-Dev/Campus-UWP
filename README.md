@@ -6,10 +6,14 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 ## Currently implemented features:
 * Canteen menu
 * TUMonline login
+* My tuition fees
+* My TUM calendar integration
+* Automatically import your TUMonline calendar
+* Lectures
 
 ## ToDo:
-* TUMonline integration (80%)
-* Automatically import your TUMonline calendar
+* My grades
+* Background worker
 * Study plans
 * Roomfinder
 * MVV departure times
