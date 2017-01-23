@@ -87,7 +87,7 @@ namespace TUMCampusApp.classes.managers
             List<CanteenMenu> menus = new List<CanteenMenu>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%'"))
             {
-                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date) >= 0)
+                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date) >= -1)
                 {
                     time = m.date;
                 }
