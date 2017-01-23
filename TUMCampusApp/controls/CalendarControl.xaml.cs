@@ -55,7 +55,7 @@ namespace TUMCampusApp.controls
         {
             calendarEntryName_tbx.Text = entry.title;
             location_tbx.Text = entry.location;
-            calendar_tbx.Text = entry.dTStrat.DayOfWeek.ToString() + ", " + entry.dTStrat.ToString("HH:mm") + " - " + entry.dTEnd.ToString("HH:mm") + " " + entry.dTStrat.ToString();
+            calendar_tbx.Text = entry.dTStrat.DayOfWeek.ToString() + ", " + entry.dTStrat.ToString("HH:mm") + " - " + entry.dTEnd.ToString("HH:mm");
         }
 
         #endregion
