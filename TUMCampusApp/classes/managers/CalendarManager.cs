@@ -52,7 +52,6 @@ namespace TUMCampusApp.classes.managers
                     }
                     continue;
                 }
-                Debug.WriteLine(e.dTStrat);
                 if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0 && e.dTStrat.CompareTo(entry.dTStrat) < 0)
                 {
                     entry = e;
