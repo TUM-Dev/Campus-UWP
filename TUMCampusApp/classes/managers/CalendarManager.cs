@@ -36,7 +36,7 @@ namespace TUMCampusApp.classes.managers
         #region --Set-, Get- Methods--
         public TUMOnlineCalendarEntry getNextEntry()
         {
-            List<TUMOnlineCalendarEntry> list = dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+            List<TUMOnlineCalendarEntry> list = getEntries();
             if(list == null || list.Count <= 0)
             {
                 return null;
@@ -58,6 +58,11 @@ namespace TUMCampusApp.classes.managers
                 }
             }
             return entry;
+        }
+
+        public List<TUMOnlineCalendarEntry> getEntries()
+        {
+            return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
         }
 
         #endregion

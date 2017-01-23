@@ -9,7 +9,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.classes.tum
 {
-    public class TUMOnlineCalendarEntry
+    public class TUMOnlineCalendarEntry : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -74,6 +74,15 @@ namespace TUMCampusApp.classes.tum
                 }
             }
             return false;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if(obj != null && obj is TUMOnlineCalendarEntry)
+            {
+                return dTStrat.CompareTo((obj as TUMOnlineCalendarEntry).dTStrat);
+            }
+            return 1;
         }
 
         #endregion

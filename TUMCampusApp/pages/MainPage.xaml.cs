@@ -98,6 +98,10 @@ namespace TUMCampusApp.Pages
             }
             switch (splitViewIcons_lb.SelectedIndex)
             {
+                case 1:
+                    mainFrame.Navigate(typeof(MyCalendarPage));
+                    break;
+
                 case 2:
                     mainFrame.Navigate(typeof(MyLecturesPage));
                     break;

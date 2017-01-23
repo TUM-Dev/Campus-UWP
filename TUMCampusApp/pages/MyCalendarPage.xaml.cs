@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using TUMCampusApp.classes.managers;
+using TUMCampusApp.classes.tum;
+using TUMCampusApp.controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -12,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 namespace TUMCampusApp.pages
 {
@@ -48,8 +54,67 @@ namespace TUMCampusApp.pages
         #endregion
 
         #region --Misc Methods (Private)--
+        private void addSeperator(DateTime date)
+        {
+            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            TextBlock tb = new TextBlock()
+            {
+                Text = date.Day + "." + date.Month + "." + date.Year,
+                Margin = new Thickness(10, 20, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = brush
+            };
 
+            Rectangle rect = new Rectangle()
+            {
+                Fill = brush,
+                Margin = new Thickness(0, 5, 0, 5),
+                Height = 2
+            };
 
+            calendarEntries_stckp.Children.Add(tb);
+            calendarEntries_stckp.Children.Add(rect);
+        }
+
+        private void addCalendarControl(TUMOnlineCalendarEntry entry)
+        {
+            CalendarControl cC = new CalendarControl(entry);
+            cC.Margin = new Thickness(10, 10, 10, 0);
+            calendarEntries_stckp.Children.Add(cC);
+        }
+
+        private void showCalendarEntriesTask()
+        {
+            List<TUMOnlineCalendarEntry> list = CalendarManager.INSTANCE.getEntries();
+            list.Sort();
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                showEntries(list);
+            }).AsTask().Wait();
+        }
+
+        private void showEntries(List<TUMOnlineCalendarEntry> list)
+        {
+            if(list == null || list.Count <= 0)
+            {
+                progressBar.Visibility = Visibility.Collapsed;
+                return;
+            }
+            calendarEntries_stckp.Children.Clear();
+            TUMOnlineCalendarEntry pre = null;
+            foreach (TUMOnlineCalendarEntry entry in list)
+            {
+                if(entry != null && entry.dTStrat.CompareTo(DateTime.Now) >= 0)
+                {
+                    if(pre == null || entry.dTStrat.Date.CompareTo(pre.dTStrat.Date) > 0)
+                    {
+                        pre = entry;
+                        addSeperator(pre.dTStrat);
+                    }
+                    addCalendarControl(entry);
+                }
+            }
+            progressBar.Visibility = Visibility.Collapsed;
+        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -58,8 +123,12 @@ namespace TUMCampusApp.pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            progressBar.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => showCalendarEntriesTask());
+        }
+        
         #endregion
     }
 }
