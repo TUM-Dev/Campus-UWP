@@ -261,54 +261,62 @@ namespace TUMCampusApp.classes.managers
                     switch (item.ToLower())
                     {
                         case "v":
-                            s += "\U0001F33D ";
+                            s += "\U0001F33D";
                             break;
                         case "s":
-                            s += "\U0001F416 ";
+                            s += "\U0001F416";
                             break;
                         case "f":
-                            s += "\U0001F955 ";
+                            s += "\U0001F955";
                             break;
                         case "r":
-                            s += "\U0001F404 ";
+                            s += "\U0001F404";
                             break;
                         case "99":
-                            s += "\U0001F377 ";
+                            s += "\U0001F377";
                             break;
                         case "gqb":
-                            s += "\u2122 ";
+                            s += "\u2122";
                             break;
                         case "ei":
-                            s += "🥚 ";
+                            s += "🥚";
                             break;
                         case "en":
-                            s += "🥜 ";
+                            s += "🥜";
                             break;
                         case "fi":
-                            s += "🐟 ";
+                            s += "🐟";
                             break;
                         case "kr":
-                            s += "🦀 ";
+                            s += "🦀";
                             break;
                         case "mi":
-                            s += "🥛 ";
+                            s += "🥛";
                             break;
                         case "wt":
-                            s += "🐙 ";
+                            s += "🐙";
                             break;
                         case "schh":
-                            s += "🌰 ";
+                            s += "🌰";
                             break;
                         case "13":
-                            s += "🍫 ";
+                            s += "🍫";
                             break;
                         default:
-                            s += item + ' ';
+                            s += item;
                             break;
                     }
+                    s += ", ";
                 }
             }
-            return s;
+            if(s.Length-1 > 0)
+            {
+                return s.Substring(0, s.Length - 2);
+            }
+            else
+            {
+                return s;
+            }
         }
 
         private static string replaceMatches(string s, MatchCollection col)
