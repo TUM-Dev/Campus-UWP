@@ -153,6 +153,32 @@ namespace TUMCampusApp.classes.managers
             return result;
         }
 
+        public static string getCleanMenuTitle(string s)
+        {
+            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
+            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
+            int index = int.MaxValue;
+            foreach (Match match in reg1.Matches(s))
+            {
+                if (match.Index < index)
+                {
+                    index = match.Index;
+                }
+            }
+            foreach (Match match in reg2.Matches(s))
+            {
+                if (match.Index < index)
+                {
+                    index = match.Index;
+                }
+            }
+            if(index < s.Length)
+            {
+                return s.Substring(0, index);
+            }
+            return s;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -163,10 +189,7 @@ namespace TUMCampusApp.classes.managers
 
         private Uri generateSearchString(string menu)
         {
-            if (menu.Contains('('))
-            {
-                menu = menu.Substring(0, menu.IndexOf('('));
-            }
+            menu = getCleanMenuTitle(menu);
             menu = menu.Replace(' ', '+');
 
             string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + menu + "&oq=" + menu;
@@ -213,48 +236,110 @@ namespace TUMCampusApp.classes.managers
 
         public static string replaceMenuStringWithImages(string s)
         {
-            for(int i = 0; i < 5; i++)
-            {
-                s = s.Replace("(v)", "\U0001F33D ");
-                s = s.Replace("( v,", "\U0001F33D ");
-                s = s.Replace(" v,", "\U0001F33D ");
-                s = s.Replace("v)", "\U0001F33D ");
+            List<string> res = new List<string>();
 
-                s = s.Replace("(S)", "\U0001F416 ");
-                s = s.Replace("(S,", "\U0001F416 ");
-                s = s.Replace(" S,", "\U0001F416 ");
-                s = s.Replace(" S)", "\U0001F416 ");
-
-                s = s.Replace("(f)", "\U0001F955 ");
-                s = s.Replace("(f,", "\U0001F955 ");
-                s = s.Replace(" f,", "\U0001F955 ");
-                s = s.Replace(" f)", "\U0001F955 ");
-
-                s = s.Replace("(R)", "\U0001F404 ");
-                s = s.Replace("(R,", "\U0001F404 ");
-                s = s.Replace(" R,", "\U0001F404 ");
-                s = s.Replace(" R)", "\U0001F404 ");
-
-                s = s.Replace("(99)", "\U0001F377 ");
-                s = s.Replace("(99,", "\U0001F377 ");
-                s = s.Replace(" 99,", "\U0001F377 ");
-                s = s.Replace(" 99)", "\U0001F377 ");
-
-                s = s.Replace("(GQB)", "\u2122 ");
-                s = s.Replace("(GQB,", "\u2122 ");
-                s = s.Replace(" GQB,", "\u2122 ");
-                s = s.Replace(" GQB)", "\u2122 ");
-            }
+            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
+            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
+            s = replaceMatches(s, reg1.Matches(s));
+            s = replaceMatches(s, reg2.Matches(s));
             return s;
         }
-
+        
         public async override Task InitManagerAsync()
         {
         }
         #endregion
 
         #region --Misc Methods (Private)--
+        private static string addImages(string[] ingredients)
+        {
+            string s = "";
+            if (ingredients != null && ingredients.Length > 0)
+            {
+                foreach (string item in ingredients)
+                {
+                    switch (item.ToLower())
+                    {
+                        case "v":
+                            s += "\U0001F33D ";
+                            break;
+                        case "s":
+                            s += "\U0001F416 ";
+                            break;
+                        case "f":
+                            s += "\U0001F955 ";
+                            break;
+                        case "r":
+                            s += "\U0001F404 ";
+                            break;
+                        case "99":
+                            s += "\U0001F377 ";
+                            break;
+                        case "gqb":
+                            s += "\u2122 ";
+                            break;
+                        case "ei":
+                            s += "🥚 ";
+                            break;
+                        case "en":
+                            s += "🥜 ";
+                            break;
+                        case "fi":
+                            s += "🐟 ";
+                            break;
+                        case "kr":
+                            s += "🦀 ";
+                            break;
+                        case "mi":
+                            s += "🥛 ";
+                            break;
+                        case "wt":
+                            s += "🐙 ";
+                            break;
+                        case "schh":
+                            s += "🌰 ";
+                            break;
+                        case "13":
+                            s += "🍫 ";
+                            break;
+                        default:
+                            s += item + ' ';
+                            break;
+                    }
+                }
+            }
+            return s;
+        }
 
+        private static string replaceMatches(string s, MatchCollection col)
+        {
+            string ingredient = "";
+            List<string> list = null;
+            foreach (Match match in col)
+            {
+                list = new List<string>();
+                foreach (char c in match.Value)
+                {
+                    if (c != ',' && c != '(' && c != ')' && c != '[' && c != ']')
+                    {
+                        ingredient += c;
+                    }
+                    else if (c != '(' && c != '[')
+                    {
+                        if (!ingredient.Equals(""))
+                        {
+                            list.Add(ingredient);
+                            ingredient = "";
+                        }
+                    }
+                }
+                if (list.Count > 0)
+                {
+                    s = s.Replace(match.Value, addImages(list.ToArray()));
+                }
+            }
+            return s;
+        }
 
         #endregion
 
