@@ -265,7 +265,7 @@ namespace TUMCampusApp.Pages
                 + "(So)\t dish with soy\n"
                 + "(Sw)\t dish with sulfur dioxide and sulfites\n"
                 + "(Wt)\t dish with mollusks\n";
-            MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s));
+            MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s, false));
             dialog.Title = "Ingredients:";
             await dialog.ShowAsync();
         } 

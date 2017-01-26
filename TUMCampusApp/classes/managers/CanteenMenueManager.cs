@@ -215,14 +215,14 @@ namespace TUMCampusApp.classes.managers
             }
         }
 
-        public string replaceMenuStringWithImages(string s)
+        public string replaceMenuStringWithImages(string s, bool withComma)
         {
             List<string> res = new List<string>();
 
             Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
             Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
-            s = replaceMatches(s, reg1.Matches(s));
-            s = replaceMatches(s, reg2.Matches(s));
+            s = replaceMatches(s, reg1.Matches(s), withComma);
+            s = replaceMatches(s, reg2.Matches(s), withComma);
             if(s.EndsWith(", "))
             {
                 s = s.Substring(0, s.Length - 2);
@@ -236,7 +236,7 @@ namespace TUMCampusApp.classes.managers
         #endregion
 
         #region --Misc Methods (Private)--
-        private string addImages(string[] ingredients)
+        private string addImages(string[] ingredients, bool withComma)
         {
             string s = "";
             if (ingredients != null && ingredients.Length > 0)
@@ -281,23 +281,36 @@ namespace TUMCampusApp.classes.managers
                         case "wt":
                             s += "🐙";
                             break;
-                        case "schh":
+                        case "sch":
                             s += "🌰";
                             break;
                         case "13":
                             s += "🍫";
                             break;
+                        case "k":
+                            s += "🐂";
+                            break;
+                        case "9":
+                            s += "🍬";
+                            break;
                         default:
                             s += item;
                             break;
                     }
-                    s += ", ";
+                    if(withComma)
+                    {
+                        s += ", ";
+                    }
+                    else
+                    {
+                        s += " ";
+                    }
                 }
             }
             return s;
         }
 
-        private string replaceMatches(string s, MatchCollection col)
+        private string replaceMatches(string s, MatchCollection col, bool withComma)
         {
             string ingredient = "";
             List<string> list = null;
@@ -321,7 +334,7 @@ namespace TUMCampusApp.classes.managers
                 }
                 if (list.Count > 0)
                 {
-                    s = s.Replace(match.Value, addImages(list.ToArray()));
+                    s = s.Replace(match.Value, addImages(list.ToArray(), withComma));
                 }
             }
             return s;

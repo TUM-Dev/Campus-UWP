@@ -66,7 +66,7 @@ namespace TUMCampusApp.controls
         #region --Misc Methods (Private)--
         private void showMenu()
         {
-            menuTitle_tbx.Text = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(menu.name);
+            menuTitle_tbx.Text = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(menu.name, true);
         }
 
         #endregion
