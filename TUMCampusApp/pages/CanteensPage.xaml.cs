@@ -42,8 +42,6 @@ namespace TUMCampusApp.Pages
         #region --Attributes--
         private Canteen currentCanteen;
         private int currentDayOffset;
-        private MenuFlyout flyout;
-        private string currentSelectedMenu;
         private bool messageBoxShown;
 
         #endregion
@@ -60,12 +58,6 @@ namespace TUMCampusApp.Pages
             this.InitializeComponent();
             this.currentDayOffset = 0;
             this.messageBoxShown = false;
-
-            this.flyout = new MenuFlyout();
-            MenuFlyoutItem fOutI = new MenuFlyoutItem();
-            fOutI.Text = "Google it!";
-            fOutI.Click += FOutI_ClickAsync;
-            this.flyout.Items.Add(fOutI);
         }
         
         #endregion
@@ -112,14 +104,7 @@ namespace TUMCampusApp.Pages
             //Menus:
             foreach (CanteenMenu m in list)
             {
-                tb = new TextBlock()
-                {
-                    Text = m.name,
-                    Margin = new Thickness(10, 10, 10, 10),
-                    TextWrapping = TextWrapping.WrapWholeWords
-                };
-                tb.RightTapped += Tb_RightTapped;
-                menus_sckl.Children.Add(tb);
+                menus_sckl.Children.Add(new CanteenMenuControl(m));
             }
         }
 
@@ -280,7 +265,7 @@ namespace TUMCampusApp.Pages
                 + "(So)\t dish with soy\n"
                 + "(Sw)\t dish with sulfur dioxide and sulfites\n"
                 + "(Wt)\t dish with mollusks\n";
-            MessageDialog dialog = new MessageDialog(CanteenMenueManager.replaceMenuStringWithImages(s));
+            MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s));
             dialog.Title = "Ingredients:";
             await dialog.ShowAsync();
         } 
@@ -400,21 +385,6 @@ namespace TUMCampusApp.Pages
                 currentDayOffset = 6;
             }
             Task.Factory.StartNew(() => showCurrentMenus());
-        }
-
-        private void Tb_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if (sender != null && sender is TextBlock)
-            {
-                TextBlock tb = sender as TextBlock;
-                currentSelectedMenu = tb.Text;
-                flyout.ShowAt(tb);
-            }
-        }
-
-        private async void FOutI_ClickAsync(object sender, RoutedEventArgs e)
-        {
-            await CanteenMenueManager.INSTANCE.googleMenuString(currentSelectedMenu);
         }
 
         private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs args)

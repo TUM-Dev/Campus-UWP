@@ -87,7 +87,7 @@ namespace TUMCampusApp.classes.managers
             List<CanteenMenu> menus = new List<CanteenMenu>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%'"))
             {
-                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date) >= -1)
+                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
                 {
                     time = m.date;
                 }
@@ -110,14 +110,12 @@ namespace TUMCampusApp.classes.managers
                 {
                     foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu"))
                     {
-                        m.name = replaceMenuStringWithImages(m.name);
                         menus.Add(m);
                     }
                     return menus;
                 }
                 foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", id))
                 {
-                    m.name = replaceMenuStringWithImages(m.name);
                     menus.Add(m);
                 }
             }
@@ -153,29 +151,12 @@ namespace TUMCampusApp.classes.managers
             return result;
         }
 
-        public static string getCleanMenuTitle(string s)
+        public string getCleanMenuTitle(string s)
         {
             Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
             Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
-            int index = int.MaxValue;
-            foreach (Match match in reg1.Matches(s))
-            {
-                if (match.Index < index)
-                {
-                    index = match.Index;
-                }
-            }
-            foreach (Match match in reg2.Matches(s))
-            {
-                if (match.Index < index)
-                {
-                    index = match.Index;
-                }
-            }
-            if(index < s.Length)
-            {
-                return s.Substring(0, index);
-            }
+            s = reg1.Replace(s, "");
+            s = reg2.Replace(s, "");
             return s;
         }
 
@@ -234,7 +215,7 @@ namespace TUMCampusApp.classes.managers
             }
         }
 
-        public static string replaceMenuStringWithImages(string s)
+        public string replaceMenuStringWithImages(string s)
         {
             List<string> res = new List<string>();
 
@@ -242,6 +223,10 @@ namespace TUMCampusApp.classes.managers
             Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
             s = replaceMatches(s, reg1.Matches(s));
             s = replaceMatches(s, reg2.Matches(s));
+            if(s.EndsWith(", "))
+            {
+                s = s.Substring(0, s.Length - 2);
+            }
             return s;
         }
         
@@ -251,7 +236,7 @@ namespace TUMCampusApp.classes.managers
         #endregion
 
         #region --Misc Methods (Private)--
-        private static string addImages(string[] ingredients)
+        private string addImages(string[] ingredients)
         {
             string s = "";
             if (ingredients != null && ingredients.Length > 0)
@@ -309,17 +294,10 @@ namespace TUMCampusApp.classes.managers
                     s += ", ";
                 }
             }
-            if(s.Length-1 > 0)
-            {
-                return s.Substring(0, s.Length - 2);
-            }
-            else
-            {
-                return s;
-            }
+            return s;
         }
 
-        private static string replaceMatches(string s, MatchCollection col)
+        private string replaceMatches(string s, MatchCollection col)
         {
             string ingredient = "";
             List<string> list = null;

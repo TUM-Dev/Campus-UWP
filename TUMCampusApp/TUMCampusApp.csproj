@@ -138,6 +138,9 @@
     <Compile Include="controls\CanteenControl.xaml.cs">
       <DependentUpon>CanteenControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="controls\CanteenMenuControl.xaml.cs">
+      <DependentUpon>CanteenMenuControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="controls\CanteenControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="controls\CanteenMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
