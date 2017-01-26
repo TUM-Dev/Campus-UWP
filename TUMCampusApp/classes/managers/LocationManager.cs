@@ -37,7 +37,7 @@ namespace TUMCampusApp.classes.managers
             "L", // LeopoldstraÃŸe
             "S" // Geschwister Schollplatz/AdalbertstraÃŸe
     };
-    private static readonly String[] DEFAULT_CAMPUS_STATION = {
+        private static readonly String[] DEFAULT_CAMPUS_STATION = {
             "Garching-Forschungszentrum",
             "Garching-HochbrÃ¼ck",
             "Weihenstephan",
@@ -48,7 +48,7 @@ namespace TUMCampusApp.classes.managers
             "UniversitÃ¤t"
     };
 
-    private static readonly String[] DEFAULT_CAMPUS_CAFETERIA = {"422", null, "423", "421", "414", null, "411", null};
+        private static readonly String[] DEFAULT_CAMPUS_CAFETERIA = { "422", null, "423", "421", "414", null, "411", null };
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\

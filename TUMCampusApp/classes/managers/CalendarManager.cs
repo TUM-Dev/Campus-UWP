@@ -62,6 +62,7 @@ namespace TUMCampusApp.classes.managers
 
         public List<TUMOnlineCalendarEntry> getEntries()
         {
+            waitWhileLocked();
             return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
         }
 
@@ -76,7 +77,12 @@ namespace TUMCampusApp.classes.managers
         
         public void syncCalendar()
         {
-            Task.Factory.StartNew(() => syncCalendarTaskAsync());
+            Task t = null;
+            t = Task.Factory.StartNew(async () => {
+                lockClass(t);
+                await syncCalendarTaskAsync();
+                releaseClass();
+            });
         }
 
         public async Task deleteCalendarAsync()

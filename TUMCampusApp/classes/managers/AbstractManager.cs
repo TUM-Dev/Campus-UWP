@@ -22,6 +22,9 @@ namespace TUMCampusApp.classes.managers
         #region --Attributes--
         public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
         protected static SQLiteConnection dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
+        protected Object thisLock = new Object();
+        protected bool isLocked = false;
+        protected Task workingTask = null;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -34,7 +37,6 @@ namespace TUMCampusApp.classes.managers
         /// </history>
         public AbstractManager()
         {
-            //createDB();
         }
 
         #endregion
@@ -45,12 +47,6 @@ namespace TUMCampusApp.classes.managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void createDB()
-        {
-            dB.CreateTable<Canteen>();
-            dB.CreateTable<CanteenMenu>();
-        }
-
         public static void resetDB()
         {
             dB.DropTable<Cache>();
@@ -60,6 +56,8 @@ namespace TUMCampusApp.classes.managers
             dB.DropTable<UserData>();
             dB.DropTable<TUMOnlineLecture>();
             dB.DropTable<TUMTuitionFee>();
+            dB.DropTable<TUMOnlineLecture>();
+            dB.DropTable<TUMOnlineCalendarEntry>();
         }
 
         public static void deleteDB()
@@ -118,6 +116,41 @@ namespace TUMCampusApp.classes.managers
         protected void saveDB()
         {
             dB.SaveTransactionPoint();
+        }
+
+        protected void lockClass()
+        {
+
+        }
+
+        protected void lockClass(Task t)
+        {
+            while (isLocked)
+            {
+                Task.WaitAll(workingTask);
+            }
+            lock (thisLock)
+            {
+                isLocked = true;
+                workingTask = t;
+            }
+        }
+
+        protected void waitWhileLocked()
+        {
+            while (isLocked)
+            {
+                Task.WaitAll(workingTask);
+            }
+        }
+
+        protected void releaseClass()
+        {
+            lock (thisLock)
+            {
+                isLocked = false;
+                workingTask = null;
+            }
         }
 
         #endregion

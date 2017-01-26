@@ -33,6 +33,7 @@ namespace TUMCampusApp.classes.managers
         #region --Set-, Get- Methods--
         public Geopoint getLastKnownDevicePosition()
         {
+            waitWhileLocked();
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if(list == null || list.Count <= 0)
             {
@@ -80,15 +81,16 @@ namespace TUMCampusApp.classes.managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            await initLoaction();
+            Task t = null;
+            t = Task.Factory.StartNew(async () => {
+                lockClass(t);
+                await LocationManager.INSTANCE.getCurrentLocationAsync();
+                releaseClass();
+            });
         }
         #endregion
 
         #region --Misc Methods (Private)--
-        private async Task initLoaction()
-        {
-            await LocationManager.INSTANCE.getCurrentLocationAsync();
-        }
 
         #endregion
 

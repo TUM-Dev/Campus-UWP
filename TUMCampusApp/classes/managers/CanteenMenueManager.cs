@@ -34,7 +34,7 @@ namespace TUMCampusApp.classes.managers
         /// </history>
         public CanteenMenueManager()
         {
-            dB.CreateTable<CanteenMenu>();
+            
         }
 
         #endregion
@@ -232,6 +232,7 @@ namespace TUMCampusApp.classes.managers
         
         public async override Task InitManagerAsync()
         {
+            dB.CreateTable<CanteenMenu>();
         }
         #endregion
 
