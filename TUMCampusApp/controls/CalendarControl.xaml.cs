@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.classes.tum;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -36,6 +37,17 @@ namespace TUMCampusApp.controls
             this.entry = entry;
             this.InitializeComponent();
             showCalendar();
+            if(entry.dTStrat.CompareTo(DateTime.Now) >= 0)
+            {
+                if(entry.dTEnd.CompareTo(DateTime.Now) < 0)
+                {
+                    calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                }
+            }
+            else
+            {
+                calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkGray);
+            }
         }
 
         #endregion

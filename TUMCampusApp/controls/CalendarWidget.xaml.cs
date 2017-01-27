@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 namespace TUMCampusApp.controls
 {
@@ -52,6 +53,28 @@ namespace TUMCampusApp.controls
         #endregion
 
         #region --Misc Methods (Private)--
+        private void addSeperator(DateTime date)
+        {
+            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            TextBlock tb = new TextBlock()
+            {
+                Text = date.Day + "." + date.Month + "." + date.Year,
+                Margin = new Thickness(10, 0, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = brush
+            };
+
+            Rectangle rect = new Rectangle()
+            {
+                Fill = brush,
+                Margin = new Thickness(0, 5, 0, 5),
+                Height = 2
+            };
+
+            calendarEntries_sckl.Children.Add(tb);
+            calendarEntries_sckl.Children.Add(rect);
+        }
+
         private void ShowCalendarEntry()
         {
             CalendarManager.INSTANCE.syncCalendar();
@@ -64,13 +87,18 @@ namespace TUMCampusApp.controls
 
         private void showCalendarEntry(TUMOnlineCalendarEntry entry)
         {
+            if(entry == null)
+            {
+                return;
+            }
+            addSeperator(entry.dTStrat);
             if (entry == null)
             {
                 this.Visibility = Visibility.Collapsed;
             }
             else
             {
-                calendarEntrys_sckl.Children.Add(new CalendarControl(entry));
+                calendarEntries_sckl.Children.Add(new CalendarControl(entry));
             }
             progressRing.Visibility = Visibility.Collapsed;
         }

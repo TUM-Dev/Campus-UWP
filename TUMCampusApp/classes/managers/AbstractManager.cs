@@ -22,7 +22,7 @@ namespace TUMCampusApp.classes.managers
         #region --Attributes--
         public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
         protected static SQLiteConnection dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
-        protected Object thisLock = new Object();
+        protected readonly Object thisLock = new Object();
         protected bool isLocked = false;
         protected Task workingTask = null;
 
@@ -125,10 +125,7 @@ namespace TUMCampusApp.classes.managers
 
         protected void lockClass(Task t)
         {
-            while (isLocked)
-            {
-                Task.WaitAll(workingTask);
-            }
+            waitWhileLocked();
             lock (thisLock)
             {
                 isLocked = true;
@@ -140,7 +137,14 @@ namespace TUMCampusApp.classes.managers
         {
             while (isLocked)
             {
-                Task.WaitAll(workingTask);
+                try
+                {
+                    Task.WaitAll(workingTask);
+                }
+                catch
+                {
+
+                }
             }
         }
 

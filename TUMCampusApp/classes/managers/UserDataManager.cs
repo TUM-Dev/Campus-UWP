@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TUMCampusApp.classes.userData;
 using Windows.Devices.Geolocation;
@@ -82,10 +83,9 @@ namespace TUMCampusApp.classes.managers
         public async override Task InitManagerAsync()
         {
             Task t = null;
-            t = Task.Factory.StartNew(async () => {
-                lockClass(t);
-                await LocationManager.INSTANCE.getCurrentLocationAsync();
-                releaseClass();
+            t = Task.Factory.StartNew(() =>
+            {
+                LocationManager.INSTANCE.getCurrentLocationAsync().Wait();
             });
         }
         #endregion

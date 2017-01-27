@@ -103,7 +103,7 @@ namespace TUMCampusApp.pages
             TUMOnlineCalendarEntry pre = null;
             foreach (TUMOnlineCalendarEntry entry in list)
             {
-                if(entry != null && entry.dTStrat.CompareTo(DateTime.Now) >= 0)
+                if(entry != null && entry.dTStrat.Date.CompareTo(DateTime.Now.Date) >= 0)
                 {
                     if(pre == null || entry.dTStrat.Date.CompareTo(pre.dTStrat.Date) > 0)
                     {
