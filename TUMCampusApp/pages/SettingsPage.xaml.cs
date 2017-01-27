@@ -70,6 +70,15 @@ namespace TUMCampusApp.pages
             initTUMonlineControls();
             initWidgetControls();
             initServices();
+            initAboutAndLinks();
+        }
+
+        private void initAboutAndLinks()
+        {
+            if (!Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.IsSupported())
+            {
+                feedback_stckp.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void initWidgetControls()
@@ -248,7 +257,8 @@ namespace TUMCampusApp.pages
 
         private async void feedback_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
-           
+            var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
+            await launcher.LaunchAsync();
         }
 
         private async void contributeGithub_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
