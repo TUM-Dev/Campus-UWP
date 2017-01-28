@@ -65,7 +65,7 @@ namespace TUMCampusApp.classes.tum
             {
                 return null;
             }
-            result = await NetUtils.downloadStringAsync(buildUrl());
+            result = await NetUtils.downloadStringAsync(url);
             if (validity > 0)
             {
                 if (result != null)
