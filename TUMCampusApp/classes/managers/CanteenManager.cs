@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
-using TUMCampusApp.classes;
+using TUMCampusApp.Classes;
 using System.Diagnostics;
-using TUMCampusApp.classes.canteen;
-using TUMCampusApp.classes.sync;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Canteens;
+using TUMCampusApp.Classes.Syncs;
+using TUMCampusApp.Classes.UserDatas;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class CanteenManager : AbstractManager
     {

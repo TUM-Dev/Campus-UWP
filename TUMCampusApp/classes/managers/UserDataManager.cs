@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Devices.Geolocation;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class UserDataManager : AbstractManager
     {

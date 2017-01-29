@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.canteen;
-using TUMCampusApp.classes.managers;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Canteens;
+using TUMCampusApp.Classes.Managers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.controls
+namespace TUMCampusApp.Controls
 {
     public sealed partial class CanteenMenuControl : UserControl
     {

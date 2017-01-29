@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.canteen;
-using TUMCampusApp.classes.sync;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Canteens;
+using TUMCampusApp.Classes.Syncs;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Devices.Geolocation;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class LocationManager : AbstractManager
     {

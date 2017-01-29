@@ -5,14 +5,14 @@ using System.Linq;
 using Windows.Web.Http;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes;
+using TUMCampusApp.Classes;
 using Windows.Data.Json;
-using TUMCampusApp.classes.canteen;
-using TUMCampusApp.classes.sync;
+using TUMCampusApp.Classes.Canteens;
+using TUMCampusApp.Classes.Syncs;
 using System.Text.RegularExpressions;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.UserDatas;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class CanteenMenueManager : AbstractManager
     {

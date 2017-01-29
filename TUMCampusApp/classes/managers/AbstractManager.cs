@@ -7,14 +7,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.cache;
-using TUMCampusApp.classes.canteen;
-using TUMCampusApp.classes.sync;
-using TUMCampusApp.classes.tum;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Caches;
+using TUMCampusApp.Classes.Canteens;
+using TUMCampusApp.Classes.Syncs;
+using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Storage;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     abstract class AbstractManager
     {

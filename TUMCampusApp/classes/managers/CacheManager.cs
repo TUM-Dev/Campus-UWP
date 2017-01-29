@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.cache;
+using TUMCampusApp.Classes.Caches;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class CacheManager : AbstractManager
     {

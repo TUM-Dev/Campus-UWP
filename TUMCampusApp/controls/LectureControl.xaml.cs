@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.tum;
-using TUMCampusApp.classes.userData;
-using TUMCampusApp.pages;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.UserDatas;
+using TUMCampusApp.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.controls
+namespace TUMCampusApp.Controls
 {
     public sealed partial class LectureControl : UserControl
     {

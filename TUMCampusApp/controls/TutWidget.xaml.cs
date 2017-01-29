@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.controls
+namespace TUMCampusApp.Controls
 {
     public sealed partial class TutWidget : UserControl
     {
@@ -61,7 +61,7 @@ namespace TUMCampusApp.controls
         #region --Events--
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            DeviceInfo.INSTANCE.mainPage.navigateToPage(classes.Utillities.EnumPage.SettingsPage);
+            DeviceInfo.INSTANCE.mainPage.navigateToPage(Classes.Utillities.EnumPage.SettingsPage);
         }
 
         #endregion

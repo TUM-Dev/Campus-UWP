@@ -4,30 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Managers;
 
-namespace TUMCampusApp.classes.cache
+namespace TUMCampusApp.Classes.Syncs
 {
-    class Cache
-    {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
+    class Sync
+    {
+        //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Unique]
-        public string url { get; set; }
-        public byte[] data { get; set; }
-        public string validity { get; set; }
-        public string max_age { get; set; }
-        public int type { get; set; }
+        [PrimaryKey]
+        public String id { get; set; }
+        public long lastSync { get; set; }
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
-        /// Basic Constructor
+        /// Basic empty Constructor
         /// </summary>
         /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
+        /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public Cache()
+        public Sync()
         {
 
         }
@@ -36,16 +34,24 @@ namespace TUMCampusApp.classes.cache
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 14/01/2017  Created [Fabian Sauter]
+        /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public Cache(string url, byte[] data, string validity, int max_age, int type)
+        public Sync(Object obj)
         {
-            this.url = url;
-            this.data = data;
-            this.validity = validity;
-            DateTime date = DateTime.Now.AddSeconds(max_age);
-            this.max_age = date.Year.ToString() + '-' + date.Month.ToString() + '-' + date.Day.ToString() + ' ' + date.Hour.ToString() + ':' + date.Minute.ToString() + ':' + date.Second.ToString();
-            this.type = type;
+            this.id = obj.GetType().Name;
+            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
+        }
+
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 01/01/2017  Created [Fabian Sauter]
+        /// </history>
+        public Sync(string id)
+        {
+            this.id = id;
+            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
         }
 
         #endregion

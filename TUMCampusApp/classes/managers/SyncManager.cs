@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.sync;
+using TUMCampusApp.Classes.Syncs;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class SyncManager : AbstractManager
     {

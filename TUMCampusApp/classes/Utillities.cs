@@ -9,7 +9,7 @@ using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
 
-namespace TUMCampusApp.classes
+namespace TUMCampusApp.Classes
 {
     public class Utillities
     {

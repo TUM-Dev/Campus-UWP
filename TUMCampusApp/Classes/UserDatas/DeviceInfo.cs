@@ -8,7 +8,7 @@ using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
 
-namespace TUMCampusApp.classes.userData
+namespace TUMCampusApp.Classes.UserDatas
 {
     class DeviceInfo
     {

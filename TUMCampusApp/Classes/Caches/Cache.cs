@@ -4,21 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.managers;
-using Windows.Devices.Geolocation;
+using TUMCampusApp.Classes.UserDatas;
 
-namespace TUMCampusApp.classes.userData
+namespace TUMCampusApp.Classes.Caches
 {
-    class UserData
-    {
-        //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
+    class Cache
+    {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [PrimaryKey]
-        public string id { get; set; }
-        public double lat { get; set; }
-        public double lng { get; set; }
-        public long unixTimeSeconds { get; set; }
-        public int lastSelectedCanteenId { get; set; }
+        [Unique]
+        public string url { get; set; }
+        public byte[] data { get; set; }
+        public string validity { get; set; }
+        public string max_age { get; set; }
+        public int type { get; set; }
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -27,25 +25,27 @@ namespace TUMCampusApp.classes.userData
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 15/12/2016  Created [Fabian Sauter]
+        /// 10/12/2016  Created [Fabian Sauter]
         /// </history>
-        public UserData(Geopoint lastKnownDevicePosition)
+        public Cache()
         {
-            this.lat = lastKnownDevicePosition.Position.Latitude;
-            this.lng = lastKnownDevicePosition.Position.Longitude;
-            this.id = DeviceInfo.INSTANCE.Id;
-            this.unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
+
         }
 
         /// <summary>
-        /// Basic empty Constructor
+        /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 15/12/2016  Created [Fabian Sauter]
+        /// 14/01/2017  Created [Fabian Sauter]
         /// </history>
-        public UserData()
+        public Cache(string url, byte[] data, string validity, int max_age, int type)
         {
-            this.id = DeviceInfo.INSTANCE.Id;
+            this.url = url;
+            this.data = data;
+            this.validity = validity;
+            DateTime date = DateTime.Now.AddSeconds(max_age);
+            this.max_age = date.Year.ToString() + '-' + date.Month.ToString() + '-' + date.Day.ToString() + ' ' + date.Hour.ToString() + ':' + date.Minute.ToString() + ':' + date.Second.ToString();
+            this.type = type;
         }
 
         #endregion

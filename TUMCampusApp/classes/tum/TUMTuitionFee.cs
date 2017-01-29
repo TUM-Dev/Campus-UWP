@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusApp.classes.tum
+namespace TUMCampusApp.Classes.Tum
 {
     class TUMTuitionFee
     {

@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.tum;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.Tum;
 using TUMCampusApp.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages.setup
+namespace TUMCampusApp.Pages.Setup
 {
     public sealed partial class SetupPageStep1 : Page
     {

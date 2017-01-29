@@ -8,7 +8,7 @@ using Windows.Data.Json;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
-namespace TUMCampusApp.classes
+namespace TUMCampusApp.Classes
 {
     class NetUtils
     {

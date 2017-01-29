@@ -4,54 +4,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.managers;
+using TUMCampusApp.Classes.Managers;
+using Windows.Devices.Geolocation;
 
-namespace TUMCampusApp.classes.sync
+namespace TUMCampusApp.Classes.UserDatas
 {
-    class Sync
+    class UserData
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         [PrimaryKey]
-        public String id { get; set; }
-        public long lastSync { get; set; }
+        public string id { get; set; }
+        public double lat { get; set; }
+        public double lng { get; set; }
+        public long unixTimeSeconds { get; set; }
+        public int lastSelectedCanteenId { get; set; }
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 15/12/2016  Created [Fabian Sauter]
+        /// </history>
+        public UserData(Geopoint lastKnownDevicePosition)
+        {
+            this.lat = lastKnownDevicePosition.Position.Latitude;
+            this.lng = lastKnownDevicePosition.Position.Longitude;
+            this.id = DeviceInfo.INSTANCE.Id;
+            this.unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
+        }
+
+        /// <summary>
         /// Basic empty Constructor
         /// </summary>
         /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
+        /// 15/12/2016  Created [Fabian Sauter]
         /// </history>
-        public Sync()
+        public UserData()
         {
-
-        }
-
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public Sync(Object obj)
-        {
-            this.id = obj.GetType().Name;
-            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
-        }
-
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 01/01/2017  Created [Fabian Sauter]
-        /// </history>
-        public Sync(string id)
-        {
-            this.id = id;
-            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
+            this.id = DeviceInfo.INSTANCE.Id;
         }
 
         #endregion

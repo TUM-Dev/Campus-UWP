@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.tum;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class TuitionFeeManager : AbstractManager
     {
@@ -72,7 +72,7 @@ namespace TUMCampusApp.classes.managers
                 {
                     dB.Insert(new TUMTuitionFee(element));
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new sync.Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
             }
             return;
         }

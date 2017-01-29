@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.tum;
-using TUMCampusApp.controls;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.Pages
 {
     public sealed partial class MyCalendarPage : Page
     {

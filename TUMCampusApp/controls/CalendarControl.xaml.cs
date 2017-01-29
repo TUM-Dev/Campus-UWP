@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes.tum;
+using TUMCampusApp.Classes.Tum;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.controls
+namespace TUMCampusApp.Controls
 {
     public sealed partial class CalendarControl : UserControl
     {

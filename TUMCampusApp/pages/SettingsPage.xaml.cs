@@ -5,9 +5,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.pages.setup;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Pages.Setup;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.Pages
 {
     public sealed partial class SettingsPage : Page
     {

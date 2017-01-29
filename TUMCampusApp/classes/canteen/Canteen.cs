@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TUMCampusApp.classes.canteen
+namespace TUMCampusApp.Classes.Canteens
 {
     public class Canteen : IComparable
     {

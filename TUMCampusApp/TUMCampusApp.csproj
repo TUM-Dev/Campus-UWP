@@ -98,95 +98,95 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\cache\Cache.cs" />
-    <Compile Include="classes\canteen\Canteen.cs" />
-    <Compile Include="classes\canteen\CanteenMenu.cs" />
-    <Compile Include="classes\Const.cs" />
-    <Compile Include="classes\CustomAccelerometer.cs" />
-    <Compile Include="classes\canteen\Location.cs" />
-    <Compile Include="classes\helpers\TileHelper.cs" />
-    <Compile Include="classes\Logger.cs" />
-    <Compile Include="classes\managers\CacheManager.cs" />
-    <Compile Include="classes\managers\CanteenManager.cs" />
-    <Compile Include="classes\managers\CanteenMenueManager.cs" />
-    <Compile Include="classes\managers\AbstractManager.cs" />
-    <Compile Include="classes\managers\LocationManager.cs" />
-    <Compile Include="classes\managers\LecturesManager.cs" />
-    <Compile Include="classes\managers\SyncManager.cs" />
-    <Compile Include="classes\managers\TuitionFeeManager.cs" />
-    <Compile Include="classes\managers\CalendarManager.cs" />
-    <Compile Include="classes\managers\TumManager.cs" />
-    <Compile Include="classes\managers\UserDataManager.cs" />
-    <Compile Include="classes\NetUtils.cs" />
-    <Compile Include="classes\sync\Sync.cs" />
-    <Compile Include="classes\tum\TUMOnlineCalendarEntry.cs" />
-    <Compile Include="classes\tum\TUMOnlineConst.cs" />
-    <Compile Include="classes\tum\TUMOnlineLecture.cs" />
-    <Compile Include="classes\tum\TUMOnlineLectureInformation.cs" />
-    <Compile Include="classes\tum\TUMOnlineRequest.cs" />
-    <Compile Include="classes\tum\TUMTuitionFee.cs" />
-    <Compile Include="classes\tum\TUMUser.cs" />
-    <Compile Include="classes\userData\DeviceInfo.cs" />
-    <Compile Include="classes\userData\UserData.cs" />
-    <Compile Include="classes\Utillities.cs" />
-    <Compile Include="controls\CalendarControl.xaml.cs">
+    <Compile Include="Classes\Caches\Cache.cs" />
+    <Compile Include="Classes\Canteen\Canteen.cs" />
+    <Compile Include="Classes\Canteen\CanteenMenu.cs" />
+    <Compile Include="Classes\Const.cs" />
+    <Compile Include="Classes\CustomAccelerometer.cs" />
+    <Compile Include="Classes\Canteen\Location.cs" />
+    <Compile Include="Classes\Helpers\TileHelper.cs" />
+    <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\Managers\CacheManager.cs" />
+    <Compile Include="Classes\Managers\CanteenManager.cs" />
+    <Compile Include="Classes\Managers\CanteenMenueManager.cs" />
+    <Compile Include="Classes\Managers\AbstractManager.cs" />
+    <Compile Include="Classes\Managers\LocationManager.cs" />
+    <Compile Include="Classes\Managers\LecturesManager.cs" />
+    <Compile Include="Classes\Managers\SyncManager.cs" />
+    <Compile Include="Classes\Managers\TuitionFeeManager.cs" />
+    <Compile Include="Classes\Managers\CalendarManager.cs" />
+    <Compile Include="Classes\Managers\TumManager.cs" />
+    <Compile Include="Classes\Managers\UserDataManager.cs" />
+    <Compile Include="Classes\NetUtils.cs" />
+    <Compile Include="Classes\Syncs\Sync.cs" />
+    <Compile Include="Classes\Tum\TUMOnlineCalendarEntry.cs" />
+    <Compile Include="Classes\Tum\TUMOnlineConst.cs" />
+    <Compile Include="Classes\Tum\TUMOnlineLecture.cs" />
+    <Compile Include="Classes\Tum\TUMOnlineLectureInformation.cs" />
+    <Compile Include="Classes\Tum\TUMOnlineRequest.cs" />
+    <Compile Include="Classes\Tum\TUMTuitionFee.cs" />
+    <Compile Include="Classes\Tum\TUMUser.cs" />
+    <Compile Include="Classes\UserDatas\DeviceInfo.cs" />
+    <Compile Include="Classes\UserDatas\UserData.cs" />
+    <Compile Include="Classes\Utillities.cs" />
+    <Compile Include="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\CalendarWidget.xaml.cs">
+    <Compile Include="Controls\CalendarWidget.xaml.cs">
       <DependentUpon>CalendarWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\CanteenControl.xaml.cs">
+    <Compile Include="Controls\CanteenControl.xaml.cs">
       <DependentUpon>CanteenControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\CanteenMenuControl.xaml.cs">
+    <Compile Include="Controls\CanteenMenuControl.xaml.cs">
       <DependentUpon>CanteenMenuControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\CanteenWidget.xaml.cs">
+    <Compile Include="Controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\LectureControl.xaml.cs">
+    <Compile Include="Controls\LectureControl.xaml.cs">
       <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\TuitionFeeWidget.xaml.cs">
+    <Compile Include="Controls\TuitionFeeWidget.xaml.cs">
       <DependentUpon>TuitionFeeWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="controls\TutWidget.xaml.cs">
+    <Compile Include="Controls\TutWidget.xaml.cs">
       <DependentUpon>TutWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\CanteensPage.xaml.cs">
+    <Compile Include="Pages\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\HomePage.xaml.cs">
+    <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\LectureInformationPage.xaml.cs">
+    <Compile Include="Pages\LectureInformationPage.xaml.cs">
       <DependentUpon>LectureInformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\MyCalendarPage.xaml.cs">
+    <Compile Include="Pages\MyCalendarPage.xaml.cs">
       <DependentUpon>MyCalendarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\MyGradesPage.xaml.cs">
+    <Compile Include="Pages\MyGradesPage.xaml.cs">
       <DependentUpon>MyGradesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\LecturesPage.xaml.cs">
+    <Compile Include="Pages\LecturesPage.xaml.cs">
       <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\SettingsPage.xaml.cs">
+    <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\setup\SetupPageStep2.xaml.cs">
+    <Compile Include="Pages\Setup\SetupPageStep2.xaml.cs">
       <DependentUpon>SetupPageStep2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\setup\SetupPageStep1.xaml.cs">
+    <Compile Include="Pages\Setup\SetupPageStep1.xaml.cs">
       <DependentUpon>SetupPageStep1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\SplashScreenPage.xaml.cs">
+    <Compile Include="Pages\SplashScreenPage.xaml.cs">
       <DependentUpon>SplashScreenPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pages\TuitionFeesPage.xaml.cs">
+    <Compile Include="Pages\TuitionFeesPage.xaml.cs">
       <DependentUpon>TuitionFeesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,7 +205,7 @@
     <Content Include="Assets\Images\TUMonlineSetup2.png" />
     <Content Include="Assets\Images\TUMonlineSetup3.png" />
     <Content Include="Assets\Images\wear_tuition_fee.png" />
-    <Content Include="classes\tiles\CanteenTile.xml" />
+    <Content Include="Classes\Tiles\CanteenTile.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -220,83 +220,83 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="controls\CalendarControl.xaml">
+    <Page Include="Controls\CalendarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\CalendarWidget.xaml">
+    <Page Include="Controls\CalendarWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\CanteenControl.xaml">
+    <Page Include="Controls\CanteenControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\CanteenMenuControl.xaml">
+    <Page Include="Controls\CanteenMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\CanteenWidget.xaml">
+    <Page Include="Controls\CanteenWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\LectureControl.xaml">
+    <Page Include="Controls\LectureControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\TuitionFeeWidget.xaml">
+    <Page Include="Controls\TuitionFeeWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\TutWidget.xaml">
+    <Page Include="Controls\TutWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\CanteensPage.xaml">
+    <Page Include="Pages\CanteensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\HomePage.xaml">
+    <Page Include="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\LectureInformationPage.xaml">
+    <Page Include="Pages\LectureInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\MyCalendarPage.xaml">
+    <Page Include="Pages\MyCalendarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\MyGradesPage.xaml">
+    <Page Include="Pages\MyGradesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\LecturesPage.xaml">
+    <Page Include="Pages\LecturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\SettingsPage.xaml">
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\setup\SetupPageStep2.xaml">
+    <Page Include="Pages\Setup\SetupPageStep2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="pages\setup\SetupPageStep1.xaml">
+    <Page Include="Pages\Setup\SetupPageStep1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\SplashScreenPage.xaml">
+    <Page Include="Pages\SplashScreenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pages\TuitionFeesPage.xaml">
+    <Page Include="Pages\TuitionFeesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

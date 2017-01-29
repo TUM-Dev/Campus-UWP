@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.userData;
-using TUMCampusApp.pages;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.UserDatas;
+using TUMCampusApp.Pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static TUMCampusApp.classes.Utillities;
+using static TUMCampusApp.Classes.Utillities;
 
 namespace TUMCampusApp.Pages
 {

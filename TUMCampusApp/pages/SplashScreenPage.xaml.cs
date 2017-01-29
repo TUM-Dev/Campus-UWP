@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.userData;
-using TUMCampusApp.pages.setup;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.UserDatas;
+using TUMCampusApp.Pages.Setup;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static TUMCampusApp.classes.Utillities;
+using static TUMCampusApp.Classes.Utillities;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.Pages
 {
     public sealed partial class SplashScreenPage : Page
     {

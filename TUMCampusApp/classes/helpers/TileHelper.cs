@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
-namespace TUMCampusApp.classes.helpers
+namespace TUMCampusApp.Classes.Helpers
 {
     class TileHelper
     {

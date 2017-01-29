@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.cache;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.userData;
+using TUMCampusApp.Classes.Caches;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.UserDatas;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusApp.classes.tum
+namespace TUMCampusApp.Classes.Tum
 {
     class TUMOnlineRequest
     {

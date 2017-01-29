@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.managers;
+using TUMCampusApp.Classes.Managers;
 
-namespace TUMCampusApp.classes.tum
+namespace TUMCampusApp.Classes.Tum
 {
     class TUMOnlineConst
     {

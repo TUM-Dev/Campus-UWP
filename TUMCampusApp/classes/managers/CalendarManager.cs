@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusApp.classes.sync;
-using TUMCampusApp.classes.tum;
+using TUMCampusApp.Classes.Syncs;
+using TUMCampusApp.Classes.Tum;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusApp.classes.managers
+namespace TUMCampusApp.Classes.Managers
 {
     class CalendarManager : AbstractManager
     {

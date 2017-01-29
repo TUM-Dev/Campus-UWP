@@ -7,10 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.classes;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.tum;
-using TUMCampusApp.controls;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.pages
+namespace TUMCampusApp.Pages
 {
     public sealed partial class HomePage : Page
     {

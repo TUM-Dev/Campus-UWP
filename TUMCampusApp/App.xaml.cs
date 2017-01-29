@@ -1,7 +1,7 @@
 ﻿using System;
-using TUMCampusApp.classes.managers;
-using TUMCampusApp.classes.userData;
-using TUMCampusApp.pages;
+using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.UserDatas;
+using TUMCampusApp.Pages;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

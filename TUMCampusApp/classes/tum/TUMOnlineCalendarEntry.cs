@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusApp.classes.tum
+namespace TUMCampusApp.Classes.Tum
 {
     public class TUMOnlineCalendarEntry : IComparable
     {
