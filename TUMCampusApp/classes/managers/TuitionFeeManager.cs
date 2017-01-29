@@ -62,10 +62,6 @@ namespace TUMCampusApp.Classes.Managers
             if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY)) && DeviceInfo.isConnectedToInternet())
             {
                 XmlDocument doc = await getFeeStatusAsync();
-                if (doc == null || doc.SelectSingleNode("/error") != null)
-                {
-                    return;
-                }
                 dB.DropTable<TUMTuitionFee>();
                 dB.CreateTable<TUMTuitionFee>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))

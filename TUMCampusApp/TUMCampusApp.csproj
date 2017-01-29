@@ -119,6 +119,9 @@
     <Compile Include="Classes\Managers\UserDataManager.cs" />
     <Compile Include="Classes\NetUtils.cs" />
     <Compile Include="Classes\Syncs\Sync.cs" />
+    <Compile Include="Classes\Tum\Exceptions\BaseTUMOnlineException.cs" />
+    <Compile Include="Classes\Tum\Exceptions\InvalidTokenTUMOnlineException.cs" />
+    <Compile Include="Classes\Tum\Exceptions\NoAccessTUMOnlineException.cs" />
     <Compile Include="Classes\Tum\TUMOnlineCalendarEntry.cs" />
     <Compile Include="Classes\Tum\TUMOnlineConst.cs" />
     <Compile Include="Classes\Tum\TUMOnlineLecture.cs" />

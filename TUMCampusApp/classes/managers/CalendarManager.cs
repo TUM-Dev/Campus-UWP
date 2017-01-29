@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Syncs;
 using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
@@ -79,9 +80,9 @@ namespace TUMCampusApp.Classes.Managers
         {
             Task t = null;
             t = Task.Factory.StartNew(async () => {
-                lockClass(t);
+                //lockClass(t);
                 await syncCalendarTaskAsync();
-                releaseClass();
+                //releaseClass();
             });
         }
 
@@ -106,15 +107,18 @@ namespace TUMCampusApp.Classes.Managers
                 return;
             }
 
-            XmlDocument doc = await getCalendarEntriesDocumentAsync();
+            XmlDocument doc = null;
+            try
+            {
+                doc = await getCalendarEntriesDocumentAsync();
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                return;
+            }
             if (doc == null)
             {
                 Logger.Error("Unable to sync Calendar! Unable to request a documet.");
-                return;
-            }
-            if(doc.SelectSingleNode("/error") != null)
-            {
-                Logger.Error("Unable to sync Calendar! " + doc.SelectSingleNode("/error").InnerText);
                 return;
             }
 

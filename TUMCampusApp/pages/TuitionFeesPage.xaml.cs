@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -54,18 +55,52 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
-        private void downloadAndShowFees(bool forceRedownload)
+        private async Task downloadAndShowFeesAsync(bool forceRedownload)
         {
-            TuitionFeeManager.INSTANCE.downloadFeesAsync(forceRedownload).Wait();
+            try
+            {
+                await TuitionFeeManager.INSTANCE.downloadFeesAsync(forceRedownload);
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    showNoAccess(e);
+                }).AsTask().Wait();
+                return;
+            }
             List<TUMTuitionFee> list = new List<TUMTuitionFee>();
             list = TuitionFeeManager.INSTANCE.getFees();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 showFees(list);
             }).AsTask().Wait();
         }
 
+        private void showNoAccess(BaseTUMOnlineException e)
+        {
+            noFees_grid.Visibility = Visibility.Collapsed;
+            fees_grid.Visibility = Visibility.Collapsed;
+            noData_grid.Visibility = Visibility.Visible;
+
+            if (e is InvalidTokenTUMOnlineException)
+            {
+                noData_tbx.Text = "Your token is not activated yet!";
+            }
+            else if(e is NoAccessTUMOnlineException)
+            {
+                noData_tbx.Text = "No access on your tuition fee status!";
+            }
+            else
+            {
+                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+            }
+            progressBar.Visibility = Visibility.Collapsed;
+        }
+
         private void showFees(List<TUMTuitionFee> list)
         {
+            noData_grid.Visibility = Visibility.Collapsed;
             if (list == null || list.Count <= 0)
             {
                 noFees_grid.Visibility = Visibility.Visible;
@@ -104,7 +139,7 @@ namespace TUMCampusApp.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => downloadAndShowFees(false));
+            Task.Factory.StartNew(() => downloadAndShowFeesAsync(false));
         }
         #endregion
     }

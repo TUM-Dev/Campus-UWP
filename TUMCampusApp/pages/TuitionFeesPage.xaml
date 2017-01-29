@@ -38,7 +38,7 @@
                 </StackPanel>
             </Grid>
             <Grid x:Name="noData_grid" Background="Red" Visibility="Collapsed">
-                <TextBlock Text="Unable to load data!" Margin="10,10,10,10" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                <TextBlock x:Name="noData_tbx" Text="Unable to load data!" Margin="10,10,10,10" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
             </Grid>
         </StackPanel>
     </Grid>

@@ -68,14 +68,17 @@ namespace TUMCampusApp.Pages
             }
             if (!Utillities.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
             {
+                canteenWidget_ds.Content = new CanteenWidget(canteenWidget_ds);
                 canteenWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Utillities.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
             {
+                tutionFeeWidget_ds.Content = new TuitionFeeWidget(tutionFeeWidget_ds);
                 tutionFeeWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
             {
+                calendarWidget_ds.Content = new CalendarWidget(calendarWidget_ds);
                 calendarWidget_ds.Visibility = Visibility.Visible;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -23,7 +25,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private DropShadowPanel dSP;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -34,8 +36,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeWidget()
+        public TuitionFeeWidget(DropShadowPanel dSP)
         {
+            this.dSP = dSP;
             this.InitializeComponent();
         }
 
@@ -54,7 +57,17 @@ namespace TUMCampusApp.Controls
         #region --Misc Methods (Private)--
         private async Task ShowTuitionFeesAsync()
         {
-            await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+            try
+            {
+                await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                    showFees(null);
+                }).AsTask().Wait();
+                return;
+            }
             List<TUMTuitionFee> list = TuitionFeeManager.INSTANCE.getFees();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showFees(list);
@@ -65,7 +78,7 @@ namespace TUMCampusApp.Controls
         {
             if (list == null || list.Count <= 0)
             {
-                this.Visibility = Visibility.Collapsed;
+                dSP.Visibility = Visibility.Collapsed;
             }
             else
             {

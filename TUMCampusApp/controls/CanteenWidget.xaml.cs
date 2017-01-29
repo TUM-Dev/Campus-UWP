@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,8 +26,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private List<CanteenMenu> currentMenus;
-        private string currentSelectedMenu;
+        private DropShadowPanel dSP;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -37,8 +37,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 01/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenWidget()
+        public CanteenWidget(DropShadowPanel dSP)
         {
+            this.dSP = dSP;
             this.InitializeComponent();
         }
 
@@ -98,7 +99,6 @@ namespace TUMCampusApp.Controls
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 
             DateTime date = CanteenMenueManager.getFirstNextDate();
-            currentMenus = CanteenMenueManager.getMenus(id);
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();

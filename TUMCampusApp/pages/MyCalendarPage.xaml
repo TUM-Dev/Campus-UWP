@@ -16,7 +16,12 @@
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="1"/>
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1">
             <StackPanel>
-                <StackPanel x:Name="calendarEntries_stckp" Margin="10,0,10,0">
+                <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red">
+                    <StackPanel>
+                        <TextBlock Text="No access! Either you did not enable your token or you did not gave the token the required rights." HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="0,5,0,5"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel x:Name="calendarEntries_stckp" Margin="10,0,10,10">
                     <TextBlock Text="Date:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0" HorizontalAlignment="Center"/>
                     <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                     <!--Calendar Entries-->

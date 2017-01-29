@@ -97,6 +97,8 @@ namespace TUMCampusApp.Pages
             if(list == null || list.Count <= 0)
             {
                 progressBar.Visibility = Visibility.Collapsed;
+                noData_grid.Visibility = Visibility.Visible;
+                calendarEntries_stckp.Visibility = Visibility.Collapsed;
                 return;
             }
             calendarEntries_stckp.Children.Clear();
@@ -114,6 +116,8 @@ namespace TUMCampusApp.Pages
                 }
             }
             progressBar.Visibility = Visibility.Collapsed;
+            noData_grid.Visibility = Visibility.Collapsed;
+            calendarEntries_stckp.Visibility = Visibility.Visible;
         }
         #endregion
 

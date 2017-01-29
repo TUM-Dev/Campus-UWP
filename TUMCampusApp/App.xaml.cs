@@ -2,7 +2,6 @@
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.UserDatas;
 using TUMCampusApp.Pages;
-using TUMCampusApp.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;

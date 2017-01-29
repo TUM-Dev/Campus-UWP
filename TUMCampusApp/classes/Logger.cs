@@ -106,7 +106,7 @@ namespace TUMCampusApp.Classes
             {
                 s += ":\n" + e.Message + "\n" + e.StackTrace;
             }
-            System.Diagnostics.Debug.Write(s);
+            System.Diagnostics.Debug.WriteLine(s);
             await Windows.Storage.FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
         }
 

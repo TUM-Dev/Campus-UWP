@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.Tum;
 using Windows.Foundation;
@@ -22,9 +23,11 @@ namespace TUMCampusApp.Controls
 {
     public sealed partial class CalendarWidget : UserControl
     {
+        private DropShadowPanel calendarWidget_ds;
+
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private DropShadowPanel dSP;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -33,10 +36,11 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 22/01/2017 Created [Fabian Sauter]
+        /// 29/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CalendarWidget()
+        public CalendarWidget(DropShadowPanel dSP)
         {
+            this.dSP = dSP;
             this.InitializeComponent();
         }
 
@@ -77,7 +81,6 @@ namespace TUMCampusApp.Controls
 
         private void ShowCalendarEntry()
         {
-            CalendarManager.INSTANCE.syncCalendar();
             TUMOnlineCalendarEntry entry = CalendarManager.INSTANCE.getNextEntry();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -89,12 +92,13 @@ namespace TUMCampusApp.Controls
         {
             if(entry == null)
             {
+                dSP.Visibility = Visibility.Collapsed;
                 return;
             }
             addSeperator(entry.dTStrat);
             if (entry == null)
             {
-                this.Visibility = Visibility.Collapsed;
+                dSP.Visibility = Visibility.Collapsed;
             }
             else
             {

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using TUMCampusApp.Classes.UserDatas;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -58,7 +59,20 @@ namespace TUMCampusApp.Pages
         #region --Misc Methods (Private)--
         private async void downloadAndShowLectureInformationTask()
         {
-            List<TUMOnlineLectureInformation> list = await LecturesManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
+            List<TUMOnlineLectureInformation> list = null;
+            try
+            {
+                list = await LecturesManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    showNoAccess(e);
+                }).AsTask().Wait();
+                return;
+            }
+
             if (list == null || list.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
@@ -71,6 +85,26 @@ namespace TUMCampusApp.Pages
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showLectureInformation();
             }).AsTask().Wait();
+        }
+
+        private void showNoAccess(BaseTUMOnlineException e)
+        {
+            noData_grid.Visibility = Visibility.Visible;
+            info_stckp.Visibility = Visibility.Collapsed;
+
+            if (e is InvalidTokenTUMOnlineException)
+            {
+                noData_tbx.Text = "Your token is not activated yet!";
+            }
+            else if (e is NoAccessTUMOnlineException)
+            {
+                noData_tbx.Text = "No access on your tuition fee status!";
+            }
+            else
+            {
+                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+            }
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         private void showLectureInformation()

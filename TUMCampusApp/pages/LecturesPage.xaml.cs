@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.Tum;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using TUMCampusApp.Classes.UserDatas;
 using TUMCampusApp.Controls;
 using Windows.Foundation;
@@ -72,24 +73,68 @@ namespace TUMCampusApp.Pages
             search_aSB.IsEnabled = true;
             openSearch_btn.IsEnabled = true;
         }
-        
-        private void downloadAndShowLecturesTask(bool forceRedownload)
+
+        private async Task downloadAndShowLecturesTaskAsync(bool forceRedownload)
         {
-            LecturesManager.INSTANCE.downloadLecturesAsync(forceRedownload).Wait();
+            try
+            {
+                await LecturesManager.INSTANCE.downloadLecturesAsync(forceRedownload);
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    showNoAccess(e);
+                }).AsTask().Wait();
+                return;
+            }
             List<TUMOnlineLecture> list = LecturesManager.INSTANCE.getLectures();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 showLectures(list);
             }).AsTask().Wait();
         }
 
         private async void downloadAndShowQueriedLecturesTask(string query)
         {
-            List<TUMOnlineLecture> list = await LecturesManager.INSTANCE.searchForLecturesAsync(query);
+            List<TUMOnlineLecture> list = null;
+            try
+            {
+                list = await LecturesManager.INSTANCE.searchForLecturesAsync(query);
+            }
+            catch (BaseTUMOnlineException e)
+            {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    showNoAccess(e);
+                }).AsTask().Wait();
+                return;
+            }
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showLectures(list);
             }).AsTask().Wait();
             currentSearchTerm = query;
             showingOwnLectures = false;
+        }
+
+        private void showNoAccess(BaseTUMOnlineException e)
+        {
+            noData_grid.Visibility = Visibility.Visible;
+            lectures_stckp.Visibility = Visibility.Collapsed;
+            if (e is InvalidTokenTUMOnlineException)
+            {
+                noData_tbx.Text = "Your token is not activated yet!";
+            }
+            else if (e is NoAccessTUMOnlineException)
+            {
+                noData_tbx.Text = "No access on your lectures!";
+            }
+            else
+            {
+                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+            }
+            progressBar.Visibility = Visibility.Collapsed;
+            enableSearch();
         }
 
         private void showLectures(List<TUMOnlineLecture> list)
@@ -109,6 +154,8 @@ namespace TUMCampusApp.Pages
                 semester_tbx.Text = "None found!";
             }
             progressBar.Visibility = Visibility.Collapsed;
+            noData_grid.Visibility = Visibility.Collapsed;
+            lectures_stckp.Visibility = Visibility.Visible;
             enableSearch();
         }
 
@@ -118,7 +165,7 @@ namespace TUMCampusApp.Pages
             {
                 disableSearch();
                 progressBar.Visibility = Visibility.Visible;
-                Task.Factory.StartNew(() => downloadAndShowLecturesTask(false));
+                Task.Factory.StartNew(() => downloadAndShowLecturesTaskAsync(false));
                 showingOwnLectures = true;
                 currentSearchTerm = "";
             }

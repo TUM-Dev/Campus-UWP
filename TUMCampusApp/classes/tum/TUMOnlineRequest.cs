@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Caches;
 using TUMCampusApp.Classes.Managers;
+using TUMCampusApp.Classes.Tum.Exceptions;
 using TUMCampusApp.Classes.UserDatas;
 using Windows.Data.Xml.Dom;
 
@@ -49,6 +50,7 @@ namespace TUMCampusApp.Classes.Tum
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        [Obsolete("doRequestAsync() is deprecated, please use doRequestDocumentAsync() instead.")]
         public async Task<string> doRequestAsync()
         {
             Uri url = buildUrl();
@@ -102,6 +104,21 @@ namespace TUMCampusApp.Classes.Tum
                     cacheResult(url.ToString(), doc.GetXml());
                 }
             }
+
+            if (doc != null && doc.SelectSingleNode("/error") != null)
+            {
+                string innerText = doc.SelectSingleNode("/error").InnerText;
+                Logger.Warn("Thrown an error during a TUM Online request: " + innerText);
+                if (innerText.Contains("Token"))
+                {
+                    throw new InvalidTokenTUMOnlineException(buildUrl().ToString(), innerText);
+                }
+                else
+                {
+                    throw new NoAccessTUMOnlineException(buildUrl().ToString(), innerText);
+                }
+            }
+
             return doc;
         }
 
