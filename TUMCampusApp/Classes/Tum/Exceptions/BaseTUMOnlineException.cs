@@ -36,7 +36,10 @@ namespace TUMCampusApp.Classes.Tum.Exceptions
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public override string ToString()
+        {
+            return base.ToString() + " URL:" + url + " Message:" + message;
+        }
 
         #endregion
 
