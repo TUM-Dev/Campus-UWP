@@ -102,36 +102,39 @@ namespace TUMCampusApp.Classes.Managers
         private async Task syncCalendarTaskAsync()
         {
             long time = SyncManager.GetCurrentUnixTimestampMillis();
-            if (!SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS))
+            List<TUMOnlineCalendarEntry> list = null;
+            if (SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS))
             {
-                return;
+                XmlDocument doc = null;
+                try
+                {
+                    doc = await getCalendarEntriesDocumentAsync();
+                }
+                catch (BaseTUMOnlineException e)
+                {
+                    return;
+                }
+                if (doc == null)
+                {
+                    Logger.Error("Unable to sync Calendar! Unable to request a documet.");
+                    return;
+                }
+                list = parseToList(doc);
+                dB.DropTable<TUMOnlineCalendarEntry>();
+                dB.CreateTable<TUMOnlineCalendarEntry>();
+                dB.InsertOrReplaceAll(list);
+
+                SyncManager.INSTANCE.update(new Sync(this));
+            }
+            else
+            {
+                list = getEntries();
             }
 
-            XmlDocument doc = null;
-            try
-            {
-                doc = await getCalendarEntriesDocumentAsync();
-            }
-            catch (BaseTUMOnlineException e)
-            {
-                return;
-            }
-            if (doc == null)
-            {
-                Logger.Error("Unable to sync Calendar! Unable to request a documet.");
-                return;
-            }
-
-            dB.DropTable<TUMOnlineCalendarEntry>();
-            dB.CreateTable<TUMOnlineCalendarEntry>();
-            List<TUMOnlineCalendarEntry> list = parseToList(doc);
-            dB.InsertOrReplaceAll(list);
-
-            if (Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
+            if (!Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
             {
                 await insterInCalendarAsync(list);
             }
-            SyncManager.INSTANCE.update(new Sync(this));
             Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
