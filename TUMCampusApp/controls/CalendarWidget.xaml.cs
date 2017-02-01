@@ -42,6 +42,7 @@ namespace TUMCampusApp.Controls
         {
             this.dSP = dSP;
             this.InitializeComponent();
+            Task.Factory.StartNew(() => ShowCalendarEntry());
         }
 
         #endregion
@@ -115,11 +116,7 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            progressRing.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => ShowCalendarEntry());
-        }
+
 
         #endregion
     }

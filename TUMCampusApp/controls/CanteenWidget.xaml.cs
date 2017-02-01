@@ -41,6 +41,7 @@ namespace TUMCampusApp.Controls
         {
             this.dSP = dSP;
             this.InitializeComponent();
+            Task.Factory.StartNew(() => showMenusTaskAsync());
         }
 
         #endregion
@@ -139,10 +140,7 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            Task.Factory.StartNew(() => showMenusTaskAsync());
-        }
+
 
         #endregion
     }
