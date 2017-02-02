@@ -7,6 +7,9 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.HockeyApp;
+using Windows.ApplicationModel.Store;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp
 {
@@ -21,6 +24,9 @@ namespace TUMCampusApp
         /// </summary>
         public App()
         {
+            //Crash reports capturing
+            HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
