@@ -27,6 +27,13 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Pins a tile with the given logo, name, text to the start screen
+        /// </summary>
+        /// <param name="name">The name for the new tile</param>
+        /// <param name="text">The text that should get written onto the tile</param>
+        /// <param name="args">The load args for doing custom stuff if the app loads from clicking on this tile</param>
+        /// <param name="logo">The tiles logo</param>
         public static async void PinTileAsync(string name, string text, string args, string logo)
         {
             SecondaryTile tile = new SecondaryTile(Const.TILE_ID_CANTEEN)
@@ -52,20 +59,32 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
 
         #region --Misc Methods (Private)--
-        private static TileContent generateTileContent(string text, string avatarLogoSource)
+        /// <summary>
+        /// Generates the content for the default canteen tile
+        /// </summary>
+        /// <param name="text">The text that should get written onto the tile</param>
+        /// <param name="logoSource">The source string for the tile logo</param>
+        /// <returns>Returns the created TileContent</returns>
+        private static TileContent generateTileContent(string text, string logoSource)
         {
             return new TileContent()
             {
                 Visual = new TileVisual()
                 {
-                    TileMedium = GenerateTileBindingMedium(text, avatarLogoSource),
-                    TileWide = GenerateTileBindingWide(text, avatarLogoSource),
-                    TileLarge = GenerateTileBindingLarge(text, avatarLogoSource)
+                    TileMedium = GenerateTileBindingMedium(text, logoSource),
+                    TileWide = GenerateTileBindingWide(text, logoSource),
+                    TileLarge = GenerateTileBindingLarge(text, logoSource)
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingMedium(string text, string avatarLogoSource)
+        /// <summary>
+        /// Generates the content for the medium canteen tile
+        /// </summary>
+        /// <param name="text">The text that should get written onto the tile</param>
+        /// <param name="logoSource">The source string for the tile logo</param>
+        /// <returns>Returns the created TileContent</returns>
+        private static TileBinding GenerateTileBindingMedium(string text, string logoSource)
         {
             return new TileBinding()
             {
@@ -73,26 +92,32 @@ namespace TUMCampusApp.Classes.Helpers
                 {
                     PeekImage = new TilePeekImage()
                     {
-                        Source = avatarLogoSource,
+                        Source = logoSource,
                         HintCrop = TilePeekImageCrop.Circle
                     },
 
                     TextStacking = TileTextStacking.Center,
 
                     Children =
-            {
-                new AdaptiveText()
-                {
-                    Text = text,
-                    HintAlign = AdaptiveTextAlign.Center,
-                    HintStyle = AdaptiveTextStyle.Base
-                }
-            }
+                    {
+                        new AdaptiveText()
+                        {
+                            Text = text,
+                            HintAlign = AdaptiveTextAlign.Center,
+                            HintStyle = AdaptiveTextStyle.Base
+                        }
+                    }
                 }
             };
         }
 
-        private static TileBinding GenerateTileBindingWide(string text, string avatarLogoSource)
+        /// <summary>
+        /// Generates the content for the wide canteen tile
+        /// </summary>
+        /// <param name="text">The text that should get written onto the tile</param>
+        /// <param name="logoSource">The source string for the tile logo</param>
+        /// <returns>Returns the created TileContent</returns>
+        private static TileBinding GenerateTileBindingWide(string text, string logoSource)
         {
             return new TileBinding()
             {
@@ -112,7 +137,7 @@ namespace TUMCampusApp.Classes.Helpers
                             {
                                 new AdaptiveImage()
                                 {
-                                    Source = avatarLogoSource,
+                                    Source = logoSource,
                                     HintCrop = AdaptiveImageCrop.Circle
                                 }
                             }
@@ -138,7 +163,13 @@ namespace TUMCampusApp.Classes.Helpers
             };
         }
 
-        private static TileBinding GenerateTileBindingLarge(string text, string avatarLogoSource)
+        /// <summary>
+        /// Generates the content for the large canteen tile
+        /// </summary>
+        /// <param name="text">The text that should get written onto the tile</param>
+        /// <param name="logoSource">The source string for the tile logo</param>
+        /// <returns>Returns the created TileContent</returns>
+        private static TileBinding GenerateTileBindingLarge(string text, string logoSource)
         {
             return new TileBinding()
             {
@@ -165,7 +196,7 @@ namespace TUMCampusApp.Classes.Helpers
                             {
                                 new AdaptiveImage()
                                 {
-                                    Source = avatarLogoSource,
+                                    Source = logoSource,
                                     HintCrop = AdaptiveImageCrop.Circle
                                 }
                             }

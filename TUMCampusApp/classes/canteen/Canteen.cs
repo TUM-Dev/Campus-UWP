@@ -68,7 +68,7 @@ namespace TUMCampusApp.Classes.Canteens
         {
             return this.name;
         }
-
+        
         public int CompareTo(object obj)
         {
             if(!(obj is Canteen))

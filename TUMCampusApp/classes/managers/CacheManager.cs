@@ -59,6 +59,11 @@ namespace TUMCampusApp.Classes.Managers
             dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
         }
 
+        /// <summary>
+        /// Checks if the given url is cached
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>Returns null if it is not chached or the cached string</returns>
         public string isCached(string url)
         {
             List<Cache> list = dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() < max_age AND url LIKE ?", url);
@@ -69,16 +74,31 @@ namespace TUMCampusApp.Classes.Managers
             return decodeString(list[0].data);
         }
 
+        /// <summary>
+        /// Chaches the given Cache object
+        /// </summary>
+        /// <param name="c"></param>
         public void cache(Cache c)
         {
             dB.InsertOrReplace(c);
         }
 
+        /// <summary>
+        /// Decodes a given bytes[] to a string
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns>Returns the decoded string</returns>
         public static string decodeString(byte[] bytes)
         {
             return Encoding.UTF8.GetString(bytes);
         }
 
+
+        /// <summary>
+        /// Encodes the given string into a byte[]
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>Returns the encode byte[]</returns>
         public static byte[] encodeString(string s)
         {
             return Encoding.UTF8.GetBytes(s);

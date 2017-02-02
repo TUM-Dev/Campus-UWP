@@ -47,6 +47,9 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Drops every table in the db
+        /// </summary>
         public static void resetDB()
         {
             dB.DropTable<Cache>();
@@ -60,6 +63,10 @@ namespace TUMCampusApp.Classes.Managers
             dB.DropTable<TUMOnlineCalendarEntry>();
         }
 
+        /// <summary>
+        /// Delets the whole db and recreates an empty one.
+        /// Only for testing use resetDB() instead!
+        /// </summary>
         public static void deleteDB()
         {
             try
@@ -74,22 +81,19 @@ namespace TUMCampusApp.Classes.Managers
             dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
         }
 
+        /// <summary>
+        /// Initialises the manager asynchronous
+        /// </summary>
+        /// <returns></returns>
         public abstract Task InitManagerAsync();
 
-        public void execute(string querry, params object[] args)
-        {
-            dB.Execute(querry, args);
-        }
-
-        public void insert(object obj)
-        {
-            dB.Insert(obj);
-        }
-
+        /// <summary>
+        /// Updates a given db entry
+        /// </summary>
+        /// <param name="obj"></param>
         public void update(object obj)
         {
             dB.InsertOrReplace(obj);
-            saveDB();
         }
 
         #endregion
@@ -111,11 +115,6 @@ namespace TUMCampusApp.Classes.Managers
                 throw new ArgumentException("Invalid name.");
             }
             update(c);
-        }
-
-        protected void saveDB()
-        {
-            dB.SaveTransactionPoint();
         }
 
         protected void lockClass()

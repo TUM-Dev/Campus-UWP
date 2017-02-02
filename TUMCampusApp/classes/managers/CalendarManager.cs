@@ -35,6 +35,10 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the next calendar entry.
+        /// </summary>
+        /// <returns>Returns the next calendar entry</returns>
         public TUMOnlineCalendarEntry getNextEntry()
         {
             List<TUMOnlineCalendarEntry> list = getEntries();
@@ -63,6 +67,10 @@ namespace TUMCampusApp.Classes.Managers
             return entry;
         }
 
+        /// <summary>
+        /// Renturns all calendar entries, the db contains.
+        /// </summary>
+        /// <returns>Renturns all calendar entries</returns>
         public List<TUMOnlineCalendarEntry> getEntries()
         {
             waitWhileLocked();
@@ -78,6 +86,9 @@ namespace TUMCampusApp.Classes.Managers
             syncCalendar();
         }
         
+        /// <summary>
+        /// Creates a new Task and starts syncing the calendar in the background
+        /// </summary>
         public void syncCalendar()
         {
             Task t = null;
@@ -88,6 +99,11 @@ namespace TUMCampusApp.Classes.Managers
             });
         }
 
+
+        /// <summary>
+        /// Deletes all calendars created by this app
+        /// </summary>
+        /// <returns></returns>
         public async Task deleteCalendarAsync()
         {
             AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
@@ -101,6 +117,10 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Syncs the calendar
+        /// </summary>
+        /// <returns></returns>
         private async Task syncCalendarTaskAsync()
         {
             long time = SyncManager.GetCurrentUnixTimestampMillis();
@@ -140,17 +160,27 @@ namespace TUMCampusApp.Classes.Managers
             Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
+        /// <summary>
+        /// Parses a xml document into a list of TUMOnlineCalendarEntries.
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <returns>Returns a list of TUMOnlineCalendarEntry</returns>
         private List<TUMOnlineCalendarEntry> parseToList(XmlDocument doc)
         {
             List<TUMOnlineCalendarEntry> list = new List<TUMOnlineCalendarEntry>();
             foreach (var element in doc.SelectNodes("/events/event"))
             {
-                addEtryToList(list, new TUMOnlineCalendarEntry(element));
+                addEntryToList(list, new TUMOnlineCalendarEntry(element));
             }
             return list;
         }
 
-        private void addEtryToList(List<TUMOnlineCalendarEntry> list, TUMOnlineCalendarEntry entry)
+        /// <summary>
+        /// Adds a given TUMOnlineCalendarEntry to the given list. Checks bevor adding whether the enty is valid.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="entry"></param>
+        private void addEntryToList(List<TUMOnlineCalendarEntry> list, TUMOnlineCalendarEntry entry)
         {
             for(var i = 0; i < list.Count; i++)
             {
@@ -167,6 +197,12 @@ namespace TUMCampusApp.Classes.Managers
             list.Add(entry);
         }
 
+
+        /// <summary>
+        /// Resets the calendar, creates a new one and inserts all given TUMOnlineCalendarEntries into it.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns>Returns an asynchronous Task</returns>
         private async Task insterInCalendarAsync(List<TUMOnlineCalendarEntry> list)
         {
             // 1. get access to appointmentstore 
@@ -191,6 +227,10 @@ namespace TUMCampusApp.Classes.Managers
             Logger.Info("Finished loading calendar.");
         }
 
+        /// <summary>
+        /// Creates a TUMOnlineRequest to request the personal calendar
+        /// </summary>
+        /// <returns>Returns the personal calendar in form of a xml document</returns>
         private async Task<XmlDocument> getCalendarEntriesDocumentAsync()
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.CALENDAR);
