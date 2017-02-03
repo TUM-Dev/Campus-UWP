@@ -154,6 +154,20 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        private void lockRefreshButtons()
+        {
+            refreshAll_btn.IsEnabled = false;
+            refreshCanteenMenus_btn.IsEnabled = false;
+            refreshCanteen_btn.IsEnabled = false;
+        }
+
+        private void releaseRefreshButtons()
+        {
+            refreshAll_btn.IsEnabled = true;
+            refreshCanteenMenus_btn.IsEnabled = true;
+            refreshCanteen_btn.IsEnabled = true;
+        }
+
         private async Task loadCanteensAsync()
         {
             List<Canteen> list = await LocationManager.INSTANCE.getCanteensAsync();
@@ -328,6 +342,11 @@ namespace TUMCampusApp.Pages
 
         private void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)
         {
+            if(!refreshCanteen_btn.IsEnabled || !refreshCanteenMenus_btn.IsEnabled)
+            {
+                return;
+            }
+            lockRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => 
             {
@@ -335,12 +354,18 @@ namespace TUMCampusApp.Pages
                 loadCanteensAsync().Wait();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     progressBar.Visibility = Visibility.Collapsed;
+                    releaseRefreshButtons();
                 }).AsTask().Wait();
             });
         }
 
         private void refreshCanteenMenus_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (!refreshCanteenMenus_btn.IsEnabled)
+            {
+                return;
+            }
+            lockRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
@@ -348,12 +373,18 @@ namespace TUMCampusApp.Pages
                 showCurrentMenus();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     progressBar.Visibility = Visibility.Collapsed;
+                    releaseRefreshButtons();
                 }).AsTask().Wait();
             });
         }
 
         private void refreshAll_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (!refreshCanteen_btn.IsEnabled)
+            {
+                return;
+            }
+            lockRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
@@ -363,6 +394,7 @@ namespace TUMCampusApp.Pages
                 showCurrentMenus();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     progressBar.Visibility = Visibility.Collapsed;
+                    releaseRefreshButtons();
                 }).AsTask().Wait();
             });
         }
