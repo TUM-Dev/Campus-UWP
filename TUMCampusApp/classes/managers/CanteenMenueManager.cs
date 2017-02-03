@@ -48,7 +48,7 @@ namespace TUMCampusApp.Classes.Managers
         /// :"tg","type_long":"Tagesgericht 3","type_nr":"3","name":
         /// "Cordon bleu vom Schwein (mit Formfleischhinterschinken) (S) (1,2,3,8)"}
         /// </summary>
-        /// <param name="json"> see above </param>
+        /// <param name="json">See above</param>
         /// <returns> CafeteriaMenu </returns>
         private static CanteenMenu getFromJson(JsonObject json)
         {
@@ -68,7 +68,7 @@ namespace TUMCampusApp.Classes.Managers
 		/// {"mensa_id":"411","date":"2011-07-29","name":"Pflaumenkompott"
 		/// ,"type_short":"bei","type_long":"Beilagen"}
 		/// </summary>
-		/// <param name="json"> see above </param>
+		/// <param name="json">See above</param>
 		/// <returns> CafeteriaMenu </returns>
         private static CanteenMenu getFromJsonAddendum(JsonObject json)
         {
@@ -81,6 +81,10 @@ namespace TUMCampusApp.Classes.Managers
                     json.GetNamedString(Const.JSON_NAME).Replace("\"", "\'"));
         }
 
+        /// <summary>
+        /// Returns the first next date. Based on "Tagesgericht".
+        /// </summary>
+        /// <returns>Returns the first next date</returns>
         public static DateTime getFirstNextDate()
         {
             DateTime time = DateTime.MaxValue;
@@ -95,6 +99,11 @@ namespace TUMCampusApp.Classes.Managers
             return time;
         }
 
+        /// <summary>
+        /// Returns all menus contained in the db that match the given canteen id.
+        /// </summary>
+        /// <param name="id">Canteen id</param>
+        /// <returns>Returns all menus contained in the db.</returns>
         public static List<CanteenMenu> getMenus(int id)
         {
             if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC))
@@ -122,6 +131,14 @@ namespace TUMCampusApp.Classes.Managers
             return menus;
         }
 
+        /// <summary>
+        /// Returns all menus that match the given canteen id, type name and date from the db.
+        /// </summary>
+        /// <param name="canteenID">Canteen id</param>
+        /// <param name="name">Canteen menu type</param>
+        /// <param name="contains">Whether the given menu type name contains or equals the given menu type name</param>
+        /// <param name="date">Menu date</param>
+        /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
         public List<CanteenMenu> getMenusForType(int canteenID, string name, bool contains, DateTime date)
         {
             List<CanteenMenu> cM = getMenus(canteenID);
@@ -151,6 +168,11 @@ namespace TUMCampusApp.Classes.Managers
             return result;
         }
 
+        /// <summary>
+        /// Replaces the ingredients with emojis.
+        /// </summary>
+        /// <param name="s">Menu string</param>
+        /// <returns>Returns the replaced menu string</returns>
         public string getCleanMenuTitle(string s)
         {
             Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
@@ -163,11 +185,21 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Launches the web browser and googles for images with the given string.
+        /// </summary>
+        /// <param name="menu">The string which should be used for googling.</param>
+        /// <returns>Returns a async Task.</returns>
         public async Task googleMenuString(string menu)
         {
             await Utillities.launchBrowser(generateSearchString(menu));
         }
 
+        /// <summary>
+        /// Generates a url based an the given string for googling images.
+        /// </summary>
+        /// <param name="menu">The string which should be used for googling.</param>
+        /// <returns>The url for googling.</returns>
         private Uri generateSearchString(string menu)
         {
             menu = getCleanMenuTitle(menu);
@@ -177,6 +209,11 @@ namespace TUMCampusApp.Classes.Managers
             return new Uri(result);
         }
 
+        /// <summary>
+        /// Downloads the menus if necessary or if force == true.
+        /// </summary>
+        /// <param name="force">Forces to download all menus.</param>
+        /// <returns>Returns a async Task.</returns>
         public async Task downloadCanteenMenusAsync(bool force)
         {
             if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
@@ -215,6 +252,12 @@ namespace TUMCampusApp.Classes.Managers
             }
         }
 
+        /// <summary>
+        /// Replaces the ingredients with emojis.
+        /// </summary>
+        /// <param name="s">Menu string.</param>
+        /// <param name="withComma">Whether it should seperate each emoji with a comma.</param>
+        /// <returns>Returns the replaced menu string</returns>
         public string replaceMenuStringWithImages(string s, bool withComma)
         {
             List<string> res = new List<string>();

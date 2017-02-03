@@ -36,6 +36,11 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Parses the given JsonObject into a Canteen object
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns>Returns the parsed Canteen</returns>
         private Canteen getFromJson(JsonObject json)
         {
             return new Canteen(int.Parse(json.GetNamedString(Const.JSON_ID)),
@@ -45,11 +50,20 @@ namespace TUMCampusApp.Classes.Managers
                 double.Parse(json.GetNamedString(Const.JSON_LONGITUDE)));
         }
 
+        /// <summary>
+        /// Returns all Canteens from the db
+        /// </summary>
+        /// <returns>Returns all Canteens from the db as a list</returns>
         public List<Canteen> getCanteens()
         {
             return dB.Query<Canteen>("SELECT * FROM Canteen");
         }
 
+        /// <summary>
+        /// Trys to download and return the canteen associated by the given id
+        /// </summary>
+        /// <param name="id">Canteen id</param>
+        /// <returns>Returns the canteen associated by the given id</returns>
         public async Task<Canteen> getCanteenByIdAsync(int id)
         {
             await downloadCanteensAsync(false);
@@ -64,6 +78,11 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Downloads the canteens if necessary or if force == true.
+        /// </summary>
+        /// <param name="force">Forces to download all canteens.</param>
+        /// <returns>Returns a async Task.</returns>
         public async Task downloadCanteensAsync(bool force)
         {
             if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
