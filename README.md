@@ -10,6 +10,7 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 * My TUM calendar integration
 * Automatically import your TUMonline calendar
 * Lectures
+* Google for unknown dishes ;-)
 
 ## ToDo:
 * My grades
