@@ -101,7 +101,7 @@ namespace TUMCampusApp.Pages
         private void showFees(List<TUMTuitionFee> list)
         {
             noData_grid.Visibility = Visibility.Collapsed;
-            if (list == null || list.Count <= 0 || (list[0].money != null && double.Parse(list[0].money) <= 0))
+            if (list == null || list.Count <= 0 || list[0].money == null || double.Parse(list[0].money) <= 0)
             {
                 noFees_grid.Visibility = Visibility.Visible;
                 fees_grid.Visibility = Visibility.Collapsed;
