@@ -77,7 +77,7 @@ namespace TUMCampusApp.Controls
 
         private void showFees(List<TUMTuitionFee> list)
         {
-            if (list == null || list.Count <= 0)
+            if (list == null || list.Count <= 0 || (list[0].money != null && double.Parse(list[0].money) <= 0))
             {
                 dSP.Visibility = Visibility.Collapsed;
             }
