@@ -1,8 +1,6 @@
 ﻿using SQLite.Net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Syncs;
 
@@ -32,21 +30,39 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the current unix time in ms.
+        /// </summary>
+        /// <returns>Returns the current unix time in ms.</returns>
         public static long GetCurrentUnixTimestampMillis()
         {
             return (long)(DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
         }
 
+        /// <summary>
+        /// Converts the given ms from unix time to a DateTime obj and returns it.
+        /// </summary>
+        /// <param name="millis">Unix time in ms.</param>
+        /// <returns>Returns the DateTime obj equal to the given ms.</returns>
         public static DateTime DateTimeFromUnixTimestampMillis(long millis)
         {
             return UnixEpoch.AddMilliseconds(millis);
         }
 
+        /// <summary>
+        /// Returns the current unix time in s.
+        /// </summary>
+        /// <returns>Returns the current unix time in s.</returns>
         public static long GetCurrentUnixTimestampSeconds()
         {
             return (long)(DateTime.UtcNow - UnixEpoch).TotalSeconds;
         }
 
+        /// <summary>
+        /// Converts the given seconds from unix time to a DateTime obj and returns it.
+        /// </summary>
+        /// <param name="seconds">Unix time in seconds.</param>
+        /// <returns>Returns the DateTime obj equal to the given seconds.</returns>
         public static DateTime DateTimeFromUnixTimestampSeconds(long seconds)
         {
             return UnixEpoch.AddSeconds(seconds);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Tum;
 using TUMCampusApp.Classes.UserDatas;
@@ -33,11 +29,21 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the current TUMOnline token or null if none exists.
+        /// </summary>
+        /// <returns>Returns the current TUMOnline token or null if none exists.</returns>
         public static string getToken()
         {
             return (string)Utillities.getSetting(Const.ACCESS_TOKEN);
         }
 
+        /// <summary>
+        /// Returns a specific node from the given xml string.
+        /// </summary>
+        /// <param name="xml">The xml string.</param>
+        /// <param name="node">The nodes name.</param>
+        /// <returns>Returns a specific node from the given xml string.</returns>
         private string getNodeFromXML(string xml, string node)
         {
             if (xml == null)
@@ -50,6 +56,10 @@ namespace TUMCampusApp.Classes.Managers
             return xmlDoc.SelectSingleNode(node).InnerText;
         }
 
+        /// <summary>
+        /// Checks if the current token is still active and enabled.
+        /// </summary>
+        /// <returns>Returns true if yes.</returns>
         public async Task<bool> isTokenConfirmedAsync()
         {
             string token = getToken();
@@ -69,12 +79,18 @@ namespace TUMCampusApp.Classes.Managers
             return bool.Parse(status);
         }
 
+        /// <summary>
+        /// Searches online for a given persons and returns them.
+        /// </summary>
+        /// <param name="name">The name of the persons.</param>
+        /// <returns>The found persons</returns>
         public async Task<List<TUMUser>> getUser(string name)
         {
             //https://campus.tum.de/tumonline/wbservicesbasic.personenSuche?pToken=F7F0E6F2AA6EA4FB1BFC71FC0AC24ACD&pSuche=Fabian%20Sauter
             //https://campus.tum.de/tumonline/wbservicesbasic.personenDetails?pToken=F7F0E6F2AA6EA4FB1BFC71FC0AC24ACD&pIdentNr=-1844547
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.PERSON_SEARCH);
             req.addToken();
+            req.setValidity(CacheManager.VALIDITY_FIFE_DAYS);
             req.addParameter(Const.P_SEARCH, name);
 
             XmlDocument doc = await req.doRequestDocumentAsync();
@@ -94,6 +110,11 @@ namespace TUMCampusApp.Classes.Managers
         {
         }
 
+        /// <summary>
+        /// Requests and returns a new token.
+        /// </summary>
+        /// <param name="userId">The id of the user in form of:xx00xxx</param>
+        /// <returns>The requested token.</returns>
         public async Task<string> reqestNewTokenAsync(string userId)
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.REQUEST_TOKEN);
@@ -107,6 +128,10 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Checks and saves the given token.
+        /// </summary>
+        /// <param name="result">The xml document that contains the token.</param>
         private void analyseAndSaveToken(string result)
         {
             if (result != null && result != "" && result.Contains(TUMOnlineConst.SERVICE_REQEST_TOKEN_ANSWER_INACTIV))

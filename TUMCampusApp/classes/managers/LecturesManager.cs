@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Tum;
 using TUMCampusApp.Classes.UserDatas;
@@ -33,14 +30,23 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        public async Task<XmlDocument> getPersonalLecturesDocumentAsync()
+        /// <summary>
+        /// Downloads your personal lectures.
+        /// </summary>
+        /// <returns>Returns the downloaded lectures in form of a XmlDocument.</returns>
+        private async Task<XmlDocument> getPersonalLecturesDocumentAsync()
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_PERSONAL);
             req.addToken();
             return await req.doRequestDocumentAsync();
         }
 
-        public async Task<XmlDocument> getQueryedLecturesDocumentAsync(string query)
+        /// <summary>
+        /// Searches for lectures online and returns the result.
+        /// </summary>
+        /// <param name="query">The search query. Min 4 chars!</param>
+        /// <returns>Returns the downloaded lectures in form of a XmlDocument.</returns>
+        private async Task<XmlDocument> getQueryedLecturesDocumentAsync(string query)
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_SEARCH);
             req.addToken();
@@ -49,7 +55,12 @@ namespace TUMCampusApp.Classes.Managers
             return await req.doRequestDocumentAsync();
         }
 
-        public async Task<XmlDocument> getLectureInformationDocumentAsync(string stp_sp_nr)
+        /// <summary>
+        /// Downloads information for the given lecture.
+        /// </summary>
+        /// <param name="stp_sp_nr">The lectures stp_sp nr.</param>
+        /// <returns>Returns the downloaded lecture information in form of a XmlDocument.</returns>
+        private async Task<XmlDocument> getLectureInformationDocumentAsync(string stp_sp_nr)
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_DETAILS);
             req.addToken();
@@ -58,6 +69,10 @@ namespace TUMCampusApp.Classes.Managers
             return await req.doRequestDocumentAsync();
         }
 
+        /// <summary>
+        /// Searches in the local db for all lectures and returns them.
+        /// </summary>
+        /// <returns>Returns all found lectures.</returns>
         public List<TUMOnlineLecture> getLectures()
         {
             return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
@@ -70,6 +85,11 @@ namespace TUMCampusApp.Classes.Managers
             dB.CreateTable<TUMOnlineLecture>();
         }
 
+        /// <summary>
+        /// Trys to download the information for the given lecture if it is not cached.
+        /// </summary>
+        /// <param name="stp_sp_nr">The lectures stp_sp nr.</param>
+        /// <returns>Returns the found lecture information or null if none found.</returns>
         public async Task<List<TUMOnlineLectureInformation>> searchForLectureInformationAsync(string stp_sp_nr)
         {
             List<TUMOnlineLectureInformation> list = null;
@@ -86,6 +106,11 @@ namespace TUMCampusApp.Classes.Managers
             return list;
         }
 
+        /// <summary>
+        /// Trys to download your personal lectures if it is necessary and caches them into the local db.
+        /// </summary>
+        /// <param name="force">Forces to redownload all lectures.</param>
+        /// <returns>Returns a async Task.</returns>
         public async Task downloadLecturesAsync(bool force)
         {
             if (!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
@@ -109,6 +134,11 @@ namespace TUMCampusApp.Classes.Managers
             }
         }
 
+        /// <summary>
+        /// Downloads lectures for the given query if it is necessary and caches them.
+        /// </summary>
+        /// <param name="query">The search query. Min 4 chars!</param>
+        /// <returns>Returns the downloaded lectures.</returns>
         public async Task<List<TUMOnlineLecture>> searchForLecturesAsync(string query)
         {
             List<TUMOnlineLecture> list = null;

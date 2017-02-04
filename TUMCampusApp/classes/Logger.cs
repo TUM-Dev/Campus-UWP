@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TUMCampusApp.Classes
@@ -92,11 +89,23 @@ namespace TUMCampusApp.Classes
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Creates a task that adds the given message and exception to the log.
+        /// </summary>
+        /// <param name="message">The log message.</param>
+        /// <param name="e">The thrown exception.</param>
+        /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static void addToLog(string message, Exception e, string code)
         {
             Task t = addToLogAsync(message, e, code);
         }
 
+        /// <summary>
+        /// Adds the given message and exception to the log.
+        /// </summary>
+        /// <param name="message">The log message.</param>
+        /// <param name="e">The thrown exception.</param>
+        /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
             await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", Windows.Storage.CreationCollisionOption.OpenIfExists);

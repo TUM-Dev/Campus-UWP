@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.Classes.Tum;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Controls
 {
@@ -63,6 +52,9 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows the given calendar entry on the control.
+        /// </summary>
         private void showCalendar()
         {
             calendarEntryName_tbx.Text = entry.title;

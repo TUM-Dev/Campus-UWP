@@ -32,6 +32,10 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the last known device position.
+        /// </summary>
+        /// <returns>Returns the last known device position.</returns>
         public Geopoint getLastKnownDevicePosition()
         {
             waitWhileLocked();
@@ -46,6 +50,10 @@ namespace TUMCampusApp.Classes.Managers
             return new Geopoint(pos);
         }
 
+        /// <summary>
+        /// Saves the given Geopoint as the last known device position.
+        /// </summary>
+        /// <param name="pos">The Geopoint that should get saved.</param>
         public void setLastKnownDevicePosition(Geopoint pos)
         {
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
@@ -62,6 +70,10 @@ namespace TUMCampusApp.Classes.Managers
             }
         }
 
+        /// <summary>
+        /// Returns the last selected canteen id.
+        /// </summary>
+        /// <returns>Returns the last selected canteen id or -1 if none exists.</returns>
         public int getLastSelectedCanteenId()
         {
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
@@ -72,6 +84,10 @@ namespace TUMCampusApp.Classes.Managers
             return list[0].lastSelectedCanteenId;
         }
 
+        /// <summary>
+        /// Saves the given id as the last selected canteen id.
+        /// </summary>
+        /// <param name="id">Saves the given id as the last selected canteen id.</param>
         public void setLastSelectedCanteenId(int id)
         {
             dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = ?", DeviceInfo.INSTANCE.Id);

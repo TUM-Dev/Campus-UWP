@@ -88,6 +88,10 @@ namespace TUMCampusApp.Classes.Tum
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Loads the current entry from the given IXmlNode.
+        /// </summary>
+        /// <param name="xml">Loads the current entry from the given IXmlNode.</param>
         private void fromXml(IXmlNode xml)
         {
             if (xml == null)

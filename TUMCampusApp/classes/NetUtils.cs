@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
@@ -29,6 +26,11 @@ namespace TUMCampusApp.Classes
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Downloads and returns the result string from the given url.
+        /// </summary>
+        /// <param name="url">The url for downloading.</param>
+        /// <returns>Returns the result string.</returns>
         public static async Task<string> downloadStringAsync(Uri url)
         {
             try
@@ -54,6 +56,11 @@ namespace TUMCampusApp.Classes
             return null;
         }
 
+        /// <summary>
+        /// Downloads and returns the result JsonObject from the given url.
+        /// </summary>
+        /// <param name="url">The url for downloading.</param>
+        /// <returns>Returns the result JsonObject from the given url.</returns>
         public static async Task<JsonObject> downloadJsonObjectAsync(Uri url)
         {
             try
@@ -67,6 +74,11 @@ namespace TUMCampusApp.Classes
             return null;
         }
 
+        /// <summary>
+        /// Downloads and returns the result JsonArray from the given url.
+        /// </summary>
+        /// <param name="url">The url for downloading.</param>
+        /// <returns>Returns the result JsonArray from the given url.</returns>
         public static async Task<JsonArray> downloadJsonArrayAsync(Uri url)
         {
             try

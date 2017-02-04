@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Tum;
 using TUMCampusApp.Classes.UserDatas;
@@ -33,6 +30,10 @@ namespace TUMCampusApp.Classes.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Downloads your personal tuition fees.
+        /// </summary>
+        /// <returns>Returns the downloaded tuition fees in form of a XmlDocument.</returns>
         private async Task<XmlDocument> getFeeStatusAsync()
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.TUITION_FEE_STATUS);
@@ -40,6 +41,10 @@ namespace TUMCampusApp.Classes.Managers
             return await req.doRequestDocumentAsync();
         }
 
+        /// <summary>
+        /// Searches in the local db for all tuition fees and returns them.
+        /// </summary>
+        /// <returns>Returns all found tuition fees.</returns>
         public List<TUMTuitionFee> getFees()
         {
             return dB.Query<TUMTuitionFee>("SELECT * FROM TUMTuitionFee");
@@ -53,6 +58,11 @@ namespace TUMCampusApp.Classes.Managers
             //await downloadFeesAsync(false);
         }
 
+        /// <summary>
+        /// Trys to download your tuition fees if it is necessary and caches them into the local db.
+        /// </summary>
+        /// <param name="force">Forces to redownload all tuition fees.</param>
+        /// <returns>Returns a async Task.</returns>
         public async Task downloadFeesAsync(bool force)
         {
             if(!force && Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())

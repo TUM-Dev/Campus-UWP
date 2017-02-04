@@ -58,6 +58,10 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Adds a custom seperator.
+        /// </summary>
+        /// <param name="date"></param>
         private void addSeperator(DateTime date)
         {
             Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
@@ -80,6 +84,9 @@ namespace TUMCampusApp.Controls
             calendarEntries_sckl.Children.Add(rect);
         }
 
+        /// <summary>
+        /// Shows the current TUMOnlineCalendarEntry on the control.
+        /// </summary>
         private void ShowCalendarEntry()
         {
             TUMOnlineCalendarEntry entry = CalendarManager.INSTANCE.getNextEntry();

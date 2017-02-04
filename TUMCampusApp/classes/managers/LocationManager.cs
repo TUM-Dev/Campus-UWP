@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Canteens;
 using TUMCampusApp.Classes.Syncs;
@@ -131,6 +127,11 @@ namespace TUMCampusApp.Classes.Managers
             return getCampusFromLocation(pos);
         }
 
+        /// <summary>
+        /// Returns the nearest campus from the given Geopoint.
+        /// </summary>
+        /// <param name="pos">The current position.</param>
+        /// <returns>Returns the nearest campus.</returns>
         private static int getCampusFromLocation(Geopoint pos)
         {
             double bestDistance = double.MaxValue;
