@@ -156,7 +156,7 @@ namespace TUMCampusApp.Classes
                 {
                     try
                     {
-                        IStorageItem file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
+                        IStorageItem file = await ApplicationData.Current.LocalFolder.TryGetItemAsync("Logs.zip");
                         if (file != null)
                         {
                             await file.DeleteAsync();

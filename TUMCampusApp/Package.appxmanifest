@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
   <Identity Name="TUMCampusApp" Publisher="CN=saute" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="6f40b060-d99f-4415-a9a9-a38e3f1af943" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -26,6 +26,7 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <uap:Capability Name="appointments" />
+    <uap3:Capability Name="backgroundMediaPlayback" />
     <DeviceCapability Name="location" />
   </Capabilities>
 </Package>
