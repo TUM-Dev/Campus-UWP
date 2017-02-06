@@ -39,6 +39,7 @@
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <Button x:Name="openLogFolder_btn" Content="Open Log Folder" Margin="10,10,0,0" Click="openLogFolder_btn_ClickAsync"/>
                 <Button x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
+                <Button x:Name="deleteLogs_btn" Content="Delete Logs" Margin="10,10,0,0" Click="deleteLogs_btn_Click"/>
 
                 <TextBlock Text="About and links:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>

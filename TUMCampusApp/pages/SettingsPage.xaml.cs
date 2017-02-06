@@ -231,8 +231,7 @@ namespace TUMCampusApp.Pages
 
         private async void openLogFolder_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            await Windows.System.Launcher.LaunchFolderAsync(folder);
+            await Logger.openLogFolderAsync();
         }
 
         private void diableExampleWidget_tgls_Toggled(object sender, RoutedEventArgs e)
@@ -270,6 +269,19 @@ namespace TUMCampusApp.Pages
         {
             await Utillities.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/issues"));
         }
+
+        private async void deleteLogs_btn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialog dialog = new MessageDialog("Do you really want to delete all logs?");
+            dialog.Commands.Add(new UICommand { Label = "No!", Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = "Yes!", Id = 1 });
+            IUICommand command = await dialog.ShowAsync();
+            if ((int)command.Id == 1)
+            {
+                await Logger.deleteLogsAsync();
+            }
+        }
+
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace TUMCampusApp.Classes
 {
@@ -86,6 +87,32 @@ namespace TUMCampusApp.Classes
         {
             Error(message, null);
         }
+
+        /// <summary>
+        /// Opens the log folder.
+        /// </summary>
+        /// <returns>An async Task.</returns>
+        public static async Task openLogFolderAsync()
+        {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            await Windows.System.Launcher.LaunchFolderAsync(folder);
+        }
+
+        /// <summary>
+        /// Deletes the "Logs" folder and creates a new empty one.
+        /// </summary>
+        /// <returns>An async Task.</returns>
+        public static async Task deleteLogsAsync()
+        {
+            StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Logs");
+            if(folder != null)
+            {
+                await folder.DeleteAsync();
+            }
+            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+            Info("Deleted logs!");
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
@@ -108,15 +135,15 @@ namespace TUMCampusApp.Classes
         /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
-            await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", Windows.Storage.CreationCollisionOption.OpenIfExists);
-            Windows.Storage.StorageFile logFile = await (await Windows.Storage.ApplicationData.Current.LocalFolder.GetFolderAsync("Logs")).CreateFileAsync(getFilename(), Windows.Storage.CreationCollisionOption.OpenIfExists);
+            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+            StorageFile logFile = await (await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs")).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
             string s = "[" + code + "][" + getTimeStamp() + "]: " + message;
             if (e != null)
             {
                 s += ":\n" + e.Message + "\n" + e.StackTrace;
             }
             System.Diagnostics.Debug.WriteLine(s);
-            await Windows.Storage.FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
+            await FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
         }
 
         #endregion
