@@ -73,8 +73,10 @@ namespace TUMCampusApp.Classes.Managers
         /// <returns>Renturns all calendar entries</returns>
         public List<TUMOnlineCalendarEntry> getEntries()
         {
-            waitWhileLocked();
-            return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+            lock (thisLock)
+            {
+                return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+            }
         }
 
         #endregion
@@ -91,11 +93,10 @@ namespace TUMCampusApp.Classes.Managers
         /// </summary>
         public void syncCalendar()
         {
-            Task t = null;
-            t = Task.Factory.StartNew(async () => {
-                //lockClass(t);
-                await syncCalendarTaskAsync();
-                //releaseClass();
+            Task.Factory.StartNew(() => {
+                lock(thisLock){
+                    Task.WaitAny(syncCalendarTaskAsync());
+                }
             });
         }
 
