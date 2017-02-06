@@ -15,11 +15,7 @@ using Windows.Storage.AccessCache;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Pages
 {
@@ -47,14 +43,7 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private async Task<StorageFile> getTargetPathAsync()
-        {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-            savePicker.FileTypeChoices.Add("Logs", new List<string>() { ".zip" });
-            savePicker.SuggestedFileName = "Logs";
-            return await savePicker.PickSaveFileAsync(); ;
-        }
+        
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -133,41 +122,6 @@ namespace TUMCampusApp.Pages
             Logger.Info("Finished deleting the app cache.");
         }
 
-        private async Task exportLogs()
-        {
-            StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
-            if (folder != null)
-            {
-                StorageFile target = await getTargetPathAsync();
-                if (target == null)
-                {
-                    return;
-                }
-                await Task.Factory.StartNew(async () =>
-                 {
-                     try
-                     {
-                         IStorageItem file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
-                         if (file != null)
-                         {
-                             await file.DeleteAsync();
-                         }
-                         ZipFile.CreateFromDirectory(folder.Path, ApplicationData.Current.LocalFolder.Path + @"\Logs.zip", CompressionLevel.Optimal, false);
-                         file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
-                         if (file != null && file is StorageFile)
-                         {
-                             StorageFile f = file as StorageFile;
-                             await f.CopyAndReplaceAsync(target);
-                         }
-                         Logger.Info("Exported logs successfully.");
-                     }
-                     catch (Exception e)
-                     {
-                         Logger.Error("Error during exporting loggs", e);
-                     }
-                 });
-            }
-        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -187,7 +141,7 @@ namespace TUMCampusApp.Pages
 
         private async void exportLogs_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await exportLogs();
+            await Logger.exportLogs();
         }
 
         private void showWizard_btn_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO.Compression;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -8,7 +10,7 @@ namespace TUMCampusApp.Classes
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        
+
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -18,16 +20,39 @@ namespace TUMCampusApp.Classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the current log file name.
+        /// </summary>
+        /// <returns>Returns the current log file name.</returns>
         private static string getFilename()
         {
             DateTime date = DateTime.Now;
             return "Log-" + date.Day + "." + date.Month + "." + date.Year + ".log";
         }
 
+        /// <summary>
+        /// Returns the current time stamp as a string.
+        /// </summary>
+        /// <returns>Returns the current time stamp as a string.</returns>
         private static string getTimeStamp()
         {
             DateTime date = DateTime.Now;
             return date.Day + "." + date.Month + "." + date.Year + " " + date.Hour + ":" + date.Minute + ":" + date.Second;
+        }
+
+        /// <summary>
+        /// Opens a FileSavePicker and lets the user pick the destination.
+        /// </summary>
+        /// <returns>Returns the selected path.</returns>
+        private static async Task<StorageFile> getTargetPathAsync()
+        {
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker()
+            {
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
+            };
+            savePicker.FileTypeChoices.Add("Logs", new List<string>() { ".zip" });
+            savePicker.SuggestedFileName = "Logs";
+            return await savePicker.PickSaveFileAsync(); ;
         }
 
         #endregion
@@ -111,6 +136,46 @@ namespace TUMCampusApp.Classes
             }
             await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
             Info("Deleted logs!");
+        }
+
+        /// <summary>
+        /// Exports all logs as a .zip file to the selected path.
+        /// </summary>
+        /// <returns>An async Task.</returns>
+        public static async Task exportLogs()
+        {
+            StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
+            if (folder != null)
+            {
+                StorageFile target = await getTargetPathAsync();
+                if (target == null)
+                {
+                    return;
+                }
+                await Task.Factory.StartNew(async () =>
+                {
+                    try
+                    {
+                        IStorageItem file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
+                        if (file != null)
+                        {
+                            await file.DeleteAsync();
+                        }
+                        ZipFile.CreateFromDirectory(folder.Path, ApplicationData.Current.LocalFolder.Path + @"\Logs.zip", CompressionLevel.Optimal, false);
+                        file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
+                        if (file != null && file is StorageFile)
+                        {
+                            StorageFile f = file as StorageFile;
+                            await f.CopyAndReplaceAsync(target);
+                        }
+                        Logger.Info("Exported logs successfully.");
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error("Error during exporting loggs", e);
+                    }
+                });
+            }
         }
 
         #endregion
