@@ -26,16 +26,16 @@ namespace TUMCampusApp.Controls
             this.entry = entry;
             this.InitializeComponent();
             showCalendar();
-            if(entry.dTStrat.CompareTo(DateTime.Now) >= 0)
+            if(entry.dTStrat.CompareTo(DateTime.Now) <= 0)
             {
-                if(entry.dTEnd.CompareTo(DateTime.Now) < 0)
+                if(entry.dTEnd.CompareTo(DateTime.Now) >= 0)
                 {
                     calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkOrange);
                 }
-            }
-            else
-            {
-                calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkGray);
+                else
+                {
+                    calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkGray);
+                }
             }
         }
 
