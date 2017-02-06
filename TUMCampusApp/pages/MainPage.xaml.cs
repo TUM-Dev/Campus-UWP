@@ -175,6 +175,7 @@ namespace TUMCampusApp.Pages
         private void splitViewIcons_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             navigateToSelectedPage();
+            mainPage_spv.IsPaneOpen = false;
         }
 
         private void goBackRequest(object sender, BackRequestedEventArgs e)
