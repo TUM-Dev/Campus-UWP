@@ -210,7 +210,7 @@ namespace TUMCampusApp.Classes
             lock (thisLock)
             {
                 System.Diagnostics.Debug.WriteLine(s);
-                FileIO.AppendTextAsync(logFile, s + Environment.NewLine).GetResults();
+                Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
             }
         }
 
