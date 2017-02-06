@@ -10,7 +10,7 @@ namespace TUMCampusApp.Classes
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private static readonly Object thisLock = new Object();
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -168,7 +168,7 @@ namespace TUMCampusApp.Classes
                             StorageFile f = file as StorageFile;
                             await f.CopyAndReplaceAsync(target);
                         }
-                        Logger.Info("Exported logs successfully.");
+                        Logger.Info("Exported logs successfully to:" + target.Path);
                     }
                     catch (Exception e)
                     {
@@ -207,8 +207,11 @@ namespace TUMCampusApp.Classes
             {
                 s += ":\n" + e.Message + "\n" + e.StackTrace;
             }
-            System.Diagnostics.Debug.WriteLine(s);
-            await FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
+            lock (thisLock)
+            {
+                System.Diagnostics.Debug.WriteLine(s);
+                FileIO.AppendTextAsync(logFile, s + Environment.NewLine).GetResults();
+            }
         }
 
         #endregion

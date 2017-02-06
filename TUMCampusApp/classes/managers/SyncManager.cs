@@ -104,6 +104,7 @@ namespace TUMCampusApp.Classes.Managers
                         return true;
                     }
                 }
+                Logger.Info("Sync not required! - " + id);
                 return false;
             }
             catch (SQLiteException e)

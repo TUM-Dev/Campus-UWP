@@ -224,7 +224,6 @@ namespace TUMCampusApp.Classes.Managers
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
                 {
-                    Logger.Info("Sync not required! - CanteenMenuManager");
                     return;
                 }
                 Uri url = new Uri("http://lu32kap.typo3.lrz.de/mensaapp/exportDB.php?mensa_id=all");

@@ -93,7 +93,6 @@ namespace TUMCampusApp.Classes.Managers
             {
                 if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
                 {
-                    Logger.Info("Sync not required! - CanteenManager");
                     return;
                 }
                 Uri url = new Uri("https://tumcabe.in.tum.de/Api/mensen");

@@ -26,7 +26,6 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <uap:Capability Name="appointments" />
-    <uap3:Capability Name="backgroundMediaPlayback" />
     <DeviceCapability Name="location" />
   </Capabilities>
 </Package>
