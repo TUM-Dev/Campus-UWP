@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Classes.UserDatas;
 using TUMCampusApp.Pages.Setup;
-using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -23,7 +21,6 @@ namespace TUMCampusApp.Pages
         private SplashScreen splash;
         internal bool dismissed = false;
         private string tileID;
-        private List<AbstractManager> managers;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -36,13 +33,12 @@ namespace TUMCampusApp.Pages
         /// </history>
         public SplashScreenPage(LaunchActivatedEventArgs args)
         {
+            Window.Current.SizeChanged += new WindowSizeChangedEventHandler(ExtendedSplash_OnResize);
             this.InitializeComponent();
             this.tileID = args.TileId;
-            Window.Current.SizeChanged += new WindowSizeChangedEventHandler(ExtendedSplash_OnResize);
             splash = args.SplashScreen;
             if (splash != null)
             {
-                splashImageRect = splash.ImageLocation;
                 splash.Dismissed += new TypedEventHandler<SplashScreen, Object>(DismissedEventHandler);
                 positionElements();
             }
@@ -72,6 +68,10 @@ namespace TUMCampusApp.Pages
         #region --Misc Methods (Private)--
         private void positionElements()
         {
+            if (splash != null)
+            {
+                splashImageRect = splash.ImageLocation;
+            }
             positionImage();
         }
 
@@ -193,10 +193,15 @@ namespace TUMCampusApp.Pages
             });
         }
 
-        private void initAppTask()
+        private async Task initAppTaskAsync()
         {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             {
+                 positionElements();
+             });
             initAppAsync().Wait();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 DismissExtendedSplashAsync();
             }).AsTask().Wait();
         }
@@ -255,16 +260,12 @@ namespace TUMCampusApp.Pages
         private void DismissedEventHandler(SplashScreen sender, object e)
         {
             dismissed = true;
-            Task.Factory.StartNew(() => initAppTask());
+            Task.Factory.StartNew(() => initAppTaskAsync());
         }
 
         private void ExtendedSplash_OnResize(Object sender, WindowSizeChangedEventArgs e)
         {
-            if (splash != null)
-            {
-                splashImageRect = splash.ImageLocation;
-                positionElements();
-            }
+            positionElements();
         }
 
         #endregion
