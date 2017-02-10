@@ -98,40 +98,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Caches\Cache.cs" />
-    <Compile Include="Classes\Canteen\Canteen.cs" />
-    <Compile Include="Classes\Canteen\CanteenMenu.cs" />
-    <Compile Include="Classes\Const.cs" />
-    <Compile Include="Classes\CustomAccelerometer.cs" />
-    <Compile Include="Classes\Canteen\Location.cs" />
     <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
     <Compile Include="Classes\Helpers\TileHelper.cs" />
-    <Compile Include="Classes\Logger.cs" />
-    <Compile Include="Classes\Managers\CacheManager.cs" />
-    <Compile Include="Classes\Managers\CanteenManager.cs" />
-    <Compile Include="Classes\Managers\CanteenMenueManager.cs" />
-    <Compile Include="Classes\Managers\AbstractManager.cs" />
-    <Compile Include="Classes\Managers\LocationManager.cs" />
-    <Compile Include="Classes\Managers\LecturesManager.cs" />
-    <Compile Include="Classes\Managers\SyncManager.cs" />
-    <Compile Include="Classes\Managers\TuitionFeeManager.cs" />
-    <Compile Include="Classes\Managers\CalendarManager.cs" />
-    <Compile Include="Classes\Managers\TumManager.cs" />
-    <Compile Include="Classes\Managers\UserDataManager.cs" />
-    <Compile Include="Classes\NetUtils.cs" />
-    <Compile Include="Classes\Syncs\Sync.cs" />
-    <Compile Include="Classes\Tum\Exceptions\BaseTUMOnlineException.cs" />
-    <Compile Include="Classes\Tum\Exceptions\InvalidTokenTUMOnlineException.cs" />
-    <Compile Include="Classes\Tum\Exceptions\NoAccessTUMOnlineException.cs" />
-    <Compile Include="Classes\Tum\TUMOnlineCalendarEntry.cs" />
-    <Compile Include="Classes\Tum\TUMOnlineConst.cs" />
-    <Compile Include="Classes\Tum\TUMOnlineLecture.cs" />
-    <Compile Include="Classes\Tum\TUMOnlineLectureInformation.cs" />
-    <Compile Include="Classes\Tum\TUMOnlineRequest.cs" />
-    <Compile Include="Classes\Tum\TUMTuitionFee.cs" />
-    <Compile Include="Classes\Tum\TUMUser.cs" />
-    <Compile Include="Classes\UserDatas\DeviceInfo.cs" />
-    <Compile Include="Classes\UserDatas\UserData.cs" />
     <Compile Include="Classes\Utillities.cs" />
     <Compile Include="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
@@ -313,12 +281,6 @@
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
-      <Name>SQLite for Universal Windows Platform</Name>
-    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
@@ -330,6 +292,10 @@
     <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
       <Project>{6651b12f-f088-40de-a285-c1b94e1993b5}</Project>
       <Name>BackgroundTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
+      <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>
+      <Name>TUMCampusAppAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

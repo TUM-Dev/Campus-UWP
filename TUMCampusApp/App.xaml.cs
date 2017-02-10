@@ -1,6 +1,6 @@
 ﻿using System;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.UserDatas;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -16,6 +16,7 @@ using Windows.Media.SpeechRecognition;
 using System.Linq;
 using Windows.ApplicationModel.Background;
 using TUMCampusApp.Classes.Helpers;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp
 {
@@ -64,7 +65,7 @@ namespace TUMCampusApp
                 Logger.Error("Installing Voice Commands Failed!", ex);
             }
 
-            if (!Utillities.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS))
+            if (!Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS))
             {
                 MyBackgroundTaskHelper.RegisterBackgroundTask();
             }

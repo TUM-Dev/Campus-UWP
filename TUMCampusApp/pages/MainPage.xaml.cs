@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.UserDatas;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static TUMCampusApp.Classes.Utillities;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages
 {
@@ -30,7 +31,7 @@ namespace TUMCampusApp.Pages
         public MainPage()
         {
             InitializeComponent();
-            DeviceInfo.INSTANCE.mainPage = this;
+            Utillities.mainPage = this;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
@@ -45,7 +46,7 @@ namespace TUMCampusApp.Pages
         /// </history>
         public MainPage(EnumPage page)
         {
-            DeviceInfo.INSTANCE.mainPage = this;
+            Utillities.mainPage = this;
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
@@ -138,7 +139,7 @@ namespace TUMCampusApp.Pages
         private void setVisiblilityMyTum()
         {
             Visibility v;
-            if (Utillities.getSettingBoolean(Const.TUMO_ENABLED))
+            if (Util.getSettingBoolean(Const.TUMO_ENABLED))
             {
                 v = Visibility.Visible;
             }

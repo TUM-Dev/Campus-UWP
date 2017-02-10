@@ -1,5 +1,5 @@
 ﻿using System;
-using TUMCampusApp.Classes.Tum;
+using TUMCampusAppAPI.TUMOnline;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;

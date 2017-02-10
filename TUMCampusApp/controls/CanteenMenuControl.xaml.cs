@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Canteens;
-using TUMCampusApp.Classes.Managers;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.Managers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -92,7 +93,7 @@ namespace TUMCampusApp.Controls
 
         private async void FOutChefkoch_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Utillities.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenMenueManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
+            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenMenueManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
         }
 
         #endregion

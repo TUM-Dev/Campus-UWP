@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Classes.UserDatas;
+using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -81,7 +81,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         protected override void OnTapped(TappedRoutedEventArgs e)
         {
-            DeviceInfo.INSTANCE.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
+            Utillities.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
         }
 
         #endregion

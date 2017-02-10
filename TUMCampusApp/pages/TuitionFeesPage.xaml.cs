@@ -6,9 +6,10 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Classes.Tum.Exceptions;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -133,7 +134,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private async void HyperlinkButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Utillities.launchBrowser(new Uri(@"https://www.tum.de/en/studies/advising/student-financial-aid/"));
+            await Util.launchBrowser(new Uri(@"https://www.tum.de/en/studies/advising/student-financial-aid/"));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

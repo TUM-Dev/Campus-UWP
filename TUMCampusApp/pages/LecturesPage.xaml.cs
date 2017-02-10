@@ -6,10 +6,10 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Classes.Tum.Exceptions;
-using TUMCampusApp.Classes.UserDatas;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.TUMOnline.Exceptions;
+using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages
 {
@@ -175,7 +176,7 @@ namespace TUMCampusApp.Pages
         {
             if (!DeviceInfo.isConnectedToInternet())
             {
-                await Utillities.showMessageBoxAsync("Unable to query!\nYour device is not connected to the internet!");
+                await Util.showMessageBoxAsync("Unable to query!\nYour device is not connected to the internet!");
                 return;
             }
             disableSearch();
@@ -236,7 +237,7 @@ namespace TUMCampusApp.Pages
             {
                 if(sender.Text.Length < 4)
                 {
-                    await Utillities.showMessageBoxAsync("query must be at least 4 chars long!");
+                    await Util.showMessageBoxAsync("query must be at least 4 chars long!");
                     return;
                 }
                 if (sender.Text.Equals(currentSearchTerm))

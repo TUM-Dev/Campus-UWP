@@ -8,9 +8,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Canteens;
+using TUMCampusAppAPI.Canteens;
 using TUMCampusApp.Classes.Helpers;
-using TUMCampusApp.Classes.Managers;
+using TUMCampusAppAPI.Managers;
 using TUMCampusApp.Controls;
 using Windows.Data.Json;
 using Windows.Devices.Sensors;
@@ -33,6 +33,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages
 {

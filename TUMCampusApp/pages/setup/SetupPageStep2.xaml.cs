@@ -1,23 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Pages;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages.Setup
 {
@@ -39,7 +26,7 @@ namespace TUMCampusApp.Pages.Setup
         public SetupPageStep2()
         {
             this.InitializeComponent();
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
         #endregion
@@ -72,8 +59,8 @@ namespace TUMCampusApp.Pages.Setup
 
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            Utillities.setSetting(Const.TUMO_ENABLED, false);
-            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
+            Util.setSetting(Const.TUMO_ENABLED, false);
+            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
             (Window.Current.Content as Frame).Navigate(typeof(MainPage));
         }
 
@@ -85,7 +72,7 @@ namespace TUMCampusApp.Pages.Setup
                 await message.ShowAsync();
                 return;
             }
-            Utillities.setSetting(Const.TUMO_ENABLED, true);
+            Util.setSetting(Const.TUMO_ENABLED, true);
             Frame f = new Frame();
             f.Navigate(typeof(MainPage));
             Window.Current.Content = f;
