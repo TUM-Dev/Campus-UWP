@@ -201,6 +201,11 @@ namespace TUMCampusAppAPI.Managers
             return c * 6371000;
         }
 
+        public async override Task InitManagerAsync()
+        {
+
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
@@ -212,9 +217,6 @@ namespace TUMCampusAppAPI.Managers
             return (Math.PI / 180) * val;
         }
 
-        public async override Task InitManagerAsync()
-        {
-        }
         #endregion
 
         #region --Misc Methods (Protected)--
