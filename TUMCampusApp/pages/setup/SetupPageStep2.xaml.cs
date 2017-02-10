@@ -1,10 +1,10 @@
 ﻿using System;
+using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages.Setup
 {

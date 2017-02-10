@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
-using TUMCampusApp.Pages;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

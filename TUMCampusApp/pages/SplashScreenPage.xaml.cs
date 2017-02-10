@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages.Setup;
