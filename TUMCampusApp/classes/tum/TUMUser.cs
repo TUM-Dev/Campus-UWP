@@ -8,7 +8,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.Classes.Tum
 {
-    class TUMUser
+    public class TUMUser
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

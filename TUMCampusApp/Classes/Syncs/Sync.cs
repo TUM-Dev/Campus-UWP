@@ -8,7 +8,7 @@ using TUMCampusApp.Classes.Managers;
 
 namespace TUMCampusApp.Classes.Syncs
 {
-    class Sync
+    public class Sync
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

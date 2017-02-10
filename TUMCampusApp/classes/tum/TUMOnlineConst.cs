@@ -7,7 +7,7 @@ using TUMCampusApp.Classes.Managers;
 
 namespace TUMCampusApp.Classes.Tum
 {
-    class TUMOnlineConst
+    public class TUMOnlineConst
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

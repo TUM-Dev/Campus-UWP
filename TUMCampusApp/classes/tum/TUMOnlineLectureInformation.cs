@@ -7,7 +7,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.Classes.Tum
 {
-    class TUMOnlineLectureInformation
+    public class TUMOnlineLectureInformation
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

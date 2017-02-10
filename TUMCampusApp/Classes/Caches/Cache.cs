@@ -8,7 +8,7 @@ using TUMCampusApp.Classes.UserDatas;
 
 namespace TUMCampusApp.Classes.Caches
 {
-    class Cache
+    public class Cache
     {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         [Unique]
