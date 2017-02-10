@@ -104,6 +104,7 @@
     <Compile Include="Classes\Const.cs" />
     <Compile Include="Classes\CustomAccelerometer.cs" />
     <Compile Include="Classes\Canteen\Location.cs" />
+    <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
     <Compile Include="Classes\Helpers\TileHelper.cs" />
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\Managers\CacheManager.cs" />
@@ -324,6 +325,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
+      <Project>{6651b12f-f088-40de-a285-c1b94e1993b5}</Project>
+      <Name>BackgroundTask</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
+using TUMCampusApp.Classes.Helpers;
 using TUMCampusApp.Classes.Managers;
 using TUMCampusApp.Pages.Setup;
 using Windows.Foundation;
@@ -81,6 +82,7 @@ namespace TUMCampusApp.Pages
         private void initServices()
         {
             disableCalendar_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
+            disableCalendar_tgls.IsOn = Utillities.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
         }
 
         private void initGeneralControls()
@@ -233,6 +235,19 @@ namespace TUMCampusApp.Pages
             if ((int)command.Id == 1)
             {
                 await Logger.deleteLogsAsync();
+            }
+        }
+
+        private void disableBackgroundTask_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Utillities.setSetting(Const.DISABLE_BACKGROUND_TASKS, disableBackgroundTask_tgls.IsOn);
+            if (disableBackgroundTask_tgls.IsOn)
+            {
+                MyBackgroundTaskHelper.RemoveBackgroundTask();
+            }
+            else
+            {
+                MyBackgroundTaskHelper.RegisterBackgroundTask();
             }
         }
 

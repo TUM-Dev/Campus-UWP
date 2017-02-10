@@ -27,6 +27,7 @@
                 <TextBlock Text="Services:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="disableCalendar_tgls"  Margin="10,10,0,0" Toggled="disableCalendar_tgls_ToggledAsync" Header="Disable TUM Online Calendar integration"/>
+                <ToggleSwitch x:Name="disableBackgroundTask_tgls"  Margin="10,10,0,0" Toggled="disableBackgroundTask_tgls_Toggled" Header="Disable background tasks"/>
                 
                 <TextBlock Text="Widgets:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
