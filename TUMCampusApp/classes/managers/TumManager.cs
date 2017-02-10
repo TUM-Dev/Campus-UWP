@@ -6,7 +6,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class TumManager : AbstractManager
+    public class TumManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

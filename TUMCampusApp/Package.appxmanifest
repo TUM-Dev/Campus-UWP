@@ -20,6 +20,12 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#0065bd" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.appService" EntryPoint="TUMCampusApp.VoiceCommands.TUMVoiceCommandService">
+          <uap:AppService Name="TUMCampusAppVoiceCommandsService"/>
+        </uap:Extension>
+        <uap:Extension Category="windows.personalAssistantLaunch"/>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

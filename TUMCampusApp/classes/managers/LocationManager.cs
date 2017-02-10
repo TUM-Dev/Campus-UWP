@@ -8,7 +8,7 @@ using Windows.Devices.Geolocation;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class LocationManager : AbstractManager
+    public class LocationManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

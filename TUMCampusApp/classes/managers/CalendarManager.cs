@@ -12,7 +12,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class CalendarManager : AbstractManager
+    public class CalendarManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

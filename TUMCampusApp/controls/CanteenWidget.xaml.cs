@@ -92,10 +92,6 @@ namespace TUMCampusApp.Controls
         private async void showMenusTaskAsync()
         {
             int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            if (id <= 0)
-            {
-                id = 422;
-            }
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 

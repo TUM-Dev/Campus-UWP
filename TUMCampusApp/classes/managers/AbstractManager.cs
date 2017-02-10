@@ -16,7 +16,7 @@ using Windows.Storage;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    abstract class AbstractManager
+    public abstract class AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <!--https://docs.microsoft.com/de-de/cortana/voicecommands/launch-a-background-app-with-voice-commands-in-cortana-->
+  <!--English - US-->
+  <CommandSet xml:lang="en-us" Name="TUMCampusAppCommandsSet_en-us">
+    <!--<CommandPrefix> TUM, </CommandPrefix>-->
+    <AppName> TUM Campus App </AppName>
+    <Example> What is there to eat today </Example>
+
+    <Command Name="showMenusForDate">
+      <Example> What is there to eat today </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> what is there to eat [on] {date} </ListenFor>
+      <Feedback> Here are the menues I've found. </Feedback>
+      <VoiceCommandService Target="TUMCampusAppVoiceCommandsService"/>
+    </Command>
+
+    <PhraseList Label="date">
+      <Item>Today</Item>
+      <Item>Tomorrow</Item>
+    </PhraseList>
+  </CommandSet>
+
+  <!--German-->
+  <CommandSet xml:lang="de" Name="TUMCampusAppCommandsSet_de">
+    <AppName> TUM Campus App </AppName>
+    <Example> Was gibts heute zum essen </Example>
+
+    <Command Name="showMenusForDate">
+      <Example> Was gibts heute zum essen </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> was gibt es [am] {date} zum essen </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> was gibts [am] {date} zum essen </ListenFor>
+      <Feedback> Hier sind die Menüs die ich fand. </Feedback>
+      <VoiceCommandService Target="TUMCampusAppVoiceCommandsService"/>
+    </Command>
+
+    <PhraseList Label="date">
+      <Item>Heute</Item>
+      <Item>Morgen</Item>
+    </PhraseList>
+  </CommandSet>
+</VoiceCommands>

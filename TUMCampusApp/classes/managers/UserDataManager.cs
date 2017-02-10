@@ -9,7 +9,7 @@ using Windows.Devices.Geolocation;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class UserDataManager : AbstractManager
+    public class UserDataManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -79,7 +79,7 @@ namespace TUMCampusApp.Classes.Managers
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                return -1;
+                return 422;
             }
             return list[0].lastSelectedCanteenId;
         }

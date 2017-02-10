@@ -7,7 +7,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class TuitionFeeManager : AbstractManager
+    public class TuitionFeeManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

@@ -12,7 +12,7 @@ using TUMCampusApp.Classes.UserDatas;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class CanteenManager : AbstractManager
+    public class CanteenManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

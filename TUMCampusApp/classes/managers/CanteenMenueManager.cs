@@ -14,7 +14,7 @@ using TUMCampusApp.Classes.UserDatas;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class CanteenMenueManager : AbstractManager
+    public class CanteenMenueManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

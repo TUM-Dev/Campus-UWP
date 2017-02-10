@@ -6,7 +6,7 @@ using TUMCampusApp.Classes.Syncs;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class SyncManager : AbstractManager
+    public class SyncManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

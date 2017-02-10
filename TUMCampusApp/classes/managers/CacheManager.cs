@@ -8,7 +8,7 @@ using TUMCampusApp.Classes.Caches;
 
 namespace TUMCampusApp.Classes.Managers
 {
-    class CacheManager : AbstractManager
+    public class CacheManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

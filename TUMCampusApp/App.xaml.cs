@@ -10,6 +10,10 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.HockeyApp;
 using Windows.ApplicationModel.Store;
 using TUMCampusApp.Classes;
+using Windows.Storage;
+using Windows.ApplicationModel.VoiceCommands;
+using Windows.Media.SpeechRecognition;
+using System.Linq;
 
 namespace TUMCampusApp
 {
@@ -36,7 +40,7 @@ namespace TUMCampusApp
         /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
         /// </summary>
         /// <param name="e">Details über Startanforderung und -prozess.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
@@ -45,6 +49,18 @@ namespace TUMCampusApp
             }
 
             Window.Current.Activate();
+
+            // Init Cortana integration
+            try
+            {
+                // Install the main VCD. 
+                StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"TUMCampusAppCommands.xml");
+                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Installing Voice Commands Failed!", ex);
+            }
         }
 
         /// <summary>
@@ -69,6 +85,39 @@ namespace TUMCampusApp
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Anwendungszustand speichern und alle Hintergrundaktivitäten beenden
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                var commandArgs = args as VoiceCommandActivatedEventArgs;
+                SpeechRecognitionResult speechRecognitionResult = commandArgs.Result;
+                
+                string voiceCommandName = speechRecognitionResult.RulePath[0];
+                string textSpoken = speechRecognitionResult.Text;
+
+                switch (voiceCommandName)
+                {
+                    case "showMenusForDate":
+                        string date = this.SemanticInterpretation("date", speechRecognitionResult);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the semantic interpretation of a speech result. 
+        /// Returns null if there is no interpretation for that key.
+        /// </summary>
+        /// <param name="interpretationKey">The interpretation key.</param>
+        /// <param name="speechRecognitionResult">The speech recognition result to get the semantic interpretation from.</param>
+        /// <returns></returns>
+        private string SemanticInterpretation(string interpretationKey, SpeechRecognitionResult speechRecognitionResult)
+        {
+            return speechRecognitionResult.SemanticInterpretation.Properties[interpretationKey].FirstOrDefault();
         }
     }
 }
