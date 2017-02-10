@@ -111,6 +111,12 @@
     <Compile Include="BackgroundTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
+      <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>
+      <Name>TUMCampusAppAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
