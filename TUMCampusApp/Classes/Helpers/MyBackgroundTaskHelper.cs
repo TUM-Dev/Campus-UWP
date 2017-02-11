@@ -38,7 +38,7 @@ namespace TUMCampusApp.Classes.Helpers
                 return;
             }
             await BackgroundExecutionManager.RequestAccessAsync();
-            BackgroundTaskHelper.Register(BACKGROUND_TASK_NAME, "TUMCampusApp.BackgroundTask.BackgroundTask", new TimeTrigger(60, false), false, true, new SystemCondition(SystemConditionType.FreeNetworkAvailable), new SystemCondition(SystemConditionType.UserNotPresent));
+            BackgroundTaskHelper.Register(BACKGROUND_TASK_NAME, "TUMCampusApp.BackgroundTask.BackgroundTask", new TimeTrigger(60, false), false, true, new SystemCondition(SystemConditionType.FreeNetworkAvailable), new SystemCondition(SystemConditionType.UserNotPresent), new SystemCondition(SystemConditionType.InternetAvailable));
             Logger.Info("Registered the " + BACKGROUND_TASK_NAME + " background task.");
         }
 
