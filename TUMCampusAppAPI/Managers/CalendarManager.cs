@@ -90,6 +90,10 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public void syncCalendar()
         {
+            if(!SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            {
+                return;
+            }
             Task.Factory.StartNew(() => {
                 lock(thisLock){
                     Task.WaitAny(syncCalendarTaskAsync());
