@@ -129,6 +129,10 @@ namespace TUMCampusApp.Pages
             {
                 await CalendarManager.INSTANCE.deleteCalendarAsync();
             }
+            else
+            {
+                CalendarManager.INSTANCE.syncCalendar(true);
+            }
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
         }
 
