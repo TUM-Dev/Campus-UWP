@@ -37,7 +37,7 @@ namespace TUMCampusAppAPI
         private static string getTimeStamp()
         {
             DateTime date = DateTime.Now;
-            return date.Day + "." + date.Month + "." + date.Year + " " + date.Hour + ":" + date.Minute + ":" + date.Second;
+            return date.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
         /// <summary>
