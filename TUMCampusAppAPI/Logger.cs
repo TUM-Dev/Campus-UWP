@@ -26,8 +26,7 @@ namespace TUMCampusAppAPI
         /// <returns>Returns the current log file name.</returns>
         private static string getFilename()
         {
-            DateTime date = DateTime.Now;
-            return "Log-" + date.Day + "." + date.Month + "." + date.Year + ".log";
+            return "Log-" + DateTime.Now.ToString("dd.MM.yyyy") + ".log";
         }
 
         /// <summary>
@@ -36,8 +35,7 @@ namespace TUMCampusAppAPI
         /// <returns>Returns the current time stamp as a string.</returns>
         private static string getTimeStamp()
         {
-            DateTime date = DateTime.Now;
-            return date.ToString("dd.MM.yyyy HH:mm:ss");
+            return DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
         /// <summary>
@@ -210,7 +208,8 @@ namespace TUMCampusAppAPI
             lock (thisLock)
             {
                 System.Diagnostics.Debug.WriteLine(s);
-                Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
+                //Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
+                FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask();
             }
         }
 
