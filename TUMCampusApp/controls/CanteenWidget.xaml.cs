@@ -39,6 +39,12 @@ namespace TUMCampusApp.Controls
         #region --Set-, Get- Methods--
         private void setMenuType(int canteenId, string name, bool contains, DateTime date)
         {
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
+            if (list == null || list.Count <= 0)
+            {
+                return;
+            }
+
             //Description:
             TextBlock tb = new TextBlock()
             {
@@ -59,11 +65,6 @@ namespace TUMCampusApp.Controls
             };
             menus_sckl.Children.Add(rect);
 
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
-            if (list == null)
-            {
-                return;
-            }
             //Menus:
             foreach (CanteenMenu m in list)
             {
@@ -91,6 +92,7 @@ namespace TUMCampusApp.Controls
                 menus_sckl.Children.Clear();
                 setMenuType(id, "Tagesgericht", true, date);
                 setMenuType(id, "Aktionsessen", true, date);
+                setMenuType(id, "Self-Service", false, date);
             }).AsTask().Wait();
 
             if (date.CompareTo(DateTime.MaxValue) == 0)

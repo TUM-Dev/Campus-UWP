@@ -55,6 +55,12 @@ namespace TUMCampusApp.Pages
 
         private void setMenuType(string name, bool contains, DateTime date)
         {
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
+            if (list == null || list.Count <= 0)
+            {
+                return;
+            }
+
             //Description:
             TextBlock tb = new TextBlock()
             {
@@ -74,12 +80,6 @@ namespace TUMCampusApp.Pages
                 Margin = new Thickness(10, 0, 10, 0)
             };
             menus_sckl.Children.Add(rect);
-
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
-            if (list == null)
-            {
-                return;
-            }
 
             //Menus:
             foreach (CanteenMenu m in list)
@@ -202,6 +202,7 @@ namespace TUMCampusApp.Pages
 
                 setMenuType("Tagesgericht", true, date);
                 setMenuType("Aktionsessen", true, date);
+                setMenuType("Self-Service", false, date);
                 setMenuType("Aktion", false, date);
                 setMenuType("Beilagen", true, date);
 
