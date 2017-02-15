@@ -1,5 +1,6 @@
 ﻿using SQLite.Net.Attributes;
 using System;
+using TUMCampusAppAPI.Managers;
 
 namespace TUMCampusAppAPI.Canteens
 {
@@ -12,6 +13,7 @@ namespace TUMCampusAppAPI.Canteens
         public int cafeteriaId { get; set; }
         public DateTime date { get; set; }
         public string name { get; set; }
+        public string nameEmojis { get; set; }
         public string typeLong { get; set; }
         public int typeNr { get; set; }
         public string typeShort { get; set; }
@@ -41,6 +43,7 @@ namespace TUMCampusAppAPI.Canteens
             this.typeLong = typeLong;
             this.typeNr = typeNr;
             this.name = name;
+            this.nameEmojis = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(name, true);
         }
 
         /// <summary>
