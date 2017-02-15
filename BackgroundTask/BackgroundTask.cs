@@ -29,9 +29,9 @@ namespace TUMCampusApp.BackgroundTask
         #region --Misc Methods (Public)--
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
+            _deferral = taskInstance.GetDeferral();
             taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
 
-            _deferral = taskInstance.GetDeferral();
             Logger.Info("Started background task.");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
@@ -52,10 +52,12 @@ namespace TUMCampusApp.BackgroundTask
         {
             if (Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
+                Logger.Info("Canceling background task. Device not connected to a wifi network.");
                 return;
             }
             if(CacheManager.INSTANCE == null)
             {
+                Logger.Info("0");
                 CacheManager.INSTANCE = new CacheManager();
                 SyncManager.INSTANCE = new SyncManager();
                 CanteenManager.INSTANCE = new CanteenManager();
@@ -66,7 +68,8 @@ namespace TUMCampusApp.BackgroundTask
                 UserDataManager.INSTANCE = new UserDataManager();
                 TumManager.INSTANCE = new TumManager();
             }
-            
+
+            Logger.Info("1");
             await CacheManager.INSTANCE.InitManagerAsync();
             await SyncManager.INSTANCE.InitManagerAsync();
             await CalendarManager.INSTANCE.InitManagerAsync();
@@ -76,6 +79,12 @@ namespace TUMCampusApp.BackgroundTask
             await CanteenMenueManager.INSTANCE.InitManagerAsync();
             await TuitionFeeManager.INSTANCE.InitManagerAsync();
             await TumManager.INSTANCE.InitManagerAsync();
+
+            Logger.Info("3");
+            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
+            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
+            await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+            Logger.Info("4");
         }
 
         #endregion
@@ -92,6 +101,7 @@ namespace TUMCampusApp.BackgroundTask
             _cancelReason = reason;
 
             Logger.Error("Background " + sender.Task.Name + " Cancel Requested...\nReason=" + reason.ToString());
+            _deferral.Complete();
         }
 
         #endregion
