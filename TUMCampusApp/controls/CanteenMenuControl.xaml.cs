@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Canteens;
-using TUMCampusApp.Classes.Managers;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Controls
 {
@@ -92,7 +82,7 @@ namespace TUMCampusApp.Controls
 
         private async void FOutChefkoch_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Utillities.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenMenueManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
+            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenMenueManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
         }
 
         #endregion

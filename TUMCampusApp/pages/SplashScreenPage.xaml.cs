@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.UserDatas;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages.Setup;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.Utillities;
 
 namespace TUMCampusApp.Pages
@@ -215,9 +215,9 @@ namespace TUMCampusApp.Pages
             else
             {
                 Frame f = new Frame();
-                if (!Utillities.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
+                if (!Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
                 {
-                    bool wifiOnly = Utillities.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
+                    bool wifiOnly = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
                     if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi()))
                     {
                         if(TumManager.getToken() == null || TumManager.getToken() == "")
@@ -230,19 +230,19 @@ namespace TUMCampusApp.Pages
                         }
                         else
                         {
-                            Utillities.setSetting(Const.TUMO_ENABLED, true);
+                            Util.setSetting(Const.TUMO_ENABLED, true);
                             f.Navigate(typeof(MainPage));
                         }
                     }
                     else
                     {
-                        Utillities.setSetting(Const.TUMO_ENABLED, !(TumManager.getToken() == null || TumManager.getToken() == ""));
+                        Util.setSetting(Const.TUMO_ENABLED, !(TumManager.getToken() == null || TumManager.getToken() == ""));
                         f.Navigate(typeof(MainPage));
                     }
                 }
                 else
                 {
-                    Utillities.setSetting(Const.TUMO_ENABLED, false);
+                    Util.setSetting(Const.TUMO_ENABLED, false);
                     f.Navigate(typeof(MainPage));
                 }
                 Window.Current.Content = f;

@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
-using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Pages;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using TUMCampusAppAPI.Managers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages.Setup
 {
@@ -71,8 +57,8 @@ namespace TUMCampusApp.Pages.Setup
         #region --Events--
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            Utillities.setSetting(Const.TUMO_ENABLED, false);
-            Utillities.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
+            Util.setSetting(Const.TUMO_ENABLED, false);
+            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
             (Window.Current.Content as Frame).Navigate(typeof(MainPage));
         }
 
@@ -101,7 +87,7 @@ namespace TUMCampusApp.Pages.Setup
                 await message.ShowAsync();
                 return;
             }
-            Utillities.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+            Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
             (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
         }
 

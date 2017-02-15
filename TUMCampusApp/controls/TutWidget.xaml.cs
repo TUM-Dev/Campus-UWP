@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using TUMCampusApp.Classes.UserDatas;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using TUMCampusApp.Classes;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Controls
 {
@@ -61,7 +49,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            DeviceInfo.INSTANCE.mainPage.navigateToPage(Classes.Utillities.EnumPage.SettingsPage);
+            Utillities.mainPage.navigateToPage(Classes.Utillities.EnumPage.SettingsPage);
         }
 
         #endregion

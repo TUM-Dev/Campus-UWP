@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using TUMCampusApp.Classes;
-using TUMCampusApp.Classes.Managers;
-using TUMCampusApp.Classes.Tum;
-using TUMCampusApp.Classes.Tum.Exceptions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Pages
 {
@@ -133,7 +123,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private async void HyperlinkButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Utillities.launchBrowser(new Uri(@"https://www.tum.de/en/studies/advising/student-financial-aid/"));
+            await Util.launchBrowser(new Uri(@"https://www.tum.de/en/studies/advising/student-financial-aid/"));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
