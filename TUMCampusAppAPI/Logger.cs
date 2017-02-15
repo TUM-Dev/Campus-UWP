@@ -208,8 +208,7 @@ namespace TUMCampusAppAPI
             lock (thisLock)
             {
                 System.Diagnostics.Debug.WriteLine(s);
-                //Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
-                FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask();
+                Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
             }
         }
 
