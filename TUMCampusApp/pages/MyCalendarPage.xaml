@@ -18,7 +18,7 @@
             <StackPanel>
                 <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red">
                     <StackPanel>
-                        <TextBlock Text="No access! Either you did not enable your token or you did not gave the token the required rights." HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="0,5,0,5"/>
+                        <TextBlock Text="No access! Either you did not enable your token or you did not gave the token the required rights." HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="10,5,0,10"/>
                     </StackPanel>
                 </Grid>
                 <StackPanel x:Name="calendarEntries_stckp" Margin="10,0,10,10">
