@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
-using Windows.ApplicationModel.Resources.Core;
 using Windows.ApplicationModel.AppService;
+using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.Managers;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TUMCampusApp.VoiceCommands
 {
@@ -15,7 +15,6 @@ namespace TUMCampusApp.VoiceCommands
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private BackgroundTaskDeferral serviceDeferral;
-        private VoiceCommandServiceConnection voiceServiceConnection;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -38,7 +37,7 @@ namespace TUMCampusApp.VoiceCommands
         /// Returns the menus for the last selected canteen.
         /// </summary>
         /// <param name="date">The date for the menus</param>
-        /*private List<CanteenMenu> getMenus(DateTime date)
+        private List<CanteenMenu> getMenus(DateTime date)
         {
             List<CanteenMenu> list = new List<CanteenMenu>();
             if(CanteenMenueManager.INSTANCE == null)
@@ -51,34 +50,35 @@ namespace TUMCampusApp.VoiceCommands
             list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Tagesgericht", true, date));
             list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Aktionsessen", true, date));
             return list;
-        }*/
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            //Take a service deferral so the service isn't terminated.
-            this.serviceDeferral = taskInstance.GetDeferral();
             taskInstance.Canceled += OnTaskCanceled;
-            var triggerDetails = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+            serviceDeferral = taskInstance.GetDeferral();
 
+            AppServiceTriggerDetails triggerDetails = taskInstance.TriggerDetails as AppServiceTriggerDetails;
             if (triggerDetails != null && triggerDetails.Name == "TUMCampusAppVoiceCommandsService")
             {
                 try
                 {
-                    voiceServiceConnection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
+                    VoiceCommandServiceConnection voiceServiceConnection = VoiceCommandServiceConnection.FromAppServiceTriggerDetails(triggerDetails);
                     voiceServiceConnection.VoiceCommandCompleted += VoiceCommandCompleted;
                     VoiceCommand voiceCommand = await voiceServiceConnection.GetVoiceCommandAsync();
 
                     switch (voiceCommand.CommandName)
                     {
                         case "showMenusForDate":
-                            SendCompletionMessageForMenus(voiceCommand);
+                            Debug.WriteLine("1");
+                            await SendCompletionMessageForMenus(voiceServiceConnection, voiceCommand);
+                            Debug.WriteLine("2");
                             break;
                         // As a last resort, launch the app in the foreground.
                         default:
-                            LaunchAppInForeground();
+                            LaunchAppInForeground(voiceServiceConnection);
                             break;
                     }
                 }
@@ -93,7 +93,7 @@ namespace TUMCampusApp.VoiceCommands
             }
         }
 
-        private async void SendCompletionMessageForMenus(VoiceCommand voiceCommand)
+        private async Task SendCompletionMessageForMenus(VoiceCommandServiceConnection voiceServiceConnection, VoiceCommand voiceCommand)
         {
             string date = voiceCommand.Properties["date"][0];
             VoiceCommandUserMessage userMessage = new VoiceCommandUserMessage();
@@ -109,7 +109,7 @@ namespace TUMCampusApp.VoiceCommands
             }
 
             var menusTiles = new List<VoiceCommandContentTile>();
-            /*List<CanteenMenu> menus = getMenus(d);
+            List<CanteenMenu> menus = getMenus(d);
             foreach (var m in menus)
             {
                 menusTiles.Add(new VoiceCommandContentTile()
@@ -117,7 +117,7 @@ namespace TUMCampusApp.VoiceCommands
                     Title = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(m.name, true),
                     TextLine1 = m.typeLong
                 });
-            }*/
+            }
             var response = VoiceCommandResponse.CreateResponse(userMessage, menusTiles);
             await voiceServiceConnection.ReportSuccessAsync(response);
         }
@@ -125,7 +125,7 @@ namespace TUMCampusApp.VoiceCommands
         /// <summary>
         /// Launches the app in foreground.
         /// </summary>
-        private async void LaunchAppInForeground()
+        private async void LaunchAppInForeground(VoiceCommandServiceConnection voiceServiceConnection)
         {
             var userMessage = new VoiceCommandUserMessage();
             userMessage.SpokenMessage = "Launching TUM Campus App";
@@ -154,7 +154,7 @@ namespace TUMCampusApp.VoiceCommands
         /// <param name="reason">Contains an enumeration with the reason for task cancellation</param>
         private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            System.Diagnostics.Debug.WriteLine("Task cancelled, clean up");
+            Debug.WriteLine("Task cancelled, clean up");
             if (this.serviceDeferral != null)
             {
                 this.serviceDeferral.Complete();
