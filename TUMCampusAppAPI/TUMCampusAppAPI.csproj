@@ -110,6 +110,7 @@
     <Compile Include="Caches\Cache.cs" />
     <Compile Include="Canteen\Canteen.cs" />
     <Compile Include="Canteen\CanteenMenu.cs" />
+    <Compile Include="Canteen\CanteenPrices.cs" />
     <Compile Include="Canteen\Location.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="CustomAccelerometer.cs" />

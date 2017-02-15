@@ -64,6 +64,12 @@ namespace TUMCampusApp.Controls
             {
                 menuTitle_tbx.Text = menu.nameEmojis;
             }
+
+            string price = CanteenPrices.getPrice(menu.typeLong);
+            if(price != null && price != "")
+            {
+                price_tbx.Text = price + "€";
+            }
         }
 
         #endregion

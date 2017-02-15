@@ -48,6 +48,11 @@ namespace TUMCampusAppAPI
             return obj != null && obj is bool && (bool)obj;
         }
 
+        public static string getSettingString(string token)
+        {
+            return (string)getSetting(token);
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
