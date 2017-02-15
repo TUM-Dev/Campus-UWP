@@ -106,7 +106,7 @@ namespace TUMCampusAppAPI.Managers
             Task.Factory.StartNew(() => {
                 lock (thisLock)
                 {
-                    Task.WaitAny(syncCalendarTaskAsync());
+                    Task.WaitAny(syncCalendarTaskAsync(force));
                 }
             });
             SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
@@ -134,11 +134,11 @@ namespace TUMCampusAppAPI.Managers
         /// Syncs the calendar
         /// </summary>
         /// <returns></returns>
-        private async Task syncCalendarTaskAsync()
+        private async Task syncCalendarTaskAsync(bool force)
         {
             long time = SyncManager.GetCurrentUnixTimestampMillis();
             List<TUMOnlineCalendarEntry> list = null;
-            if (SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
             {
                 XmlDocument doc = null;
                 try
