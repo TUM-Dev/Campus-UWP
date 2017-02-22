@@ -59,8 +59,11 @@ namespace TUMCampusAppAPI.Managers
                     entry = e;
                 }
             }
-            entry.dTStrat = entry.dTStrat.AddHours(1);
-            entry.dTEnd = entry.dTEnd.AddHours(1);
+            if(entry != null)
+            {
+                entry.dTStrat = entry.dTStrat.AddHours(1);
+                entry.dTEnd = entry.dTEnd.AddHours(1);
+            }
             return entry;
         }
 

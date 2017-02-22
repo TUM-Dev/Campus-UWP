@@ -77,7 +77,12 @@ namespace TUMCampusAppAPI.Managers
             {
                 return 422;
             }
-            return list[0].lastSelectedCanteenId;
+            int id = list[0].lastSelectedCanteenId;
+            if(id == 0)
+            {
+                return 442;
+            }
+            return id;
         }
 
         /// <summary>
