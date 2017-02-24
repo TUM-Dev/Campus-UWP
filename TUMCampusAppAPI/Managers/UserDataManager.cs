@@ -91,7 +91,10 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="id">Saves the given id as the last selected canteen id.</param>
         public void setLastSelectedCanteenId(int id)
         {
-            dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            if(dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = ?", DeviceInfo.INSTANCE.Id) <= 0)
+            {
+                dB.Insert(new UserData() { lastSelectedCanteenId = id });
+            }
         }
 
         #endregion
