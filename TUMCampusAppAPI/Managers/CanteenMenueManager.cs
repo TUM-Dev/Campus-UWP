@@ -84,7 +84,7 @@ namespace TUMCampusAppAPI.Managers
         {
             DateTime time = DateTime.MaxValue;
             List<CanteenMenu> menus = new List<CanteenMenu>();
-            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%'"))
+            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
                 if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
                 {
@@ -92,6 +92,24 @@ namespace TUMCampusAppAPI.Managers
                 }
             }
             return time;
+        }
+
+        /// <summary>
+        /// Returns all dates where a menu was found. And the date is greater or equal to the current date.
+        /// </summary>
+        /// <param name="canteenID">The id of the canteen you want the dates for.</param>
+        public List<DateTime> getMenuDates(int canteenID)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteenID))
+            {
+                if (m.date.Date.CompareTo(DateTime.Now.Date) >= 0 && !dates.Contains(m.date))
+                {
+                    dates.Add(m.date);
+                }
+            }
+            dates.Sort();
+            return dates;
         }
 
         /// <summary>

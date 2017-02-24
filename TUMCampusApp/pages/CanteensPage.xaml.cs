@@ -22,6 +22,7 @@ namespace TUMCampusApp.Pages
         #region --Attributes--
         private Canteen currentCanteen;
         private int currentDayOffset;
+        private List<DateTime> menuDates;
         private bool messageBoxShown;
 
         #endregion
@@ -37,9 +38,10 @@ namespace TUMCampusApp.Pages
         {
             this.InitializeComponent();
             this.currentDayOffset = 0;
+            this.menuDates = null;
             this.messageBoxShown = false;
         }
-        
+
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
@@ -92,21 +94,25 @@ namespace TUMCampusApp.Pages
         {
             string s = "Main Course:\n";
             Random r = new Random();
-            DateTime date = CanteenMenueManager.getFirstNextDate();
+            if (menuDates == null && menuDates.Count <= 0)
+            {
+                return "No menus available for: " + currentCanteen.name;
+            }
+            DateTime date = menuDates[0];
             if (date.Equals(DateTime.MaxValue))
             {
                 date = DateTime.Now;
             }
-            date = date.AddDays(currentDayOffset);
+            date = menuDates[currentDayOffset];
             List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Tagesgericht", true, date);
             List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Aktionsessen", true, date);
             List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Beilagen", false, date);
 
-            if(aMenu == null || aMenu.Count <= 0 || r.Next(0,4) != 0)
+            if (aMenu == null || aMenu.Count <= 0 || r.Next(0, 4) != 0)
             {
-                if(tMenu != null && tMenu.Count > 0)
+                if (tMenu != null && tMenu.Count > 0)
                 {
-                    s += "-" + tMenu[r.Next(0,tMenu.Count)].name + "\n";
+                    s += "-" + tMenu[r.Next(0, tMenu.Count)].name + "\n";
                 }
             }
             else
@@ -116,7 +122,7 @@ namespace TUMCampusApp.Pages
 
             s += "\nSide Dishes:\n";
 
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (bMenu != null && bMenu.Count > 0)
                 {
@@ -151,7 +157,7 @@ namespace TUMCampusApp.Pages
         private async Task loadCanteensAsync()
         {
             List<Canteen> list = await LocationManager.INSTANCE.getCanteensAsync();
-            if(list == null || list.Count < 1)
+            if (list == null || list.Count < 1)
             {
                 return;
             }
@@ -161,7 +167,7 @@ namespace TUMCampusApp.Pages
             {
                 foreach (Canteen c in list)
                 {
-                    if(c.id == id)
+                    if (c.id == id)
                     {
                         temp = c;
                         break;
@@ -172,7 +178,8 @@ namespace TUMCampusApp.Pages
             {
                 temp = list[0];
             }
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 selectedCanteen_tbx.Text = temp.name;
                 currentCanteen = temp;
                 foreach (Canteen c in list)
@@ -191,14 +198,29 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            DateTime date = CanteenMenueManager.getFirstNextDate();
-            if (date.Equals(DateTime.MaxValue))
+            menuDates = CanteenMenueManager.INSTANCE.getMenuDates(currentCanteen.id);
+            if (menuDates == null || menuDates.Count <= 0)
             {
-                date = DateTime.Now;
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    menus_sckl.Children.Clear();
+                    day_tbx.Text = "";
+                    menus_sckl.Children.Add(new TextBlock()
+                    {
+                        Text = "No menus found!",
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 25
+                    });
+                }).AsTask();
+                return;
             }
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+
+            DateTime date = menuDates[0];
+
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 menus_sckl.Children.Clear();
-                date = date.AddDays(currentDayOffset);
+                date = menuDates[currentDayOffset];
 
                 setMenuType("Tagesgericht", true, date);
                 setMenuType("Aktionsessen", true, date);
@@ -207,7 +229,7 @@ namespace TUMCampusApp.Pages
                 setMenuType("Beilagen", true, date);
 
                 date = date.AddDays(1);
-                day_tbx.Text = date.DayOfWeek.ToString() + ' ' + date.Day + '.' + date.Month + '.' + date.Year;
+                day_tbx.Text = date.DayOfWeek.ToString() + ", " + date.ToString("dd.MM.yyyy");
             }).AsTask().Wait();
         }
 
@@ -263,7 +285,7 @@ namespace TUMCampusApp.Pages
             MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s, false));
             dialog.Title = "Ingredients:";
             await dialog.ShowAsync();
-        } 
+        }
 
         private void initAcc()
         {
@@ -279,7 +301,8 @@ namespace TUMCampusApp.Pages
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
             showCurrentMenus();
             initAcc();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 progressBar.Visibility = Visibility.Collapsed;
             }).AsTask();
         }
@@ -323,17 +346,18 @@ namespace TUMCampusApp.Pages
 
         private void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)
         {
-            if(!refreshCanteen_btn.IsEnabled || !refreshCanteenMenus_btn.IsEnabled)
+            if (!refreshCanteen_btn.IsEnabled || !refreshCanteenMenus_btn.IsEnabled)
             {
                 return;
             }
             lockRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => 
+            Task.Factory.StartNew(() =>
             {
                 CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
                 loadCanteensAsync().Wait();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     progressBar.Visibility = Visibility.Collapsed;
                     releaseRefreshButtons();
                 }).AsTask().Wait();
@@ -352,7 +376,8 @@ namespace TUMCampusApp.Pages
             {
                 CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
                 showCurrentMenus();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     progressBar.Visibility = Visibility.Collapsed;
                     releaseRefreshButtons();
                 }).AsTask().Wait();
@@ -373,7 +398,8 @@ namespace TUMCampusApp.Pages
                 loadCanteensAsync().Wait();
                 CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
                 showCurrentMenus();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     progressBar.Visibility = Visibility.Collapsed;
                     releaseRefreshButtons();
                 }).AsTask().Wait();
@@ -382,8 +408,12 @@ namespace TUMCampusApp.Pages
 
         private void right_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (menuDates == null || menuDates.Count <= 0)
+            {
+                return;
+            }
             currentDayOffset++;
-            if (currentDayOffset >= 7)
+            if (currentDayOffset >= menuDates.Count)
             {
                 currentDayOffset = 0;
             }
@@ -392,17 +422,21 @@ namespace TUMCampusApp.Pages
 
         private void left_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (menuDates == null || menuDates.Count <= 0)
+            {
+                return;
+            }
             currentDayOffset--;
             if (currentDayOffset < 0)
             {
-                currentDayOffset = 6;
+                currentDayOffset = menuDates.Count - 1;
             }
             Task.Factory.StartNew(() => showCurrentMenus());
         }
 
         private async void CustomAccelerometer_ShakenAsync(object sender, EventArgs args)
         {
-            if(currentCanteen == null)
+            if (currentCanteen == null)
             {
                 return;
             }
