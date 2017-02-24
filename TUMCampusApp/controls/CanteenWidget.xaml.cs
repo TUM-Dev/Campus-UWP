@@ -93,6 +93,15 @@ namespace TUMCampusApp.Controls
                 setMenuType(id, "Tagesgericht", true, date);
                 setMenuType(id, "Aktionsessen", true, date);
                 setMenuType(id, "Self-Service", false, date);
+                if(menus_sckl.Children.Count <= 0)
+                {
+                    menus_sckl.Children.Add(new TextBlock()
+                    {
+                        Text = "No menus found!",
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 25
+                    });
+                }
             }).AsTask().Wait();
 
             if (date.CompareTo(DateTime.MaxValue) == 0)
