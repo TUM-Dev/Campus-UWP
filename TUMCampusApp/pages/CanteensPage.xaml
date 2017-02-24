@@ -62,7 +62,7 @@
         </Grid>
 
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="2" VerticalAlignment="Top"/>
-        <ScrollViewer x:Name="menus_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2">
+        <ScrollViewer x:Name="menus_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2" Tapped="menus_scv_Tapped">
             <StackPanel x:Name="menus_sckl" Padding="0,0,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <!--Content Menus-->
             </StackPanel>

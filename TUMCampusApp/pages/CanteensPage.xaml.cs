@@ -50,8 +50,7 @@ namespace TUMCampusApp.Pages
             currentCanteen = canteen;
             UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.id);
             selectedCanteen_tbx.Text = canteen.name;
-            expand_btn.Content = "\xE019";
-            canteens_scv.Visibility = Visibility.Collapsed;
+            collapseCanteens();
             Task.Factory.StartNew(() => showCurrentMenus());
         }
 
@@ -140,6 +139,18 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        private void collapseCanteens()
+        {
+            expand_btn.Content = "\xE019";
+            canteens_scv.Visibility = Visibility.Collapsed;
+        }
+
+        private void expandCanteens()
+        {
+            expand_btn.Content = "\xE018";
+            canteens_scv.Visibility = Visibility.Visible;
+        }
+
         private void lockRefreshButtons()
         {
             refreshAll_btn.IsEnabled = false;
@@ -324,13 +335,11 @@ namespace TUMCampusApp.Pages
         {
             if (canteens_scv.Visibility == Visibility.Visible)
             {
-                expand_btn.Content = "\xE019";
-                canteens_scv.Visibility = Visibility.Collapsed;
+                collapseCanteens();
             }
             else
             {
-                expand_btn.Content = "\xE018";
-                canteens_scv.Visibility = Visibility.Visible;
+                expandCanteens();
             }
         }
 
@@ -466,6 +475,12 @@ namespace TUMCampusApp.Pages
         {
             TileHelper.PinTileAsync("Canteens", "Canteens", "canteens", "Assets/Images/CanteenTile.png");
         }
+
+        private void menus_scv_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            collapseCanteens();
+        }
+        
         #endregion
     }
 }
