@@ -38,9 +38,24 @@ namespace TUMCampusApp.Controls
                 string statusText = "Occupied for ";
                 if (timeSpan.Hours > 0)
                 {
-                    statusText += timeSpan.Hours + " hours and ";
+                    if(timeSpan.Hours == 1)
+                    {
+                        statusText += timeSpan.Hours + " hours and ";
+                    }
+                    else
+                    {
+                        statusText += timeSpan.Hours + " hour and ";
+                    }
                 }
-                statusText += timeSpan.Minutes + " minutes, until: " + room.occupied_till.ToString("dd.MM.yyyy HH:mm");
+                if(timeSpan.Minutes == 1)
+                {
+                    statusText += timeSpan.Minutes + " minute, until: ";
+                }
+                else
+                {
+                    statusText += timeSpan.Minutes + " minutes, until: ";
+                }
+                statusText += room.occupied_till.ToString("dd.MM.yyyy HH:mm");
                 status_tbx.Text = statusText;
             }
         }
