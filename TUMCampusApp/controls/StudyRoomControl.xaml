@@ -1,0 +1,18 @@
+﻿<UserControl
+    x:Class="TUMCampusApp.Controls.StudyRoomControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TUMCampusApp.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="main_grid" Background="DarkRed">
+        <StackPanel>
+            <TextBlock x:Name="name_tbx" FontWeight="Bold" FontSize="25" Margin="10,10,10,5" TextWrapping="WrapWholeWords"/>
+            <TextBlock x:Name="location_tbx" Margin="10,0,10,0" TextWrapping="WrapWholeWords"/>
+            <TextBlock x:Name="status_tbx" Margin="10,0,10,10" TextWrapping="WrapWholeWords"/>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

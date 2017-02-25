@@ -122,11 +122,14 @@
     <Compile Include="Managers\CanteenMenueManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />
     <Compile Include="Managers\LocationManager.cs" />
+    <Compile Include="Managers\StudyRoomManager.cs" />
     <Compile Include="Managers\SyncManager.cs" />
     <Compile Include="Managers\TuitionFeeManager.cs" />
     <Compile Include="Managers\TumManager.cs" />
     <Compile Include="Managers\UserDataManager.cs" />
     <Compile Include="NetUtils.cs" />
+    <Compile Include="StudyRooms\StudyRoomGroup.cs" />
+    <Compile Include="StudyRooms\StudyRoom.cs" />
     <Compile Include="Syncs\Sync.cs" />
     <Compile Include="TUMOnline\Exceptions\BaseTUMOnlineException.cs" />
     <Compile Include="TUMOnline\Exceptions\InvalidTokenTUMOnlineException.cs" />

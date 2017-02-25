@@ -119,6 +119,9 @@
     <Compile Include="Controls\LectureControl.xaml.cs">
       <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StudyRoomControl.xaml.cs">
+      <DependentUpon>StudyRoomControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TuitionFeeWidget.xaml.cs">
       <DependentUpon>TuitionFeeWidget.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,9 @@
     </Compile>
     <Compile Include="Pages\SplashScreenPage.xaml.cs">
       <DependentUpon>SplashScreenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StudyRoomPage.xaml.cs">
+      <DependentUpon>StudyRoomPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TuitionFeesPage.xaml.cs">
       <DependentUpon>TuitionFeesPage.xaml</DependentUpon>
@@ -263,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\StudyRoomControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TuitionFeeWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SplashScreenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StudyRoomPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

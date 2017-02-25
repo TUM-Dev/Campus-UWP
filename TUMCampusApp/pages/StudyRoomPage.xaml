@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="TUMCampusApp.Pages.StudyRoomPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TUMCampusApp.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Grid Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="room_groups_cmbb" SelectedIndex="0" HorizontalAlignment="Stretch" FontSize="26" Grid.Column="0" Background="Transparent" SelectionChanged="room_groups_cmbb_SelectionChanged">
+                    <ComboBoxItem Content="Loading..."/>
+                </ComboBox>
+                <Button Name="refresh_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE117;" FontSize="25" Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" Click="refresh_btn_Click" Margin="5"/>
+            </Grid>
+            <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
+        </StackPanel>
+
+        <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock x:Name="noDate_tbx" Visibility="Collapsed" Text="Unable to access this service at the moment! Please come back later." HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="10"/>
+                <StackPanel x:Name="rooms_stckp" Grid.Row="1">
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
