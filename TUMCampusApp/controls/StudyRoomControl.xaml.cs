@@ -26,7 +26,7 @@ namespace TUMCampusApp.Controls
             this.room = room;
             this.InitializeComponent();
             this.name_tbx.Text = room.name;
-            this.location_tbx.Text = room.location;
+            this.location_tbx.Text = room.code;
             if(room.occupied_till == null || room.occupied_till.CompareTo(DateTime.Now) <= 0)
             {
                 main_grid.Background = new SolidColorBrush(Colors.DarkGreen);
