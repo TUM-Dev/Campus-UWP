@@ -45,6 +45,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Sets the given canteen as the new favourite canteen.
+        /// </summary>
+        /// <param name="canteen">The canteen that should be the new favourite one.</param>
         private void setNewFavoriteCanteen(Canteen canteen)
         {
             currentCanteen = canteen;
@@ -54,6 +58,12 @@ namespace TUMCampusApp.Pages
             Task.Factory.StartNew(() => showCurrentMenus());
         }
 
+        /// <summary>
+        /// Displays all menus that match the given name, date and the current canteen id.
+        /// </summary>
+        /// <param name="name">The "typeLong" of the canteen menus.</param>
+        /// <param name="contains">Whether the menus typeLong should be equal or just contain the given name.</param>
+        /// <param name="date">The menus date.</param>
         private void setMenuType(string name, bool contains, DateTime date)
         {
             List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
@@ -89,6 +99,9 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        /// <summary>
+        /// Returns a random menu as a string.
+        /// </summary>
         private string getRandomMenus()
         {
             string s = "Main Course:\n";
@@ -139,32 +152,48 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Collapses the canteens.
+        /// </summary>
         private void collapseCanteens()
         {
             expand_btn.Content = "\xE019";
             canteens_scv.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Expands the canteens.
+        /// </summary>
         private void expandCanteens()
         {
             expand_btn.Content = "\xE018";
             canteens_scv.Visibility = Visibility.Visible;
         }
 
-        private void lockRefreshButtons()
+        /// <summary>
+        /// Disables the refresh buttons.
+        /// </summary>
+        private void disableRefreshButtons()
         {
             refreshAll_btn.IsEnabled = false;
             refreshCanteenMenus_btn.IsEnabled = false;
             refreshCanteen_btn.IsEnabled = false;
         }
 
-        private void releaseRefreshButtons()
+        /// <summary>
+        /// Enables all refresh buttons.
+        /// </summary>
+        private void enableRefreshButtons()
         {
             refreshAll_btn.IsEnabled = true;
             refreshCanteenMenus_btn.IsEnabled = true;
             refreshCanteen_btn.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Loads all canteens and shows them on the screen. This method should be only called in a seperate task.
+        /// </summary>
+        /// <returns></returns>
         private async Task loadCanteensAsync()
         {
             List<Canteen> list = await LocationManager.INSTANCE.getCanteensAsync();
@@ -203,6 +232,10 @@ namespace TUMCampusApp.Pages
             }).AsTask();
         }
 
+        /// <summary>
+        /// Loads and shows all menus for the currently selected canteen and the current date offset.
+        /// This method should be only called in a seperate task.
+        /// </summary>
         private void showCurrentMenus()
         {
             if (currentCanteen == null)
@@ -244,6 +277,9 @@ namespace TUMCampusApp.Pages
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Shows an info box for all ingredients.
+        /// </summary>
         private async Task showInfoBoxAsync()
         {
             string s = "(1)\t with dyestuff\n"
@@ -298,12 +334,19 @@ namespace TUMCampusApp.Pages
             await dialog.ShowAsync();
         }
 
+        /// <summary>
+        /// Starts the custom accelerometer for detecting shaking.
+        /// </summary>
         private void initAcc()
         {
             CustomAccelerometer.Shaken += CustomAccelerometer_ShakenAsync;
             CustomAccelerometer.Enabled = true;
         }
 
+        /// <summary>
+        /// Loads and shows all canteens and their menus.
+        /// This method should be only called in a seperate task.
+        /// </summary>
         private async void loadCanteensAndMenusTask()
         {
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
@@ -359,7 +402,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            lockRefreshButtons();
+            disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
@@ -368,7 +411,7 @@ namespace TUMCampusApp.Pages
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
-                    releaseRefreshButtons();
+                    enableRefreshButtons();
                 }).AsTask().Wait();
             });
         }
@@ -379,7 +422,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            lockRefreshButtons();
+            disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
@@ -388,7 +431,7 @@ namespace TUMCampusApp.Pages
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
-                    releaseRefreshButtons();
+                    enableRefreshButtons();
                 }).AsTask().Wait();
             });
         }
@@ -399,7 +442,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            lockRefreshButtons();
+            disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() =>
             {
@@ -410,7 +453,7 @@ namespace TUMCampusApp.Pages
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
-                    releaseRefreshButtons();
+                    enableRefreshButtons();
                 }).AsTask().Wait();
             });
         }

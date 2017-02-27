@@ -52,18 +52,29 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Disables the seach bar.
+        /// </summary>
         private void disableSearch()
         {
             search_aSB.IsEnabled = false;
             openSearch_btn.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Enables the search bar.
+        /// </summary>
         private void enableSearch()
         {
             search_aSB.IsEnabled = true;
             openSearch_btn.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Downloads and shows the personal lectures.
+        /// This method should be only called in a seperate task.
+        /// </summary>
+        /// <param name="forceRedownload">Whether cached lectures should be ignored.</param>
         private async Task downloadAndShowLecturesTaskAsync(bool forceRedownload)
         {
             try
@@ -85,6 +96,11 @@ namespace TUMCampusApp.Pages
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Downloads and shows all lectures that match the given querry.
+        /// This method should be only called in a seperate task.
+        /// </summary>
+        /// <param name="query">The search querry. At least three characters.</param>
         private async void downloadAndShowQueriedLecturesTask(string query)
         {
             List<TUMOnlineLecture> list = null;
@@ -107,6 +123,10 @@ namespace TUMCampusApp.Pages
             showingOwnLectures = false;
         }
 
+        /// <summary>
+        /// Shows the no access grid based on the given exception.
+        /// </summary>
+        /// <param name="e">The cought exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noData_grid.Visibility = Visibility.Visible;
@@ -127,6 +147,10 @@ namespace TUMCampusApp.Pages
             enableSearch();
         }
 
+        /// <summary>
+        /// Shows all given lectures on the screen.
+        /// </summary>
+        /// <param name="list">The lectures list that should get shown.</param>
         private void showLectures(List<TUMOnlineLecture> list)
         {
             lectures_stckp.Children.Clear();
@@ -149,6 +173,9 @@ namespace TUMCampusApp.Pages
             enableSearch();
         }
 
+        /// <summary>
+        /// Starts a new task that shows the personal lectures.
+        /// </summary>
         private void showOwnLectures()
         {
             if (!showingOwnLectures)
@@ -161,6 +188,10 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        /// <summary>
+        /// Starts a new task and shows the result for the given search querry.
+        /// </summary>
+        /// <param name="query">The search querry. At least three characters.</param>
         private async Task showSearchResultAsync(String query)
         {
             if (!DeviceInfo.isConnectedToInternet())

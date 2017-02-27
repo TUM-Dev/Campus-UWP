@@ -58,11 +58,20 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Navigates the frame to the given page.
+        /// </summary>
+        /// <param name="t">The page, which should get navigated to.</param>
+        /// <param name="args">Navigation args.</param>
         public void navigateToPage(Type t, object args)
         {
             mainFrame.Navigate(t, args);
         }
 
+        /// <summary>
+        /// Navigates to the given page.
+        /// </summary>
+        /// <param name="page"></param>
         public void navigateToPage(EnumPage page)
         {
             int index = (int)page + 1;
@@ -74,12 +83,18 @@ namespace TUMCampusApp.Pages
             navigateToSelectedPage();
         }
 
-        public void enableBurgerMenue()
+        /// <summary>
+        /// Enables the burger menu.
+        /// </summary>
+        public void enableBurgerMenu()
         {
             splitViewIcons_lb.IsEnabled = true;
         }
 
-        public void disableBurgerMenue()
+        /// <summary>
+        /// Disables the burger menu.
+        /// </summary>
+        public void disableBurgerMenu()
         {
             splitViewIcons_lb.IsEnabled = false;
         }
@@ -87,6 +102,9 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Navigates to the currently selected page (burger menu).
+        /// </summary>
         private void navigateToSelectedPage()
         {
             if (mainFrame == null || !splitViewIcons_lb.IsEnabled)
@@ -136,6 +154,9 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        /// <summary>
+        /// Disables all tum pages if not logged in.
+        /// </summary>
         private void setVisiblilityMyTum()
         {
             Visibility v;

@@ -45,6 +45,10 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Adds a seperator in form of the given date.
+        /// </summary>
+        /// <param name="date">The date for the seperator.</param>
         private void addSeperator(DateTime date)
         {
             Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
@@ -67,6 +71,10 @@ namespace TUMCampusApp.Pages
             calendarEntries_stckp.Children.Add(rect);
         }
 
+        /// <summary>
+        /// Adds a calendar entry to the calendarEntries_stckp.
+        /// </summary>
+        /// <param name="entry">The entry that should get added.</param>
         private void addCalendarControl(TUMOnlineCalendarEntry entry)
         {
             CalendarControl cC = new CalendarControl(entry);
@@ -74,6 +82,10 @@ namespace TUMCampusApp.Pages
             calendarEntries_stckp.Children.Add(cC);
         }
 
+        /// <summary>
+        /// Shows all calendar entries.
+        /// This method should only be called in a seperate task.
+        /// </summary>
         private void showCalendarEntriesTask()
         {
             List<TUMOnlineCalendarEntry> list = CalendarManager.INSTANCE.getEntries();
@@ -83,6 +95,10 @@ namespace TUMCampusApp.Pages
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Shows all given entries on the screen.
+        /// </summary>
+        /// <param name="list">A list of entries that should get shown.</param>
         private void showEntries(List<TUMOnlineCalendarEntry> list)
         {
             if(list == null || list.Count <= 0)

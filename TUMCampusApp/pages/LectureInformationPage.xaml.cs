@@ -47,6 +47,10 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Downloads and shows information for the current lecture.
+        /// This method should be only called in a seperate task.
+        /// </summary>
         private async void downloadAndShowLectureInformationTask()
         {
             List<TUMOnlineLectureInformation> list = null;
@@ -77,6 +81,10 @@ namespace TUMCampusApp.Pages
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Shows the no access grid if for example the token is no enabled.
+        /// </summary>
+        /// <param name="e">The cought exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noData_grid.Visibility = Visibility.Visible;
@@ -97,6 +105,9 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Shows information on screen for the current lecture.
+        /// </summary>
         private void showLectureInformation()
         {
             lectureName_tbx.Text = lecture.title;
@@ -126,6 +137,7 @@ namespace TUMCampusApp.Pages
             Task.Factory.StartNew(() => downloadAndShowLectureInformationTask());
         }
 
+        /// TODO: Add lecture Appointments page.
         private void lectureAppointments_btn_Click(object sender, RoutedEventArgs e)
         {
             //DeviceInfo.INSTANCE.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);

@@ -45,6 +45,11 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Downloads and shows the current tution fee status.
+        /// This method should only be called in a seperate task.
+        /// </summary>
+        /// <param name="forceRedownload">Whether the cache should get ignored.</param>
         private async Task downloadAndShowFeesAsync(bool forceRedownload)
         {
             try
@@ -67,6 +72,10 @@ namespace TUMCampusApp.Pages
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Shows the no access grid based on the given exception.
+        /// </summary>
+        /// <param name="e">The cought exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noFees_grid.Visibility = Visibility.Collapsed;
@@ -88,6 +97,10 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Shows the given tution fees on the screen.
+        /// </summary>
+        /// <param name="list">The tution fees that should get shown on the screen.</param>
         private void showFees(List<TUMTuitionFee> list)
         {
             noData_grid.Visibility = Visibility.Collapsed;

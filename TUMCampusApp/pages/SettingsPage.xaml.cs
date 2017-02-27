@@ -45,6 +45,9 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Inits all controlls.
+        /// </summary>
         private void initControls()
         {
             initGeneralControls();
@@ -54,6 +57,9 @@ namespace TUMCampusApp.Pages
             initAboutAndLinks();
         }
 
+        /// <summary>
+        /// Inits all about and links controlls.
+        /// </summary>
         private void initAboutAndLinks()
         {
             if (!Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.IsSupported())
@@ -62,6 +68,9 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        /// <summary>
+        /// Inits all widget controlls.
+        /// </summary>
         private void initWidgetControls()
         {
             disableExampleWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET);
@@ -70,22 +79,34 @@ namespace TUMCampusApp.Pages
             disableTuitionFeeWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET);
         }
 
+        /// <summary>
+        /// Inits all service controlls.
+        /// </summary>
         private void initServices()
         {
             disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
             disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
         }
 
+        /// <summary>
+        /// Inits all general controlls.
+        /// </summary>
         private void initGeneralControls()
         {
             wifiOnly_tgls.IsOn = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
         }
 
+        /// <summary>
+        /// Inits all tum online controlls.
+        /// </summary>
         private void initTUMonlineControls()
         {
             hideWizardOnStartup_tgls.IsOn = Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP);
         }
 
+        /// <summary>
+        /// Resets the app to its default settings and deletes the current db.
+        /// </summary>
         private void resetApp()
         {
             Task.Factory.StartNew(async () =>
@@ -105,6 +126,9 @@ namespace TUMCampusApp.Pages
             Logger.Info("Finished reseting the app.");
         }
 
+        /// <summary>
+        /// Resets the apps cache (db).
+        /// </summary>
         private void deleteCache()
         {
             AbstractManager.resetDB();

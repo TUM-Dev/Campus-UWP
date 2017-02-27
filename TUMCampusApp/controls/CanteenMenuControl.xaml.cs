@@ -54,6 +54,9 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows the current menu on the screen.
+        /// </summary>
         private void showMenu()
         {
             if(menu.nameEmojis == null)

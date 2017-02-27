@@ -66,6 +66,9 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Positions all elements on the screen.
+        /// </summary>
         private void positionElements()
         {
             if (splash != null)
@@ -75,6 +78,9 @@ namespace TUMCampusApp.Pages
             positionImage();
         }
 
+        /// <summary>
+        /// Positions the image on the screen.
+        /// </summary>
         private void positionImage()
         {
             extendedSplashImage.SetValue(Canvas.LeftProperty, splashImageRect.X);
@@ -83,6 +89,11 @@ namespace TUMCampusApp.Pages
             extendedSplashImage.Width = splashImageRect.Width;
         }
 
+        /// <summary>
+        /// Inits the app.
+        /// This method should only be called in a seperate task.
+        /// </summary>
+        /// <returns></returns>
         private async Task initAppAsync()
         {
             // 21
@@ -187,6 +198,12 @@ namespace TUMCampusApp.Pages
             Logger.Info("Finished loading app in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
+        /// <summary>
+        /// Invokes the status text box and sets the given string as its text.
+        /// This method should only be called in a seperate task.
+        /// </summary>
+        /// <param name="s">The text that should be set.</param>
+        /// <returns></returns>
         private async Task invokeTbxAsync(string s)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
@@ -194,6 +211,11 @@ namespace TUMCampusApp.Pages
             });
         }
 
+        /// <summary>
+        /// Increments the progress bar.
+        /// This method should only be called in a seperate task.
+        /// </summary>
+        /// <returns></returns>
         private async Task incProgressAsync()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
@@ -201,19 +223,27 @@ namespace TUMCampusApp.Pages
             });
         }
 
+        /// <summary>
+        /// Positions all screen elements, inits the app and dismisses the extended splash screen.
+        /// This method should only be called in a seperate task.
+        /// </summary>
+        /// <returns></returns>
         private async Task initAppTaskAsync()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
              {
                  positionElements();
              });
-            initAppAsync().Wait();
+            Task.WaitAll(initAppAsync());
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 DismissExtendedSplashAsync();
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Dismisses the extended splash screen and navigates the frame to the next page.
+        /// </summary>
         private async void DismissExtendedSplashAsync()
         {
             if (tileID != null && tileID.Equals(Const.TILE_ID_CANTEEN))

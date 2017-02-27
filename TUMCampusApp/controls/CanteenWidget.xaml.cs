@@ -37,6 +37,13 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Shows all menus on the screen that are assocciated with the given name, canteen id and date.
+        /// </summary>
+        /// <param name="canteenId">The id of the requested canteen.</param>
+        /// <param name="name">The "typeLong" name for the menus.</param>
+        /// <param name="contains">Whethet the menu name should equal or just containe the given name.</param>
+        /// <param name="date">The menu date.</param>
         private void setMenuType(int canteenId, string name, bool contains, DateTime date)
         {
             List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
@@ -80,6 +87,9 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows all menus for the last selected canteen on the screen. Has to get call in a seperate task!
+        /// </summary>
         private async void showMenusTaskAsync()
         {
             int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();

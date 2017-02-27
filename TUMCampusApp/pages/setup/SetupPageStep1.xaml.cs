@@ -41,6 +41,9 @@ namespace TUMCampusApp.Pages.Setup
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Checks wether the current student id is valid.
+        /// </summary>
         private bool isIdValid()
         {
             Regex reg = new Regex("[a-z]{2}[0-9]{2}[a-z]{3}");

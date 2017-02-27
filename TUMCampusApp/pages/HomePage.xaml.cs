@@ -38,6 +38,9 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows all widgets that didn't got disabled in the settings.
+        /// </summary>
         private void showWidgets()
         {
             if (!Util.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET))

@@ -47,6 +47,10 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Refreshes and shows the current tution fee status. Or hides the widget if no outstanding fees are found.
+        /// This method has to get called in a seperat task.
+        /// </summary>
         private async Task ShowTuitionFeesAsync()
         {
             try
@@ -66,6 +70,10 @@ namespace TUMCampusApp.Controls
             }).AsTask().Wait();
         }
 
+        /// <summary>
+        /// Shows the given fees list on the screen or hides the widget if the list is empty.
+        /// </summary>
+        /// <param name="list">A list of tution fees.</param>
         private void showFees(List<TUMTuitionFee> list)
         {
             if (list == null || list.Count <= 0 || list[0].money == null || double.Parse(list[0].money) <= 0)
