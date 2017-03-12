@@ -103,7 +103,7 @@ namespace TUMCampusAppAPI.Managers
             List<DateTime> dates = new List<DateTime>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteenID))
             {
-                if (m.date.Date.CompareTo(DateTime.Now.Date) >= 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }
