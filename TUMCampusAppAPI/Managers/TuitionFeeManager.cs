@@ -62,7 +62,7 @@ namespace TUMCampusAppAPI.Managers
         /// Trys to download your tuition fees if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all tuition fees.</param>
-        /// <returns>Returns a async Task.</returns>
+        /// <returns>Returns an async Task.</returns>
         public async Task downloadFeesAsync(bool force)
         {
             if(!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())

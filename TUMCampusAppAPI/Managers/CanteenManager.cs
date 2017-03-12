@@ -78,7 +78,7 @@ namespace TUMCampusAppAPI.Managers
         /// Downloads the canteens if necessary or if force == true.
         /// </summary>
         /// <param name="force">Forces to download all canteens.</param>
-        /// <returns>Returns a async Task.</returns>
+        /// <returns>Returns an async Task.</returns>
         public async Task downloadCanteensAsync(bool force)
         {
             if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())

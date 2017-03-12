@@ -202,7 +202,7 @@ namespace TUMCampusAppAPI.Managers
         /// Launches the web browser and googles for images with the given string.
         /// </summary>
         /// <param name="menu">The string which should be used for googling.</param>
-        /// <returns>Returns a async Task.</returns>
+        /// <returns>Returns an async Task.</returns>
         public async Task googleMenuString(string menu)
         {
             await Util.launchBrowser(generateSearchString(menu));
@@ -226,7 +226,7 @@ namespace TUMCampusAppAPI.Managers
         /// Downloads the menus if necessary or if force == true.
         /// </summary>
         /// <param name="force">Forces to download all menus.</param>
-        /// <returns>Returns a async Task.</returns>
+        /// <returns>Returns an async Task.</returns>
         public async Task downloadCanteenMenusAsync(bool force)
         {
             if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
@@ -268,7 +268,7 @@ namespace TUMCampusAppAPI.Managers
         /// Replaces the ingredients with emojis.
         /// </summary>
         /// <param name="s">Menu string.</param>
-        /// <param name="withComma">Whether it should seperate each emoji with a comma.</param>
+        /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
         /// <returns>Returns the replaced menu string</returns>
         public string replaceMenuStringWithImages(string s, bool withComma)
         {
