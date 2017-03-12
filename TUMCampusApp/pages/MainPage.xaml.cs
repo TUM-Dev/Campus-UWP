@@ -121,6 +121,10 @@ namespace TUMCampusApp.Pages
                     mainFrame.Navigate(typeof(MyLecturesPage));
                     break;
 
+                case 3:
+                    mainFrame.Navigate(typeof(MyGradesPage));
+                    break;
+
                 case 4:
                     mainFrame.Navigate(typeof(TuitionFeesPage));
                     break;

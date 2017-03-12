@@ -96,7 +96,7 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task initAppAsync()
         {
-            // 21
+            // 25
             Logger.Info("Started loading app...");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
@@ -118,6 +118,10 @@ namespace TUMCampusApp.Pages
 
             await invokeTbxAsync("Loading canteen menu manager...");
             CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+            await incProgressAsync();
+
+            await invokeTbxAsync("Loading grades manager...");
+            GradesManager.INSTANCE = new GradesManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading location manager...");
@@ -161,8 +165,12 @@ namespace TUMCampusApp.Pages
             await CanteenManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
-            await invokeTbxAsync("Initializing cantee nmenu manager...");
+            await invokeTbxAsync("Initializing canteen menu manager...");
             await CanteenMenueManager.INSTANCE.InitManagerAsync();
+            await incProgressAsync();
+
+            await invokeTbxAsync("Initializing grades manager...");
+            await GradesManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing location manager...");
@@ -219,7 +227,7 @@ namespace TUMCampusApp.Pages
         private async Task incProgressAsync()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressBar.Value += 4.76;
+                splashProgressBar.Value += 4;
             });
         }
 

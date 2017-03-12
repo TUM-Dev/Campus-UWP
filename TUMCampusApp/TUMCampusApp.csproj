@@ -116,6 +116,9 @@
     <Compile Include="Controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GradeControl.xaml.cs">
+      <DependentUpon>GradeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LectureControl.xaml.cs">
       <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CanteenWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GradeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

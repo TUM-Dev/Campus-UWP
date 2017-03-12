@@ -120,6 +120,7 @@
     <Compile Include="Managers\CalendarManager.cs" />
     <Compile Include="Managers\CanteenManager.cs" />
     <Compile Include="Managers\CanteenMenueManager.cs" />
+    <Compile Include="Managers\GradesManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />
     <Compile Include="Managers\LocationManager.cs" />
     <Compile Include="Managers\StudyRoomManager.cs" />
@@ -136,6 +137,8 @@
     <Compile Include="TUMOnline\Exceptions\NoAccessTUMOnlineException.cs" />
     <Compile Include="TUMOnline\TUMOnlineCalendarEntry.cs" />
     <Compile Include="TUMOnline\TUMOnlineConst.cs" />
+    <Compile Include="TUMOnline\TUMOnlineGrade.cs" />
+    <Compile Include="TUMOnline\TUMOnlineGradeSemester.cs" />
     <Compile Include="TUMOnline\TUMOnlineLecture.cs" />
     <Compile Include="TUMOnline\TUMOnlineLectureInformation.cs" />
     <Compile Include="TUMOnline\TUMOnlineRequest.cs" />
