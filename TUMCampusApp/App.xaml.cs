@@ -32,7 +32,9 @@ namespace TUMCampusApp
         public App()
         {
             //Crash reports capturing
+#if !DEBUG
             HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
+#endif
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
