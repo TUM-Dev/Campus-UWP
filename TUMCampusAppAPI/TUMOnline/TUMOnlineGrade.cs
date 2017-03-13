@@ -63,7 +63,8 @@ namespace TUMCampusAppAPI.TUMOnline
             }
             this.lvNummer = xml.SelectSingleNode("lv_nummer").InnerText;
             this.pvKandNr = xml.SelectSingleNode("datum").InnerText;
-            this.date = DateTime.Parse(xml.SelectSingleNode("datum").InnerText);
+            DateTime.TryParse(xml.SelectSingleNode("datum").InnerText, out DateTime dT);
+            date = dT;
             this.lvSemester = xml.SelectSingleNode("lv_semester").InnerText;
             this.lvTitel = xml.SelectSingleNode("lv_titel").InnerText;
             this.examinerSurname = xml.SelectSingleNode("pruefer_nachname").InnerText;

@@ -1,4 +1,5 @@
-﻿using TUMCampusAppAPI.TUMOnline;
+﻿using System;
+using TUMCampusAppAPI.TUMOnline;
 using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Controls
@@ -24,7 +25,11 @@ namespace TUMCampusApp.Controls
             this.InitializeComponent();
             name_tbx.Text = grade.lvTitel;
             description_tbx.Text = grade.examTypName + " - " + grade.mode;
-            profName_tbx.Text = grade.examinerSurname + " - " + grade.date.ToString("dd.MM.yyyy");
+            profName_tbx.Text = grade.examinerSurname;
+            if (grade.date != DateTime.MinValue)
+            {
+                profName_tbx.Text += " - " + grade.date.ToString("dd.MM.yyyy");
+            }
             grade_tbx.Text = grade.uniGradeNameShort;
         }
 
