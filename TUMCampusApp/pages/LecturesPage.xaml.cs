@@ -11,6 +11,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.Diagnostics;
 
 namespace TUMCampusApp.Pages
 {
@@ -156,21 +158,114 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Children.Clear();
             if(list != null && list.Count > 0)
             {
-                semester_tbx.Text = list[0].semesterName;
+                List<List<LectureControl>> controls = new List<List<LectureControl>>();
                 for(var i = 0; i < list.Count; i++)
                 {
-                    LectureControl lC = new LectureControl(list[i], i == list.Count - 1);
-                    lectures_stckp.Children.Add(lC);
+                    LectureControl lC = new LectureControl(list[i]) {
+                        HorizontalAlignment = HorizontalAlignment.Stretch
+                        
+                    };
+                    bool found = false;
+                    for(var e = 0; e < controls.Count; e++)
+                    {
+                        if(controls[e] != null && controls[e].First<LectureControl>() != null && controls[e].First<LectureControl>().lecture.semesterName.Equals(list[i].semesterName))
+                        {
+                            controls[e].Add(lC);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        controls.Add(new List<LectureControl>() {lC});
+                    }
+                }
+
+                sortSemesterList(controls);
+
+                for (var i = 0; i < controls.Count; i++)
+                {
+                    StackPanel stackPanel = new StackPanel()
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        Margin = new Thickness(10, 0, 10, 0)
+                    };
+                    for (int e = 0; e < controls[i].Count; e++)
+                    {
+                        stackPanel.Children.Add(controls[i][e]);
+                        if(e == controls[i].Count - 1)
+                        {
+                            controls[i][e].setRectangleVisability(Visibility.Collapsed);
+                        }
+                        else
+                        {
+                            controls[i][e].setRectangleVisability(Visibility.Visible);
+                        }
+                    }
+
+                    lectures_stckp.Children.Add(new Expander()
+                    {
+                        Header = controls[i].First<LectureControl>().lecture.semesterName,
+                        Content = stackPanel,
+                        Margin = new Thickness(0, 10, 0, 0),
+                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                        IsExpanded = (i == 0)
+                    });
                 }
             }
             else
             {
-                semester_tbx.Text = "None found!";
+                status_tbx.Text = "None found!";
             }
             progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
             lectures_stckp.Visibility = Visibility.Visible;
             enableSearch();
+        }
+
+        /// <summary>
+        /// Sorts the given list by the lectures semesterName. First entry = current semester.
+        /// </summary>
+        /// <param name="list">The list that should get sorted.</param>
+        private void sortSemesterList(List<List<LectureControl>> list)
+        {
+            list.Sort((List<LectureControl> a, List<LectureControl> b) => {
+                if(a == b)
+                {
+                    if(a == null || a.Count == b.Count && a.Count == 0)
+                    {
+                        return 0;
+                    }
+                }
+                else if(a == null || a.Count == 0)
+                {
+                    return -1;
+                }
+                else if (b == null || b.Count == 0)
+                {
+                    return 1;
+                }
+
+                string semesterIdA = a[0].lecture.semesterId;
+                string semesterIdB = b[0].lecture.semesterId;
+                if(semesterIdA.Equals(semesterIdB))
+                {
+                    return 0;
+                }
+
+                int yearA = int.Parse(semesterIdA.Substring(0, 2));
+                int yearB = int.Parse(semesterIdA.Substring(0, 2));
+                if(yearA - yearB != 0)
+                {
+                    return yearB - yearA;
+                }
+
+                if(semesterIdA.EndsWith("W"))
+                {
+                    return 1;
+                }
+                return -1;
+            });
         }
 
         /// <summary>

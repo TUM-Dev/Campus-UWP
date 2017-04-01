@@ -65,21 +65,11 @@ namespace TUMCampusApp.Pages
             {
                 await GradesManager.INSTANCE.downloadGradesAsync();
             }
-            catch (InvalidOperationException e)
+            catch (BaseTUMOnlineException e)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    noData_grid.Visibility = Visibility.Visible;
-                    noData_tbx.Text = "Either the token is not activated or you didn't give it the required rights for this operation!";
-                }).AsTask();
-                return;
-            }
-            catch (NoAccessTUMOnlineException e)
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    noData_grid.Visibility = Visibility.Visible;
-                    noData_tbx.Text = "Error: " + e.ToString();
+                    showNoAccess(e);
                 }).AsTask();
                 return;
             }
@@ -89,6 +79,29 @@ namespace TUMCampusApp.Pages
              {
                  showGrades(list);
              }).AsTask();
+        }
+
+        /// <summary>
+        /// Shows the no access grid based on the given exception.
+        /// </summary>
+        /// <param name="e">The cought exception.</param>
+        private void showNoAccess(BaseTUMOnlineException e)
+        {
+            noData_grid.Visibility = Visibility.Visible;
+            grades_stckp.Visibility = Visibility.Collapsed;
+            if (e is InvalidTokenTUMOnlineException)
+            {
+                noData_tbx.Text = "Either the token is not activated or you didn't give it the required rights for this operation!";
+            }
+            else if (e is NoAccessTUMOnlineException)
+            {
+                noData_tbx.Text = "No access on your lectures!";
+            }
+            else
+            {
+                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+            }
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>

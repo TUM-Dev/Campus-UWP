@@ -11,7 +11,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private TUMOnlineLecture lecture;
+        public TUMOnlineLecture lecture;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -22,7 +22,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 14/01/2017 Created [Fabian Sauter]
         /// </history>
-        public LectureControl(TUMOnlineLecture lecture, bool last)
+        public LectureControl(TUMOnlineLecture lecture)
         {
             this.lecture = lecture;
             this.InitializeComponent();
@@ -34,20 +34,19 @@ namespace TUMCampusApp.Controls
             name_tbx.Text = lecture.title;
             description_tbx.Text = lecture.typeLong + " - " + lecture.semesterId + " - " + lecture.duration + " SWS";
             profName_tbx.Text = lecture.existingContributors;
-            if (last)
-            {
-                rect.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                rect.Fill = profName_tbx.Foreground;
-            }
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Sets the visability of the line at the bottom of the control.
+        /// </summary>
+        /// <param name="visability">Show or hide line.</param>
+        public void setRectangleVisability(Visibility visability)
+        {
+            rect.Visibility = visability;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
