@@ -288,8 +288,20 @@ namespace TUMCampusApp.Pages
                 }
                 else
                 {
-                    Util.setSetting(Const.TUMO_ENABLED, false);
-                    f.Navigate(typeof(MainPage));
+                    if(TumManager.getToken() == null || TumManager.getToken() == "")
+                    {
+                        Util.setSetting(Const.TUMO_ENABLED, false);
+                        f.Navigate(typeof(MainPage));
+                    }
+                    else if (!await TumManager.INSTANCE.isTokenConfirmedAsync())
+                    {
+                        f.Navigate(typeof(SetupPageStep2));
+                    }
+                    else
+                    {
+                        Util.setSetting(Const.TUMO_ENABLED, true);
+                        f.Navigate(typeof(MainPage));
+                    }
                 }
                 Window.Current.Content = f;
             }
