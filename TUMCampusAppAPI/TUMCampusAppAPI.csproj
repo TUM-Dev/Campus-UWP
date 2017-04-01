@@ -155,7 +155,10 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
     <SDKReference Include="SQLite.UWP.2015, Version=3.17.0">
-      <Name>SQLite for Universal Windows Platform</Name>
+      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.17.0%29</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.18.0">
+      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.18.0%29</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
