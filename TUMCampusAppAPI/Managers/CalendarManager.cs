@@ -48,21 +48,21 @@ namespace TUMCampusAppAPI.Managers
             {
                 if(entry == null)
                 {
-                    if(e != null && e.dTStrat.AddHours(1).CompareTo(DateTime.Now) > 0)
+                    if(e != null && e.dTStrat.ToLocalTime().CompareTo(DateTime.Now) > 0)
                     {
                         entry = e;
                     }
                     continue;
                 }
-                if(e != null && e.dTStrat.AddHours(1).CompareTo(DateTime.Now) > 0 && e.dTStrat.AddHours(1).CompareTo(entry.dTStrat.AddHours(1)) < 0)
+                if(e != null && e.dTStrat.ToLocalTime().CompareTo(DateTime.Now) > 0 && e.dTStrat.ToLocalTime().CompareTo(entry.dTStrat.ToLocalTime()) < 0)
                 {
                     entry = e;
                 }
             }
             if(entry != null)
             {
-                entry.dTStrat = entry.dTStrat.AddHours(1);
-                entry.dTEnd = entry.dTEnd.AddHours(1);
+                entry.dTStrat = entry.dTStrat.ToLocalTime();
+                entry.dTEnd = entry.dTEnd.ToLocalTime();
             }
             return entry;
         }

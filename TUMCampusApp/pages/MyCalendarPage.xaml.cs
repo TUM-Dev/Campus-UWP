@@ -119,8 +119,8 @@ namespace TUMCampusApp.Pages
                         pre = entry;
                         addSeperator(pre.dTStrat);
                     }
-                    entry.dTStrat = entry.dTStrat.AddHours(1);
-                    entry.dTEnd = entry.dTEnd.AddHours(1);
+                    entry.dTStrat = entry.dTStrat.ToLocalTime();
+                    entry.dTEnd = entry.dTEnd.ToLocalTime();
                     addCalendarControl(entry);
                 }
             }
