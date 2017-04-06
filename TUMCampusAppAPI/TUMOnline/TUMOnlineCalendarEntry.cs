@@ -99,8 +99,8 @@ namespace TUMCampusAppAPI.TUMOnline
             this.title = xml.SelectSingleNode("title").InnerText;
             this.url = xml.SelectSingleNode("url").InnerText;
             this.description = xml.SelectSingleNode("description").InnerText;
-            this.dTStrat = DateTime.Parse(xml.SelectSingleNode("dtstart").InnerText);
-            this.dTEnd = DateTime.Parse(xml.SelectSingleNode("dtend").InnerText);
+            this.dTStrat = DateTime.Parse(xml.SelectSingleNode("dtstart").InnerText).ToLocalTime();
+            this.dTEnd = DateTime.Parse(xml.SelectSingleNode("dtend").InnerText).ToLocalTime();
             this.location = xml.SelectSingleNode("location").InnerText;
         }
 
