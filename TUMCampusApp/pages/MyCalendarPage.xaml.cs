@@ -106,6 +106,7 @@ namespace TUMCampusApp.Pages
                 progressBar.Visibility = Visibility.Collapsed;
                 noData_grid.Visibility = Visibility.Visible;
                 calendarEntries_stckp.Visibility = Visibility.Collapsed;
+                refresh_pTRV.IsEnabled = true;
                 return;
             }
             calendarEntries_stckp.Children.Clear();
@@ -127,6 +128,20 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
             calendarEntries_stckp.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Starts a new task and refreshes all calendar entries and displays them on the screen.
+        /// </summary>
+        private void refreshCalendar()
+        {
+            refresh_pTRV.IsEnabled = false;
+            progressBar.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => {
+                Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(true));
+                showCalendarEntriesTask();
+            });
         }
         #endregion
 
@@ -139,9 +154,15 @@ namespace TUMCampusApp.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
             Task.Factory.StartNew(() => showCalendarEntriesTask());
         }
-        
+
+        private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            refreshCalendar();
+        }
+
         #endregion
     }
 }

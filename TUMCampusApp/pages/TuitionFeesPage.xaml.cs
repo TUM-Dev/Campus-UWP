@@ -95,6 +95,7 @@ namespace TUMCampusApp.Pages
                 noData_tbx.Text = "Unknown exception!\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
@@ -124,6 +125,7 @@ namespace TUMCampusApp.Pages
                 }
             }
             progressBar.Visibility = Visibility.Collapsed;
+            refresh_pTRV.IsEnabled = true;
         }
 
         #endregion
@@ -142,7 +144,15 @@ namespace TUMCampusApp.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
             Task.Factory.StartNew(() => downloadAndShowFeesAsync(false));
+        }
+
+        private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
+            Task.Factory.StartNew(() => downloadAndShowFeesAsync(true));
         }
         #endregion
     }

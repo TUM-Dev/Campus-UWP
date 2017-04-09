@@ -147,6 +147,7 @@ namespace TUMCampusApp.Pages
             }
             progressBar.Visibility = Visibility.Collapsed;
             enableSearch();
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
@@ -209,6 +210,7 @@ namespace TUMCampusApp.Pages
                         Content = stackPanel,
                         Margin = new Thickness(0, 10, 0, 0),
                         HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
                         IsExpanded = (i == 0)
                     });
                 }
@@ -221,6 +223,7 @@ namespace TUMCampusApp.Pages
             noData_grid.Visibility = Visibility.Collapsed;
             lectures_stckp.Visibility = Visibility.Visible;
             enableSearch();
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
@@ -271,13 +274,15 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Starts a new task that shows the personal lectures.
         /// </summary>
-        private void showOwnLectures()
+        /// <param name="forceRefresh">Whether to ignore cash.</param>
+        private void showOwnLectures(bool forceRefresh)
         {
-            if (!showingOwnLectures)
+            if (!showingOwnLectures || forceRefresh)
             {
+                refresh_pTRV.IsEnabled = false;
                 disableSearch();
                 progressBar.Visibility = Visibility.Visible;
-                Task.Factory.StartNew(() => downloadAndShowLecturesTaskAsync(false));
+                Task.Factory.StartNew(() => downloadAndShowLecturesTaskAsync(forceRefresh));
                 showingOwnLectures = true;
                 currentSearchTerm = "";
             }
@@ -296,9 +301,42 @@ namespace TUMCampusApp.Pages
             }
             disableSearch();
             progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
             await Task.Factory.StartNew(() => downloadAndShowQueriedLecturesTask(query));
         }
 
+        /// <summary>
+        /// Refreshes the displayed results:
+        /// </summary>
+        /// <returns></returns>
+        private async Task refreshLecturesAsync()
+        {
+            if (search_aSB.Visibility == Visibility.Visible)
+            {
+                await searchQuerryAsync(search_aSB.Text);
+            }
+            else
+            {
+                showOwnLectures(true);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the given text is at least 4 chars long.
+        /// If yes, it will start a new query in a seperat task and represent the results on the screen.
+        /// If no, it will show an error message box.
+        /// </summary>
+        /// <param name="query">The querry text</param>
+        /// <returns></returns>
+        private async Task searchQuerryAsync(string query)
+        {
+            if (query.Length < 4)
+            {
+                await Util.showMessageBoxAsync("Query must be at least 4 chars long!");
+                return;
+            }
+            await showSearchResultAsync(query);
+        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -309,14 +347,14 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            showOwnLectures();
+            showOwnLectures(false);
         }
 
         private void openSearch_btn_Click(object sender, RoutedEventArgs e)
         {
             if (search_aSB.Visibility == Visibility.Visible)
             {
-                showOwnLectures();
+                showOwnLectures(false);
                 openSearch_btn.Content = "\xE71E";
                 search_aSB.Visibility = Visibility.Collapsed;
             }
@@ -350,22 +388,22 @@ namespace TUMCampusApp.Pages
             }
             else
             {
-                if(sender.Text.Length < 4)
-                {
-                    await Util.showMessageBoxAsync("query must be at least 4 chars long!");
-                    return;
-                }
                 if (sender.Text.Equals(currentSearchTerm))
                 {
                     return;
                 }
-                await showSearchResultAsync(sender.Text);
+                await searchQuerryAsync(sender.Text);
                 var results = searchTerms.Where(i => i.Equals(sender.Text)).ToList();
-                if(results == null || results.Count <= 0)
+                if (results == null || results.Count <= 0)
                 {
                     searchTerms.Add(sender.Text);
                 }
             }
+        }
+
+        private async void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            await refreshLecturesAsync();
         }
         #endregion
     }

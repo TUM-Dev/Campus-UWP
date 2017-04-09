@@ -5,6 +5,7 @@
     xmlns:local="using:TUMCampusApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -13,8 +14,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="0"/>
-        
-        <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,0,0,10">
+
+        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2">
+            <controls:PullToRefreshListView.PullToRefreshContent>
+                <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
+            </controls:PullToRefreshListView.PullToRefreshContent>
             <StackPanel>
                 <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red">
                     <StackPanel>
@@ -25,6 +29,6 @@
                     <!--Grades-->
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer>
+        </controls:PullToRefreshListView>
     </Grid>
 </Page>
