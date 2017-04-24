@@ -109,7 +109,7 @@ namespace TUMCampusAppAPI.Managers
                 Task.Factory.StartNew(() => {
                     lock (thisLock)
                     {
-                        Task.WaitAny(syncCalendarTaskAsync(force));
+                        Task.WaitAny(syncCalendarTaskAsync(true));
                     }
                 });
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
