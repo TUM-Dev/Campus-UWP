@@ -48,34 +48,36 @@ namespace TUMCampusAppAPI.Managers
             {
                 if(entry == null)
                 {
-                    if(e != null && e.dTStrat.AddHours(1).CompareTo(DateTime.Now) > 0)
+                    if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0)
                     {
                         entry = e;
                     }
                     continue;
                 }
-                if(e != null && e.dTStrat.AddHours(1).CompareTo(DateTime.Now) > 0 && e.dTStrat.AddHours(1).CompareTo(entry.dTStrat.AddHours(1)) < 0)
+                if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0 && e.dTStrat.CompareTo(entry.dTStrat) < 0)
                 {
                     entry = e;
                 }
-            }
-            if(entry != null)
-            {
-                entry.dTStrat = entry.dTStrat.AddHours(1);
-                entry.dTEnd = entry.dTEnd.AddHours(1);
             }
             return entry;
         }
 
         /// <summary>
         /// Renturns all calendar entries, the db contains.
+        /// Also converts dTStrat and dTEnd from universal time to local time.
         /// </summary>
         /// <returns>Renturns all calendar entries</returns>
         public List<TUMOnlineCalendarEntry> getEntries()
         {
             lock (thisLock)
             {
-                return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+                List<TUMOnlineCalendarEntry> list = dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+                for(int i = 0; i < list.Count; i++)
+                {
+                    list[i].dTStrat = list[i].dTStrat.ToLocalTime();
+                    list[i].dTEnd = list[i].dTEnd.ToLocalTime();
+                }
+                return list;
             }
         }
 

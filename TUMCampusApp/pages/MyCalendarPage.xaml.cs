@@ -120,8 +120,8 @@ namespace TUMCampusApp.Pages
                         pre = entry;
                         addSeperator(pre.dTStrat);
                     }
-                    entry.dTStrat = entry.dTStrat.AddHours(1);
-                    entry.dTEnd = entry.dTEnd.AddHours(1);
+                    entry.dTStrat = entry.dTStrat;
+                    entry.dTEnd = entry.dTEnd;
                     addCalendarControl(entry);
                 }
             }
