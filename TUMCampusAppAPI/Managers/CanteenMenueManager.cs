@@ -80,13 +80,13 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the first next date. Based on "Tagesgericht".
         /// </summary>
         /// <returns>Returns the first next date</returns>
-        public static DateTime getFirstNextDate()
+        public static DateTime getFirstNextDate(int canteenId)
         {
             DateTime time = DateTime.MaxValue;
             List<CanteenMenu> menus = new List<CanteenMenu>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
-                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
+                if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
                 {
                     time = m.date;
                 }

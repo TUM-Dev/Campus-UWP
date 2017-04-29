@@ -96,7 +96,7 @@ namespace TUMCampusApp.Controls
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 
-            DateTime date = CanteenMenueManager.getFirstNextDate();
+            DateTime date = CanteenMenueManager.getFirstNextDate(id);
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
