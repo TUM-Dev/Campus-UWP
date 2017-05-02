@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
@@ -84,15 +85,15 @@ namespace TUMCampusApp.Pages
 
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = "Your token is not activated yet!";
+                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
             }
-            else if(e is NoAccessTUMOnlineException)
+            else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = "No access on your tuition fee status!";
+                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
             }
             else
             {
-                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;
@@ -107,7 +108,18 @@ namespace TUMCampusApp.Pages
             noData_grid.Visibility = Visibility.Collapsed;
             if (list == null || list.Count <= 0 || list[0].money == null || double.Parse(list[0].money) <= 0)
             {
-                noFees_grid.Visibility = Visibility.Visible;
+                SyncResult syncResult = TuitionFeeManager.INSTANCE.getSyncStatus();
+                if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                {
+                    noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                    noFees_grid.Visibility = Visibility.Collapsed;
+                    noData_grid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    noFees_grid.Visibility = Visibility.Visible;
+                    noData_grid.Visibility = Visibility.Collapsed;
+                }
                 fees_grid.Visibility = Visibility.Collapsed;
             }
             else

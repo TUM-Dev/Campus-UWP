@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Diagnostics;
+using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusApp.Pages
 {
@@ -135,15 +136,15 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = "Your token is not activated yet!";
+                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = "No access on your lectures!";
+                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
             }
             else
             {
-                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             enableSearch();
@@ -218,9 +219,17 @@ namespace TUMCampusApp.Pages
             else
             {
                 status_tbx.Text = "None found!";
+                if(showingOwnLectures)
+                {
+                    SyncResult syncResult = LecturesManager.INSTANCE.getSyncStatus();
+                    if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                    {
+                        noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                    }
+                }
             }
-            progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
             lectures_stckp.Visibility = Visibility.Visible;
             enableSearch();
             refresh_pTRV.IsEnabled = true;

@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusApp.Pages
 {
@@ -103,8 +104,13 @@ namespace TUMCampusApp.Pages
         {
             if(list == null || list.Count <= 0)
             {
-                progressBar.Visibility = Visibility.Collapsed;
+                SyncResult syncResult = CalendarManager.INSTANCE.getSyncStatus();
+                if(syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                {
+                    noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                }
                 noData_grid.Visibility = Visibility.Visible;
+                progressBar.Visibility = Visibility.Collapsed;
                 calendarEntries_stckp.Visibility = Visibility.Collapsed;
                 refresh_pTRV.IsEnabled = true;
                 return;

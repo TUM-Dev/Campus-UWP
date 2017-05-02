@@ -119,7 +119,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all menus contained in the db.</returns>
         public static List<CanteenMenu> getMenus(int id)
         {
-            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC))
+            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC).NEEDS_SYNC)
             {
                 return menus;
             }
@@ -235,7 +235,7 @@ namespace TUMCampusAppAPI.Managers
             }
             try
             {
-                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
+                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
                 {
                     return;
                 }

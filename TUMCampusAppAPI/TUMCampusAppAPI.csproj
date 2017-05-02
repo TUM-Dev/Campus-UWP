@@ -132,6 +132,7 @@
     <Compile Include="StudyRooms\StudyRoomGroup.cs" />
     <Compile Include="StudyRooms\StudyRoom.cs" />
     <Compile Include="Syncs\Sync.cs" />
+    <Compile Include="Syncs\SyncResult.cs" />
     <Compile Include="TUMOnline\Exceptions\BaseTUMOnlineException.cs" />
     <Compile Include="TUMOnline\Exceptions\InvalidTokenTUMOnlineException.cs" />
     <Compile Include="TUMOnline\Exceptions\NoAccessTUMOnlineException.cs" />

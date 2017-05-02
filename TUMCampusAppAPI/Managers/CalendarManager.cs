@@ -104,7 +104,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="force">Force sync calendar</param>
         public void syncCalendar(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 Task.Factory.StartNew(() => {
                     lock (thisLock)
@@ -112,7 +112,6 @@ namespace TUMCampusAppAPI.Managers
                         Task.WaitAny(syncCalendarTaskAsync(true));
                     }
                 });
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
         }
 
@@ -140,7 +139,7 @@ namespace TUMCampusAppAPI.Managers
         {
             long time = SyncManager.GetCurrentUnixTimestampMillis();
             List<TUMOnlineCalendarEntry> list = null;
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 if(force)
                 {
@@ -155,7 +154,12 @@ namespace TUMCampusAppAPI.Managers
                 }
                 catch (BaseTUMOnlineException e)
                 {
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                     return;
+                }
+                catch (Exception e)
+                {
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                 }
                 if (doc == null)
                 {
@@ -171,7 +175,7 @@ namespace TUMCampusAppAPI.Managers
                 }
                 dB.InsertOrReplaceAll(list);
 
-                SyncManager.INSTANCE.update(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
             else
             {

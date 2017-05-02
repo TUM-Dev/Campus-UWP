@@ -81,7 +81,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns></returns>
         public async Task downloadGradesAsync(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 XmlDocument doc = await getGradesDocumentAsync();
                 if (doc == null || doc.SelectSingleNode("/error") != null)

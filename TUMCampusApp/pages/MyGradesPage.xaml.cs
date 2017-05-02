@@ -11,6 +11,7 @@ using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Shapes;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusApp.Pages
 {
@@ -139,15 +140,15 @@ namespace TUMCampusApp.Pages
             grades_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = "Either the token is not activated or you didn't give it the required rights for this operation!";
+                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = "No access on your lectures!";
+                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
             }
             else
             {
-                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;
@@ -162,11 +163,17 @@ namespace TUMCampusApp.Pages
             grades_stckp.Children.Clear();
             if (list == null || list.Count <= 0)
             {
+                SyncResult syncResult = GradesManager.INSTANCE.getSyncStatus();
+                if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                {
+                    noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                }
                 noData_grid.Visibility = Visibility.Visible;
             }
             else
             {
                 noData_grid.Visibility = Visibility.Collapsed;
+                grades_stckp.Visibility = Visibility.Visible;
                 for (int i = 0; i < list.Count; i++)
                 {
                     showSemester(list[i], i == 0);

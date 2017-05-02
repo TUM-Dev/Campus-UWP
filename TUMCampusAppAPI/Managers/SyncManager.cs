@@ -68,49 +68,70 @@ namespace TUMCampusAppAPI.Managers
             return UnixEpoch.AddSeconds(seconds);
         }
 
+        /// <summary>
+        /// Returns the sync status for the given object.
+        /// </summary>
+        public SyncResult getSyncStatus(Object obj)
+        {
+            return getSyncStatus(obj.GetType().Name);
+        }
+
+        /// <summary>
+        /// Returns the sync status for the given object name.
+        /// </summary>
+        public SyncResult getSyncStatus(string id)
+        {
+            return needSync(id, -1);
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Checks if a new sync is needed or if data is up-to-date
+        /// Checks if a new sync is needed or if the data is still up to date.
+        /// Also returns if the last sync was successful.
         /// </summary>
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public bool needSync(Object obj, int seconds)
+        public SyncResult needSync(Object obj, int seconds)
         {
             return needSync(obj.GetType().Name, seconds);
         }
 
         /// <summary>
-        /// Checks if a new sync is needed or if data is up-to-date
+        /// Checks if a new sync is needed or if the data is still up to date.
+        /// Also returns if the last sync was successful.
         /// </summary>
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public bool needSync(string id, int seconds)
+        public SyncResult needSync(string id, int seconds)
         {
             try
             {
-                List<Sync> list = dB.Query<Sync>("SELECT lastSync FROM Sync WHERE id = ?", id);
+                List<Sync> list = dB.Query<Sync>("SELECT * FROM Sync WHERE id LIKE ?", id);
                 if(list == null || list.Count <= 0)
                 {
-                    return true;
+                    return new SyncResult(-1, SyncResult.STATUS_NOT_FOUND, true, null);
                 }
-                foreach (Sync s in list)
+
+                if(seconds < 0)
                 {
-                    if(s.lastSync + seconds < GetCurrentUnixTimestampSeconds())
-                    {
-                        return true;
-                    }
+                    return new SyncResult(list[0], false);
+                }
+
+                if (list[0].lastSync + seconds < GetCurrentUnixTimestampSeconds() || list[0].status < 0)
+                {
+                    return new SyncResult(list[0], true);
                 }
                 Logger.Info("Sync not required! - " + id);
-                return false;
+                return new SyncResult(list[0], false);
             }
             catch (SQLiteException e)
             {
                 Logger.Error("Unable to execute a querry for checking if the given object needs to sync again", e);
-                return true;
+                return new SyncResult(-1, SyncResult.STATUS_ERROR_SQL, true, e.Message);
             }
         }
 
