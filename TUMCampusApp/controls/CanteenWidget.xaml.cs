@@ -119,6 +119,7 @@ namespace TUMCampusApp.Controls
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     canteenName_tbx.Text = "Error!";
                     splashProgressRing.Visibility = Visibility.Collapsed;
+                    dSP.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
                 return;
             }
