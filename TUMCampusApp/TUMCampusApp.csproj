@@ -176,6 +176,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
     <None Include="TUMCampusApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
@@ -67,8 +68,8 @@ namespace TUMCampusApp.Pages.Setup
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
             if(!await TumManager.INSTANCE.isTokenConfirmedAsync()){
-                MessageDialog message = new MessageDialog("Please activate the token first!");
-                message.Title = "Error!";
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("ActivateTokenFirst_Text"));
+                message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
                 return;
             }

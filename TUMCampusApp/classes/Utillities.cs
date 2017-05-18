@@ -1,14 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TUMCampusApp.Pages;
-using Windows.UI.Notifications;
-using Windows.UI.Popups;
-using Windows.UI.StartScreen;
+﻿using TUMCampusApp.Pages;
+using Windows.ApplicationModel.Resources;
 
 namespace TUMCampusApp.Classes
 {
@@ -37,6 +28,8 @@ namespace TUMCampusApp.Classes
 
         public static MainPage mainPage;
 
+        private static ResourceLoader loader;
+
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
         #region --Construktoren--
@@ -45,7 +38,15 @@ namespace TUMCampusApp.Classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        public static string getLocalizedString(string key)
+        {
+            if (loader == null)
+            {
+                loader = ResourceLoader.GetForCurrentView();
+            }
+            return loader.GetString(key);
 
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

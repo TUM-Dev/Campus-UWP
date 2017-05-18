@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
@@ -70,7 +71,7 @@ namespace TUMCampusApp.Pages
             if (list == null || list.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    lectureName_tbx.Text = "Unable to gather information!";
+                    lectureName_tbx.Text = Utillities.getLocalizedString("UnableToGatherInformation_Text");
                     progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
                 return;
@@ -92,15 +93,15 @@ namespace TUMCampusApp.Pages
 
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = "Your token is not activated yet!";
+                noData_tbx.Text = Utillities.getLocalizedString("TokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = "No access on your tuition fee status!";
+                noData_tbx.Text = Utillities.getLocalizedString("NoAccessToTuitionFees_Text");
             }
             else
             {
-                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+                noData_tbx.Text = Utillities.getLocalizedString("UnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
         }

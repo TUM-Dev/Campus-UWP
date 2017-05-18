@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateTokenFirst_Text" xml:space="preserve">
+    <value>Please activate the token first!</value>
+  </data>
+  <data name="AutoSuggestBox.PlaceholderText" xml:space="preserve">
+    <value>Search for lectures...</value>
+  </data>
+  <data name="Error_Text" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="IngredientsInfoBox_Text" xml:space="preserve">
+    <value />
+    <comment>TODO</comment>
+  </data>
+  <data name="Ingredients_Text" xml:space="preserve">
+    <value>Ingredients:</value>
+  </data>
+  <data name="InvalidId_Text" xml:space="preserve">
+    <value>You id is invalid!</value>
+  </data>
+  <data name="MainCourse_Text" xml:space="preserve">
+    <value>Main Course:</value>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="NoAccessToTuitionFees_Text" xml:space="preserve">
+    <value>No access on your tuition fee status!</value>
+  </data>
+  <data name="NoMenusFoundFor_Text" xml:space="preserve">
+    <value>No menus available for: </value>
+  </data>
+  <data name="NoMenusFound_Text" xml:space="preserve">
+    <value>No menus found!</value>
+  </data>
+  <data name="NoneFound_Text" xml:space="preserve">
+    <value>None found!</value>
+  </data>
+  <data name="PullToRefresh.Text" xml:space="preserve">
+    <value>Pull down to refresh data</value>
+  </data>
+  <data name="QueryLength_Text" xml:space="preserve">
+    <value>Query must be at least 4 chars long!</value>
+  </data>
+  <data name="RandomMenu_Text" xml:space="preserve">
+    <value>Random menu:</value>
+  </data>
+  <data name="RequestNewTokenError_Text" xml:space="preserve">
+    <value>Unable to request a new token. Please retry later!</value>
+  </data>
+  <data name="SetupPageAccess.Text" xml:space="preserve">
+    <value>In order to setup the TUMonline access, you need tp provide your TUM Identification.</value>
+  </data>
+  <data name="SetupPageFaculty.Text" xml:space="preserve">
+    <value>To deliver the best possible experience please provide us with your best matching faculty:</value>
+  </data>
+  <data name="SetupPageHowToEnableToken.Text" xml:space="preserve">
+    <value>You can now enable the Token in TUMonline via Services/Token-Management. Make sure the rights you want to gain the App are set as well under Active Rights.</value>
+  </data>
+  <data name="SetupPageHowToExample" xml:space="preserve">
+    <value>Example:</value>
+  </data>
+  <data name="SetupPageId.Text" xml:space="preserve">
+    <value>This Id has the following format:</value>
+  </data>
+  <data name="SetupPageIdDescription.Text" xml:space="preserve">
+    <value>(2 letters, 2 digits, 3 letters)</value>
+  </data>
+  <data name="SetupPageStep1.Text" xml:space="preserve">
+    <value>STEP 1</value>
+  </data>
+  <data name="SetupPageStep2.Text" xml:space="preserve">
+    <value>STEP 2</value>
+  </data>
+  <data name="SetupPageWelcome.Text" xml:space="preserve">
+    <value>Welcome to the TUM Campus App for Windows!</value>
+  </data>
+  <data name="SideDishes_Text" xml:space="preserve">
+    <value>Side Dishes:</value>
+  </data>
+  <data name="SkipButton.Content" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="TokenNotActivated_Text" xml:space="preserve">
+    <value>Your token is not activated yet!</value>
+  </data>
+  <data name="UnableToGatherInformation_Text" xml:space="preserve">
+    <value>Unable to gather information!</value>
+  </data>
+  <data name="UnableToQuery_Text" xml:space="preserve">
+    <value>Unable to query!\nYour device is not connected to the internet!</value>
+  </data>
+  <data name="UnknownException_Text" xml:space="preserve">
+    <value>An unknown error occured. Please try again.</value>
+  </data>
+</root>

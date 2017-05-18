@@ -12,8 +12,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using System.Diagnostics;
 using TUMCampusAppAPI.Syncs;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
@@ -136,15 +136,15 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("TokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("NoAccessToTuitionFees_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("UnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             enableSearch();
@@ -218,7 +218,7 @@ namespace TUMCampusApp.Pages
             }
             else
             {
-                status_tbx.Text = "None found!";
+                status_tbx.Text = Utillities.getLocalizedString("NoneFound_Text");
                 if(showingOwnLectures)
                 {
                     SyncResult syncResult = LecturesManager.INSTANCE.getSyncStatus();
@@ -305,7 +305,7 @@ namespace TUMCampusApp.Pages
         {
             if (!DeviceInfo.isConnectedToInternet())
             {
-                await Util.showMessageBoxAsync("Unable to query!\nYour device is not connected to the internet!");
+                await Util.showMessageBoxAsync(Utillities.getLocalizedString("UnableToQuery_Text"));
                 return;
             }
             disableSearch();
@@ -341,7 +341,7 @@ namespace TUMCampusApp.Pages
         {
             if (query.Length < 4)
             {
-                await Util.showMessageBoxAsync("Query must be at least 4 chars long!");
+                await Util.showMessageBoxAsync(Utillities.getLocalizedString("QueryLength_Text"));
                 return;
             }
             await showSearchResultAsync(query);
