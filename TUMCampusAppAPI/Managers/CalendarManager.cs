@@ -48,13 +48,13 @@ namespace TUMCampusAppAPI.Managers
             {
                 if(entry == null)
                 {
-                    if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0)
+                    if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0)
                     {
                         entry = e;
                     }
                     continue;
                 }
-                if(e != null && e.dTStrat.CompareTo(DateTime.Now) > 0 && e.dTStrat.CompareTo(entry.dTStrat) < 0)
+                if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0 && e.dTEnd.CompareTo(entry.dTEnd) < 0)
                 {
                     entry = e;
                 }
