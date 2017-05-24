@@ -139,6 +139,51 @@
   <data name="MainCourse_Text" xml:space="preserve">
     <value>Main Course:</value>
   </data>
+  <data name="MainPageCanteens.Text" xml:space="preserve">
+    <value>Canteens</value>
+  </data>
+  <data name="MainPageGeneralTUM.Text" xml:space="preserve">
+    <value>General TUM</value>
+  </data>
+  <data name="MainPageHome.Text" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainPageLectures.Text" xml:space="preserve">
+    <value>Lectures</value>
+  </data>
+  <data name="MainPageMVV.Text" xml:space="preserve">
+    <value>MVV</value>
+  </data>
+  <data name="MainPageMyCalendar.Text" xml:space="preserve">
+    <value>My Calendar</value>
+  </data>
+  <data name="MainPageMyGrades.Text" xml:space="preserve">
+    <value>My Grades</value>
+  </data>
+  <data name="MainPageMyTUM.Text" xml:space="preserve">
+    <value>My TUM</value>
+  </data>
+  <data name="MainPageNews.Text" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="MainPageOpeningHours.Text" xml:space="preserve">
+    <value>Opening Hours</value>
+  </data>
+  <data name="MainPagePlans.Text" xml:space="preserve">
+    <value>Plans</value>
+  </data>
+  <data name="MainPageRoomFinder.Text" xml:space="preserve">
+    <value>Roomfinder</value>
+  </data>
+  <data name="MainPageSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainPageStudyRooms.Text" xml:space="preserve">
+    <value>Study Rooms</value>
+  </data>
+  <data name="MainPageTuitionFees.Text" xml:space="preserve">
+    <value>Tuition Fees</value>
+  </data>
   <data name="NextButton.Content" xml:space="preserve">
     <value>Next</value>
   </data>
