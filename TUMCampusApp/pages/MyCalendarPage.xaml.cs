@@ -31,6 +31,7 @@ namespace TUMCampusApp.Pages
         public MyCalendarPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(onAppResumed);
         }
 
         #endregion
@@ -165,6 +166,11 @@ namespace TUMCampusApp.Pages
         }
 
         private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            refreshCalendar();
+        }
+
+        private void onAppResumed(object sender, object e)
         {
             refreshCalendar();
         }
