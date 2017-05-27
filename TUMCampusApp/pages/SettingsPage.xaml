@@ -49,7 +49,7 @@
                     <TextBlock Text="Contribute on Github" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE730;" FontSize="30"/>
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEBE8;" FontSize="30"/>
                     <TextBlock Text="Report a bug" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel x:Name="feedback_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="feedback_stckp_TappedAsync">
