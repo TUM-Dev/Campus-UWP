@@ -261,17 +261,18 @@ namespace TUMCampusApp.Pages
             else
             {
                 Frame f = new Frame();
+                bool connectedToInternet = DeviceInfo.isConnectedToInternet();
                 if (!Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
                 {
                     task_tbx.Text = "Validating TUM Online Token...";
                     bool wifiOnly = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
-                    if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi() && DeviceInfo.isConnectedToInternet()))
+                    if ((!wifiOnly && connectedToInternet) || (wifiOnly && DeviceInfo.isConnectedToWifi() && connectedToInternet))
                     {
                         if(TumManager.getToken() == null || TumManager.getToken() == "")
                         {
                             f.Navigate(typeof(SetupPageStep1));
                         }
-                        else if (!await TumManager.INSTANCE.isTokenConfirmedAsync())
+                        else if (connectedToInternet && !await TumManager.INSTANCE.isTokenConfirmedAsync())
                         {
                             f.Navigate(typeof(SetupPageStep2));
                         }
@@ -283,7 +284,8 @@ namespace TUMCampusApp.Pages
                     }
                     else
                     {
-                        Util.setSetting(Const.TUMO_ENABLED, !(TumManager.getToken() == null || TumManager.getToken() == ""));
+                        string token = TumManager.getToken();
+                        Util.setSetting(Const.TUMO_ENABLED, (token != null && token != ""));
                         f.Navigate(typeof(MainPage));
                     }
                 }
@@ -294,7 +296,7 @@ namespace TUMCampusApp.Pages
                         Util.setSetting(Const.TUMO_ENABLED, false);
                         f.Navigate(typeof(MainPage));
                     }
-                    else if (!await TumManager.INSTANCE.isTokenConfirmedAsync())
+                    else if (connectedToInternet && !await TumManager.INSTANCE.isTokenConfirmedAsync())
                     {
                         f.Navigate(typeof(SetupPageStep2));
                     }
