@@ -5,6 +5,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static TUMCampusApp.Classes.Utillities;
 using TUMCampusAppAPI;
+using Windows.UI.Popups;
+using TUMCampusAppAPI.UserDatas;
+using Windows.Networking.Connectivity;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace TUMCampusApp.Pages
 {
@@ -12,8 +17,8 @@ namespace TUMCampusApp.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
-
+        
+            
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -32,6 +37,7 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
             navigateToSelectedPage();
+            NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
         /// <summary>
@@ -179,6 +185,22 @@ namespace TUMCampusApp.Pages
             tumTuitionFees_lbi.Visibility = v;
         }
 
+        /// <summary>
+        /// Updates the color of networkConnectionStatus_btn.
+        /// Red if the device is not connected and green if the device is connected to the internet.
+        /// </summary>
+        private void updateConnectionStatus()
+        {
+            if (DeviceInfo.isConnectedToInternet())
+            {
+                networkConnectionStatus_btn.Foreground = new SolidColorBrush(Colors.DarkGreen);
+            }
+            else
+            {
+                networkConnectionStatus_btn.Foreground = new SolidColorBrush(Colors.DarkRed);
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -190,7 +212,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            updateConnectionStatus();
         }
 
         private void openSplitView_hbtn_Click(object sender, RoutedEventArgs e)
@@ -211,6 +233,32 @@ namespace TUMCampusApp.Pages
                 e.Handled = true;
                 mainFrame.GoBack();
             }
+        }
+
+        private async void networkConnectionStatus_btn_Click(object sender, RoutedEventArgs e)
+        {
+            string text = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text");
+            if(DeviceInfo.isConnectedToInternet())
+            {
+                text += Utillities.getLocalizedString("NetworkConnectionStatusConnected_Text");
+            }
+            else
+            {
+                text += Utillities.getLocalizedString("NetworkConnectionStatusDisconnected_Text");
+            }
+            MessageDialog message = new MessageDialog(text)
+            {
+                Title = Utillities.getLocalizedString("Information_Text")
+            };
+            await message.ShowAsync();
+        }
+
+        private async void onNetworkStatusChangedAsync(object sender)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                updateConnectionStatus();
+            });
         }
 
         #endregion

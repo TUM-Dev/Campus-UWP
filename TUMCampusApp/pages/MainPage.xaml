@@ -13,10 +13,16 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Background="#FF0065BD">
-            <Button Name="openSplitView_hbtn" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="30" Click="openSplitView_hbtn_Click"/>
-            <TextBlock x:Name="pageName_tbl" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Background="#FF0065BD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="30" Click="openSplitView_hbtn_Click"/>
+            <TextBlock x:Name="pageName_tbl" Grid.Column="1" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
+            <Button Name="networkConnectionStatus_btn" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="30" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
+        </Grid>
         <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="320" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>
                 <Grid>

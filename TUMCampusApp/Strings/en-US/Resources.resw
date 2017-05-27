@@ -126,6 +126,9 @@
   <data name="Error_Text" xml:space="preserve">
     <value>Error!</value>
   </data>
+  <data name="Information_Text" xml:space="preserve">
+    <value>Information</value>
+  </data>
   <data name="IngredientsInfoBox_Text" xml:space="preserve">
     <value />
     <comment>TODO</comment>
@@ -183,6 +186,15 @@
   </data>
   <data name="MainPageTuitionFees.Text" xml:space="preserve">
     <value>Tuition Fees</value>
+  </data>
+  <data name="NetworkConnectionStatusBase_Text" xml:space="preserve">
+    <value>Network connection status: </value>
+  </data>
+  <data name="NetworkConnectionStatusConnected_Text" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="NetworkConnectionStatusDisconnected_Text" xml:space="preserve">
+    <value>Disconnected</value>
   </data>
   <data name="NextButton.Content" xml:space="preserve">
     <value>Next</value>
