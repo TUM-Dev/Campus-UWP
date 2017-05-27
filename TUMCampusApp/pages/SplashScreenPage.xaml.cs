@@ -263,8 +263,9 @@ namespace TUMCampusApp.Pages
                 Frame f = new Frame();
                 if (!Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
                 {
+                    task_tbx.Text = "Validating TUM Online Token...";
                     bool wifiOnly = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
-                    if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi()))
+                    if ((!wifiOnly && DeviceInfo.isConnectedToInternet()) || (wifiOnly && DeviceInfo.isConnectedToWifi() && DeviceInfo.isConnectedToInternet()))
                     {
                         if(TumManager.getToken() == null || TumManager.getToken() == "")
                         {
