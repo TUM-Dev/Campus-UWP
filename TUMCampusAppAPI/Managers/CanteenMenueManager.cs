@@ -83,10 +83,20 @@ namespace TUMCampusAppAPI.Managers
         public static DateTime getFirstNextDate(int canteenId)
         {
             DateTime time = DateTime.MaxValue;
+            DateTime dateToday = DateTime.Now;
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            {
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
+            }
+
             List<CanteenMenu> menus = new List<CanteenMenu>();
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
-                if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
+                if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -101,9 +111,19 @@ namespace TUMCampusAppAPI.Managers
         public List<DateTime> getMenuDates(int canteenID)
         {
             List<DateTime> dates = new List<DateTime>();
+            DateTime dateToday = DateTime.Now;
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            {
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
+            }
+
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteenID))
             {
-                if (m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }
