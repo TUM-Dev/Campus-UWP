@@ -21,6 +21,7 @@ namespace TUMCampusApp.Pages
         private SplashScreen splash;
         internal bool dismissed = false;
         private string tileID;
+        private static readonly double INC_PROGRESS_STEP = 100 / 27;
 
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
@@ -96,7 +97,6 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task initAppAsync()
         {
-            // 25
             Logger.Info("Started loading app...");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
@@ -152,6 +152,10 @@ namespace TUMCampusApp.Pages
             CalendarManager.INSTANCE = new CalendarManager();
             await incProgressAsync();
 
+            await invokeTbxAsync("Loading news manager...");
+            NewsManager.INSTANCE = new NewsManager();
+            await incProgressAsync();
+
 
             await invokeTbxAsync("Initializing cache manager...");
             await CacheManager.INSTANCE.InitManagerAsync();
@@ -197,6 +201,10 @@ namespace TUMCampusApp.Pages
             await CalendarManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
+            await invokeTbxAsync("Initializing news manager...");
+            await NewsManager.INSTANCE.InitManagerAsync();
+            await incProgressAsync();
+
             await invokeTbxAsync("Initializing TumManager...");
             await TumManager.INSTANCE.InitManagerAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
@@ -227,7 +235,7 @@ namespace TUMCampusApp.Pages
         private async Task incProgressAsync()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressBar.Value += 4;
+                splashProgressBar.Value += INC_PROGRESS_STEP;
             });
         }
 

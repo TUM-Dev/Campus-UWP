@@ -37,6 +37,8 @@ namespace TUMCampusAppAPI
         public static readonly string LRZ_ID = "lrz_id";
         public static readonly string NAME_COLUMN = "name";
         public static readonly string NEWS = "news";
+        public static readonly string NEWS_URL = "https://tumcabe.in.tum.de/Api/news/";
+        public static readonly string NEWS_SOURCES_URL = NEWS_URL + "sources";
         public static readonly string KINO = "kino";
         public static readonly string FACULTIES = "faculties";
         public static readonly string STUDY_ROOM_GROUP_ID = "study_room_group_id";
