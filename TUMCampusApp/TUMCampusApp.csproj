@@ -122,6 +122,9 @@
     <Compile Include="Controls\LectureControl.xaml.cs">
       <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewsControl.xaml.cs">
+      <DependentUpon>NewsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StudyRoomControl.xaml.cs">
       <DependentUpon>StudyRoomControl.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LectureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

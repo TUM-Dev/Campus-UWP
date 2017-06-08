@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.Managers;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
 namespace TUMCampusAppAPI
@@ -92,10 +94,53 @@ namespace TUMCampusAppAPI
             return null;
         }
 
+        public static async Task<BitmapImage> downloadImageAsync(Uri url)
+        {
+            string image = CacheManager.INSTANCE.isCached(url.ToString());
+            if(image != null)
+            {
+                return await convertToImageAsync(CacheManager.encodeString(image));
+            }
+            try
+            {
+                image = await downloadStringAsync(url);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Unable to download image from: " + url.ToString(), e);
+                return null;
+            }
+
+            if (image != null)
+            {
+                CacheManager.INSTANCE.cache(new Caches.Cache(url.ToString(), CacheManager.encodeString(image), null, CacheManager.VALIDITY_ONE_MONTH, CacheManager.CACHE_TYP_IMAGE));
+                return await convertToImageAsync(CacheManager.encodeString(image));
+            }
+            return null;
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
-
+        /// <summary>
+        /// Converts the given byte array to an BitmapImage.
+        /// </summary>
+        /// <param name="data">The image as a byte array.</param>
+        /// <returns>The BitmapImage converted from a byte array.</returns>
+        private static async Task<BitmapImage> convertToImageAsync(Byte[] data)
+        {
+            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            {
+                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
+                {
+                    writer.WriteBytes(data);
+                    await writer.StoreAsync();
+                }
+                var image = new BitmapImage();
+                await image.SetSourceAsync(stream);
+                return image;
+            }
+        }
 
         #endregion
 

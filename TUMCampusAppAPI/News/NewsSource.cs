@@ -30,7 +30,8 @@ namespace TUMCampusAppAPI.News
         public NewsSource(JsonObject json)
         {
             this.src = json.GetNamedString(Const.JSON_SRC);
-            this.icon = json.GetNamedString(Const.JSON_ICON);
+            JsonValue val = json.GetNamedValue(Const.JSON_ICON);
+            this.icon = val.ValueType == JsonValueType.Null ? null : val.Stringify();
             this.title = json.GetNamedString(Const.JSON_TITLE);
         }
 

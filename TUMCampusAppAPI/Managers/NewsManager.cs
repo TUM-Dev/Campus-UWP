@@ -6,6 +6,7 @@ using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Json;
 using Windows.Data.Xml.Dom;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -66,6 +67,15 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<News.News>();
+        }
+
+        /// <summary>
+        /// Downloads the image from the given source if needed and caches it.
+        /// </summary>
+        /// <param name="src">The image source.</param>
+        public async Task<BitmapImage> downloadNewsImage(string src)
+        {
+            return await NetUtils.downloadImageAsync(new Uri(src));
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using TUMCampusApp.Controls;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
 using Windows.Foundation;
@@ -23,14 +24,13 @@ namespace TUMCampusApp.Pages
         public NewsPage()
         {
             this.InitializeComponent();
-            NewsManager.INSTANCE.downloadNewsAsync(true);
-            NewsManager.INSTANCE.downloadNewsSourcesAsync(true);
+            Task t1 = NewsManager.INSTANCE.downloadNewsAsync(true);
+            Task t2 = NewsManager.INSTANCE.downloadNewsSourcesAsync(true);
             List<News> news = NewsManager.INSTANCE.getAllNewsFormDb();
             foreach (News item in news)
             {
-                TextBlock tB = new TextBlock();
-                tB.Text = item.title;
-                news_stckp.Children.Add(tB);
+                NewsControl nC = new NewsControl(item);
+                news_stckp.Children.Add(nC);
             }
         }
     }
