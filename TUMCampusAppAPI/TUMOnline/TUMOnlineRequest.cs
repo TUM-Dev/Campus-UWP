@@ -141,7 +141,7 @@ namespace TUMCampusAppAPI.TUMOnline
         #region --Misc Methods (Private)--
         private void cacheResult(string url, string result)
         {
-            CacheManager.INSTANCE.cache(new Cache(url, CacheManager.encodeString(result), validity.ToString(), validity, CacheManager.CACHE_TYP_DATA));
+            CacheManager.INSTANCE.cache(new Cache(url, CacheManager.encodeString(result), validity, validity, CacheManager.CACHE_TYP_DATA));
         }
 
         private Uri buildUrl()

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
 using Windows.Data.Json;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
@@ -18,12 +19,28 @@ namespace TUMCampusAppAPI
         #endregion
         //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
         #region --Construktoren--
-        
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns the filename from the given url.
+        /// </summary>
+        /// <param name="url">The image url.</param>
+        private static string getImageNameFromUrl(string url)
+        {
+            return url.Substring(url.LastIndexOf('/') + 1);
+        }
 
+        /// <summary>
+        /// Returns the Cache folder as a StorageFolder.
+        /// If it does not exist, a new one will get created.
+        /// </summary>
+        private static async Task<StorageFolder> getCacheFolder()
+        {
+            return await ApplicationData.Current.LocalFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -96,50 +113,53 @@ namespace TUMCampusAppAPI
 
         public static async Task<BitmapImage> downloadImageAsync(Uri url)
         {
-            string image = CacheManager.INSTANCE.isCached(url.ToString());
-            if(image != null)
+            string imagePath = CacheManager.INSTANCE.isCached(url.ToString());
+            if(imagePath == null)
             {
-                return await convertToImageAsync(CacheManager.encodeString(image));
+                try
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var buffer = await client.GetBufferAsync(url);
+                        imagePath = await saveImageToFile(buffer, url.ToString());
+                        CacheManager.INSTANCE.cache(new Caches.Cache(url.ToString(), CacheManager.encodeString(imagePath), CacheManager.VALIDITY_ONE_MONTH, CacheManager.VALIDITY_ONE_MONTH, CacheManager.CACHE_TYP_IMAGE));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Unable to download image from: " + url.ToString(), e);
+                    return null;
+                }
             }
-            try
-            {
-                image = await downloadStringAsync(url);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Unable to download image from: " + url.ToString(), e);
-                return null;
-            }
-
-            if (image != null)
-            {
-                CacheManager.INSTANCE.cache(new Caches.Cache(url.ToString(), CacheManager.encodeString(image), null, CacheManager.VALIDITY_ONE_MONTH, CacheManager.CACHE_TYP_IMAGE));
-                return await convertToImageAsync(CacheManager.encodeString(image));
-            }
-            return null;
+            /*BitmapImage img = new BitmapImage();
+            IRandomAccessStream stream = await RandomAccessStreamReference.CreateFromUri(new Uri(imagePath)).OpenReadAsync();
+            await img.SetSourceAsync(stream);
+            return img;*/
+            return new BitmapImage(new Uri(imagePath));
         }
 
         #endregion
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Converts the given byte array to an BitmapImage.
+        /// Saves the given buffer as a file.
+        /// The name and type get specified by the given url (e.g. http://example.com/image.jpg will result in image.jpg).
         /// </summary>
-        /// <param name="data">The image as a byte array.</param>
-        /// <returns>The BitmapImage converted from a byte array.</returns>
-        private static async Task<BitmapImage> convertToImageAsync(Byte[] data)
+        /// <param name="buffer">The buffer containing the file.</param>
+        /// <param name="url">The download url.</param>
+        /// <returns></returns>
+        private static async Task<string> saveImageToFile(IBuffer buffer, string url)
         {
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            StorageFolder cacheFolder = await getCacheFolder();
+            if(cacheFolder == null)
             {
-                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
-                {
-                    writer.WriteBytes(data);
-                    await writer.StoreAsync();
-                }
-                var image = new BitmapImage();
-                await image.SetSourceAsync(stream);
-                return image;
+                Logger.Error("Unable to open or create Cache folder.");
+                return null;
             }
+            string name = getImageNameFromUrl(url);
+            StorageFile imageFile = await cacheFolder.CreateFileAsync(getImageNameFromUrl(name), CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteBufferAsync(imageFile, buffer);
+            return imageFile.Path;
         }
 
         #endregion

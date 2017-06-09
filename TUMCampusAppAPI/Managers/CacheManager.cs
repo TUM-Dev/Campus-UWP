@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Caches;
+using Windows.Storage;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -51,11 +52,42 @@ namespace TUMCampusAppAPI.Managers
         {
             dB.CreateTable<Cache>();
             // Delete all entries that are too old and delete corresponding image files
-            foreach (Cache c in dB.Query<Cache>("SELECT data FROM Cache WHERE datetime() > max_age AND type = ?", CACHE_TYP_IMAGE))
+            foreach (Cache c in dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() > max_age AND type = ?", CACHE_TYP_IMAGE))
             {
-                File.Delete(c.url);
+                try
+                {
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(decodeString(c.data));
+                    if (file != null)
+                    {
+                        await file.DeleteAsync();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("An error occurred during deletion of an old cached file.", e);
+                }
             }
             dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
+        }
+
+        public async Task deleteCache()
+        {
+            foreach (Cache c in dB.Query<Cache>("SELECT * FROM Cache WHERE type = ?", CACHE_TYP_IMAGE))
+            {
+                try
+                {
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(decodeString(c.data));
+                    if (file != null)
+                    {
+                        await file.DeleteAsync();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("An error occurred during deletion of a cached file.", e);
+                }
+            }
+            dB.DeleteAll<Cache>();
         }
 
         /// <summary>

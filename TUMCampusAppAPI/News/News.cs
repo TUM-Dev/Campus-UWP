@@ -17,7 +17,6 @@ namespace TUMCampusAppAPI.News
         public string image { get; set; }
         public DateTime date { get; set; }
         public DateTime created { get; set; }
-        public bool dismissed { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -35,7 +34,6 @@ namespace TUMCampusAppAPI.News
 
         public News(JsonObject json)
         {
-            this.dismissed = false;
             this.id = json.GetNamedString(Const.JSON_NEWS);
             this.src = json.GetNamedString(Const.JSON_SRC);
             this.title = json.GetNamedString(Const.JSON_TITLE);

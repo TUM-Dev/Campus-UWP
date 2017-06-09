@@ -12,6 +12,7 @@ namespace TUMCampusAppAPI.News
         public string src { get; set; }
         public string title { get; set; }
         public string icon { get; set; }
+        public bool enabled { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -29,10 +30,11 @@ namespace TUMCampusAppAPI.News
 
         public NewsSource(JsonObject json)
         {
-            this.src = json.GetNamedString(Const.JSON_SRC);
+            this.src = json.GetNamedString(Const.JSON_SOURCE);
+            this.title = json.GetNamedString(Const.JSON_TITLE);
             JsonValue val = json.GetNamedValue(Const.JSON_ICON);
             this.icon = val.ValueType == JsonValueType.Null ? null : val.Stringify();
-            this.title = json.GetNamedString(Const.JSON_TITLE);
+            this.enabled = true;
         }
 
         #endregion

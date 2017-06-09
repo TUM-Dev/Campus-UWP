@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
 using Windows.Foundation;
@@ -39,7 +41,6 @@ namespace TUMCampusApp.Controls
         {
             this.news = news;
             this.InitializeComponent();
-            Task.Factory.StartNew(() => showNews());
         }
 
         #endregion
@@ -55,20 +56,52 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
-        private void showNews()
+        /// <summary>
+        /// Shows the current news on the screen.
+        /// </summary>
+        private async Task showNewsAsync()
         {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                loading_ring.IsActive = true;
+            }).AsTask();
+
             if (news.image != null)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                BitmapImage image = null;
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    image_img.Source = await NewsManager.INSTANCE.downloadNewsImage(news.image.Substring(1, news.image.Length - 2));
+                    image = await NewsManager.INSTANCE.downloadNewsImage(news.image.Substring(1, news.image.Length - 2));
+                }).AsTask();
+
+                if (image != null)
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        image.ImageOpened += (sender, e) =>
+                        {
+                            image_img.Width = image.PixelWidth;
+                            image_img.Height = image.PixelHeight;
+                        };
+                        image_img.Source = image;
+
+                    }).AsTask();
+                }
+            }
+            else
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    image_img.Visibility = Visibility.Collapsed;
+
                 }).AsTask();
             }
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 title_tbx.Text = news.title;
-                text_tbx.Text = news.image == null ? "null" : news.image;
-                link_hl.Content = news.link;
+                NewsSource source = NewsManager.INSTANCE.getNewsSource(news.src);
+                src_tbx.Text = source == null ? news.src : source.title;
+                date_tbx.Text = news.date.ToLocalTime().ToString("dd.MM.yyyy");
+                loading_ring.IsActive = false;
             }).AsTask();
         }
 
@@ -80,7 +113,19 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Task.Factory.StartNew(async () => await showNewsAsync());
+        }
 
+        private async void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(news.link == null || loading_ring.IsActive)
+            {
+                return;
+            }
+            await Util.launchBrowser(new Uri(news.link));
+        }
 
         #endregion
     }

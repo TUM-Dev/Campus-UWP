@@ -9,7 +9,7 @@ namespace TUMCampusAppAPI.Caches
         [Unique]
         public string url { get; set; }
         public byte[] data { get; set; }
-        public string validity { get; set; }
+        public int validity { get; set; }
         public string max_age { get; set; }
         public int type { get; set; }
 
@@ -33,7 +33,7 @@ namespace TUMCampusAppAPI.Caches
         /// <history>
         /// 14/01/2017  Created [Fabian Sauter]
         /// </history>
-        public Cache(string url, byte[] data, string validity, int max_age, int type)
+        public Cache(string url, byte[] data, int validity, int max_age, int type)
         {
             this.url = url;
             this.data = data;

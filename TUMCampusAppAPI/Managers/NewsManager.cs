@@ -32,16 +32,7 @@ namespace TUMCampusAppAPI.Managers
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
-        #region --Set-, Get- Methods--
-        /// <summary>
-        /// Searches in the local db for all lectures and returns them.
-        /// </summary>
-        /// <returns>Returns all found lectures.</returns>
-        public List<TUMOnlineLecture> getLectures()
-        {
-            return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
-        }
-        
+        #region --Set-, Get- Methods--       
         /// <summary>
         /// Returns the most current news id from the db.
         /// </summary>
@@ -56,9 +47,29 @@ namespace TUMCampusAppAPI.Managers
             return lastId;
         }
 
+        /// <summary>
+        /// Returns all news sources from the db.
+        /// </summary>
+        /// <returns>A list of NewsSource elements.</returns>
+        public List<News.NewsSource> getAllNewsSourcesFormDb()
+        {
+            return dB.Query<News.NewsSource>("SELECT * FROM NewsSource");
+        }
+
+        /// <summary>
+        /// Returns all news from the db in descending order by date.
+        /// Also only returns these, where the news source is not disabled.
+        /// </summary>
+        /// <returns>A list of News elements.</returns>
         public List<News.News> getAllNewsFormDb()
         {
-            return dB.Query<News.News>("SELECT * FROM News ORDER BY date DESC");
+            return dB.Query<News.News>("SELECT * FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled=1 ORDER BY date DESC");
+        }
+
+        public News.NewsSource getNewsSource(string id)
+        {
+            List<News.NewsSource> sources = dB.Query<News.NewsSource>("SELECT * FROM NewsSource WHERE src LIKE ?", id);
+            return sources.Count > 0 ? sources[0] : null;
         }
 
         #endregion
@@ -67,6 +78,7 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<News.News>();
+            dB.CreateTable<News.NewsSource>();
         }
 
         /// <summary>
@@ -85,11 +97,11 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsAsync(bool force)
         {
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!DeviceInfo.isConnectedToWifi() || !force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING))
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync(typeof(News.News), CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync("News", CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 try
                 {
@@ -112,12 +124,13 @@ namespace TUMCampusAppAPI.Managers
                         }
                     }
                     cleanupDb();
+                    dB.DeleteAll<News.News>();
                     dB.InsertOrReplaceAll(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(typeof(News.News)));
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News"));
                 }
                 catch (Exception e)
                 {
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(typeof(News.News), SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                 }
             }
         }
@@ -129,11 +142,11 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsSourcesAsync(bool force)
         {
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!DeviceInfo.isConnectedToWifi() || !force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING))
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync(typeof(News.NewsSource), CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync("NewsSource", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 try
                 {
@@ -157,13 +170,23 @@ namespace TUMCampusAppAPI.Managers
                     }
                     dB.DeleteAll<News.NewsSource>();
                     dB.InsertAll(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(typeof(News.NewsSource)));
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("NewsSource"));
                 }
                 catch (Exception e)
                 {
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(typeof(News.NewsSource), SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("NewsSource", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                 }
             }
+        }
+
+        /// <summary>
+        /// Updates the disabled status for a specific news source.
+        /// </summary>
+        /// <param name="id">The id of that specific news source.</param>
+        /// <param name="enabled">Whether to enable it.</param>
+        public void updateNewsSourceStatus(int id, bool enabled)
+        {
+            dB.Execute("UPDATE NewsSource SET enabled = ? WHERE id = ?", new object[] {enabled, id});
         }
 
         #endregion

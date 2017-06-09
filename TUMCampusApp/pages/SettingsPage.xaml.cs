@@ -131,6 +131,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void deleteCache()
         {
+            Task.WaitAll(CacheManager.INSTANCE.deleteCache());
             AbstractManager.resetDB();
             AbstractManager.deleteDB();
 
