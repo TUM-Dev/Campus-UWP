@@ -29,7 +29,7 @@
             <AutoSuggestBox x:Name="search_aSB" x:Uid="AutoSuggestBox" HorizontalAlignment="Stretch" Visibility="Collapsed" QueryIcon="Find" Margin="0,2,0,0" TextChanged="search_aSB_TextChanged" SuggestionChosen="search_aSB_SuggestionChosen" QuerySubmitted="search_aSB_QuerySubmitted"/>
             <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
         </StackPanel>
-        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2">
+        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None">
             <controls:PullToRefreshListView.PullToRefreshContent>
                 <TextBlock x:Uid="PullToRefresh" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
             </controls:PullToRefreshListView.PullToRefreshContent>
