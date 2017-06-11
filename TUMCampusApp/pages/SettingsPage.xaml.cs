@@ -85,7 +85,7 @@ namespace TUMCampusApp.Pages
         private void initServices()
         {
             disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
-            disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
+            disableBackgroundTask_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
         }
 
         /// <summary>
