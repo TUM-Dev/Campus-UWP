@@ -75,12 +75,8 @@ namespace TUMCampusApp.Pages
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     news_stckp.Children.Clear();
-                    /*foreach (News item in news)
-                    {
-                        NewsControl nC = new NewsControl(item);
-                        news_stckp.Children.Add(nC);
-                        news_stckp.UpdateLayout();
-                    }*/
+
+                    // Showing only the first 50 news
                     int l = news.Count > 50 ? 50 : news.Count;
                     for (int i = 0; i < l; i++)
                     {
@@ -89,7 +85,14 @@ namespace TUMCampusApp.Pages
                             Style = (Style)Resources["ShadowPanelStyle"],
                             Content = new NewsControl(news[i])
                         };
-                        news_stckp.Children.Add(dSP);
+                        if(news[i].date.Date.CompareTo(DateTime.Now) == 0)
+                        {
+                            news_stckp.Children.Insert(0, dSP);
+                        }
+                        else
+                        {
+                            news_stckp.Children.Add(dSP);
+                        }
                     }
                     reloadingNews = false;
                     enableUi();

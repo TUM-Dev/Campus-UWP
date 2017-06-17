@@ -58,14 +58,19 @@ namespace TUMCampusAppAPI.Managers
 
         /// <summary>
         /// Returns all news from the db in descending order by date.
-        /// Also only returns these, where the news source is not disabled.
+        /// Also only returns these, where the NewsSource is not disabled.
         /// </summary>
         /// <returns>A list of News elements.</returns>
         public List<News.News> getAllNewsFormDb()
         {
-            return dB.Query<News.News>("SELECT * FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled=1 ORDER BY date DESC");
+            return dB.Query<News.News>("SELECT n.* FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled = 1 ORDER BY date DESC");
         }
 
+        /// <summary>
+        /// Returns the NewsSource for the given id.
+        /// </summary>
+        /// <param name="id">The id of the NewsSource.</param>
+        /// <returns>Returns the NewsSource for the given id.</returns>
         public News.NewsSource getNewsSource(string id)
         {
             List<News.NewsSource> sources = dB.Query<News.NewsSource>("SELECT * FROM NewsSource WHERE src LIKE ?", id);

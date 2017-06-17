@@ -30,7 +30,9 @@ namespace TUMCampusAppAPI
         /// <param name="url">The image url.</param>
         private static string getImageNameFromUrl(string url)
         {
-            return url.Substring(url.LastIndexOf('/') + 1);
+            string name = url.Substring(url.LastIndexOf('/') + 1);
+            name = name.Replace(".thumb.", "");
+            return name;
         }
 
         /// <summary>
@@ -60,12 +62,12 @@ namespace TUMCampusAppAPI
                 client.DefaultRequestHeaders.TryAppendWithoutValidation("Cookie", "TCAP=nr86sbfkrvv22b7i72gj0mq1lp5durn9dd53pm9p2v3rd6sko2ssjjk0gtvitam9ijv855bkt2de5k1gvf4rt3j6u03j92cuopkqe40");
                 client.DefaultRequestHeaders.TryAppendWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
                 HttpResponseMessage response = await client.GetAsync(url);
-                //response.EnsureSuccessStatusCode();
                 IHttpContent content = response.Content;
                 IBuffer buffer = await content.ReadAsBufferAsync();
                 using (DataReader dataReader = DataReader.FromBuffer(buffer))
                 {
-                    return dataReader.ReadString(buffer.Length);
+                    string result = dataReader.ReadString(buffer.Length);
+                    return result;
                 }
             }
             catch (Exception e)
@@ -131,10 +133,6 @@ namespace TUMCampusAppAPI
                     return null;
                 }
             }
-            /*BitmapImage img = new BitmapImage();
-            IRandomAccessStream stream = await RandomAccessStreamReference.CreateFromUri(new Uri(imagePath)).OpenReadAsync();
-            await img.SetSourceAsync(stream);
-            return img;*/
             return new BitmapImage(new Uri(imagePath));
         }
 
@@ -159,7 +157,7 @@ namespace TUMCampusAppAPI
             string name = getImageNameFromUrl(url);
             StorageFile imageFile = await cacheFolder.CreateFileAsync(getImageNameFromUrl(name), CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteBufferAsync(imageFile, buffer);
-            return imageFile.Path;
+            return "ms-appx://Cache/" + name;
         }
 
         #endregion

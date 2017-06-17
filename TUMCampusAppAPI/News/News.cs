@@ -5,7 +5,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.News
 {
-    public class News
+    public class News : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -43,6 +43,15 @@ namespace TUMCampusAppAPI.News
 
             this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
             this.created = DateTime.ParseExact(json.GetNamedString(Const.JSON_CREATED), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
+        }
+
+        public int CompareTo(object obj)
+        {
+            if(obj == null || !(obj is News))
+            {
+                return -1;
+            }
+            return date.CompareTo((obj as News).date);
         }
 
         #endregion
