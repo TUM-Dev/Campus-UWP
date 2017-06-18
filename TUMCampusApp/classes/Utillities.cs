@@ -38,6 +38,11 @@ namespace TUMCampusApp.Classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns a localized string for the given key.
+        /// </summary>
+        /// <param name="key">The key for the requested localized string.</param>
+        /// <returns>a localized string for the given key.</returns>
         public static string getLocalizedString(string key)
         {
             if (loader == null)

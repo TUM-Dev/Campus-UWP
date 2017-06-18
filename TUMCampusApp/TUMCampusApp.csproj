@@ -92,6 +92,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="ClassDiagram1.cd" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,9 @@
     </Compile>
     <Compile Include="Controls\NewsSourceControl.xaml.cs">
       <DependentUpon>NewsSourceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewsWidget.xaml.cs">
+      <DependentUpon>NewsWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StudyRoomControl.xaml.cs">
       <DependentUpon>StudyRoomControl.xaml</DependentUpon>
@@ -291,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NewsSourceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

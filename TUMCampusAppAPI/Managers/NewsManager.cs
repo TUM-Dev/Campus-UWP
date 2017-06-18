@@ -66,6 +66,35 @@ namespace TUMCampusAppAPI.Managers
             return dB.Query<News.News>("SELECT n.* FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled = 1 ORDER BY date DESC");
         }
 
+        public List<News.News> getNewsForHomePage()
+        {
+            List<News.News> news = getAllNewsFormDb();
+            List<News.News> result = new List<News.News>();
+            int e = news.Count < 20 ? news.Count : 20;
+            DateTime tumMovieDate = DateTime.MaxValue;
+            int tumMovieIndex = -1;
+            for (int i = 0; i < e; i++)
+            {
+                if(news[i].src.Equals("2"))
+                {
+                    if(news[i].date.Date.CompareTo(DateTime.Now.Date) >= 0 && news[i].date.CompareTo(tumMovieDate) < 0)
+                    {
+                        tumMovieIndex = i;
+                        tumMovieDate = news[i].date;
+                    }
+                }
+                else if(news[i].date.Date.CompareTo(DateTime.Now.Date) == 0)
+                {
+                    result.Add(news[i]);
+                }
+            }
+            if(tumMovieIndex > 0)
+            {
+                result.Insert(0, news[tumMovieIndex]);
+            }
+            return result;
+        }
+
         /// <summary>
         /// Returns the NewsSource for the given id.
         /// </summary>

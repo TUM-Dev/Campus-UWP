@@ -77,10 +77,10 @@ namespace TUMCampusAppAPI.Managers
                 try
                 {
                     string path = decodeString(c.data);
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(path);
+                    StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
                     if (file != null)
                     {
-                        await file.DeleteAsync(StorageDeleteOption.Default);
+                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                     }
                 }
                 catch (Exception e)
