@@ -35,6 +35,7 @@
                 <ToggleSwitch x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
                 <ToggleSwitch x:Name="disableTuitionFeeWidget_tgls"  Margin="10,10,0,0" Toggled="disableTuitionFeeWidget_tgls_Toggled" Header="Disable Tuition Fee Widget"/>
                 <ToggleSwitch x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
+                <ToggleSwitch x:Name="disableNewsWidget_tgls"  Margin="10,10,0,0" Toggled="disableNewsWidget_tgls_Toggled" Header="Disable News Widget"/>
                 
                 <TextBlock Text="Extras:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>

@@ -77,6 +77,7 @@ namespace TUMCampusApp.Pages
             disableCanteenWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
             disableCalendarWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET);
             disableTuitionFeeWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET);
+            disableNewsWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET);
         }
 
         /// <summary>
@@ -119,6 +120,7 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_WIDGET, false);
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
+            Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Util.setSetting(Const.ACCESS_TOKEN, null);
 
@@ -228,6 +230,11 @@ namespace TUMCampusApp.Pages
         private void disableTuitionFeeWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, disableTuitionFeeWidget_tgls.IsOn);
+        }
+
+        private void disableNewsWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Util.setSetting(Const.DISABLE_NEWS_WIDGET, disableNewsWidget_tgls.IsOn);
         }
 
         private async void feedback_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
