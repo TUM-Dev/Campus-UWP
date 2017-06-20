@@ -39,7 +39,7 @@ namespace TUMCampusAppAPI
         /// Returns the Cache folder as a StorageFolder.
         /// If it does not exist, a new one will get created.
         /// </summary>
-        private static async Task<StorageFolder> getCacheFolder()
+        public static async Task<StorageFolder> getCacheFolder()
         {
             return await ApplicationData.Current.LocalFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
         }
