@@ -32,7 +32,7 @@ namespace TUMCampusAppAPI
         {
             string name = url.Substring(url.LastIndexOf('/') + 1);
             name = name.Replace(".thumb.", "");
-            return name;
+            return name.Replace(' ', '_');
         }
 
         /// <summary>
@@ -133,6 +133,7 @@ namespace TUMCampusAppAPI
                     return null;
                 }
             }
+
             return new BitmapImage(new Uri(imagePath));
         }
 
@@ -157,7 +158,7 @@ namespace TUMCampusAppAPI
             string name = getImageNameFromUrl(url);
             StorageFile imageFile = await cacheFolder.CreateFileAsync(getImageNameFromUrl(name), CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteBufferAsync(imageFile, buffer);
-            return "ms-appx://Cache/" + name;
+            return imageFile.Path;
         }
 
         #endregion

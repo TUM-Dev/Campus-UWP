@@ -1,24 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Controls
 {
@@ -68,21 +57,21 @@ namespace TUMCampusApp.Controls
             if (news.image != null)
             {
                 BitmapImage image = null;
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     image = await NewsManager.INSTANCE.downloadNewsImage(news.image.Substring(1, news.image.Length - 2));
-                }).AsTask();
+                }).AsTask().Wait();
 
                 if (image != null)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
+                        image_img.Source = image;
                         image.ImageOpened += (sender, e) =>
                         {
                             image_img.Width = image.PixelWidth;
                             image_img.Height = image.PixelHeight;
                         };
-                        image_img.Source = image;
 
                     }).AsTask();
                 }

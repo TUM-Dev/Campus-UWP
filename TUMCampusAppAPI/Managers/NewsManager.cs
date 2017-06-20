@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Json;
-using Windows.Data.Xml.Dom;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace TUMCampusAppAPI.Managers
