@@ -201,6 +201,7 @@
     <Content Include="Assets\Images\CanteenTile.png" />
     <Content Include="Assets\Images\github_logo.png" />
     <Content Include="Assets\Images\github_mark.png" />
+    <Content Include="Assets\Images\license.png" />
     <Content Include="Assets\Images\TUMonlineSetup1.png" />
     <Content Include="Assets\Images\TUMonlineSetup2.png" />
     <Content Include="Assets\Images\TUMonlineSetup3.png" />

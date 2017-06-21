@@ -248,6 +248,11 @@ namespace TUMCampusApp.Pages
             await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App"));
         }
 
+        private async void license_stckp_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/LICENSE"));
+        }
+
         private async void reportBug_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
             await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/issues"));
