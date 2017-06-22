@@ -138,7 +138,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync("News", CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync("News", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 try
                 {

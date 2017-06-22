@@ -20,6 +20,7 @@ namespace TUMCampusAppAPI.Managers
          * Validity's for entries in seconds
          */
         public static readonly int VALIDITY_DO_NOT_CACHE = 0;
+        public static readonly int VALIDITY_THREE_HOURS = 10800;
         public static readonly int VALIDITY_ONE_DAY = 86400;
         public static readonly int VALIDITY_TWO_DAYS = 2 * 86400;
         public static readonly int VALIDITY_FIFE_DAYS = 5 * 86400;
