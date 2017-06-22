@@ -73,16 +73,10 @@ namespace TUMCampusApp.Pages
                         DropShadowPanel dSP = new DropShadowPanel()
                         {
                             Style = (Style)Resources["ShadowPanelStyle"],
-                            Content = new NewsControl(news[i])
+                            Content = new NewsControl(news[i]),
+                            Margin = new Thickness(5, 10, 5, 0)
                         };
-                        if(news[i].date.Date.CompareTo(DateTime.Now) == 0)
-                        {
-                            news_stckp.Children.Insert(0, dSP);
-                        }
-                        else
-                        {
-                            news_stckp.Children.Add(dSP);
-                        }
+                        news_stckp.Children.Add(dSP);
                     }
                     reloadingNews = false;
                     enableUi();
