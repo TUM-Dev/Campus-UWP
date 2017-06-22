@@ -64,6 +64,11 @@ namespace TUMCampusAppAPI.Managers
             return dB.Query<News.News>("SELECT n.* FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled = 1 ORDER BY date DESC");
         }
 
+        /// <summary>
+        /// Returns a list of news, their date matches todays date.
+        /// Also the first tumMovie news, that is equal or bigger than todays date gets added to the list.
+        /// </summary>
+        /// <returns>Returns a list of News elemets, max 20 entries.</returns>
         public List<News.News> getNewsForHomePage()
         {
             List<News.News> news = getAllNewsFormDb();
@@ -137,7 +142,16 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(new Uri(Const.NEWS_URL + getLastNewsId()));
+                    Uri url;
+                    if(force)
+                    {
+                        url = new Uri(Const.NEWS_URL);
+                    }
+                    else
+                    {
+                        url = new Uri(Const.NEWS_URL + getLastNewsId());
+                    }
+                    JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(url);
                     if (jsonArray == null)
                     {
                         return;
@@ -155,8 +169,8 @@ namespace TUMCampusAppAPI.Managers
                             Logger.Error("Caught an exception during parsing news!", e);
                         }
                     }
+
                     cleanupDb();
-                    dB.DeleteAll<News.News>();
                     dB.InsertOrReplaceAll(list);
                     SyncManager.INSTANCE.replaceIntoDb(new Sync("News"));
                 }
@@ -229,7 +243,14 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         private void cleanupDb()
         {
-            dB.Execute("DELETE FROM News WHERE date < date('now','-3 month')");
+            List<News.News> all = getAllNewsFormDb();
+            DateTime date = DateTime.Now.AddMonths(-3);
+            foreach (var item in all)
+            {
+                if(item.date.CompareTo(date) < 0) {
+                    dB.Execute("DELETE FROM News WHERE id = " + item.id);
+                }
+            }
         }
 
         #endregion
