@@ -134,7 +134,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsAsync(bool force)
         {
-            if (!DeviceInfo.isConnectedToWifi() || !force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING))
+            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
@@ -188,7 +188,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsSourcesAsync(bool force)
         {
-            if (!DeviceInfo.isConnectedToWifi() || !force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING))
+            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
