@@ -31,12 +31,12 @@ namespace TUMCampusApp.BackgroundTask
             _deferral = taskInstance.GetDeferral();
             taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
 
-            Logger.Info("Started background task.");
+            Logger.Info("[Background] Started background task.");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
             await refreshData();
 
-            Logger.Info("Finished background task in " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms.");
+            Logger.Info("[Background] Finished background task in " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms.");
             _deferral.Complete();
         }
 
@@ -51,7 +51,7 @@ namespace TUMCampusApp.BackgroundTask
         {
             if (DeviceInfo.isConnectedToInternet() || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                Logger.Info("Canceling background task. Device not connected to a wifi network.");
+                Logger.Info("[Background] Canceling background task. Device not connected to a wifi network.");
                 return;
             }
             await generalInit();
@@ -150,7 +150,7 @@ namespace TUMCampusApp.BackgroundTask
         {
             _cancelRequested = true;
 
-            Logger.Error("Background " + sender.Task.Name + " Cancel Requested...\nReason=" + reason.ToString());
+            Logger.Error("[Background] " + sender.Task.Name + " Cancel Requested...\nReason=" + reason.ToString());
             _deferral.Complete();
         }
 
