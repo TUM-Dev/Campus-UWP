@@ -12,7 +12,6 @@ namespace TUMCampusApp.BackgroundTask
         #region --Attributes--
         private BackgroundTaskDeferral _deferral;
         volatile bool _cancelRequested = false;
-        private BackgroundTaskCancellationReason _cancelReason = BackgroundTaskCancellationReason.Abort;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -35,7 +34,7 @@ namespace TUMCampusApp.BackgroundTask
             Logger.Info("Started background task.");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
-            await RefreshData();
+            await refreshData();
 
             Logger.Info("Finished background task in " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms.");
             _deferral.Complete();
@@ -48,43 +47,95 @@ namespace TUMCampusApp.BackgroundTask
         /// Reloads the data for the app
         /// </summary>
         /// <returns></returns>
-        private async Task RefreshData()
+        private async Task refreshData()
         {
-            if (Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (DeviceInfo.isConnectedToInternet() || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 Logger.Info("Canceling background task. Device not connected to a wifi network.");
                 return;
             }
-            if(CacheManager.INSTANCE == null)
-            {
-                Logger.Info("0");
-                CacheManager.INSTANCE = new CacheManager();
-                SyncManager.INSTANCE = new SyncManager();
-                CanteenManager.INSTANCE = new CanteenManager();
-                CanteenMenueManager.INSTANCE = new CanteenMenueManager();
-                CalendarManager.INSTANCE = new CalendarManager();
-                TuitionFeeManager.INSTANCE = new TuitionFeeManager();
-                LocationManager.INSTANCE = new LocationManager();
-                UserDataManager.INSTANCE = new UserDataManager();
-                TumManager.INSTANCE = new TumManager();
-            }
+            await generalInit();
 
-            Logger.Info("1");
+            byte lastState = Util.getSettingByte(Const.LAST_BACKGROUND_TASK_ACTION);
+            switch (lastState)
+            {
+                case 0:
+                    await refreshData1();
+                    lastState++;
+                    break;
+                case 1:
+                    await refreshData1();
+                    lastState++;
+                    break;
+                case 2:
+                    await refreshData1();
+                    lastState = 0;
+                    break;
+                default:
+                    lastState = 0;
+                    break;
+            }
+            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, lastState);
+            Logger.Info("[Background] Finished background task.");
+        }
+
+        private async Task generalInit()
+        {
+            Logger.Info("[Background] Started general init.");
+
+            CacheManager.INSTANCE = new CacheManager();
+            SyncManager.INSTANCE = new SyncManager();
+            LocationManager.INSTANCE = new LocationManager();
+            UserDataManager.INSTANCE = new UserDataManager();
+            TumManager.INSTANCE = new TumManager();
+
             await CacheManager.INSTANCE.InitManagerAsync();
             await SyncManager.INSTANCE.InitManagerAsync();
-            await CalendarManager.INSTANCE.InitManagerAsync();
             await LocationManager.INSTANCE.InitManagerAsync();
             await UserDataManager.INSTANCE.InitManagerAsync();
-            await CanteenManager.INSTANCE.InitManagerAsync();
-            await CanteenMenueManager.INSTANCE.InitManagerAsync();
-            await TuitionFeeManager.INSTANCE.InitManagerAsync();
             await TumManager.INSTANCE.InitManagerAsync();
 
-            Logger.Info("3");
+            Logger.Info("[Background] Finished general init.");
+        }
+
+        private async Task refreshData1()
+        {
+            Logger.Info("[Background] Started refreshing 1.");
+
+            CalendarManager.INSTANCE = new CalendarManager();
+
+            await CalendarManager.INSTANCE.InitManagerAsync();
+
+            Logger.Info("[Background] Finished refreshing 1.");
+        }
+
+        private async Task refreshData2()
+        {
+            Logger.Info("[Background] Started refreshing 2.");
+
+            CanteenManager.INSTANCE = new CanteenManager();
+            CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+
+            await CanteenManager.INSTANCE.InitManagerAsync();
+            await CanteenMenueManager.INSTANCE.InitManagerAsync();
+
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
+
+            Logger.Info("[Background] Finished refreshing 2.");
+        }
+
+        private async Task refreshData3()
+        {
+            Logger.Info("[Background] Started refreshing 3.");
+
+            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+
+            await TuitionFeeManager.INSTANCE.InitManagerAsync();
+
             await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
-            Logger.Info("4");
+
+            Logger.Info("[Background] Finished refreshing 3.");
         }
 
         #endregion
@@ -98,7 +149,6 @@ namespace TUMCampusApp.BackgroundTask
         private void OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             _cancelRequested = true;
-            _cancelReason = reason;
 
             Logger.Error("Background " + sender.Task.Name + " Cancel Requested...\nReason=" + reason.ToString());
             _deferral.Complete();

@@ -53,6 +53,11 @@ namespace TUMCampusAppAPI
             return (string)getSetting(token);
         }
 
+        public static byte getSettingByte(string token)
+        {
+            return (byte)getSetting(token);
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
