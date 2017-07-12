@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
 using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
+using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Pages
 {
@@ -72,15 +73,15 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
+            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
 
             //Description:
             TextBlock tb = new TextBlock()
             {
                 Text = name + ':',
                 Margin = new Thickness(10, 10, 10, 10),
-                FontWeight = FontWeights.ExtraBold
+                Foreground = brush
             };
-            tb.FontSize += 5;
             menus_sckl.Children.Add(tb);
 
             //Line:
@@ -88,7 +89,7 @@ namespace TUMCampusApp.Pages
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Height = 2,
-                Fill = tb.Foreground,
+                Fill = brush,
                 Margin = new Thickness(10, 0, 10, 0)
             };
             menus_sckl.Children.Add(rect);
@@ -267,11 +268,11 @@ namespace TUMCampusApp.Pages
                 menus_sckl.Children.Clear();
                 date = menuDates[currentDayOffset];
 
-                setMenuType("Tagesgericht", true, date);
-                setMenuType("Aktionsessen", true, date);
+                setMenuType("Dish Of The Day", true, date);
+                setMenuType("Action Dishes", true, date);
                 setMenuType("Self-Service", false, date);
-                setMenuType("Aktion", false, date);
-                setMenuType("Beilagen", true, date);
+                setMenuType("Special Dishes", false, date);
+                setMenuType("Side Dishes", true, date);
 
                 date = date.AddDays(1);
                 day_tbx.Text = date.DayOfWeek.ToString() + ", " + date.ToString("dd.MM.yyyy");

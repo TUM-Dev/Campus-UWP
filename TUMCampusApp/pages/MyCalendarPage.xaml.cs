@@ -80,7 +80,7 @@ namespace TUMCampusApp.Pages
         private void addCalendarControl(TUMOnlineCalendarEntry entry)
         {
             CalendarControl cC = new CalendarControl(entry);
-            cC.Margin = new Thickness(10, 10, 10, 0);
+            cC.Margin = new Thickness(0, 10, 0, 0);
             calendarEntries_stckp.Children.Add(cC);
         }
 

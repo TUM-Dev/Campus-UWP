@@ -101,8 +101,8 @@ namespace TUMCampusApp.Controls
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
-                setMenuType(id, "Tagesgericht", true, date);
-                setMenuType(id, "Aktionsessen", true, date);
+                setMenuType(id, "Dish Of The Day", true, date);
+                setMenuType(id, "Special Dishes", true, date);
                 setMenuType(id, "Self-Service", false, date);
                 if(menus_sckl.Children.Count <= 0)
                 {

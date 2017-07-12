@@ -14,8 +14,6 @@
         <StackPanel x:Name="main_grid" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Grid.Row="0">
             <Grid Padding="10, 0, 10, 0">
                 <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="1*"/>-->
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="canteenName_tbx" Text="Loading..." HorizontalAlignment="Center" Margin="0, 5, 0, 5" Grid.Column="0" TextTrimming="CharacterEllipsis"/>
