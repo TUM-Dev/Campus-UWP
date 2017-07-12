@@ -87,7 +87,7 @@ namespace TUMCampusAppAPI.Managers
             }
             try
             {
-                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
+                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
                 {
                     return;
                 }

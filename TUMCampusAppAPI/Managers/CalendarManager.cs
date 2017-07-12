@@ -48,34 +48,36 @@ namespace TUMCampusAppAPI.Managers
             {
                 if(entry == null)
                 {
-                    if(e != null && e.dTStrat.ToLocalTime().CompareTo(DateTime.Now) > 0)
+                    if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0)
                     {
                         entry = e;
                     }
                     continue;
                 }
-                if(e != null && e.dTStrat.ToLocalTime().CompareTo(DateTime.Now) > 0 && e.dTStrat.ToLocalTime().CompareTo(entry.dTStrat.ToLocalTime()) < 0)
+                if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0 && e.dTEnd.CompareTo(entry.dTEnd) < 0)
                 {
                     entry = e;
                 }
-            }
-            if(entry != null)
-            {
-                entry.dTStrat = entry.dTStrat.ToLocalTime();
-                entry.dTEnd = entry.dTEnd.ToLocalTime();
             }
             return entry;
         }
 
         /// <summary>
         /// Renturns all calendar entries, the db contains.
+        /// Also converts dTStrat and dTEnd from universal time to local time.
         /// </summary>
         /// <returns>Renturns all calendar entries</returns>
         public List<TUMOnlineCalendarEntry> getEntries()
         {
             lock (thisLock)
             {
-                return dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+                List<TUMOnlineCalendarEntry> list = dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+                for(int i = 0; i < list.Count; i++)
+                {
+                    list[i].dTStrat = list[i].dTStrat.ToLocalTime();
+                    list[i].dTEnd = list[i].dTEnd.ToLocalTime();
+                }
+                return list;
             }
         }
 
@@ -102,19 +104,16 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="force">Force sync calendar</param>
         public void syncCalendar(bool force)
         {
-            if (!force && !SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
-                return;
+                Task.Factory.StartNew(() => {
+                    lock (thisLock)
+                    {
+                        Task.WaitAny(syncCalendarTaskAsync(true));
+                    }
+                });
             }
-            Task.Factory.StartNew(() => {
-                lock (thisLock)
-                {
-                    Task.WaitAny(syncCalendarTaskAsync(force));
-                }
-            });
-            SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
         }
-
 
         /// <summary>
         /// Deletes all calendars created by this app
@@ -130,19 +129,24 @@ namespace TUMCampusAppAPI.Managers
             }
             Logger.Info("Deleted all existing calendars.");
         }
-        #endregion
 
-        #region --Misc Methods (Private)--
         /// <summary>
-        /// Syncs the calendar
+        /// Refreshes the whole calendar if needed or force == true.
         /// </summary>
+        /// <param name="force">Force sync calandar.</param>
         /// <returns></returns>
-        private async Task syncCalendarTaskAsync(bool force)
+        public async Task syncCalendarTaskAsync(bool force)
         {
             long time = SyncManager.GetCurrentUnixTimestampMillis();
             List<TUMOnlineCalendarEntry> list = null;
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
+                if(force)
+                {
+                    dB.DropTable<TUMOnlineCalendarEntry>();
+                    dB.CreateTable<TUMOnlineCalendarEntry>();
+                }
+
                 XmlDocument doc = null;
                 try
                 {
@@ -150,7 +154,12 @@ namespace TUMCampusAppAPI.Managers
                 }
                 catch (BaseTUMOnlineException e)
                 {
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                     return;
+                }
+                catch (Exception e)
+                {
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                 }
                 if (doc == null)
                 {
@@ -158,11 +167,15 @@ namespace TUMCampusAppAPI.Managers
                     return;
                 }
                 list = parseToList(doc);
-                dB.DropTable<TUMOnlineCalendarEntry>();
-                dB.CreateTable<TUMOnlineCalendarEntry>();
+
+                if (!force)
+                {
+                    dB.DropTable<TUMOnlineCalendarEntry>();
+                    dB.CreateTable<TUMOnlineCalendarEntry>();
+                }
                 dB.InsertOrReplaceAll(list);
 
-                SyncManager.INSTANCE.update(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
             else
             {
@@ -175,7 +188,9 @@ namespace TUMCampusAppAPI.Managers
             }
             Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
+        #endregion
 
+        #region --Misc Methods (Private)--
         /// <summary>
         /// Parses a xml document into a list of TUMOnlineCalendarEntries.
         /// </summary>

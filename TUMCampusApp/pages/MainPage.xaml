@@ -13,10 +13,16 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Background="#FF0065BD">
-            <Button Name="openSplitView_hbtn" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="30" Click="openSplitView_hbtn_Click"/>
-            <TextBlock x:Name="pageName_tbl"  Text="Home" FontSize="30" Margin="10,0,0,0"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Background="#FF0065BD">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="30" Click="openSplitView_hbtn_Click"/>
+            <TextBlock x:Name="pageName_tbl" Grid.Column="1" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
+            <Button Name="networkConnectionStatus_btn" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="30" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
+        </Grid>
         <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="320" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>
                 <Grid>
@@ -33,94 +39,94 @@
                             <Image Source="ms-appx:///Assets/Images/wear_tuition_fee.png" Grid.Row="0"/>
                             <ListBox Name="splitViewIcons_lb" SelectionMode="Single" SelectionChanged="splitViewIcons_lb_SelectionChanged" VerticalAlignment="Stretch" Grid.Row="1">
                                 <ListBoxItem x:Name="myTUM_lbi" IsEnabled="False">
-                                    <TextBlock Text="My TUM"/>
+                                    <TextBlock x:Uid="MainPageMyTUM" Text="My TUM"/>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="tumCalendar_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE787;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="My Calendar"/>
+                                        <TextBlock x:Uid="MainPageMyCalendar" Text="Calendar"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="tumMyLectures_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xEF16;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Lectures"/>
+                                        <TextBlock x:Uid="MainPageLectures" Text="Lectures"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="tumMyGrades_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xEADF;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="My Grades"/>
+                                        <TextBlock x:Uid="MainPageMyGrades" Text="My Grades"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="tumTuitionFees_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontSize="24" Text="$" Margin="5, -7, 20, 0"/>
-                                        <TextBlock Text="Tuition Fees"/>
+                                        <TextBlock x:Uid="MainPageTuitionFees" Text="Tuition Fees"/>
                                     </StackPanel>
                                 </ListBoxItem>
 
                                 <ListBoxItem x:Name="generalTUM_lbi" IsEnabled="False">
-                                    <TextBlock Text="General TUM"/>
+                                    <TextBlock x:Uid="MainPageGeneralTUM" Text="General TUM"/>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="home_lbi" IsSelected="True">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE80F;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Home"/>
+                                        <TextBlock x:Uid="MainPageHome" Text="Home"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="canteen_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe UI Symbol" FontSize="23" Text="&#x1f374;" Margin="0, -3, 20, 0"/>
-                                        <TextBlock Text="Canteens"/>
+                                        <TextBlock x:Uid="MainPageCanteens" Text="Canteens"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="news_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE701;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="News"/>
+                                        <TextBlock x:Uid="MainPageNews" Text="News"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="mvv_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE7C0;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="MVV"/>
+                                        <TextBlock x:Uid="MainPageMVV" Text="MVV"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="plans_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE826;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Plans"/>
+                                        <TextBlock x:Uid="MainPagePlans" Text="Plans"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="roomfinder_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE816;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Roomfinder"/>
+                                        <TextBlock x:Uid="MainPageRoomfinder" Text="Roomfinder"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="studyRooms_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE7BC;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Study Rooms"/>
+                                        <TextBlock x:Uid="MainPageStudyRooms" Text="Study Rooms"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="openingHours_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE823;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Opening Hours"/>
+                                        <TextBlock x:Uid="MainPageOpeningHours" Text="Opening Hours"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="studyPlans_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE762;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Study Plans"/>
+                                        <TextBlock x:Uid="MainPageStudyPlans" Text="Study Plans"/>
                                     </StackPanel>
                                 </ListBoxItem>
                                 <ListBoxItem x:Name="settings_lbi">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE713;" Margin="0, 0, 20, 0"/>
-                                        <TextBlock Text="Settings"/>
+                                        <TextBlock x:Uid="MainPageSettings" Text="Settings"/>
                                     </StackPanel>
                                 </ListBoxItem>
                             </ListBox>

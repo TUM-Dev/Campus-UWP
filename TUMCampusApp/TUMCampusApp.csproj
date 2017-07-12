@@ -20,6 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>0B4B01B340C897BA89185D1D8DCF52E2078EA001</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -122,6 +123,15 @@
     <Compile Include="Controls\LectureControl.xaml.cs">
       <DependentUpon>LectureControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewsControl.xaml.cs">
+      <DependentUpon>NewsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewsSourceControl.xaml.cs">
+      <DependentUpon>NewsSourceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewsWidget.xaml.cs">
+      <DependentUpon>NewsWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StudyRoomControl.xaml.cs">
       <DependentUpon>StudyRoomControl.xaml</DependentUpon>
     </Compile>
@@ -152,6 +162,9 @@
     <Compile Include="Pages\LecturesPage.xaml.cs">
       <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +189,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
     <None Include="TUMCampusApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +201,7 @@
     <Content Include="Assets\Images\CanteenTile.png" />
     <Content Include="Assets\Images\github_logo.png" />
     <Content Include="Assets\Images\github_mark.png" />
+    <Content Include="Assets\Images\license.png" />
     <Content Include="Assets\Images\TUMonlineSetup1.png" />
     <Content Include="Assets\Images\TUMonlineSetup2.png" />
     <Content Include="Assets\Images\TUMonlineSetup3.png" />
@@ -276,6 +291,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NewsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsSourceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\StudyRoomControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LecturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\NewsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,52 +1,41 @@
-﻿using TUMCampusApp.Classes;
-using TUMCampusAppAPI.TUMOnline;
-using TUMCampusApp.Pages;
+﻿using TUMCampusApp.Pages;
+using TUMCampusAppAPI.Managers;
+using TUMCampusAppAPI.News;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace TUMCampusApp.Controls
 {
-    public sealed partial class LectureControl : UserControl
+    public sealed partial class NewsSourceControl : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public TUMOnlineLecture lecture;
+        private NewsSource source;
+        private NewsPage newsPage;
+        private bool inital_Checked_Changed;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Construktoren--
         /// <summary>
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 14/01/2017 Created [Fabian Sauter]
+        /// 08/06/2017 Created [Fabian Sauter]
         /// </history>
-        public LectureControl(TUMOnlineLecture lecture)
+        public NewsSourceControl(NewsSource source, NewsPage newsPage)
         {
-            this.lecture = lecture;
+            this.source = source;
+            this.newsPage = newsPage;
+            this.inital_Checked_Changed = false;
             this.InitializeComponent();
-
-            if(lecture == null)
-            {
-                return;
-            }
-            name_tbx.Text = lecture.title;
-            description_tbx.Text = lecture.typeLong + " - " + lecture.semesterId + " - " + lecture.duration + " SWS";
-            profName_tbx.Text = lecture.existingContributors;
+            showNewsSource();
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        /// <summary>
-        /// Sets the visability of the line at the bottom of the control.
-        /// </summary>
-        /// <param name="visability">Show or hide line.</param>
-        public void setRectangleVisability(Visibility visability)
-        {
-            rect.Visibility = visability;
-        }
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -56,7 +45,11 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private void showNewsSource()
+        {
+            title_tb.Text = source.title;
+            enabled_chbx.IsChecked = source.enabled;
+        }
 
         #endregion
 
@@ -66,9 +59,17 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        protected override void OnTapped(TappedRoutedEventArgs e)
+        private void enabled_chbx_Checked_Changed(object sender, RoutedEventArgs e)
         {
-            Utillities.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
+            if(inital_Checked_Changed)
+            {
+                NewsManager.INSTANCE.updateNewsSourceStatus(source.id, (bool)enabled_chbx.IsChecked);
+                newsPage.reloadNews();
+            }
+            else
+            {
+                inital_Checked_Changed = true;
+            }
         }
 
         #endregion

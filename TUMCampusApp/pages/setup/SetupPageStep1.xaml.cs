@@ -5,6 +5,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages.Setup
 {
@@ -69,8 +70,8 @@ namespace TUMCampusApp.Pages.Setup
         {
             if (!isIdValid())
             {
-                MessageDialog message = new MessageDialog("You id is invalid!");
-                message.Title = "Error!";
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
+                message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
                 return;
             }
@@ -78,15 +79,15 @@ namespace TUMCampusApp.Pages.Setup
             string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
             if (result == null)
             {
-                MessageDialog message = new MessageDialog("Unable to request a new token. Please retry later!");
-                message.Title = "Error!";
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"));
+                message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
                 return;
             }
             if(result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
             {
-                MessageDialog message = new MessageDialog("You id is invalid!");
-                message.Title = "Error!";
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
+                message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
                 return;
             }

@@ -77,7 +77,7 @@ namespace TUMCampusAppAPI.UserDatas
         public static bool isConnectedToWifi()
         {
             ConnectionProfile cP = NetworkInformation.GetInternetConnectionProfile();
-            return cP != null && cP.IsWlanConnectionProfile && cP.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            return cP != null && !cP.IsWwanConnectionProfile && cP.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
         }
 
         /// <summary>

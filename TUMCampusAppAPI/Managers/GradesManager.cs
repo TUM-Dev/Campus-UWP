@@ -77,25 +77,25 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Trys to download all grades and caches them into the local db.
         /// </summary>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadGradesAsync()
+        /// <param name="force">Force download and ignore cache.</param>
+        /// <returns></returns>
+        public async Task downloadGradesAsync(bool force)
         {
-            if (!SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY))
+            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
-                return;
+                XmlDocument doc = await getGradesDocumentAsync();
+                if (doc == null || doc.SelectSingleNode("/error") != null)
+                {
+                    return;
+                }
+                dB.DropTable<TUMOnlineGrade>();
+                dB.CreateTable<TUMOnlineGrade>();
+                foreach (var element in doc.SelectNodes("/rowset/row"))
+                {
+                    dB.Insert(new TUMOnlineGrade(element));
+                }
+                SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
             }
-            XmlDocument doc = await getGradesDocumentAsync();
-            if (doc == null || doc.SelectSingleNode("/error") != null)
-            {
-                return;
-            }
-            dB.DropTable<TUMOnlineGrade>();
-            dB.CreateTable<TUMOnlineGrade>();
-            foreach (var element in doc.SelectNodes("/rowset/row"))
-            {
-                dB.Insert(new TUMOnlineGrade(element));
-            }
-            SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
         }
 
         #endregion

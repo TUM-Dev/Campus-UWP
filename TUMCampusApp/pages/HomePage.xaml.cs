@@ -2,6 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
+using System;
 
 namespace TUMCampusApp.Pages
 {
@@ -24,6 +25,7 @@ namespace TUMCampusApp.Pages
         {
             this.InitializeComponent();
             showWidgets();
+            Application.Current.Resuming += new EventHandler<Object>(onAppResumed);
         }
 
         #endregion
@@ -33,7 +35,14 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        /// <summary>
+        /// Adds a widget to the widgets_stckp.
+        /// </summary>
+        /// <param name="widget">The widget that should get added to the widgets_stckp list.</param>
+        public void addWidget(UIElement widget)
+        {
+            widgets_stckp.Children.Add(widget);
+        }
 
         #endregion
 
@@ -62,6 +71,10 @@ namespace TUMCampusApp.Pages
                 calendarWidget_ds.Content = new CalendarWidget(calendarWidget_ds);
                 calendarWidget_ds.Visibility = Visibility.Visible;
             }
+            if (!Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET))
+            {
+                newsWidget_ds.Content = new NewsWidget(newsWidget_ds, this);
+            }
         }
         #endregion
 
@@ -71,7 +84,14 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void onAppResumed(Object sender, Object e)
+        {
+            if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
+            {
+                calendarWidget_ds.Content = new CalendarWidget(calendarWidget_ds);
+                calendarWidget_ds.Visibility = Visibility.Visible;
+            }
+        }
 
         #endregion
     }

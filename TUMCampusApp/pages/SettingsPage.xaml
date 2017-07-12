@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
             <StackPanel Margin="0,0,0,10">
-                <TextBlock Text="General Settings:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="General settings:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="wifiOnly_tgls"  Margin="10,10,0,0" Toggled="wifiOnly_tgls_Toggled" Header="Update app with wifi only"/>
                 <Button x:Name="deleteCache_btn" Content="Delete Cache" Margin="10,10,0,0" Click="deleteCache_btn_Click"/>
@@ -35,10 +35,11 @@
                 <ToggleSwitch x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
                 <ToggleSwitch x:Name="disableTuitionFeeWidget_tgls"  Margin="10,10,0,0" Toggled="disableTuitionFeeWidget_tgls_Toggled" Header="Disable Tuition Fee Widget"/>
                 <ToggleSwitch x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
-                
-                <TextBlock Text="Extras:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <ToggleSwitch x:Name="disableNewsWidget_tgls"  Margin="10,10,0,0" Toggled="disableNewsWidget_tgls_Toggled" Header="Disable News Widget"/>
+
+                <TextBlock Text="Miscellaneous:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <Button x:Name="openLogFolder_btn" Content="Open Log Folder" Margin="10,10,0,0" Click="openLogFolder_btn_ClickAsync"/>
+                <Button x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,10,0,0" Click="openLogFolder_btn_ClickAsync"/>
                 <Button x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
                 <Button x:Name="deleteLogs_btn" Content="Delete Logs" Margin="10,10,0,0" Click="deleteLogs_btn_Click"/>
 
@@ -48,15 +49,18 @@
                     <Image Source="ms-appx:///Assets/Images/github_mark.png" Height="30"/>
                     <TextBlock Text="Contribute on Github" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE730;" FontSize="30"/>
-                    <TextBlock Text="Report a bug" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync" Height="33">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEBE8;" FontSize="30"/>
+                    <TextBlock Text="Report a bug" Margin="10,-7,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="feedback_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="feedback_stckp_TappedAsync">
+                <StackPanel x:Name="feedback_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="feedback_stckp_TappedAsync" Height="30">
                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE939;" FontSize="30"/>
                     <TextBlock Text="Give feedback" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Text="License" Margin="10,10,0,0" FontSize="30"/>
+                <StackPanel x:Name="license_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="license_stckp_Tapped" Height="30">
+                    <Image Source="ms-appx:///Assets/Images/license.png" Height="30"/>
+                    <TextBlock Text="License" Margin="10,-6,0,0" FontSize="30"/>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

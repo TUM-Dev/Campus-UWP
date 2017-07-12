@@ -37,6 +37,8 @@ namespace TUMCampusAppAPI
         public static readonly string LRZ_ID = "lrz_id";
         public static readonly string NAME_COLUMN = "name";
         public static readonly string NEWS = "news";
+        public static readonly string NEWS_URL = "https://tumcabe.in.tum.de/Api/news/";
+        public static readonly string NEWS_SOURCES_URL = NEWS_URL + "sources";
         public static readonly string KINO = "kino";
         public static readonly string FACULTIES = "faculties";
         public static readonly string STUDY_ROOM_GROUP_ID = "study_room_group_id";
@@ -140,6 +142,7 @@ namespace TUMCampusAppAPI
         public static readonly string DISABLE_CANTEEN_WIDGET = "disable_canteen_widget";
         public static readonly string DISABLE_TUITION_FEE_WIDGET = "disable_tuition_fee_widget";
         public static readonly string DISABLE_CALENDAR_WIDGET = "disable_calendar_widget";
+        public static readonly string DISABLE_NEWS_WIDGET = "disable_news_widget";
         public static readonly string DISABLE_BACKGROUND_TASKS = "disable_background_tasks";
 
         public static readonly string LAST_BACKGROUND_TASK_ACTION = "last_background_task_action";

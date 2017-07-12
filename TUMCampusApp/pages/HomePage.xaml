@@ -37,6 +37,9 @@
 
                 <controls:DropShadowPanel x:Name="tutionFeeWidget_ds" Style="{StaticResource ShadowPanelStyle}">
                 </controls:DropShadowPanel>
+
+                <controls:DropShadowPanel x:Name="newsWidget_ds" Style="{StaticResource ShadowPanelStyle}" Visibility="Collapsed">
+                </controls:DropShadowPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

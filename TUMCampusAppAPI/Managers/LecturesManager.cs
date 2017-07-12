@@ -117,7 +117,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS)) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 XmlDocument doc = await getPersonalLecturesDocumentAsync();
                 if (doc == null || doc.SelectSingleNode("/error") != null)

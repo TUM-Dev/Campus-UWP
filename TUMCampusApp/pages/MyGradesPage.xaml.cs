@@ -10,6 +10,8 @@ using TUMCampusApp.Controls;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Shapes;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusApp.Pages
 {
@@ -53,42 +55,103 @@ namespace TUMCampusApp.Pages
         private void downloadAndShowGrades()
         {
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => downloadAndShowGradesTaskAsync());
+            refresh_pTRV.IsEnabled = false;
+            Task.Factory.StartNew(() => downloadAndShowGradesTaskAsync(false));
         }
 
         /// <summary>
         /// Downloads and shows all grades. This method should only get called by a separate task.
         /// </summary>
-        private async void downloadAndShowGradesTaskAsync()
+        private async void downloadAndShowGradesTaskAsync(bool force)
         {
             try
             {
-                await GradesManager.INSTANCE.downloadGradesAsync();
+                await GradesManager.INSTANCE.downloadGradesAsync(force);
             }
-            catch (InvalidOperationException e)
+            catch (BaseTUMOnlineException e)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    noData_grid.Visibility = Visibility.Visible;
-                    noData_tbx.Text = "Either the token is not activated or you didn't give it the required rights for this operation!";
-                }).AsTask();
-                return;
-            }
-            catch (NoAccessTUMOnlineException e)
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    noData_grid.Visibility = Visibility.Visible;
-                    noData_tbx.Text = "Error: " + e.ToString();
+                    showNoAccess(e);
                 }).AsTask();
                 return;
             }
 
             List<TUMOnlineGradeSemester> list = GradesManager.INSTANCE.getGradesSemester();
+            sortSemesterList(list);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
              {
                  showGrades(list);
              }).AsTask();
+        }
+
+        /// <summary>
+        /// Sorts the given list by the gades semesterId. First entry = current semester.
+        /// </summary>
+        /// <param name="list">The list that should get sorted.</param>
+        private void sortSemesterList(List<TUMOnlineGradeSemester> list)
+        {
+            list.Sort((TUMOnlineGradeSemester a, TUMOnlineGradeSemester b) => {
+                if (a == b)
+                {
+                    if (a == null || a.getGrades().Count == b.getGrades().Count && a.getGrades().Count == 0)
+                    {
+                        return 0;
+                    }
+                }
+                else if (a == null || a.getGrades().Count == 0)
+                {
+                    return -1;
+                }
+                else if (b == null || b.getGrades().Count == 0)
+                {
+                    return 1;
+                }
+
+                string semesterIdA = a.getSemesterId();
+                string semesterIdB = b.getSemesterId();
+                if (semesterIdA.Equals(semesterIdB))
+                {
+                    return 0;
+                }
+
+                int yearA = int.Parse(semesterIdA.Substring(0, 2));
+                int yearB = int.Parse(semesterIdA.Substring(0, 2));
+                if (yearA - yearB != 0)
+                {
+                    return yearB - yearA;
+                }
+
+                if (semesterIdA.EndsWith("W"))
+                {
+                    return 1;
+                }
+                return -1;
+            });
+        }
+
+        /// <summary>
+        /// Shows the no access grid based on the given exception.
+        /// </summary>
+        /// <param name="e">The cought exception.</param>
+        private void showNoAccess(BaseTUMOnlineException e)
+        {
+            noData_grid.Visibility = Visibility.Visible;
+            grades_stckp.Visibility = Visibility.Collapsed;
+            if (e is InvalidTokenTUMOnlineException)
+            {
+                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
+            }
+            else if (e is NoAccessTUMOnlineException)
+            {
+                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
+            }
+            else
+            {
+                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
+            }
+            progressBar.Visibility = Visibility.Collapsed;
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
@@ -100,52 +163,51 @@ namespace TUMCampusApp.Pages
             grades_stckp.Children.Clear();
             if (list == null || list.Count <= 0)
             {
+                SyncResult syncResult = GradesManager.INSTANCE.getSyncStatus();
+                if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                {
+                    noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                }
                 noData_grid.Visibility = Visibility.Visible;
             }
             else
             {
                 noData_grid.Visibility = Visibility.Collapsed;
-                foreach (TUMOnlineGradeSemester s in list)
+                grades_stckp.Visibility = Visibility.Visible;
+                for (int i = 0; i < list.Count; i++)
                 {
-                    showSemester(s);
+                    showSemester(list[i], i == 0);
                 }
             }
             progressBar.Visibility = Visibility.Collapsed;
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
         /// Shows a given semester on the screen.
         /// </summary>
         /// <param name="semester">A semester that should get shown on the screen.</param>
-        private void showSemester(TUMOnlineGradeSemester semester)
+        private void showSemester(TUMOnlineGradeSemester semester, bool currentSemester)
         {
-            //Semester name
-            TextBlock tb = new TextBlock()
-            {
-                Text = semester.getSemester(),
-                Margin = new Thickness(10, 10, 10, 10),
-                FontWeight = FontWeights.ExtraBold
-            };
-            tb.FontSize += 5;
-            grades_stckp.Children.Add(tb);
-
-            //Line:
-            Rectangle rect = new Rectangle()
+            StackPanel stackPanel = new StackPanel()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Height = 2,
-                Fill = tb.Foreground,
-                Margin = new Thickness(10, 0, 10, 0)
             };
-            grades_stckp.Children.Add(rect);
-
-            //Semester grades
-            foreach (TUMOnlineGrade grade in semester.getGrades())
+            for (int i = 0; i < semester.getGrades().Count; i++)
             {
-                grades_stckp.Children.Add(new GradeControl(grade));
+                stackPanel.Children.Add(new GradeControl(semester.getGrades()[i]));
             }
-        }
 
+            grades_stckp.Children.Add(new Expander()
+            {
+                Header = semester.getSemester(),
+                Content = stackPanel,
+                Margin = new Thickness(0, 10, 0, 0),
+                HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                IsExpanded = currentSemester
+            });
+        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -154,7 +216,12 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
+            Task.Factory.StartNew(() => downloadAndShowGradesTaskAsync(true));
+        }
 
         #endregion
     }

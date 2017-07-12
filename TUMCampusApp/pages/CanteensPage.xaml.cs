@@ -13,6 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
 using TUMCampusAppAPI;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
@@ -104,11 +105,11 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private string getRandomMenus()
         {
-            string s = "Main Course:\n";
+            string s = Utillities.getLocalizedString("MainCourse_Text") + "\n";
             Random r = new Random();
             if (menuDates == null && menuDates.Count <= 0)
             {
-                return "No menus available for: " + currentCanteen.name;
+                return Utillities.getLocalizedString("NoMenusFoundFor_Text") + currentCanteen.name;
             }
             DateTime date = menuDates[0];
             if (date.Equals(DateTime.MaxValue))
@@ -132,7 +133,7 @@ namespace TUMCampusApp.Pages
                 s += "-" + aMenu[r.Next(0, aMenu.Count)].name + "\n";
             }
 
-            s += "\nSide Dishes:\n";
+            s += "\n" + Utillities.getLocalizedString("SideDishes_Text") + "\n";
 
             for (int i = 0; i < 2; i++)
             {
@@ -251,7 +252,7 @@ namespace TUMCampusApp.Pages
                     day_tbx.Text = "";
                     menus_sckl.Children.Add(new TextBlock()
                     {
-                        Text = "No menus found!",
+                        Text = Utillities.getLocalizedString("NoMenusFound_Text"),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         FontSize = 25
                     });
@@ -330,7 +331,7 @@ namespace TUMCampusApp.Pages
                 + "(Sw)\t dish with sulfur dioxide and sulfites\n"
                 + "(Wt)\t dish with mollusks\n";
             MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s, false));
-            dialog.Title = "Ingredients:";
+            dialog.Title = Utillities.getLocalizedString("Ingredients_Text");
             await dialog.ShowAsync();
         }
 
@@ -493,7 +494,7 @@ namespace TUMCampusApp.Pages
                 return;
             }
             MessageDialog message = new MessageDialog(getRandomMenus());
-            message.Title = "Random menu:";
+            message.Title = Utillities.getLocalizedString("RandomMenu_Text");
             try
             {
                 if (!messageBoxShown)

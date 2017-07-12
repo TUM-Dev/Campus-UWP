@@ -96,7 +96,7 @@ namespace TUMCampusApp.Controls
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 
-            DateTime date = CanteenMenueManager.getFirstNextDate();
+            DateTime date = CanteenMenueManager.getFirstNextDate(id);
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
@@ -119,6 +119,7 @@ namespace TUMCampusApp.Controls
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     canteenName_tbx.Text = "Error!";
                     splashProgressRing.Visibility = Visibility.Collapsed;
+                    dSP.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
                 return;
             }

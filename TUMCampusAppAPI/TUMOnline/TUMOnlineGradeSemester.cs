@@ -12,6 +12,7 @@ namespace TUMCampusAppAPI.TUMOnline
         #region --Attributes--
         private List<TUMOnlineGrade> grades;
         private string semester;
+        private string semesterId;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,6 +25,7 @@ namespace TUMCampusAppAPI.TUMOnline
         /// </history>
         public TUMOnlineGradeSemester(TUMOnlineGrade grade)
         {
+            semesterId = grade.lvSemester;
             if (grade.lvSemester.EndsWith("W"))
             {
                 semester = "Winter Semester 20" + grade.lvSemester.Substring(0,2) + "/20" + (int.Parse(grade.lvSemester.Substring(0, 2)) + 1);
@@ -46,6 +48,11 @@ namespace TUMCampusAppAPI.TUMOnline
         public string getSemester()
         {
             return semester;
+        }
+
+        public string getSemesterId()
+        {
+            return semesterId;
         }
 
         #endregion

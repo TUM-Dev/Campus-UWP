@@ -38,7 +38,14 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Returns the status for the last sync of this object.
+        /// </summary>
+        /// <returns></returns>
+        public SyncResult getSyncStatus()
+        {
+            return SyncManager.INSTANCE.getSyncStatus(this);
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

@@ -11,6 +11,9 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using TUMCampusAppAPI.Syncs;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
@@ -133,18 +136,19 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = "Your token is not activated yet!";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("TokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = "No access on your lectures!";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("NoAccessToTuitionFees_Text");
             }
             else
             {
-                noData_tbx.Text = "Unknown exception!\n" + e.ToString();
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("UnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             enableSearch();
+            refresh_pTRV.IsEnabled = true;
         }
 
         /// <summary>
@@ -156,33 +160,138 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Children.Clear();
             if(list != null && list.Count > 0)
             {
-                semester_tbx.Text = list[0].semesterName;
+                List<List<LectureControl>> controls = new List<List<LectureControl>>();
                 for(var i = 0; i < list.Count; i++)
                 {
-                    LectureControl lC = new LectureControl(list[i], i == list.Count - 1);
-                    lectures_stckp.Children.Add(lC);
+                    LectureControl lC = new LectureControl(list[i]) {
+                        HorizontalAlignment = HorizontalAlignment.Stretch
+                        
+                    };
+                    bool found = false;
+                    for(var e = 0; e < controls.Count; e++)
+                    {
+                        if(controls[e] != null && controls[e].First<LectureControl>() != null && controls[e].First<LectureControl>().lecture.semesterName.Equals(list[i].semesterName))
+                        {
+                            controls[e].Add(lC);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        controls.Add(new List<LectureControl>() {lC});
+                    }
+                }
+
+                sortSemesterList(controls);
+
+                for (var i = 0; i < controls.Count; i++)
+                {
+                    StackPanel stackPanel = new StackPanel()
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        Margin = new Thickness(10, 0, 10, 0)
+                    };
+                    for (int e = 0; e < controls[i].Count; e++)
+                    {
+                        stackPanel.Children.Add(controls[i][e]);
+                        if(e == controls[i].Count - 1)
+                        {
+                            controls[i][e].setRectangleVisability(Visibility.Collapsed);
+                        }
+                        else
+                        {
+                            controls[i][e].setRectangleVisability(Visibility.Visible);
+                        }
+                    }
+
+                    lectures_stckp.Children.Add(new Expander()
+                    {
+                        Header = controls[i].First<LectureControl>().lecture.semesterName,
+                        Content = stackPanel,
+                        Margin = new Thickness(0, 10, 0, 0),
+                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        IsExpanded = (i == 0)
+                    });
                 }
             }
             else
             {
-                semester_tbx.Text = "None found!";
+                status_tbx.Text = Utillities.getLocalizedString("NoneFound_Text");
+                if(showingOwnLectures)
+                {
+                    SyncResult syncResult = LecturesManager.INSTANCE.getSyncStatus();
+                    if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                    {
+                        noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                    }
+                }
             }
-            progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
             lectures_stckp.Visibility = Visibility.Visible;
             enableSearch();
+            refresh_pTRV.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Sorts the given list by the lectures semesterName. First entry = current semester.
+        /// </summary>
+        /// <param name="list">The list that should get sorted.</param>
+        private void sortSemesterList(List<List<LectureControl>> list)
+        {
+            list.Sort((List<LectureControl> a, List<LectureControl> b) => {
+                if(a == b)
+                {
+                    if(a == null || a.Count == b.Count && a.Count == 0)
+                    {
+                        return 0;
+                    }
+                }
+                else if(a == null || a.Count == 0)
+                {
+                    return -1;
+                }
+                else if (b == null || b.Count == 0)
+                {
+                    return 1;
+                }
+
+                string semesterIdA = a[0].lecture.semesterId;
+                string semesterIdB = b[0].lecture.semesterId;
+                if(semesterIdA.Equals(semesterIdB))
+                {
+                    return 0;
+                }
+
+                int yearA = int.Parse(semesterIdA.Substring(0, 2));
+                int yearB = int.Parse(semesterIdA.Substring(0, 2));
+                if(yearA - yearB != 0)
+                {
+                    return yearB - yearA;
+                }
+
+                if(semesterIdA.EndsWith("W"))
+                {
+                    return 1;
+                }
+                return -1;
+            });
         }
 
         /// <summary>
         /// Starts a new task that shows the personal lectures.
         /// </summary>
-        private void showOwnLectures()
+        /// <param name="forceRefresh">Whether to ignore cash.</param>
+        private void showOwnLectures(bool forceRefresh)
         {
-            if (!showingOwnLectures)
+            if (!showingOwnLectures || forceRefresh)
             {
+                refresh_pTRV.IsEnabled = false;
                 disableSearch();
                 progressBar.Visibility = Visibility.Visible;
-                Task.Factory.StartNew(() => downloadAndShowLecturesTaskAsync(false));
+                Task.Factory.StartNew(() => downloadAndShowLecturesTaskAsync(forceRefresh));
                 showingOwnLectures = true;
                 currentSearchTerm = "";
             }
@@ -196,14 +305,47 @@ namespace TUMCampusApp.Pages
         {
             if (!DeviceInfo.isConnectedToInternet())
             {
-                await Util.showMessageBoxAsync("Unable to query!\nYour device is not connected to the internet!");
+                await Util.showMessageBoxAsync(Utillities.getLocalizedString("UnableToQuery_Text"));
                 return;
             }
             disableSearch();
             progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
             await Task.Factory.StartNew(() => downloadAndShowQueriedLecturesTask(query));
         }
 
+        /// <summary>
+        /// Refreshes the displayed results:
+        /// </summary>
+        /// <returns></returns>
+        private async Task refreshLecturesAsync()
+        {
+            if (search_aSB.Visibility == Visibility.Visible)
+            {
+                await searchQuerryAsync(search_aSB.Text);
+            }
+            else
+            {
+                showOwnLectures(true);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the given text is at least 4 chars long.
+        /// If yes, it will start a new query in a seperat task and represent the results on the screen.
+        /// If no, it will show an error message box.
+        /// </summary>
+        /// <param name="query">The querry text</param>
+        /// <returns></returns>
+        private async Task searchQuerryAsync(string query)
+        {
+            if (query.Length < 4)
+            {
+                await Util.showMessageBoxAsync(Utillities.getLocalizedString("QueryLength_Text"));
+                return;
+            }
+            await showSearchResultAsync(query);
+        }
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -214,14 +356,14 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            showOwnLectures();
+            showOwnLectures(false);
         }
 
         private void openSearch_btn_Click(object sender, RoutedEventArgs e)
         {
             if (search_aSB.Visibility == Visibility.Visible)
             {
-                showOwnLectures();
+                showOwnLectures(false);
                 openSearch_btn.Content = "\xE71E";
                 search_aSB.Visibility = Visibility.Collapsed;
             }
@@ -255,22 +397,22 @@ namespace TUMCampusApp.Pages
             }
             else
             {
-                if(sender.Text.Length < 4)
-                {
-                    await Util.showMessageBoxAsync("query must be at least 4 chars long!");
-                    return;
-                }
                 if (sender.Text.Equals(currentSearchTerm))
                 {
                     return;
                 }
-                await showSearchResultAsync(sender.Text);
+                await searchQuerryAsync(sender.Text);
                 var results = searchTerms.Where(i => i.Equals(sender.Text)).ToList();
-                if(results == null || results.Count <= 0)
+                if (results == null || results.Count <= 0)
                 {
                     searchTerms.Add(sender.Text);
                 }
             }
+        }
+
+        private async void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            await refreshLecturesAsync();
         }
         #endregion
     }

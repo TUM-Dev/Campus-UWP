@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.UserDatas;
@@ -69,14 +70,20 @@ namespace TUMCampusAppAPI.Managers
             }
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.TOKEN_CONFIRMED);
             req.addParameter(Const.P_TOKEN, token);
-            string result = await req.doRequestAsync();
-
-            string status = getNodeFromXML(result, "confirmed");
-            if (status == null)
+            try
+            {
+                XmlDocument doc = await req.doRequestDocumentAsync();
+                IXmlNode node = doc.SelectSingleNode("confirmed");
+                if (node == null)
+                {
+                    return false;
+                }
+                return bool.Parse(node.InnerText);
+            }
+            catch(Exception e)
             {
                 return false;
             }
-            return bool.Parse(status);
         }
 
         /// <summary>

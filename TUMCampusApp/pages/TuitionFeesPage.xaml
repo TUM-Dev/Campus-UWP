@@ -5,42 +5,50 @@
     xmlns:local="using:TUMCampusApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
-            <Grid x:Name="fees_grid" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <StackPanel x:Name="main_grid" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Grid.Row="0">
-                    <TextBlock x:Name="semester_tbx" Text="SS2017" HorizontalAlignment="Center" Margin="0, 5, 0, 5"/>
-                </StackPanel>
-                <StackPanel Margin="10,10,10,0" Grid.Row="1">
-                    <TextBlock Text="Outstanding balance:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
-                    <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 5, 0, 5"/>
-                    <TextBlock x:Name="outsBalance_tbx" Text="x€"/>
+            <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None">
+                <controls:PullToRefreshListView.PullToRefreshContent>
+                    <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
+                </controls:PullToRefreshListView.PullToRefreshContent>
+                <Grid x:Name="fees_grid" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="main_grid" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Grid.Row="0">
+                        <TextBlock x:Name="semester_tbx" Text="SS2017" HorizontalAlignment="Center" Margin="0, 5, 0, 5"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,10,0" Grid.Row="1">
+                        <TextBlock Text="Outstanding balance:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                        <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 5, 0, 5"/>
+                        <TextBlock x:Name="outsBalance_tbx" Text="x€"/>
 
-                    <TextBlock Text="Deadline:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 20, 0, 0"/>
-                    <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 5, 0, 5"/>
-                    <TextBlock x:Name="deadline_tbx" Text="01.01.2017"/>
+                        <TextBlock Text="Deadline:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 20, 0, 0"/>
+                        <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0, 5, 0, 5"/>
+                        <TextBlock x:Name="deadline_tbx" Text="01.01.2017"/>
 
-                    <TextBlock Text="Information on contributions and exemptions, loans, training assistance and scholarships, go to:" TextWrapping="WrapWholeWords" Margin="0,20,0,0"/>
-                    <HyperlinkButton Content="Student Financial Aid" Click="HyperlinkButton_ClickAsync"/>
-                </StackPanel>
-            </Grid>
-            <Grid x:Name="noFees_grid" Margin="10,10,10,0" Visibility="Collapsed">
-                <StackPanel>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE001;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="150" Foreground="Green"/>
-                    <TextBlock Text="All tuition fees are paid or no fees found!" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
-                </StackPanel>
-            </Grid>
-            <Grid x:Name="noData_grid" Background="Red" Visibility="Collapsed">
-                <TextBlock x:Name="noData_tbx" Text="Unable to load data!" Margin="10,10,10,10" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
-            </Grid>
+                        <TextBlock Text="Information on contributions and exemptions, loans, training assistance and scholarships, go to:" TextWrapping="WrapWholeWords" Margin="0,20,0,0"/>
+                        <HyperlinkButton Content="Student Financial Aid" Click="HyperlinkButton_ClickAsync"/>
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="noFees_grid" Margin="10,10,10,0" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE001;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="150" Foreground="Green"/>
+                        <TextBlock Text="All tuition fees are paid or no fees found!" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red" Grid.Row="0">
+                    <StackPanel>
+                        <TextBlock x:Name="noDataInfo_tbx" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="10,5,0,10"/>
+                    </StackPanel>
+                </Grid>
+            </controls:PullToRefreshListView>
         </StackPanel>
     </Grid>
 </Page>

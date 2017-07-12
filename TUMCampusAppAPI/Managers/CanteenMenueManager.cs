@@ -80,13 +80,22 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the first next date. Based on "Tagesgericht".
         /// </summary>
         /// <returns>Returns the first next date</returns>
-        public static DateTime getFirstNextDate()
+        public static DateTime getFirstNextDate(int canteenId)
         {
             DateTime time = DateTime.MaxValue;
-            List<CanteenMenu> menus = new List<CanteenMenu>();
+            DateTime dateToday = DateTime.Now;
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            {
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
+            }
+            
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
-                if(m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0)
+                if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -101,9 +110,19 @@ namespace TUMCampusAppAPI.Managers
         public List<DateTime> getMenuDates(int canteenID)
         {
             List<DateTime> dates = new List<DateTime>();
+            DateTime dateToday = DateTime.Now;
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            {
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
+            }
+
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteenID))
             {
-                if (m.date.Date.CompareTo(DateTime.Now.Date.AddDays(-1)) >= 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }
@@ -119,7 +138,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all menus contained in the db.</returns>
         public static List<CanteenMenu> getMenus(int id)
         {
-            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC))
+            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC).NEEDS_SYNC)
             {
                 return menus;
             }
@@ -235,7 +254,7 @@ namespace TUMCampusAppAPI.Managers
             }
             try
             {
-                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC))
+                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
                 {
                     return;
                 }

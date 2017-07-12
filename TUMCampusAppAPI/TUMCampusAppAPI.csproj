@@ -121,6 +121,7 @@
     <Compile Include="Managers\CanteenManager.cs" />
     <Compile Include="Managers\CanteenMenueManager.cs" />
     <Compile Include="Managers\GradesManager.cs" />
+    <Compile Include="Managers\NewsManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />
     <Compile Include="Managers\LocationManager.cs" />
     <Compile Include="Managers\StudyRoomManager.cs" />
@@ -129,9 +130,12 @@
     <Compile Include="Managers\TumManager.cs" />
     <Compile Include="Managers\UserDataManager.cs" />
     <Compile Include="NetUtils.cs" />
+    <Compile Include="News\NewsSource.cs" />
+    <Compile Include="News\News.cs" />
     <Compile Include="StudyRooms\StudyRoomGroup.cs" />
     <Compile Include="StudyRooms\StudyRoom.cs" />
     <Compile Include="Syncs\Sync.cs" />
+    <Compile Include="Syncs\SyncResult.cs" />
     <Compile Include="TUMOnline\Exceptions\BaseTUMOnlineException.cs" />
     <Compile Include="TUMOnline\Exceptions\InvalidTokenTUMOnlineException.cs" />
     <Compile Include="TUMOnline\Exceptions\NoAccessTUMOnlineException.cs" />
@@ -155,7 +159,7 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
     <SDKReference Include="SQLite.UWP.2015, Version=3.19.3">
-      <Name>SQLite for Universal Windows Platform</Name>
+      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.19.3%29</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

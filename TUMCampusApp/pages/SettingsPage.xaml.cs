@@ -77,6 +77,7 @@ namespace TUMCampusApp.Pages
             disableCanteenWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
             disableCalendarWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET);
             disableTuitionFeeWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET);
+            disableNewsWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace TUMCampusApp.Pages
         private void initServices()
         {
             disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
-            disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
+            disableBackgroundTask_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
         }
 
         /// <summary>
@@ -119,6 +120,7 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_WIDGET, false);
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
+            Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Util.setSetting(Const.ACCESS_TOKEN, null);
 
@@ -131,6 +133,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void deleteCache()
         {
+            Task.WaitAll(CacheManager.INSTANCE.deleteCache());
             AbstractManager.resetDB();
             AbstractManager.deleteDB();
 
@@ -229,6 +232,11 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, disableTuitionFeeWidget_tgls.IsOn);
         }
 
+        private void disableNewsWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Util.setSetting(Const.DISABLE_NEWS_WIDGET, disableNewsWidget_tgls.IsOn);
+        }
+
         private async void feedback_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
             var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
@@ -238,6 +246,11 @@ namespace TUMCampusApp.Pages
         private async void contributeGithub_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
             await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App"));
+        }
+
+        private async void license_stckp_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/LICENSE"));
         }
 
         private async void reportBug_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)

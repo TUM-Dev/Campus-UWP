@@ -69,7 +69,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY)) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 XmlDocument doc = await getFeeStatusAsync();
                 dB.DropTable<TUMTuitionFee>();

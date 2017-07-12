@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusApp.Pages
 {
@@ -30,6 +31,7 @@ namespace TUMCampusApp.Pages
         public MyCalendarPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(onAppResumed);
         }
 
         #endregion
@@ -54,7 +56,7 @@ namespace TUMCampusApp.Pages
             Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
             TextBlock tb = new TextBlock()
             {
-                Text = date.Day + "." + date.Month + "." + date.Year,
+                Text = date.DayOfWeek.ToString()  + ", " + date.ToString("dd.MM.yyyy"),
                 Margin = new Thickness(10, 20, 0, 0),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Foreground = brush
@@ -103,9 +105,15 @@ namespace TUMCampusApp.Pages
         {
             if(list == null || list.Count <= 0)
             {
-                progressBar.Visibility = Visibility.Collapsed;
+                SyncResult syncResult = CalendarManager.INSTANCE.getSyncStatus();
+                if(syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                {
+                    noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                }
                 noData_grid.Visibility = Visibility.Visible;
+                progressBar.Visibility = Visibility.Collapsed;
                 calendarEntries_stckp.Visibility = Visibility.Collapsed;
+                refresh_pTRV.IsEnabled = true;
                 return;
             }
             calendarEntries_stckp.Children.Clear();
@@ -119,14 +127,28 @@ namespace TUMCampusApp.Pages
                         pre = entry;
                         addSeperator(pre.dTStrat);
                     }
-                    entry.dTStrat = entry.dTStrat.ToLocalTime();
-                    entry.dTEnd = entry.dTEnd.ToLocalTime();
+                    entry.dTStrat = entry.dTStrat;
+                    entry.dTEnd = entry.dTEnd;
                     addCalendarControl(entry);
                 }
             }
             progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
             calendarEntries_stckp.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Starts a new task and refreshes all calendar entries and displays them on the screen.
+        /// </summary>
+        private void refreshCalendar()
+        {
+            refresh_pTRV.IsEnabled = false;
+            progressBar.Visibility = Visibility.Visible;
+            Task.Factory.StartNew(() => {
+                Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(true));
+                showCalendarEntriesTask();
+            });
         }
         #endregion
 
@@ -139,9 +161,20 @@ namespace TUMCampusApp.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             progressBar.Visibility = Visibility.Visible;
+            refresh_pTRV.IsEnabled = false;
             Task.Factory.StartNew(() => showCalendarEntriesTask());
         }
-        
+
+        private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
+        {
+            refreshCalendar();
+        }
+
+        private void onAppResumed(object sender, object e)
+        {
+            refreshCalendar();
+        }
+
         #endregion
     }
 }

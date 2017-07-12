@@ -73,7 +73,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<Geopoint> getCurrentLocationAsync()
         {
             Geopoint p;
-            if(!SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC) && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
+            if(!SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
             {
                 Logger.Info("Position is still up to date, no need to refresh it again");
                 return p;
