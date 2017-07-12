@@ -112,6 +112,8 @@ namespace TUMCampusApp.Controls
                         HorizontalAlignment = HorizontalAlignment.Center,
                         FontSize = 25
                     });
+                    splashProgressRing.Visibility = Visibility.Collapsed;
+                    dSP.Visibility = Visibility.Collapsed;
                 }
             }).AsTask().Wait();
 
