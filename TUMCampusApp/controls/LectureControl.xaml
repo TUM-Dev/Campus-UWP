@@ -12,7 +12,7 @@
             <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#FF0065BD" FontSize="25"/>
             <TextBlock x:Name="description_tbx" TextWrapping="WrapWholeWords"/>
             <TextBlock x:Name="profName_tbx" TextWrapping="WrapWholeWords"/>
-            <Rectangle Height="2" x:Name="rect" Margin="0,5,0,0" Fill="Black"/>
+            <Rectangle Height="2" x:Name="rect" Margin="0,5,0,0" Fill="{StaticResource ApplicationPressedForegroundThemeBrush}"/>
         </StackPanel>
     </Grid>
 </UserControl>

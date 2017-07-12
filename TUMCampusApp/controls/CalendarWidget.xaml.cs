@@ -6,8 +6,6 @@ using TUMCampusAppAPI.TUMOnline;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace TUMCampusApp.Controls
 {
@@ -54,24 +52,7 @@ namespace TUMCampusApp.Controls
         /// <param name="date"></param>
         private void addSeperator(DateTime date)
         {
-            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
-            TextBlock tb = new TextBlock()
-            {
-                Text = date.Day + "." + date.Month + "." + date.Year,
-                Margin = new Thickness(10, 0, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Foreground = brush
-            };
-
-            Rectangle rect = new Rectangle()
-            {
-                Fill = brush,
-                Margin = new Thickness(0, 5, 0, 5),
-                Height = 2
-            };
-
-            calendarEntries_sckl.Children.Add(tb);
-            calendarEntries_sckl.Children.Add(rect);
+            nextDate_tbx.Text = date.Day + "." + date.Month + "." + date.Year;
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
 namespace TUMCampusApp.Controls
@@ -51,15 +52,15 @@ namespace TUMCampusApp.Controls
             {
                 return;
             }
+            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
 
             //Description:
             TextBlock tb = new TextBlock()
             {
                 Text = name + ':',
-                Margin = new Thickness(10, 10, 10, 10)
+                Margin = new Thickness(10, 10, 10, 10),
+                Foreground = brush
             };
-            tb.FontSize += 5;
-            tb.FontWeight = FontWeights.ExtraBold;
             menus_sckl.Children.Add(tb);
 
             //Line:
@@ -67,7 +68,7 @@ namespace TUMCampusApp.Controls
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Height = 2,
-                Fill = tb.Foreground,
+                Fill = brush,
                 Margin = new Thickness(10, 0, 10, 0)
             };
             menus_sckl.Children.Add(rect);
