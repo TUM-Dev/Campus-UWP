@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
+using TUMCampusAppAPI.UserDatas;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
@@ -104,15 +105,16 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="force">Force sync calendar</param>
         public void syncCalendar(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
+            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                Task.Factory.StartNew(() => {
-                    lock (thisLock)
-                    {
-                        Task.WaitAny(syncCalendarTaskAsync(true));
-                    }
-                });
+                return;
             }
+            Task.Factory.StartNew(() => {
+                lock (thisLock)
+                {
+                    Task.WaitAny(syncCalendarTaskAsync(true));
+                }
+            });
         }
 
         /// <summary>
@@ -137,16 +139,14 @@ namespace TUMCampusAppAPI.Managers
         /// <returns></returns>
         public async Task syncCalendarTaskAsync(bool force)
         {
+            if (!DeviceInfo.isConnectedToInternet() || (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi()))
+            {
+                return;
+            }
             long time = SyncManager.GetCurrentUnixTimestampMillis();
             List<TUMOnlineCalendarEntry> list = null;
             if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
-                if(force)
-                {
-                    dB.DropTable<TUMOnlineCalendarEntry>();
-                    dB.CreateTable<TUMOnlineCalendarEntry>();
-                }
-
                 XmlDocument doc = null;
                 try
                 {
@@ -164,11 +164,12 @@ namespace TUMCampusAppAPI.Managers
                 if (doc == null)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a documet.");
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a documet."));
                     return;
                 }
                 list = parseToList(doc);
 
-                if (!force)
+                if (force)
                 {
                     dB.DropTable<TUMOnlineCalendarEntry>();
                     dB.CreateTable<TUMOnlineCalendarEntry>();
