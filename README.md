@@ -16,13 +16,13 @@ If you want to help, feel free to do so. Help is allways appreciated.
 * My grades
 * Background worker
 * Study Rooms
+* News
 
 ## ToDo:
 * Study plans
 * Roomfinder
 * MVV departure times
 * Environmental plans
-* News
 * Fix Cortana integration
 * ...
 
