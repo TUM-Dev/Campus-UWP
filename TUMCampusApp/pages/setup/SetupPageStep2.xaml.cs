@@ -93,6 +93,38 @@ namespace TUMCampusApp.Pages.Setup
             }
         }
 
+        private async void requestNewToken_btn_Click(object sender, RoutedEventArgs e)
+        {
+            requestNewToken_btn.IsEnabled = false;
+            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SetupPageRequestNewTokenMessageBox_Text"));
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 1 });
+            IUICommand command = await dialog.ShowAsync();
+            if ((int)command.Id == 1)
+            {
+                string result = await TumManager.INSTANCE.reqestNewTokenAsync(Util.getSettingString(Const.USER_ID));
+                if (result == null)
+                {
+                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"));
+                    message.Title = Utillities.getLocalizedString("Error_Text");
+                    await message.ShowAsync();
+                }
+                else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
+                {
+                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
+                    message.Title = Utillities.getLocalizedString("Error_Text");
+                    await message.ShowAsync();
+                    (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                    return;
+                }
+                else
+                {
+                    await Util.showMessageBoxAsync(Utillities.getLocalizedString("SetupPageRequestedNewTokenSuccessMessageBox_Text"));
+                }
+            }
+            requestNewToken_btn.IsEnabled = true;
+        }
+
         #endregion
     }
 }

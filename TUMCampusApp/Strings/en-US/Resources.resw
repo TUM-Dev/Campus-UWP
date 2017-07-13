@@ -277,4 +277,19 @@
   <data name="Loading.Text" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="MessageBoxNo_Text" xml:space="preserve">
+    <value>No!</value>
+  </data>
+  <data name="MessageBoxYes_Text" xml:space="preserve">
+    <value>Yes!</value>
+  </data>
+  <data name="SetupPageRequestedNewTokenSuccessMessageBox_Text" xml:space="preserve">
+    <value>Successfully requested a new Token!</value>
+  </data>
+  <data name="SetupPageRequestNewToken.Text" xml:space="preserve">
+    <value>Request new Token</value>
+  </data>
+  <data name="SetupPageRequestNewTokenMessageBox_Text" xml:space="preserve">
+    <value>Do you really want to request a new Token?</value>
+  </data>
 </root>

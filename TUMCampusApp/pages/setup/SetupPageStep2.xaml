@@ -21,14 +21,20 @@
             <Image Source="ms-appx:///Assets/Images/TUMonlineSetup1.png" MaxWidth="200"/>
             <Image Source="ms-appx:///Assets/Images/TUMonlineSetup2.png" Margin="0,10,0,10"/>
             <Image Source="ms-appx:///Assets/Images/TUMonlineSetup3.png" MaxWidth="200"/>
+            <Button x:Name="requestNewToken_btn" HorizontalAlignment="Center" Margin="0,10,0,10" Click="requestNewToken_btn_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE149;" VerticalAlignment="Center" Margin="0, 1, 5, 0"/>
+                    <TextBlock x:Uid="SetupPageRequestNewToken" Text="Request new Token"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
         <Grid Grid.Row="1" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button  x:Name="skip_btn" x:Uid="SkipButton" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0,0,1,0" Click="skip_btn_Click"/>
-            <Button x:Name="next_btn" x:Uid="NextButton" HorizontalAlignment="Stretch" Grid.Column="1" Margin="1,0,0,0" Click="next_btn_ClickAsync"/>
+            <Button  x:Name="skip_btn" Content="Skip" x:Uid="SkipButton" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0,0,1,0" Click="skip_btn_Click"/>
+            <Button x:Name="next_btn" Content="Next" x:Uid="NextButton" HorizontalAlignment="Stretch" Grid.Column="1" Margin="1,0,0,0" Click="next_btn_ClickAsync"/>
         </Grid>
     </Grid>
 </Page>

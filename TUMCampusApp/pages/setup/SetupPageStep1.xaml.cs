@@ -27,6 +27,7 @@ namespace TUMCampusApp.Pages.Setup
         public SetupPageStep1()
         {
             this.InitializeComponent();
+            studentID_tbx.Text = Util.getSettingString(Const.USER_ID);
         }
 
         #endregion
@@ -68,31 +69,35 @@ namespace TUMCampusApp.Pages.Setup
 
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
+            next_btn.IsEnabled = false;
             if (!isIdValid())
             {
                 MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
                 message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
-                return;
             }
-
-            string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
-            if (result == null)
+            else
             {
-                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"));
-                message.Title = Utillities.getLocalizedString("Error_Text");
-                await message.ShowAsync();
-                return;
+                string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
+                if (result == null)
+                {
+                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"));
+                    message.Title = Utillities.getLocalizedString("Error_Text");
+                    await message.ShowAsync();
+                }
+                else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
+                {
+                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
+                    message.Title = Utillities.getLocalizedString("Error_Text");
+                    await message.ShowAsync();
+                }
+                else
+                {
+                    Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+                    (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                }
             }
-            if(result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
-            {
-                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
-                message.Title = Utillities.getLocalizedString("Error_Text");
-                await message.ShowAsync();
-                return;
-            }
-            Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
-            (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+            next_btn.IsEnabled = true;
         }
 
         #endregion
