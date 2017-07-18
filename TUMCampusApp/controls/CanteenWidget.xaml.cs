@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Canteens;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
@@ -45,7 +46,7 @@ namespace TUMCampusApp.Controls
         /// <param name="name">The "typeLong" name for the menus.</param>
         /// <param name="contains">Whethet the menu name should equal or just containe the given name.</param>
         /// <param name="date">The menu date.</param>
-        private void setMenuType(int canteenId, string name, bool contains, DateTime date)
+        private void setMenuType(int canteenId, string name, string labelText, bool contains, DateTime date)
         {
             List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
             if (list == null || list.Count <= 0)
@@ -57,7 +58,7 @@ namespace TUMCampusApp.Controls
             //Description:
             TextBlock tb = new TextBlock()
             {
-                Text = name + ':',
+                Text = labelText + ':',
                 Margin = new Thickness(10, 10, 10, 10),
                 Foreground = brush
             };
@@ -101,10 +102,10 @@ namespace TUMCampusApp.Controls
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
-                setMenuType(id, "Dish Of The Day", true, date);
-                setMenuType(id, "Special Dishes", true, date);
-                setMenuType(id, "Self-Service", false, date);
-                if(menus_sckl.Children.Count <= 0)
+                setMenuType(id, "Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
+                setMenuType(id, "Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
+                setMenuType(id, "Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
+                if (menus_sckl.Children.Count <= 0)
                 {
                     menus_sckl.Children.Add(new TextBlock()
                     {

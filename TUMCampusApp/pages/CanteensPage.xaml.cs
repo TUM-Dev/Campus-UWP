@@ -8,7 +8,6 @@ using TUMCampusApp.Controls;
 using Windows.Phone.Devices.Notification;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
@@ -66,7 +65,7 @@ namespace TUMCampusApp.Pages
         /// <param name="name">The "typeLong" of the canteen menus.</param>
         /// <param name="contains">Whether the menus typeLong should be equal or just contain the given name.</param>
         /// <param name="date">The menus date.</param>
-        private void setMenuType(string name, bool contains, DateTime date)
+        private void setMenuType(string name, string labelText, bool contains, DateTime date)
         {
             List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
             if (list == null || list.Count <= 0)
@@ -78,7 +77,7 @@ namespace TUMCampusApp.Pages
             //Description:
             TextBlock tb = new TextBlock()
             {
-                Text = name + ':',
+                Text = labelText + ':',
                 Margin = new Thickness(10, 10, 10, 10),
                 Foreground = brush
             };
@@ -106,11 +105,11 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private string getRandomMenus()
         {
-            string s = Utillities.getLocalizedString("MainCourse_Text") + "\n";
+            string s = Utillities.getLocalizedString("CanteenMainCourse_Text") + ":\n";
             Random r = new Random();
             if (menuDates == null && menuDates.Count <= 0)
             {
-                return Utillities.getLocalizedString("NoMenusFoundFor_Text") + currentCanteen.name;
+                return Utillities.getLocalizedString("CanteenNoMenusFoundFor_Text") + currentCanteen.name;
             }
             DateTime date = menuDates[0];
             if (date.Equals(DateTime.MaxValue))
@@ -134,7 +133,7 @@ namespace TUMCampusApp.Pages
                 s += "-" + aMenu[r.Next(0, aMenu.Count)].name + "\n";
             }
 
-            s += "\n" + Utillities.getLocalizedString("SideDishes_Text") + "\n";
+            s += "\n" + Utillities.getLocalizedString("CanteenSideDishes_Text") + ":\n";
 
             for (int i = 0; i < 2; i++)
             {
@@ -253,7 +252,7 @@ namespace TUMCampusApp.Pages
                     day_tbx.Text = "";
                     menus_sckl.Children.Add(new TextBlock()
                     {
-                        Text = Utillities.getLocalizedString("NoMenusFound_Text"),
+                        Text = Utillities.getLocalizedString("CanteenNoMenusFound_Text"),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         FontSize = 25
                     });
@@ -268,11 +267,11 @@ namespace TUMCampusApp.Pages
                 menus_sckl.Children.Clear();
                 date = menuDates[currentDayOffset];
 
-                setMenuType("Dish Of The Day", true, date);
-                setMenuType("Action Dishes", true, date);
-                setMenuType("Self-Service", false, date);
-                setMenuType("Special Dishes", false, date);
-                setMenuType("Side Dishes", true, date);
+                setMenuType("Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
+                setMenuType("Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
+                setMenuType("Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
+                setMenuType("Aktion", Utillities.getLocalizedString("CanteenSpecialDishes_Text"), false, date);
+                setMenuType("Beilagen", Utillities.getLocalizedString("CanteenSideDishes_Text"), true, date);
 
                 date = date.AddDays(1);
                 day_tbx.Text = date.DayOfWeek.ToString() + ", " + date.ToString("dd.MM.yyyy");
@@ -332,7 +331,7 @@ namespace TUMCampusApp.Pages
                 + "(Sw)\t dish with sulfur dioxide and sulfites\n"
                 + "(Wt)\t dish with mollusks\n";
             MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s, false));
-            dialog.Title = Utillities.getLocalizedString("Ingredients_Text");
+            dialog.Title = Utillities.getLocalizedString("CanteenIngredients_Text");
             await dialog.ShowAsync();
         }
 
@@ -495,7 +494,7 @@ namespace TUMCampusApp.Pages
                 return;
             }
             MessageDialog message = new MessageDialog(getRandomMenus());
-            message.Title = Utillities.getLocalizedString("RandomMenu_Text");
+            message.Title = Utillities.getLocalizedString("CanteenRandomMenu_Text");
             try
             {
                 if (!messageBoxShown)
