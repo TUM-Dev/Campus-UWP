@@ -136,14 +136,14 @@
     <value />
     <comment>TODO</comment>
   </data>
-  <data name="Ingredients_Text" xml:space="preserve">
+  <data name="CanteenIngredients_Text" xml:space="preserve">
     <value>Ingredients:</value>
   </data>
   <data name="InvalidId_Text" xml:space="preserve">
     <value>You id is invalid!</value>
   </data>
-  <data name="MainCourse_Text" xml:space="preserve">
-    <value>Main Course:</value>
+  <data name="CanteenMainCourse_Text" xml:space="preserve">
+    <value>Main Course</value>
   </data>
   <data name="MainPageCanteens.Text" xml:space="preserve">
     <value>Canteens</value>
@@ -205,10 +205,10 @@
   <data name="NoAccessToTuitionFees_Text" xml:space="preserve">
     <value>No access on your tuition fee status!</value>
   </data>
-  <data name="NoMenusFoundFor_Text" xml:space="preserve">
+  <data name="CanteenNoMenusFoundFor_Text" xml:space="preserve">
     <value>No menus available for: </value>
   </data>
-  <data name="NoMenusFound_Text" xml:space="preserve">
+  <data name="CanteenNoMenusFound_Text" xml:space="preserve">
     <value>No menus found!</value>
   </data>
   <data name="NoneFound_Text" xml:space="preserve">
@@ -220,7 +220,7 @@
   <data name="QueryLength_Text" xml:space="preserve">
     <value>Query must be at least 4 chars long!</value>
   </data>
-  <data name="RandomMenu_Text" xml:space="preserve">
+  <data name="CanteenRandomMenu_Text" xml:space="preserve">
     <value>Random menu:</value>
   </data>
   <data name="RequestNewTokenError_Text" xml:space="preserve">
@@ -253,8 +253,8 @@
   <data name="SetupPageWelcome.Text" xml:space="preserve">
     <value>Welcome to the TUM Campus App for Windows!</value>
   </data>
-  <data name="SideDishes_Text" xml:space="preserve">
-    <value>Side Dishes:</value>
+  <data name="CanteenSideDishes_Text" xml:space="preserve">
+    <value>Side Dishes</value>
   </data>
   <data name="SkipButton.Content" xml:space="preserve">
     <value>Skip</value>
@@ -291,5 +291,17 @@
   </data>
   <data name="SetupPageRequestNewTokenMessageBox_Text" xml:space="preserve">
     <value>Do you really want to request a new Token?</value>
+  </data>
+  <data name="CanteenActionDishes_Text" xml:space="preserve">
+    <value>Action Dishes</value>
+  </data>
+  <data name="CanteenDishOfTheDay_Text" xml:space="preserve">
+    <value>Dish Of The Day</value>
+  </data>
+  <data name="CanteenSelf-Service_Text" xml:space="preserve">
+    <value>Self-Service</value>
+  </data>
+  <data name="CanteenSpecialDishes_Text" xml:space="preserve">
+    <value>Special Dishes</value>
   </data>
 </root>
