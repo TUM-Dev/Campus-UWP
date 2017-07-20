@@ -131,7 +131,7 @@ namespace TUMCampusApp.Controls
             date = date.AddDays(1);
             Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(id);
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                canteenDate_tbx.Text = date.Day + "." + date.Month + "." + date.Year;
+                canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
                 if (c == null)
                 {
                     canteenName_tbx.Text = "Error No Canteen!";
