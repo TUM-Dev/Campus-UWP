@@ -57,7 +57,7 @@ namespace TUMCampusApp.Pages
             Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
             TextBlock tb = new TextBlock()
             {
-                Text = date.DayOfWeek.ToString()  + ", " + date.ToString("dd.MM.yyyy"),
+                Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy"),
                 Margin = new Thickness(10, 20, 0, 0),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Foreground = brush
