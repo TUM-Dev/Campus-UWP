@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
+using TUMCampusApp.Controls;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.Syncs;
@@ -9,7 +11,6 @@ using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Pages
 {
@@ -80,20 +81,19 @@ namespace TUMCampusApp.Pages
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noFees_grid.Visibility = Visibility.Collapsed;
-            fees_grid.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Visible;
 
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeNoAccess_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeTokenNotActivated_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeNoUnknownError_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;
@@ -106,7 +106,9 @@ namespace TUMCampusApp.Pages
         private void showFees(List<TUMTuitionFee> list)
         {
             noData_grid.Visibility = Visibility.Collapsed;
-            if (list == null || list.Count <= 0 || list[0].money == null || double.Parse(list[0].money) <= 0)
+            tuitionFees_stckp.Children.Clear();
+
+            if (list == null || list.Count <= 0 || list[0].money == null)
             {
                 SyncResult syncResult = TuitionFeeManager.INSTANCE.getSyncStatus();
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
@@ -120,20 +122,19 @@ namespace TUMCampusApp.Pages
                     noFees_grid.Visibility = Visibility.Visible;
                     noData_grid.Visibility = Visibility.Collapsed;
                 }
-                fees_grid.Visibility = Visibility.Collapsed;
             }
             else
             {
-                fees_grid.Visibility = Visibility.Visible;
                 noFees_grid.Visibility = Visibility.Collapsed;
-                outsBalance_tbx.Text = list[0].money + "€";
-                semester_tbx.Text = list[0].semesterDescripion;
-                DateTime deadLine = DateTime.Parse(list[0].deadline);
-                TimeSpan tS = deadLine.Subtract(DateTime.Now);
-                deadline_tbx.Text = deadLine.Day + "." + deadLine.Month + "." + deadLine.Year + " ==> " + Math.Round(tS.TotalDays) + " Days left!";
-                if (tS.TotalDays <= 30)
+                foreach (var item in list)
                 {
-                    main_grid.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);
+                    if (item != null && item.money != null)
+                    {
+                        tuitionFees_stckp.Children.Add(new TuitionFeeControl(item)
+                        {
+                            Margin = new Thickness(0, 0, 0, 10)
+                        });
+                    }
                 }
             }
             progressBar.Visibility = Visibility.Collapsed;

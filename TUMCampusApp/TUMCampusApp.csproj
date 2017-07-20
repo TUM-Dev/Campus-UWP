@@ -135,6 +135,9 @@
     <Compile Include="Controls\StudyRoomControl.xaml.cs">
       <DependentUpon>StudyRoomControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TuitionFeeControl.xaml.cs">
+      <DependentUpon>TuitionFeeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TuitionFeeWidget.xaml.cs">
       <DependentUpon>TuitionFeeWidget.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StudyRoomControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TuitionFeeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
