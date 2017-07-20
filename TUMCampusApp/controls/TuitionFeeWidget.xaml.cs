@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
@@ -76,20 +77,22 @@ namespace TUMCampusApp.Controls
         /// <param name="list">A list of tution fees.</param>
         private void showFees(List<TUMTuitionFee> list)
         {
-            if (list == null || list.Count <= 0 || list[0].money == null || double.Parse(list[0].money) <= 0)
+            tuitionFees_stckp.Children.Clear();
+
+            if (list == null || list.Count <= 0 || list[0].money == null)
             {
                 dSP.Visibility = Visibility.Collapsed;
             }
             else
             {
-                outsBalance_tbx.Text = list[0].money + "€";
-                semester_tbx.Text = list[0].semesterDescripion;
-                DateTime deadLine = DateTime.Parse(list[0].deadline);
-                TimeSpan tS = deadLine.Subtract(DateTime.Now);
-                deadline_tbx.Text = deadLine.Day + "." + deadLine.Month + "." + deadLine.Year + " ==> " + Math.Round(tS.TotalDays) + " Days left!";
-                if (tS.TotalDays <= 30)
+                foreach (var item in list)
                 {
-                    main_grid.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);
+                    if (item != null && item.money != null)
+                    {
+                        tuitionFees_stckp.Children.Add(new TuitionFeeControl(item) {
+                            Margin = new Thickness(0, 0, 0, 10)
+                        });
+                    }
                 }
             }
             progressRing.Visibility = Visibility.Collapsed;

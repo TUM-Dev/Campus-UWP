@@ -304,4 +304,40 @@
   <data name="CanteenSpecialDishes_Text" xml:space="preserve">
     <value>Special Dishes</value>
   </data>
+  <data name="TuitionFeeControlDaysLeft_Text" xml:space="preserve">
+    <value>Days left!</value>
+  </data>
+  <data name="TuitionFeeControlDeadline.Text" xml:space="preserve">
+    <value>Deadline:</value>
+  </data>
+  <data name="TuitionFeeControlLoading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="TuitionFeeControlOutstandingBalance.Text" xml:space="preserve">
+    <value>Outstanding Balance:</value>
+  </data>
+  <data name="TuitionFeeControlSummerTerm_Text" xml:space="preserve">
+    <value>Summer Term</value>
+  </data>
+  <data name="TuitionFeeControlWinterTerm_Text" xml:space="preserve">
+    <value>Winter Term</value>
+  </data>
+  <data name="TuitionFeeInfo.Text" xml:space="preserve">
+    <value>Information on contributions and exemptions, loans, training assistance and scholarships, go to:</value>
+  </data>
+  <data name="TuitionFeeNoAccess_Text" xml:space="preserve">
+    <value>You didn't give the token the required rights for accessing your TUM tuition fees.</value>
+  </data>
+  <data name="TuitionFeeNoFees.Text" xml:space="preserve">
+    <value>All tuition fees are paid or no fees found!</value>
+  </data>
+  <data name="TuitionFeeNoUnknownError_Text" xml:space="preserve">
+    <value>An unknown error occured. Please try again.</value>
+  </data>
+  <data name="TuitionFeeStudentFeeStudentFinancialAid.Content" xml:space="preserve">
+    <value>Student Financial Aid</value>
+  </data>
+  <data name="TuitionFeeTokenNotActivated_Text" xml:space="preserve">
+    <value>Your token is either unknown or not activated yet.</value>
+  </data>
 </root>
