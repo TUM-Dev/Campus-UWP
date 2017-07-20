@@ -1,5 +1,6 @@
 ﻿using System;
 using TUMCampusAppAPI.TUMOnline;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Controls
@@ -36,7 +37,14 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Sets the visability of the line at the bottom of the control.
+        /// </summary>
+        /// <param name="visability">Show or hide line.</param>
+        public void setRectangleVisability(Visibility visability)
+        {
+            rect.Visibility = visability;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
