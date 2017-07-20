@@ -52,7 +52,7 @@ namespace TUMCampusApp.Controls
         /// <param name="date"></param>
         private void addSeperator(DateTime date)
         {
-            nextDate_tbx.Text = date.Day + "." + date.Month + "." + date.Year;
+            nextDate_tbx.Text = date.ToString("dd.MM.yyyy");
         }
 
         /// <summary>
