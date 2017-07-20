@@ -241,7 +241,7 @@ namespace TUMCampusApp.Pages
 
         private async void networkConnectionStatus_btn_Click(object sender, RoutedEventArgs e)
         {
-            string text = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text");
+            string text = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text") + "\n";
             if(DeviceInfo.isConnectedToInternet())
             {
                 text += Utillities.getLocalizedString("NetworkConnectionStatusConnected_Text");

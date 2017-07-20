@@ -87,19 +87,19 @@
                                         <TextBlock x:Uid="MainPageNews" Text="News"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="mvv_lbi">
+                                <ListBoxItem x:Name="mvv_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE7C0;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPageMVV" Text="MVV"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="plans_lbi">
+                                <ListBoxItem x:Name="plans_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE826;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPagePlans" Text="Plans"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="roomfinder_lbi">
+                                <ListBoxItem x:Name="roomfinder_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE816;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPageRoomfinder" Text="Roomfinder"/>
@@ -111,13 +111,13 @@
                                         <TextBlock x:Uid="MainPageStudyRooms" Text="Study Rooms"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="openingHours_lbi">
+                                <ListBoxItem x:Name="openingHours_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE823;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPageOpeningHours" Text="Opening Hours"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="studyPlans_lbi">
+                                <ListBoxItem x:Name="studyPlans_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE762;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPageStudyPlans" Text="Study Plans"/>
