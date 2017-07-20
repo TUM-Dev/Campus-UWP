@@ -105,7 +105,15 @@ namespace TUMCampusAppAPI.Managers
             Task t = null;
             t = Task.Factory.StartNew(() =>
             {
-                LocationManager.INSTANCE.getCurrentLocationAsync().Wait();
+                try
+                {
+                    LocationManager.INSTANCE.getCurrentLocationAsync().Wait();
+                }
+                catch
+                {
+
+                }
+
             });
         }
         #endregion
