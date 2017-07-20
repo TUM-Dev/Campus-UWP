@@ -49,7 +49,7 @@ namespace TUMCampusApp.BackgroundTask
         /// <returns></returns>
         private async Task refreshData()
         {
-            if (DeviceInfo.isConnectedToInternet() || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!DeviceInfo.isConnectedToInternet() || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 Logger.Info("[Background] Canceling background task. Device not connected to a wifi network.");
                 return;

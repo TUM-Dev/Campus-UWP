@@ -39,7 +39,14 @@ namespace TUMCampusAppAPI
         /// <returns>Returns the setting behind the given token.</returns>
         public static object getSetting(string token)
         {
-            return Windows.Storage.ApplicationData.Current.LocalSettings.Values[token];
+            try
+            {
+                return Windows.Storage.ApplicationData.Current.LocalSettings.Values[token];
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static bool getSettingBoolean(string token)
@@ -50,12 +57,14 @@ namespace TUMCampusAppAPI
 
         public static string getSettingString(string token)
         {
-            return (string)getSetting(token);
+            object obj = getSetting(token);
+            return obj == null ? null : (string)obj;
         }
 
         public static byte getSettingByte(string token)
         {
-            return (byte)getSetting(token);
+            object obj = getSetting(token);
+            return obj == null ? (byte)0 : (byte)obj;
         }
 
         #endregion
