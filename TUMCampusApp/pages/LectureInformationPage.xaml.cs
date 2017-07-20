@@ -71,7 +71,7 @@ namespace TUMCampusApp.Pages
             if (list == null || list.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    lectureName_tbx.Text = Utillities.getLocalizedString("UnableToGatherInformation_Text");
+                    lectureName_tbx.Text = Utillities.getLocalizedString("LectureInfosUnableToGatherInformation_Text");
                     progressBar.Visibility = Visibility.Collapsed;
                 }).AsTask().Wait();
                 return;

@@ -56,7 +56,26 @@ namespace TUMCampusApp.Classes
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        /// <summary>
+        /// Translates the given semester to the right language.
+        /// </summary>
+        /// <param name="s">The string that should get translated.</param>
+        /// <returns>A translated version of the given string.</returns>
+        public static string translateSemester(string s)
+        {
+            if(s == null)
+            {
+                return null;
+            }
+            if (s.Contains("Wintersemester"))
+            {
+                return s.Replace("Wintersemester", getLocalizedString("TuitionFeeControlWinterTerm_Text"));
+            }
+            else
+            {
+                return s.Replace("Sommersemester", getLocalizedString("TuitionFeeControlSummerTerm_Text"));
+            }
+        }
 
         #endregion
 

@@ -120,7 +120,7 @@
   <data name="ActivateTokenFirst_Text" xml:space="preserve">
     <value>Please activate the token first!</value>
   </data>
-  <data name="AutoSuggestBox.PlaceholderText" xml:space="preserve">
+  <data name="LecturesAutoSuggestBox.PlaceholderText" xml:space="preserve">
     <value>Search for lectures...</value>
   </data>
   <data name="enabled_chbx.Content" xml:space="preserve">
@@ -202,8 +202,8 @@
   <data name="NextButton.Content" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="NoAccessToTuitionFees_Text" xml:space="preserve">
-    <value>No access on your tuition fee status!</value>
+  <data name="LecturesNoAccessToLectures_Text" xml:space="preserve">
+    <value>You didn't give the token the required rights for accessing your lectures.</value>
   </data>
   <data name="CanteenNoMenusFoundFor_Text" xml:space="preserve">
     <value>No menus available for: </value>
@@ -211,13 +211,13 @@
   <data name="CanteenNoMenusFound_Text" xml:space="preserve">
     <value>No menus found!</value>
   </data>
-  <data name="NoneFound_Text" xml:space="preserve">
+  <data name="LecturesNoneFound_Text" xml:space="preserve">
     <value>None found!</value>
   </data>
   <data name="PullToRefresh.Text" xml:space="preserve">
     <value>Pull down to refresh data</value>
   </data>
-  <data name="QueryLength_Text" xml:space="preserve">
+  <data name="LecturesQueryLength_Text" xml:space="preserve">
     <value>Query must be at least 4 chars long!</value>
   </data>
   <data name="CanteenRandomMenu_Text" xml:space="preserve">
@@ -259,16 +259,16 @@
   <data name="SkipButton.Content" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="TokenNotActivated_Text" xml:space="preserve">
-    <value>Your token is not activated yet!</value>
+  <data name="LecturesTokenNotActivated_Text" xml:space="preserve">
+    <value>Your token is either unknown or not activated yet!</value>
   </data>
-  <data name="UnableToGatherInformation_Text" xml:space="preserve">
+  <data name="LectureInfosUnableToGatherInformation_Text" xml:space="preserve">
     <value>Unable to gather information!</value>
   </data>
-  <data name="UnableToQuery_Text" xml:space="preserve">
+  <data name="LecturesUnableToQuery_Text" xml:space="preserve">
     <value>Unable to query!\nYour device is not connected to the internet!</value>
   </data>
-  <data name="UnknownException_Text" xml:space="preserve">
+  <data name="LecturesUnknownException_Text" xml:space="preserve">
     <value>An unknown error occured. Please try again.</value>
   </data>
   <data name="DisableSources.Text" xml:space="preserve">
@@ -306,6 +306,36 @@
   </data>
   <data name="Friday_Text" xml:space="preserve">
     <value>Friday</value>
+  </data>
+  <data name="GradesNoAccess_Text" xml:space="preserve">
+    <value>You didn't give the token the required rights for accessing your grades.</value>
+  </data>
+  <data name="GradesTokenNotActivated_Text" xml:space="preserve">
+    <value>Your token is either unknown or not activated yet!</value>
+  </data>
+  <data name="GradesUnknownException_Text" xml:space="preserve">
+    <value>An unknown error occured. Please try again.</value>
+  </data>
+  <data name="LectureInfosContent.Text" xml:space="preserve">
+    <value>Content:</value>
+  </data>
+  <data name="LectureInfosDetails.Text" xml:space="preserve">
+    <value>Details:</value>
+  </data>
+  <data name="LectureInfosDetailsExaminationAids.Text" xml:space="preserve">
+    <value>Examination Aids:</value>
+  </data>
+  <data name="LectureInfosLectureBeginn.Text" xml:space="preserve">
+    <value>Beginn:</value>
+  </data>
+  <data name="LectureInfosLectureContributors.Text" xml:space="preserve">
+    <value>Contributors:</value>
+  </data>
+  <data name="LectureInfosMethod.Text" xml:space="preserve">
+    <value>Method:</value>
+  </data>
+  <data name="LectureInfosTargets.Text" xml:space="preserve">
+    <value>Targets:</value>
   </data>
   <data name="Monday_Text" xml:space="preserve">
     <value>Monday</value>
@@ -362,7 +392,7 @@
     <value>Student Financial Aid</value>
   </data>
   <data name="TuitionFeeTokenNotActivated_Text" xml:space="preserve">
-    <value>Your token is either unknown or not activated yet.</value>
+    <value>Your token is either unknown or not activated yet!</value>
   </data>
   <data name="Wednesday_Text" xml:space="preserve">
     <value>Wednesday</value>
