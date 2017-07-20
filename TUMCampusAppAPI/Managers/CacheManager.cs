@@ -60,7 +60,7 @@ namespace TUMCampusAppAPI.Managers
                     StorageFile file = await StorageFile.GetFileFromPathAsync(decodeString(c.data));
                     if (file != null)
                     {
-                        await file.DeleteAsync();
+                        //await file.DeleteAsync(); //TODO Fix App locking up
                     }
                 }
                 catch (Exception e)
@@ -78,7 +78,7 @@ namespace TUMCampusAppAPI.Managers
                 StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Cache");
                 if (folder != null)
                 {
-                    await folder.DeleteAsync(StorageDeleteOption.Default);
+                    //await folder.DeleteAsync(StorageDeleteOption.Default); //TODO Fix App locking up
                 }
                 Logger.Info("Deleted Cache folder!");
             }
