@@ -91,7 +91,7 @@ namespace TUMCampusAppAPI.Managers
                     result.Add(news[i]);
                 }
             }
-            if(tumMovieIndex > 0)
+            if(tumMovieIndex >= 0)
             {
                 result.Insert(0, news[tumMovieIndex]);
             }

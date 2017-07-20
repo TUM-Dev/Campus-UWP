@@ -73,20 +73,18 @@ namespace TUMCampusAppAPI.Managers
 
         public async Task deleteCache()
         {
-            foreach (Cache c in dB.Query<Cache>("SELECT * FROM Cache WHERE type = ?", CACHE_TYP_IMAGE))
+            try
             {
-                try
+                StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Cache");
+                if (folder != null)
                 {
-                    StorageFolder cacheFolder = await NetUtils.getCacheFolder();
-                    if(cacheFolder != null)
-                    {
-                        await cacheFolder.DeleteAsync();
-                    }
+                    await folder.DeleteAsync(StorageDeleteOption.Default);
                 }
-                catch (Exception e)
-                {
-                    Logger.Error("An error occurred during deletion of a cached file.", e);
-                }
+                Logger.Info("Deleted Cache folder!");
+            }
+            catch (Exception e)
+            {
+                Logger.Error("An error occurred during deletion of a cached file.", e);
             }
             dB.DeleteAll<Cache>();
         }
