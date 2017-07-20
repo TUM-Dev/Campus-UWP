@@ -304,6 +304,12 @@
   <data name="CanteenSpecialDishes_Text" xml:space="preserve">
     <value>Special Dishes</value>
   </data>
+  <data name="MyCalendarGeneralError_Text" xml:space="preserve">
+    <value>The following error occurred, please try again:</value>
+  </data>
+  <data name="MyCalendarLoading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
   <data name="TuitionFeeControlDaysLeft_Text" xml:space="preserve">
     <value>Days left!</value>
   </data>
