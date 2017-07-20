@@ -9,7 +9,7 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="calendarEntryName_tbx" Text="Name" FontSize="20" Grid.Row="0" FontWeight="ExtraBold" TextTrimming="CharacterEllipsis" TextWrapping="WrapWholeWords" MaxLines="2"/>
+            <TextBlock x:Name="calendarEntryName_tbx" Text="Name" Grid.Row="0" TextTrimming="CharacterEllipsis" TextWrapping="WrapWholeWords" MaxLines="2"/>
             <Grid Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
