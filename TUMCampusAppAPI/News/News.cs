@@ -36,7 +36,16 @@ namespace TUMCampusAppAPI.News
         {
             this.id = json.GetNamedString(Const.JSON_NEWS);
             this.src = json.GetNamedString(Const.JSON_SRC);
+
             this.title = json.GetNamedString(Const.JSON_TITLE);
+            if (src.Equals("2"))
+            {
+                int index = this.title.IndexOf(':');
+                if(index >= 0 && index < this.title.Length - 3)
+                {
+                    this.title = this.title.Substring(index + 2);
+                }
+            }
             this.link = json.GetNamedString(Const.JSON_LINK);
             JsonValue val = json.GetNamedValue(Const.JSON_IMAGE);
             this.image = val.ValueType == JsonValueType.Null ? null : val.Stringify();
