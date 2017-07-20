@@ -152,15 +152,13 @@ namespace TUMCampusAppAPI.Managers
                 {
                     doc = await getCalendarEntriesDocumentAsync();
                 }
-                catch (BaseTUMOnlineException e)
+                catch (Exception e)
                 {
+                    Logger.Error("Unable to sync Calendar! Unable to request a documet.");
                     SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                     return;
                 }
-                catch (Exception e)
-                {
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
-                }
+
                 if (doc == null)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a documet.");
