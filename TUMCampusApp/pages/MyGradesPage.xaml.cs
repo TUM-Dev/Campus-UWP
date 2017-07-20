@@ -8,8 +8,6 @@ using Windows.UI.Core;
 using System;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
-using Windows.UI.Text;
-using Windows.UI.Xaml.Shapes;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusApp.Classes;
@@ -196,7 +194,16 @@ namespace TUMCampusApp.Pages
             };
             for (int i = 0; i < semester.getGrades().Count; i++)
             {
-                stackPanel.Children.Add(new GradeControl(semester.getGrades()[i]));
+                if(i == semester.getGrades().Count - 1)
+                {
+                    GradeControl gC = new GradeControl(semester.getGrades()[i]);
+                    gC.setRectangleVisability(Visibility.Collapsed);
+                    stackPanel.Children.Add(gC);
+                }
+                else
+                {
+                    stackPanel.Children.Add(new GradeControl(semester.getGrades()[i]));
+                }
             }
 
             grades_stckp.Children.Add(new Expander()

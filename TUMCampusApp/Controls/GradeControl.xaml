@@ -7,17 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Margin="10,0,10,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="70"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#FF0065BD" FontSize="25"/>
-            <TextBlock x:Name="description_tbx" TextWrapping="WrapWholeWords"/>
-            <TextBlock x:Name="profName_tbx" TextWrapping="WrapWholeWords"/>
-            <Rectangle Height="2" x:Name="rect" Margin="0,5,0,0"/>
-        </StackPanel>
-        <TextBlock x:Name="grade_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Green" FontWeight="Bold" FontSize="25"/>
-    </Grid>
+    <StackPanel>
+        <Grid Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#FF0065BD"/>
+                <TextBlock x:Name="description_tbx" TextWrapping="WrapWholeWords"/>
+                <TextBlock x:Name="profName_tbx" TextWrapping="WrapWholeWords"/>
+            </StackPanel>
+            <TextBlock x:Name="grade_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Green" FontWeight="Bold"/>
+        </Grid>
+        <Rectangle Height="2" x:Name="rect" Margin="10, 5, 10, 10" Fill="{StaticResource ApplicationPressedForegroundThemeBrush}"/>
+    </StackPanel>
 </UserControl>
