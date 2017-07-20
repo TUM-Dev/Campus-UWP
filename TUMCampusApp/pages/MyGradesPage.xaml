@@ -17,7 +17,7 @@
 
         <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None">
             <controls:PullToRefreshListView.PullToRefreshContent>
-                <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
+                <TextBlock x:Uid="PullToRefresh" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
             </controls:PullToRefreshListView.PullToRefreshContent>
             <StackPanel>
                 <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red">

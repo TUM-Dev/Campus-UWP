@@ -52,30 +52,13 @@ namespace TUMCampusApp.Controls
             }
 
             outsBalance_tbx.Text = tuitionFee.money + "€";
-            semester_tbx.Text = translateSemesterDescription(tuitionFee.semesterDescripion);
+            semester_tbx.Text = Utillities.translateSemester(tuitionFee.semesterDescripion);
             DateTime deadLine = DateTime.Parse(tuitionFee.deadline);
             TimeSpan tS = deadLine.Subtract(DateTime.Now);
             deadline_tbx.Text = deadLine.Day + "." + deadLine.Month + "." + deadLine.Year + " ==> " + Math.Round(tS.TotalDays) + " " + Utillities.getLocalizedString("TuitionFeeControlDaysLeft_Text");
             if (tS.TotalDays <= 30)
             {
                 main_grid.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);
-            }
-        }
-
-        /// <summary>
-        /// Translates the given semester description to the right language.
-        /// </summary>
-        /// <param name="s">The string that should get translated.</param>
-        /// <returns>A translated version of the given string.</returns>
-        private string translateSemesterDescription(string s)
-        {
-            if (s.Contains("Wintersemester"))
-            {
-                return s.Replace("Wintersemester", Utillities.getLocalizedString("TuitionFeeControlWinterTerm_Text"));
-            }
-            else
-            {
-                return s.Replace("Sommersemester", Utillities.getLocalizedString("TuitionFeeControlSummerTerm_Text"));
             }
         }
 

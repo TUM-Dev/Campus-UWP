@@ -12,6 +12,7 @@ using Windows.UI.Text;
 using Windows.UI.Xaml.Shapes;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using TUMCampusAppAPI.Syncs;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
@@ -140,15 +141,15 @@ namespace TUMCampusApp.Pages
             grades_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "You didn't give the token the required rights for accessing your TUM calendar.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesNoAccess_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = "Your token is either unknown or not activated yet.";
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesTokenNotActivated_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = "An unknown error occured. Please try again.\n\n" + e.ToString();
+                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesUnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;
@@ -200,7 +201,7 @@ namespace TUMCampusApp.Pages
 
             grades_stckp.Children.Add(new Expander()
             {
-                Header = semester.getSemester(),
+                Header = Utillities.translateSemester(semester.getSemester()),
                 Content = stackPanel,
                 Margin = new Thickness(0, 10, 0, 0),
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,
