@@ -35,19 +35,19 @@
                 </Grid>
                 <StackPanel x:Name="info_stckp" Margin="10,0,10,10" Visibility="Collapsed">
                     <TextBlock Text="Details:" FontWeight="Bold" Foreground="#FF0065BD"/>
-                    <TextBlock x:Name="detail_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="detail_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Lecture beginn:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureBeginn_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureBeginn_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Lecture contributors:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureContributors_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureContributors_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Lecture content:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureContent_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureContent_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Method:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="method_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="method_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Targets:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="targets_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="targets_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="Examination aids:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="examinationAids_tbx" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="examinationAids_tbx" Text="-" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
