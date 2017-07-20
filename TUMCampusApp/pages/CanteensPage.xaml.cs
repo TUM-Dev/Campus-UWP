@@ -274,7 +274,7 @@ namespace TUMCampusApp.Pages
                 setMenuType("Beilagen", Utillities.getLocalizedString("CanteenSideDishes_Text"), true, date);
 
                 date = date.AddDays(1);
-                day_tbx.Text = date.DayOfWeek.ToString() + ", " + date.ToString("dd.MM.yyyy");
+                day_tbx.Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy");
             }).AsTask().Wait();
         }
 
