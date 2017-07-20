@@ -125,12 +125,12 @@ namespace TUMCampusApp.Pages
             {
                 if (tMenu != null && tMenu.Count > 0)
                 {
-                    s += "-" + tMenu[r.Next(0, tMenu.Count)].name + "\n";
+                    s += "-" + tMenu[r.Next(0, tMenu.Count)].nameEmojis + "\n";
                 }
             }
             else
             {
-                s += "-" + aMenu[r.Next(0, aMenu.Count)].name + "\n";
+                s += "-" + aMenu[r.Next(0, aMenu.Count)].nameEmojis + "\n";
             }
 
             s += "\n" + Utillities.getLocalizedString("CanteenSideDishes_Text") + ":\n";
