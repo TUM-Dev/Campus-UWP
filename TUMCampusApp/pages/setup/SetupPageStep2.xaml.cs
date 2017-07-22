@@ -100,7 +100,7 @@ namespace TUMCampusApp.Pages.Setup
             dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 0 });
             dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
-            if ((int)command.Id == 1)
+            if ((int)command.Id == 0)
             {
                 string result = await TumManager.INSTANCE.reqestNewTokenAsync(Util.getSettingString(Const.USER_ID));
                 if (result == null)
