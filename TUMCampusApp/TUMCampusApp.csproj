@@ -11,7 +11,7 @@
     <AssemblyName>TUMCampusApp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -385,7 +385,7 @@
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
@@ -413,7 +413,7 @@
       <Version>1.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>1.5.1</Version>
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="SQLite.Net-PCL">
       <Version>3.1.1</Version>

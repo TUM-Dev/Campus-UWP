@@ -27,7 +27,8 @@ namespace TUMCampusApp.Pages.Setup
         public SetupPageStep1()
         {
             this.InitializeComponent();
-            studentID_tbx.Text = Util.getSettingString(Const.USER_ID);
+            string uId = Util.getSettingString(Const.USER_ID);
+            studentID_tbx.Text = uId == null ? "" : uId;
         }
 
         #endregion
