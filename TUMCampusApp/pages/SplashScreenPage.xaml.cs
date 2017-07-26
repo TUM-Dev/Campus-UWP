@@ -10,6 +10,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.Utillities;
+using TUMCampusApp.Classes;
+using Windows.UI.Popups;
 
 namespace TUMCampusApp.Pages
 {
@@ -95,7 +97,7 @@ namespace TUMCampusApp.Pages
         /// This method should only be called in a seperate task.
         /// </summary>
         /// <returns></returns>
-        private async Task initAppAsync()
+        private async Task initAppAsync(bool initialInit)
         {
             Logger.Info("Started loading app...");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
@@ -186,6 +188,15 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing device position...");
+
+            if (initialInit)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
+                    await message.ShowAsync();
+                });
+            }
             await UserDataManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
@@ -250,11 +261,13 @@ namespace TUMCampusApp.Pages
              {
                  positionElements();
              });
-            Task.WaitAll(initAppAsync());
+            bool initialStart = !Util.getSettingBoolean(Const.INITIALLY_STARTED);
+            Task.WaitAll(initAppAsync(initialStart));
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 DismissExtendedSplashAsync();
             }).AsTask().Wait();
+            Util.setSetting(Const.INITIALLY_STARTED, true);
         }
 
         /// <summary>

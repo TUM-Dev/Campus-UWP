@@ -123,6 +123,8 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Util.setSetting(Const.ACCESS_TOKEN, null);
+            Util.setSetting(Const.INITIALLY_STARTED, false);
+            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, 0);
 
             deleteCache();
             Logger.Info("Finished reseting the app.");
@@ -281,6 +283,11 @@ namespace TUMCampusApp.Pages
             {
                 MyBackgroundTaskHelper.RegisterBackgroundTask();
             }
+        }
+
+        private async void privacyPolicy_stckp_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/PRIVACY_POLICY.md"));
         }
 
         #endregion
