@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-            <StackPanel Margin="0,0,0,10">
+            <StackPanel Margin="0,0,0,15">
                 <TextBlock Text="General settings:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="wifiOnly_tgls"  Margin="10,10,0,0" Toggled="wifiOnly_tgls_Toggled" Header="Update app with wifi only"/>
@@ -60,6 +60,10 @@
                 <StackPanel x:Name="license_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="license_stckp_Tapped" Height="30">
                     <Image Source="ms-appx:///Assets/Images/license.png" Height="30"/>
                     <TextBlock Text="License" Margin="10,-6,0,0" FontSize="30"/>
+                </StackPanel>
+                <StackPanel x:Name="privacyPolicy_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="privacyPolicy_stckp_Tapped" Height="30">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" FontSize="30"/>
+                    <TextBlock Text="Privacy Policy" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
