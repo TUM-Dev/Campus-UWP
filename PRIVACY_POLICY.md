@@ -5,6 +5,6 @@ It's not necessary, but it's recommend, that you give the app access to your cur
 
 ## TUMonline:
 Your TUMonline information only gets processed and saved (via ApplicationDataContainer) locally on your device.
-They're used to display you your calendar, grades, lectures, ... on your device without having to always log to TUMonline.
-If you don't want to give the app access to your personal information, you can disable this via the token management in TUMonline.
+They're used to display you your calendar, grades, lectures, ... on your device without having to always log in to TUMonline.
+If you don't want to give the app access to your personal information, you can disable this via the token manager in TUMonline.
 The app accesses your data via the TUMonline WEB-API, using the requested token.
