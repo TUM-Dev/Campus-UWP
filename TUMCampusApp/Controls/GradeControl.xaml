@@ -2,7 +2,6 @@
     x:Class="TUMCampusApp.Controls.GradeControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TUMCampusApp.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -14,7 +13,7 @@
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#FF0065BD"/>
+                <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#0061b7"/>
                 <TextBlock x:Name="description_tbx" TextWrapping="WrapWholeWords"/>
                 <TextBlock x:Name="profName_tbx" TextWrapping="WrapWholeWords"/>
             </StackPanel>

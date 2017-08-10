@@ -86,6 +86,10 @@ namespace TUMCampusApp.Controls
             }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                if(news.src.Equals("2"))
+                {
+                    logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/TU-Film.png"));
+                }
                 title_tbx.Text = news.title;
                 NewsSource source = NewsManager.INSTANCE.getNewsSource(news.src);
                 src_tbx.Text = source == null ? news.src : source.title;

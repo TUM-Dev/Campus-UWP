@@ -18,8 +18,17 @@
                 <TextBlock x:Name="title_tbx" x:Uid="Loading" Text="Loading..." HorizontalAlignment="Center" Margin="10, 5, 10, 5" TextWrapping="WrapWholeWords" MaxLines="5"/>
             </StackPanel>
             <controls:ImageEx x:Name="image_img" IsCacheEnabled="True" HorizontalAlignment="Center" Margin="0, 10, 0, 10"/>
-            <TextBlock x:Name="src_tbx" TextWrapping="WrapWholeWords" Margin="10, 0, 0, 0"/>
-            <TextBlock x:Name="date_tbx" TextWrapping="WrapWholeWords" Margin="10, 0, 0, 10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock x:Name="src_tbx" TextWrapping="WrapWholeWords" Margin="10, 0, 0, 0"/>
+                    <TextBlock x:Name="date_tbx" TextWrapping="WrapWholeWords" Margin="10, 0, 0, 10"/>
+                </StackPanel>
+                <Image x:Name="logo_img" Source="/Assets/BadgeLogo.scale-200.png" Grid.Column="1" Width="40" Height="40" HorizontalAlignment="Right" Margin="0, 0, 10, 0"/>
+            </Grid>
         </StackPanel>
         <ProgressRing x:Name="loading_ring" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
     </Grid>
