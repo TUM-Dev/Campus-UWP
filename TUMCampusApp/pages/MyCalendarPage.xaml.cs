@@ -54,18 +54,19 @@ namespace TUMCampusApp.Pages
         /// <param name="date">The date for the seperator.</param>
         private void addSeperator(DateTime date)
         {
-            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            Brush brushLine = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            Brush brushText = Resources["CalendarDatePickerTextForeground"] as Brush;
             TextBlock tb = new TextBlock()
             {
                 Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy"),
                 Margin = new Thickness(10, 20, 0, 0),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Foreground = brush
+                Foreground = brushText
             };
 
             Rectangle rect = new Rectangle()
             {
-                Fill = brush,
+                Fill = brushLine,
                 Margin = new Thickness(0, 5, 0, 5),
                 Height = 2
             };

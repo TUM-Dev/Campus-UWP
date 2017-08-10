@@ -73,32 +73,73 @@ namespace TUMCampusApp.Pages.Setup
             next_btn.IsEnabled = false;
             if (!isIdValid())
             {
-                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
-                message.Title = Utillities.getLocalizedString("Error_Text");
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"))
+                {
+                    Title = Utillities.getLocalizedString("Error_Text")
+                };
                 await message.ShowAsync();
             }
             else
             {
-                string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
-                if (result == null)
+                if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
                 {
-                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"));
-                    message.Title = Utillities.getLocalizedString("Error_Text");
-                    await message.ShowAsync();
-                }
-                else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
-                {
-                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
-                    message.Title = Utillities.getLocalizedString("Error_Text");
-                    await message.ShowAsync();
+                    string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
+                    if (result == null)
+                    {
+                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"))
+                        {
+                            Title = Utillities.getLocalizedString("Error_Text")
+                        };
+                        await message.ShowAsync();
+                    }
+                    else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
+                    {
+                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"))
+                        {
+                            Title = Utillities.getLocalizedString("Error_Text")
+                        };
+                        await message.ShowAsync();
+                    }
+                    else
+                    {
+                        Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+                        (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                    }
                 }
                 else
                 {
-                    Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
-                    (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                    string token = tumOnlineToken_tbx.Text.ToUpper();
+                    if (!TumManager.INSTANCE.isTokenValid(token))
+                    {
+                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidToken_Text"))
+                        {
+                            Title = Utillities.getLocalizedString("Error_Text")
+                        };
+                        await message.ShowAsync();
+                    }
+                    else
+                    {
+                        Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+                        TumManager.INSTANCE.saveToken(token);
+                        (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                    }
                 }
             }
             next_btn.IsEnabled = true;
+        }
+
+        private void useExistingToken_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
+            {
+                tumOnlineToken_tbx.Visibility = Visibility.Visible;
+                useExistingToken_btn.Content = Utillities.getLocalizedString("SetupPage1DontUseExistingToken");
+            }
+            else
+            {
+                tumOnlineToken_tbx.Visibility = Visibility.Collapsed;
+                useExistingToken_btn.Content = Utillities.getLocalizedString("SetupPage1UseExistingToken");
+            }
         }
 
         #endregion

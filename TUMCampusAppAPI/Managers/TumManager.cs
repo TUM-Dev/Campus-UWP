@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.UserDatas;
@@ -148,8 +149,29 @@ namespace TUMCampusAppAPI.Managers
                 {
                     return;
                 }
-                Util.setSetting(Const.ACCESS_TOKEN, token);
+                saveToken(token);
             }
+        }
+
+        /// <summary>
+        /// Saves the given token.
+        /// </summary>
+        /// <param name="token">The token that should get saved.</param>
+        public void saveToken(string token)
+        {
+            Util.setSetting(Const.ACCESS_TOKEN, token);
+        }
+
+        /// <summary>
+        /// Checks if the given token is in a valid format.
+        /// Does not check if the token is still activated.
+        /// </summary>
+        /// <param name="token">The token that should get checked.</param>
+        /// <returns>Whether the token is valid.</returns>
+        public bool isTokenValid(String token)
+        {
+            Regex r = new Regex(@"(\d|[A-Z]){32}");
+            return r.IsMatch(token) && token.Length == 32;
         }
 
         #endregion

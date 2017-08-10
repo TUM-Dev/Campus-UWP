@@ -72,14 +72,15 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            Brush brush = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            Brush brushLine = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
+            Brush brushText = Resources["CalendarDatePickerTextForeground"] as Brush;
 
             //Description:
             TextBlock tb = new TextBlock()
             {
                 Text = labelText + ':',
                 Margin = new Thickness(10, 10, 10, 10),
-                Foreground = brush
+                Foreground = brushText
             };
             menus_sckl.Children.Add(tb);
 
@@ -88,7 +89,7 @@ namespace TUMCampusApp.Pages
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Height = 2,
-                Fill = brush,
+                Fill = brushLine,
                 Margin = new Thickness(10, 0, 10, 0)
             };
             menus_sckl.Children.Add(rect);

@@ -13,23 +13,25 @@
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
             <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="General settings:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="General settings:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="wifiOnly_tgls"  Margin="10,10,0,0" Toggled="wifiOnly_tgls_Toggled" Header="Update app with wifi only"/>
                 <Button x:Name="deleteCache_btn" Content="Delete Cache" Margin="10,10,0,0" Click="deleteCache_btn_Click"/>
                 <Button x:Name="resetApp_btn" Content="Reset App" Margin="10,10,0,0" Click="resetApp_btn_ClickAsync"/>
 
-                <TextBlock Text="TUMonline:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="TUMonline:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="hideWizardOnStartup_tgls"  Margin="10,10,0,0" Toggled="hideWizardOnStartup_tgls_Toggled" Header="Hide TUMonline on startup"/>
                 <Button x:Name="showWizard_btn" Content="Launch TUMonline wizard" Margin="10,10,0,0" Click="showWizard_btn_Click"/>
+                <Button x:Name="showToken_btn" Content="Show TUMonline Token" Margin="10,10,0,0" Click="showToken_btn_Click"/>
+                <TextBox x:Name="tumonlineToken_tbx"  IsReadOnly="True" Margin="10,10,0,0" Visibility="Collapsed"/>
 
-                <TextBlock Text="Services:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="Services:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="disableCalendar_tgls"  Margin="10,10,0,0" Toggled="disableCalendar_tgls_ToggledAsync" Header="Disable TUM Online Calendar integration"/>
                 <ToggleSwitch x:Name="disableBackgroundTask_tgls"  Margin="10,10,0,0" Toggled="disableBackgroundTask_tgls_Toggled" Header="Disable background tasks"/>
-                
-                <TextBlock Text="Widgets:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+
+                <TextBlock Text="Widgets:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Name="disableExampleWidget_tgls"  Margin="10,10,0,0" Toggled="diableExampleWidget_tgls_Toggled" Header="Disable Example Widget"/>
                 <ToggleSwitch x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
@@ -37,13 +39,13 @@
                 <ToggleSwitch x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
                 <ToggleSwitch x:Name="disableNewsWidget_tgls"  Margin="10,10,0,0" Toggled="disableNewsWidget_tgls_Toggled" Header="Disable News Widget"/>
 
-                <TextBlock Text="Miscellaneous:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="Miscellaneous:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <Button x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,10,0,0" Click="openLogFolder_btn_ClickAsync"/>
+                <Button x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,15,0,0" Click="openLogFolder_btn_ClickAsync"/>
                 <Button x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
                 <Button x:Name="deleteLogs_btn" Content="Delete Logs" Margin="10,10,0,0" Click="deleteLogs_btn_Click"/>
 
-                <TextBlock Text="About and links:" Foreground="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="10,20,0,0"/>
+                <TextBlock Text="About and links:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <StackPanel x:Name="contributeGithub_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="contributeGithub_stckp_TappedAsync">
                     <Image Source="ms-appx:///Assets/Images/github_mark.png" Height="30"/>

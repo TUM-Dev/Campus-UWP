@@ -290,6 +290,23 @@ namespace TUMCampusApp.Pages
             await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/PRIVACY_POLICY.md"));
         }
 
+        private void showToken_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if(tumonlineToken_tbx.Visibility == Visibility.Visible)
+            {
+                tumonlineToken_tbx.Text = "";
+                tumonlineToken_tbx.Visibility = Visibility.Collapsed;
+                showToken_btn.Content = "Show TUMonline Token";
+            }
+            else
+            {
+                string token = TumManager.getToken();
+                tumonlineToken_tbx.Text = token == null ? "No token available!" : token;
+                tumonlineToken_tbx.Visibility = Visibility.Visible;
+                showToken_btn.Content = "Hide TUMonline Token";
+            }
+        }
+
         #endregion
     }
 }

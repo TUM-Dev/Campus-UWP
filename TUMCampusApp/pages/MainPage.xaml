@@ -17,11 +17,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="30" Click="openSplitView_hbtn_Click" Background="#0061b7"/>
-            <TextBlock x:Name="pageName_tbl" Grid.Column="1" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
-            <Button Name="networkConnectionStatus_btn" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="30" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
+            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="openSplitView_hbtn_Click" Background="#0061b7"/>
+            <Rectangle Grid.Column="1" Height="44" Fill="{ThemeResource AppBarBackgroundThemeBrush}" Width="2" Margin="0, -15, 0, -15"/>
+            <TextBlock x:Name="pageName_tbl" Grid.Column="2" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
+            <Button Name="networkConnectionStatus_btn" Grid.Column="3" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="30" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
         </Grid>
         <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="320" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>

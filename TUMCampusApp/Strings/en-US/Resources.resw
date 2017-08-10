@@ -400,4 +400,19 @@
   <data name="PrivacyPolicylocation_Text" xml:space="preserve">
     <value>This app uses your position!\nYour position only gets used to calculate the distance between you and the next canteen.\nIt's not necessary, but it's recommend, that you give the app access to your current position.</value>
   </data>
+  <data name="InvalidToken_Text" xml:space="preserve">
+    <value>The given token is valid!</value>
+  </data>
+  <data name="SetupPage1DontUseExistingToken" xml:space="preserve">
+    <value>Don't use an existing TUMonline Token</value>
+  </data>
+  <data name="SetupPage1Token.PlaceholderText" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="SetupPage1UseExistingToken" xml:space="preserve">
+    <value>Use an existing TUMonline Token</value>
+  </data>
+  <data name="SetupPage1UseExistingToken_btn.Content" xml:space="preserve">
+    <value>Use an existing TUMonline Token</value>
+  </data>
 </root>
