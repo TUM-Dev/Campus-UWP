@@ -7,19 +7,16 @@
     mc:Ignorable="d">
 
     <Grid Background="#0061b7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/SplashScreen.scale-200.png" Grid.Row="0"/>
-                <StackPanel VerticalAlignment="Center" Grid.Row="1">
-                    <ProgressRing Name="splashProgressRing" IsActive="True" Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,10"/>
-                    <TextBlock x:Name="task_tbx" HorizontalAlignment="Center"/>
-                    <ProgressBar x:Name="splashProgressBar" Value="0" Foreground="Green" Width="200" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
+            <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/SplashScreen.scale-200.png"/>
         </RelativePanel>
+        <StackPanel VerticalAlignment="Center" Grid.Row="0" Margin="0, 220, 0, 0">
+            <ProgressRing Name="splashProgressRing" IsActive="True" Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+            <TextBlock x:Name="task_tbx" HorizontalAlignment="Center"/>
+            <ProgressBar x:Name="splashProgressBar" Value="0" Foreground="Green" Width="200" HorizontalAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Page>
