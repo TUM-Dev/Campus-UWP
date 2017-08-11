@@ -427,4 +427,91 @@
   <data name="SetupPage2ValidatingToken_Text" xml:space="preserve">
     <value>Validating Token...</value>
   </data>
+  <data name="SettingsPageAboutAndLinks.Text" xml:space="preserve">
+    <value>About And Links:</value>
+  </data>
+  <data name="SettingsPageContribute.Text" xml:space="preserve">
+    <value>Contribute On Github</value>
+  </data>
+  <data name="SettingsPageDeleteCache.Content" xml:space="preserve">
+    <value>Delete Cache</value>
+  </data>
+  <data name="SettingsPageDeleteCache_Text" xml:space="preserve">
+    <value>Do you really want to delete the apps cache?</value>
+  </data>
+  <data name="SettingsPageDeleteLoggs_Text" xml:space="preserve">
+    <value>Do you really want to delete all logs?</value>
+  </data>
+  <data name="SettingsPageDisableBackgroundTask.Header" xml:space="preserve">
+    <value>Disable Background Tasks</value>
+  </data>
+  <data name="SettingsPageDisableCalendar.Header" xml:space="preserve">
+    <value>Disable TUM Online Calendar Integration</value>
+  </data>
+  <data name="SettingsPageDisableCalendarWidget.Header" xml:space="preserve">
+    <value>Disable Calendar Widget</value>
+  </data>
+  <data name="SettingsPageDisableCanteenWidget.Header" xml:space="preserve">
+    <value>Disable Canteen Widget</value>
+  </data>
+  <data name="SettingsPageDisableExampleWidget.Header" xml:space="preserve">
+    <value>Disable Example Widget</value>
+  </data>
+  <data name="SettingsPageDisableNewsWidget.Header" xml:space="preserve">
+    <value>Disable News Widget</value>
+  </data>
+  <data name="SettingsPageDisableTuitionFeeWidget.Header" xml:space="preserve">
+    <value>Disable Tuition Fee Widget</value>
+  </data>
+  <data name="SettingsPageFeedback.Text" xml:space="preserve">
+    <value>Give Feedback</value>
+  </data>
+  <data name="SettingsPageGeneralSettings.Text" xml:space="preserve">
+    <value>General Settings:</value>
+  </data>
+  <data name="SettingsPageHideToken_Text" xml:space="preserve">
+    <value>Hide TUMonline Token</value>
+  </data>
+  <data name="SettingsPageHideWizardOnStartup.Header" xml:space="preserve">
+    <value>Hide TUMonline On Startup</value>
+  </data>
+  <data name="SettingsPageLauchWizard.Content" xml:space="preserve">
+    <value>Launch TUMonline Wizard</value>
+  </data>
+  <data name="SettingsPageLicense.Text" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="SettingsPageNoToken_Text" xml:space="preserve">
+    <value>No token available!</value>
+  </data>
+  <data name="SettingsPagePrivacyPolicy.Text" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="SettingsPageResetApp.Content" xml:space="preserve">
+    <value>Reset App</value>
+  </data>
+  <data name="SettingsPageResetApp_Text" xml:space="preserve">
+    <value>Do you really want to reset the app?</value>
+  </data>
+  <data name="SettingsPageServices.Text" xml:space="preserve">
+    <value>Services:</value>
+  </data>
+  <data name="SettingsPageShowToken.Content" xml:space="preserve">
+    <value>Show TUMonline Token</value>
+  </data>
+  <data name="SettingsPageShowToken_Text" xml:space="preserve">
+    <value>Show TUMonline Token</value>
+  </data>
+  <data name="SettingsPageTUMonline.Text" xml:space="preserve">
+    <value>TUMonline:</value>
+  </data>
+  <data name="SettingsPageWidgets.Text" xml:space="preserve">
+    <value>Widgets:</value>
+  </data>
+  <data name="SettingsPageWifiOnly.Header" xml:space="preserve">
+    <value>Update App With Wifi Only</value>
+  </data>
+  <data name="SettingsReportBug.Text" xml:space="preserve">
+    <value>Report A Bug</value>
+  </data>
 </root>

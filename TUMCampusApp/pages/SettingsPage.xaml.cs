@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using TUMCampusAppAPI;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
@@ -187,9 +188,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteCache_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Do you really want to delete the Apps cache?");
-            dialog.Commands.Add(new UICommand { Label = "No!", Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = "Yes!", Id = 1 });
+            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageDeleteCache_Text"));
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -199,9 +200,9 @@ namespace TUMCampusApp.Pages
 
         private async void resetApp_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Do you really want to reset the App?");
-            dialog.Commands.Add(new UICommand { Label = "No!", Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = "Yes!", Id = 1 });
+            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageResetApp_Text"));
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -262,9 +263,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteLogs_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Do you really want to delete all logs?");
-            dialog.Commands.Add(new UICommand { Label = "No!", Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = "Yes!", Id = 1 });
+            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageDeleteLoggs_Text"));
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -296,14 +297,14 @@ namespace TUMCampusApp.Pages
             {
                 tumonlineToken_tbx.Text = "";
                 tumonlineToken_tbx.Visibility = Visibility.Collapsed;
-                showToken_btn.Content = "Show TUMonline Token";
+                showToken_btn.Content = Utillities.getLocalizedString("SettingsPageShowToken_Text");
             }
             else
             {
                 string token = TumManager.getToken();
-                tumonlineToken_tbx.Text = token == null ? "No token available!" : token;
+                tumonlineToken_tbx.Text = token == null ? Utillities.getLocalizedString("SettingsPageNoToken_Text") : token;
                 tumonlineToken_tbx.Visibility = Visibility.Visible;
-                showToken_btn.Content = "Hide TUMonline Token";
+                showToken_btn.Content = Utillities.getLocalizedString("SettingsPageShowToken_Text");
             }
         }
 
