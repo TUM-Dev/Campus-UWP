@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
@@ -43,7 +44,33 @@ namespace TUMCampusApp.Pages.Setup
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Disabels all buttons and changes the next_tbx text.
+        /// </summary>
+        private void startValidatToken()
+        {
+            next_btn.IsEnabled = false;
+            skip_btn.IsEnabled = false;
+            startOverAgain_btn.IsEnabled = false;
+            requestNewToken_btn.IsEnabled = false;
+            validating_pgr.Visibility = Visibility.Visible;
+            validating_pgr.IsActive = true;
+            next_tbx.Text = Utillities.getLocalizedString("SetupPage2ValidatingToken_Text");
+        }
 
+        /// <summary>
+        /// Enables all buttons again and changes the next_tbx text.
+        /// </summary>
+        private void finishValidatingToken()
+        {
+            next_btn.IsEnabled = true;
+            skip_btn.IsEnabled = true;
+            startOverAgain_btn.IsEnabled = true;
+            requestNewToken_btn.IsEnabled = true;
+            validating_pgr.Visibility = Visibility.Visible;
+            validating_pgr.IsActive = false;
+            next_tbx.Text = Utillities.getLocalizedString("Next_Text");
+        }
 
         #endregion
 
@@ -67,16 +94,20 @@ namespace TUMCampusApp.Pages.Setup
 
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            if(!await TumManager.INSTANCE.isTokenConfirmedAsync()){
+            startValidatToken();
+            if (!await TumManager.INSTANCE.isTokenConfirmedAsync()){
                 MessageDialog message = new MessageDialog(Utillities.getLocalizedString("ActivateTokenFirst_Text"));
                 message.Title = Utillities.getLocalizedString("Error_Text");
                 await message.ShowAsync();
-                return;
             }
-            Util.setSetting(Const.TUMO_ENABLED, true);
-            Frame f = new Frame();
-            f.Navigate(typeof(MainPage));
-            Window.Current.Content = f;
+            else
+            {
+                Util.setSetting(Const.TUMO_ENABLED, true);
+                Frame f = new Frame();
+                f.Navigate(typeof(MainPage));
+                Window.Current.Content = f;
+            }
+            finishValidatingToken();
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
@@ -126,5 +157,25 @@ namespace TUMCampusApp.Pages.Setup
         }
 
         #endregion
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            startValidatToken();
+            if (await TumManager.INSTANCE.isTokenConfirmedAsync())
+            {
+                Util.setSetting(Const.TUMO_ENABLED, true);
+                Frame f = new Frame();
+                f.Navigate(typeof(MainPage));
+                Window.Current.Content = f;
+            }
+            finishValidatingToken();
+        }
+
+        private void startOverAgain_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame f = new Frame();
+            f.Navigate(typeof(SetupPageStep1));
+            Window.Current.Content = f;
+        }
     }
 }

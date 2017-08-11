@@ -199,7 +199,7 @@
   <data name="NetworkConnectionStatusDisconnected_Text" xml:space="preserve">
     <value>Disconnected</value>
   </data>
-  <data name="NextButton.Content" xml:space="preserve">
+  <data name="SetupPage1NextButton.Content" xml:space="preserve">
     <value>Next</value>
   </data>
   <data name="LecturesNoAccessToLectures_Text" xml:space="preserve">
@@ -285,9 +285,6 @@
   </data>
   <data name="SetupPageRequestedNewTokenSuccessMessageBox_Text" xml:space="preserve">
     <value>Successfully requested a new Token!</value>
-  </data>
-  <data name="SetupPageRequestNewToken.Text" xml:space="preserve">
-    <value>Request new Token</value>
   </data>
   <data name="SetupPageRequestNewTokenMessageBox_Text" xml:space="preserve">
     <value>Do you really want to request a new Token?</value>
@@ -414,5 +411,20 @@
   </data>
   <data name="SetupPage1UseExistingToken_btn.Content" xml:space="preserve">
     <value>Use an existing TUMonline Token</value>
+  </data>
+  <data name="Next_Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="SetupPage2NextText.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="SetupPage2RequestNewToken.Text" xml:space="preserve">
+    <value>Request New Token</value>
+  </data>
+  <data name="SetupPage2StartOverAgain.Text" xml:space="preserve">
+    <value>Start Over Again</value>
+  </data>
+  <data name="SetupPage2ValidatingToken_Text" xml:space="preserve">
+    <value>Validating Token...</value>
   </data>
 </root>

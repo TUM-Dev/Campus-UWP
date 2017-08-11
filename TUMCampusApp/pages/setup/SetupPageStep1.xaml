@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="skip_btn" x:Uid="SkipButton" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0,0,1,0" Click="skip_btn_Click"/>
-            <Button x:Name="next_btn" x:Uid="NextButton" HorizontalAlignment="Stretch" Grid.Column="1" Margin="1,0,0,0" Click="next_btn_ClickAsync"/>
+            <Button x:Name="next_btn" x:Uid="SetupPage1NextButton" HorizontalAlignment="Stretch" Grid.Column="1" Margin="1,0,0,0" Click="next_btn_ClickAsync"/>
         </Grid>
     </Grid>
 </Page>
