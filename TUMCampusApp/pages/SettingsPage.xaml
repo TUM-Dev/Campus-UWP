@@ -24,7 +24,7 @@
                 <ToggleSwitch x:Name="hideWizardOnStartup_tgls"  Margin="10,10,0,0" Toggled="hideWizardOnStartup_tgls_Toggled" Header="Hide TUMonline on startup"/>
                 <Button x:Name="showWizard_btn" Content="Launch TUMonline wizard" Margin="10,10,0,0" Click="showWizard_btn_Click"/>
                 <Button x:Name="showToken_btn" Content="Show TUMonline Token" Margin="10,10,0,0" Click="showToken_btn_Click"/>
-                <TextBox x:Name="tumonlineToken_tbx"  IsReadOnly="True" Margin="10,10,0,0" Visibility="Collapsed"/>
+                <TextBox x:Name="tumonlineToken_tbx"  IsReadOnly="True" Margin="10,10,10,0" Visibility="Collapsed"/>
 
                 <TextBlock Text="Services:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
