@@ -54,6 +54,7 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
             navigateToPage(page);
+            NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
         #endregion
