@@ -67,13 +67,13 @@ namespace TUMCampusApp.Classes
             {
                 return null;
             }
-            if (s.Contains("Wintersemester"))
+            if (s.Contains("Wintersemester") || s.Contains("Winter Semester"))
             {
-                return s.Replace("Wintersemester", getLocalizedString("TuitionFeeControlWinterTerm_Text"));
+                return s.Replace("Wintersemester", getLocalizedString("TuitionFeeControlWinterTerm_Text")).Replace("Winter Semester", getLocalizedString("TuitionFeeControlWinterTerm_Text"));
             }
             else
             {
-                return s.Replace("Sommersemester", getLocalizedString("TuitionFeeControlSummerTerm_Text"));
+                return s.Replace("Sommersemester", getLocalizedString("TuitionFeeControlSummerTerm_Text")).Replace("Sommer Semester", getLocalizedString("TuitionFeeControlSummerTerm_Text"));
             }
         }
 
