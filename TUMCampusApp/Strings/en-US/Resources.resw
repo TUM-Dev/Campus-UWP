@@ -271,8 +271,8 @@
   <data name="LecturesUnknownException_Text" xml:space="preserve">
     <value>An unknown error occured. Please try again.</value>
   </data>
-  <data name="DisableSources.Text" xml:space="preserve">
-    <value>Disable Sources</value>
+  <data name="ManageSources.Text" xml:space="preserve">
+    <value>Manage Sources</value>
   </data>
   <data name="Loading.Text" xml:space="preserve">
     <value>Loading...</value>
