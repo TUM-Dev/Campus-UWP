@@ -47,7 +47,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found tuition fees.</returns>
         public List<TUMTuitionFee> getFees()
         {
-            return dB.Query<TUMTuitionFee>("SELECT * FROM TUMTuitionFee");
+            return dB.Query<TUMTuitionFee>("SELECT * FROM TUMTuitionFee WHERE money NOT LIKE 0");
         }
 
         #endregion
