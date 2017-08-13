@@ -60,6 +60,7 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private void ShowCalendarEntry()
         {
+            Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(false));
             TUMOnlineCalendarEntry entry = CalendarManager.INSTANCE.getNextEntry();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {

@@ -107,19 +107,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected void replaceIntoDB(Canteen c)
-        {
-            if (c.id <= 0)
-            {
-                throw new ArgumentException("Invalid id.");
-            }
-            if (c.name == null || c.name == "")
-            {
-                throw new ArgumentException("Invalid name.");
-            }
-            update(c);
-        }
-
         protected void lockClass()
         {
 

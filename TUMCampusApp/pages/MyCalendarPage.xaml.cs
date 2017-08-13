@@ -141,14 +141,14 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Starts a new task and refreshes all calendar entries and displays them on the screen.
+        /// Starts a new task and refreshes all calendar entries if force == true and displays them on the screen.
         /// </summary>
-        private void refreshCalendar()
+        private void refreshCalendar(bool force)
         {
             refresh_pTRV.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => {
-                Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(true));
+                Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(force));
                 showCalendarEntriesTask();
             });
         }
@@ -162,19 +162,17 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            progressBar.Visibility = Visibility.Visible;
-            refresh_pTRV.IsEnabled = false;
-            Task.Factory.StartNew(() => showCalendarEntriesTask());
+            refreshCalendar(false);
         }
 
         private void refresh_pTRV_RefreshRequested(object sender, EventArgs e)
         {
-            refreshCalendar();
+            refreshCalendar(true);
         }
 
         private void onAppResumed(object sender, object e)
         {
-            refreshCalendar();
+            refreshCalendar(false);
         }
 
         #endregion
