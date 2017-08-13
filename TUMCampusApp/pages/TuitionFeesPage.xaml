@@ -2,7 +2,6 @@
     x:Class="TUMCampusApp.Pages.TuitionFeesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TUMCampusApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -10,25 +9,21 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
-            <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None">
-                <controls:PullToRefreshListView.PullToRefreshContent>
-                    <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
-                </controls:PullToRefreshListView.PullToRefreshContent>
-                <StackPanel>
-                    <StackPanel x:Name="tuitionFees_stckp" Margin="-12, 0, -12, 0">
-                        <!--Tuition Fees-->
-                    </StackPanel>
-                    <StackPanel Margin="0, 10, 0, 0" Grid.Row="1">
-                        <TextBlock x:Uid="TuitionFeeInfo" Text="Information on contributions and exemptions, loans, training assistance and scholarships, go to:" TextWrapping="WrapWholeWords" Margin="0,0,0,0"/>
-                        <HyperlinkButton x:Uid="TuitionFeeStudentFeeStudentFinancialAid.Content" Content="Student Financial Aid" Click="HyperlinkButton_ClickAsync"/>
-                    </StackPanel>
-                </StackPanel>
-                <Grid x:Name="noFees_grid" Margin="10,10,10,0" Visibility="Collapsed">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="0"/>
+        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="1" SelectionMode="None">
+            <controls:PullToRefreshListView.PullToRefreshContent>
+                <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
+            </controls:PullToRefreshListView.PullToRefreshContent>
+            <StackPanel>
+                <Grid x:Name="noFees_grid" Margin="10,10,10,0" Visibility="Visible">
                     <StackPanel>
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE001;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="150" Foreground="Green"/>
                         <TextBlock x:Uid="TuitionFeeNoFees" Text="All tuition fees are paid or no fees found!" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                        <Rectangle Margin="-10, 10, -10, 0" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Height="2"/>
                     </StackPanel>
                 </Grid>
                 <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red" Grid.Row="0">
@@ -36,7 +31,14 @@
                         <TextBlock x:Name="noDataInfo_tbx" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="10,5,0,10"/>
                     </StackPanel>
                 </Grid>
-            </controls:PullToRefreshListView>
-        </StackPanel>
+                <StackPanel x:Name="tuitionFees_stckp" Margin="-12, 0, -12, 0">
+                    <!--Tuition Fees-->
+                </StackPanel>
+                <StackPanel Margin="0, 10, 0, 0" Grid.Row="1">
+                    <TextBlock x:Uid="TuitionFeeInfo" Text="Information on contributions and exemptions, loans, training assistance and scholarships, go to:" TextWrapping="WrapWholeWords" Margin="0,0,0,0"/>
+                    <HyperlinkButton x:Uid="TuitionFeeStudentFeeStudentFinancialAid.Content" Content="Student Financial Aid" Click="HyperlinkButton_ClickAsync"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:PullToRefreshListView>
     </Grid>
 </Page>
