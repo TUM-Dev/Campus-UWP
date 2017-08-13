@@ -21,29 +21,32 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="83*"/>
-                    <ColumnDefinition Width="37*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="selectedCanteen_tbx" Grid.Column="0" FontSize="30" TextTrimming="CharacterEllipsis" Margin="10,10,0,10"/>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2" Width="120">
-                    <Button x:Name="expand_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="30" Click="expand_btn_Click" Margin="10,10,0,10"/>
-                    <Button FontFamily="Segoe MDL2 Assets" Content="&#xE10C;" Background="Transparent" FontSize="30" Margin="10,10,0,10">
-                        <Button.Flyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem x:Name="info_btn" Text="Info" Click="info_btn_Click"/>
-                                <MenuFlyoutSubItem Text="Refresh">
-                                    <MenuFlyoutItem x:Name="refreshAll_btn" Text="All" Click="refreshAll_btn_Click"/>
-                                    <MenuFlyoutItem x:Name="refreshCanteen_btn" Text="Canteens" Click="refreshCanteen_btn_Click"/>
-                                    <MenuFlyoutItem x:Name="refreshCanteenMenus_btn" Text="Menus" Click="refreshCanteenMenus_btn_Click"/>
-                                </MenuFlyoutSubItem>
-                                <MenuFlyoutItem x:Name="pinCanteenTile_btn" Text="Pin to Start" Click="pinCanteenTile_btn_Click"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </StackPanel>
+                <Button x:Name="expand_btn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="28" Click="expand_btn_Click"/>
+                <Rectangle Grid.Column="1" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
+                <TextBlock x:Name="selectedCanteen_tbx" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" FontSize="20" TextTrimming="CharacterEllipsis" Margin="10,0,10,0"/>
+                <Rectangle Grid.Column="3" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
+                <Button Grid.Column="4" FontFamily="Segoe MDL2 Assets" Content="&#xE10C;" Background="Transparent" FontSize="28">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="info_btn" Text="Info" Click="info_btn_Click"/>
+                            <MenuFlyoutSubItem Text="Refresh">
+                                <MenuFlyoutItem x:Name="refreshAll_btn" Text="All" Click="refreshAll_btn_Click"/>
+                                <MenuFlyoutItem x:Name="refreshCanteen_btn" Text="Canteens" Click="refreshCanteen_btn_Click"/>
+                                <MenuFlyoutItem x:Name="refreshCanteenMenus_btn" Text="Menus" Click="refreshCanteenMenus_btn_Click"/>
+                            </MenuFlyoutSubItem>
+                            <MenuFlyoutItem x:Name="pinCanteenTile_btn" Text="Pin to Start" Click="pinCanteenTile_btn_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
             </Grid>
-            <ScrollViewer x:Name="canteens_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2" Visibility="Collapsed" Height="310">
-                <StackPanel x:Name="canteens_sckl" Padding="0,0,5,0" VerticalAlignment="Stretch">
+            <ScrollViewer x:Name="canteens_scv" Margin="0, 10, 0, 10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2" Visibility="Collapsed" Height="310">
+                <StackPanel x:Name="canteens_sckl" VerticalAlignment="Stretch">
                     <!--Content Canteens-->
                 </StackPanel>
             </ScrollViewer>
@@ -55,9 +58,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="30" HorizontalAlignment="Left" Grid.Column="0" Background="#FF0065BD" Click="left_btn_Click"/>
-            <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="30"/>
-            <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="30" HorizontalAlignment="Right" Grid.Column="2" Background="#FF0065BD" Click="right_btn_Click"/>
+            <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="28" HorizontalAlignment="Left" Grid.Column="0" Background="#FF0065BD" Click="left_btn_Click"/>
+            <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="20"/>
+            <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="28" HorizontalAlignment="Right" Grid.Column="2" Background="#FF0065BD" Click="right_btn_Click"/>
         </Grid>
 
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="2" VerticalAlignment="Top"/>

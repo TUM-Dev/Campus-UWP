@@ -30,7 +30,11 @@ namespace TUMCampusApp.Controls
             this.canteen = canteen;
             canteenName_tbx.Text = canteen.name;
             canteenAdress_tbx.Text = canteen.address;
-            if (canteen.distance >= 1000)
+            if (canteen.distance < 0)
+            {
+                canteenDistance_tbx.Text = "-";
+            }
+            else if (canteen.distance >= 1000)
             {
                 canteenDistance_tbx.Text = Math.Round(canteen.distance / 1000, 2) + " km";
             }

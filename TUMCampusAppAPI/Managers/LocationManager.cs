@@ -173,12 +173,19 @@ namespace TUMCampusAppAPI.Managers
             }
             if (pos == null)
             {
+                foreach (Canteen c in list)
+                {
+                    c.distance = -1F;
+                }
                 return list;
             }
-            foreach (Canteen c in list)
+            else
             {
-                c.distance = (float) calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
-            }
+                foreach (Canteen c in list)
+                {
+                    c.distance = (float)calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
+                }
+            }            
             list.Sort();
             return list;
         }

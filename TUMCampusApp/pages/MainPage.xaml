@@ -2,7 +2,6 @@
     x:Class="TUMCampusApp.Pages.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TUMCampusApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -21,9 +20,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="openSplitView_hbtn_Click" Background="#0061b7"/>
-            <Rectangle Grid.Column="1" Height="44" Fill="{ThemeResource AppBarBackgroundThemeBrush}" Width="2" Margin="0, -15, 0, -15"/>
+            <Rectangle Grid.Column="1" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
             <TextBlock x:Name="pageName_tbl" Grid.Column="2" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
-            <Button Name="networkConnectionStatus_btn" Grid.Column="3" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="30" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
+            <Button Name="networkConnectionStatus_btn" Grid.Column="3" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="28" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
         </Grid>
         <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="320" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>

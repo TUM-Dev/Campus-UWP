@@ -160,6 +160,7 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Children.Clear();
             if(list != null && list.Count > 0)
             {
+                status_tbx.Text = "";
                 List<List<LectureControl>> controls = new List<List<LectureControl>>();
                 for(var i = 0; i < list.Count; i++)
                 {
