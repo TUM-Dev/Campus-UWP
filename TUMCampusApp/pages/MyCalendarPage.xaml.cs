@@ -148,7 +148,7 @@ namespace TUMCampusApp.Pages
             refresh_pTRV.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => {
-                Task.WaitAny(CalendarManager.INSTANCE.syncCalendarTaskAsync(force));
+                CalendarManager.INSTANCE.syncCalendar(force);
                 showCalendarEntriesTask();
             });
         }
