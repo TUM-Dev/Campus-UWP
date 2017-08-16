@@ -90,7 +90,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     result.Add(news[i]);
                 }
-                if(i < 3)
+                else if(i < 3)
                 {
                     result.Add(news[i]);
                 }
