@@ -17,7 +17,7 @@
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Uid="SettingsPageWifiOnly" x:Name="wifiOnly_tgls"  Margin="10,10,0,0" Toggled="wifiOnly_tgls_Toggled" Header="Update App With Wifi Only"/>
                 <Button x:Uid="SettingsPageDeleteCache" x:Name="deleteCache_btn" Content="Delete Cache" Margin="10,10,0,0" Click="deleteCache_btn_Click"/>
-                <Button x:Uid="SettingsPageResetApp" x:Name="resetApp_btn" Content="Reset App" Margin="10,10,0,0" Click="resetApp_btn_ClickAsync"/>
+                <Button x:Uid="SettingsPageResetApp" x:Name="resetApp_btn" Content="Reset App" Margin="10,10,0,0" Click="resetApp_btn_ClickAsync" IsEnabled="False"/>
 
                 <TextBlock x:Uid="SettingsPageTUMonline" Text="TUMonline:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
