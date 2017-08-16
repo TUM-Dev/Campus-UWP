@@ -105,14 +105,14 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="force">Force sync calendar</param>
         public void syncCalendar(bool force)
         {
-            if (!force || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
             Task.Factory.StartNew(() => {
                 lock (thisLock)
                 {
-                    Task.WaitAny(syncCalendarTaskAsync(true));
+                    Task.WaitAny(syncCalendarTaskAsync(force));
                 }
             });
         }
@@ -143,10 +143,10 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            long time = SyncManager.GetCurrentUnixTimestampMillis();
-            List<TUMOnlineCalendarEntry> list = null;
             if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
+                long time = SyncManager.GetCurrentUnixTimestampMillis();
+                List<TUMOnlineCalendarEntry> list = null;
                 XmlDocument doc = null;
                 try
                 {
@@ -174,18 +174,13 @@ namespace TUMCampusAppAPI.Managers
                 }
                 dB.InsertOrReplaceAll(list);
 
+                if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
+                {
+                    await insterInCalendarAsync(list);
+                }
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
-            else
-            {
-                list = getEntries();
-            }
-
-            if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
-            {
-                await insterInCalendarAsync(list);
-            }
-            Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
         #endregion
 
