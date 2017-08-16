@@ -514,4 +514,34 @@
   <data name="SettingsReportBug.Text" xml:space="preserve">
     <value>Report A Bug</value>
   </data>
+  <data name="Informatik_Text" xml:space="preserve">
+    <value>Informatik</value>
+  </data>
+  <data name="IngenieufakultaetBauGeoUmwelt_Text" xml:space="preserve">
+    <value>Ingenieufakultät Bau Geo Umwelt</value>
+  </data>
+  <data name="Machinenwesen_Text" xml:space="preserve">
+    <value>Machinenwesen</value>
+  </data>
+  <data name="Mathematik_Text" xml:space="preserve">
+    <value>Mathematik</value>
+  </data>
+  <data name="Medizin_Text" xml:space="preserve">
+    <value>Medizin</value>
+  </data>
+  <data name="Physik_Text" xml:space="preserve">
+    <value>Physik</value>
+  </data>
+  <data name="SelectFaculty_Text" xml:space="preserve">
+    <value>Please select your faculty!</value>
+  </data>
+  <data name="SetupPage1FacultyCBox.PlaceholderText" xml:space="preserve">
+    <value>Select faculty</value>
+  </data>
+  <data name="SportUndGesundheitswissenschafften_Text" xml:space="preserve">
+    <value>Sport und Gesundheitswissenschafften</value>
+  </data>
+  <data name="TUMSchoolOfEducation_Text" xml:space="preserve">
+    <value>TUM School of Education</value>
+  </data>
 </root>

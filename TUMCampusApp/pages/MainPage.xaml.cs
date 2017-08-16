@@ -10,6 +10,7 @@ using TUMCampusAppAPI.UserDatas;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TUMCampusApp.Pages
 {
@@ -206,6 +207,29 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        /// <summary>
+        /// Sets the faculty_img source based on the selected faculty.
+        /// </summary>
+        private void setImage()
+        {
+            int facultyIndex = Util.getSettingInt(Const.FACULTY_INDEX);
+            switch(facultyIndex)
+            {
+                case 0:
+                case 3:
+                case 5:
+                    faculty_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/im.png"));
+                    break;
+                case 1:
+                case 2:
+                    faculty_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/mw.png"));
+                    break;
+                default:
+                    faculty_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/wear_tuition_fee1.png"));
+                    break;
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -218,6 +242,7 @@ namespace TUMCampusApp.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             updateConnectionStatus();
+            setImage();
         }
 
         private void openSplitView_hbtn_Click(object sender, RoutedEventArgs e)

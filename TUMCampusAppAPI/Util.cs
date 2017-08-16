@@ -63,6 +63,12 @@ namespace TUMCampusAppAPI
             return obj == null ? (byte)0 : (byte)obj;
         }
 
+        public static int getSettingInt(string token)
+        {
+            object obj = getSetting(token);
+            return obj == null ? -1 : (int)obj;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--

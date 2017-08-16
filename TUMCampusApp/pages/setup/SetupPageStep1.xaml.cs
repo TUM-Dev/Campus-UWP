@@ -29,6 +29,8 @@ namespace TUMCampusApp.Pages.Setup
             this.InitializeComponent();
             string uId = Util.getSettingString(Const.USER_ID);
             studentID_tbx.Text = uId == null ? "" : uId;
+            populateFacultiesComboBox();
+            faculty_cbox.SelectedIndex = Util.getSettingInt(Const.FACULTY_INDEX);
         }
 
         #endregion
@@ -51,6 +53,20 @@ namespace TUMCampusApp.Pages.Setup
         {
             Regex reg = new Regex("[a-z]{2}[0-9]{2}[a-z]{3}");
             return reg.Match(studentID_tbx.Text.ToLower()).Success;
+        }
+
+        /// <summary>
+        /// Adds all faculties to the faculty_cbox.
+        /// </summary>
+        private void populateFacultiesComboBox()
+        {
+            foreach (Faculties f in Enum.GetValues(typeof(Faculties))) {
+                faculty_cbox.Items.Add(new ComboBoxItem()
+                {
+                    Content = Utillities.getLocalizedString(f.ToString() + "_Text"),
+                    
+                });
+            }
         }
 
         #endregion
@@ -79,6 +95,14 @@ namespace TUMCampusApp.Pages.Setup
                 };
                 await message.ShowAsync();
             }
+            else if(faculty_cbox.SelectedIndex < 0)
+            {
+                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("SelectFaculty_Text"))
+                {
+                    Title = Utillities.getLocalizedString("Error_Text")
+                };
+                await message.ShowAsync();
+            }
             else
             {
                 if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
@@ -102,6 +126,7 @@ namespace TUMCampusApp.Pages.Setup
                     }
                     else
                     {
+                        Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
                         Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
                         (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
                     }
@@ -119,6 +144,7 @@ namespace TUMCampusApp.Pages.Setup
                     }
                     else
                     {
+                        Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
                         Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
                         TumManager.INSTANCE.saveToken(token);
                         (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));

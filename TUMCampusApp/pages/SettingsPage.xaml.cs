@@ -123,9 +123,11 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
             Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
-            Util.setSetting(Const.ACCESS_TOKEN, null);
             Util.setSetting(Const.INITIALLY_STARTED, false);
-            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, 0);
+            Util.setSetting(Const.ACCESS_TOKEN, null);
+            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, null);
+            Util.setSetting(Const.FACULTY_INDEX, null);
+            Util.setSetting(Const.USER_ID, null);
 
             deleteCache();
             Logger.Info("Finished reseting the app.");

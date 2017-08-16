@@ -24,7 +24,7 @@
             <TextBlock x:Name="pageName_tbl" Grid.Column="2" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
             <Button Name="networkConnectionStatus_btn" Grid.Column="3" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="28" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
         </Grid>
-        <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="320" HorizontalAlignment="Stretch" CompactPaneLength="51">
+        <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="270" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="ms-appx:///Assets/Images/wear_tuition_fee.png" Grid.Row="0"/>
+                            <Image x:Name="faculty_img" Source="ms-appx:///Assets/Images/im.png" Grid.Row="0"/>
                             <ListBox Name="splitViewIcons_lb" SelectionMode="Single" SelectionChanged="splitViewIcons_lb_SelectionChanged" VerticalAlignment="Stretch" Grid.Row="1">
                                 <ListBoxItem x:Name="myTUM_lbi" IsEnabled="False">
                                     <TextBlock x:Uid="MainPageMyTUM" Text="My TUM"/>

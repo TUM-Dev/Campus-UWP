@@ -26,7 +26,8 @@
             <Button x:Name="useExistingToken_btn" x:Uid="SetupPage1UseExistingToken_btn" Content="Use an existing TUMonline Token" Margin="0,10,0,0" Click="useExistingToken_btn_Click"/>
             <TextBox x:Name="tumOnlineToken_tbx" x:Uid="SetupPage1Token" PlaceholderText="Token" Margin="0,10,0,0" Visibility="Collapsed"/>
 
-            <!--<TextBlock x:Uid="SetupPageFaculty" TextWrapping="WrapWholeWords" Margin="0,20,0,0"/>-->
+            <TextBlock x:Uid="SetupPageFaculty" TextWrapping="WrapWholeWords" Margin="0,20,0,0"/>
+            <ComboBox x:Name="faculty_cbox" x:Uid="SetupPage1FacultyCBox" HorizontalAlignment="Stretch" Margin="0, 10" PlaceholderText="Select faculty"/>
         </StackPanel>
         
         <Grid Grid.Row="1" VerticalAlignment="Bottom">

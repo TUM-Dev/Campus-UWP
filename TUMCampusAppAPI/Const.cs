@@ -147,5 +147,6 @@ namespace TUMCampusAppAPI
 
         public static readonly string LAST_BACKGROUND_TASK_ACTION = "last_background_task_action";
         public static readonly string INITIALLY_STARTED= "initially_started";
+        public static readonly string FACULTY_INDEX = "faculty_index";
     }
 }
