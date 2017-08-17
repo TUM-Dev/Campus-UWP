@@ -19,10 +19,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="room_groups_cmbb" SelectedIndex="0" HorizontalAlignment="Stretch" FontSize="26" Grid.Column="0" Background="Transparent" SelectionChanged="room_groups_cmbb_SelectionChanged">
+                <ComboBox x:Name="room_groups_cmbb" SelectedIndex="0" HorizontalAlignment="Stretch" FontSize="20" Grid.Column="0" Background="Transparent" SelectionChanged="room_groups_cmbb_SelectionChanged">
                     <ComboBoxItem Content="Loading..."/>
                 </ComboBox>
-                <Button Name="refresh_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE117;" FontSize="25" Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" Click="refresh_btn_Click" Margin="5"/>
+                <Button Name="refresh_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE117;" FontSize="28" Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" Click="refresh_btn_Click" Margin="0"/>
             </Grid>
             <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
         </StackPanel>
