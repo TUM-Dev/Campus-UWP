@@ -11,6 +11,7 @@ using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Collections.Generic;
 
 namespace TUMCampusApp.Pages
 {
@@ -18,8 +19,7 @@ namespace TUMCampusApp.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        
-            
+        private Stack<int> navigationIndexStack;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -32,6 +32,7 @@ namespace TUMCampusApp.Pages
         /// </history>
         public MainPage()
         {
+            this.navigationIndexStack = new Stack<int>();
             InitializeComponent();
             Utillities.mainPage = this;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
@@ -83,7 +84,7 @@ namespace TUMCampusApp.Pages
         public void navigateToPage(EnumPage page)
         {
             int index = (int)page + 1;
-            if(index > 4)
+            if (index > 4)
             {
                 index++;
             }
@@ -160,11 +161,19 @@ namespace TUMCampusApp.Pages
                 default:
                     break;
             }
+            showNameOfSelectedIndex();
+        }
+
+        /// <summary>
+        /// Shows the name of the page, that is currently selected.
+        /// </summary>
+        private void showNameOfSelectedIndex()
+        {
             try
             {
                 pageName_tbl.Text = (((splitViewIcons_lb.SelectedItem as ListBoxItem).Content as StackPanel).Children[1] as TextBlock).Text;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.Error("Unable to get the name from the selected ListBoxItem", e);
             }
@@ -213,7 +222,7 @@ namespace TUMCampusApp.Pages
         private void setImage()
         {
             int facultyIndex = Util.getSettingInt(Const.FACULTY_INDEX);
-            switch(facultyIndex)
+            switch (facultyIndex)
             {
                 case 0:
                 case 3:
@@ -227,6 +236,18 @@ namespace TUMCampusApp.Pages
                 default:
                     faculty_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/wear_tuition_fee1.png"));
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Shows the name of the last page.
+        /// </summary>
+        private void showLastPageName()
+        {
+            if (navigationIndexStack.Count > 0)
+            {
+                splitViewIcons_lb.SelectedIndex = navigationIndexStack.Pop();
+                showNameOfSelectedIndex();
             }
         }
 
@@ -254,6 +275,16 @@ namespace TUMCampusApp.Pages
         {
             navigateToSelectedPage();
             mainPage_spv.IsPaneOpen = false;
+
+            // Add the removed index to the navigationIndexStack
+            if (e.RemovedItems.Count >= 1 && e.RemovedItems[0] is DependencyObject)
+            {
+                int index = splitViewIcons_lb.IndexFromContainer(e.RemovedItems[0] as DependencyObject);
+                if (index >= 0)
+                {
+                    navigationIndexStack.Push(index);
+                }
+            }
         }
 
         private void goBackRequest(object sender, BackRequestedEventArgs e)
@@ -262,13 +293,14 @@ namespace TUMCampusApp.Pages
             {
                 e.Handled = true;
                 mainFrame.GoBack();
+                showLastPageName();
             }
         }
 
         private async void networkConnectionStatus_btn_Click(object sender, RoutedEventArgs e)
         {
             string text = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text") + "\n";
-            if(DeviceInfo.isConnectedToInternet())
+            if (DeviceInfo.isConnectedToInternet())
             {
                 text += Utillities.getLocalizedString("NetworkConnectionStatusConnected_Text");
             }
