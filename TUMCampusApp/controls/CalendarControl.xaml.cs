@@ -61,12 +61,20 @@ namespace TUMCampusApp.Controls
             calendarEntryName_tbx.Text = entry.title;
             location_tbx.Text = entry.location;
             calendar_tbx.Text = Utillities.getLocalizedString(entry.dTStrat.DayOfWeek.ToString() + "_Text") + ", " + entry.dTStrat.ToString("HH:mm") + " - " + entry.dTEnd.ToString("HH:mm");
+            if (!string.IsNullOrWhiteSpace(entry.description))
+            {
+                calendarEntryDescription_tbx.Text = entry.description;
+            }
+            else
+            {
+                calendarEntryDescription_tbx.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
         }
 
         #endregion
 
         #region --Misc Methods (Protected)--
-        
+
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

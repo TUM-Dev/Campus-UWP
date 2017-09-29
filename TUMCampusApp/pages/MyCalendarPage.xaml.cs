@@ -105,10 +105,10 @@ namespace TUMCampusApp.Pages
         /// <param name="list">A list of entries that should get shown.</param>
         private void showEntries(List<TUMOnlineCalendarEntry> list)
         {
-            if(list == null || list.Count <= 0)
+            if (list == null || list.Count <= 0)
             {
                 SyncResult syncResult = CalendarManager.INSTANCE.getSyncStatus();
-                if(syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
+                if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = Utillities.getLocalizedString("MyCalendarGeneralError_Text") + "\n\n" + syncResult.ERROR_MESSAGE;
                 }
