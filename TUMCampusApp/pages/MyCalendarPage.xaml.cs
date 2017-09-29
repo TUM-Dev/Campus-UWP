@@ -81,8 +81,10 @@ namespace TUMCampusApp.Pages
         /// <param name="entry">The entry that should get added.</param>
         private void addCalendarControl(TUMOnlineCalendarEntry entry)
         {
-            CalendarControl cC = new CalendarControl(entry);
-            cC.Margin = new Thickness(0, 10, 0, 0);
+            CalendarControl cC = new CalendarControl(entry)
+            {
+                Margin = new Thickness(0, 10, 0, 0)
+            };
             calendarEntries_stckp.Children.Add(cC);
         }
 
@@ -94,7 +96,8 @@ namespace TUMCampusApp.Pages
         {
             List<TUMOnlineCalendarEntry> list = CalendarManager.INSTANCE.getEntries();
             list.Sort();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 showEntries(list);
             }).AsTask().Wait();
         }
@@ -122,9 +125,9 @@ namespace TUMCampusApp.Pages
             TUMOnlineCalendarEntry pre = null;
             foreach (TUMOnlineCalendarEntry entry in list)
             {
-                if(entry != null && entry.dTStrat.Date.CompareTo(DateTime.Now.Date) >= 0)
+                if (entry != null && entry.dTStrat.Date.CompareTo(DateTime.Now.Date) >= 0)
                 {
-                    if(pre == null || entry.dTStrat.Date.CompareTo(pre.dTStrat.Date) > 0)
+                    if (pre == null || entry.dTStrat.Date.CompareTo(pre.dTStrat.Date) > 0)
                     {
                         pre = entry;
                         addSeperator(pre.dTStrat);
@@ -147,7 +150,8 @@ namespace TUMCampusApp.Pages
         {
             refresh_pTRV.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => {
+            Task.Factory.StartNew(() =>
+            {
                 CalendarManager.INSTANCE.syncCalendar(force);
                 showCalendarEntriesTask();
             });
