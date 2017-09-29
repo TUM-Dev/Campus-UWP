@@ -18,8 +18,8 @@ namespace TUMCampusAppAPI.UserDatas
         public static string OSName { get; set; }
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

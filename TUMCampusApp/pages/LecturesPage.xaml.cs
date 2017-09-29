@@ -26,8 +26,8 @@ namespace TUMCampusApp.Pages
         private List<String> searchTerms;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -75,7 +75,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Downloads and shows the personal lectures.
-        /// This method should be only called in a seperate task.
+        /// This method should be only called in a separate task.
         /// </summary>
         /// <param name="forceRedownload">Whether cached lectures should be ignored.</param>
         private async Task downloadAndShowLecturesTaskAsync(bool forceRedownload)
@@ -101,7 +101,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Downloads and shows all lectures that match the given querry.
-        /// This method should be only called in a seperate task.
+        /// This method should be only called in a separate task.
         /// </summary>
         /// <param name="query">The search querry. At least three characters.</param>
         private async void downloadAndShowQueriedLecturesTask(string query)

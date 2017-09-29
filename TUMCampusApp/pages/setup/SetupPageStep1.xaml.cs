@@ -16,8 +16,8 @@ namespace TUMCampusApp.Pages.Setup
 
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

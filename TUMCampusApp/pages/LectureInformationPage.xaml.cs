@@ -21,7 +21,7 @@ namespace TUMCampusApp.Pages
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -50,7 +50,7 @@ namespace TUMCampusApp.Pages
         #region --Misc Methods (Private)--
         /// <summary>
         /// Downloads and shows information for the current lecture.
-        /// This method should be only called in a seperate task.
+        /// This method should be only called in a separate task.
         /// </summary>
         private async void downloadAndShowLectureInformationTask()
         {

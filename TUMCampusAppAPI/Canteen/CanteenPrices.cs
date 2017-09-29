@@ -124,7 +124,7 @@ namespace TUMCampusAppAPI.Canteens
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
 
 
         #endregion

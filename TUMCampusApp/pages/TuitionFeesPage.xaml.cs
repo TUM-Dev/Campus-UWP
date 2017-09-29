@@ -21,8 +21,8 @@ namespace TUMCampusApp.Pages
 
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -49,7 +49,7 @@ namespace TUMCampusApp.Pages
         #region --Misc Methods (Private)--
         /// <summary>
         /// Downloads and shows the current tution fee status.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         /// <param name="forceRedownload">Whether the cache should get ignored.</param>
         private async Task downloadAndShowFeesAsync(bool forceRedownload)

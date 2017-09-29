@@ -21,8 +21,8 @@ namespace TUMCampusAppAPI.TUMOnline
         private static readonly string SERVICE_BASE_URL = "https://campus.tum.de/tumonline/wbservicesbasic.";
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         public TUMOnlineRequest(TUMOnlineConst tumOC)
         {
             this.addition = tumOC.ToString();

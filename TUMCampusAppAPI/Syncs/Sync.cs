@@ -16,8 +16,8 @@ namespace TUMCampusAppAPI.Syncs
         public string errorMessage { get; set; }
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic empty Constructor
         /// </summary>

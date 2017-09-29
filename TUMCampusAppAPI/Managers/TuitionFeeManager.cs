@@ -14,8 +14,8 @@ namespace TUMCampusAppAPI.Managers
         public static TuitionFeeManager INSTANCE;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

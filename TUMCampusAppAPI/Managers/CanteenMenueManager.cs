@@ -19,8 +19,8 @@ namespace TUMCampusAppAPI.Managers
         private static int lastSelectedCanteenId = -2;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

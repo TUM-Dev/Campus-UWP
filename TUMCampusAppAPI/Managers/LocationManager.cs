@@ -48,8 +48,8 @@ namespace TUMCampusAppAPI.Managers
         private static readonly String[] DEFAULT_CAMPUS_CAFETERIA = { "422", null, "423", "421", "414", null, "411", null };
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

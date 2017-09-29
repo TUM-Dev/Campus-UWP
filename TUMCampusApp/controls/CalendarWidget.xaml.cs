@@ -19,7 +19,7 @@ namespace TUMCampusApp.Controls
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -47,7 +47,7 @@ namespace TUMCampusApp.Controls
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Adds a custom seperator.
+        /// Adds a custom separator.
         /// </summary>
         /// <param name="date"></param>
         private void addSeperator(DateTime date)

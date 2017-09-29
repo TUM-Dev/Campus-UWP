@@ -15,7 +15,7 @@ namespace TUMCampusApp.BackgroundTask
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
 
 
         #endregion

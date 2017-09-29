@@ -20,7 +20,7 @@ namespace TUMCampusApp.Pages
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

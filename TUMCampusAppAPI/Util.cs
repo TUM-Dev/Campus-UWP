@@ -12,7 +12,7 @@ namespace TUMCampusAppAPI
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
 
 
         #endregion

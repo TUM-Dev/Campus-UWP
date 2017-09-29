@@ -16,8 +16,8 @@ namespace TUMCampusAppAPI.Managers
         private static readonly int TIME_TO_SYNC = 604800; // 1 week
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

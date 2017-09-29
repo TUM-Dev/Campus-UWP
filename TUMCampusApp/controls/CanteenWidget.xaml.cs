@@ -21,8 +21,8 @@ namespace TUMCampusApp.Controls
         private DropShadowPanel dSP;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -91,7 +91,7 @@ namespace TUMCampusApp.Controls
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Shows all menus for the last selected canteen on the screen. Has to get call in a seperate task!
+        /// Shows all menus for the last selected canteen on the screen. Has to get call in a separate task!
         /// </summary>
         private async void showMenusTaskAsync()
         {

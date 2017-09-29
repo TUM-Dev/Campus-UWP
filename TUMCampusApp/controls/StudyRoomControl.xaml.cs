@@ -14,7 +14,7 @@ namespace TUMCampusApp.Controls
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

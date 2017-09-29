@@ -13,8 +13,8 @@ namespace TUMCampusAppAPI.TUMOnline
         private string obfuId;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Constructor based on the xml representation of an user
         /// </summary>

@@ -26,8 +26,8 @@ namespace TUMCampusApp.Pages
         private static readonly double INC_PROGRESS_STEP = 100 / 27;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -94,7 +94,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Inits the app.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         /// <returns></returns>
         private async Task initAppAsync(bool initialInit)
@@ -227,7 +227,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Invokes the status text box and sets the given string as its text.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         /// <param name="s">The text that should be set.</param>
         /// <returns></returns>
@@ -240,7 +240,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Increments the progress bar.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         /// <returns></returns>
         private async Task incProgressAsync()
@@ -252,7 +252,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Positions all screen elements, inits the app and dismisses the extended splash screen.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         /// <returns></returns>
         private async Task initAppTaskAsync()

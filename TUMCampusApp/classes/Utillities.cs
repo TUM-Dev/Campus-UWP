@@ -31,8 +31,8 @@ namespace TUMCampusApp.Classes
         private static ResourceLoader loader;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
 
 
         #endregion

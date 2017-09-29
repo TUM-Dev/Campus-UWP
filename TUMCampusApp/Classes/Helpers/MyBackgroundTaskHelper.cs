@@ -17,7 +17,7 @@ namespace TUMCampusApp.Classes.Helpers
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
 
 
         #endregion

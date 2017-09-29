@@ -18,7 +18,7 @@ namespace TUMCampusApp.VoiceCommands
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

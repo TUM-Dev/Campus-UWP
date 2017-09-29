@@ -27,8 +27,8 @@ namespace TUMCampusApp.Pages
         private bool messageBoxShown;
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -193,7 +193,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Loads all canteens and shows them on the screen. This method should be only called in a seperate task.
+        /// Loads all canteens and shows them on the screen. This method should be only called in a separate task.
         /// </summary>
         /// <returns></returns>
         private async Task loadCanteensAsync()
@@ -236,7 +236,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Loads and shows all menus for the currently selected canteen and the current date offset.
-        /// This method should be only called in a seperate task.
+        /// This method should be only called in a separate task.
         /// </summary>
         private void showCurrentMenus()
         {
@@ -347,7 +347,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Loads and shows all canteens and their menus.
-        /// This method should be only called in a seperate task.
+        /// This method should be only called in a separate task.
         /// </summary>
         private async void loadCanteensAndMenusTask()
         {

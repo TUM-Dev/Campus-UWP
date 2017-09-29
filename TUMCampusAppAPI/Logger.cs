@@ -13,8 +13,8 @@ namespace TUMCampusAppAPI
         private static readonly Object thisLock = new Object();
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
 
 
         #endregion

@@ -16,8 +16,8 @@ namespace TUMCampusAppAPI.UserDatas
         public int lastSelectedCanteenId { get; set; }
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

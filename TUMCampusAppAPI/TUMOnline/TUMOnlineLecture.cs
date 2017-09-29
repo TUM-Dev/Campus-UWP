@@ -24,8 +24,8 @@ namespace TUMCampusAppAPI.TUMOnline
         public string existingContributors { get; set; }
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>

@@ -21,8 +21,8 @@ namespace TUMCampusApp.Pages
 
 
         #endregion
-        //--------------------------------------------------------Construktor:----------------------------------------------------------------\\
-        #region --Construktoren--
+        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
+        #region --Constructors--
         /// <summary>
         /// Basic Constructor
         /// </summary>
@@ -49,9 +49,9 @@ namespace TUMCampusApp.Pages
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Adds a seperator in form of the given date.
+        /// Adds a separator in form of the given date.
         /// </summary>
-        /// <param name="date">The date for the seperator.</param>
+        /// <param name="date">The date for the separator.</param>
         private void addSeperator(DateTime date)
         {
             Brush brushLine = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
@@ -88,7 +88,7 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Shows all calendar entries.
-        /// This method should only be called in a seperate task.
+        /// This method should only be called in a separate task.
         /// </summary>
         private void showCalendarEntriesTask()
         {
