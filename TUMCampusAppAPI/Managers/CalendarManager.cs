@@ -64,10 +64,10 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Renturns all calendar entries, the db contains.
+        /// Returns all calendar entries, the db contains.
         /// Also converts dTStrat and dTEnd from universal time to local time.
         /// </summary>
-        /// <returns>Renturns all calendar entries</returns>
+        /// <returns>Returns all calendar entries</returns>
         public List<TUMOnlineCalendarEntry> getEntries()
         {
             lock (thisLock)
@@ -90,7 +90,7 @@ namespace TUMCampusAppAPI.Managers
             dB.CreateTable<TUMOnlineCalendarEntry>();
             syncCalendar();
         }
-        
+
         /// <summary>
         /// Creates a new Task and starts syncing the calendar in the background
         /// </summary>
@@ -135,7 +135,7 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Refreshes the whole calendar if needed or force == true.
         /// </summary>
-        /// <param name="force">Force sync calandar.</param>
+        /// <param name="force">Force sync calendar.</param>
         /// <returns></returns>
         public async Task syncCalendarTaskAsync(bool force)
         {
@@ -154,15 +154,15 @@ namespace TUMCampusAppAPI.Managers
                 }
                 catch (Exception e)
                 {
-                    Logger.Error("Unable to sync Calendar! Unable to request a documet.");
+                    Logger.Error("Unable to sync Calendar! Unable to request a document.");
                     SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
                     return;
                 }
 
                 if (doc == null)
                 {
-                    Logger.Error("Unable to sync Calendar! Unable to request a documet.");
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a documet."));
+                    Logger.Error("Unable to sync Calendar! Unable to request a document.");
+                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
                     return;
                 }
                 list = parseToList(doc);
@@ -201,7 +201,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Adds a given TUMOnlineCalendarEntry to the given list. Checks bevor adding whether the enty is valid.
+        /// Adds a given TUMOnlineCalendarEntry to the given list. Checks before adding whether the entity is valid.
         /// </summary>
         /// <param name="list"></param>
         /// <param name="entry"></param>
@@ -230,7 +230,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an asynchronous Task</returns>
         private async Task insterInCalendarAsync(List<TUMOnlineCalendarEntry> list)
         {
-            // 1. get access to appointmentstore 
+            // 1. get access to appointmentstore
             AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
 
             // 2. delete the calendar if one exists
