@@ -16,6 +16,7 @@
             <Setter Property="OffsetY" Value="5"/>
             <Setter Property="Margin" Value="15, 10, 15, 0"/>
             <Setter Property="Color" Value="Black"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
     </Page.Resources>
 

@@ -2,7 +2,6 @@
     x:Class="TUMCampusApp.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TUMCampusApp.Pages"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,13 +17,14 @@
             <Setter Property="Margin" Value="15, 10, 15, 0"/>
             <Setter Property="Color" Value="Black"/>
             <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
         <StackPanel x:Name="color_stckp" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="0"/>
         <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollMode="Disabled">
-            <StackPanel x:Name="widgets_stckp" Margin="0,0,0,10">
+            <StackPanel x:Name="widgets_stckp" Margin="0,0,0,10" HorizontalAlignment="Stretch">
                 <controls:DropShadowPanel x:Name="exampleWidget_ds" Style="{StaticResource ShadowPanelStyle}">
                     <controls1:TutWidget/>
                 </controls:DropShadowPanel>
