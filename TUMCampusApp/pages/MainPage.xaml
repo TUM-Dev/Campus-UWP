@@ -4,15 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#0061b7">
+        <Rectangle Grid.Row="0" Height="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
+        <Grid Grid.Row="1" Background="#0061b7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -22,9 +25,13 @@
             <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="openSplitView_hbtn_Click" Background="#0061b7"/>
             <Rectangle Grid.Column="1" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
             <TextBlock x:Name="pageName_tbl" Grid.Column="2" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
-            <Button Name="networkConnectionStatus_btn" Grid.Column="3" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" FontSize="28" Click="networkConnectionStatus_btn_Click" Background="Transparent" Foreground="DarkGreen" HorizontalAlignment="Right"/>
+            <Button Name="networkConnectionStatus_btn" Grid.Column="3" HorizontalAlignment="Right" Click="networkConnectionStatus_btn_Click" Background="Transparent">
+                <controls:DropShadowPanel>
+                    <TextBlock x:Name="networkConnectionStatus_tblck" FontFamily="Segoe MDL2 Assets" Text="&#xE909;" FontSize="28" Foreground="DarkGreen"/>
+                </controls:DropShadowPanel>
+            </Button>
         </Grid>
-        <SplitView Name="mainPage_spv" Grid.Row="1" DisplayMode="Overlay" OpenPaneLength="270" HorizontalAlignment="Stretch" CompactPaneLength="51">
+        <SplitView Name="mainPage_spv" Grid.Row="2" DisplayMode="Overlay" OpenPaneLength="270" HorizontalAlignment="Stretch" CompactPaneLength="51">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>

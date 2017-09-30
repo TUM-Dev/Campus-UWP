@@ -17,6 +17,10 @@ using System.Linq;
 using Windows.ApplicationModel.Background;
 using TUMCampusApp.Classes.Helpers;
 using TUMCampusAppAPI;
+using Windows.Foundation.Metadata;
+using Windows.UI.ViewManagement;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp
 {
@@ -47,6 +51,8 @@ namespace TUMCampusApp
         /// <param name="e">Details über Startanforderung und -prozess.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            dyeStatusBar();
+
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 SplashScreenPage extendedSplash = new SplashScreenPage(args);
@@ -58,7 +64,7 @@ namespace TUMCampusApp
             // Init Cortana integration
             try
             {
-                // Install the main VCD. 
+                // Install the main VCD.
                 StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"TUMCampusAppCommands.xml");
                 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
             }
@@ -103,7 +109,7 @@ namespace TUMCampusApp
             {
                 var commandArgs = args as VoiceCommandActivatedEventArgs;
                 SpeechRecognitionResult speechRecognitionResult = commandArgs.Result;
-                
+
                 string voiceCommandName = speechRecognitionResult.RulePath[0];
                 string textSpoken = speechRecognitionResult.Text;
 
@@ -119,7 +125,7 @@ namespace TUMCampusApp
         }
 
         /// <summary>
-        /// Returns the semantic interpretation of a speech result. 
+        /// Returns the semantic interpretation of a speech result.
         /// Returns null if there is no interpretation for that key.
         /// </summary>
         /// <param name="interpretationKey">The interpretation key.</param>
@@ -128,6 +134,34 @@ namespace TUMCampusApp
         private string SemanticInterpretation(string interpretationKey, SpeechRecognitionResult speechRecognitionResult)
         {
             return speechRecognitionResult.SemanticInterpretation.Properties[interpretationKey].FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Dyes the TitleBar on the PC or the StatusBar on mobile.
+        /// </summary>
+        private void dyeStatusBar()
+        {
+            //PC customization
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+            {
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                if (titleBar != null)
+                {
+                    titleBar.BackgroundColor = Color.FromArgb(255, 0, 97, 183);
+                }
+            }
+
+            //Mobile customization
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundColor = Color.FromArgb(255, 0, 97, 183);
+                    statusBar.BackgroundOpacity = 1;
+                }
+            }
         }
     }
 }

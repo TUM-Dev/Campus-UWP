@@ -191,7 +191,7 @@
     <value>Tuition Fees</value>
   </data>
   <data name="NetworkConnectionStatusBase_Text" xml:space="preserve">
-    <value>Network connection status: </value>
+    <value>Network connection status</value>
   </data>
   <data name="NetworkConnectionStatusConnected_Text" xml:space="preserve">
     <value>Connected</value>

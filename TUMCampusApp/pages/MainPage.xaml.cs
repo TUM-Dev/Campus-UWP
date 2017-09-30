@@ -201,18 +201,18 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Updates the color of networkConnectionStatus_btn.
+        /// Updates the color of networkConnectionStatus_tblck.
         /// Red if the device is not connected and green if the device is connected to the internet.
         /// </summary>
         private void updateConnectionStatus()
         {
             if (DeviceInfo.isConnectedToInternet())
             {
-                networkConnectionStatus_btn.Foreground = new SolidColorBrush(Colors.DarkGreen);
+                networkConnectionStatus_tblck.Foreground = new SolidColorBrush(Colors.DarkGreen);
             }
             else
             {
-                networkConnectionStatus_btn.Foreground = new SolidColorBrush(Colors.DarkRed);
+                networkConnectionStatus_tblck.Foreground = new SolidColorBrush(Colors.DarkRed);
             }
         }
 
@@ -299,7 +299,7 @@ namespace TUMCampusApp.Pages
 
         private async void networkConnectionStatus_btn_Click(object sender, RoutedEventArgs e)
         {
-            string text = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text") + "\n";
+            string text = "";
             if (DeviceInfo.isConnectedToInternet())
             {
                 text += Utillities.getLocalizedString("NetworkConnectionStatusConnected_Text");
@@ -310,7 +310,7 @@ namespace TUMCampusApp.Pages
             }
             MessageDialog message = new MessageDialog(text)
             {
-                Title = Utillities.getLocalizedString("Information_Text")
+                Title = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text")
             };
             await message.ShowAsync();
         }
