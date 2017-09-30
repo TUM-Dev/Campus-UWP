@@ -86,7 +86,7 @@ namespace TUMCampusAppAPI
         }
 
         /// <summary>
-        /// Trys to parse a given date string to a DateTime obj.
+        /// Tries to parse a given date string to a DateTime obj.
         /// </summary>
         /// <param name="s">The date string.</param>
         /// <returns>Returns the parsed date.</returns>

@@ -86,7 +86,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download the information for the given lecture if it is not cached.
+        /// Tries to download the information for the given lecture if it is not cached.
         /// </summary>
         /// <param name="stp_sp_nr">The lectures stp_sp nr.</param>
         /// <returns>Returns the found lecture information or null if none found.</returns>
@@ -107,7 +107,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download your personal lectures if it is necessary and caches them into the local db.
+        /// Tries to download your personal lectures if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all lectures.</param>
         /// <returns>Returns an async Task.</returns>

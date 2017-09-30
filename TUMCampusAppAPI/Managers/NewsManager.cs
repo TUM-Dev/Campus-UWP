@@ -30,7 +30,7 @@ namespace TUMCampusAppAPI.Managers
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
-        #region --Set-, Get- Methods--       
+        #region --Set-, Get- Methods--
         /// <summary>
         /// Returns the most current news id from the db.
         /// </summary>
@@ -68,7 +68,7 @@ namespace TUMCampusAppAPI.Managers
         /// Returns a list of news, their date matches todays date.
         /// Also the first tumMovie news, that is equal or bigger than todays date gets added to the list.
         /// </summary>
-        /// <returns>Returns a list of News elemets, max 20 entries.</returns>
+        /// <returns>Returns a list of News elements, max 20 entries.</returns>
         public List<News.News> getNewsForHomePage()
         {
             List<News.News> news = getAllNewsFormDb();
@@ -132,7 +132,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download news if it is necessary and caches them into the local db.
+        /// Tries to download news if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all news.</param>
         /// <returns>Returns an async Task.</returns>
@@ -186,7 +186,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download news sources if it is necessary and caches them into the local db.
+        /// Tries to download news sources if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all news sources.</param>
         /// <returns>Returns an async Task.</returns>

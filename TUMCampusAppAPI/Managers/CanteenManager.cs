@@ -56,7 +56,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download and return the canteen associated by the given id
+        /// Tries to download and return the canteen associated by the given id
         /// </summary>
         /// <param name="id">Canteen id</param>
         /// <returns>Returns the canteen associated by the given id</returns>

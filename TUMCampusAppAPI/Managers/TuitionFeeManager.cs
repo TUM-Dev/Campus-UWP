@@ -59,7 +59,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download your tuition fees if it is necessary and caches them into the local db.
+        /// Tries to download your tuition fees if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all tuition fees.</param>
         /// <returns>Returns an async Task.</returns>

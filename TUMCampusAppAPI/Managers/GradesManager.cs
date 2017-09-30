@@ -75,7 +75,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Trys to download all grades and caches them into the local db.
+        /// Tries to download all grades and caches them into the local db.
         /// </summary>
         /// <param name="force">Force download and ignore cache.</param>
         /// <returns></returns>
