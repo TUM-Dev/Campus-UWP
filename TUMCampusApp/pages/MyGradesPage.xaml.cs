@@ -115,7 +115,7 @@ namespace TUMCampusApp.Pages
                 }
 
                 int yearA = int.Parse(semesterIdA.Substring(0, 2));
-                int yearB = int.Parse(semesterIdA.Substring(0, 2));
+                int yearB = int.Parse(semesterIdB.Substring(0, 2));
                 if (yearA - yearB != 0)
                 {
                     return yearB - yearA;
@@ -123,9 +123,9 @@ namespace TUMCampusApp.Pages
 
                 if (semesterIdA.EndsWith("W"))
                 {
-                    return 1;
+                    return -1;
                 }
-                return -1;
+                return 1;
             });
         }
 
