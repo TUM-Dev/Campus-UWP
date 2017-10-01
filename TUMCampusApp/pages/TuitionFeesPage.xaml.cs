@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class TuitionFeesPage : Page
+    public sealed partial class TuitionFeesPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -37,7 +37,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("TuitionFeesPageName_text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

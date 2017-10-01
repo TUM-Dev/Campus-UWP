@@ -152,6 +152,7 @@
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\INamedPage.cs" />
     <Compile Include="Pages\LectureInformationPage.xaml.cs">
       <DependentUpon>LectureInformationPage.xaml</DependentUpon>
     </Compile>

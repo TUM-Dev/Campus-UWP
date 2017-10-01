@@ -544,4 +544,34 @@
   <data name="TUMSchoolOfEducation_Text" xml:space="preserve">
     <value>TUM School of Education</value>
   </data>
+  <data name="CanteenesPageName_Text" xml:space="preserve">
+    <value>Canteens</value>
+  </data>
+  <data name="HomePageName_Text" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="LectureInformationPageName_Text" xml:space="preserve">
+    <value>Lectures</value>
+  </data>
+  <data name="LecturesPageName_Text" xml:space="preserve">
+    <value>Lectures</value>
+  </data>
+  <data name="MyCalendarPageName_Text" xml:space="preserve">
+    <value>My Calendar</value>
+  </data>
+  <data name="MyGradesPageName_Text" xml:space="preserve">
+    <value>My Grades</value>
+  </data>
+  <data name="NewsPageName_Text" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="SettingsPageName_text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="StudyRoomPageName_text" xml:space="preserve">
+    <value>Study Rooms</value>
+  </data>
+  <data name="TuitionFeesPageName_text" xml:space="preserve">
+    <value>Tuition Fees</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
@@ -11,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class NewsPage : Page
+    public sealed partial class NewsPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -37,7 +38,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("NewsPageName_Text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

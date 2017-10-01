@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class CanteensPage : Page
+    public sealed partial class CanteensPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -145,6 +145,11 @@ namespace TUMCampusApp.Pages
             }
 
             return s;
+        }
+
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("CanteenesPageName_Text");
         }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -525,7 +530,6 @@ namespace TUMCampusApp.Pages
         {
             collapseCanteens();
         }
-
         #endregion
     }
 }

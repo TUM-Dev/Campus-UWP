@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class LectureInformationPage : Page
+    public sealed partial class LectureInformationPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -38,7 +38,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("LectureInformationPageName_Text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

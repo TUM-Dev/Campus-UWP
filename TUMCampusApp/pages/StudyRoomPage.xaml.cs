@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
@@ -11,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class StudyRoomPage : Page
+    public sealed partial class StudyRoomPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -34,7 +35,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("StudyRoomPageName_text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -69,7 +73,7 @@ namespace TUMCampusApp.Pages
             {
                 lastSelectedIndex = (int)temp;
             }
-            
+
             if (lastSelectedIndex < 0 || lastSelectedIndex > groups.Count - 1)
             {
                 lastSelectedIndex = 0;

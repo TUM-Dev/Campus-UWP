@@ -17,7 +17,7 @@ using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class MyLecturesPage : Page
+    public sealed partial class MyLecturesPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -45,7 +45,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("LecturesPageName_Text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

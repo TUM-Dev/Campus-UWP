@@ -12,7 +12,7 @@ using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class SettingsPage : Page
+    public sealed partial class SettingsPage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -36,7 +36,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("SettingsPageName_text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

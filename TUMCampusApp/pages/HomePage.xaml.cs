@@ -3,10 +3,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using System;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class HomePage : Page
+    public sealed partial class HomePage : Page, INamedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -31,6 +32,10 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        public string getLocalizedName()
+        {
+            return Utillities.getLocalizedString("HomePageName_Text");
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
