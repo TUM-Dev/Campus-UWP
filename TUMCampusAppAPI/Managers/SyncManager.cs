@@ -130,7 +130,7 @@ namespace TUMCampusAppAPI.Managers
             }
             catch (SQLiteException e)
             {
-                Logger.Error("Unable to execute a querry for checking if the given object needs to sync again", e);
+                Logger.Error("Unable to execute a query for checking if the given object needs to sync again", e);
                 return new SyncResult(-1, SyncResult.STATUS_ERROR_SQL, true, e.Message);
             }
         }

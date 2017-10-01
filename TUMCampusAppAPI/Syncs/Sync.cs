@@ -44,14 +44,14 @@ namespace TUMCampusAppAPI.Syncs
             else
             {
                 this.status = SyncResult.STATUS_ERROR_UNKNOWN;
-                this.errorMessage = "An unknown error occured. Please try again.\n\n" + e.ToString();
+                this.errorMessage = "An unknown error occurred. Please try again.\n\n" + e.ToString();
             }
         }
 
         public Sync(Object obj) : this(obj.GetType().Name)
         {
         }
-        
+
         public Sync(string id) : this(id, SyncResult.STATUS_OK, null)
         {
         }

@@ -47,9 +47,9 @@ namespace TUMCampusApp.Pages
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         /// <summary>
-        /// Sets the given canteen as the new favourite canteen.
+        /// Sets the given canteen as the new favorite canteen.
         /// </summary>
-        /// <param name="canteen">The canteen that should be the new favourite one.</param>
+        /// <param name="canteen">The canteen that should be the new favorite one.</param>
         private void setNewFavoriteCanteen(Canteen canteen)
         {
             currentCanteen = canteen;
@@ -298,7 +298,7 @@ namespace TUMCampusApp.Pages
                 + "(14)\t with gelatin\n"
                 + "(99)\t dish with alcohol\n"
                 + "\n"
-                + "(f)\t meathless dish\n"
+                + "(f)\t meatless dish\n"
                 + "(v)\t vegan dish\n"
                 + "(S)\t dish with pork\n"
                 + "(R)\t dish with beef\n"
@@ -312,7 +312,7 @@ namespace TUMCampusApp.Pages
                 + "(Gl)\t dish with gluten-containing cereals\n"
                 + "(GlW)\t dish with wheat\n"
                 + "(GlR)\t dish with rye\n"
-                + "(GlG)\t dish with gerst\n"
+                + "(GlG)\t dish with barley\n"
                 + "(GlH)\t dish with oats\n"
                 + "(GlD)\t dish with spelt\n"
                 + "(Kr)\t dish with crustaceans\n"
@@ -320,7 +320,7 @@ namespace TUMCampusApp.Pages
                 + "(Mi)\t dish with milk and lactose\n"
                 + "(Sc)\t dish with shell fruits\n"
                 + "(ScM)\t dish with almonds\n"
-                + "(ScH)\t dish with hazlenuts\n"
+                + "(ScH)\t dish with hazelnuts\n"
                 + "(ScW)\t dish with Walnuts\n"
                 + "(ScC)\t dish with cashew nuts\n"
                 + "(ScP)\t dish with pistachios\n"
@@ -525,7 +525,7 @@ namespace TUMCampusApp.Pages
         {
             collapseCanteens();
         }
-        
+
         #endregion
     }
 }

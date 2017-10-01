@@ -90,7 +90,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     case GeolocationAccessStatus.Denied:
                     case GeolocationAccessStatus.Unspecified:
-                        Logger.Warn("No acces to GeoLocation");
+                        Logger.Warn("No access to GeoLocation");
                         return null;
                 }
                 Geolocator geoLocator = new Geolocator();
@@ -185,7 +185,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     c.distance = (float)calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
                 }
-            }            
+            }
             list.Sort();
             return list;
         }
@@ -193,10 +193,10 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        /// <summary>  
-        /// Returns the distance in miles or kilometers of any two  
-        /// latitude / longitude points.  
-        /// </summary>  
+        /// <summary>
+        /// Returns the distance in miles or kilometers of any two
+        /// latitude / longitude points.
+        /// </summary>
         public static double calcDistance(double lat1, double lng1, double lat2, double lng2)
         {
             double dLat = toRadian(lat2 - lat1);
@@ -216,9 +216,9 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Private)--
-        /// <summary>  
-        /// Convert to Radians.  
-        /// </summary>  
+        /// <summary>
+        /// Convert to Radians.
+        /// </summary>
         private static double toRadian(double val)
         {
             return (Math.PI / 180) * val;

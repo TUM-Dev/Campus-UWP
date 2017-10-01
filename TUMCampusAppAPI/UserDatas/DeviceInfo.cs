@@ -69,7 +69,7 @@ namespace TUMCampusAppAPI.UserDatas
         }
 
         /// <summary>
-        /// Checks if the device is connected to a wifi network and has access to the internet
+        /// Checks if the device is connected to a WIFI network and has access to the internet
         /// </summary>
         /// <history>
         /// 30/12/2016  Created [Fabian Sauter]
@@ -81,7 +81,7 @@ namespace TUMCampusAppAPI.UserDatas
         }
 
         /// <summary>
-        /// Checks if the device is connected to a celular network and has access to the internet
+        /// Checks if the device is connected to a cellular network and has access to the internet
         /// </summary>
         /// <history>
         /// 30/12/2016  Created [Fabian Sauter]

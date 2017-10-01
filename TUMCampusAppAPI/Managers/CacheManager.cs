@@ -93,7 +93,7 @@ namespace TUMCampusAppAPI.Managers
         /// Checks if the given url is cached
         /// </summary>
         /// <param name="url"></param>
-        /// <returns>Returns null if it is not chached or the cached string</returns>
+        /// <returns>Returns null if it is not cached or the cached string</returns>
         public string isCached(string url)
         {
             List<Cache> list = dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() < max_age AND url LIKE ?", url);
@@ -105,7 +105,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Chaches the given Cache object
+        /// Caches the given Cache object
         /// </summary>
         /// <param name="c"></param>
         public void cache(Cache c)

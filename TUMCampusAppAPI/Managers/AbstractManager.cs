@@ -67,7 +67,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Delets the whole db and recreates an empty one.
+        /// Deletes the whole db and recreates an empty one.
         /// Only for testing use resetDB() instead!
         /// </summary>
         public static void deleteDB()
@@ -85,7 +85,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Initialises the manager asynchronous
+        /// Initializes the manager asynchronous
         /// </summary>
         /// <returns></returns>
         public abstract Task InitManagerAsync();

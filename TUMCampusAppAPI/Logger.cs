@@ -170,7 +170,7 @@ namespace TUMCampusAppAPI
                     }
                     catch (Exception e)
                     {
-                        Logger.Error("Error during exporting loggs", e);
+                        Logger.Error("Error during exporting logs", e);
                     }
                 });
             }

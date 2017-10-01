@@ -47,7 +47,7 @@ namespace TUMCampusApp.Pages.Setup
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Checks wether the current student id is valid.
+        /// Checks whether the current student id is valid.
         /// </summary>
         private bool isIdValid()
         {
@@ -64,7 +64,7 @@ namespace TUMCampusApp.Pages.Setup
                 faculty_cbox.Items.Add(new ComboBoxItem()
                 {
                     Content = Utillities.getLocalizedString(f.ToString() + "_Text"),
-                    
+
                 });
             }
         }

@@ -134,7 +134,7 @@ namespace TUMCampusApp.Pages
             SyncManager.INSTANCE = new SyncManager();
             await incProgressAsync();
 
-            await invokeTbxAsync("Loading userdata manager...");
+            await invokeTbxAsync("Loading user data manager...");
             UserDataManager.INSTANCE = new UserDataManager();
             await incProgressAsync();
 

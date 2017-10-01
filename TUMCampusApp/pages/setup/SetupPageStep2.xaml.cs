@@ -45,7 +45,7 @@ namespace TUMCampusApp.Pages.Setup
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Disabels all buttons and changes the next_tbx text.
+        /// Disables all buttons and changes the next_tbx text.
         /// </summary>
         private void startValidatToken()
         {

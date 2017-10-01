@@ -85,7 +85,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Sorts the given list by the gades semesterId. First entry = current semester.
+        /// Sorts the given list by the grades semesterId. First entry = current semester.
         /// </summary>
         /// <param name="list">The list that should get sorted.</param>
         private void sortSemesterList(List<TUMOnlineGradeSemester> list)
@@ -132,7 +132,7 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Shows the no access grid based on the given exception.
         /// </summary>
-        /// <param name="e">The cought exception.</param>
+        /// <param name="e">The caught exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noData_grid.Visibility = Visibility.Visible;

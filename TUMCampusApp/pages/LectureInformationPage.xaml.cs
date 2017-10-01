@@ -85,7 +85,7 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Shows the no access grid if for example the token is no enabled.
         /// </summary>
-        /// <param name="e">The cought exception.</param>
+        /// <param name="e">The caught exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noData_grid.Visibility = Visibility.Visible;

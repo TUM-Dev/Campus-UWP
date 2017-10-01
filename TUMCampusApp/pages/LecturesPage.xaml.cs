@@ -56,7 +56,7 @@ namespace TUMCampusApp.Pages
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Disables the seach bar.
+        /// Disables the search bar.
         /// </summary>
         private void disableSearch()
         {
@@ -100,10 +100,10 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Downloads and shows all lectures that match the given querry.
+        /// Downloads and shows all lectures that match the given query.
         /// This method should be only called in a separate task.
         /// </summary>
-        /// <param name="query">The search querry. At least three characters.</param>
+        /// <param name="query">The search query. At least three characters.</param>
         private async void downloadAndShowQueriedLecturesTask(string query)
         {
             List<TUMOnlineLecture> list = null;
@@ -129,7 +129,7 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Shows the no access grid based on the given exception.
         /// </summary>
-        /// <param name="e">The cought exception.</param>
+        /// <param name="e">The caught exception.</param>
         private void showNoAccess(BaseTUMOnlineException e)
         {
             noData_grid.Visibility = Visibility.Visible;
@@ -299,9 +299,9 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Starts a new task and shows the result for the given search querry.
+        /// Starts a new task and shows the result for the given search query.
         /// </summary>
-        /// <param name="query">The search querry. At least three characters.</param>
+        /// <param name="query">The search query. At least three characters.</param>
         private async Task showSearchResultAsync(String query)
         {
             if (!DeviceInfo.isConnectedToInternet())
@@ -333,10 +333,10 @@ namespace TUMCampusApp.Pages
 
         /// <summary>
         /// Checks if the given text is at least 4 chars long.
-        /// If yes, it will start a new query in a seperat task and represent the results on the screen.
+        /// If yes, it will start a new query in a separate task and represent the results on the screen.
         /// If no, it will show an error message box.
         /// </summary>
-        /// <param name="query">The querry text</param>
+        /// <param name="query">The query text</param>
         /// <returns></returns>
         private async Task searchQuerryAsync(string query)
         {

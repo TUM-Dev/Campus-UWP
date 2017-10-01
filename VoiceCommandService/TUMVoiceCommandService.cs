@@ -146,7 +146,7 @@ namespace TUMCampusApp.VoiceCommands
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
         /// <summary>
-        /// When the background task is cancelled, clean up/cancel any ongoing long-running operations.
+        /// When the background task is canceled, clean up/cancel any ongoing long-running operations.
         /// This cancellation notice may not be due to Cortana directly. The voice command connection will
         /// typically already be destroyed by this point and should not be expected to be active.
         /// </summary>
@@ -154,7 +154,7 @@ namespace TUMCampusApp.VoiceCommands
         /// <param name="reason">Contains an enumeration with the reason for task cancellation</param>
         private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            Debug.WriteLine("Task cancelled, clean up");
+            Debug.WriteLine("Task canceled, clean up");
             if (this.serviceDeferral != null)
             {
                 this.serviceDeferral.Complete();

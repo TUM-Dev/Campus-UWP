@@ -36,7 +36,7 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -47,7 +47,7 @@ namespace TUMCampusApp.Pages
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Inits all controlls.
+        /// Inits all controls.
         /// </summary>
         private void initControls()
         {
@@ -59,7 +59,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Inits all about and links controlls.
+        /// Inits all about and links controls.
         /// </summary>
         private void initAboutAndLinks()
         {
@@ -70,7 +70,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Inits all widget controlls.
+        /// Inits all widget controls.
         /// </summary>
         private void initWidgetControls()
         {
@@ -82,7 +82,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Inits all service controlls.
+        /// Inits all service controls.
         /// </summary>
         private void initServices()
         {
@@ -91,7 +91,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Inits all general controlls.
+        /// Inits all general controls.
         /// </summary>
         private void initGeneralControls()
         {
@@ -99,7 +99,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Inits all tum online controlls.
+        /// Inits all tum online controls.
         /// </summary>
         private void initTUMonlineControls()
         {
