@@ -117,8 +117,14 @@ namespace TUMCampusApp.Pages
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = Utillities.getLocalizedString("MyCalendarGeneralError_Text") + "\n\n" + syncResult.ERROR_MESSAGE;
+                    noEntries_grid.Visibility = Visibility.Collapsed;
+                    noData_grid.Visibility = Visibility.Visible;
                 }
-                noData_grid.Visibility = Visibility.Visible;
+                else
+                {
+                    noEntries_grid.Visibility = Visibility.Visible;
+                    noData_grid.Visibility = Visibility.Collapsed;
+                }
                 progressBar.Visibility = Visibility.Collapsed;
                 calendarEntries_stckp.Visibility = Visibility.Collapsed;
                 refresh_pTRV.IsEnabled = true;
@@ -126,10 +132,12 @@ namespace TUMCampusApp.Pages
             }
             calendarEntries_stckp.Children.Clear();
             TUMOnlineCalendarEntry pre = null;
+            bool foundOne = false;
             foreach (TUMOnlineCalendarEntry entry in list)
             {
                 if (entry != null && entry.dTStrat.Date.CompareTo(DateTime.Now.Date) >= 0)
                 {
+                    foundOne = true;
                     if (pre == null || entry.dTStrat.Date.CompareTo(pre.dTStrat.Date) > 0)
                     {
                         pre = entry;
@@ -140,9 +148,18 @@ namespace TUMCampusApp.Pages
                     addCalendarControl(entry);
                 }
             }
+            if (!foundOne)
+            {
+                noEntries_grid.Visibility = Visibility.Visible;
+                calendarEntries_stckp.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                noEntries_grid.Visibility = Visibility.Collapsed;
+                calendarEntries_stckp.Visibility = Visibility.Visible;
+            }
             progressBar.Visibility = Visibility.Collapsed;
             noData_grid.Visibility = Visibility.Collapsed;
-            calendarEntries_stckp.Visibility = Visibility.Visible;
             refresh_pTRV.IsEnabled = true;
         }
 

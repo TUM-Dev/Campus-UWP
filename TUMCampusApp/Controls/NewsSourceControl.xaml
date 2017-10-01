@@ -8,10 +8,10 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="title_tb" TextTrimming="CharacterEllipsis" Grid.Column="0" Text="Title" Margin="10" VerticalAlignment="Center"/>
-        <CheckBox x:Name="enabled_chbx" x:Uid="enabled_chbx" Content="Enbaled" Grid.Column="1" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Checked="enabled_chbx_Checked_Changed" Unchecked="enabled_chbx_Checked_Changed"/>
+        <CheckBox x:Name="enabled_chbx" x:Uid="enabled_chbx" Content="Enabled" Grid.Column="1" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Checked="enabled_chbx_Checked_Changed" Unchecked="enabled_chbx_Checked_Changed"/>
     </Grid>
 </UserControl>

@@ -169,12 +169,19 @@ namespace TUMCampusApp.Pages
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;
+                    noGrades_grid.Visibility = Visibility.Collapsed;
+                    noData_grid.Visibility = Visibility.Visible;
                 }
-                noData_grid.Visibility = Visibility.Visible;
+                else
+                {
+                    noGrades_grid.Visibility = Visibility.Visible;
+                    noData_grid.Visibility = Visibility.Collapsed;
+                }
             }
             else
             {
                 noData_grid.Visibility = Visibility.Collapsed;
+                noGrades_grid.Visibility = Visibility.Collapsed;
                 grades_stckp.Visibility = Visibility.Visible;
                 for (int i = 0; i < list.Count; i++)
                 {

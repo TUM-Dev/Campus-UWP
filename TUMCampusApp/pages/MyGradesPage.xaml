@@ -25,6 +25,12 @@
                         <TextBlock x:Name="noDataInfo_tbx" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="10,5,0,10"/>
                     </StackPanel>
                 </Grid>
+                <Grid x:Name="noGrades_grid" Grid.Row="0" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEADF;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="#0061b7"/>
+                        <TextBlock x:Uid="MyGradesPageNoGardes" Text="No grades found!" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
                 <StackPanel x:Name="grades_stckp" Margin="0,0,0,10">
                     <!--Grades-->
                 </StackPanel>

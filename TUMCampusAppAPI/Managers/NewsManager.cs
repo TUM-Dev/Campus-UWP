@@ -105,11 +105,11 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns the NewsSource for the given id.
         /// </summary>
-        /// <param name="id">The id of the NewsSource.</param>
+        /// <param name="src">The src of the NewsSource.</param>
         /// <returns>Returns the NewsSource for the given id.</returns>
-        public News.NewsSource getNewsSource(string id)
+        public News.NewsSource getNewsSource(string src)
         {
-            List<News.NewsSource> sources = dB.Query<News.NewsSource>("SELECT * FROM NewsSource WHERE src LIKE ?", id);
+            List<News.NewsSource> sources = dB.Query<News.NewsSource>("SELECT * FROM NewsSource WHERE src LIKE ?", src);
             return sources.Count > 0 ? sources[0] : null;
         }
 
@@ -218,8 +218,7 @@ namespace TUMCampusAppAPI.Managers
                             Logger.Error("Caught an exception during parsing news sources!", e);
                         }
                     }
-                    dB.DeleteAll<News.NewsSource>();
-                    dB.InsertAll(list);
+                    replaceNewsSources(list);
                     SyncManager.INSTANCE.replaceIntoDb(new Sync("NewsSource"));
                 }
                 catch (Exception e)
@@ -255,6 +254,25 @@ namespace TUMCampusAppAPI.Managers
                     dB.Execute("DELETE FROM News WHERE id = " + item.id);
                 }
             }
+        }
+
+        /// <summary>
+        /// Deletes all NewsSource entries from the NewsSource table and replaces them with the new ones.
+        /// It keeps whether the NewsSource was enabled.
+        /// </summary>
+        /// <param name="list">A list of NewsSource objects.</param>
+        private void replaceNewsSources(List<News.NewsSource> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                News.NewsSource old = getNewsSource(list[i].src);
+                if(old != null)
+                {
+                    list[i].enabled = old.enabled;
+                }
+            }
+            dB.DeleteAll<News.NewsSource>();
+            dB.InsertAll(list);
         }
 
         #endregion

@@ -12,7 +12,6 @@ namespace TUMCampusApp.Controls
         #region --Attributes--
         private NewsSource source;
         private NewsPage newsPage;
-        private bool inital_Checked_Changed;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -27,7 +26,6 @@ namespace TUMCampusApp.Controls
         {
             this.source = source;
             this.newsPage = newsPage;
-            this.inital_Checked_Changed = false;
             this.InitializeComponent();
             showNewsSource();
         }
@@ -61,15 +59,8 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void enabled_chbx_Checked_Changed(object sender, RoutedEventArgs e)
         {
-            if(inital_Checked_Changed)
-            {
-                NewsManager.INSTANCE.updateNewsSourceStatus(source.id, (bool)enabled_chbx.IsChecked);
-                newsPage.reloadNews();
-            }
-            else
-            {
-                inital_Checked_Changed = true;
-            }
+            NewsManager.INSTANCE.updateNewsSourceStatus(source.id, (bool)enabled_chbx.IsChecked);
+            newsPage.setNewsSourcesChanged();
         }
 
         #endregion

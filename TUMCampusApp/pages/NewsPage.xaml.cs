@@ -18,6 +18,7 @@ namespace TUMCampusApp.Pages
         #region --Attributes--
         private bool reloadingNews;
         private bool reloadingNewsSources;
+        private bool newsSoucesChanged;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -30,8 +31,9 @@ namespace TUMCampusApp.Pages
         /// </history>
         public NewsPage()
         {
-            reloadingNews = false;
-            reloadingNewsSources = false;
+            this.newsSoucesChanged = false;
+            this.reloadingNews = false;
+            this.reloadingNewsSources = false;
             this.InitializeComponent();
         }
 
@@ -41,6 +43,11 @@ namespace TUMCampusApp.Pages
         public string getLocalizedName()
         {
             return Utillities.getLocalizedString("NewsPageName_Text");
+        }
+
+        public void setNewsSourcesChanged()
+        {
+            newsSoucesChanged = true;
         }
 
         #endregion
@@ -72,15 +79,25 @@ namespace TUMCampusApp.Pages
 
                     // Showing only the first 50 news
                     int l = news.Count > 50 ? 50 : news.Count;
-                    for (int i = 0; i < l; i++)
+                    if(l <= 0)
                     {
-                        DropShadowPanel dSP = new DropShadowPanel()
+                        noNews_grid.Visibility = Visibility.Visible;
+                        news_stckp.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        noNews_grid.Visibility = Visibility.Collapsed;
+                        news_stckp.Visibility = Visibility.Visible;
+                        for (int i = 0; i < l; i++)
                         {
-                            Style = (Style)Resources["ShadowPanelStyle"],
-                            Content = new NewsControl(news[i]),
-                            Margin = new Thickness(5, 10, 5, 0)
-                        };
-                        news_stckp.Children.Add(dSP);
+                            DropShadowPanel dSP = new DropShadowPanel()
+                            {
+                                Style = (Style)Resources["ShadowPanelStyle"],
+                                Content = new NewsControl(news[i]),
+                                Margin = new Thickness(5, 10, 5, 0)
+                            };
+                            news_stckp.Children.Add(dSP);
+                        }
                     }
                     reloadingNews = false;
                     enableUi();
@@ -169,10 +186,16 @@ namespace TUMCampusApp.Pages
             if (newsSources_scv.Visibility == Visibility.Visible)
             {
                 collapsenewsSources();
+                if (newsSoucesChanged)
+                {
+                    newsSoucesChanged = false;
+                    reloadNews();
+                }
             }
             else
             {
                 expandnewsSources();
+                newsSoucesChanged = false;
             }
         }
 

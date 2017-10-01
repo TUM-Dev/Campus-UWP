@@ -21,7 +21,7 @@
             <StackPanel>
                 <Grid x:Name="noFees_grid" Margin="10,10,10,0" Visibility="Collapsed">
                     <StackPanel>
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE001;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="150" Foreground="Green"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE001;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="150" Foreground="#0061b7"/>
                         <TextBlock x:Uid="TuitionFeeNoFees" Text="All tuition fees are paid or no fees found!" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
                         <Rectangle Margin="-10, 10, -10, 0" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Height="2"/>
                     </StackPanel>
