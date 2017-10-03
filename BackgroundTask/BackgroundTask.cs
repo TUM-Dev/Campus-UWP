@@ -64,11 +64,11 @@ namespace TUMCampusApp.BackgroundTask
                     lastState++;
                     break;
                 case 1:
-                    await refreshData1();
+                    await refreshData2();
                     lastState++;
                     break;
                 case 2:
-                    await refreshData1();
+                    await refreshData3();
                     lastState = 0;
                     break;
                 default:
@@ -151,6 +151,7 @@ namespace TUMCampusApp.BackgroundTask
             _cancelRequested = true;
 
             Logger.Error("[Background] " + sender.Task.Name + " Cancel Requested...\nReason=" + reason.ToString());
+            Task.Delay(1000);
             _deferral.Complete();
         }
 

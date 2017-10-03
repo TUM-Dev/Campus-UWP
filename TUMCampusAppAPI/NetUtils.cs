@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Managers;
 using Windows.Data.Json;
-using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
 namespace TUMCampusAppAPI
@@ -33,15 +30,6 @@ namespace TUMCampusAppAPI
             string name = url.Substring(url.LastIndexOf('/') + 1);
             name = name.Replace(".thumb.", "");
             return name.Replace(' ', '_');
-        }
-
-        /// <summary>
-        /// Returns the Cache folder as a StorageFolder.
-        /// If it does not exist, a new one will get created.
-        /// </summary>
-        public static async Task<StorageFolder> getCacheFolder()
-        {
-            return await ApplicationData.Current.LocalFolder.CreateFolderAsync("Cache", CreationCollisionOption.OpenIfExists);
         }
 
         #endregion
@@ -113,53 +101,10 @@ namespace TUMCampusAppAPI
             return null;
         }
 
-        public static async Task<BitmapImage> downloadImageAsync(Uri url)
-        {
-            string imagePath = CacheManager.INSTANCE.isCached(url.ToString());
-            if(imagePath == null)
-            {
-                try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        var buffer = await client.GetBufferAsync(url);
-                        imagePath = await saveImageToFile(buffer, url.ToString());
-                        CacheManager.INSTANCE.cache(new Caches.Cache(url.ToString(), CacheManager.encodeString(imagePath), CacheManager.VALIDITY_ONE_MONTH, CacheManager.VALIDITY_ONE_MONTH, CacheManager.CACHE_TYP_IMAGE));
-                    }
-                }
-                catch (Exception e)
-                {
-                    Logger.Error("Unable to download image from: " + url.ToString(), e);
-                    return null;
-                }
-            }
-
-            return new BitmapImage(new Uri(imagePath));
-        }
-
         #endregion
 
         #region --Misc Methods (Private)--
-        /// <summary>
-        /// Saves the given buffer as a file.
-        /// The name and type get specified by the given url (e.g. http://example.com/image.jpg will result in image.jpg).
-        /// </summary>
-        /// <param name="buffer">The buffer containing the file.</param>
-        /// <param name="url">The download url.</param>
-        /// <returns></returns>
-        private static async Task<string> saveImageToFile(IBuffer buffer, string url)
-        {
-            StorageFolder cacheFolder = await getCacheFolder();
-            if(cacheFolder == null)
-            {
-                Logger.Error("Unable to open or create Cache folder.");
-                return null;
-            }
-            string name = getImageNameFromUrl(url);
-            StorageFile imageFile = await cacheFolder.CreateFileAsync(getImageNameFromUrl(name), CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteBufferAsync(imageFile, buffer);
-            return imageFile.Path;
-        }
+
 
         #endregion
 

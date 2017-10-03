@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Json;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -123,15 +122,6 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Downloads the image from the given source if needed and caches it.
-        /// </summary>
-        /// <param name="src">The image source.</param>
-        public async Task<BitmapImage> downloadNewsImage(string src)
-        {
-            return await NetUtils.downloadImageAsync(new Uri(src));
-        }
-
-        /// <summary>
         /// Tries to download news if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all news.</param>
@@ -161,21 +151,26 @@ namespace TUMCampusAppAPI.Managers
                         return;
                     }
 
-                    List<News.News> list = new List<News.News>();
+                    cleanupDb();
+                    List<News.News> news = new List<News.News>();
                     foreach (JsonValue val in jsonArray)
                     {
                         try
                         {
-                            list.Add(new News.News(val.GetObject()));
+
+                            News.News n = new News.News(val.GetObject());
+                            news.Add(n);
+                            if(n.imageUrl != null)
+                            {
+                                Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
+                            }
                         }
                         catch (Exception e)
                         {
                             Logger.Error("Caught an exception during parsing news!", e);
                         }
                     }
-
-                    cleanupDb();
-                    dB.InsertOrReplaceAll(list);
+                    dB.InsertOrReplaceAll(news);
                     SyncManager.INSTANCE.replaceIntoDb(new Sync("News"));
                 }
                 catch (Exception e)

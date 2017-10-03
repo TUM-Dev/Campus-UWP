@@ -54,27 +54,12 @@ namespace TUMCampusApp.Controls
                 loading_ring.IsActive = true;
             }).AsTask();
 
-            if (news.image != null)
+            if (news.imageUrl != null)
             {
-                BitmapImage image = null;
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    image = await NewsManager.INSTANCE.downloadNewsImage(news.image.Substring(1, news.image.Length - 2));
-                }).AsTask().Wait();
-
-                if (image != null)
-                {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        image_img.Source = image;
-                        image.ImageOpened += (sender, e) =>
-                        {
-                            image_img.Width = image.PixelWidth;
-                            image_img.Height = image.PixelHeight;
-                        };
-
-                    }).AsTask();
-                }
+                    image_img.Source = news.imageUrl;
+                }).AsTask();
             }
             else
             {

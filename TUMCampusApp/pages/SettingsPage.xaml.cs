@@ -112,12 +112,9 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Resets the app to its default settings and deletes the current db.
         /// </summary>
-        private void resetApp()
+        private async Task resetAppAsync()
         {
-            Task.Factory.StartNew(async () =>
-            {
-                await CalendarManager.INSTANCE.deleteCalendarAsync();
-            });
+            await CalendarManager.INSTANCE.deleteCalendarAsync();
             Util.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, false);
             Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
             Util.setSetting(Const.DISABLE_EXAMPLE_WIDGET, false);
@@ -132,16 +129,16 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.FACULTY_INDEX, null);
             Util.setSetting(Const.USER_ID, null);
 
-            deleteCache();
+            await deleteCacheAsync();
             Logger.Info("Finished reseting the app.");
         }
 
         /// <summary>
         /// Resets the apps cache (db).
         /// </summary>
-        private void deleteCache()
+        private async Task deleteCacheAsync()
         {
-            Task.WaitAll(CacheManager.INSTANCE.deleteCache());
+            await CacheManager.INSTANCE.clearCacheAsync();
             AbstractManager.resetDB();
             AbstractManager.deleteDB();
 
@@ -199,7 +196,7 @@ namespace TUMCampusApp.Pages
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
-                deleteCache();
+                await deleteCacheAsync();
             }
         }
 
@@ -211,7 +208,7 @@ namespace TUMCampusApp.Pages
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
-                resetApp();
+                await resetAppAsync();
             }
         }
 

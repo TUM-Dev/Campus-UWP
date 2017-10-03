@@ -14,7 +14,7 @@ namespace TUMCampusAppAPI.News
         public string src { get; set; }
         public string title { get; set; }
         public string link { get; set; }
-        public string image { get; set; }
+        public string imageUrl { get; set; }
         public DateTime date { get; set; }
         public DateTime created { get; set; }
 
@@ -48,7 +48,11 @@ namespace TUMCampusAppAPI.News
             }
             this.link = json.GetNamedString(Const.JSON_LINK);
             JsonValue val = json.GetNamedValue(Const.JSON_IMAGE);
-            this.image = val.ValueType == JsonValueType.Null ? null : val.Stringify();
+            this.imageUrl = val.ValueType == JsonValueType.Null ? null : val.Stringify();
+            if(imageUrl != null)
+            {
+                this.imageUrl = imageUrl.Replace("\"", "");
+            }
 
             this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
             this.created = DateTime.ParseExact(json.GetNamedString(Const.JSON_CREATED), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));

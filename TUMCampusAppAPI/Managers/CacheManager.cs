@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Caches;
-using Windows.Storage;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -14,7 +13,6 @@ namespace TUMCampusAppAPI.Managers
         #region --Attributes--
         public static CacheManager INSTANCE;
         public static readonly int CACHE_TYP_DATA = 0;
-        public static readonly int CACHE_TYP_IMAGE = 1;
 
         /**
          * Validity's for entries in seconds
@@ -52,35 +50,18 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<Cache>();
-            // Delete all entries that are too old and delete corresponding image files
-            foreach (Cache c in dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() > max_age AND type = ?", CACHE_TYP_IMAGE))
-            {
-                try
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(decodeString(c.data));
-                    if (file != null)
-                    {
-                        //await file.DeleteAsync(); //TODO Fix App locking up
-                    }
-                }
-                catch (Exception e)
-                {
-                    Logger.Error("An error occurred during deletion of an old cached file.", e);
-                }
-            }
             dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
+
+            // Cache images 30 days:
+            ImageCache.Instance.CacheDuration = new TimeSpan(30, 0, 0, 0, 0);
         }
 
-        public async Task deleteCache()
+        public async Task clearCacheAsync()
         {
             try
             {
-                StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Cache");
-                if (folder != null)
-                {
-                    //await folder.DeleteAsync(StorageDeleteOption.Default); //TODO Fix App locking up
-                }
-                Logger.Info("Deleted Cache folder!");
+                await ImageCache.Instance.ClearAsync();
+                Logger.Info("Cleared the image cache!");
             }
             catch (Exception e)
             {
@@ -111,6 +92,15 @@ namespace TUMCampusAppAPI.Managers
         public void cache(Cache c)
         {
             dB.InsertOrReplace(c);
+        }
+
+        /// <summary>
+        /// Downloads and caches the image from the given url.
+        /// </summary>
+        /// <param name="url">The image url.</param>
+        public async Task cacheImageAsync(Uri url)
+        {
+            await ImageCache.Instance.PreCacheAsync(url, false, false);
         }
 
         /// <summary>
