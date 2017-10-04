@@ -50,16 +50,17 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private async Task showNewsAsync()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 loading_ring.IsActive = true;
-            }).AsTask();
+            });
 
             if (news.imageUrl != null)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     image_img.Source = news.imageUrl;
-                }).AsTask();
+                });
             }
             else
             {
@@ -67,11 +68,11 @@ namespace TUMCampusApp.Controls
                 {
                     image_img.Visibility = Visibility.Collapsed;
 
-                }).AsTask();
+                });
             }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if(news.src.Equals("2"))
+                if (news.src.Equals("2"))
                 {
                     logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/TU-Film.png"));
                 }
@@ -80,7 +81,7 @@ namespace TUMCampusApp.Controls
                 src_tbx.Text = source == null ? news.src : source.title;
                 date_tbx.Text = news.date.ToLocalTime().ToString("dd.MM.yyyy");
                 loading_ring.IsActive = false;
-            }).AsTask();
+            });
         }
 
         #endregion
@@ -98,7 +99,7 @@ namespace TUMCampusApp.Controls
 
         private async void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(news.link == null || loading_ring.IsActive)
+            if (news.link == null || loading_ring.IsActive)
             {
                 return;
             }

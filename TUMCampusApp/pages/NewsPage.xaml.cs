@@ -68,7 +68,8 @@ namespace TUMCampusApp.Pages
         private void showNews(bool forceReload)
         {
             disableUi();
-            Task.Factory.StartNew(async () => {
+            Task.Factory.StartNew(async () =>
+            {
                 reloadingNews = true;
                 await NewsManager.INSTANCE.downloadNewsAsync(forceReload);
                 List<News> news = NewsManager.INSTANCE.getAllNewsFormDb();
@@ -79,7 +80,7 @@ namespace TUMCampusApp.Pages
 
                     // Showing only the first 50 news
                     int l = news.Count > 50 ? 50 : news.Count;
-                    if(l <= 0)
+                    if (l <= 0)
                     {
                         noNews_grid.Visibility = Visibility.Visible;
                         news_stckp.Visibility = Visibility.Collapsed;
@@ -112,7 +113,8 @@ namespace TUMCampusApp.Pages
         private void showNewsSources(bool forceReload)
         {
             disableUi();
-            Task.Factory.StartNew(() => {
+            Task.Factory.StartNew(() =>
+            {
                 reloadingNewsSources = true;
                 Task t1 = NewsManager.INSTANCE.downloadNewsSourcesAsync(forceReload);
                 Task.WaitAll(t1);
@@ -166,7 +168,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void enableUi()
         {
-            if(!reloadingNews && ! reloadingNewsSources)
+            if (!reloadingNews && !reloadingNewsSources)
             {
                 newsSources_scv.IsEnabled = true;
                 refresh_pTRV.IsEnabled = true;
