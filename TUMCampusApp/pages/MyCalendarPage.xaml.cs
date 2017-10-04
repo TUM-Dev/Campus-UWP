@@ -102,7 +102,7 @@ namespace TUMCampusApp.Pages
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showEntries(list);
-            }).AsTask().Wait();
+            }).AsTask();
         }
 
         /// <summary>

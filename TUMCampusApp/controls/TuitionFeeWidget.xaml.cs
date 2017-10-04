@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Controls
 {
@@ -49,8 +47,8 @@ namespace TUMCampusApp.Controls
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Refreshes and shows the current tution fee status. Or hides the widget if no outstanding fees are found.
-        /// This method has to get called in a seperat task.
+        /// Refreshes and shows the current tuition fee status. Or hides the widget if no outstanding fees are found.
+        /// This method has to get called in a separate task.
         /// </summary>
         private async Task ShowTuitionFeesAsync()
         {
@@ -60,21 +58,21 @@ namespace TUMCampusApp.Controls
             }
             catch (BaseTUMOnlineException e)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     showFees(null);
-                }).AsTask().Wait();
+                });
                 return;
             }
             List<TUMTuitionFee> list = TuitionFeeManager.INSTANCE.getFees();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showFees(list);
-            }).AsTask().Wait();
+            });
         }
 
         /// <summary>
         /// Shows the given fees list on the screen or hides the widget if the list is empty.
         /// </summary>
-        /// <param name="list">A list of tution fees.</param>
+        /// <param name="list">A list of tuition fees.</param>
         private void showFees(List<TUMTuitionFee> list)
         {
             tuitionFees_stckp.Children.Clear();

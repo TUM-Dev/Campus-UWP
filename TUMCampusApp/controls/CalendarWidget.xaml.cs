@@ -65,7 +65,7 @@ namespace TUMCampusApp.Controls
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showCalendarEntry(entry);
-            }).AsTask().Wait();
+            }).AsTask();
         }
 
         private void showCalendarEntry(TUMOnlineCalendarEntry entry)
@@ -95,7 +95,7 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        
+
 
         #endregion
     }

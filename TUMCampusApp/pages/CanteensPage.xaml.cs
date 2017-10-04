@@ -281,7 +281,7 @@ namespace TUMCampusApp.Pages
 
                 date = date.AddDays(1);
                 day_tbx.Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy");
-            }).AsTask().Wait();
+            }).AsTask();
         }
 
         /// <summary>
@@ -411,15 +411,15 @@ namespace TUMCampusApp.Pages
             }
             disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
-                CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
-                loadCanteensAsync().Wait();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await CanteenManager.INSTANCE.downloadCanteensAsync(true);
+                await loadCanteensAsync();
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
-                }).AsTask().Wait();
+                }).AsTask();
             });
         }
 
@@ -431,15 +431,15 @@ namespace TUMCampusApp.Pages
             }
             disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
-                CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
+                await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
                 showCurrentMenus();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
-                }).AsTask().Wait();
+                });
             });
         }
 
@@ -451,17 +451,17 @@ namespace TUMCampusApp.Pages
             }
             disableRefreshButtons();
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
-                CanteenManager.INSTANCE.downloadCanteensAsync(true).Wait();
-                loadCanteensAsync().Wait();
-                CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true).Wait();
+                await CanteenManager.INSTANCE.downloadCanteensAsync(true);
+                await loadCanteensAsync();
+                await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
                 showCurrentMenus();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     progressBar.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
-                }).AsTask().Wait();
+                }).AsTask();
             });
         }
 

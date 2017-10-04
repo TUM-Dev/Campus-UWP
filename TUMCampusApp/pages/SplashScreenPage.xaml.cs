@@ -263,10 +263,10 @@ namespace TUMCampusApp.Pages
              });
             bool initialStart = !Util.getSettingBoolean(Const.INITIALLY_STARTED);
             Task.WaitAll(initAppAsync(initialStart));
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 DismissExtendedSplashAsync();
-            }).AsTask().Wait();
+            });
             Util.setSetting(Const.INITIALLY_STARTED, true);
         }
 

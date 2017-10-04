@@ -71,7 +71,7 @@ namespace TUMCampusApp.Controls
                         Visibility = Visibility.Visible
                     });
                 }
-            }).AsTask().Wait();
+            }).AsTask();
         }
 
         #endregion

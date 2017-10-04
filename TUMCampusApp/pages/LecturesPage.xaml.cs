@@ -89,17 +89,17 @@ namespace TUMCampusApp.Pages
             }
             catch (BaseTUMOnlineException e)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     showNoAccess(e);
-                }).AsTask().Wait();
+                });
                 return;
             }
             List<TUMOnlineLecture> list = LecturesManager.INSTANCE.getLectures();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showLectures(list);
-            }).AsTask().Wait();
+            });
         }
 
         /// <summary>
@@ -116,15 +116,15 @@ namespace TUMCampusApp.Pages
             }
             catch (BaseTUMOnlineException e)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     showNoAccess(e);
-                }).AsTask().Wait();
+                });
                 return;
             }
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showLectures(list);
-            }).AsTask().Wait();
+            }).AsTask();
             currentSearchTerm = query;
             showingOwnLectures = false;
         }

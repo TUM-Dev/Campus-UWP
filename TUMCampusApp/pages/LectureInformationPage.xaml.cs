@@ -64,25 +64,25 @@ namespace TUMCampusApp.Pages
             }
             catch (BaseTUMOnlineException e)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     showNoAccess(e);
-                }).AsTask().Wait();
+                });
                 return;
             }
 
             if (list == null || list.Count <= 0)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     lectureName_tbx.Text = Utillities.getLocalizedString("LectureInfosUnableToGatherInformation_Text");
                     progressBar.Visibility = Visibility.Collapsed;
-                }).AsTask().Wait();
+                });
                 return;
             }
             lectureInfo = list[0];
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showLectureInformation();
-            }).AsTask().Wait();
+            });
         }
 
         /// <summary>

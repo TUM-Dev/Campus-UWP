@@ -63,18 +63,18 @@ namespace TUMCampusApp.Pages
             }
             catch (BaseTUMOnlineException e)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     showNoAccess(e);
-                }).AsTask().Wait();
+                }).AsTask();
                 return;
             }
             List<TUMTuitionFee> list = new List<TUMTuitionFee>();
             list = TuitionFeeManager.INSTANCE.getFees();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showFees(list);
-            }).AsTask().Wait();
+            }).AsTask();
         }
 
         /// <summary>

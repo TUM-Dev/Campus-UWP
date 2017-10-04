@@ -102,12 +102,11 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            Task t = null;
-            t = Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(async () =>
             {
                 try
                 {
-                    LocationManager.INSTANCE.getCurrentLocationAsync().Wait();
+                    await LocationManager.INSTANCE.getCurrentLocationAsync();
                 }
                 catch
                 {

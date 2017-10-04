@@ -40,11 +40,11 @@ namespace TUMCampusApp.Controls
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         /// <summary>
-        /// Shows all menus on the screen that are assocciated with the given name, canteen id and date.
+        /// Shows all menus on the screen that are associated with the given name, canteen id and date.
         /// </summary>
         /// <param name="canteenId">The id of the requested canteen.</param>
         /// <param name="name">The "typeLong" name for the menus.</param>
-        /// <param name="contains">Whethet the menu name should equal or just containe the given name.</param>
+        /// <param name="contains">Whether the menu name should equal or just contains the given name.</param>
         /// <param name="date">The menu date.</param>
         private void setMenuType(int canteenId, string name, string labelText, bool contains, DateTime date)
         {
@@ -101,7 +101,7 @@ namespace TUMCampusApp.Controls
 
             DateTime date = CanteenMenueManager.getFirstNextDate(id);
 
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
                 setMenuType(id, "Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
                 setMenuType(id, "Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
@@ -117,21 +117,21 @@ namespace TUMCampusApp.Controls
                     splashProgressRing.Visibility = Visibility.Collapsed;
                     dSP.Visibility = Visibility.Collapsed;
                 }
-            }).AsTask().Wait();
+            });
 
             if (date.CompareTo(DateTime.MaxValue) == 0)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                     canteenName_tbx.Text = "Error!";
                     splashProgressRing.Visibility = Visibility.Collapsed;
                     dSP.Visibility = Visibility.Collapsed;
-                }).AsTask().Wait();
+                });
                 return;
             }
 
             date = date.AddDays(1);
             Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(id);
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
                 if (c == null)
                 {
@@ -142,7 +142,7 @@ namespace TUMCampusApp.Controls
                     canteenName_tbx.Text = c.name;
                 }
                 splashProgressRing.Visibility = Visibility.Collapsed;
-            }).AsTask().Wait();
+            });
         }
 
         #endregion
