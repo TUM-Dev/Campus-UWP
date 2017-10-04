@@ -130,6 +130,7 @@ namespace TUMCampusAppAPI
 
         public static readonly string PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
         public static readonly string CHATTERMS_URL = "https://tumcabe.in.tum.de/landing/chatterms/";
+        public static readonly string V_1_0_4_CLEANED_NEWS = "v.1.0.4_cleaned_news";
 
         public static readonly Uri Square44x44Logo = new Uri("ms-appx:///Assets/Square44x44Logo.png");
         public static readonly Uri Square150x150Logo = new Uri("ms-appx:///Assets/Square150x150Logo.png");
