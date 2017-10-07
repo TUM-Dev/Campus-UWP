@@ -72,14 +72,19 @@ namespace TUMCampusAppAPI.Managers
         {
             List<News.News> news = getAllNewsFormDb();
             List<News.News> result = new List<News.News>();
-            int e = news.Count < 20 ? news.Count : 20;
             DateTime tumMovieDate = DateTime.MaxValue;
             int tumMovieIndex = -1;
-            for (int i = 0; i < e; i++)
+            DateTime yesterday = DateTime.Now.AddDays(-1);
+            for (int i = 0; i < news.Count; i++)
             {
+                if(news[i].date.CompareTo(yesterday) < 0)
+                {
+                    break;
+                }
+
                 if(news[i].src.Equals("2"))
                 {
-                    if(news[i].date.Date.CompareTo(DateTime.Now.Date) >= 0 && news[i].date.CompareTo(tumMovieDate) < 0)
+                    if(news[i].date.Date.CompareTo(DateTime.Now.Date) > 0 && news[i].date.CompareTo(tumMovieDate) < 0)
                     {
                         tumMovieIndex = i;
                         tumMovieDate = news[i].date;
