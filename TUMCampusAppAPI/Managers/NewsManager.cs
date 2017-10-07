@@ -67,7 +67,7 @@ namespace TUMCampusAppAPI.Managers
         /// Returns a list of news, their date matches todays date.
         /// Also the first tumMovie news, that is equal or bigger than todays date gets added to the list.
         /// </summary>
-        /// <returns>Returns a list of News elements, max 20 entries.</returns>
+        /// <returns>Returns a list of News elements, max 10 entries.</returns>
         public List<News.News> getNewsForHomePage()
         {
             List<News.News> news = getAllNewsFormDb();
@@ -77,7 +77,7 @@ namespace TUMCampusAppAPI.Managers
             DateTime yesterday = DateTime.Now.AddDays(-1);
             for (int i = 0; i < news.Count; i++)
             {
-                if(news[i].date.CompareTo(yesterday) < 0)
+                if(result.Count >= 10 || news[i].date.CompareTo(yesterday) < 0)
                 {
                     break;
                 }
