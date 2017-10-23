@@ -116,12 +116,12 @@ namespace TUMCampusApp.Pages
         {
             lectureName_tbx.Text = lecture.title;
             detail_tbx.Text = lecture.semesterName + "\n" + lecture.typeLong + " - " + lecture.duration + " SWS";
-            lectureBeginn_tbx.Text = lectureInfo.startDate;
-            lectureContributors_tbx.Text = lecture.existingContributors;
-            lectureContent_tbx.Text = lectureInfo.teachingContent;
-            method_tbx.Text = lectureInfo.teachingMethod;
-            targets_tbx.Text = lectureInfo.learningTarget;
-            examinationAids_tbx.Text = lectureInfo.testMode;
+            lectureBeginn_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.startDate) ? "-" : lectureInfo.startDate;
+            lectureContributors_tbx.Text = string.IsNullOrWhiteSpace(lecture.existingContributors) ? "-" : lecture.existingContributors;
+            lectureContent_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingContent) ? "-" : lectureInfo.teachingContent;
+            method_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingMethod) ? "-" : lectureInfo.teachingMethod;
+            targets_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.learningTarget) ? "-" : lectureInfo.learningTarget;
+            examinationAids_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.testMode) ? "-" : lectureInfo.testMode;
             info_stckp.Visibility = Visibility.Visible;
             progressBar.Visibility = Visibility.Collapsed;
         }

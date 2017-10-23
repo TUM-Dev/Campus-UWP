@@ -13,9 +13,9 @@
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <TextBlock x:Name="name_tbx" TextWrapping="WrapWholeWords" Foreground="#0061b7"/>
-                <TextBlock x:Name="description_tbx" TextWrapping="WrapWholeWords"/>
-                <TextBlock x:Name="profName_tbx" TextWrapping="WrapWholeWords"/>
+                <TextBlock x:Name="name_tbx" TextWrapping="Wrap" Foreground="#0061b7"/>
+                <TextBlock x:Name="description_tbx" TextWrapping="Wrap"/>
+                <TextBlock x:Name="profName_tbx" TextWrapping="Wrap"/>
             </StackPanel>
             <TextBlock x:Name="grade_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Green" FontWeight="Bold"/>
         </Grid>

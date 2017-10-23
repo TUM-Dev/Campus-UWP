@@ -61,7 +61,7 @@
                 <Grid x:Name="noNews_grid" Grid.Row="0" Visibility="Collapsed">
                     <StackPanel>
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE701;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="#0061b7"/>
-                        <TextBlock x:Uid="NewsPageNoNews" Text="No news found! Please come back later." HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                        <TextBlock x:Uid="NewsPageNoNews" Text="No news found! Please come back later." HorizontalAlignment="Center" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Grid>
             </Grid>

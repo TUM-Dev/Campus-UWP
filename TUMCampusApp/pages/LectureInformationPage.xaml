@@ -2,7 +2,6 @@
     x:Class="TUMCampusApp.Pages.LectureInformationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TUMCampusApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -26,28 +25,28 @@
         <StackPanel Grid.Row="1">
             <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed"/>
         </StackPanel>
-        <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="2">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <Grid x:Name="noData_grid" Margin="10,10,10,0" Visibility="Collapsed" Background="Red">
                     <StackPanel>
-                        <TextBlock x:Name="noData_tbx" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Margin="0,5,0,5"/>
+                        <TextBlock x:Name="noData_tbx" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,5,0,5"/>
                     </StackPanel>
                 </Grid>
                 <StackPanel x:Name="info_stckp" Margin="10,0,10,10" Visibility="Collapsed">
                     <TextBlock x:Uid="LectureInfosDetails" Text="Details:" FontWeight="Bold" Foreground="#FF0065BD"/>
-                    <TextBlock x:Name="detail_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="detail_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosLectureBeginn" Text="Begin:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureBeginn_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureBeginn_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosLectureContributors" Text="Contributors:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureContributors_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureContributors_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosContent" Text="Content:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="lectureContent_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="lectureContent_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosMethod" Text="Method:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="method_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="method_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosTargets" Text="Targets:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="targets_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="targets_tbx" Text="-" TextWrapping="Wrap"/>
                     <TextBlock x:Uid="LectureInfosDetailsExaminationAids" Text="Examination Aids:" FontWeight="Bold" Foreground="#FF0065BD" Margin="0,10,0,0"/>
-                    <TextBlock x:Name="examinationAids_tbx" Text="-" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="examinationAids_tbx" Text="-" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

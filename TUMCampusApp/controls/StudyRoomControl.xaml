@@ -8,9 +8,9 @@
 
     <Grid x:Name="main_grid" Background="DarkRed">
         <StackPanel>
-            <TextBlock x:Name="name_tbx" FontSize="20" Margin="10,10,10,5" TextWrapping="WrapWholeWords" FontWeight="Bold"/>
-            <TextBlock x:Name="location_tbx" Margin="10,0,10,0" TextWrapping="WrapWholeWords"/>
-            <TextBlock x:Name="status_tbx" Margin="10,5,10,10" TextWrapping="WrapWholeWords"/>
+            <TextBlock x:Name="name_tbx" FontSize="20" Margin="10,10,10,5" TextWrapping="Wrap" FontWeight="Bold"/>
+            <TextBlock x:Name="location_tbx" Margin="10,0,10,0" TextWrapping="Wrap"/>
+            <TextBlock x:Name="status_tbx" Margin="10,5,10,10" TextWrapping="Wrap"/>
         </StackPanel>
         
     </Grid>
