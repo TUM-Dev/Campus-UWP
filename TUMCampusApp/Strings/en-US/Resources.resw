@@ -323,7 +323,7 @@
     <value>Examination Aids:</value>
   </data>
   <data name="LectureInfosLectureBeginn.Text" xml:space="preserve">
-    <value>Beginn:</value>
+    <value>Begin:</value>
   </data>
   <data name="LectureInfosLectureContributors.Text" xml:space="preserve">
     <value>Contributors:</value>
