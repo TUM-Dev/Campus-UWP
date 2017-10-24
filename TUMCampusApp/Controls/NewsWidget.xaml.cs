@@ -55,7 +55,7 @@ namespace TUMCampusApp.Controls
             Task.WaitAll(t1, t2);
 
             List<News> news = NewsManager.INSTANCE.getNewsForHomePage();
-            if(news == null || news.Count <= 0)
+            if (news == null || news.Count <= 0)
             {
                 return;
             }
@@ -67,7 +67,7 @@ namespace TUMCampusApp.Controls
                     homePage.addWidget(new DropShadowPanel()
                     {
                         Style = newsWidget_ds.Style,
-                        Content = new NewsControl(item),
+                        Content = new NewsControl() { News = item },
                         Visibility = Visibility.Visible
                     });
                 }

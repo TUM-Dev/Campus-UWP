@@ -1,9 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
+using TUMCampusApp.DataTemplates;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
 using Windows.UI.Core;
@@ -19,6 +21,8 @@ namespace TUMCampusApp.Pages
         private bool reloadingNews;
         private bool reloadingNewsSources;
         private bool newsSoucesChanged;
+        private readonly ObservableCollection<NewsTemplate> newsList;
+        private int mostCurrentNewsIndex;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -34,6 +38,8 @@ namespace TUMCampusApp.Pages
             this.newsSoucesChanged = false;
             this.reloadingNews = false;
             this.reloadingNewsSources = false;
+            this.newsList = new ObservableCollection<NewsTemplate>();
+            this.mostCurrentNewsIndex = -1;
             this.InitializeComponent();
         }
 
@@ -76,30 +82,40 @@ namespace TUMCampusApp.Pages
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    news_stckp.Children.Clear();
+                    newsList.Clear();
 
                     // Showing only the first 50 news
                     int l = news.Count > 50 ? 50 : news.Count;
                     if (l <= 0)
                     {
                         noNews_grid.Visibility = Visibility.Visible;
-                        news_stckp.Visibility = Visibility.Collapsed;
+                        navigate_grid.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
                         noNews_grid.Visibility = Visibility.Collapsed;
-                        news_stckp.Visibility = Visibility.Visible;
+                        navigate_grid.Visibility = Visibility.Visible;
+
+                        double dateDiff = -1;
+                        double temp;
                         for (int i = 0; i < l; i++)
                         {
-                            DropShadowPanel dSP = new DropShadowPanel()
+
+                            NewsTemplate nT = new NewsTemplate() { news = news[i] };
+                            newsList.Add(nT);
+                            temp = (news[i].created - DateTime.Now).Duration().TotalHours;
+                            if (mostCurrentNewsIndex < 0 || temp < dateDiff)
                             {
-                                Style = (Style)Resources["ShadowPanelStyle"],
-                                Content = new NewsControl(news[i]),
-                                Margin = new Thickness(5, 10, 5, 0)
-                            };
-                            news_stckp.Children.Add(dSP);
+                                dateDiff = temp;
+                                mostCurrentNewsIndex = i;
+                            }
+                        }
+                        if (mostCurrentNewsIndex > 0)
+                        {
+                            refresh_pTRV.UpdateLayout();
                         }
                     }
+
                     reloadingNews = false;
                     enableUi();
                 });
@@ -211,6 +227,22 @@ namespace TUMCampusApp.Pages
         {
             showNewsSources(false);
             showNews(false);
+        }
+
+        private void scrollUp_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (newsList.Count > 0)
+            {
+                refresh_pTRV.ScrollIntoView(newsList[0]);
+            }
+        }
+
+        private void goToToday_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (mostCurrentNewsIndex > 0)
+            {
+                refresh_pTRV.ScrollIntoView(newsList[mostCurrentNewsIndex]);
+            }
         }
 
         #endregion

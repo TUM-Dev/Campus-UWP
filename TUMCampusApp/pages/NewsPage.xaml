@@ -5,6 +5,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls1="using:TUMCampusApp.Controls"
+    xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
@@ -50,21 +52,33 @@
         </Grid>
         <ProgressBar x:Name="progressBar" HorizontalAlignment="Stretch" Grid.Row="1" IsIndeterminate="True" Visibility="Collapsed"/>
 
-        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None">
+        <Grid x:Name="noNews_grid" Grid.Row="2" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE701;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="#0061b7"/>
+                <TextBlock x:Uid="NewsPageNoNews" Text="No news found! Please come back later." HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Grid>
+        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None" ItemsSource="{x:Bind newsList}">
             <controls:PullToRefreshListView.PullToRefreshContent>
                 <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
             </controls:PullToRefreshListView.PullToRefreshContent>
-            <Grid>
-                <StackPanel x:Name="news_stckp" Grid.Row="0" Margin="0,0,0,10" VerticalAlignment="Stretch">
-                    <!--News-->
-                </StackPanel>
-                <Grid x:Name="noNews_grid" Grid.Row="0" Visibility="Collapsed">
-                    <StackPanel>
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE701;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="#0061b7"/>
-                        <TextBlock x:Uid="NewsPageNoNews" Text="No news found! Please come back later." HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
+            <controls:PullToRefreshListView.ItemTemplate>
+                <DataTemplate x:DataType="datatemplates:NewsTemplate">
+                    <controls:DropShadowPanel Margin="5, 10, 5, 0" Style="{StaticResource ShadowPanelStyle}">
+                        <controls1:NewsControl News="{x:Bind news}"/>
+                    </controls:DropShadowPanel>
+                </DataTemplate>
+            </controls:PullToRefreshListView.ItemTemplate>
         </controls:PullToRefreshListView>
+        <Grid x:Name="navigate_grid" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="scrollUp_btn" Grid.Column="0" FontSize="30" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Click="scrollUp_btn_Click"/>
+            <Rectangle Grid.Column="1" Height="Auto" Width="2" Fill="Black"/>
+            <Button x:Name="goToToday_btn" Grid.Column="2" FontSize="30" FontFamily="Segoe MDL2 Assets" Content="&#xE8D1;" Click="goToToday_btn_Click"/>
+        </Grid>
     </Grid>
 </Page>

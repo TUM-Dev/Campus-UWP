@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
@@ -15,7 +14,18 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private News news;
+        public News News
+        {
+            get { return (News)GetValue(NewsProperty); }
+            set
+            {
+                SetValue(NewsProperty, value);
+                showNews();
+            }
+        }
+        public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("NewsProperty", typeof(News), typeof(NewsControl), null);
+
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -26,9 +36,8 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 03/06/2017 Created [Fabian Sauter]
         /// </history>
-        public NewsControl(News news)
+        public NewsControl()
         {
-            this.news = news;
             this.InitializeComponent();
         }
 
@@ -48,40 +57,49 @@ namespace TUMCampusApp.Controls
         /// <summary>
         /// Shows the current news on the screen.
         /// </summary>
-        private async Task showNewsAsync()
+        private void showNews()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if(News == null)
+            {
+                return;
+            }
+
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 loading_ring.IsActive = true;
-            });
+            }).AsTask();
 
-            if (news.imageUrl != null)
+            if (News.imageUrl != null)
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    image_img.Source = news.imageUrl;
-                });
+                    image_img.Source = News.imageUrl;
+                }).AsTask();
             }
             else
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     image_img.Visibility = Visibility.Collapsed;
 
-                });
+                }).AsTask();
             }
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if (news.src.Equals("2"))
+                if (News.src != null && News.src.Equals("2"))
                 {
                     logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/TU-Film.png"));
                 }
-                title_tbx.Text = news.title;
-                NewsSource source = NewsManager.INSTANCE.getNewsSource(news.src);
-                src_tbx.Text = source == null ? news.src : source.title;
-                date_tbx.Text = news.date.ToLocalTime().ToString("dd.MM.yyyy");
+                else
+                {
+                    logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/BadgeLogo.scale-200.png"));
+                }
+                title_tbx.Text = News.title;
+                NewsSource source = NewsManager.INSTANCE.getNewsSource(News.src);
+                src_tbx.Text = source.title ?? News.src;
+                date_tbx.Text = News.date.ToLocalTime().ToString("dd.MM.yyyy");
                 loading_ring.IsActive = false;
-            });
+            }).AsTask();
         }
 
         #endregion
@@ -94,16 +112,16 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Factory.StartNew(async () => await showNewsAsync());
+            showNews();
         }
 
         private async void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (news.link == null || loading_ring.IsActive)
+            if (News.link == null || loading_ring.IsActive)
             {
                 return;
             }
-            await Util.launchBrowser(new Uri(news.link));
+            await Util.launchBrowser(new Uri(News.link));
         }
 
         #endregion
