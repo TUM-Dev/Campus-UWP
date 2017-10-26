@@ -583,4 +583,7 @@
   <data name="NewsPageNoNews.Text" xml:space="preserve">
     <value>No news found! Please come back later.</value>
   </data>
+  <data name="SettingsPagePleaseWait" xml:space="preserve">
+    <value>Please wait!</value>
+  </data>
 </root>

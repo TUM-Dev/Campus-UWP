@@ -114,6 +114,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private async Task resetAppAsync()
         {
+            pleaseWait_grid.Visibility = Visibility.Visible;
             await CalendarManager.INSTANCE.deleteCalendarAsync();
             Util.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, false);
             Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
@@ -130,6 +131,7 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.USER_ID, null);
 
             await deleteCacheAsync();
+            pleaseWait_grid.Visibility = Visibility.Collapsed;
             Logger.Info("Finished reseting the app.");
         }
 
@@ -138,12 +140,14 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private async Task deleteCacheAsync()
         {
+            pleaseWait_grid.Visibility = Visibility.Visible;
             await CacheManager.INSTANCE.clearCacheAsync();
             AbstractManager.resetDB();
             AbstractManager.deleteDB();
 
             SplashScreenPage extendedSplash = new SplashScreenPage();
             Window.Current.Content = extendedSplash;
+            pleaseWait_grid.Visibility = Visibility.Collapsed;
             Logger.Info("Finished deleting the app cache.");
         }
 
