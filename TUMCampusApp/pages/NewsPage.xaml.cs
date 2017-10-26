@@ -176,6 +176,8 @@ namespace TUMCampusApp.Pages
         {
             newsSources_scv.IsEnabled = false;
             refresh_pTRV.IsEnabled = false;
+            scrollUp_btn.IsEnabled = false;
+            goToToday_btn.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
         }
 
@@ -188,6 +190,8 @@ namespace TUMCampusApp.Pages
             {
                 newsSources_scv.IsEnabled = true;
                 refresh_pTRV.IsEnabled = true;
+                scrollUp_btn.IsEnabled = true;
+                goToToday_btn.IsEnabled = true;
                 progressBar.Visibility = Visibility.Collapsed;
             }
         }

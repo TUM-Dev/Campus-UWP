@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.News;
@@ -25,7 +28,7 @@ namespace TUMCampusApp.Controls
         }
         public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("NewsProperty", typeof(News), typeof(NewsControl), null);
 
-
+        private int imageLoadingFailedCounter;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -38,6 +41,7 @@ namespace TUMCampusApp.Controls
         /// </history>
         public NewsControl()
         {
+            this.imageLoadingFailedCounter = 0;
             this.InitializeComponent();
         }
 
@@ -102,6 +106,21 @@ namespace TUMCampusApp.Controls
             }).AsTask();
         }
 
+        /// <summary>
+        /// Forces the imageEx control to reload the image, if imageLoadingFailedCounter < 3.
+        /// </summary>
+        private async Task reloadImage()
+        {
+            if (imageLoadingFailedCounter < 3)
+            {
+                imageLoadingFailedCounter++;
+                await ImageCache.Instance.RemoveAsync(new Uri[] { new Uri(News.imageUrl) });
+                var source = image_img.Source;
+                image_img.Source = null;
+                image_img.Source = source;
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -122,6 +141,16 @@ namespace TUMCampusApp.Controls
                 return;
             }
             await Util.launchBrowser(new Uri(News.link));
+        }
+
+        private async void image_img_ImageExFailed(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExFailedEventArgs e)
+        {
+            await reloadImage();
+        }
+
+        private void image_img_ImageExOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
+        {
+            imageLoadingFailedCounter = 0;
         }
 
         #endregion
