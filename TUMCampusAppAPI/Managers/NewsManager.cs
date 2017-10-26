@@ -60,7 +60,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of News elements.</returns>
         public List<News.News> getAllNewsFormDb()
         {
-            return dB.Query<News.News>("SELECT n.* FROM News n, NewsSource s WHERE n.src LIKE s.src AND s.enabled = 1 ORDER BY date DESC");
+            return dB.Query<News.News>("SELECT n.* FROM News n JOIN NewsSource s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
         }
 
         /// <summary>

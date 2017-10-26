@@ -29,7 +29,6 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public CanteenMenueManager()
         {
-            
         }
 
         #endregion
@@ -92,7 +91,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 dateToday = dateToday.AddDays(-1);
             }
-            
+
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
                 if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
@@ -303,7 +302,7 @@ namespace TUMCampusAppAPI.Managers
             }
             return s;
         }
-        
+
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<CanteenMenu>();

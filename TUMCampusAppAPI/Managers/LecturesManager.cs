@@ -76,7 +76,7 @@ namespace TUMCampusAppAPI.Managers
         public List<TUMOnlineLecture> getLectures()
         {
             return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
-        }        
+        }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -88,7 +88,7 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Tries to download the information for the given lecture if it is not cached.
         /// </summary>
-        /// <param name="stp_sp_nr">The lectures stp_sp nr.</param>
+        /// <param name="stp_sp_nr">The lectures stp_sp number.</param>
         /// <returns>Returns the found lecture information or null if none found.</returns>
         public async Task<List<TUMOnlineLectureInformation>> searchForLectureInformationAsync(string stp_sp_nr)
         {

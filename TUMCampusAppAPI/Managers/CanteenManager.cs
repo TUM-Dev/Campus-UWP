@@ -26,7 +26,6 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public CanteenManager()
         {
-            
         }
 
         #endregion
