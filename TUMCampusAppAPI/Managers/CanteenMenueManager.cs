@@ -367,6 +367,9 @@ namespace TUMCampusAppAPI.Managers
                         case "9":
                             s += "🍬";
                             break;
+                        case "2":
+                            s += "🥫";
+                            break;
                         default:
                             s += item;
                             break;
