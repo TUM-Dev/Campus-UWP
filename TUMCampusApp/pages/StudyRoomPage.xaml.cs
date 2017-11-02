@@ -53,7 +53,15 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void downloadAndShowStudyRoomsTask()
         {
-            Task.WaitAll(StudyRoomManager.INSTANCE.downloadStudyRoomsAndGroups());
+            try
+            {
+                Task.WaitAll(StudyRoomManager.INSTANCE.downloadStudyRoomsAndGroups());
+            }
+            catch (AggregateException e)
+            {
+                Logger.Error("StudyRoomPage - downloadAndShowStudyRoomsTask", e);
+            }
+
             groups = StudyRoomManager.INSTANCE.getRoomGroups();
             if(groups == null || groups.Count <= 0)
             {
