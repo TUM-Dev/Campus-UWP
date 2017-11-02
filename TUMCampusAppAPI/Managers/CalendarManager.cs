@@ -172,7 +172,10 @@ namespace TUMCampusAppAPI.Managers
                     dB.DropTable<TUMOnlineCalendarEntry>();
                     dB.CreateTable<TUMOnlineCalendarEntry>();
                 }
-                dB.InsertOrReplaceAll(list);
+                foreach (TUMOnlineCalendarEntry entry in list)
+                {
+                    dB.InsertOrReplace(entry);
+                }
 
                 if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
                 {

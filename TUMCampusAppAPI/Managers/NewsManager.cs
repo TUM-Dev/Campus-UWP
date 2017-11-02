@@ -182,7 +182,10 @@ namespace TUMCampusAppAPI.Managers
                             Logger.Error("Caught an exception during parsing news!", e);
                         }
                     }
-                    dB.InsertOrReplaceAll(news);
+                    foreach (News.News n in news)
+                    {
+                        dB.InsertOrReplace(n);
+                    }
                     SyncManager.INSTANCE.replaceIntoDb(new Sync("News"));
                 }
                 catch (Exception e)
