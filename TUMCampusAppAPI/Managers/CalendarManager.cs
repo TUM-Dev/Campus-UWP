@@ -195,7 +195,14 @@ namespace TUMCampusAppAPI.Managers
             List<TUMOnlineCalendarEntry> list = new List<TUMOnlineCalendarEntry>();
             foreach (var element in doc.SelectNodes("/events/event"))
             {
-                addEntryToList(list, new TUMOnlineCalendarEntry(element));
+                try
+                {
+                    addEntryToList(list, new TUMOnlineCalendarEntry(element));
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Error during parsing calendar entry (" + (element == null? "NULL": element.GetXml() + ')'), e);
+                }
             }
             return list;
         }
