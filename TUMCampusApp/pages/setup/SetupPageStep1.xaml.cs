@@ -81,7 +81,10 @@ namespace TUMCampusApp.Pages.Setup
         {
             Util.setSetting(Const.TUMO_ENABLED, false);
             Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
-            (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+            if (Window.Current.Content is Frame f)
+            {
+                f.Navigate(typeof(MainPage));
+            }
         }
 
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
@@ -128,7 +131,10 @@ namespace TUMCampusApp.Pages.Setup
                     {
                         Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
                         Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
-                        (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                        if (Window.Current.Content is Frame f)
+                        {
+                            f.Navigate(typeof(SetupPageStep2));
+                        }
                     }
                 }
                 else
@@ -147,7 +153,10 @@ namespace TUMCampusApp.Pages.Setup
                         Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
                         Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
                         TumManager.INSTANCE.saveToken(token);
-                        (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                        if (Window.Current.Content is Frame f)
+                        {
+                            f.Navigate(typeof(SetupPageStep2));
+                        }
                     }
                 }
             }

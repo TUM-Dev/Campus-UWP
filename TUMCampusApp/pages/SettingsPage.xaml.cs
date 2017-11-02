@@ -179,7 +179,10 @@ namespace TUMCampusApp.Pages
 
         private void showWizard_btn_Click(object sender, RoutedEventArgs e)
         {
-            (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep1));
+            if (Window.Current.Content is Frame f)
+            {
+                f.Navigate(typeof(SetupPageStep1));
+            }
         }
 
         private void wifiOnly_tgls_Toggled(object sender, RoutedEventArgs e)

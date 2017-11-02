@@ -89,7 +89,10 @@ namespace TUMCampusApp.Pages.Setup
         {
             Util.setSetting(Const.TUMO_ENABLED, false);
             Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
-            (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+            if (Window.Current.Content is Frame f)
+            {
+                f.Navigate(typeof(MainPage));
+            }
         }
 
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
@@ -145,7 +148,10 @@ namespace TUMCampusApp.Pages.Setup
                     MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"));
                     message.Title = Utillities.getLocalizedString("Error_Text");
                     await message.ShowAsync();
-                    (Window.Current.Content as Frame).Navigate(typeof(SetupPageStep2));
+                    if (Window.Current.Content is Frame f)
+                    {
+                        f.Navigate(typeof(SetupPageStep2));
+                    }
                     return;
                 }
                 else
