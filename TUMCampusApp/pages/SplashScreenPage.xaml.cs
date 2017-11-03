@@ -12,6 +12,7 @@ using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.Utillities;
 using TUMCampusApp.Classes;
 using Windows.UI.Popups;
+using System.Threading;
 
 namespace TUMCampusApp.Pages
 {
@@ -271,6 +272,34 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
+        /// Checks if the current token is activated.
+        /// It times out after 2000 ms.
+        /// Returns true if a timeout occurred.
+        /// </summary>
+        /// <returns>Returns whether the token is activated or the request timed out.</returns>
+        private async Task<bool> isTokenConfirmedWithTimeoutAsync()
+        {
+            Task<bool> t = TumManager.INSTANCE.isTokenConfirmedAsync();
+            try
+            {
+                if (await Task.WhenAny(t, Task.Delay(2000)) == t)
+                {
+                    return t.Result;
+                }
+                else
+                {
+                    Logger.Warn("Is token confirmed timed out.");
+                    return true;
+                }
+            }
+            catch (AggregateException e)
+            {
+                Logger.Error("await isTokenConfirmedWithTimeoutAsync() has thrown an exception!", e);
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Dismisses the extended splash screen and navigates the frame to the next page.
         /// </summary>
         private async void DismissExtendedSplashAsync()
@@ -293,7 +322,7 @@ namespace TUMCampusApp.Pages
                         {
                             f.Navigate(typeof(SetupPageStep1));
                         }
-                        else if (connectedToInternet && !await TumManager.INSTANCE.isTokenConfirmedAsync())
+                        else if (connectedToInternet && !await isTokenConfirmedWithTimeoutAsync())
                         {
                             f.Navigate(typeof(SetupPageStep2));
                         }
@@ -317,7 +346,7 @@ namespace TUMCampusApp.Pages
                         Util.setSetting(Const.TUMO_ENABLED, false);
                         f.Navigate(typeof(MainPage));
                     }
-                    else if (connectedToInternet && !await TumManager.INSTANCE.isTokenConfirmedAsync())
+                    else if (connectedToInternet && !await isTokenConfirmedWithTimeoutAsync())
                     {
                         f.Navigate(typeof(SetupPageStep2));
                     }
