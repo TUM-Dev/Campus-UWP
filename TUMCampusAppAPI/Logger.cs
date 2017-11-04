@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using Windows.Storage;
+using System.Linq;
+using Windows.Storage.Search;
 
 namespace TUMCampusAppAPI
 {
@@ -51,6 +53,31 @@ namespace TUMCampusAppAPI
             savePicker.FileTypeChoices.Add("Logs", new List<string>() { ".zip" });
             savePicker.SuggestedFileName = "Logs";
             return await savePicker.PickSaveFileAsync(); ;
+        }
+
+        /// <summary>
+        /// Calculates the size of the "Logs" folder.
+        /// </summary>
+        /// <returns>Returns the "Logs" folder size in KB.</returns>
+        public static async Task<long> getLogFolderSizeAsync()
+        {
+            StorageFolder f = await getLogFolderAsync();
+            StorageFileQueryResult result = f.CreateFileQuery(CommonFileQuery.OrderByName);
+
+            var fileSizeTasks = (await result.GetFilesAsync()).Select(async file => (await file.GetBasicPropertiesAsync()).Size);
+            var sizes = await Task.WhenAll(fileSizeTasks);
+
+            return sizes.Sum(l => (long)l) / 1024;
+        }
+
+        /// <summary>
+        /// Returns the "Logs" folder and creates it, if it does not exist.
+        /// </summary>
+        /// <returns>Returns the "Logs" folder.</returns>
+        private static async Task<StorageFolder> getLogFolderAsync()
+        {
+            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+            return await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
         }
 
         #endregion
@@ -198,8 +225,7 @@ namespace TUMCampusAppAPI
         /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
-            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
-            StorageFile logFile = await (await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs")).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
+            StorageFile logFile = await (await getLogFolderAsync()).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
             string s = "[" + code + "][" + getTimeStamp() + "]: " + message;
             if (e != null)
             {

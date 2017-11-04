@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
+using Windows.UI.Core;
 
 namespace TUMCampusApp.Pages
 {
@@ -158,6 +159,31 @@ namespace TUMCampusApp.Pages
             Logger.Info("Finished deleting the app cache.");
         }
 
+        /// <summary>
+        /// Shows the size of the "Logs" folder.
+        /// </summary>
+        private void showLogSize()
+        {
+            logSize_tblck.Text = Utillities.getLocalizedString("SettingsPageLogSizeCalculating_Text");
+            Task.Factory.StartNew(async () => {
+                long size = await Logger.getLogFolderSizeAsync();
+                string text = "~ ";
+                if (size >= 1024)
+                {
+                    size /= 1024;
+                    text += await Logger.getLogFolderSizeAsync() + " MB";
+                }
+                else
+                {
+                    text += await Logger.getLogFolderSizeAsync() + " KB";
+                }
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    logSize_tblck.Text = text;
+                });
+            });
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -287,6 +313,7 @@ namespace TUMCampusApp.Pages
             {
                 await Logger.deleteLogsAsync();
             }
+            showLogSize();
         }
 
         private void disableBackgroundTask_tgls_Toggled(object sender, RoutedEventArgs e)
@@ -327,6 +354,11 @@ namespace TUMCampusApp.Pages
         private void disableCrashReporting_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             Util.setSetting(Const.DISABLE_CRASH_REPORTING, disableCrashReporting_tgls.IsOn);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            showLogSize();
         }
 
         #endregion

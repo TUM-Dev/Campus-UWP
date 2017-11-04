@@ -586,4 +586,10 @@
   <data name="SettingsPagePleaseWait" xml:space="preserve">
     <value>Please wait!</value>
   </data>
+  <data name="SettingsPageLogSize.Text" xml:space="preserve">
+    <value>calculating...</value>
+  </data>
+  <data name="SettingsPageLogSizeCalculating_Text" xml:space="preserve">
+    <value>calculating...</value>
+  </data>
 </root>
