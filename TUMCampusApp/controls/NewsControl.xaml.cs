@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
@@ -78,6 +77,7 @@ namespace TUMCampusApp.Controls
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     image_img.Source = News.imageUrl;
+                    image_img.Visibility = Visibility.Visible;
                 }).AsTask();
             }
             else
