@@ -44,6 +44,7 @@
                 <Button x:Uid="SettingsPageOpenAppDataFolder" x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,15,0,0" Click="openLogFolder_btn_ClickAsync"/>
                 <Button x:Uid="SettingsPageExportLoggs" x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
                 <Button x:Uid="SettingsPageDeleteLogs" x:Name="deleteLogs_btn" Content="Delete Logs" Margin="10,10,0,0" Click="deleteLogs_btn_Click"/>
+                <ToggleSwitch x:Uid="SettingsPageDisableCrashReporting" x:Name="disableCrashReporting_tgls"  Margin="10,10,0,0" Toggled="disableCrashReporting_tgls_Toggled" Header="Disable Crash Reports"/>
 
                 <TextBlock x:Uid="SettingsPageAboutAndLinks" Text="About And Links:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>

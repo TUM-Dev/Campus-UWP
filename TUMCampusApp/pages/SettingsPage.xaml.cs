@@ -58,7 +58,13 @@ namespace TUMCampusApp.Pages
             initTUMonlineControls();
             initWidgetControls();
             initServices();
+            initMiscControls();
             initAboutAndLinks();
+        }
+
+        private void initMiscControls()
+        {
+            disableCrashReporting_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CRASH_REPORTING);
         }
 
         /// <summary>
@@ -122,6 +128,7 @@ namespace TUMCampusApp.Pages
             Util.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_WIDGET, false);
             Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
+            Util.setSetting(Const.DISABLE_CRASH_REPORTING, false);
             Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
             Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
             Util.setSetting(Const.INITIALLY_STARTED, false);
@@ -315,6 +322,11 @@ namespace TUMCampusApp.Pages
                 tumonlineToken_tbx.Visibility = Visibility.Visible;
                 showToken_btn.Content = Utillities.getLocalizedString("SettingsPageShowToken_Text");
             }
+        }
+
+        private void disableCrashReporting_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Util.setSetting(Const.DISABLE_CRASH_REPORTING, disableCrashReporting_tgls.IsOn);
         }
 
         #endregion

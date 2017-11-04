@@ -1,26 +1,18 @@
 ﻿using System;
-using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.HockeyApp;
-using Windows.ApplicationModel.Store;
-using TUMCampusApp.Classes;
 using Windows.Storage;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Media.SpeechRecognition;
 using System.Linq;
-using Windows.ApplicationModel.Background;
 using TUMCampusApp.Classes.Helpers;
 using TUMCampusAppAPI;
 using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
 using Windows.UI;
-using Windows.UI.Xaml.Media;
 using System.Threading.Tasks;
 
 namespace TUMCampusApp
@@ -38,7 +30,10 @@ namespace TUMCampusApp
         {
             //Crash reports capturing
 #if !DEBUG
-            HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
+            if (!Util.getSettingBoolean(Const.DISABLE_CRASH_REPORTING))
+            {
+                HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
+            }
 #endif
 
             this.InitializeComponent();

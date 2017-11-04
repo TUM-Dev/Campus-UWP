@@ -145,6 +145,7 @@ namespace TUMCampusAppAPI
         public static readonly string DISABLE_CALENDAR_WIDGET = "disable_calendar_widget";
         public static readonly string DISABLE_NEWS_WIDGET = "disable_news_widget";
         public static readonly string DISABLE_BACKGROUND_TASKS = "disable_background_tasks";
+        public static readonly string DISABLE_CRASH_REPORTING = "disable_crash_reporting";
 
         public static readonly string LAST_BACKGROUND_TASK_ACTION = "last_background_task_action";
         public static readonly string INITIALLY_STARTED= "initially_started";
