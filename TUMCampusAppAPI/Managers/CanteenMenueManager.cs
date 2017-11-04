@@ -334,9 +334,6 @@ namespace TUMCampusAppAPI.Managers
                         case "99":
                             s += "\U0001F377";
                             break;
-                        case "gqb":
-                            s += "\u2122";
-                            break;
                         case "ei":
                             s += "🥚";
                             break;
@@ -369,6 +366,45 @@ namespace TUMCampusAppAPI.Managers
                             break;
                         case "2":
                             s += "🥫";
+                            break;
+                        case "msc":
+                            s += "🎣";
+                            break;
+                        case "sc":
+                            s += "🥥";
+                            break;
+                        case "1":
+                            s += "🍭";
+                            break;
+                        case "5":
+                            s += "🔶";
+                            break;
+                        case "6":
+                            s += "⚫";
+                            break;
+                        case "10":
+                            s += "💊";
+                            break;
+                        case "11":
+                            s += "🍡";
+                            break;
+                        case "sw":
+                            s += "🔻";
+                            break;
+                        case "14":
+                            s += "🍮";
+                            break;
+                        case "8":
+                            s += "🔷";
+                            break;
+                        case "gl":
+                            s += "🌾";
+                            break;
+                        case "4":
+                            s += "🔬";
+                            break;
+                        case "3":
+                            s += "⚗";
                             break;
                         default:
                             s += item;
