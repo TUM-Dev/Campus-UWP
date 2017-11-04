@@ -49,7 +49,7 @@
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <StackPanel x:Name="contributeGithub_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="contributeGithub_stckp_TappedAsync">
                     <Image Source="ms-appx:///Assets/Images/github_mark.png" Height="30"/>
-                    <TextBlock x:Uid="SettingsPageContribute" Text="Contribute On Github" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="SettingsPageContribute" Text="Contribute On GitHub" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync" Height="33">
                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEBE8;" FontSize="30"/>

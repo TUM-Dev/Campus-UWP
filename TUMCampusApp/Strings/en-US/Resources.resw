@@ -431,7 +431,7 @@
     <value>About And Links:</value>
   </data>
   <data name="SettingsPageContribute.Text" xml:space="preserve">
-    <value>Contribute On Github</value>
+    <value>Contribute On GitHub</value>
   </data>
   <data name="SettingsPageDeleteCache.Content" xml:space="preserve">
     <value>Delete Cache</value>
