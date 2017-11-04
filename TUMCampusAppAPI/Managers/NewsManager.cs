@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Syncs;
@@ -37,7 +38,7 @@ namespace TUMCampusAppAPI.Managers
         {
             string lastId = "";
             List<News.News> list = dB.Query<News.News>("SELECT id FROM News ORDER BY id DESC LIMIT 1");
-            if(list != null && list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 lastId += list[0].id;
             }
@@ -51,6 +52,11 @@ namespace TUMCampusAppAPI.Managers
         public List<News.NewsSource> getAllNewsSourcesFormDb()
         {
             return dB.Query<News.NewsSource>("SELECT * FROM NewsSource");
+        }
+
+        public List<News.News> getNewsWithImage()
+        {
+            return dB.Query<News.News>("SELECT * FROM News n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
         }
 
         /// <summary>
@@ -77,29 +83,29 @@ namespace TUMCampusAppAPI.Managers
             DateTime yesterday = DateTime.Now.AddDays(-1);
             for (int i = 0; i < news.Count; i++)
             {
-                if(result.Count >= 10 || news[i].date.CompareTo(yesterday) < 0)
+                if (result.Count >= 10 || news[i].date.CompareTo(yesterday) < 0)
                 {
                     break;
                 }
 
-                if(news[i].src.Equals("2"))
+                if (news[i].src.Equals("2"))
                 {
-                    if(news[i].date.Date.CompareTo(DateTime.Now.Date) > 0 && news[i].date.CompareTo(tumMovieDate) < 0)
+                    if (news[i].date.Date.CompareTo(DateTime.Now.Date) > 0 && news[i].date.CompareTo(tumMovieDate) < 0)
                     {
                         tumMovieIndex = i;
                         tumMovieDate = news[i].date;
                     }
                 }
-                else if(news[i].date.Date.CompareTo(DateTime.Now.Date) == 0)
+                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0)
                 {
                     result.Add(news[i]);
                 }
-                else if(i < 3)
+                else if (i < 3)
                 {
                     result.Add(news[i]);
                 }
             }
-            if(tumMovieIndex >= 0)
+            if (tumMovieIndex >= 0)
             {
                 result.Insert(0, news[tumMovieIndex]);
             }
@@ -146,10 +152,14 @@ namespace TUMCampusAppAPI.Managers
             }
             if ((force || SyncManager.INSTANCE.needSync("News", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
+                if (force)
+                {
+                    clearCachedNewsImages();
+                }
                 try
                 {
                     Uri url;
-                    if(force)
+                    if (force)
                     {
                         url = new Uri(Const.NEWS_URL);
                     }
@@ -172,7 +182,7 @@ namespace TUMCampusAppAPI.Managers
 
                             News.News n = new News.News(val.GetObject());
                             news.Add(n);
-                            if(n.imageUrl != null)
+                            if (n.imageUrl != null)
                             {
                                 Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
                             }
@@ -245,7 +255,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="enabled">Whether to enable it.</param>
         public void updateNewsSourceStatus(int id, bool enabled)
         {
-            dB.Execute("UPDATE NewsSource SET enabled = ? WHERE id = ?", new object[] {enabled, id});
+            dB.Execute("UPDATE NewsSource SET enabled = ? WHERE id = ?", new object[] { enabled, id });
         }
 
         #endregion
@@ -260,7 +270,8 @@ namespace TUMCampusAppAPI.Managers
             DateTime date = DateTime.Now.AddMonths(-3);
             foreach (var item in all)
             {
-                if(item.date.CompareTo(date) < 0) {
+                if (item.date.CompareTo(date) < 0)
+                {
                     dB.Execute("DELETE FROM News WHERE id = " + item.id);
                 }
             }
@@ -276,13 +287,29 @@ namespace TUMCampusAppAPI.Managers
             for (int i = 0; i < list.Count; i++)
             {
                 News.NewsSource old = getNewsSource(list[i].src);
-                if(old != null)
+                if (old != null)
                 {
                     list[i].enabled = old.enabled;
                 }
             }
             dB.DeleteAll<News.NewsSource>();
             dB.InsertAll(list);
+        }
+
+        /// <summary>
+        /// Clears all cached news images.
+        /// </summary>
+        private void clearCachedNewsImages()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                List<Uri> uris = new List<Uri>();
+                foreach (News.News n in getNewsWithImage())
+                {
+                    uris.Add(new Uri(n.imageUrl));
+                }
+                await ImageCache.Instance.RemoveAsync(uris);
+            });
         }
 
         #endregion
