@@ -163,7 +163,7 @@ namespace TUMCampusApp
                 var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                 if (titleBar != null)
                 {
-                    titleBar.BackgroundColor = ((SolidColorBrush)Current.Resources["appButtonStyle"]).Color;
+                    titleBar.BackgroundColor = ((SolidColorBrush)Current.Resources["TUM_blue"]).Color;
                 }
             }
 
@@ -174,7 +174,7 @@ namespace TUMCampusApp
                 var statusBar = StatusBar.GetForCurrentView();
                 if (statusBar != null)
                 {
-                    statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["appButtonStyle"]).Color;
+                    statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["TUM_blue"]).Color;
                     statusBar.BackgroundOpacity = 1;
                 }
             }

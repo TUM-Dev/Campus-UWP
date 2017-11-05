@@ -107,7 +107,7 @@
                                         <TextBlock x:Uid="MainPagePlans" Text="Plans"/>
                                     </StackPanel>
                                 </ListBoxItem>
-                                <ListBoxItem x:Name="roomfinder_lbi">
+                                <ListBoxItem x:Name="roomfinder_lbi" IsEnabled="False">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" Text="&#xE816;" Margin="0, 0, 20, 0"/>
                                         <TextBlock x:Uid="MainPageRoomfinder" Text="Roomfinder"/>
