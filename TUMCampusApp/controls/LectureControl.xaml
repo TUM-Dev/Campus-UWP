@@ -9,7 +9,7 @@
 
     <Grid Margin="0,0,0,10">
         <StackPanel>
-            <TextBlock x:Name="name_tbx" TextWrapping="Wrap" Foreground="#0061b7"/>
+            <TextBlock x:Name="name_tbx" TextWrapping="Wrap" Foreground="{StaticResource TUM_blue}"/>
             <TextBlock x:Name="description_tbx" TextWrapping="Wrap"/>
             <TextBlock x:Name="profName_tbx" TextWrapping="Wrap"/>
             <Rectangle Height="2" x:Name="rect" Margin="0,5,0,0" Fill="{StaticResource ApplicationPressedForegroundThemeBrush}"/>

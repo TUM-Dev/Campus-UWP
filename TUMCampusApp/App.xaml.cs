@@ -14,6 +14,7 @@ using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
 using Windows.UI;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp
 {
@@ -162,7 +163,7 @@ namespace TUMCampusApp
                 var titleBar = ApplicationView.GetForCurrentView().TitleBar;
                 if (titleBar != null)
                 {
-                    titleBar.BackgroundColor = Color.FromArgb(255, 0, 97, 183);
+                    titleBar.BackgroundColor = ((SolidColorBrush)Current.Resources["appButtonStyle"]).Color;
                 }
             }
 
@@ -173,7 +174,7 @@ namespace TUMCampusApp
                 var statusBar = StatusBar.GetForCurrentView();
                 if (statusBar != null)
                 {
-                    statusBar.BackgroundColor = Color.FromArgb(255, 0, 97, 183);
+                    statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["appButtonStyle"]).Color;
                     statusBar.BackgroundOpacity = 1;
                 }
             }

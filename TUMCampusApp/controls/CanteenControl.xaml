@@ -15,6 +15,6 @@
             <TextBlock x:Name="canteenName_tbx" TextTrimming="CharacterEllipsis"/>
             <TextBlock x:Name="canteenAdress_tbx" Foreground="{ThemeResource CalendarDatePickerTextForeground}" TextTrimming="CharacterEllipsis"/>
         </StackPanel>
-        <TextBlock x:Name="canteenDistance_tbx" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#FF0065BD" Grid.Column="1"/>
+        <TextBlock x:Name="canteenDistance_tbx" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TUM_blue}" Grid.Column="1"/>
     </Grid>
 </UserControl>

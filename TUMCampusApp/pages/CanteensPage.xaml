@@ -51,16 +51,16 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        
-        <Grid Grid.Row="1" Background="#FF0065BD">
+
+        <Grid Grid.Row="1" Background="{StaticResource TUM_blue}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="28" HorizontalAlignment="Left" Grid.Column="0" Background="#FF0065BD" Click="left_btn_Click"/>
+            <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="28" HorizontalAlignment="Left" Grid.Column="0" Background="{StaticResource TUM_blue}" Click="left_btn_Click"/>
             <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="20"/>
-            <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="28" HorizontalAlignment="Right" Grid.Column="2" Background="#FF0065BD" Click="right_btn_Click"/>
+            <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="28" HorizontalAlignment="Right" Grid.Column="2" Background="{StaticResource TUM_blue}" Click="right_btn_Click"/>
         </Grid>
 
         <ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Grid.Row="2" VerticalAlignment="Top"/>

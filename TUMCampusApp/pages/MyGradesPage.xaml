@@ -27,7 +27,7 @@
                 </Grid>
                 <Grid x:Name="noGrades_grid" Grid.Row="0" Visibility="Collapsed">
                     <StackPanel>
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEADF;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="#0061b7"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEADF;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="{StaticResource TUM_blue}"/>
                         <TextBlock x:Uid="MyGradesPageNoGardes" Text="No grades found!" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Grid>

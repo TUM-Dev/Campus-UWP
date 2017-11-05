@@ -15,14 +15,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Rectangle Grid.Row="0" Height="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
-        <Grid Grid.Row="1" Background="#0061b7">
+        <Grid Grid.Row="1" Background="{StaticResource TUM_blue}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="openSplitView_hbtn_Click" Background="#0061b7"/>
+            <Button Name="openSplitView_hbtn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="openSplitView_hbtn_Click" Background="{StaticResource TUM_blue}"/>
             <Rectangle Grid.Column="1" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
             <TextBlock x:Name="pageName_tbl" Grid.Column="2" x:Uid="MainPageHome.Text" Text="Home" FontSize="30" Margin="10,0,0,0"/>
             <Button Name="networkConnectionStatus_btn" Grid.Column="3" HorizontalAlignment="Right" Click="networkConnectionStatus_btn_Click" Background="Transparent">

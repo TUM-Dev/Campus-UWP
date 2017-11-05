@@ -14,16 +14,16 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="20" Text="&#xE816;" Margin="0,0,5,0" Foreground="#0061b7" Grid.Column="0"/>
-            <TextBlock x:Name="location_tbx" Text="Location" Foreground="#0061b7" TextTrimming="WordEllipsis" TextWrapping="Wrap" MaxHeight="60" Grid.Column="1"/>
+            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="20" Text="&#xE816;" Margin="0,0,5,0" Foreground="{StaticResource TUM_blue}" Grid.Column="0"/>
+            <TextBlock x:Name="location_tbx" Text="Location" Foreground="{StaticResource TUM_blue}" TextTrimming="WordEllipsis" TextWrapping="Wrap" MaxHeight="60" Grid.Column="1"/>
         </Grid>
         <Grid Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="20" Text="&#xE787;" Margin="0,0,5,0" Foreground="#0061b7" Grid.Column="0"/>
-            <TextBlock x:Name="calendar_tbx" Text="Calendar" Foreground="#0061b7" TextTrimming="WordEllipsis" TextWrapping="Wrap" MaxHeight="60" Grid.Column="1"/>
+            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="20" Text="&#xE787;" Margin="0,0,5,0" Foreground="{StaticResource TUM_blue}" Grid.Column="0"/>
+            <TextBlock x:Name="calendar_tbx" Text="Calendar" Foreground="{StaticResource TUM_blue}" TextTrimming="WordEllipsis" TextWrapping="Wrap" MaxHeight="60" Grid.Column="1"/>
         </Grid>
     </StackPanel>
 </UserControl>

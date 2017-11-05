@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="0, 10, 0, 10">
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Tapped="TextBlock_Tapped" Margin="10, 0, 10, 0">
             <Run Text="You can disable widgets, if you switch over to the "/>
-            <Run Text="Settings Page" Foreground="#FF0065BD"/>
+            <Run Text="Settings Page" Foreground="{StaticResource TUM_blue}"/>
             <Run Text=" and disable them there."/>
         </TextBlock>
     </Grid>
