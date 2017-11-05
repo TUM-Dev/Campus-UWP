@@ -12,9 +12,9 @@ using TUMCampusApp.Classes.Helpers;
 using TUMCampusAppAPI;
 using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
-using Windows.UI;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
+using Microsoft.HockeyApp;
 
 namespace TUMCampusApp
 {
