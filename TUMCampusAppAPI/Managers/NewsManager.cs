@@ -182,7 +182,7 @@ namespace TUMCampusAppAPI.Managers
 
                             News.News n = new News.News(val.GetObject());
                             news.Add(n);
-                            if (n.imageUrl != null)
+                            if (!string.IsNullOrEmpty(n.imageUrl))
                             {
                                 Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
                             }
