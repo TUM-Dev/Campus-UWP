@@ -72,7 +72,7 @@ namespace TUMCampusApp.Controls
                 loading_ring.IsActive = true;
             }).AsTask();
 
-            if (News.imageUrl != null)
+            if (!string.IsNullOrEmpty(News.imageUrl))
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -111,7 +111,7 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private async Task reloadImage()
         {
-            if (imageLoadingFailedCounter < 3)
+            if (imageLoadingFailedCounter < 3 && !string.IsNullOrEmpty(News.imageUrl))
             {
                 imageLoadingFailedCounter++;
                 await ImageCache.Instance.RemoveAsync(new Uri[] { new Uri(News.imageUrl) });
