@@ -103,10 +103,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-  </ItemGroup>
+  <PropertyGroup> 
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup> 
   <ItemGroup>
     <Compile Include="TUMVoiceCommandService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
