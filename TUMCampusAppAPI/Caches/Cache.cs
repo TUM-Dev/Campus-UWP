@@ -6,7 +6,7 @@ namespace TUMCampusAppAPI.Caches
     public class Cache
     {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Unique]
+        [Unique, PrimaryKey]
         public string url { get; set; }
         public byte[] data { get; set; }
         public int validity { get; set; }
