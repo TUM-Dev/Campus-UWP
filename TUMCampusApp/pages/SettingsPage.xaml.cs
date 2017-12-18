@@ -171,11 +171,11 @@ namespace TUMCampusApp.Pages
                 if (size >= 1024)
                 {
                     size /= 1024;
-                    text += await Logger.getLogFolderSizeAsync() + " MB";
+                    text += size + " MB";
                 }
                 else
                 {
-                    text += await Logger.getLogFolderSizeAsync() + " KB";
+                    text += size + " KB";
                 }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
