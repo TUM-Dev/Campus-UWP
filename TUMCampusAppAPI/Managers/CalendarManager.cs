@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.TUMOnline.Exceptions;
 using TUMCampusAppAPI.UserDatas;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;

@@ -125,6 +125,7 @@
     <Compile Include="Managers\NewsManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />
     <Compile Include="Managers\LocationManager.cs" />
+    <Compile Include="Managers\RoomFinderManager.cs" />
     <Compile Include="Managers\StudyRoomManager.cs" />
     <Compile Include="Managers\SyncManager.cs" />
     <Compile Include="Managers\TuitionFeeManager.cs" />
