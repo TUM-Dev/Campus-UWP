@@ -4,9 +4,6 @@ It's layout and functionality is based on the [TUM Campus App for Android](https
 
 If you want to help, feel free to do so. Help is allways appreciated 🥓.
 
-## Status:
-![Build Status](https://build.appcenter.ms/v0.1/apps/a34fc505-2a54-4111-8c04-9cb35454aa3d/branches/master/badge) <-- Button broken
-
 ## Currently implemented features:
 * Canteen menu
 * TUMonline login
