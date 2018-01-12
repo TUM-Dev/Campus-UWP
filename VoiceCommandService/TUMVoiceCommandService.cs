@@ -46,9 +46,9 @@ namespace TUMCampusApp.VoiceCommands
                 UserDataManager.INSTANCE = new UserDataManager();
             }
 
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Tagesgericht", true, date));
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Aktionsessen", true, date));
+            string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(canteen_id, "Tagesgericht", true, date));
+            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(canteen_id, "Aktionsessen", true, date));
             return list;
         }
 

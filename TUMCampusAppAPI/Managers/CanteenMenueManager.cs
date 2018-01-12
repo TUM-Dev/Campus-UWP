@@ -16,7 +16,7 @@ namespace TUMCampusAppAPI.Managers
         public static CanteenMenueManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
         private static List<CanteenMenu> menus = new List<CanteenMenu>();
-        private static int lastSelectedCanteenId = -2;
+        private static string lastSelectedCanteenId = null;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -47,7 +47,7 @@ namespace TUMCampusAppAPI.Managers
         private static CanteenMenu getFromJson(JsonObject json)
         {
             return new CanteenMenu(int.Parse(json.GetNamedString(Const.JSON_ID)),
-                    int.Parse(json.GetNamedString(Const.JSON_MENSA_ID)),
+                    int.Parse(json.GetNamedString(Const.JSON_CANTEEN_ID)),
                     Util.getDate(json.GetNamedString(Const.JSON_DATE)),
                     json.GetNamedString(Const.JSON_TYPE_SHORT).Replace("\"", "\'"),
                     json.GetNamedString(Const.JSON_TYPE_LONG).Replace("\"", "\'"),
@@ -67,7 +67,7 @@ namespace TUMCampusAppAPI.Managers
         private static CanteenMenu getFromJsonAddendum(JsonObject json)
         {
             return new CanteenMenu(0,
-                    int.Parse(json.GetNamedString(Const.JSON_MENSA_ID)),
+                    int.Parse(json.GetNamedString(Const.JSON_CANTEEN_ID)),
                     Util.getDate(json.GetNamedString(Const.JSON_DATE)),
                     json.GetNamedString(Const.JSON_TYPE_SHORT).Replace("\"", "\'"),
                     json.GetNamedString(Const.JSON_TYPE_LONG).Replace("\"", "\'"),
@@ -79,7 +79,7 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the first next date. Based on "Tagesgericht".
         /// </summary>
         /// <returns>Returns the first next date</returns>
-        public static DateTime getFirstNextDate(int canteenId)
+        public static DateTime getFirstNextDate(string canteen_id)
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
@@ -94,7 +94,7 @@ namespace TUMCampusAppAPI.Managers
 
             foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
             {
-                if(m.cafeteriaId == canteenId && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
+                if(m.cafeteriaId.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -105,8 +105,8 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns all dates where a menu was found. And the date is greater or equal to the current date.
         /// </summary>
-        /// <param name="canteenID">The id of the canteen you want the dates for.</param>
-        public List<DateTime> getMenuDates(int canteenID)
+        /// <param name="canteen_id">The id of the canteen you want the dates for.</param>
+        public List<DateTime> getMenuDates(string canteen_id)
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime dateToday = DateTime.Now;
@@ -119,7 +119,7 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteenID))
+            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteen_id))
             {
                 if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
                 {
@@ -133,20 +133,20 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns all menus contained in the db that match the given canteen id.
         /// </summary>
-        /// <param name="id">Canteen id</param>
+        /// <param name="canteen_id">Canteen id</param>
         /// <returns>Returns all menus contained in the db.</returns>
-        public static List<CanteenMenu> getMenus(int id)
+        public static List<CanteenMenu> getMenus(string canteen_id)
         {
-            if(lastSelectedCanteenId == id && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC).NEEDS_SYNC)
+            if(lastSelectedCanteenId != null && lastSelectedCanteenId.Equals(canteen_id) && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC).NEEDS_SYNC)
             {
                 return menus;
             }
             else
             {
                 menus = new List<CanteenMenu>();
-                lastSelectedCanteenId = id;
+                lastSelectedCanteenId = canteen_id;
                 SyncManager.INSTANCE.replaceIntoDb(new Sync("last_selected_canteen"));
-                if (id == -1)
+                if (canteen_id != null)
                 {
                     foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu"))
                     {
@@ -154,7 +154,7 @@ namespace TUMCampusAppAPI.Managers
                     }
                     return menus;
                 }
-                foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", id))
+                foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteen_id))
                 {
                     menus.Add(m);
                 }
@@ -165,14 +165,14 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns all menus that match the given canteen id, type name and date from the db.
         /// </summary>
-        /// <param name="canteenID">Canteen id</param>
+        /// <param name="canteen_id">Canteen id</param>
         /// <param name="name">Canteen menu type</param>
         /// <param name="contains">Whether the given menu type name contains or equals the given menu type name</param>
         /// <param name="date">Menu date</param>
         /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
-        public List<CanteenMenu> getMenusForType(int canteenID, string name, bool contains, DateTime date)
+        public List<CanteenMenu> getMenusForType(string canteen_id, string name, bool contains, DateTime date)
         {
-            List<CanteenMenu> cM = getMenus(canteenID);
+            List<CanteenMenu> cM = getMenus(canteen_id);
             if(cM == null || cM.Count <= 0)
             {
                 return null;

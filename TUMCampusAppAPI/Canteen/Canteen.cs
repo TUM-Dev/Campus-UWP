@@ -8,40 +8,26 @@ namespace TUMCampusAppAPI.Canteens
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         [PrimaryKey]
-        public int id { get; set; }
+        // The canteen id e.g. 'stucafe-adalbertstr'
+        public string canteen_id { get; set; }
+        // The address of the canteen e.g. 'Adalbertstraße 5, München'
         public string address { get; set; }
+        // The name of the canteen e.g. 'StuCafé Adalbertstraße'
         public string name { get; set; }
+        // The latitude coordinate of the canteen e.g. '48.151507'
         public double latitude { get; set; }
+        // The longitude coordinate of the canteen e.g. '11.579027'
         public double longitude { get; set; }
 
+        [Ignore]
         // Used for ordering canteen
-        public float distance;
+        public float distance { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
         /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <param name="id">Canteen ID, e.g. 412</param>
-        /// <param name="name">Name, e.g. MensaX</param>
-        /// <param name="address">Address, e.g. Boltzmannstr. 3</param>
-        /// <param name="latitude">Coordinates of the canteen</param>
-        /// <param name="longitude">Coordinates of the canteen</param>
-        /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public Canteen(int id, string name, string address, double latitude, double longitude)
-        {
-            this.id = id;
-            this.name = name;
-            this.address = address;
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
-
-        /// <summary>
-        /// Basic empty Constructor used for DB
+        /// A basic empty Constructor.
         /// </summary>
         /// /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
@@ -64,7 +50,11 @@ namespace TUMCampusAppAPI.Canteens
         {
             return this.name;
         }
-        
+
+        /// <summary>
+        /// Compares to Canteen objects based on the distance.
+        /// </summary>
+        /// <returns>Returns the difference of both distances.</returns>
         public int CompareTo(object obj)
         {
             if(!(obj is Canteen))

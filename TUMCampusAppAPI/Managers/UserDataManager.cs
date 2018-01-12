@@ -69,31 +69,31 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns the last selected canteen id.
         /// </summary>
-        /// <returns>Returns the last selected canteen id or -1 if none exists.</returns>
-        public int getLastSelectedCanteenId()
+        /// <returns>Returns the last selected canteen id or 'mensa-garching' if none exists.</returns>
+        public string getLastSelectedCanteenId()
         {
             List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                return 422;
+                return "mensa-garching";
             }
-            int id = list[0].lastSelectedCanteenId;
-            if(id == 0)
+            string canteen_id = list[0].lastSelectedCanteenId;
+            if(canteen_id == null)
             {
-                return 422;
+                return "mensa-garching";
             }
-            return id;
+            return canteen_id;
         }
 
         /// <summary>
         /// Saves the given id as the last selected canteen id.
         /// </summary>
-        /// <param name="id">Saves the given id as the last selected canteen id.</param>
-        public void setLastSelectedCanteenId(int id)
+        /// <param name="canteen_id">Saves the given canteen_id as the last selected canteen id.</param>
+        public void setLastSelectedCanteenId(string canteen_id)
         {
-            if(dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + id + " WHERE id = ?", DeviceInfo.INSTANCE.Id) <= 0)
+            if(dB.Execute("UPDATE UserData SET lastSelectedCanteenId = " + canteen_id + " WHERE id = ?", DeviceInfo.INSTANCE.Id) <= 0)
             {
-                dB.Insert(new UserData() { lastSelectedCanteenId = id });
+                dB.Insert(new UserData() { lastSelectedCanteenId = canteen_id });
             }
         }
 

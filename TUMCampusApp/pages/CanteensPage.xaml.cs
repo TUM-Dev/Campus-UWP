@@ -53,7 +53,7 @@ namespace TUMCampusApp.Pages
         private void setNewFavoriteCanteen(Canteen canteen)
         {
             currentCanteen = canteen;
-            UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.id);
+            UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
             selectedCanteen_tbx.Text = canteen.name;
             collapseCanteens();
             Task.Factory.StartNew(() => showCurrentMenus());
@@ -67,7 +67,7 @@ namespace TUMCampusApp.Pages
         /// <param name="date">The menus date.</param>
         private void setMenuType(string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, name, contains, date);
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -118,9 +118,9 @@ namespace TUMCampusApp.Pages
                 date = DateTime.Now;
             }
             date = menuDates[currentDayOffset];
-            List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Tagesgericht", true, date);
-            List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Aktionsessen", true, date);
-            List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.id, "Beilagen", false, date);
+            List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Tagesgericht", true, date);
+            List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Aktionsessen", true, date);
+            List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Beilagen", false, date);
 
             if (aMenu == null || aMenu.Count <= 0 || r.Next(0, 4) != 0)
             {
@@ -209,12 +209,12 @@ namespace TUMCampusApp.Pages
                 return;
             }
             Canteen temp = null;
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            if (id >= 0)
+            string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            if (canteen_id != null)
             {
                 foreach (Canteen c in list)
                 {
-                    if (c.id == id)
+                    if (c.canteen_id.Equals(canteen_id))
                     {
                         temp = c;
                         break;
@@ -249,7 +249,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            menuDates = CanteenMenueManager.INSTANCE.getMenuDates(currentCanteen.id);
+            menuDates = CanteenMenueManager.INSTANCE.getMenuDates(currentCanteen.canteen_id);
             if (menuDates == null || menuDates.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>

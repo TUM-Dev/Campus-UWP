@@ -38,11 +38,20 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the parsed Canteen</returns>
         private Canteen getFromJson(JsonObject json)
         {
-            return new Canteen(int.Parse(json.GetNamedString(Const.JSON_ID)),
-                json.GetNamedString(Const.JSON_NAME).Replace("\"", "\'"),
-                json.GetNamedString(Const.JSON_ADDRESS).Replace("\"", "\'"),
-                double.Parse(json.GetNamedString(Const.JSON_LATITUDE)),
-                double.Parse(json.GetNamedString(Const.JSON_LONGITUDE)));
+            Canteen c = new Canteen()
+            {
+                canteen_id = json.GetNamedString(Const.JSON_CANTEEN_ID),
+                name = json.GetNamedString(Const.JSON_NAME)
+            };
+
+            JsonObject location = json.GetNamedObject(Const.JSON_LOCATION);
+            if(location != null)
+            {
+                c.address = location.GetNamedString(Const.JSON_ADDRESS);
+                c.latitude = location.GetNamedNumber(Const.JSON_LATITUDE);
+                c.longitude = location.GetNamedNumber(Const.JSON_LONGITUDE);
+            }
+            return c;
         }
 
         /// <summary>
@@ -51,18 +60,18 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all Canteens from the db as a list</returns>
         public List<Canteen> getCanteens()
         {
-            return dB.Query<Canteen>("SELECT * FROM Canteen");
+            return dB.Query<Canteen>("SELECT * FROM Canteen;");
         }
 
         /// <summary>
         /// Tries to download and return the canteen associated by the given id
         /// </summary>
-        /// <param name="id">Canteen id</param>
+        /// <param name="canteen_id">Canteen id</param>
         /// <returns>Returns the canteen associated by the given id</returns>
-        public async Task<Canteen> getCanteenByIdAsync(int id)
+        public async Task<Canteen> getCanteenByIdAsync(string canteen_id)
         {
             await downloadCanteensAsync(false);
-            List<Canteen> list = dB.Query<Canteen>("SELECT * FROM Canteen WHERE id = ?", id);
+            List<Canteen> list = dB.Query<Canteen>("SELECT * FROM Canteen WHERE canteen_id = ?;", canteen_id);
             if(list != null && list.Count > 0)
             {
                 return list[0];
@@ -74,7 +83,7 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Downloads the canteens if necessary or if force == true.
+        /// Downloads the canteens if necessary or if force = true.
         /// </summary>
         /// <param name="force">Forces to download all canteens.</param>
         /// <returns>Returns an async Task.</returns>
@@ -90,7 +99,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     return;
                 }
-                Uri url = new Uri("https://tumcabe.in.tum.de/Api/mensen");
+                Uri url = new Uri(Const.CANTEENS_URL);
                 JsonArray jsonArr = await NetUtils.downloadJsonArrayAsync(url);
                 if (jsonArr == null)
                 {
@@ -108,7 +117,7 @@ namespace TUMCampusAppAPI.Managers
             }
             catch (Exception e)
             {
-                Logger.Error("Unable to download Canteens", e);
+                Logger.Error("Unable to download canteens.", e);
             }
         }
 

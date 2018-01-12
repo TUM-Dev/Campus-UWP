@@ -13,7 +13,7 @@ namespace TUMCampusAppAPI.UserDatas
         public double lat { get; set; }
         public double lng { get; set; }
         public long unixTimeSeconds { get; set; }
-        public int lastSelectedCanteenId { get; set; }
+        public string lastSelectedCanteenId { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

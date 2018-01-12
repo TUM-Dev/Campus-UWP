@@ -42,13 +42,13 @@ namespace TUMCampusApp.Controls
         /// <summary>
         /// Shows all menus on the screen that are associated with the given name, canteen id and date.
         /// </summary>
-        /// <param name="canteenId">The id of the requested canteen.</param>
+        /// <param name="canteen_id">The id of the requested canteen.</param>
         /// <param name="name">The "typeLong" name for the menus.</param>
         /// <param name="contains">Whether the menu name should equal or just contains the given name.</param>
         /// <param name="date">The menu date.</param>
-        private void setMenuType(int canteenId, string name, string labelText, bool contains, DateTime date)
+        private void setMenuType(string canteen_id, string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
+            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -95,17 +95,17 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private async void showMenusTaskAsync()
         {
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
 
-            DateTime date = CanteenMenueManager.getFirstNextDate(id);
+            DateTime date = CanteenMenueManager.getFirstNextDate(canteen_id);
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 menus_sckl.Children.Clear();
-                setMenuType(id, "Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
-                setMenuType(id, "Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
-                setMenuType(id, "Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
+                setMenuType(canteen_id, "Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
+                setMenuType(canteen_id, "Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
+                setMenuType(canteen_id, "Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
                 if (menus_sckl.Children.Count <= 0)
                 {
                     menus_sckl.Children.Add(new TextBlock()
@@ -130,7 +130,7 @@ namespace TUMCampusApp.Controls
             }
 
             date = date.AddDays(1);
-            Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(id);
+            Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(canteen_id);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
                 if (c == null)

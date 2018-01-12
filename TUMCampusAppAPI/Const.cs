@@ -28,8 +28,9 @@ namespace TUMCampusAppAPI
         public static readonly string HOURS_COLUMN = "hours";
         public static readonly string ID_COLUMN = "_id";
         public static readonly string JSON_ADDRESS = "address";
+        public static readonly string JSON_LOCATION = "location";
         public static readonly string JSON_ID = "id";
-        public static readonly string JSON_MENSA_ID = "mensa_id";
+        public static readonly string JSON_CANTEEN_ID = "canteen_id";
         public static readonly string JSON_LINK = "link";
         public static readonly string JSON_NAME = "name";
         public static readonly string JSON_RESULTS = "results";
@@ -38,6 +39,8 @@ namespace TUMCampusAppAPI
         public static readonly string NAME_COLUMN = "name";
         public static readonly string NEWS = "news";
         public static readonly string NEWS_URL = "https://tumcabe.in.tum.de/Api/news/";
+        public static readonly string CANTEENS_URL = "https://home.in.tum.de/~sauterf/dist/canteens.json";
+        public static readonly string MENUS_URL = "http://home.in.tum.de/~sauterf/dist/all.json";
         public static readonly string NEWS_SOURCES_URL = NEWS_URL + "sources";
         public static readonly string KINO = "kino";
         public static readonly string FACULTIES = "faculties";
