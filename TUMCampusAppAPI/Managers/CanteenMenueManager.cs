@@ -262,18 +262,21 @@ namespace TUMCampusAppAPI.Managers
                 List<CanteenMenu> menus = new List<CanteenMenu>();
 
                 JsonArray menu = json.GetNamedArray("mensa_menu");
-                foreach (JsonValue val in menu)
+                if(menu.Count > 0)
                 {
-                    menus.Add(getFromJson(val.GetObject()));
-                }
+                    foreach (JsonValue val in menu)
+                    {
+                        menus.Add(getFromJson(val.GetObject()));
+                    }
 
-                JsonArray beilagen = json.GetNamedArray("mensa_beilagen");
-                foreach (JsonValue val in beilagen)
-                {
-                    menus.Add(getFromJsonAddendum(val.GetObject()));
+                    JsonArray beilagen = json.GetNamedArray("mensa_beilagen");
+                    foreach (JsonValue val in beilagen)
+                    {
+                        menus.Add(getFromJsonAddendum(val.GetObject()));
+                    }
+                    dB.DeleteAll<CanteenMenu>();
+                    dB.InsertAll(menus);
                 }
-                dB.DeleteAll<CanteenMenu>();
-                dB.InsertAll(menus);
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
             catch (Exception e)
