@@ -90,7 +90,7 @@ namespace TUMCampusAppAPI.Managers
 
                 if (news[i].src.Equals("2"))
                 {
-                    if (news[i].date.Date.CompareTo(DateTime.Now.Date) > 0 && news[i].date.CompareTo(tumMovieDate) < 0)
+                    if (news[i].date.Date.CompareTo(DateTime.Now.Date) >= 0 && news[i].date.CompareTo(tumMovieDate) < 0)
                     {
                         tumMovieIndex = i;
                         tumMovieDate = news[i].date;

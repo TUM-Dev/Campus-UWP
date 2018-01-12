@@ -11,7 +11,7 @@
     <AssemblyName>TUMCampusAppAPI</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -125,6 +125,7 @@
     <Compile Include="Managers\NewsManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />
     <Compile Include="Managers\LocationManager.cs" />
+    <Compile Include="Managers\RoomFinderManager.cs" />
     <Compile Include="Managers\StudyRoomManager.cs" />
     <Compile Include="Managers\SyncManager.cs" />
     <Compile Include="Managers\TuitionFeeManager.cs" />

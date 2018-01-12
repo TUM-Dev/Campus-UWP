@@ -1,5 +1,4 @@
 # UWP-TUM-Campus-App
-
 This is an unofficial TUM Campus App for all devices of the UWP family.
 It's layout and functionality is based on the [TUM Campus App for Android](https://github.com/TCA-Team/TumCampusApp).
 
