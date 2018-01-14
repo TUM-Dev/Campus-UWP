@@ -60,7 +60,7 @@ namespace TUMCampusApp.Controls
         private void showMenu()
         {
             menuTitle_tbx.Text = menu.nameEmojis;
-            string price = menu.price;
+            price_tbx.Text = menu.price;
         }
 
         #endregion
