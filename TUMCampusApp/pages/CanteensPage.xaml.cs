@@ -67,7 +67,7 @@ namespace TUMCampusApp.Pages
         /// <param name="date">The menus date.</param>
         private void setMenuType(string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, name, contains, date);
+            List<CanteenDish> list = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -95,7 +95,7 @@ namespace TUMCampusApp.Pages
             menus_sckl.Children.Add(rect);
 
             //Menus:
-            foreach (CanteenMenu m in list)
+            foreach (CanteenDish m in list)
             {
                 menus_sckl.Children.Add(new CanteenMenuControl(m));
             }
@@ -118,9 +118,9 @@ namespace TUMCampusApp.Pages
                 date = DateTime.Now;
             }
             date = menuDates[currentDayOffset];
-            List<CanteenMenu> tMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Tagesgericht", true, date);
-            List<CanteenMenu> aMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Aktionsessen", true, date);
-            List<CanteenMenu> bMenu = CanteenMenueManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Beilagen", false, date);
+            List<CanteenDish> tMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Tagesgericht", true, date);
+            List<CanteenDish> aMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Aktionsessen", true, date);
+            List<CanteenDish> bMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Beilagen", false, date);
 
             if (aMenu == null || aMenu.Count <= 0 || r.Next(0, 4) != 0)
             {
@@ -249,7 +249,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            menuDates = CanteenMenueManager.INSTANCE.getMenuDates(currentCanteen.canteen_id);
+            menuDates = CanteenDishManager.INSTANCE.getMenuDates(currentCanteen.canteen_id);
             if (menuDates == null || menuDates.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -271,13 +271,28 @@ namespace TUMCampusApp.Pages
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 menus_sckl.Children.Clear();
+                if(menuDates.Count <= currentDayOffset)
+                {
+                    currentDayOffset = menuDates.Count - 1;
+                }
                 date = menuDates[currentDayOffset];
 
                 setMenuType("Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
                 setMenuType("Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
+                setMenuType("Biogericht", Utillities.getLocalizedString("CanteenBioDish_Text"), true, date);
+                setMenuType("StuBistro Gericht", Utillities.getLocalizedString("CanteenStuBistroDishes_Text"), true, date);
+                setMenuType("Baustellenteller", Utillities.getLocalizedString("CanteenBaustellenteller_Text"), true, date);
+                setMenuType("Fast Lane", Utillities.getLocalizedString("CanteenFastLane_Text"), true, date);
+                setMenuType("Mensa Klassiker", Utillities.getLocalizedString("CanteenCanteenClassics_Text"), true, date);
+                setMenuType("Mensa Spezial", Utillities.getLocalizedString("CanteenCanteenSpecial_Text"), true, date);
+                setMenuType("Länder-Mensa", Utillities.getLocalizedString("CanteenCountryCanteen_Text"), true, date);
+                setMenuType("Self-Service Grüne Mensa", Utillities.getLocalizedString("CanteenSelf-ServiceGreenCanteen_Text"), true, date);
+                setMenuType("Self-Service Arcisstraße", Utillities.getLocalizedString("CanteenSelf-ServiceArcisstraße_Text"), true, date);
                 setMenuType("Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
                 setMenuType("Aktion", Utillities.getLocalizedString("CanteenSpecialDishes_Text"), false, date);
                 setMenuType("Beilagen", Utillities.getLocalizedString("CanteenSideDishes_Text"), true, date);
+                setMenuType("Tagesdessert", Utillities.getLocalizedString("CanteenDessertOfTheDay_Text"), true, date);
+                setMenuType("Dessert", Utillities.getLocalizedString("CanteenDessert_Text"), true, date);
 
                 date = date.AddDays(1);
                 day_tbx.Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy");
@@ -336,7 +351,7 @@ namespace TUMCampusApp.Pages
                 + "(So)\t dish with soy\n"
                 + "(Sw)\t dish with sulfur dioxide and sulfites\n"
                 + "(Wt)\t dish with mollusks\n";
-            MessageDialog dialog = new MessageDialog(CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(s, false));
+            MessageDialog dialog = new MessageDialog(CanteenDishManager.INSTANCE.replaceMenuStringWithEmojis(s, false));
             dialog.Title = Utillities.getLocalizedString("CanteenIngredients_Text");
             await dialog.ShowAsync();
         }
@@ -359,7 +374,7 @@ namespace TUMCampusApp.Pages
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await loadCanteensAsync();
 
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
+            await CanteenDishManager.INSTANCE.downloadCanteenMenusAsync(false);
             showCurrentMenus();
             initAcc();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -433,7 +448,7 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
+                await CanteenDishManager.INSTANCE.downloadCanteenMenusAsync(true);
                 showCurrentMenus();
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -455,7 +470,7 @@ namespace TUMCampusApp.Pages
             {
                 await CanteenManager.INSTANCE.downloadCanteensAsync(true);
                 await loadCanteensAsync();
-                await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(true);
+                await CanteenDishManager.INSTANCE.downloadCanteenMenusAsync(true);
                 showCurrentMenus();
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

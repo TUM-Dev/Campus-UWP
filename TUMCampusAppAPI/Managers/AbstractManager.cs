@@ -57,7 +57,7 @@ namespace TUMCampusAppAPI.Managers
         {
             dB.DropTable<Cache>();
             dB.DropTable<Canteen>();
-            dB.DropTable<CanteenMenu>();
+            dB.DropTable<CanteenDish>();
             dB.DropTable<Sync>();
             dB.DropTable<UserData>();
             dB.DropTable<TUMOnlineLecture>();

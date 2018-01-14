@@ -120,7 +120,7 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Loading canteen menu manager...");
-            CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+            CanteenDishManager.INSTANCE = new CanteenDishManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading grades manager...");
@@ -173,7 +173,7 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteen menu manager...");
-            await CanteenMenueManager.INSTANCE.InitManagerAsync();
+            await CanteenDishManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing grades manager...");

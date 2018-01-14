@@ -37,18 +37,18 @@ namespace TUMCampusApp.VoiceCommands
         /// Returns the menus for the last selected canteen.
         /// </summary>
         /// <param name="date">The date for the menus</param>
-        private List<CanteenMenu> getMenus(DateTime date)
+        private List<CanteenDish> getMenus(DateTime date)
         {
-            List<CanteenMenu> list = new List<CanteenMenu>();
-            if(CanteenMenueManager.INSTANCE == null)
+            List<CanteenDish> list = new List<CanteenDish>();
+            if(CanteenDishManager.INSTANCE == null)
             {
-                CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+                CanteenDishManager.INSTANCE = new CanteenDishManager();
                 UserDataManager.INSTANCE = new UserDataManager();
             }
 
             string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(canteen_id, "Tagesgericht", true, date));
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(canteen_id, "Aktionsessen", true, date));
+            list.AddRange(CanteenDishManager.INSTANCE.getMenusForType(canteen_id, "Tagesgericht", true, date));
+            list.AddRange(CanteenDishManager.INSTANCE.getMenusForType(canteen_id, "Aktionsessen", true, date));
             return list;
         }
 
@@ -109,13 +109,13 @@ namespace TUMCampusApp.VoiceCommands
             }
 
             var menusTiles = new List<VoiceCommandContentTile>();
-            List<CanteenMenu> menus = getMenus(d);
+            List<CanteenDish> menus = getMenus(d);
             foreach (var m in menus)
             {
                 menusTiles.Add(new VoiceCommandContentTile()
                 {
-                    Title = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(m.name, true),
-                    TextLine1 = m.typeLong
+                    Title = m.nameEmojis,
+                    TextLine1 = m.dish_type
                 });
             }
             var response = VoiceCommandResponse.CreateResponse(userMessage, menusTiles);

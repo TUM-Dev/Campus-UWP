@@ -6,16 +6,17 @@ using TUMCampusAppAPI.Canteens;
 using TUMCampusAppAPI.Syncs;
 using System.Text.RegularExpressions;
 using TUMCampusAppAPI.UserDatas;
+using System.Linq;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class CanteenMenueManager : AbstractManager
+    public class CanteenDishManager : AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static CanteenMenueManager INSTANCE;
+        public static CanteenDishManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
-        private static List<CanteenMenu> menus = new List<CanteenMenu>();
+        private static List<CanteenDish> menus = new List<CanteenDish>();
         private static string lastSelectedCanteenId = null;
 
         #endregion
@@ -27,7 +28,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 10/12/2016  Created [Fabian Sauter]
         /// </history>
-        public CanteenMenueManager()
+        public CanteenDishManager()
         {
         }
 
@@ -35,55 +36,14 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         /// <summary>
-        /// Convert JSON object to CafeteriaMenu
-        /// <p/>
-        /// Example JSON: e.g.
-        /// {"id":"25544","mensa_id":"411","date":"2011-06-20","type_short"
-        /// :"tg","type_long":"Tagesgericht 3","type_nr":"3","name":
-        /// "Cordon bleu vom Schwein (mit Formfleischhinterschinken) (S) (1,2,3,8)"}
-        /// </summary>
-        /// <param name="json">See above</param>
-        /// <returns> CafeteriaMenu </returns>
-        private static CanteenMenu getFromJson(JsonObject json)
-        {
-            return new CanteenMenu(int.Parse(json.GetNamedString(Const.JSON_ID)),
-                    int.Parse(json.GetNamedString(Const.JSON_CANTEEN_ID)),
-                    Util.getDate(json.GetNamedString(Const.JSON_DATE)),
-                    json.GetNamedString(Const.JSON_TYPE_SHORT).Replace("\"", "\'"),
-                    json.GetNamedString(Const.JSON_TYPE_LONG).Replace("\"", "\'"),
-                    int.Parse(json.GetNamedString(Const.JSON_TYPE_NR)),
-                    json.GetNamedString(Const.JSON_NAME).Replace("\"", "\'"));
-        }
-
-        /// <summary>
-		/// Convert JSON object to CafeteriaMenu (addendum)
-		/// <p/>
-		/// Example JSON: e.g.
-		/// {"mensa_id":"411","date":"2011-07-29","name":"Pflaumenkompott"
-		/// ,"type_short":"bei","type_long":"Beilagen"}
-		/// </summary>
-		/// <param name="json">See above</param>
-		/// <returns> CafeteriaMenu </returns>
-        private static CanteenMenu getFromJsonAddendum(JsonObject json)
-        {
-            return new CanteenMenu(0,
-                    int.Parse(json.GetNamedString(Const.JSON_CANTEEN_ID)),
-                    Util.getDate(json.GetNamedString(Const.JSON_DATE)),
-                    json.GetNamedString(Const.JSON_TYPE_SHORT).Replace("\"", "\'"),
-                    json.GetNamedString(Const.JSON_TYPE_LONG).Replace("\"", "\'"),
-                    10,
-                    json.GetNamedString(Const.JSON_NAME).Replace("\"", "\'"));
-        }
-
-        /// <summary>
         /// Returns the first next date. Based on "Tagesgericht".
         /// </summary>
-        /// <returns>Returns the first next date</returns>
+        /// <returns>Returns the first next date.</returns>
         public static DateTime getFirstNextDate(string canteen_id)
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            if (dateToday.Hour < 16) // If it's after 16 o' clock, show the dishes for the next day
             {
                 dateToday = dateToday.AddDays(-2);
             }
@@ -92,9 +52,9 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE typeLong LIKE '%Tagesgericht%' OR typeLong LIKE '%Beilage%'"))
+            foreach (CanteenDish m in dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
             {
-                if(m.cafeteriaId.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
+                if(m.canteen_id.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -103,7 +63,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns all dates where a menu was found. And the date is greater or equal to the current date.
+        /// Returns all dates where a dish was found and the date is greater or equal to the current date.
         /// </summary>
         /// <param name="canteen_id">The id of the canteen you want the dates for.</param>
         public List<DateTime> getMenuDates(string canteen_id)
@@ -119,7 +79,7 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteen_id))
+            foreach (CanteenDish m in getDishes(canteen_id))
             {
                 if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
                 {
@@ -131,79 +91,41 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns all menus contained in the db that match the given canteen id.
+        /// Returns all dishes contained in the db that match the given canteen_id.
         /// </summary>
         /// <param name="canteen_id">Canteen id</param>
-        /// <returns>Returns all menus contained in the db.</returns>
-        public static List<CanteenMenu> getMenus(string canteen_id)
+        public static List<CanteenDish> getDishes(string canteen_id)
         {
-            if(lastSelectedCanteenId != null && lastSelectedCanteenId.Equals(canteen_id) && !SyncManager.INSTANCE.needSync("last_selected_canteen", TIME_TO_SYNC).NEEDS_SYNC)
+            return dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ?", canteen_id);
+        }
+
+        /// <summary>
+        /// Returns all menus that match the given canteen_id, menu_type, name and date from the db.
+        /// </summary>
+        /// <param name="canteen_id">The canteen id e.g. 'mensa-martinsried'.</param>
+        /// <param name="dish_type">The canteen dish type e.g. 'Tagesgericht'.</param>
+        /// <param name="contains">Whether the given dish_type, contains or equals the given dish type.</param>
+        /// <param name="date">The dish date.</param>
+        /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
+        public List<CanteenDish> getMenusForType(string canteen_id, string dish_type, bool contains, DateTime date)
+        {
+            List<CanteenDish> list;
+            if (contains)
             {
-                return menus;
+                list = dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
             }
             else
             {
-                menus = new List<CanteenMenu>();
-                lastSelectedCanteenId = canteen_id;
-                SyncManager.INSTANCE.replaceIntoDb(new Sync("last_selected_canteen"));
-                if (canteen_id != null)
-                {
-                    foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu"))
-                    {
-                        menus.Add(m);
-                    }
-                    return menus;
-                }
-                foreach (CanteenMenu m in dB.Query<CanteenMenu>("SELECT * FROM CanteenMenu WHERE cafeteriaId = ?", canteen_id))
-                {
-                    menus.Add(m);
-                }
+                list = dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
             }
-            return menus;
+            return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
 
         /// <summary>
-        /// Returns all menus that match the given canteen id, type name and date from the db.
+        /// Removes all ingredient.
         /// </summary>
-        /// <param name="canteen_id">Canteen id</param>
-        /// <param name="name">Canteen menu type</param>
-        /// <param name="contains">Whether the given menu type name contains or equals the given menu type name</param>
-        /// <param name="date">Menu date</param>
-        /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
-        public List<CanteenMenu> getMenusForType(string canteen_id, string name, bool contains, DateTime date)
-        {
-            List<CanteenMenu> cM = getMenus(canteen_id);
-            if(cM == null || cM.Count <= 0)
-            {
-                return null;
-            }
-
-            List<CanteenMenu> result = new List<CanteenMenu>();
-            bool b;
-            foreach (CanteenMenu m in cM)
-            {
-                b = false;
-                if (contains)
-                {
-                    b = m.typeLong.Contains(name);
-                }
-                else
-                {
-                    b = m.typeLong.Equals(name);
-                }
-                if (b && m.date.DayOfYear == date.DayOfYear)
-                {
-                    result.Add(m);
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Replaces the ingredients with emojis.
-        /// </summary>
-        /// <param name="s">Menu string</param>
-        /// <returns>Returns the replaced menu string</returns>
+        /// <param name="s">The dish name.</param>
+        /// <returns>Returns the replaced dish.</returns>
         public string getCleanMenuTitle(string s)
         {
             Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
@@ -217,27 +139,33 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Launches the web browser and googles for images with the given string.
+        /// Launches the web browser and googles for images with the given dish.
         /// </summary>
-        /// <param name="menu">The string which should be used for googling.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task googleMenuString(string menu)
+        /// <param name="dish">The dish which should be used for googling.</param>
+        public async Task googleMenuString(CanteenDish dish)
         {
-            await Util.launchBrowser(generateSearchString(menu));
+            await Util.launchBrowser(generateSearchString(dish));
         }
 
         /// <summary>
-        /// Generates a url based an the given string for googling images.
+        /// Replaces the ingredients with emojis.
         /// </summary>
-        /// <param name="menu">The string which should be used for googling.</param>
-        /// <returns>The url for googling.</returns>
-        private Uri generateSearchString(string menu)
+        /// <param name="s">Menu string.</param>
+        /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
+        /// <returns>Returns the replaced dish string</returns>
+        public string replaceMenuStringWithEmojis(string s, bool withComma)
         {
-            menu = getCleanMenuTitle(menu);
-            menu = menu.Replace(' ', '+');
+            List<string> res = new List<string>();
 
-            string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + menu + "&oq=" + menu;
-            return new Uri(result);
+            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
+            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
+            s = replaceMatches(s, reg1.Matches(s), withComma);
+            s = replaceMatches(s, reg2.Matches(s), withComma);
+            if (s.EndsWith(", "))
+            {
+                s = s.Substring(0, s.Length - 2);
+            }
+            return s;
         }
 
         /// <summary>
@@ -257,24 +185,28 @@ namespace TUMCampusAppAPI.Managers
                 {
                     return;
                 }
-                Uri url = new Uri("http://lu32kap.typo3.lrz.de/mensaapp/exportDB.php?mensa_id=all");
-                JsonObject json = await NetUtils.downloadJsonObjectAsync(url);
-                List<CanteenMenu> menus = new List<CanteenMenu>();
+                Uri url = new Uri(Const.MENUS_URL);
+                JsonArray json = await NetUtils.downloadJsonArrayAsync(url);
 
-                JsonArray menu = json.GetNamedArray("mensa_menu");
-                if(menu.Count > 0)
+                if(json != null && json.Count > 0)
                 {
-                    foreach (JsonValue val in menu)
+                    List<CanteenDish> menus = new List<CanteenDish>();
+                    foreach (JsonValue canteen in json)
                     {
-                        menus.Add(getFromJson(val.GetObject()));
+                        JsonObject obj = canteen.GetObject();
+                        string canteen_id = obj.GetNamedString("canteen_id");
+                        if (!string.IsNullOrEmpty(canteen_id))
+                        {
+                            foreach (JsonValue dish in obj.GetNamedArray("dishes"))
+                            {
+                                CanteenDish m = new CanteenDish(dish.GetObject(), canteen_id);
+                                m.nameEmojis = m.name + ' ' + replaceMenuStringWithEmojis(m.ingredients, true);
+                                menus.Add(m);
+                            }
+                        }
                     }
 
-                    JsonArray beilagen = json.GetNamedArray("mensa_beilagen");
-                    foreach (JsonValue val in beilagen)
-                    {
-                        menus.Add(getFromJsonAddendum(val.GetObject()));
-                    }
-                    dB.DeleteAll<CanteenMenu>();
+                    dB.DeleteAll<CanteenDish>();
                     dB.InsertAll(menus);
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
@@ -285,35 +217,14 @@ namespace TUMCampusAppAPI.Managers
             }
         }
 
-        /// <summary>
-        /// Replaces the ingredients with emojis.
-        /// </summary>
-        /// <param name="s">Menu string.</param>
-        /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
-        /// <returns>Returns the replaced menu string</returns>
-        public string replaceMenuStringWithImages(string s, bool withComma)
-        {
-            List<string> res = new List<string>();
-
-            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
-            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
-            s = replaceMatches(s, reg1.Matches(s), withComma);
-            s = replaceMatches(s, reg2.Matches(s), withComma);
-            if(s.EndsWith(", "))
-            {
-                s = s.Substring(0, s.Length - 2);
-            }
-            return s;
-        }
-
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<CanteenMenu>();
+            dB.CreateTable<CanteenDish>();
         }
         #endregion
 
         #region --Misc Methods (Private)--
-        private string addImages(string[] ingredients, bool withComma)
+        private string addEmojis(string[] ingredients, bool withComma)
         {
             string s = "";
             if (ingredients != null && ingredients.Length > 0)
@@ -413,14 +324,7 @@ namespace TUMCampusAppAPI.Managers
                             s += item;
                             break;
                     }
-                    if(withComma)
-                    {
-                        s += ", ";
-                    }
-                    else
-                    {
-                        s += " ";
-                    }
+                    s += withComma ? ", " : " ";
                 }
             }
             return s;
@@ -450,10 +354,23 @@ namespace TUMCampusAppAPI.Managers
                 }
                 if (list.Count > 0)
                 {
-                    s = s.Replace(match.Value, addImages(list.ToArray(), withComma));
+                    s = s.Replace(match.Value, addEmojis(list.ToArray(), withComma));
                 }
             }
             return s;
+        }
+
+        /// <summary>
+        /// Generates a url based an the given string for googling images.
+        /// </summary>
+        /// <param name="dish">The dish for googling.</param>
+        /// <returns>Returns a Google Images url.</returns>
+        private Uri generateSearchString(CanteenDish dish)
+        {
+            string name = dish.name.Replace(' ', '+');
+
+            string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + name + "&oq=" + name;
+            return new Uri(result);
         }
 
         #endregion

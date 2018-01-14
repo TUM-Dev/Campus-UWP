@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Caches\Cache.cs" />
     <Compile Include="Canteen\Canteen.cs" />
-    <Compile Include="Canteen\CanteenMenu.cs" />
+    <Compile Include="Canteen\CanteenDish.cs" />
     <Compile Include="Canteen\CanteenPrices.cs" />
     <Compile Include="Canteen\Location.cs" />
     <Compile Include="Faculties.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="Managers\CacheManager.cs" />
     <Compile Include="Managers\CalendarManager.cs" />
     <Compile Include="Managers\CanteenManager.cs" />
-    <Compile Include="Managers\CanteenMenueManager.cs" />
+    <Compile Include="Managers\CanteenDishManager.cs" />
     <Compile Include="Managers\GradesManager.cs" />
     <Compile Include="Managers\NewsManager.cs" />
     <Compile Include="Managers\LecturesManager.cs" />

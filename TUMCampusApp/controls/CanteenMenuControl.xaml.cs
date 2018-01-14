@@ -12,7 +12,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CanteenMenu menu;
+        public readonly CanteenDish menu;
         private readonly MenuFlyout flyOut;
 
         #endregion
@@ -24,7 +24,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 26/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenMenuControl(CanteenMenu menu)
+        public CanteenMenuControl(CanteenDish menu)
         {
             this.InitializeComponent();
             this.menu = menu;
@@ -59,20 +59,8 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private void showMenu()
         {
-            if(menu.nameEmojis == null)
-            {
-                menuTitle_tbx.Text = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(menu.name, true);
-            }
-            else
-            {
-                menuTitle_tbx.Text = menu.nameEmojis;
-            }
-
-            string price = CanteenPrices.getPrice(menu.typeLong);
-            if(price != null && price != "")
-            {
-                price_tbx.Text = price + "€";
-            }
+            menuTitle_tbx.Text = menu.nameEmojis;
+            string price = menu.price;
         }
 
         #endregion
@@ -93,12 +81,12 @@ namespace TUMCampusApp.Controls
 
         private async void FOutGoogleIt_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await CanteenMenueManager.INSTANCE.googleMenuString(menu.name);
+            await CanteenDishManager.INSTANCE.googleMenuString(menu);
         }
 
         private async void FOutChefkoch_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenMenueManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
+            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenDishManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
         }
 
         #endregion

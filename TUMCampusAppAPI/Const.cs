@@ -33,6 +33,8 @@ namespace TUMCampusAppAPI
         public static readonly string JSON_CANTEEN_ID = "canteen_id";
         public static readonly string JSON_LINK = "link";
         public static readonly string JSON_NAME = "name";
+        public static readonly string JSON_INGREDIENTS = "ingredients";
+        public static readonly string JSON_DISH_TYPE= "dish_type";
         public static readonly string JSON_RESULTS = "results";
         public static readonly string LINK_COLUMN = "link";
         public static readonly string LRZ_ID = "lrz_id";
@@ -40,7 +42,7 @@ namespace TUMCampusAppAPI
         public static readonly string NEWS = "news";
         public static readonly string NEWS_URL = "https://tumcabe.in.tum.de/Api/news/";
         public static readonly string CANTEENS_URL = "https://home.in.tum.de/~sauterf/dist/canteens.json";
-        public static readonly string MENUS_URL = "http://home.in.tum.de/~sauterf/dist/all.json";
+        public static readonly string MENUS_URL = "https://home.in.tum.de/~sauterf/dist/all_ref.json";
         public static readonly string NEWS_SOURCES_URL = NEWS_URL + "sources";
         public static readonly string KINO = "kino";
         public static readonly string FACULTIES = "faculties";
