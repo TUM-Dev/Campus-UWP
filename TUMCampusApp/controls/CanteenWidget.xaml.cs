@@ -48,7 +48,7 @@ namespace TUMCampusApp.Controls
         /// <param name="date">The menu date.</param>
         private void setMenuType(string canteen_id, string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenDish> list = CanteenDishManager.INSTANCE.getMenusForType(canteen_id, name, contains, date);
+            List<CanteenDishTable> list = CanteenDishManager.INSTANCE.getMenusForType(canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -76,7 +76,7 @@ namespace TUMCampusApp.Controls
             menus_sckl.Children.Add(rect);
 
             //Menus:
-            foreach (CanteenDish m in list)
+            foreach (CanteenDishTable m in list)
             {
                 menus_sckl.Children.Add(new CanteenMenuControl(m));
             }
@@ -130,7 +130,7 @@ namespace TUMCampusApp.Controls
             }
 
             date = date.AddDays(1);
-            Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(canteen_id);
+            CanteenTable c = await CanteenManager.INSTANCE.getCanteenByIdAsync(canteen_id);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
                 if (c == null)

@@ -163,9 +163,9 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public async Task<List<Canteen>> getCanteensAsync()
+        public async Task<List<CanteenTable>> getCanteensAsync()
         {
-            List<Canteen> list = CanteenManager.INSTANCE.getCanteens();
+            List<CanteenTable> list = CanteenManager.INSTANCE.getCanteens();
             Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
             if (pos == null)
             {
@@ -173,7 +173,7 @@ namespace TUMCampusAppAPI.Managers
             }
             if (pos == null)
             {
-                foreach (Canteen c in list)
+                foreach (CanteenTable c in list)
                 {
                     c.distance = -1F;
                 }
@@ -181,7 +181,7 @@ namespace TUMCampusAppAPI.Managers
             }
             else
             {
-                foreach (Canteen c in list)
+                foreach (CanteenTable c in list)
                 {
                     c.distance = (float)calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
                 }

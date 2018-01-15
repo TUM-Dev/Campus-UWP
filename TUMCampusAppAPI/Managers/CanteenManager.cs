@@ -36,9 +36,9 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="json"></param>
         /// <returns>Returns the parsed Canteen</returns>
-        private Canteen getFromJson(JsonObject json)
+        private CanteenTable getFromJson(JsonObject json)
         {
-            Canteen c = new Canteen()
+            CanteenTable c = new CanteenTable()
             {
                 canteen_id = json.GetNamedString(Const.JSON_CANTEEN_ID),
                 name = json.GetNamedString(Const.JSON_NAME)
@@ -58,9 +58,9 @@ namespace TUMCampusAppAPI.Managers
         /// Returns all Canteens from the db
         /// </summary>
         /// <returns>Returns all Canteens from the db as a list</returns>
-        public List<Canteen> getCanteens()
+        public List<CanteenTable> getCanteens()
         {
-            return dB.Query<Canteen>("SELECT * FROM Canteen;");
+            return dB.Query<CanteenTable>("SELECT * FROM CanteenTable;");
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="canteen_id">Canteen id</param>
         /// <returns>Returns the canteen associated by the given id</returns>
-        public async Task<Canteen> getCanteenByIdAsync(string canteen_id)
+        public async Task<CanteenTable> getCanteenByIdAsync(string canteen_id)
         {
             await downloadCanteensAsync(false);
-            List<Canteen> list = dB.Query<Canteen>("SELECT * FROM Canteen WHERE canteen_id = ?;", canteen_id);
+            List<CanteenTable> list = dB.Query<CanteenTable>("SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
             if(list != null && list.Count > 0)
             {
                 return list[0];
@@ -106,12 +106,12 @@ namespace TUMCampusAppAPI.Managers
                     return;
                 }
 
-                List<Canteen> list = new List<Canteen>();
+                List<CanteenTable> list = new List<CanteenTable>();
                 foreach (JsonValue val in jsonArr)
                 {
                     list.Add(getFromJson(val.GetObject()));
                 }
-                dB.DeleteAll<Canteen>();
+                dB.DeleteAll<CanteenTable>();
                 dB.InsertAll(list);
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
             }
@@ -123,7 +123,7 @@ namespace TUMCampusAppAPI.Managers
 
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<Canteen>();
+            dB.CreateTable<CanteenTable>();
         }
         #endregion
 

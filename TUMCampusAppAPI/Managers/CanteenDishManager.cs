@@ -16,7 +16,7 @@ namespace TUMCampusAppAPI.Managers
         #region --Attributes--
         public static CanteenDishManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
-        private static List<CanteenDish> menus = new List<CanteenDish>();
+        private static List<CanteenDishTable> menus = new List<CanteenDishTable>();
         private static string lastSelectedCanteenId = null;
 
         #endregion
@@ -52,7 +52,7 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenDish m in dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
+            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
             {
                 if(m.canteen_id.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
@@ -66,22 +66,18 @@ namespace TUMCampusAppAPI.Managers
         /// Returns all dates where a dish was found and the date is greater or equal to the current date.
         /// </summary>
         /// <param name="canteen_id">The id of the canteen you want the dates for.</param>
-        public List<DateTime> getMenuDates(string canteen_id)
+        public List<DateTime> getDishDates(string canteen_id)
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime dateToday = DateTime.Now;
             if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(-2);
-            }
-            else
-            {
-                dateToday = dateToday.AddDays(-1);
+                dateToday = dateToday.AddDays(+1);
             }
 
-            foreach (CanteenDish m in getDishes(canteen_id))
+            foreach (CanteenDishTable m in getDishes(canteen_id))
             {
-                if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(dateToday) > 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }
@@ -94,9 +90,9 @@ namespace TUMCampusAppAPI.Managers
         /// Returns all dishes contained in the db that match the given canteen_id.
         /// </summary>
         /// <param name="canteen_id">Canteen id</param>
-        public static List<CanteenDish> getDishes(string canteen_id)
+        public static List<CanteenDishTable> getDishes(string canteen_id)
         {
-            return dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ?", canteen_id);
+            return dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
         }
 
         /// <summary>
@@ -107,17 +103,29 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="contains">Whether the given dish_type, contains or equals the given dish type.</param>
         /// <param name="date">The dish date.</param>
         /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
-        public List<CanteenDish> getMenusForType(string canteen_id, string dish_type, bool contains, DateTime date)
+        public List<CanteenDishTable> getMenusForType(string canteen_id, string dish_type, bool contains, DateTime date)
         {
-            List<CanteenDish> list;
+            List<CanteenDishTable> list;
             if (contains)
             {
-                list = dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
+                list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
             }
             else
             {
-                list = dB.Query<CanteenDish>("SELECT * FROM CanteenDish WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
+                list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
             }
+            return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
+        }
+
+        /// <summary>
+        /// Returns all dishes for the given date and canteen_id.
+        /// </summary>
+        /// <param name="canteen_id">The canteen id.</param>
+        /// <param name="date">The dish date.</param>
+        /// <returns>Returns a list of all dishes, that match the given date and canteen_id.</returns>
+        public List<CanteenDishTable> getDishes(string canteen_id, DateTime date)
+        {
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
 
@@ -142,7 +150,7 @@ namespace TUMCampusAppAPI.Managers
         /// Launches the web browser and googles for images with the given dish.
         /// </summary>
         /// <param name="dish">The dish which should be used for googling.</param>
-        public async Task googleMenuString(CanteenDish dish)
+        public async Task googleMenuString(CanteenDishTable dish)
         {
             await Util.launchBrowser(generateSearchString(dish));
         }
@@ -190,7 +198,7 @@ namespace TUMCampusAppAPI.Managers
 
                 if(json != null && json.Count > 0)
                 {
-                    List<CanteenDish> menus = new List<CanteenDish>();
+                    List<CanteenDishTable> menus = new List<CanteenDishTable>();
                     foreach (JsonValue canteen in json)
                     {
                         JsonObject obj = canteen.GetObject();
@@ -199,14 +207,14 @@ namespace TUMCampusAppAPI.Managers
                         {
                             foreach (JsonValue dish in obj.GetNamedArray("dishes"))
                             {
-                                CanteenDish m = new CanteenDish(dish.GetObject(), canteen_id);
+                                CanteenDishTable m = new CanteenDishTable(dish.GetObject(), canteen_id);
                                 m.nameEmojis = m.name + ' ' + replaceMenuStringWithEmojis(m.ingredients, true);
                                 menus.Add(m);
                             }
                         }
                     }
 
-                    dB.DeleteAll<CanteenDish>();
+                    dB.DeleteAll<CanteenDishTable>();
                     dB.InsertAll(menus);
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
@@ -219,7 +227,7 @@ namespace TUMCampusAppAPI.Managers
 
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<CanteenDish>();
+            dB.CreateTable<CanteenDishTable>();
         }
         #endregion
 
@@ -365,7 +373,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="dish">The dish for googling.</param>
         /// <returns>Returns a Google Images url.</returns>
-        private Uri generateSearchString(CanteenDish dish)
+        private Uri generateSearchString(CanteenDishTable dish)
         {
             string name = dish.name.Replace(' ', '+');
 

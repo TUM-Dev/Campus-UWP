@@ -56,8 +56,8 @@ namespace TUMCampusAppAPI.Managers
         public static void resetDB()
         {
             dB.DropTable<Cache>();
-            dB.DropTable<Canteen>();
-            dB.DropTable<CanteenDish>();
+            dB.DropTable<CanteenTable>();
+            dB.DropTable<CanteenDishTable>();
             dB.DropTable<Sync>();
             dB.DropTable<UserData>();
             dB.DropTable<TUMOnlineLecture>();

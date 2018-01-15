@@ -625,4 +625,7 @@
   <data name="CanteenStuBistroDishes_Text" xml:space="preserve">
     <value>StuBistro Dish</value>
   </data>
+  <data name="CanteensControlSelectedCanteen" xml:space="preserve">
+    <value>No canteens found!</value>
+  </data>
 </root>

@@ -3,7 +3,7 @@ using System;
 
 namespace TUMCampusAppAPI.Canteens
 {
-    public class Canteen : IComparable
+    public class CanteenTable : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -32,7 +32,7 @@ namespace TUMCampusAppAPI.Canteens
         /// /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public Canteen()
+        public CanteenTable()
         {
 
         }
@@ -57,11 +57,11 @@ namespace TUMCampusAppAPI.Canteens
         /// <returns>Returns the difference of both distances.</returns>
         public int CompareTo(object obj)
         {
-            if(!(obj is Canteen))
+            if(!(obj is CanteenTable))
             {
                 return -1;
             }
-            Canteen canteen = obj as Canteen;
+            CanteenTable canteen = obj as CanteenTable;
             if (this.distance < canteen.distance)
             {
                 return -1;

@@ -12,7 +12,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CanteenDish menu;
+        public readonly CanteenDishTable menu;
         private readonly MenuFlyout flyOut;
 
         #endregion
@@ -24,7 +24,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 26/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenMenuControl(CanteenDish menu)
+        public CanteenMenuControl(CanteenDishTable menu)
         {
             this.InitializeComponent();
             this.menu = menu;

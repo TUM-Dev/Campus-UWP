@@ -141,7 +141,7 @@ namespace TUMCampusApp.Pages
                     break;
 
                 case 7:
-                    mainFrame.Navigate(typeof(CanteensPage));
+                    mainFrame.Navigate(typeof(CanteensPage2));
                     break;
 
                 case 8:

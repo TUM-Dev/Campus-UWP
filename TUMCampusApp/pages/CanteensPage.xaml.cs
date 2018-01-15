@@ -21,7 +21,7 @@ namespace TUMCampusApp.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private Canteen currentCanteen;
+        private CanteenTable currentCanteen;
         private int currentDayOffset;
         private List<DateTime> menuDates;
         private bool messageBoxShown;
@@ -50,7 +50,7 @@ namespace TUMCampusApp.Pages
         /// Sets the given canteen as the new favorite canteen.
         /// </summary>
         /// <param name="canteen">The canteen that should be the new favorite one.</param>
-        private void setNewFavoriteCanteen(Canteen canteen)
+        private void setNewFavoriteCanteen(CanteenTable canteen)
         {
             currentCanteen = canteen;
             UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
@@ -67,7 +67,7 @@ namespace TUMCampusApp.Pages
         /// <param name="date">The menus date.</param>
         private void setMenuType(string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenDish> list = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, name, contains, date);
+            List<CanteenDishTable> list = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -95,7 +95,7 @@ namespace TUMCampusApp.Pages
             menus_sckl.Children.Add(rect);
 
             //Menus:
-            foreach (CanteenDish m in list)
+            foreach (CanteenDishTable m in list)
             {
                 menus_sckl.Children.Add(new CanteenMenuControl(m));
             }
@@ -118,9 +118,9 @@ namespace TUMCampusApp.Pages
                 date = DateTime.Now;
             }
             date = menuDates[currentDayOffset];
-            List<CanteenDish> tMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Tagesgericht", true, date);
-            List<CanteenDish> aMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Aktionsessen", true, date);
-            List<CanteenDish> bMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Beilagen", false, date);
+            List<CanteenDishTable> tMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Tagesgericht", true, date);
+            List<CanteenDishTable> aMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Aktionsessen", true, date);
+            List<CanteenDishTable> bMenu = CanteenDishManager.INSTANCE.getMenusForType(currentCanteen.canteen_id, "Beilagen", false, date);
 
             if (aMenu == null || aMenu.Count <= 0 || r.Next(0, 4) != 0)
             {
@@ -203,16 +203,16 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task loadCanteensAsync()
         {
-            List<Canteen> list = await LocationManager.INSTANCE.getCanteensAsync();
+            List<CanteenTable> list = await LocationManager.INSTANCE.getCanteensAsync();
             if (list == null || list.Count < 1)
             {
                 return;
             }
-            Canteen temp = null;
+            CanteenTable temp = null;
             string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
             if (canteen_id != null)
             {
-                foreach (Canteen c in list)
+                foreach (CanteenTable c in list)
                 {
                     if (c.canteen_id.Equals(canteen_id))
                     {
@@ -229,12 +229,12 @@ namespace TUMCampusApp.Pages
             {
                 selectedCanteen_tbx.Text = temp.name;
                 currentCanteen = temp;
-                foreach (Canteen c in list)
+                foreach (CanteenTable c in list)
                 {
-                    CanteenControl cC = new CanteenControl(c);
+                    /*CanteenControl cC = new CanteenControl(c);
                     cC.HorizontalAlignment = HorizontalAlignment.Stretch;
                     cC.PointerReleased += canteen_Click;
-                    canteens_sckl.Children.Add(cC);
+                    canteens_sckl.Children.Add(cC);*/
                 }
             }).AsTask();
         }
@@ -249,7 +249,7 @@ namespace TUMCampusApp.Pages
             {
                 return;
             }
-            menuDates = CanteenDishManager.INSTANCE.getMenuDates(currentCanteen.canteen_id);
+            menuDates = CanteenDishManager.INSTANCE.getDishDates(currentCanteen.canteen_id);
             if (menuDates == null || menuDates.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -415,7 +415,7 @@ namespace TUMCampusApp.Pages
 
         private void canteen_Click(object sender, RoutedEventArgs e)
         {
-            setNewFavoriteCanteen((sender as CanteenControl).canteen);
+            //setNewFavoriteCanteen((sender as CanteenControl).canteen);
         }
 
         private void refreshCanteen_btn_Click(object sender, RoutedEventArgs e)

@@ -4,7 +4,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Canteens
 {
-    public class CanteenDish
+    public class CanteenDishTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -39,12 +39,12 @@ namespace TUMCampusAppAPI.Canteens
         /// <history>
         /// 14/01/2018  Created [Fabian Sauter]
         /// </history>
-        public CanteenDish()
+        public CanteenDishTable()
         {
 
         }
 
-        public CanteenDish(JsonObject json, string canteen_id)
+        public CanteenDishTable(JsonObject json, string canteen_id)
         {
             this.canteen_id = canteen_id;
             this.name = json.GetNamedString(Const.JSON_NAME);

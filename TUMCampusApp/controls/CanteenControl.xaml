@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10, 0, 10, 10">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="52*"/>
             <ColumnDefinition Width="17*"/>

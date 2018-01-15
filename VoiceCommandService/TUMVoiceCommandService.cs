@@ -37,9 +37,9 @@ namespace TUMCampusApp.VoiceCommands
         /// Returns the menus for the last selected canteen.
         /// </summary>
         /// <param name="date">The date for the menus</param>
-        private List<CanteenDish> getMenus(DateTime date)
+        private List<CanteenDishTable> getMenus(DateTime date)
         {
-            List<CanteenDish> list = new List<CanteenDish>();
+            List<CanteenDishTable> list = new List<CanteenDishTable>();
             if(CanteenDishManager.INSTANCE == null)
             {
                 CanteenDishManager.INSTANCE = new CanteenDishManager();
@@ -109,7 +109,7 @@ namespace TUMCampusApp.VoiceCommands
             }
 
             var menusTiles = new List<VoiceCommandContentTile>();
-            List<CanteenDish> menus = getMenus(d);
+            List<CanteenDishTable> menus = getMenus(d);
             foreach (var m in menus)
             {
                 menusTiles.Add(new VoiceCommandContentTile()
