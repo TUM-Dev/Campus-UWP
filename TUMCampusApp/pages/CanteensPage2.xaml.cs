@@ -221,7 +221,10 @@ namespace TUMCampusApp.Pages
                 {
                     showDishesForSelctedDate();
                     canteens_ctrl.reloadCanteens(null);
-                    showDishesForSelctedDate();
+                    if (canteens_ctrl.Canteen != null)
+                    {
+                        showDishesForCanteen(canteens_ctrl.Canteen);
+                    }
                     loading_prgb.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
                 }).AsTask();
@@ -238,6 +241,7 @@ namespace TUMCampusApp.Pages
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     loading_prgb.Visibility = Visibility.Collapsed;
+                    canteens_ctrl.reloadCanteens(null);
                     enableRefreshButtons();
                 }).AsTask();
             });
@@ -254,7 +258,10 @@ namespace TUMCampusApp.Pages
                 {
                     showDishesForSelctedDate();
                     canteens_ctrl.reloadCanteens(null);
-                    showDishesForSelctedDate();
+                    if (canteens_ctrl.Canteen != null)
+                    {
+                        showDishesForCanteen(canteens_ctrl.Canteen);
+                    }
                     loading_prgb.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
                 }).AsTask();
