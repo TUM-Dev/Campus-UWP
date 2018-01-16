@@ -148,10 +148,10 @@ namespace TUMCampusApp.Pages
             {
                 await CanteenManager.INSTANCE.downloadCanteensAsync(force);
                 await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(force);
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
-                    canteens_ctrl.reloadCanteens(null);
+                    await canteens_ctrl.reloadCanteensAsync(null);
                     showDishesForSelctedDate();
                     loading_prgb.Visibility = Visibility.Collapsed;
                     enableRefreshButtons();
@@ -218,10 +218,10 @@ namespace TUMCampusApp.Pages
             {
                 await CanteenManager.INSTANCE.downloadCanteensAsync(true);
                 await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(true);
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
-                    canteens_ctrl.reloadCanteens(null);
+                    await canteens_ctrl.reloadCanteensAsync(null);
                     if (canteens_ctrl.Canteen != null)
                     {
                         showDishesForCanteen(canteens_ctrl.Canteen);
@@ -239,10 +239,10 @@ namespace TUMCampusApp.Pages
             Task.Factory.StartNew(async () =>
             {
                 await CanteenManager.INSTANCE.downloadCanteensAsync(true);
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     loading_prgb.Visibility = Visibility.Collapsed;
-                    canteens_ctrl.reloadCanteens(null);
+                    await canteens_ctrl.reloadCanteensAsync(null);
                     enableRefreshButtons();
                 }).AsTask();
             });
@@ -255,10 +255,10 @@ namespace TUMCampusApp.Pages
             Task.Factory.StartNew(async () =>
             {
                 await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(true);
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
-                    canteens_ctrl.reloadCanteens(null);
+                    await canteens_ctrl.reloadCanteensAsync(null);
                     if (canteens_ctrl.Canteen != null)
                     {
                         showDishesForCanteen(canteens_ctrl.Canteen);
@@ -294,7 +294,7 @@ namespace TUMCampusApp.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             string param = null;
-            if(e.Parameter is string)
+            if (e.Parameter is string)
             {
                 param = e.Parameter as string;
             }
@@ -305,9 +305,9 @@ namespace TUMCampusApp.Pages
             {
                 await CanteenManager.INSTANCE.downloadCanteensAsync(false);
                 await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    canteens_ctrl.reloadCanteens(param);
+                    await canteens_ctrl.reloadCanteensAsync(null);
                     if (canteens_ctrl.Canteen != null)
                     {
                         showDishesForCanteen(canteens_ctrl.Canteen);

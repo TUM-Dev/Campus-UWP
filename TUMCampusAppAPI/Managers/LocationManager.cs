@@ -157,8 +157,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns the cafeteria's identifier which is near the given location
-        /// The used radius around the cafeteria is 1km.
+        /// Returns all canteens with their current distance to the device.
         /// </summary>
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]

@@ -18,10 +18,10 @@ namespace TUMCampusAppAPI.DBTables
         public double latitude { get; set; }
         // The longitude coordinate of the canteen e.g. '11.579027'
         public double longitude { get; set; }
-
-        [Ignore]
         // Used for ordering canteen
         public float distance { get; set; }
+        // Show canteen on home page
+        public bool favorite { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

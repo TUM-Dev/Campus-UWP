@@ -47,6 +47,9 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows the current canteen on the screen.
+        /// </summary>
         private void showCanteen()
         {
             if (Canteen != null)

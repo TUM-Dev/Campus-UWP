@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using TUMCampusApp.Classes.Events;
 using TUMCampusApp.DataTemplates;
 using TUMCampusAppAPI.DBTables;
@@ -53,8 +54,6 @@ namespace TUMCampusApp.Controls
             this.InitializeComponent();
             this.Expanded = false;
             this.canteenSelected = false;
-            showExpanded();
-            reloadCanteens(null);
         }
 
         #endregion
@@ -79,11 +78,11 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void reloadCanteens(string canteen_id)
+        public async Task reloadCanteensAsync(string canteen_id)
         {
             canteens.Clear();
             string lastSelectedCanteen = canteen_id ?? UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            List<CanteenTable> c = CanteenManager.INSTANCE.getCanteens();
+            List<CanteenTable> c = await LocationManager.INSTANCE.getCanteensAsync();
             for (int i = 0; i < c.Count; i++)
             {
                 if (Equals(c[i].canteen_id, lastSelectedCanteen))
@@ -145,9 +144,10 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            showExpanded();
+            await reloadCanteensAsync(null);
         }
 
         private void canteens_list_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
