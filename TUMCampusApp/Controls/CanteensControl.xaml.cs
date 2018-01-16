@@ -63,7 +63,6 @@ namespace TUMCampusApp.Controls
         private void setExpanded(bool expanded)
         {
             Expanded = expanded;
-            ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(expanded));
             showExpanded();
             showSelectedCanteen();
         }
@@ -112,6 +111,7 @@ namespace TUMCampusApp.Controls
                 canteens_list.Visibility = Visibility.Collapsed;
                 selectedCanteen_tblck.Visibility = Visibility.Visible;
             }
+            ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(Expanded));
         }
 
         private void selectCanteen()

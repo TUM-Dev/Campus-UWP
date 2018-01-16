@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <ProgressBar x:Name="loading_prgb" Grid.Row="0" IsIndeterminate="True" Visibility="Collapsed"/>
         <controls:CanteensControl x:Name="canteens_ctrl" Grid.Row="1" CanteenSelectionChanged="CanteensControl_CanteenSelectionChanged" Expanded="False" ExpandedChanged="canteens_ctrl_ExpandedChanged"/>
-        <Button Grid.Row="1" FontFamily="Segoe MDL2 Assets" Content="&#xE10C;" Background="Transparent" FontSize="28" HorizontalAlignment="Right">
+        <Button x:Name="more_btn" Grid.Row="1" FontFamily="Segoe MDL2 Assets" Content="&#xE10C;" Background="Transparent" FontSize="28" HorizontalAlignment="Right">
             <Button.Flyout>
                 <MenuFlyout>
                     <MenuFlyoutItem x:Name="info_btn" Text="Info" Click="info_btn_Click"/>

@@ -199,11 +199,12 @@ namespace TUMCampusApp.Pages
         {
             if (args.EXPANDED)
             {
-                info_btn.Visibility = Visibility.Collapsed;
+                more_btn.Visibility = Visibility.Collapsed;
+                more_btn.Flyout.Hide();
             }
             else
             {
-                info_btn.Visibility = Visibility.Visible;
+                more_btn.Visibility = Visibility.Visible;
             }
         }
 
