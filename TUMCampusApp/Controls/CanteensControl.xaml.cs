@@ -68,6 +68,15 @@ namespace TUMCampusApp.Controls
             showSelectedCanteen();
         }
 
+        private CanteenTable getSelectedCanteen()
+        {
+            if (canteens_list.Items.Count > 0 && canteens_list.SelectedIndex < canteens.Count)
+            {
+                return canteens[canteens_list.SelectedIndex].canteen;
+            }
+            return null;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -166,6 +175,15 @@ namespace TUMCampusApp.Controls
             {
                 canteenSelected = true;
                 setExpanded(false);
+            }
+        }
+
+        private void canteens_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CanteenTable canteen = getSelectedCanteen();
+            if(canteen != null)
+            {
+                UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
             }
         }
 
