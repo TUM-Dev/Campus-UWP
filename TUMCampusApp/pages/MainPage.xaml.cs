@@ -36,7 +36,7 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
-            navigateToSelectedPage();
+            navigateToSelectedPage(null);
             NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
@@ -46,14 +46,14 @@ namespace TUMCampusApp.Pages
         /// <history>
         /// 09/12/2016  Created [Fabian Sauter]
         /// </history>
-        public MainPage(EnumPage page)
+        public MainPage(EnumPage page, string args)
         {
             Utillities.mainPage = this;
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
-            navigateToPage(page);
+            navigateToPage(page, args);
             NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
@@ -78,8 +78,9 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Navigates to the given page.
         /// </summary>
-        /// <param name="page"></param>
-        public void navigateToPage(EnumPage page)
+        /// <param name="page">The page to navigate to.</param>
+        /// <param name="args">Navigation args.</param>
+        public void navigateToPage(EnumPage page, object args)
         {
             int index = (int)page + 1;
             if (index > 4)
@@ -87,7 +88,7 @@ namespace TUMCampusApp.Pages
                 index++;
             }
             splitViewIcons_lb.SelectedIndex = index;
-            navigateToSelectedPage();
+            navigateToSelectedPage(args);
         }
 
         /// <summary>
@@ -112,7 +113,8 @@ namespace TUMCampusApp.Pages
         /// <summary>
         /// Navigates to the currently selected page (burger menu).
         /// </summary>
-        private void navigateToSelectedPage()
+        /// <param name="args">Navigation args.</param>
+        private void navigateToSelectedPage(object args)
         {
             if (mainFrame == null || !splitViewIcons_lb.IsEnabled)
             {
@@ -121,43 +123,43 @@ namespace TUMCampusApp.Pages
             switch (splitViewIcons_lb.SelectedIndex)
             {
                 case 1:
-                    mainFrame.Navigate(typeof(MyCalendarPage));
+                    navigateToPage(typeof(MyCalendarPage), args);
                     break;
 
                 case 2:
-                    mainFrame.Navigate(typeof(MyLecturesPage));
+                    navigateToPage(typeof(MyLecturesPage), args);
                     break;
 
                 case 3:
-                    mainFrame.Navigate(typeof(MyGradesPage));
+                    navigateToPage(typeof(MyGradesPage), args);
                     break;
 
                 case 4:
-                    mainFrame.Navigate(typeof(TuitionFeesPage));
+                    navigateToPage(typeof(TuitionFeesPage), args);
                     break;
 
                 case 6:
-                    mainFrame.Navigate(typeof(HomePage));
+                    navigateToPage(typeof(HomePage), args);
                     break;
 
                 case 7:
-                    mainFrame.Navigate(typeof(CanteensPage2));
+                    navigateToPage(typeof(CanteensPage2), args);
                     break;
 
                 case 8:
-                    mainFrame.Navigate(typeof(NewsPage));
+                    navigateToPage(typeof(NewsPage), args);
                     break;
 
                 case 11:
-                    mainFrame.Navigate(typeof(RoomfinderPage));
+                    navigateToPage(typeof(RoomfinderPage), args);
                     break;
 
                 case 12:
-                    mainFrame.Navigate(typeof(StudyRoomPage));
+                    navigateToPage(typeof(StudyRoomPage), args);
                     break;
 
                 case 15:
-                    mainFrame.Navigate(typeof(SettingsPage));
+                    navigateToPage(typeof(SettingsPage), args);
                     break;
 
                 default:
@@ -266,7 +268,7 @@ namespace TUMCampusApp.Pages
 
         private void splitViewIcons_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            navigateToSelectedPage();
+            navigateToSelectedPage(null);
             mainPage_spv.IsPaneOpen = false;
         }
 

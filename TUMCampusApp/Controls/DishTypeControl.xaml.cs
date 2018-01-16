@@ -1,5 +1,5 @@
 ﻿using TUMCampusApp.Classes;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using Windows.UI.Xaml.Controls;
 
 namespace TUMCampusApp.Controls

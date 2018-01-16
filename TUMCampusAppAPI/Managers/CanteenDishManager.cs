@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Data.Json;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Syncs;
 using System.Text.RegularExpressions;
 using TUMCampusAppAPI.UserDatas;
@@ -17,7 +17,6 @@ namespace TUMCampusAppAPI.Managers
         public static CanteenDishManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
         private static List<CanteenDishTable> menus = new List<CanteenDishTable>();
-        private static string lastSelectedCanteenId = null;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -103,7 +102,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="contains">Whether the given dish_type, contains or equals the given dish type.</param>
         /// <param name="date">The dish date.</param>
         /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
-        public List<CanteenDishTable> getMenusForType(string canteen_id, string dish_type, bool contains, DateTime date)
+        public List<CanteenDishTable> getDishesForType(string canteen_id, string dish_type, bool contains, DateTime date)
         {
             List<CanteenDishTable> list;
             if (contains)
@@ -125,22 +124,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns a list of all dishes, that match the given date and canteen_id.</returns>
         public List<CanteenDishTable> getDishes(string canteen_id, DateTime date)
         {
-            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
-        }
-
-        /// <summary>
-        /// Removes all ingredient.
-        /// </summary>
-        /// <param name="s">The dish name.</param>
-        /// <returns>Returns the replaced dish.</returns>
-        public string getCleanMenuTitle(string s)
-        {
-            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
-            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
-            s = reg1.Replace(s, "");
-            s = reg2.Replace(s, "");
-            return s;
         }
 
         #endregion
@@ -150,7 +135,7 @@ namespace TUMCampusAppAPI.Managers
         /// Launches the web browser and googles for images with the given dish.
         /// </summary>
         /// <param name="dish">The dish which should be used for googling.</param>
-        public async Task googleMenuString(CanteenDishTable dish)
+        public async Task googleDishString(CanteenDishTable dish)
         {
             await Util.launchBrowser(generateSearchString(dish));
         }
@@ -161,7 +146,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="s">Menu string.</param>
         /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
         /// <returns>Returns the replaced dish string</returns>
-        public string replaceMenuStringWithEmojis(string s, bool withComma)
+        public string replaceDishStringWithEmojis(string s, bool withComma)
         {
             List<string> res = new List<string>();
 
@@ -181,7 +166,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="force">Forces to download all menus.</param>
         /// <returns>Returns an async Task.</returns>
-        public async Task downloadCanteenMenusAsync(bool force)
+        public async Task downloadCanteenDishesAsync(bool force)
         {
             if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
@@ -208,7 +193,7 @@ namespace TUMCampusAppAPI.Managers
                             foreach (JsonValue dish in obj.GetNamedArray("dishes"))
                             {
                                 CanteenDishTable m = new CanteenDishTable(dish.GetObject(), canteen_id);
-                                m.nameEmojis = m.name + ' ' + replaceMenuStringWithEmojis(m.ingredients, true);
+                                m.nameEmojis = m.name + ' ' + replaceDishStringWithEmojis(m.ingredients, true);
                                 menus.Add(m);
                             }
                         }

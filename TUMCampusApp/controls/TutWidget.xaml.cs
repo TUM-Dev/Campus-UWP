@@ -49,7 +49,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Utillities.mainPage.navigateToPage(Classes.Utillities.EnumPage.SettingsPage);
+            Utillities.mainPage.navigateToPage(Utillities.EnumPage.SettingsPage, null);
         }
 
         #endregion

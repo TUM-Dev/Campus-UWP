@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.ApplicationModel.AppService;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -47,8 +47,8 @@ namespace TUMCampusApp.VoiceCommands
             }
 
             string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            list.AddRange(CanteenDishManager.INSTANCE.getMenusForType(canteen_id, "Tagesgericht", true, date));
-            list.AddRange(CanteenDishManager.INSTANCE.getMenusForType(canteen_id, "Aktionsessen", true, date));
+            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Tagesgericht", true, date));
+            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Aktionsessen", true, date));
             return list;
         }
 

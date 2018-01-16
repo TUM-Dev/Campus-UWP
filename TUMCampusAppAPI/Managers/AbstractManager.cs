@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Caches;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.UserDatas;

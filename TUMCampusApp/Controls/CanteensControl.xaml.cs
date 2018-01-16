@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using TUMCampusApp.Classes.Events;
 using TUMCampusApp.DataTemplates;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,8 +28,10 @@ namespace TUMCampusApp.Controls
         public static readonly DependencyProperty ExpandedProperty = DependencyProperty.Register("Expanded", typeof(bool), typeof(CanteensControl), null);
 
         public delegate void CanteenSelectionChangedEventHandler(CanteensControl canteensControl, CanteenSelectionChangedEventArgs args);
+        public delegate void ExpandedChangedEventHandler(CanteensControl canteensControl, ExpandedChangedEventArgs args);
 
         public event CanteenSelectionChangedEventHandler CanteenSelectionChanged;
+        public event ExpandedChangedEventHandler ExpandedChanged;
 
         private ObservableCollection<CanteenTemplate> canteens;
         private int selectedIndex;
@@ -52,7 +54,7 @@ namespace TUMCampusApp.Controls
             this.Expanded = false;
             this.canteenSelected = false;
             showExpanded();
-            reloadCanteens();
+            reloadCanteens(null);
         }
 
         #endregion
@@ -61,6 +63,7 @@ namespace TUMCampusApp.Controls
         private void setExpanded(bool expanded)
         {
             Expanded = expanded;
+            ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(expanded));
             showExpanded();
             showSelectedCanteen();
         }
@@ -68,10 +71,10 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void reloadCanteens()
+        public void reloadCanteens(string canteen_id)
         {
             canteens.Clear();
-            string lastSelectedCanteen = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            string lastSelectedCanteen = canteen_id ?? UserDataManager.INSTANCE.getLastSelectedCanteenId();
             List<CanteenTable> c = CanteenManager.INSTANCE.getCanteens();
             for (int i = 0; i < c.Count; i++)
             {

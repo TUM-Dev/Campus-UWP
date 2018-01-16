@@ -628,4 +628,10 @@
   <data name="CanteensControlSelectedCanteen" xml:space="preserve">
     <value>No canteens found!</value>
   </data>
+  <data name="IngredientsDialog.Title" xml:space="preserve">
+    <value>Ingredients:</value>
+  </data>
+  <data name="IngredientsDialog.CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>

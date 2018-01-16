@@ -28,6 +28,6 @@
                   SelectionMode="Single"
                   Height="310"
                   Tapped="canteens_list_Tapped"/>
-        <TextBlock x:Name="selectedCanteen_tblck" x:Uid="CanteensControlSelectedCanteen" Grid.Row="0" FontSize="20" TextTrimming="CharacterEllipsis" Margin="10" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="selectedCanteen_tblck" x:Uid="CanteensControlSelectedCanteen" Grid.Row="0" FontSize="20" TextTrimming="CharacterEllipsis" Margin="35, 10, 35, 10" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

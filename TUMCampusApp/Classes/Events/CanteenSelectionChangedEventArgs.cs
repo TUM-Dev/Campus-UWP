@@ -1,5 +1,5 @@
 ﻿using System;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.Classes.Events
 {

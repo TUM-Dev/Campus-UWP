@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
 using Windows.UI.Text;
@@ -48,7 +48,7 @@ namespace TUMCampusApp.Controls
         /// <param name="date">The menu date.</param>
         private void setMenuType(string canteen_id, string name, string labelText, bool contains, DateTime date)
         {
-            List<CanteenDishTable> list = CanteenDishManager.INSTANCE.getMenusForType(canteen_id, name, contains, date);
+            List<CanteenDishTable> list = CanteenDishManager.INSTANCE.getDishesForType(canteen_id, name, contains, date);
             if (list == null || list.Count <= 0)
             {
                 return;
@@ -97,7 +97,7 @@ namespace TUMCampusApp.Controls
         {
             string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenDishManager.INSTANCE.downloadCanteenMenusAsync(false);
+            await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
 
             DateTime date = CanteenDishManager.getFirstNextDate(canteen_id);
 

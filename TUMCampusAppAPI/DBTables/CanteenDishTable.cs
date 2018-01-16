@@ -2,7 +2,7 @@
 using System;
 using Windows.Data.Json;
 
-namespace TUMCampusAppAPI.Canteens
+namespace TUMCampusAppAPI.DBTables
 {
     public class CanteenDishTable
     {

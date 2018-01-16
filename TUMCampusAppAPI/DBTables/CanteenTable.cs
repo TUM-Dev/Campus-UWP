@@ -1,7 +1,7 @@
 ﻿using SQLite.Net.Attributes;
 using System;
 
-namespace TUMCampusAppAPI.Canteens
+namespace TUMCampusAppAPI.DBTables
 {
     public class CanteenTable : IComparable
     {

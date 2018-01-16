@@ -1,6 +1,6 @@
 ﻿using System;
 using TUMCampusAppAPI;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -81,12 +81,12 @@ namespace TUMCampusApp.Controls
 
         private async void FOutGoogleIt_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await CanteenDishManager.INSTANCE.googleMenuString(menu);
+            await CanteenDishManager.INSTANCE.googleDishString(menu);
         }
 
         private async void FOutChefkoch_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + CanteenDishManager.INSTANCE.getCleanMenuTitle(menu.name).Replace(' ', '+') + @"/Rezepte.html"));
+            await Util.launchBrowser(new Uri(@"http://www.chefkoch.de/rs/s0/" + menu.name.Replace(' ', '+') + @"/Rezepte.html"));
         }
 
         #endregion

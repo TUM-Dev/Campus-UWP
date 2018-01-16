@@ -120,7 +120,7 @@ namespace TUMCampusApp.BackgroundTask
             await CanteenDishManager.INSTANCE.InitManagerAsync();
 
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenDishManager.INSTANCE.downloadCanteenMenusAsync(false);
+            await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
 
             Logger.Info("[Background] Finished refreshing 2.");
         }

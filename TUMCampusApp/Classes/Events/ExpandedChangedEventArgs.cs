@@ -1,12 +1,12 @@
-﻿using TUMCampusAppAPI.DBTables;
+﻿using System;
 
-namespace TUMCampusApp.DataTemplates
+namespace TUMCampusApp.Classes.Events
 {
-    class CanteenTemplate
+    public class ExpandedChangedEventArgs : EventArgs
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public CanteenTable canteen;
+        public readonly bool EXPANDED;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -15,11 +15,11 @@ namespace TUMCampusApp.DataTemplates
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 15/01/2018 Created [Fabian Sauter]
+        /// 16/01/2018 Created [Fabian Sauter]
         /// </history>
-        public CanteenTemplate()
+        public ExpandedChangedEventArgs(bool expanded)
         {
-
+            this.EXPANDED = expanded;
         }
 
         #endregion
