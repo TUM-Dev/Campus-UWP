@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96299629-0869-4BAE-8CED-95EB0E9EFACD}</ProjectGuid>
+    <ProjectGuid>{422D37E6-2D0F-42AF-8B26-88E007BD022D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TUMCampusAppAPI</RootNamespace>
-    <AssemblyName>TUMCampusAppAPI</AssemblyName>
+    <RootNamespace>Thread_Save_Components</RootNamespace>
+    <AssemblyName>Thread_Save_Components</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -102,63 +102,29 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Caches\Cache.cs" />
-    <Compile Include="DBTables\CanteenTable.cs" />
-    <Compile Include="DBTables\CanteenDishTable.cs" />
-    <Compile Include="Faculties.cs" />
-    <Compile Include="Const.cs" />
-    <Compile Include="CustomAccelerometer.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="Managers\AbstractManager.cs" />
-    <Compile Include="Managers\CacheManager.cs" />
-    <Compile Include="Managers\CalendarManager.cs" />
-    <Compile Include="Managers\CanteenManager.cs" />
-    <Compile Include="Managers\CanteenDishManager.cs" />
-    <Compile Include="Managers\GradesManager.cs" />
-    <Compile Include="Managers\NewsManager.cs" />
-    <Compile Include="Managers\LecturesManager.cs" />
-    <Compile Include="Managers\LocationManager.cs" />
-    <Compile Include="Managers\RoomFinderManager.cs" />
-    <Compile Include="Managers\StudyRoomManager.cs" />
-    <Compile Include="Managers\SyncManager.cs" />
-    <Compile Include="Managers\TuitionFeeManager.cs" />
-    <Compile Include="Managers\TumManager.cs" />
-    <Compile Include="Managers\UserDataManager.cs" />
-    <Compile Include="NetUtils.cs" />
-    <Compile Include="News\NewsSource.cs" />
-    <Compile Include="News\News.cs" />
-    <Compile Include="StudyRooms\StudyRoomGroup.cs" />
-    <Compile Include="StudyRooms\StudyRoom.cs" />
-    <Compile Include="Syncs\Sync.cs" />
-    <Compile Include="Syncs\SyncResult.cs" />
-    <Compile Include="TUMOnline\Exceptions\BaseTUMOnlineException.cs" />
-    <Compile Include="TUMOnline\Exceptions\InvalidTokenTUMOnlineException.cs" />
-    <Compile Include="TUMOnline\Exceptions\NoAccessTUMOnlineException.cs" />
-    <Compile Include="TUMOnline\TUMOnlineCalendarEntry.cs" />
-    <Compile Include="TUMOnline\TUMOnlineConst.cs" />
-    <Compile Include="TUMOnline\TUMOnlineGrade.cs" />
-    <Compile Include="TUMOnline\TUMOnlineGradeSemester.cs" />
-    <Compile Include="TUMOnline\TUMOnlineLecture.cs" />
-    <Compile Include="TUMOnline\TUMOnlineLectureInformation.cs" />
-    <Compile Include="TUMOnline\TUMOnlineRequest.cs" />
-    <Compile Include="TUMOnline\TUMTuitionFee.cs" />
-    <Compile Include="TUMOnline\TUMUser.cs" />
-    <Compile Include="UserDatas\DeviceInfo.cs" />
-    <Compile Include="UserDatas\UserData.cs" />
+    <Compile Include="Classes\SQLite\TSSQLiteConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util.cs" />
-    <EmbeddedResource Include="Properties\TUMCampusAppAPI.rd.xml" />
+    <EmbeddedResource Include="Properties\Thread_Save_Components.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thread_Save_Components\Thread_Save_Components.csproj">
-      <Project>{422d37e6-2d0f-42af-8b26-88e007bd022d}</Project>
-      <Name>Thread_Save_Components</Name>
-    </ProjectReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="SQLite.Net-PCL">
+      <Version>3.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.21.0">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

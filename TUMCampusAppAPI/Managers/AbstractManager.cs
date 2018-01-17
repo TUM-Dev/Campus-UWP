@@ -1,8 +1,7 @@
-﻿using SQLite.Net;
-using SQLite.Net.Platform.WinRT;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Thread_Save_Components.Classes.SQLite;
 using TUMCampusAppAPI.Caches;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Syncs;
@@ -17,7 +16,7 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
-        protected static SQLiteConnection dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
+        protected static TSSQLiteConnection dB = new TSSQLiteConnection(DB_PATH);
         protected readonly Object thisLock = new Object();
         protected bool isLocked = false;
         protected Task workingTask = null;
@@ -81,7 +80,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 Logger.Error("Unable to close or delete the DB", e);
             }
-            dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
+            dB = new TSSQLiteConnection(DB_PATH);
         }
 
         /// <summary>
