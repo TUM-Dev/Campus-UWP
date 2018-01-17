@@ -1,5 +1,6 @@
 ﻿using SQLite.Net.Attributes;
 using System;
+using System.Globalization;
 using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
@@ -29,6 +30,9 @@ namespace TUMCampusAppAPI.DBTables
         [NotNull]
         // The date of the dish e.g. '2017-12-22'
         public DateTime date { get; set; }
+
+        // For converting doubles to Euro strings
+        private static readonly CultureInfo CULTURE_INFO = new CultureInfo("fr-FR");
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -60,6 +64,7 @@ namespace TUMCampusAppAPI.DBTables
             else if (p.ValueType == JsonValueType.Number)
             {
                 this.price = p.Stringify() + '€';
+                this.price = p.GetNumber().ToString("C2", CULTURE_INFO);
             }
             else
             {
