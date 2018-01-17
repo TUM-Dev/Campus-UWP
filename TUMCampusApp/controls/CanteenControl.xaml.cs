@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
+using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -68,7 +70,27 @@ namespace TUMCampusApp.Controls
                 {
                     canteenDistance_tbx.Text = Math.Round(Canteen.distance, 0) + " m";
                 }
+                showFavoriteStar();
             }
+        }
+
+        private void showFavoriteStar()
+        {
+            if(Canteen != null) {
+                if (Canteen.favorite)
+                {
+                    favorite_btn.Content = "\uE735";
+                }
+                else
+                {
+                    favorite_btn.Content = "\uE734";
+                }
+            }
+        }
+
+        private async Task showAddCanteenToFavoriteDialogAsync()
+        {
+
         }
 
         #endregion
@@ -79,7 +101,19 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private async void favorite_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Canteen != null)
+            {
+                Canteen.favorite = !Canteen.favorite;
+                CanteenManager.INSTANCE.update(Canteen);
+                if (Canteen.favorite)
+                {
+                    await showAddCanteenToFavoriteDialogAsync();
+                }
+                showFavoriteStar();
+            }
+        }
 
         #endregion
     }

@@ -46,7 +46,7 @@ namespace TUMCampusAppAPI.Managers
             };
 
             JsonObject location = json.GetNamedObject(Const.JSON_LOCATION);
-            if(location != null)
+            if (location != null)
             {
                 c.address = location.GetNamedString(Const.JSON_ADDRESS);
                 c.latitude = location.GetNamedNumber(Const.JSON_LATITUDE);
@@ -91,7 +91,6 @@ namespace TUMCampusAppAPI.Managers
                     c.distance = (float)LocationManager.INSTANCE.calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
                 }
             }
-            list.Sort();
             return list;
         }
 
@@ -104,7 +103,7 @@ namespace TUMCampusAppAPI.Managers
         {
             await downloadCanteensAsync(false);
             List<CanteenTable> list = dB.Query<CanteenTable>("SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
-            if(list != null && list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 return list[0];
             }

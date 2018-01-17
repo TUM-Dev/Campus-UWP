@@ -83,6 +83,7 @@ namespace TUMCampusApp.Controls
             canteens.Clear();
             string lastSelectedCanteen = canteen_id ?? UserDataManager.INSTANCE.getLastSelectedCanteenId();
             List<CanteenTable> c = await CanteenManager.INSTANCE.getCanteensWithDistanceAsync();
+            sortCanteens(c);
             for (int i = 0; i < c.Count; i++)
             {
                 if (Equals(c[i].canteen_id, lastSelectedCanteen))
@@ -98,6 +99,39 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        private void sortCanteens(List<CanteenTable> list)
+        {
+            list.Sort((a, b) =>
+            {
+                if (a == b)
+                {
+                    return 0;
+                }
+                else if (a == null)
+                {
+                    return -1;
+                }
+                else if (b == null)
+                {
+                    return 1;
+                }
+
+                if (a.favorite == b.favorite)
+                {
+                    if (a.distance > b.distance)
+                    {
+                        return 1;
+                    }
+                    return -1;
+                }
+                if (a.favorite)
+                {
+                    return -1;
+                }
+                return 1;
+            });
+        }
+
         private void showExpanded()
         {
             if (Expanded)
