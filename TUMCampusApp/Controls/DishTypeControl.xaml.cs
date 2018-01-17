@@ -38,7 +38,7 @@ namespace TUMCampusApp.Controls
         {
             if (Equals(dishType, dish.dish_type))
             {
-                dishes_stckp.Children.Add(new CanteenMenuControl(dish));
+                dishes_stckp.Children.Add(new CanteenDishControl(dish));
             }
         }
 

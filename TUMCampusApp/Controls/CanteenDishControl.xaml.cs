@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Input;
 
 namespace TUMCampusApp.Controls
 {
-    public sealed partial class CanteenMenuControl : UserControl
+    public sealed partial class CanteenDishControl : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -24,7 +24,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 26/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenMenuControl(CanteenDishTable menu)
+        public CanteenDishControl(CanteenDishTable menu)
         {
             this.InitializeComponent();
             this.menu = menu;
@@ -38,7 +38,7 @@ namespace TUMCampusApp.Controls
             fOutI.Click += FOutChefkoch_ClickAsync;
             this.flyOut.Items.Add(fOutI);
 
-            showMenu();
+            showDish();
         }
 
         #endregion
@@ -55,9 +55,9 @@ namespace TUMCampusApp.Controls
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Shows the current menu on the screen.
+        /// Shows the current dish on the screen.
         /// </summary>
-        private void showMenu()
+        private void showDish()
         {
             menuTitle_tbx.Text = menu.nameEmojis;
             price_tbx.Text = menu.price;
@@ -73,9 +73,9 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if (sender != null && sender is CanteenMenuControl)
+            if (sender != null && sender is CanteenDishControl)
             {
-                flyOut.ShowAt((CanteenMenuControl)sender, e.GetPosition(this));
+                flyOut.ShowAt((CanteenDishControl)sender, e.GetPosition(this));
             }
         }
 

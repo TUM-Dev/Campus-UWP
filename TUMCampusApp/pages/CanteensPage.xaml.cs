@@ -97,7 +97,7 @@ namespace TUMCampusApp.Pages
             //Menus:
             foreach (CanteenDishTable m in list)
             {
-                menus_sckl.Children.Add(new CanteenMenuControl(m));
+                menus_sckl.Children.Add(new CanteenDishControl(m));
             }
         }
 

@@ -115,8 +115,8 @@
     <Compile Include="Controls\CanteenControl.xaml.cs">
       <DependentUpon>CanteenControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CanteenMenuControl.xaml.cs">
-      <DependentUpon>CanteenMenuControl.xaml</DependentUpon>
+    <Compile Include="Controls\CanteenDishControl.xaml.cs">
+      <DependentUpon>CanteenDishControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CanteensControl.xaml.cs">
       <DependentUpon>CanteensControl.xaml</DependentUpon>
@@ -304,7 +304,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CanteenMenuControl.xaml">
+    <Page Include="Controls\CanteenDishControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
