@@ -10,9 +10,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="menuTitle_tbx" Margin="10" TextWrapping="Wrap" Grid.Column="0"/>
-        <TextBlock x:Name="price_tbx" Foreground="Green" Margin="0,10,10,0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="price_tbx" Foreground="Green" Margin="0,10,10,0" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Right" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>
