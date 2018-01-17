@@ -42,14 +42,18 @@ namespace TUMCampusAppAPI.Managers
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(1);
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
             }
 
             foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
             {
-                if(m.canteen_id.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
+                if (m.canteen_id.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -65,9 +69,13 @@ namespace TUMCampusAppAPI.Managers
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
+            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(1);
+                dateToday = dateToday.AddDays(-2);
+            }
+            else
+            {
+                dateToday = dateToday.AddDays(-1);
             }
 
             List<CanteenDishTable> x = getDishes(canteen_id);
@@ -88,7 +96,8 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">Canteen id</param>
         public static List<CanteenDishTable> getDishes(string canteen_id)
         {
-            return dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
+            return list;
         }
 
         /// <summary>
@@ -178,7 +187,7 @@ namespace TUMCampusAppAPI.Managers
                 Uri url = new Uri(Const.MENUS_URL);
                 JsonArray json = await NetUtils.downloadJsonArrayAsync(url);
 
-                if(json != null && json.Count > 0)
+                if (json != null && json.Count > 0)
                 {
                     List<CanteenDishTable> menus = new List<CanteenDishTable>();
                     foreach (JsonValue canteen in json)
