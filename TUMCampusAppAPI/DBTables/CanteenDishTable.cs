@@ -54,7 +54,7 @@ namespace TUMCampusAppAPI.DBTables
             this.name = json.GetNamedString(Const.JSON_NAME);
             this.ingredients = json.GetNamedString(Const.JSON_INGREDIENTS) ?? "";
             this.dish_type = json.GetNamedString(Const.JSON_DISH_TYPE) ?? "";
-            this.date = DateTime.Parse(json.GetNamedString(Const.JSON_DATE));
+            this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd", CULTURE_INFO);
             JsonValue p = json.GetNamedValue("price");
             // If a price in form of e.g. '2.4' is given, add €:
             if(p == null)

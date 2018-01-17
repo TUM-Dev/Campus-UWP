@@ -82,7 +82,7 @@ namespace TUMCampusApp.Controls
         {
             canteens.Clear();
             string lastSelectedCanteen = canteen_id ?? UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            List<CanteenTable> c = await LocationManager.INSTANCE.getCanteensAsync();
+            List<CanteenTable> c = await CanteenManager.INSTANCE.getCanteensWithDistanceAsync();
             for (int i = 0; i < c.Count; i++)
             {
                 if (Equals(c[i].canteen_id, lastSelectedCanteen))

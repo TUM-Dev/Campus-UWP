@@ -42,13 +42,9 @@ namespace TUMCampusAppAPI.Managers
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour < 16) // If it's after 16 o' clock, show the dishes for the next day
+            if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(-2);
-            }
-            else
-            {
-                dateToday = dateToday.AddDays(-1);
+                dateToday = dateToday.AddDays(1);
             }
 
             foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
@@ -69,14 +65,15 @@ namespace TUMCampusAppAPI.Managers
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(+1);
+                dateToday = dateToday.AddDays(1);
             }
 
+            List<CanteenDishTable> x = getDishes(canteen_id);
             foreach (CanteenDishTable m in getDishes(canteen_id))
             {
-                if (m.date.Date.CompareTo(dateToday) > 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }

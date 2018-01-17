@@ -203,7 +203,7 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task loadCanteensAsync()
         {
-            List<CanteenTable> list = await LocationManager.INSTANCE.getCanteensAsync();
+            List<CanteenTable> list = await CanteenManager.INSTANCE.getCanteensWithDistanceAsync();
             if (list == null || list.Count < 1)
             {
                 return;

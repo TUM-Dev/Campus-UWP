@@ -60,7 +60,7 @@ namespace TUMCampusApp.Pages
         private void showDishesForCanteen(CanteenTable canteen)
         {
             dishDates = CanteenDishManager.INSTANCE.getDishDates(canteen.canteen_id);
-            if (dishDates != null && dishDates.Count > 0)
+            if (dishDates != null)
             {
                 if (dishDates.Count <= dishDateOffset)
                 {
@@ -76,7 +76,14 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showDate()
         {
-            day_tbx.Text = Utillities.getLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
+            if(dishDateOffset >= 0)
+            {
+                day_tbx.Text = Utillities.getLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
+            }
+            else
+            {
+                day_tbx.Text = Utillities.getLocalizedString("CanteenNoMenusFound_Text");
+            }
         }
 
         /// <summary>
@@ -187,7 +194,7 @@ namespace TUMCampusApp.Pages
 
         private void right_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (dishDates != null && dishDateOffset < dishDates.Count - 1)
+            if (dishDates != null && dishDateOffset < dishDates.Count - 1 && dishDateOffset >= 0)
             {
                 dishDateOffset++;
                 showDate();

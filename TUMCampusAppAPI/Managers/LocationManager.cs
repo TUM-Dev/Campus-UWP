@@ -132,7 +132,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="pos">The current position.</param>
         /// <returns>Returns the nearest campus.</returns>
-        private static int getCampusFromLocation(Geopoint pos)
+        private int getCampusFromLocation(Geopoint pos)
         {
             double bestDistance = double.MaxValue;
             double distanceTemp = double.MaxValue;
@@ -156,39 +156,6 @@ namespace TUMCampusAppAPI.Managers
             }
         }
 
-        /// <summary>
-        /// Returns all canteens with their current distance to the device.
-        /// </summary>
-        /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public async Task<List<CanteenTable>> getCanteensAsync()
-        {
-            List<CanteenTable> list = CanteenManager.INSTANCE.getCanteens();
-            Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
-            if (pos == null)
-            {
-                pos = await getCurrentLocationAsync();
-            }
-            if (pos == null)
-            {
-                foreach (CanteenTable c in list)
-                {
-                    c.distance = -1F;
-                }
-                return list;
-            }
-            else
-            {
-                foreach (CanteenTable c in list)
-                {
-                    c.distance = (float)calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
-                }
-            }
-            list.Sort();
-            return list;
-        }
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -196,7 +163,7 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the distance in miles or kilometers of any two
         /// latitude / longitude points.
         /// </summary>
-        public static double calcDistance(double lat1, double lng1, double lat2, double lng2)
+        public double calcDistance(double lat1, double lng1, double lat2, double lng2)
         {
             double dLat = toRadian(lat2 - lat1);
             double dLon = toRadian(lng2 - lng1);

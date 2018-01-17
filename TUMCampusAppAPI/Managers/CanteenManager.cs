@@ -5,6 +5,7 @@ using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Syncs;
 using TUMCampusAppAPI.UserDatas;
+using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -57,10 +58,41 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns all Canteens from the db
         /// </summary>
-        /// <returns>Returns all Canteens from the db as a list</returns>
+        /// <returns>Returns all Canteens from the db.</returns>
         public List<CanteenTable> getCanteens()
         {
             return dB.Query<CanteenTable>("SELECT * FROM CanteenTable;");
+        }
+
+        /// <summary>
+        /// Returns all canteens from the db with the distance attribute set to the current distance.
+        /// </summary>
+        /// <returns>Returns all Canteens from the db.</returns>
+        public async Task<List<CanteenTable>> getCanteensWithDistanceAsync()
+        {
+            List<CanteenTable> list = getCanteens();
+            Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
+            if (pos == null)
+            {
+                pos = await LocationManager.INSTANCE.getCurrentLocationAsync();
+            }
+            if (pos == null)
+            {
+                foreach (CanteenTable c in list)
+                {
+                    c.distance = -1F;
+                }
+                return list;
+            }
+            else
+            {
+                foreach (CanteenTable c in list)
+                {
+                    c.distance = (float)LocationManager.INSTANCE.calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
+                }
+            }
+            list.Sort();
+            return list;
         }
 
         /// <summary>
