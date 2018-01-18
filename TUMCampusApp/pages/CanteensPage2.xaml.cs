@@ -321,7 +321,7 @@ namespace TUMCampusApp.Pages
                 await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    await canteens_ctrl.reloadCanteensAsync(null);
+                    await canteens_ctrl.reloadCanteensAsync(param);
                     if (canteens_ctrl.Canteen != null)
                     {
                         showDishesForCanteen(canteens_ctrl.Canteen);
