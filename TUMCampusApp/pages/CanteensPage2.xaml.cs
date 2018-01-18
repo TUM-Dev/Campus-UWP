@@ -66,6 +66,10 @@ namespace TUMCampusApp.Pages
                 {
                     dishDateOffset = dishDates.Count - 1;
                 }
+                else if (dishDates.Count > 0 && dishDateOffset < 0)
+                {
+                    dishDateOffset = 0;
+                }
                 showDate();
                 showDishesForSelctedDate();
             }
@@ -76,7 +80,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showDate()
         {
-            if(dishDateOffset >= 0)
+            if (dishDateOffset >= 0)
             {
                 day_tbx.Text = Utillities.getLocalizedString(dishDates[dishDateOffset].AddDays(1).DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].AddDays(1).ToString("dd.MM.yyyy");
             }
@@ -94,17 +98,20 @@ namespace TUMCampusApp.Pages
             if (canteens_ctrl.Canteen != null)
             {
                 dishType_stckp.Children.Clear();
-                DishTypeControl dishTypeControl = null;
-                foreach (CanteenDishTable dish in CanteenDishManager.INSTANCE.getDishes(canteens_ctrl.Canteen.canteen_id, dishDates[dishDateOffset]))
+                if (dishDateOffset >= 0 && dishDates.Count > dishDateOffset)
                 {
-                    if (dishTypeControl == null || !Equals(dish.dish_type, dishTypeControl.dishType))
+                    DishTypeControl dishTypeControl = null;
+                    foreach (CanteenDishTable dish in CanteenDishManager.INSTANCE.getDishes(canteens_ctrl.Canteen.canteen_id, dishDates[dishDateOffset]))
                     {
-                        dishTypeControl = new DishTypeControl(dish);
-                        dishType_stckp.Children.Add(dishTypeControl);
-                    }
-                    else
-                    {
-                        dishTypeControl.addDish(dish);
+                        if (dishTypeControl == null || !Equals(dish.dish_type, dishTypeControl.dishType))
+                        {
+                            dishTypeControl = new DishTypeControl(dish);
+                            dishType_stckp.Children.Add(dishTypeControl);
+                        }
+                        else
+                        {
+                            dishTypeControl.addDish(dish);
+                        }
                     }
                 }
             }
