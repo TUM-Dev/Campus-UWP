@@ -161,6 +161,7 @@
       <DependentUpon>TutWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\CanteenTemplate.cs" />
+    <Compile Include="DataTemplates\DishTypeTemplate.cs" />
     <Compile Include="DataTemplates\NewsTemplate.cs" />
     <Compile Include="Dialogs\IngredientsDialog.xaml.cs">
       <DependentUpon>IngredientsDialog.xaml</DependentUpon>

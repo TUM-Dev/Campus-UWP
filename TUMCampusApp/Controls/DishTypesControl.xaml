@@ -4,14 +4,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
     mc:Ignorable="d"
     Loaded="UserControl_Loaded">
 
+    <UserControl.Resources>
+        <DataTemplate x:Key="dishTypeTemplate" x:DataType="datatemplates:DishTypeTemplate">
+            <TextBlock Text="{x:Bind dishTypeLocalized}" VerticalAlignment="Center"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="dishTypes_list" Grid.Row="0" SelectionMode="Multiple" ItemsSource="{x:Bind dishTypes}" VerticalContentAlignment="Center"/>
+        <ListView x:Name="dishTypes_list"
+                  Grid.Row="0"
+                  SelectionMode="Multiple"
+                  ItemsSource="{x:Bind dishTypes}"
+                  ItemTemplate="{StaticResource dishTypeTemplate}"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  VerticalContentAlignment="Center"/>
         <TextBlock x:Name="noneFound_tbx" Grid.Row="0" x:Uid="DishTypesControlNoneFound" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

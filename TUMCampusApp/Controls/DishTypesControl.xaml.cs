@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TUMCampusApp.Classes;
+using TUMCampusApp.DataTemplates;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
@@ -12,7 +13,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private ObservableCollection<string> dishTypes;
+        private ObservableCollection<DishTypeTemplate> dishTypes;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,7 +26,7 @@ namespace TUMCampusApp.Controls
         /// </history>
         public DishTypesControl()
         {
-            this.dishTypes = new ObservableCollection<string>();
+            this.dishTypes = new ObservableCollection<DishTypeTemplate>();
             this.InitializeComponent();
         }
 
@@ -37,9 +38,9 @@ namespace TUMCampusApp.Controls
             List<string> types = new List<string>();
             foreach (object o in dishTypes_list.SelectedItems)
             {
-                if(o is string)
+                if (o is CanteenDishTable)
                 {
-                    types.Add(o as string);
+                    types.Add((o as CanteenDishTable).dish_type);
                 }
             }
             return types;
@@ -58,7 +59,11 @@ namespace TUMCampusApp.Controls
             dishTypes.Clear();
             foreach (CanteenDishTable dishType in CanteenDishManager.INSTANCE.getAllDishTypes())
             {
-                dishTypes.Add(Utillities.translateDishType(dishType.dish_type));
+                dishTypes.Add(new DishTypeTemplate()
+                {
+                    dishType = dishType.dish_type,
+                    dishTypeLocalized = Utillities.translateDishType(dishType.dish_type)
+                });
             }
             if (dishTypes.Count <= 0)
             {
