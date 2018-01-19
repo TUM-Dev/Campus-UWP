@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
 using static TUMCampusApp.Classes.Utillities;
+using TUMCampusApp.Classes;
 
 namespace TUMCampusApp
 {
@@ -40,6 +41,9 @@ namespace TUMCampusApp
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // Perform App update tasks if necessary:
+            AppUpdateHandler.onAppStart();
         }
 
         /// <summary>

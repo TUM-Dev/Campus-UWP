@@ -132,6 +132,10 @@ namespace TUMCampusAppAPI
         public static readonly string CHAT_MEMBER = "chat_member";
         public static readonly string POSITION = "position";
         public static readonly string LAST_SELECTED_STUDY_ROOM_GROUP = "last_selected_study_room_group";
+        public static readonly string VERSION_MAJOR = "version_major";
+        public static readonly string VERSION_MINOR = "version_minor";
+        public static readonly string VERSION_BUILD = "version_build";
+        public static readonly string VERSION_REVISION = "version_revision";
 
         public static readonly string PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
         public static readonly string CHATTERMS_URL = "https://tumcabe.in.tum.de/landing/chatterms/";

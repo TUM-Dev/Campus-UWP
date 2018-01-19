@@ -101,6 +101,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\AppUpdateHandler.cs" />
     <Compile Include="Classes\Events\CanteenSelectionChangedEventArgs.cs" />
     <Compile Include="Classes\Events\ExpandedChangedEventArgs.cs" />
     <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
