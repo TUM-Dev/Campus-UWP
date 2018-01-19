@@ -56,7 +56,7 @@ namespace TUMCampusApp.Controls
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
             await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
 
-            foreach (FavoriteCanteenDishTypeTable f in CanteenManager.INSTANCE.getFavoriteCanteens())
+            foreach (CanteenTable c in CanteenManager.INSTANCE.getFavoriteCanteens())
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -66,7 +66,7 @@ namespace TUMCampusApp.Controls
                         Style = dsp.Style,
                         Visibility = Visibility.Visible
                     };
-                    canteen_dsp.Content = new CanteenWidget(f.canteen_id, canteen_dsp);
+                    canteen_dsp.Content = new CanteenWidget(c.canteen_id, canteen_dsp);
                     homePage.addWidget(canteen_dsp);
                 });
             }

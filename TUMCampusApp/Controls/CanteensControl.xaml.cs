@@ -36,7 +36,6 @@ namespace TUMCampusApp.Controls
 
         private ObservableCollection<CanteenTemplate> canteens;
         private int selectedIndex;
-        private bool canteenSelected;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -51,9 +50,8 @@ namespace TUMCampusApp.Controls
         {
             this.canteens = new ObservableCollection<CanteenTemplate>();
             this.selectedIndex = -1;
-            this.InitializeComponent();
             this.Expanded = false;
-            this.canteenSelected = false;
+            this.InitializeComponent();
         }
 
         #endregion
@@ -61,9 +59,14 @@ namespace TUMCampusApp.Controls
         #region --Set-, Get- Methods--
         private void setExpanded(bool expanded)
         {
-            Expanded = expanded;
-            showExpanded();
-            showSelectedCanteen();
+            if (expanded)
+            {
+                open();
+            }
+            else
+            {
+                close();
+            }
         }
 
         private CanteenTable getSelectedCanteen()
@@ -78,6 +81,18 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public void close()
+        {
+            Expanded = false;
+            showExpanded();
+        }
+
+        public void open()
+        {
+            Expanded = true;
+            showExpanded();
+        }
+
         public async Task reloadCanteensAsync(string canteen_id)
         {
             canteens.Clear();
@@ -137,12 +152,12 @@ namespace TUMCampusApp.Controls
             if (Expanded)
             {
                 canteens_list.Visibility = Visibility.Visible;
-                selectedCanteen_tblck.Visibility = Visibility.Collapsed;
+                selectedCanteen_grid.Visibility = Visibility.Collapsed;
             }
             else
             {
                 canteens_list.Visibility = Visibility.Collapsed;
-                selectedCanteen_tblck.Visibility = Visibility.Visible;
+                selectedCanteen_grid.Visibility = Visibility.Visible;
             }
             ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(Expanded));
         }
@@ -187,38 +202,23 @@ namespace TUMCampusApp.Controls
         private void canteens_list_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             selectCanteen();
-        }
-
-        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (canteenSelected)
-            {
-                canteenSelected = false;
-                return;
-            }
-            if (!Expanded)
-            {
-                setExpanded(true);
-                e.Handled = true;
-            }
-        }
-
-        private void canteens_list_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if (Expanded)
-            {
-                canteenSelected = true;
-                setExpanded(false);
-            }
+            args.Handled = true;
         }
 
         private void canteens_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CanteenTable canteen = getSelectedCanteen();
-            if(canteen != null)
+            if (canteen != null)
             {
                 UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
             }
+            close();
+        }
+
+        private void selectedCanteen_grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            open();
+            e.Handled = true;
         }
 
         #endregion

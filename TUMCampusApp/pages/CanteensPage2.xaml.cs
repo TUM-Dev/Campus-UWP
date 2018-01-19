@@ -215,14 +215,14 @@ namespace TUMCampusApp.Pages
             {
                 more_btn.Visibility = Visibility.Collapsed;
                 more_btn.Flyout.Hide();
+                contentOverlay_grid.Visibility = Visibility.Visible;
             }
             else
             {
                 more_btn.Visibility = Visibility.Visible;
+                contentOverlay_grid.Visibility = Visibility.Collapsed;
             }
         }
-
-        #endregion
 
         private void refreshAll_btn_Click(object sender, RoutedEventArgs e)
         {
@@ -331,5 +331,12 @@ namespace TUMCampusApp.Pages
                 }).AsTask();
             });
         }
+
+        private void contentOverlay_grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            canteens_ctrl.close();
+        }
+
+        #endregion
     }
 }

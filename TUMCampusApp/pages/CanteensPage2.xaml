@@ -11,7 +11,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="loading_prgb" Grid.Row="0" IsIndeterminate="True" Visibility="Collapsed"/>
@@ -30,21 +29,30 @@
             </Button.Flyout>
         </Button>
 
-        <Grid Grid.Row="2" Background="{StaticResource TUM_blue}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="28" HorizontalAlignment="Left" Grid.Column="0" Background="{StaticResource TUM_blue}" Click="left_btn_Click"/>
-            <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="20"/>
-            <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="28" HorizontalAlignment="Right" Grid.Column="2" Background="{StaticResource TUM_blue}" Click="right_btn_Click"/>
-        </Grid>
+        <Grid Grid.Row="2" x:Name="content_grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="3">
-            <StackPanel x:Name="dishType_stckp">
-                <!--Dish types-->
-            </StackPanel>
-        </ScrollViewer>
+            <Grid Grid.Row="0" Background="{StaticResource TUM_blue}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="left_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00E;" FontSize="28" HorizontalAlignment="Left" Grid.Column="0" Background="{StaticResource TUM_blue}" Click="left_btn_Click"/>
+                <TextBlock x:Name="day_tbx" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="20"/>
+                <Button x:Name="right_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE00F;" FontSize="28" HorizontalAlignment="Right" Grid.Column="2" Background="{StaticResource TUM_blue}" Click="right_btn_Click"/>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1">
+                <StackPanel x:Name="dishType_stckp">
+                    <!--Dish types-->
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid x:Name="contentOverlay_grid" Grid.RowSpan="2" Grid.Row="0" Background="{ThemeResource SystemControlBackgroundAltMediumBrush}" Tapped="contentOverlay_grid_Tapped"/>
+        </Grid>
     </Grid>
 </Page>

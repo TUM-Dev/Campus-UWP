@@ -14,12 +14,13 @@
             <controls:CanteenControl Canteen="{x:Bind canteen}"/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Tapped="Grid_Tapped">
+    <Grid Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListView x:Name="canteens_list"
                   Grid.Row="0"
+                  Grid.Column="0"
                   ItemsSource="{x:Bind canteens}"
                   ItemTemplate="{StaticResource canteen_template}"
                   Visibility="Collapsed"
@@ -27,8 +28,9 @@
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                   SelectionMode="Single"
                   Height="310"
-                  Tapped="canteens_list_Tapped"
                   SelectionChanged="canteens_list_SelectionChanged"/>
-        <TextBlock x:Name="selectedCanteen_tblck" x:Uid="CanteensControlSelectedCanteen" Grid.Row="0" FontSize="20" TextTrimming="CharacterEllipsis" Margin="35, 10, 35, 10" HorizontalAlignment="Center"/>
+        <Grid x:Name="selectedCanteen_grid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="selectedCanteen_grid_Tapped" Background="Transparent">
+            <TextBlock x:Name="selectedCanteen_tblck" x:Uid="CanteensControlSelectedCanteen" Grid.Row="0" FontSize="20" TextTrimming="CharacterEllipsis" Margin="35, 10, 35, 10" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </UserControl>
