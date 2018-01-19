@@ -130,6 +130,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="dish_types">All dish types.</param>
         public void setFavoriteCanteenDishTypes(string canteen_id, List<string> dish_types)
         {
+            dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 1, canteen_id);
             List<FavoriteCanteenDishTypeTable> fav = new List<FavoriteCanteenDishTypeTable>();
             foreach (string dish_type in dish_types)
             {
