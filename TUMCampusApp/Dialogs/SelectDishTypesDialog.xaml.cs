@@ -1,14 +1,20 @@
-﻿using TUMCampusApp.Classes;
-using TUMCampusAppAPI.DBTables;
+﻿using System.Collections.Generic;
+using TUMCampusAppAPI.Managers;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace TUMCampusApp.Controls
+namespace TUMCampusApp.Dialogs
 {
-    public sealed partial class DishTypeControl : UserControl
+    public sealed partial class SelectDishTypesDialog : ContentDialog
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string dishType;
+        public string Canteen_id
+        {
+            get { return (string)GetValue(Canteen_idProperty); }
+            set { SetValue(Canteen_idProperty, value); }
+        }
+        public static readonly DependencyProperty Canteen_idProperty = DependencyProperty.Register("Canteen_id", typeof(string), typeof(SelectDishTypesDialog), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -17,30 +23,25 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 15/01/2018 Created [Fabian Sauter]
+        /// 19/01/2018 Created [Fabian Sauter]
         /// </history>
-        public DishTypeControl(CanteenDishTable dish)
+        public SelectDishTypesDialog()
         {
-            this.dishType = dish.dish_type;
             this.InitializeComponent();
-            addDish(dish);
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public List<string> getSelectedDishTypes()
+        {
+            return dishes_contrl.getSelectedDishTypes();
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void addDish(CanteenDishTable dish)
-        {
-            if (Equals(dishType, dish.dish_type))
-            {
-                dishes_stckp.Children.Add(new CanteenDishControl(dish));
-            }
-        }
+
 
         #endregion
 
@@ -55,12 +56,20 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void UserControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            dishType_tbx.Text = Utillities.translateDishType(dishType) + ':';
+            if(Canteen_id != null)
+            {
+                CanteenManager.INSTANCE.setFavoriteCanteenDishTypes(Canteen_id, dishes_contrl.getSelectedDishTypes());
+            }
+            Hide();
+        }
+
+        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Hide();
         }
 
         #endregion
-
     }
 }

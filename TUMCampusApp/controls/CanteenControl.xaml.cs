@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TUMCampusApp.Dialogs;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
@@ -76,7 +77,8 @@ namespace TUMCampusApp.Controls
 
         private void showFavoriteStar()
         {
-            if(Canteen != null) {
+            if (Canteen != null)
+            {
                 if (Canteen.favorite)
                 {
                     favorite_btn.Content = "\uE735";
@@ -90,7 +92,11 @@ namespace TUMCampusApp.Controls
 
         private async Task showAddCanteenToFavoriteDialogAsync()
         {
-
+            SelectDishTypesDialog dialog = new SelectDishTypesDialog()
+            {
+                Canteen_id = Canteen.canteen_id
+            };
+            await dialog.ShowAsync();
         }
 
         #endregion
@@ -106,10 +112,13 @@ namespace TUMCampusApp.Controls
             if (Canteen != null)
             {
                 Canteen.favorite = !Canteen.favorite;
-                CanteenManager.INSTANCE.update(Canteen);
                 if (Canteen.favorite)
                 {
                     await showAddCanteenToFavoriteDialogAsync();
+                }
+                else
+                {
+                    CanteenManager.INSTANCE.unfavoriteCanteen(Canteen.canteen_id);
                 }
                 showFavoriteStar();
             }

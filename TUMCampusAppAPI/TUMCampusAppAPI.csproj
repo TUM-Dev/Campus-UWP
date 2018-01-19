@@ -110,6 +110,7 @@
     <Compile Include="Caches\Cache.cs" />
     <Compile Include="DBTables\CanteenTable.cs" />
     <Compile Include="DBTables\CanteenDishTable.cs" />
+    <Compile Include="DBTables\FavoriteCanteenDishTypeTable.cs" />
     <Compile Include="Faculties.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="CustomAccelerometer.cs" />

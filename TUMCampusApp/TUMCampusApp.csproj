@@ -121,11 +121,17 @@
     <Compile Include="Controls\CanteensControl.xaml.cs">
       <DependentUpon>CanteensControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CanteenDummyWidget.xaml.cs">
+      <DependentUpon>CanteenDummyWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CanteenWidget.xaml.cs">
       <DependentUpon>CanteenWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DishTypeControl.xaml.cs">
       <DependentUpon>DishTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DishTypesControl.xaml.cs">
+      <DependentUpon>DishTypesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GradeControl.xaml.cs">
       <DependentUpon>GradeControl.xaml</DependentUpon>
@@ -158,6 +164,9 @@
     <Compile Include="DataTemplates\NewsTemplate.cs" />
     <Compile Include="Dialogs\IngredientsDialog.xaml.cs">
       <DependentUpon>IngredientsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectDishTypesDialog.xaml.cs">
+      <DependentUpon>SelectDishTypesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
@@ -312,11 +321,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\CanteenDummyWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\CanteenWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\DishTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DishTypesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\IngredientsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectDishTypesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

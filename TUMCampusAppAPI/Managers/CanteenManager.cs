@@ -110,6 +110,66 @@ namespace TUMCampusAppAPI.Managers
             return null;
         }
 
+        /// <summary>
+        /// Returns the CanteenTable that matches the given canteen_id.
+        /// </summary>
+        public CanteenTable getCanteen(string canteen_id)
+        {
+            List<CanteenTable> list = dB.Query<CanteenTable>("SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
+            if(list.Count >= 1)
+            {
+                return list[0];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Adds the given dish types to the favorite canteens dish types.
+        /// </summary>
+        /// <param name="canteen_id">The canteen id.</param>
+        /// <param name="dish_types">All dish types.</param>
+        public void setFavoriteCanteenDishTypes(string canteen_id, List<string> dish_types)
+        {
+            List<FavoriteCanteenDishTypeTable> fav = new List<FavoriteCanteenDishTypeTable>();
+            foreach (string dish_type in dish_types)
+            {
+                dB.InsertOrReplace(new FavoriteCanteenDishTypeTable()
+                {
+                    id = FavoriteCanteenDishTypeTable.generateId(canteen_id, dish_type),
+                    canteen_id = canteen_id,
+                    dish_type = dish_type
+                });
+            }
+        }
+
+        /// <summary>
+        /// Returns all CanteenTables, that are tagged as favorite.
+        /// </summary>
+        public List<CanteenTable> getFavoriteCanteens()
+        {
+            return dB.Query<CanteenTable>("SELECT canteen_id FROM CanteenTable WHERE favorite = 1;");
+        }
+
+        /// <summary>
+        /// Returns all dish types for the given canteen_id.
+        /// </summary>
+        /// <param name="canteen_id">The canteen id you want all dish types for.</param>
+        public List<FavoriteCanteenDishTypeTable> getDishTypesForFavoriteCanteen(string canteen_id)
+        {
+            return dB.Query<FavoriteCanteenDishTypeTable>("SELECT * FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
+        }
+
+        /// <summary>
+        /// Removes all entries from the FavoriteCanteenDishTypeTable where the canteen_id matches.
+        /// Also updates CanteenTable and sets favorite to 0 where the canteen_id matches.
+        /// </summary>
+        /// <param name="canteen_id">The canteen id you want to unfavorite.</param>
+        public void unfavoriteCanteen(string canteen_id)
+        {
+            dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 0, canteen_id);
+            dB.Execute("DELETE FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -155,6 +215,7 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<CanteenTable>();
+            dB.CreateTable<FavoriteCanteenDishTypeTable>();
         }
         #endregion
 

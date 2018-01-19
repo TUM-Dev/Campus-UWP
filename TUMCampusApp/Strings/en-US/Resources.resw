@@ -634,4 +634,16 @@
   <data name="IngredientsDialog.CloseButtonText" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="DishTypesControlNoneFound.Text" xml:space="preserve">
+    <value>None found! Try refreshing dishes.</value>
+  </data>
+  <data name="SelectDishTypesDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SelectDishTypesDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancle</value>
+  </data>
+  <data name="SelectDishTypesDialog.Title" xml:space="preserve">
+    <value>Select dish types to show on home page:</value>
+  </data>
 </root>

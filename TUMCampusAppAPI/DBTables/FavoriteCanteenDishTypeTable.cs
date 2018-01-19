@@ -1,14 +1,20 @@
-﻿using TUMCampusApp.Classes;
-using TUMCampusAppAPI.DBTables;
-using Windows.UI.Xaml.Controls;
+﻿using SQLite.Net.Attributes;
 
-namespace TUMCampusApp.Controls
+namespace TUMCampusAppAPI.DBTables
 {
-    public sealed partial class DishTypeControl : UserControl
+    public class FavoriteCanteenDishTypeTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string dishType;
+        [PrimaryKey]
+        // PrimaryKey generated in generateId()
+        public string id { get; set; }
+        [NotNull]
+        // The dish type e.g. 'Tagesgericht 4'
+        public string dish_type { get; set; }
+        [NotNull]
+        // The id of the canteen e.g. 'mensa-martinsried'
+        public string canteen_id { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -17,13 +23,11 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 15/01/2018 Created [Fabian Sauter]
+        /// 19/01/2018 Created [Fabian Sauter]
         /// </history>
-        public DishTypeControl(CanteenDishTable dish)
+        public FavoriteCanteenDishTypeTable()
         {
-            this.dishType = dish.dish_type;
-            this.InitializeComponent();
-            addDish(dish);
+
         }
 
         #endregion
@@ -34,12 +38,9 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void addDish(CanteenDishTable dish)
+        public static string generateId(string canteen_id, string dish_type)
         {
-            if (Equals(dishType, dish.dish_type))
-            {
-                dishes_stckp.Children.Add(new CanteenDishControl(dish));
-            }
+            return dish_type + '_' + canteen_id;
         }
 
         #endregion
@@ -55,12 +56,8 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void UserControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            dishType_tbx.Text = Utillities.translateDishType(dishType) + ':';
-        }
+
 
         #endregion
-
     }
 }

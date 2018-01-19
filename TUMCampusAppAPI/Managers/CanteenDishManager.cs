@@ -16,7 +16,6 @@ namespace TUMCampusAppAPI.Managers
         #region --Attributes--
         public static CanteenDishManager INSTANCE;
         private static readonly int TIME_TO_SYNC = 86400; // 1 day
-        private static List<CanteenDishTable> menus = new List<CanteenDishTable>();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -35,9 +34,8 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         /// <summary>
-        /// Returns the first next date. Based on "Tagesgericht".
+        /// Returns the date of the first next dish for the given canteen_id.
         /// </summary>
-        /// <returns>Returns the first next date.</returns>
         public static DateTime getFirstNextDate(string canteen_id)
         {
             DateTime time = DateTime.MaxValue;
@@ -51,9 +49,9 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE dish_type LIKE '%Tagesgericht%' OR dish_type LIKE '%Beilage%'"))
+            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id))
             {
-                if (m.canteen_id.Equals(canteen_id) && m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
+                if (m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
                     time = m.date;
                 }
@@ -134,6 +132,15 @@ namespace TUMCampusAppAPI.Managers
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
 
+        /// <summary>
+        /// Returns a list of all dish types.
+        /// </summary>
+        /// <returns>A list of CanteenDishTable objects, only populated with the dish_type attribute.</returns>
+        public List<CanteenDishTable> getAllDishTypes()
+        {
+            return dB.Query<CanteenDishTable>("SELECT DISTINCT dish_type FROM CanteenDishTable;");
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -147,9 +154,9 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Replaces the ingredients with emojis.
+        /// Replaces the ingredients with Emojis.
         /// </summary>
-        /// <param name="s">Menu string.</param>
+        /// <param name="s">The dish name.</param>
         /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
         /// <returns>Returns the replaced dish string</returns>
         public string replaceDishStringWithEmojis(string s, bool withComma)
@@ -223,6 +230,11 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Creates a string containing all given ingredients, represented as Emojis.
+        /// </summary>
+        /// <param name="ingredients">A list of all ingredients.</param>
+        /// <param name="withComma">Whether to Separate ingredients with commas.</param>
         private string addEmojis(string[] ingredients, bool withComma)
         {
             string s = "";
@@ -329,6 +341,13 @@ namespace TUMCampusAppAPI.Managers
             return s;
         }
 
+        /// <summary>
+        /// Replaces all matches with the equivalent Emoji.
+        /// </summary>
+        /// <param name="s">The string, the ingredients should get replaced with Emojis.</param>
+        /// <param name="col">A collection of regex matches.</param>
+        /// <param name="withComma">Whether to Separate ingredients with commas.</param>
+        /// <returns>Returns the given string with all ingredients, replaced with Emojis.</returns>
         private string replaceMatches(string s, MatchCollection col, bool withComma)
         {
             string ingredient = "";

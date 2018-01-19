@@ -77,6 +77,50 @@ namespace TUMCampusApp.Classes
             }
         }
 
+        /// <summary>
+        /// Translates the given dish type.
+        /// </summary>
+        /// <param name="dishType">The dish type you want to translate.</param>
+        /// <returns>A translated version of the given dish type.</returns>
+        public static string translateDishType(string dishType)
+        {
+            switch (dishType)
+            {
+                case "Tagesgericht":
+                    return Utillities.getLocalizedString("CanteenDishOfTheDay_Text");
+                case "Aktionsessen":
+                    return Utillities.getLocalizedString("CanteenActionDishes_Text");
+                case "Biogericht":
+                    return Utillities.getLocalizedString("CanteenBioDish_Text");
+                case "StuBistro Gericht":
+                    return Utillities.getLocalizedString("CanteenStuBistroDishes_Text");
+                case "Baustellenteller":
+                    return Utillities.getLocalizedString("CanteenBaustellenteller_Text");
+                case "Fast Lane":
+                    return Utillities.getLocalizedString("CanteenFastLane_Text");
+                case "Mensa Klassiker":
+                    return Utillities.getLocalizedString("CanteenCanteenClassics_Text");
+                case "Mensa Spezial":
+                    return Utillities.getLocalizedString("CanteenCanteenSpecial_Text");
+                case "Self-Service Grüne Mensa":
+                    return Utillities.getLocalizedString("CanteenSelf-ServiceGreenCanteen_Text");
+                case "Self-Service Arcisstraße":
+                    return Utillities.getLocalizedString("CanteenSelf-ServiceArcisstraße_Text");
+                case "Self-Service":
+                    return Utillities.getLocalizedString("CanteenSelf-Service_Text");
+                case "Aktion":
+                    return Utillities.getLocalizedString("CanteenSpecialDishes_Text");
+                case "Beilagen":
+                    return Utillities.getLocalizedString("CanteenSideDishes_Text");
+                case "Tagesdessert":
+                    return Utillities.getLocalizedString("CanteenDessertOfTheDay_Text");
+                case "Dessert":
+                    return Utillities.getLocalizedString("CanteenDessert_Text");
+                default:
+                    return dishType;
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
