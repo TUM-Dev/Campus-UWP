@@ -205,9 +205,6 @@
   <data name="LecturesNoAccessToLectures_Text" xml:space="preserve">
     <value>You didn't give the token the required rights for accessing your lectures.</value>
   </data>
-  <data name="CanteenNoMenusFoundFor_Text" xml:space="preserve">
-    <value>No menus available for: </value>
-  </data>
   <data name="CanteenNoMenusFound_Text" xml:space="preserve">
     <value>No menus found!</value>
   </data>
@@ -624,9 +621,6 @@
   </data>
   <data name="CanteenStuBistroDishes_Text" xml:space="preserve">
     <value>StuBistro Dish</value>
-  </data>
-  <data name="CanteensControlSelectedCanteen" xml:space="preserve">
-    <value>No canteens found!</value>
   </data>
   <data name="IngredientsDialog.Title" xml:space="preserve">
     <value>Ingredients:</value>

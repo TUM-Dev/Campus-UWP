@@ -154,6 +154,10 @@ namespace TUMCampusApp.Pages
 
         }
 
+        /// <summary>
+        /// Refreshes all canteens and dishes.
+        /// </summary>
+        /// <param name="force">Whether to force the refresh.</param>
         private void refreshAll(bool force)
         {
             disableRefreshButtons();

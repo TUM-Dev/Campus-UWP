@@ -55,6 +55,9 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Sets expanded and opens or closes it.
+        /// </summary>
         private void setExpanded(bool expanded)
         {
             if (expanded)
@@ -67,6 +70,10 @@ namespace TUMCampusApp.Controls
             }
         }
 
+        /// <summary>
+        /// Returns the selected canteen.
+        /// </summary>
+        /// <returns>The currently selected canteen.</returns>
         private CanteenTable getSelectedCanteen()
         {
             if (canteens_list.Items.Count > 0 && canteens_list.SelectedIndex < canteens.Count)
@@ -79,18 +86,28 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Hides the canteens and shows the currently selected one.
+        /// </summary>
         public void close()
         {
             Expanded = false;
             showExpanded();
         }
 
+        /// <summary>
+        /// Shows all canteens and hides the currently selected one.
+        /// </summary>
         public void open()
         {
             Expanded = true;
             showExpanded();
         }
 
+        /// <summary>
+        /// Reloads all canteens and shows them on the screen.
+        /// </summary>
+        /// <param name="canteen_id">If not null will show the given canteen as selected one.</param>
         public async Task reloadCanteensAsync(string canteen_id)
         {
             canteens.Clear();
@@ -112,6 +129,10 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Sorts a list of canteens based on favorite and distance.
+        /// </summary>
+        /// <param name="list">The list of canteens to sort.</param>
         private void sortCanteens(List<CanteenTable> list)
         {
             list.Sort((a, b) =>
@@ -145,6 +166,9 @@ namespace TUMCampusApp.Controls
             });
         }
 
+        /// <summary>
+        /// Shows and hides controls based on Expanded.
+        /// </summary>
         private void showExpanded()
         {
             if (Expanded)
@@ -160,6 +184,9 @@ namespace TUMCampusApp.Controls
             ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(Expanded));
         }
 
+        /// <summary>
+        /// Shows the currently selected canteen and triggers the CanteenSelectionChanged event.
+        /// </summary>
         private void showSelectedCanteen()
         {
             int selectedIndex = canteens_list.SelectedIndex;

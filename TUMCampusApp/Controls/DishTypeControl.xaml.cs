@@ -34,6 +34,10 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Adds the given dish to the dishes_stckp.
+        /// </summary>
+        /// <param name="dish">The dish, that should get added.</param>
         public void addDish(CanteenDishTable dish)
         {
             if (Equals(dishType, dish.dish_type))

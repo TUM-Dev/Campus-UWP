@@ -169,9 +169,6 @@
     <Compile Include="Dialogs\SelectDishTypesDialog.xaml.cs">
       <DependentUpon>SelectDishTypesDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CanteensPage.xaml.cs">
-      <DependentUpon>CanteensPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\CanteensPage2.xaml.cs">
       <DependentUpon>CanteensPage2.xaml</DependentUpon>
     </Compile>
@@ -379,10 +376,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\SelectDishTypesDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\CanteensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

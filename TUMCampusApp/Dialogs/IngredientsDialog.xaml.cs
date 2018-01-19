@@ -37,6 +37,9 @@ namespace TUMCampusApp.Dialogs
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Shows the ingredients string on the screen.
+        /// </summary>
         private void showIngredients()
         {
             string s =

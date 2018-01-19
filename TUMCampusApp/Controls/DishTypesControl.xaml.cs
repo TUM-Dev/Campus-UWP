@@ -33,6 +33,10 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns all selected dish types.
+        /// </summary>
+        /// <returns>A list of selected dish types.</returns>
         public List<string> getSelectedDishTypes()
         {
             List<string> types = new List<string>();
@@ -54,6 +58,9 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Loads all dish types and adds them to dishTypes list.
+        /// </summary>
         private void loadDishTypes()
         {
             dishTypes.Clear();

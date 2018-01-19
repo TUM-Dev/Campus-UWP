@@ -33,6 +33,10 @@ namespace TUMCampusApp.Dialogs
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        /// <summary>
+        /// Returns all selected dish types.
+        /// </summary>
+        /// <returns>A list of selected dish types.</returns>
         public List<string> getSelectedDishTypes()
         {
             return dishes_contrl.getSelectedDishTypes();
