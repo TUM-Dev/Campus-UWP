@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
@@ -77,6 +78,11 @@ namespace TUMCampusApp.Controls
                             dishTypes_stckp.Children.Add(dishTypeControl);
                         }
                     }
+                    if(dishTypes_stckp.Children.Count <= 0)
+                    {
+                        dishTypes_stckp.Visibility = Visibility.Collapsed;
+                        canteenDate_tbx.Visibility = Visibility.Collapsed;
+                    }
                     return;
                 }
             }
@@ -94,6 +100,11 @@ namespace TUMCampusApp.Controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             showDishes();
+        }
+
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Utillities.mainPage.navigateToPage(Utillities.EnumPage.CanteensPage, canteen_id);
         }
 
         #endregion
