@@ -205,9 +205,6 @@
   <data name="LecturesNoAccessToLectures_Text" xml:space="preserve">
     <value>You didn't give the token the required rights for accessing your lectures.</value>
   </data>
-  <data name="CanteenNoMenusFoundFor_Text" xml:space="preserve">
-    <value>No menus available for: </value>
-  </data>
   <data name="CanteenNoMenusFound_Text" xml:space="preserve">
     <value>No menus found!</value>
   </data>
@@ -591,5 +588,62 @@
   </data>
   <data name="SettingsPageLogSizeCalculating_Text" xml:space="preserve">
     <value>calculating...</value>
+  </data>
+  <data name="CanteenBaustellenteller_Text" xml:space="preserve">
+    <value>"Baustellenteller"</value>
+  </data>
+  <data name="CanteenBioDish_Text" xml:space="preserve">
+    <value>Bio Dish</value>
+  </data>
+  <data name="CanteenCanteenClassics_Text" xml:space="preserve">
+    <value>Canteen Classics</value>
+  </data>
+  <data name="CanteenCanteenSpecial_Text" xml:space="preserve">
+    <value>Canteen Special</value>
+  </data>
+  <data name="CanteenCountryCanteen_Text" xml:space="preserve">
+    <value>Country Canteen</value>
+  </data>
+  <data name="CanteenDessertOfTheDay_Text" xml:space="preserve">
+    <value>Dessert Of The Day</value>
+  </data>
+  <data name="CanteenDessert_Text" xml:space="preserve">
+    <value>Dessert</value>
+  </data>
+  <data name="CanteenFastLane_Text" xml:space="preserve">
+    <value>Fast Lane</value>
+  </data>
+  <data name="CanteenSelf-ServiceArcisstraße_Text" xml:space="preserve">
+    <value>Self-Service Arcisstraße</value>
+  </data>
+  <data name="CanteenSelf-ServiceGreenCanteen_Text" xml:space="preserve">
+    <value>Self-Service Green Canteen</value>
+  </data>
+  <data name="CanteenStuBistroDishes_Text" xml:space="preserve">
+    <value>StuBistro Dish</value>
+  </data>
+  <data name="IngredientsDialog.Title" xml:space="preserve">
+    <value>Ingredients:</value>
+  </data>
+  <data name="IngredientsDialog.CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="DishTypesControlNoneFound.Text" xml:space="preserve">
+    <value>None found! Try refreshing dishes.</value>
+  </data>
+  <data name="SelectDishTypesDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SelectDishTypesDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancle</value>
+  </data>
+  <data name="SelectDishTypesDialog.Title" xml:space="preserve">
+    <value>Select dish types to show on home page:</value>
+  </data>
+  <data name="DishTypesControlSelectAll.Content" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="DishTypesControlUnSelectAll.Content" xml:space="preserve">
+    <value>Unselect all</value>
   </data>
 </root>

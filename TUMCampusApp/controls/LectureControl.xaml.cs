@@ -1,9 +1,9 @@
 ﻿using TUMCampusApp.Classes;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusApp.Pages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.Controls
 {
@@ -11,7 +11,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public TUMOnlineLecture lecture;
+        public TUMOnlineLectureTable lecture;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -22,7 +22,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 14/01/2017 Created [Fabian Sauter]
         /// </history>
-        public LectureControl(TUMOnlineLecture lecture)
+        public LectureControl(TUMOnlineLectureTable lecture)
         {
             this.lecture = lecture;
             this.InitializeComponent();

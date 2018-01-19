@@ -9,8 +9,8 @@ using System;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using TUMCampusAppAPI.Syncs;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages
 {

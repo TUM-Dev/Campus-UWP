@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
 using TUMCampusApp.DataTemplates;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.News;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -77,7 +77,7 @@ namespace TUMCampusApp.Pages
             {
                 reloadingNews = true;
                 await NewsManager.INSTANCE.downloadNewsAsync(forceReload);
-                List<News> news = NewsManager.INSTANCE.getAllNewsFormDb();
+                List<NewsTable> news = NewsManager.INSTANCE.getAllNewsFormDb();
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -133,11 +133,11 @@ namespace TUMCampusApp.Pages
                 reloadingNewsSources = true;
                 Task t1 = NewsManager.INSTANCE.downloadNewsSourcesAsync(forceReload);
                 Task.WaitAll(t1);
-                List<NewsSource> sources = NewsManager.INSTANCE.getAllNewsSourcesFormDb();
+                List<NewsSourceTable> sources = NewsManager.INSTANCE.getAllNewsSourcesFormDb();
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     newsSources_stckp.Children.Clear();
-                    foreach (NewsSource source in sources)
+                    foreach (NewsSourceTable source in sources)
                     {
                         newsSources_stckp.Children.Add(new NewsSourceControl(source, this)
                         {

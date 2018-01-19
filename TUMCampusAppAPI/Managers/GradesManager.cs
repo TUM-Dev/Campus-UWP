@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.TUMOnline;
 using Windows.Data.Xml.Dom;
 
@@ -45,10 +44,10 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found grads as a list of TUMOnlineGradeSemester with their grades.</returns>
         public List<TUMOnlineGradeSemester> getGradesSemester()
         {
-            List<TUMOnlineGrade> list = dB.Query<TUMOnlineGrade>("SELECT * FROM TUMOnlineGrade");
+            List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>("SELECT * FROM TUMOnlineGradeTable");
             List<TUMOnlineGradeSemester> semester = new List<TUMOnlineGradeSemester>();
             bool match = false;
-            foreach (TUMOnlineGrade g in list)
+            foreach (TUMOnlineGradeTable g in list)
             {
                 match = false;
                 foreach (TUMOnlineGradeSemester s in semester)
@@ -71,7 +70,7 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<TUMOnlineGrade>();
+            dB.CreateTable<TUMOnlineGradeTable>();
         }
 
         /// <summary>
@@ -88,13 +87,13 @@ namespace TUMCampusAppAPI.Managers
                 {
                     return;
                 }
-                dB.DropTable<TUMOnlineGrade>();
-                dB.CreateTable<TUMOnlineGrade>();
+                dB.DropTable<TUMOnlineGradeTable>();
+                dB.CreateTable<TUMOnlineGradeTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMOnlineGrade(element));
+                    dB.Insert(new TUMOnlineGradeTable(element));
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }
         }
 

@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -63,7 +63,7 @@ namespace TUMCampusApp.Controls
                 });
                 return;
             }
-            List<TUMTuitionFee> list = TuitionFeeManager.INSTANCE.getFees();
+            List<TUMTuitionFeeTable> list = TuitionFeeManager.INSTANCE.getFees();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 showFees(list);
             });
@@ -73,7 +73,7 @@ namespace TUMCampusApp.Controls
         /// Shows the given fees list on the screen or hides the widget if the list is empty.
         /// </summary>
         /// <param name="list">A list of tuition fees.</param>
-        private void showFees(List<TUMTuitionFee> list)
+        private void showFees(List<TUMTuitionFeeTable> list)
         {
             tuitionFees_stckp.Children.Clear();
 

@@ -1,16 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using Windows.UI.Core;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace TUMCampusApp.Controls
 {
@@ -18,7 +12,8 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private DropShadowPanel dSP;
+        private string canteen_id;
+        private DropShadowPanel dsp;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -29,58 +24,17 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 01/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenWidget(DropShadowPanel dSP)
+        public CanteenWidget(string canteen_id, DropShadowPanel dsp)
         {
-            this.dSP = dSP;
+            this.canteen_id = canteen_id;
+            this.dsp = dsp;
             this.InitializeComponent();
-            Task.Factory.StartNew(() => showMenusTaskAsync());
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        /// <summary>
-        /// Shows all menus on the screen that are associated with the given name, canteen id and date.
-        /// </summary>
-        /// <param name="canteenId">The id of the requested canteen.</param>
-        /// <param name="name">The "typeLong" name for the menus.</param>
-        /// <param name="contains">Whether the menu name should equal or just contains the given name.</param>
-        /// <param name="date">The menu date.</param>
-        private void setMenuType(int canteenId, string name, string labelText, bool contains, DateTime date)
-        {
-            List<CanteenMenu> list = CanteenMenueManager.INSTANCE.getMenusForType(canteenId, name, contains, date);
-            if (list == null || list.Count <= 0)
-            {
-                return;
-            }
-            Brush brushLine = Resources["ApplicationPressedForegroundThemeBrush"] as Brush;
-            Brush brushText = Resources["CalendarDatePickerTextForeground"] as Brush;
 
-            //Description:
-            TextBlock tb = new TextBlock()
-            {
-                Text = labelText + ':',
-                Margin = new Thickness(10, 10, 10, 10),
-                Foreground = brushText
-            };
-            menus_sckl.Children.Add(tb);
-
-            //Line:
-            Rectangle rect = new Rectangle()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Height = 2,
-                Fill = brushLine,
-                Margin = new Thickness(10, 0, 10, 0)
-            };
-            menus_sckl.Children.Add(rect);
-
-            //Menus:
-            foreach (CanteenMenu m in list)
-            {
-                menus_sckl.Children.Add(new CanteenMenuControl(m));
-            }
-        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -91,58 +45,48 @@ namespace TUMCampusApp.Controls
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Shows all menus for the last selected canteen on the screen. Has to get call in a separate task!
+        /// Shows all dishes for the selected canteen and date.
         /// </summary>
-        private async void showMenusTaskAsync()
+        private void showDishes()
         {
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
-
-            DateTime date = CanteenMenueManager.getFirstNextDate(id);
-
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                menus_sckl.Children.Clear();
-                setMenuType(id, "Tagesgericht", Utillities.getLocalizedString("CanteenDishOfTheDay_Text"), true, date);
-                setMenuType(id, "Aktionsessen", Utillities.getLocalizedString("CanteenActionDishes_Text"), true, date);
-                setMenuType(id, "Self-Service", Utillities.getLocalizedString("CanteenSelf-Service_Text"), false, date);
-                if (menus_sckl.Children.Count <= 0)
-                {
-                    menus_sckl.Children.Add(new TextBlock()
-                    {
-                        Text = "No menus found!",
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        FontSize = 25
-                    });
-                    splashProgressRing.Visibility = Visibility.Collapsed;
-                    dSP.Visibility = Visibility.Collapsed;
-                }
-            });
-
-            if (date.CompareTo(DateTime.MaxValue) == 0)
+            CanteenTable canteen = CanteenManager.INSTANCE.getCanteen(canteen_id);
+            if (canteen != null)
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    canteenName_tbx.Text = "Error!";
-                    splashProgressRing.Visibility = Visibility.Collapsed;
-                    dSP.Visibility = Visibility.Collapsed;
-                });
+                canteenName_tbx.Text = canteen.name ?? "";
+                DateTime date = CanteenDishManager.getFirstNextDate(canteen_id);
+
+                if (date != DateTime.MaxValue)
+                {
+                    canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
+
+                    foreach (FavoriteCanteenDishTypeTable f in CanteenManager.INSTANCE.getDishTypesForFavoriteCanteen(canteen_id))
+                    {
+                        DishTypeControl dishTypeControl = null;
+                        foreach (CanteenDishTable dish in CanteenDishManager.INSTANCE.getDishesForType(canteen_id, f.dish_type, false, date))
+                        {
+                            if(dishTypeControl == null)
+                            {
+                                dishTypeControl = new DishTypeControl(dish);
+                            }
+                            else
+                            {
+                                dishTypeControl.addDish(dish);
+                            }
+                        }
+                        if(dishTypeControl != null)
+                        {
+                            dishTypes_stckp.Children.Add(dishTypeControl);
+                        }
+                    }
+                }
+                if (dishTypes_stckp.Children.Count <= 0)
+                {
+                    dishTypes_stckp.Visibility = Visibility.Collapsed;
+                    canteenDate_tbx.Visibility = Visibility.Collapsed;
+                }
                 return;
             }
-
-            date = date.AddDays(1);
-            Canteen c = await CanteenManager.INSTANCE.getCanteenByIdAsync(id);
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
-                if (c == null)
-                {
-                    canteenName_tbx.Text = "Error No Canteen!";
-                }
-                else
-                {
-                    canteenName_tbx.Text = c.name;
-                }
-                splashProgressRing.Visibility = Visibility.Collapsed;
-            });
+            dsp.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -153,7 +97,15 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            showDishes();
+        }
 
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Utillities.mainPage.navigateToPage(Utillities.EnumPage.CanteensPage, canteen_id);
+        }
 
         #endregion
     }

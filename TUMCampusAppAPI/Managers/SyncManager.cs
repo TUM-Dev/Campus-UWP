@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Syncs;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -24,7 +23,7 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public SyncManager()
         {
-            dB.CreateTable<Sync>();
+            dB.CreateTable<SyncTable>();
         }
 
         #endregion
@@ -110,7 +109,7 @@ namespace TUMCampusAppAPI.Managers
         {
             try
             {
-                List<Sync> list = dB.Query<Sync>("SELECT * FROM Sync WHERE id LIKE ?", id);
+                List<SyncTable> list = dB.Query<SyncTable>("SELECT * FROM SyncTable WHERE id LIKE ?", id);
                 if(list == null || list.Count <= 0)
                 {
                     return new SyncResult(-1, SyncResult.STATUS_NOT_FOUND, true, null);
@@ -141,7 +140,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public void replaceIntoDb(Sync s)
+        public void replaceIntoDb(SyncTable s)
         {
             dB.InsertOrReplace(s);
         }
@@ -154,8 +153,8 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public void deleteFromDb()
         {
-            dB.DropTable<Sync>();
-            dB.CreateTable<Sync>();
+            dB.DropTable<SyncTable>();
+            dB.CreateTable<SyncTable>();
         }
 
         public async override Task InitManagerAsync()

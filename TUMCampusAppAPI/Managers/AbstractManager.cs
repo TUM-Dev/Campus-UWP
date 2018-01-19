@@ -1,13 +1,8 @@
-﻿using SQLite.Net;
-using SQLite.Net.Platform.WinRT;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Caches;
-using TUMCampusAppAPI.Canteens;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
+using Thread_Save_Components.Classes.SQLite;
+using TUMCampusAppAPI.DBTables;
 using Windows.Storage;
 
 namespace TUMCampusAppAPI.Managers
@@ -17,7 +12,7 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
-        protected static SQLiteConnection dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
+        protected static TSSQLiteConnection dB = new TSSQLiteConnection(DB_PATH);
         protected readonly Object thisLock = new Object();
         protected bool isLocked = false;
         protected Task workingTask = null;
@@ -55,15 +50,16 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public static void resetDB()
         {
-            dB.DropTable<Cache>();
-            dB.DropTable<Canteen>();
-            dB.DropTable<CanteenMenu>();
-            dB.DropTable<Sync>();
-            dB.DropTable<UserData>();
-            dB.DropTable<TUMOnlineLecture>();
-            dB.DropTable<TUMTuitionFee>();
-            dB.DropTable<TUMOnlineLecture>();
-            dB.DropTable<TUMOnlineCalendarEntry>();
+            dB.DropTable<CacheTable>();
+            dB.DropTable<CanteenTable>();
+            dB.DropTable<CanteenDishTable>();
+            dB.DropTable<FavoriteCanteenDishTypeTable>();
+            dB.DropTable<SyncTable>();
+            dB.DropTable<UserDataTable>();
+            dB.DropTable<TUMOnlineLectureTable>();
+            dB.DropTable<TUMTuitionFeeTable>();
+            dB.DropTable<TUMOnlineLectureTable>();
+            dB.DropTable<TUMOnlineCalendarTable>();
         }
 
         /// <summary>
@@ -81,7 +77,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 Logger.Error("Unable to close or delete the DB", e);
             }
-            dB = new SQLiteConnection(new SQLitePlatformWinRT(), DB_PATH);
+            dB = new TSSQLiteConnection(DB_PATH);
         }
 
         /// <summary>

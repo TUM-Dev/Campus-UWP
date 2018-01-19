@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using System;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI.DBTables;
+using TUMCampusAppAPI.Managers;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace TUMCampusApp.Pages
 {
@@ -63,7 +66,7 @@ namespace TUMCampusApp.Pages
             }
             if (!Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
             {
-                canteenWidget_ds.Content = new CanteenWidget(canteenWidget_ds);
+                canteenWidget_ds.Content = new CanteenDummyWidget(canteenWidget_ds, this);
                 canteenWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))

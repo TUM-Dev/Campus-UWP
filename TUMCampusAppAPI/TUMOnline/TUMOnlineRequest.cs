@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Caches;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.TUMOnline
@@ -141,7 +139,7 @@ namespace TUMCampusAppAPI.TUMOnline
         #region --Misc Methods (Private)--
         private void cacheResult(string url, string result)
         {
-            CacheManager.INSTANCE.cache(new Cache(url, CacheManager.encodeString(result), validity, validity, CacheManager.CACHE_TYP_DATA));
+            CacheManager.INSTANCE.cache(new CacheTable(url, CacheManager.encodeString(result), validity, validity, CacheManager.CACHE_TYP_DATA));
         }
 
         private Uri buildUrl()

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Canteens;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
@@ -97,7 +93,7 @@ namespace TUMCampusAppAPI.Managers
                 geoLocator.DesiredAccuracy = PositionAccuracy.Default;
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
                 UserDataManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
                 return pos.Coordinate.Point;
             }
             catch (Exception e)
@@ -132,7 +128,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="pos">The current position.</param>
         /// <returns>Returns the nearest campus.</returns>
-        private static int getCampusFromLocation(Geopoint pos)
+        private int getCampusFromLocation(Geopoint pos)
         {
             double bestDistance = double.MaxValue;
             double distanceTemp = double.MaxValue;
@@ -156,40 +152,6 @@ namespace TUMCampusAppAPI.Managers
             }
         }
 
-        /// <summary>
-        /// Returns the cafeteria's identifier which is near the given location
-        /// The used radius around the cafeteria is 1km.
-        /// </summary>
-        /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public async Task<List<Canteen>> getCanteensAsync()
-        {
-            List<Canteen> list = CanteenManager.INSTANCE.getCanteens();
-            Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
-            if (pos == null)
-            {
-                pos = await getCurrentLocationAsync();
-            }
-            if (pos == null)
-            {
-                foreach (Canteen c in list)
-                {
-                    c.distance = -1F;
-                }
-                return list;
-            }
-            else
-            {
-                foreach (Canteen c in list)
-                {
-                    c.distance = (float)calcDistance(c.latitude, c.longitude, pos.Position.Latitude, pos.Position.Longitude);
-                }
-            }
-            list.Sort();
-            return list;
-        }
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -197,7 +159,7 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the distance in miles or kilometers of any two
         /// latitude / longitude points.
         /// </summary>
-        public static double calcDistance(double lat1, double lng1, double lat2, double lng2)
+        public double calcDistance(double lat1, double lng1, double lat2, double lng2)
         {
             double dLat = toRadian(lat2 - lat1);
             double dLon = toRadian(lng2 - lng1);

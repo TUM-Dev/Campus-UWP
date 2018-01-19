@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.StudyRooms;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +16,7 @@ namespace TUMCampusApp.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private List<StudyRoomGroup> groups;
+        private List<StudyRoomGroupTable> groups;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -92,7 +92,7 @@ namespace TUMCampusApp.Pages
             {
                 noDate_tbx.Visibility = Visibility.Collapsed;
                 room_groups_cmbb.Items.Clear();
-                foreach (StudyRoomGroup g in groups)
+                foreach (StudyRoomGroupTable g in groups)
                 {
                     room_groups_cmbb.Items.Add(new ComboBoxItem() { Content = g.name});
                 }
@@ -108,12 +108,12 @@ namespace TUMCampusApp.Pages
         /// <param name="groupID">The study room group id.</param>
         private void showRoomsForGroupIdTask(int groupID)
         {
-            List<StudyRoom> rooms = StudyRoomManager.INSTANCE.getRooms(groupID);
+            List<StudyRoomTable> rooms = StudyRoomManager.INSTANCE.getRooms(groupID);
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 rooms_stckp.Children.Clear();
-                foreach (StudyRoom r in rooms)
+                foreach (StudyRoomTable r in rooms)
                 {
                     rooms_stckp.Children.Add(new StudyRoomControl(r) { Margin = new Thickness(10,5,10,5)});
                 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -16,8 +16,8 @@ namespace TUMCampusApp.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private TUMOnlineLecture lecture;
-        private TUMOnlineLectureInformation lectureInfo;
+        private TUMOnlineLectureTable lecture;
+        private TUMOnlineLectureInformationTable lectureInfo;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -57,7 +57,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private async void downloadAndShowLectureInformationTask()
         {
-            List<TUMOnlineLectureInformation> list = null;
+            List<TUMOnlineLectureInformationTable> list = null;
             try
             {
                 list = await LecturesManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
@@ -136,7 +136,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            lecture = e.Parameter as TUMOnlineLecture;
+            lecture = e.Parameter as TUMOnlineLectureTable;
             progressBar.Visibility = Visibility.Visible;
             Task.Factory.StartNew(() => downloadAndShowLectureInformationTask());
         }

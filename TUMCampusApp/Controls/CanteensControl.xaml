@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="TUMCampusApp.Controls.CanteensControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:TUMCampusApp.Controls"
+    xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
+    mc:Ignorable="d"
+    Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="canteen_template" x:DataType="datatemplates:CanteenTemplate">
+            <controls:CanteenControl Canteen="{x:Bind canteen}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="canteens_list"
+                  Grid.Row="0"
+                  ItemsSource="{x:Bind canteens}"
+                  ItemTemplate="{StaticResource canteen_template}"
+                  Visibility="Collapsed"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  SelectionMode="Single"
+                  Height="310"
+                  SelectionChanged="canteens_list_SelectionChanged"/>
+        <Grid x:Name="selectedCanteen_grid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="selectedCanteen_grid_Tapped" Background="Transparent">
+            <TextBlock x:Name="selectedCanteen_tblck" x:Uid="CanteensControlSelectedCanteen" Grid.Row="0" FontSize="20" TextTrimming="CharacterEllipsis" Margin="35, 10, 35, 10" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

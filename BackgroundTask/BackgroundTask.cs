@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
 using Windows.ApplicationModel.Background;
 
 namespace TUMCampusApp.BackgroundTask
@@ -114,13 +113,13 @@ namespace TUMCampusApp.BackgroundTask
             Logger.Info("[Background] Started refreshing 2.");
 
             CanteenManager.INSTANCE = new CanteenManager();
-            CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+            CanteenDishManager.INSTANCE = new CanteenDishManager();
 
             await CanteenManager.INSTANCE.InitManagerAsync();
-            await CanteenMenueManager.INSTANCE.InitManagerAsync();
+            await CanteenDishManager.INSTANCE.InitManagerAsync();
 
             await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenMenueManager.INSTANCE.downloadCanteenMenusAsync(false);
+            await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
 
             Logger.Info("[Background] Finished refreshing 2.");
         }

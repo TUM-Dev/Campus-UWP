@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Caches;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -49,10 +48,10 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<Cache>();
-            dB.Execute("DELETE FROM Cache WHERE datetime() > max_age");
+            dB.CreateTable<CacheTable>();
+            dB.Execute("DELETE FROM CacheTable WHERE datetime() > max_age");
 
-            // Cache images 30 days:
+            // CacheTable images 30 days:
             ImageCache.Instance.CacheDuration = new TimeSpan(30, 0, 0, 0, 0);
         }
 
@@ -67,7 +66,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 Logger.Error("An error occurred during deletion of a cached file.", e);
             }
-            dB.DeleteAll<Cache>();
+            dB.DeleteAll<CacheTable>();
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns null if it is not cached or the cached string</returns>
         public string isCached(string url)
         {
-            List<Cache> list = dB.Query<Cache>("SELECT * FROM Cache WHERE datetime() < max_age AND url LIKE ?", url);
+            List<CacheTable> list = dB.Query<CacheTable>("SELECT * FROM CacheTable WHERE datetime() < max_age AND url LIKE ?", url);
             if(list == null || list.Count <= 0)
             {
                 return null;
@@ -86,10 +85,10 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Caches the given Cache object
+        /// Caches the given CacheTable object
         /// </summary>
         /// <param name="c"></param>
-        public void cache(Cache c)
+        public void cache(CacheTable c)
         {
             dB.InsertOrReplace(c);
         }

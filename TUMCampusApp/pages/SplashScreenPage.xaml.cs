@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages.Setup;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -12,7 +11,6 @@ using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.Utillities;
 using TUMCampusApp.Classes;
 using Windows.UI.Popups;
-using System.Threading;
 
 namespace TUMCampusApp.Pages
 {
@@ -25,6 +23,7 @@ namespace TUMCampusApp.Pages
         internal bool dismissed = false;
         private string tileID;
         private static readonly double INC_PROGRESS_STEP = 100 / 27;
+        private string arguments;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -40,6 +39,7 @@ namespace TUMCampusApp.Pages
             Window.Current.SizeChanged += new WindowSizeChangedEventHandler(ExtendedSplash_OnResize);
             this.InitializeComponent();
             this.tileID = args.TileId;
+            this.arguments = args.Arguments;
             splash = args.SplashScreen;
             if (splash != null)
             {
@@ -120,7 +120,7 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Loading canteen menu manager...");
-            CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+            CanteenDishManager.INSTANCE = new CanteenDishManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading grades manager...");
@@ -173,7 +173,7 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteen menu manager...");
-            await CanteenMenueManager.INSTANCE.InitManagerAsync();
+            await CanteenDishManager.INSTANCE.InitManagerAsync();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing grades manager...");
@@ -306,7 +306,8 @@ namespace TUMCampusApp.Pages
         {
             if (tileID != null && tileID.Equals(Const.TILE_ID_CANTEEN))
             {
-                Window.Current.Content = new MainPage(EnumPage.CanteensPage);
+
+                Window.Current.Content = new MainPage(EnumPage.CanteensPage, arguments);
             }
             else
             {

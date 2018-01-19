@@ -15,6 +15,7 @@ using Windows.UI.ViewManagement;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
+using static TUMCampusApp.Classes.Utillities;
 
 namespace TUMCampusApp
 {
@@ -73,6 +74,14 @@ namespace TUMCampusApp
             {
                 SplashScreenPage extendedSplash = new SplashScreenPage(args);
                 Window.Current.Content = extendedSplash;
+            }
+            else
+            {
+                if (args.TileId != null && args.TileId.Equals(Const.TILE_ID_CANTEEN))
+                {
+
+                    Window.Current.Content = new MainPage(EnumPage.CanteensPage, args.Arguments);
+                }
             }
 
             Window.Current.Activate();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.ApplicationModel.AppService;
-using TUMCampusAppAPI.Canteens;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -37,18 +37,18 @@ namespace TUMCampusApp.VoiceCommands
         /// Returns the menus for the last selected canteen.
         /// </summary>
         /// <param name="date">The date for the menus</param>
-        private List<CanteenMenu> getMenus(DateTime date)
+        private List<CanteenDishTable> getMenus(DateTime date)
         {
-            List<CanteenMenu> list = new List<CanteenMenu>();
-            if(CanteenMenueManager.INSTANCE == null)
+            List<CanteenDishTable> list = new List<CanteenDishTable>();
+            if(CanteenDishManager.INSTANCE == null)
             {
-                CanteenMenueManager.INSTANCE = new CanteenMenueManager();
+                CanteenDishManager.INSTANCE = new CanteenDishManager();
                 UserDataManager.INSTANCE = new UserDataManager();
             }
 
-            int id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Tagesgericht", true, date));
-            list.AddRange(CanteenMenueManager.INSTANCE.getMenusForType(id, "Aktionsessen", true, date));
+            string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
+            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Tagesgericht", true, date));
+            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Aktionsessen", true, date));
             return list;
         }
 
@@ -109,13 +109,13 @@ namespace TUMCampusApp.VoiceCommands
             }
 
             var menusTiles = new List<VoiceCommandContentTile>();
-            List<CanteenMenu> menus = getMenus(d);
+            List<CanteenDishTable> menus = getMenus(d);
             foreach (var m in menus)
             {
                 menusTiles.Add(new VoiceCommandContentTile()
                 {
-                    Title = CanteenMenueManager.INSTANCE.replaceMenuStringWithImages(m.name, true),
-                    TextLine1 = m.typeLong
+                    Title = m.nameEmojis,
+                    TextLine1 = m.dish_type
                 });
             }
             var response = VoiceCommandResponse.CreateResponse(userMessage, menusTiles);

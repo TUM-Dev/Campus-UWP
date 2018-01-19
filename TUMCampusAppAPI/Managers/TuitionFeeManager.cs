@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
@@ -24,7 +24,7 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public TuitionFeeManager()
         {
-            dB.CreateTable<TUMTuitionFee>();
+            dB.CreateTable<TUMTuitionFeeTable>();
         }
 
         #endregion
@@ -45,9 +45,9 @@ namespace TUMCampusAppAPI.Managers
         /// Searches in the local db for all tuition fees and returns them.
         /// </summary>
         /// <returns>Returns all found tuition fees.</returns>
-        public List<TUMTuitionFee> getFees()
+        public List<TUMTuitionFeeTable> getFees()
         {
-            return dB.Query<TUMTuitionFee>("SELECT * FROM TUMTuitionFee WHERE money NOT LIKE 0");
+            return dB.Query<TUMTuitionFeeTable>("SELECT * FROM TUMTuitionFeeTable WHERE money NOT LIKE 0");
         }
 
         #endregion
@@ -72,13 +72,13 @@ namespace TUMCampusAppAPI.Managers
             if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 XmlDocument doc = await getFeeStatusAsync();
-                dB.DropTable<TUMTuitionFee>();
-                dB.CreateTable<TUMTuitionFee>();
+                dB.DropTable<TUMTuitionFeeTable>();
+                dB.CreateTable<TUMTuitionFeeTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMTuitionFee(element));
+                    dB.Insert(new TUMTuitionFeeTable(element));
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }
             return;
         }

@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.UserDatas;
+using TUMCampusAppAPI.DBTables;
 using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Managers
@@ -37,7 +36,7 @@ namespace TUMCampusAppAPI.Managers
         private string getLastNewsId()
         {
             string lastId = "";
-            List<News.News> list = dB.Query<News.News>("SELECT id FROM News ORDER BY id DESC LIMIT 1");
+            List<NewsTable> list = dB.Query<NewsTable>("SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
             if (list != null && list.Count > 0)
             {
                 lastId += list[0].id;
@@ -48,36 +47,36 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns all news sources from the db.
         /// </summary>
-        /// <returns>A list of NewsSource elements.</returns>
-        public List<News.NewsSource> getAllNewsSourcesFormDb()
+        /// <returns>A list of NewsSourceTable elements.</returns>
+        public List<NewsSourceTable> getAllNewsSourcesFormDb()
         {
-            return dB.Query<News.NewsSource>("SELECT * FROM NewsSource");
+            return dB.Query<NewsSourceTable>("SELECT * FROM NewsSourceTable");
         }
 
-        public List<News.News> getNewsWithImage()
+        public List<NewsTable> getNewsWithImage()
         {
-            return dB.Query<News.News>("SELECT * FROM News n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
+            return dB.Query<NewsTable>("SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
         }
 
         /// <summary>
         /// Returns all news from the db in descending order by date.
-        /// Also only returns these, where the NewsSource is not disabled.
+        /// Also only returns these, where the NewsSourceTable is not disabled.
         /// </summary>
-        /// <returns>A list of News elements.</returns>
-        public List<News.News> getAllNewsFormDb()
+        /// <returns>A list of NewsTable elements.</returns>
+        public List<NewsTable> getAllNewsFormDb()
         {
-            return dB.Query<News.News>("SELECT n.* FROM News n JOIN NewsSource s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
+            return dB.Query<NewsTable>("SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
         }
 
         /// <summary>
         /// Returns a list of news, their date matches todays date.
         /// Also the first tumMovie news, that is equal or bigger than todays date gets added to the list.
         /// </summary>
-        /// <returns>Returns a list of News elements, max 10 entries.</returns>
-        public List<News.News> getNewsForHomePage()
+        /// <returns>Returns a list of NewsTable elements, max 10 entries.</returns>
+        public List<NewsTable> getNewsForHomePage()
         {
-            List<News.News> news = getAllNewsFormDb();
-            List<News.News> result = new List<News.News>();
+            List<NewsTable> news = getAllNewsFormDb();
+            List<NewsTable> result = new List<NewsTable>();
             DateTime tumMovieDate = DateTime.MaxValue;
             int tumMovieIndex = -1;
             DateTime yesterday = DateTime.Now.AddDays(-1);
@@ -113,13 +112,13 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns the NewsSource for the given id.
+        /// Returns the NewsSourceTable for the given id.
         /// </summary>
-        /// <param name="src">The src of the NewsSource.</param>
-        /// <returns>Returns the NewsSource for the given id.</returns>
-        public News.NewsSource getNewsSource(string src)
+        /// <param name="src">The src of the NewsSourceTable.</param>
+        /// <returns>Returns the NewsSourceTable for the given id.</returns>
+        public NewsSourceTable getNewsSource(string src)
         {
-            List<News.NewsSource> sources = dB.Query<News.NewsSource>("SELECT * FROM NewsSource WHERE src LIKE ?", src);
+            List<NewsSourceTable> sources = dB.Query<NewsSourceTable>("SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
             return sources.Count > 0 ? sources[0] : null;
         }
 
@@ -128,8 +127,8 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<News.News>();
-            dB.CreateTable<News.NewsSource>();
+            dB.CreateTable<NewsTable>();
+            dB.CreateTable<NewsSourceTable>();
         }
 
         /// <summary>
@@ -150,7 +149,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync("News", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync("NewsTable", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 if (force)
                 {
@@ -174,13 +173,13 @@ namespace TUMCampusAppAPI.Managers
                     }
 
                     cleanupDb();
-                    List<News.News> news = new List<News.News>();
+                    List<NewsTable> news = new List<NewsTable>();
                     foreach (JsonValue val in jsonArray)
                     {
                         try
                         {
 
-                            News.News n = new News.News(val.GetObject());
+                            NewsTable n = new NewsTable(val.GetObject());
                             news.Add(n);
                             if (!string.IsNullOrEmpty(n.imageUrl))
                             {
@@ -192,15 +191,15 @@ namespace TUMCampusAppAPI.Managers
                             Logger.Error("Caught an exception during parsing news!", e);
                         }
                     }
-                    foreach (News.News n in news)
+                    foreach (NewsTable n in news)
                     {
                         dB.InsertOrReplace(n);
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News"));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable"));
                 }
                 catch (Exception e)
                 {
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                 }
             }
         }
@@ -216,7 +215,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if ((force || SyncManager.INSTANCE.needSync("NewsSource", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+            if ((force || SyncManager.INSTANCE.needSync("NewsSourceTable", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
             {
                 try
                 {
@@ -226,12 +225,12 @@ namespace TUMCampusAppAPI.Managers
                         return;
                     }
 
-                    List<News.NewsSource> list = new List<News.NewsSource>();
+                    List<NewsSourceTable> list = new List<NewsSourceTable>();
                     foreach (JsonValue val in jsonArray)
                     {
                         try
                         {
-                            list.Add(new News.NewsSource(val.GetObject()));
+                            list.Add(new NewsSourceTable(val.GetObject()));
                         }
                         catch (Exception e)
                         {
@@ -239,11 +238,11 @@ namespace TUMCampusAppAPI.Managers
                         }
                     }
                     replaceNewsSources(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("NewsSource"));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable"));
                 }
                 catch (Exception e)
                 {
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("NewsSource", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                 }
             }
         }
@@ -255,7 +254,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="enabled">Whether to enable it.</param>
         public void updateNewsSourceStatus(int id, bool enabled)
         {
-            dB.Execute("UPDATE NewsSource SET enabled = ? WHERE id = ?", new object[] { enabled, id });
+            dB.Execute("UPDATE NewsSourceTable SET enabled = ? WHERE id = ?", new object[] { enabled, id });
         }
 
         #endregion
@@ -266,33 +265,33 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         private void cleanupDb()
         {
-            List<News.News> all = getAllNewsFormDb();
+            List<NewsTable> all = getAllNewsFormDb();
             DateTime date = DateTime.Now.AddMonths(-3);
             foreach (var item in all)
             {
                 if (item.date.CompareTo(date) < 0)
                 {
-                    dB.Execute("DELETE FROM News WHERE id = " + item.id);
+                    dB.Execute("DELETE FROM NewsTable WHERE id = " + item.id);
                 }
             }
         }
 
         /// <summary>
-        /// Deletes all NewsSource entries from the NewsSource table and replaces them with the new ones.
-        /// It keeps whether the NewsSource was enabled.
+        /// Deletes all NewsSourceTable entries from the NewsSourceTable table and replaces them with the new ones.
+        /// It keeps whether the NewsSourceTable was enabled.
         /// </summary>
-        /// <param name="list">A list of NewsSource objects.</param>
-        private void replaceNewsSources(List<News.NewsSource> list)
+        /// <param name="list">A list of NewsSourceTable objects.</param>
+        private void replaceNewsSources(List<NewsSourceTable> list)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                News.NewsSource old = getNewsSource(list[i].src);
+                NewsSourceTable old = getNewsSource(list[i].src);
                 if (old != null)
                 {
                     list[i].enabled = old.enabled;
                 }
             }
-            dB.DeleteAll<News.NewsSource>();
+            dB.DeleteAll<NewsSourceTable>();
             dB.InsertAll(list);
         }
 
@@ -304,7 +303,7 @@ namespace TUMCampusAppAPI.Managers
             Task.Factory.StartNew(async () =>
             {
                 List<Uri> uris = new List<Uri>();
-                foreach (News.News n in getNewsWithImage())
+                foreach (NewsTable n in getNewsWithImage())
                 {
                     uris.Add(new Uri(n.imageUrl));
                 }

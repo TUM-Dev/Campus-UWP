@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.TUMOnline;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -61,14 +61,14 @@ namespace TUMCampusApp.Controls
         private void ShowCalendarEntry()
         {
             CalendarManager.INSTANCE.syncCalendar(false);
-            TUMOnlineCalendarEntry entry = CalendarManager.INSTANCE.getNextEntry();
+            TUMOnlineCalendarTable entry = CalendarManager.INSTANCE.getNextEntry();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showCalendarEntry(entry);
             }).AsTask();
         }
 
-        private void showCalendarEntry(TUMOnlineCalendarEntry entry)
+        private void showCalendarEntry(TUMOnlineCalendarTable entry)
         {
             if(entry == null)
             {
