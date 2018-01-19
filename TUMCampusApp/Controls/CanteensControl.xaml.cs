@@ -35,7 +35,6 @@ namespace TUMCampusApp.Controls
         public event ExpandedChangedEventHandler ExpandedChanged;
 
         private ObservableCollection<CanteenTemplate> canteens;
-        private int selectedIndex;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -49,7 +48,6 @@ namespace TUMCampusApp.Controls
         public CanteensControl()
         {
             this.canteens = new ObservableCollection<CanteenTemplate>();
-            this.selectedIndex = -1;
             this.Expanded = false;
             this.InitializeComponent();
         }
@@ -101,13 +99,13 @@ namespace TUMCampusApp.Controls
             sortCanteens(c);
             for (int i = 0; i < c.Count; i++)
             {
+                canteens.Add(new CanteenTemplate() { canteen = c[i] });
                 if (Equals(c[i].canteen_id, lastSelectedCanteen))
                 {
-                    selectedIndex = i;
                     selectedCanteen_tblck.Text = c[i].name;
                     Canteen = c[i];
+                    canteens_list.SelectedItem = canteens[i];
                 }
-                canteens.Add(new CanteenTemplate() { canteen = c[i] });
             }
         }
 
@@ -162,17 +160,9 @@ namespace TUMCampusApp.Controls
             ExpandedChanged?.Invoke(this, new ExpandedChangedEventArgs(Expanded));
         }
 
-        private void selectCanteen()
-        {
-            if (selectedIndex >= 0 && selectedIndex < canteens_list.Items.Count)
-            {
-                canteens_list.SelectedIndex = selectedIndex;
-            }
-        }
-
         private void showSelectedCanteen()
         {
-            selectedIndex = canteens_list.SelectedIndex;
+            int selectedIndex = canteens_list.SelectedIndex;
             if (selectedIndex >= 0 && selectedIndex < canteens.Count)
             {
                 Canteen = canteens[selectedIndex].canteen;
@@ -197,12 +187,6 @@ namespace TUMCampusApp.Controls
         {
             showExpanded();
             await reloadCanteensAsync(null);
-        }
-
-        private void canteens_list_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-            selectCanteen();
-            args.Handled = true;
         }
 
         private void canteens_list_SelectionChanged(object sender, SelectionChangedEventArgs e)

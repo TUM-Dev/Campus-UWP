@@ -24,7 +24,6 @@
                   ItemsSource="{x:Bind canteens}"
                   ItemTemplate="{StaticResource canteen_template}"
                   Visibility="Collapsed"
-                  DataContextChanged="canteens_list_DataContextChanged"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                   SelectionMode="Single"
                   Height="310"
