@@ -646,4 +646,10 @@
   <data name="SelectDishTypesDialog.Title" xml:space="preserve">
     <value>Select dish types to show on home page:</value>
   </data>
+  <data name="DishTypesControlSelectAll.Content" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="DishTypesControlUnSelectAll.Content" xml:space="preserve">
+    <value>Unselect all</value>
+  </data>
 </root>

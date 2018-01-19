@@ -17,6 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListView x:Name="dishTypes_list"
                   Grid.Row="0"
@@ -27,5 +28,14 @@
                   ScrollViewer.VerticalScrollMode="Enabled"
                   VerticalContentAlignment="Center"/>
         <TextBlock x:Name="noneFound_tbx" Grid.Row="0" x:Uid="DishTypesControlNoneFound" Visibility="Collapsed"/>
+
+        <Grid Grid.Row="1" Margin="0, 10, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="selectAll_btn" Grid.Column="0" x:Uid="DishTypesControlSelectAll" Margin="0, 0, 2, 0" HorizontalAlignment="Stretch" Click="selectAll_btn_Click"/>
+            <Button x:Name="unSelectAll_btn" Grid.Column="1" x:Uid="DishTypesControlUnSelectAll" Margin="2, 0, 0, 0" HorizontalAlignment="Stretch" Click="unSelectAll_btn_Click"/>
+        </Grid>
     </Grid>
 </UserControl>

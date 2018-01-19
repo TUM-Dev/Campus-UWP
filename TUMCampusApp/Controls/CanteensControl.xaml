@@ -14,13 +14,13 @@
             <controls:CanteenControl Canteen="{x:Bind canteen}"/>
         </DataTemplate>
     </UserControl.Resources>
+
     <Grid Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListView x:Name="canteens_list"
                   Grid.Row="0"
-                  Grid.Column="0"
                   ItemsSource="{x:Bind canteens}"
                   ItemTemplate="{StaticResource canteen_template}"
                   Visibility="Collapsed"

@@ -91,6 +91,16 @@ namespace TUMCampusApp.Controls
             loadDishTypes();
         }
 
+        private void selectAll_btn_Click(object sender, RoutedEventArgs e)
+        {
+            dishTypes_list.SelectAll();
+        }
+
+        private void unSelectAll_btn_Click(object sender, RoutedEventArgs e)
+        {
+            dishTypes_list.SelectedItems?.Clear();
+        }
+
         #endregion
     }
 }
