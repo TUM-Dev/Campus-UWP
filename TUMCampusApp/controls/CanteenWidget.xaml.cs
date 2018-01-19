@@ -78,13 +78,13 @@ namespace TUMCampusApp.Controls
                             dishTypes_stckp.Children.Add(dishTypeControl);
                         }
                     }
-                    if(dishTypes_stckp.Children.Count <= 0)
-                    {
-                        dishTypes_stckp.Visibility = Visibility.Collapsed;
-                        canteenDate_tbx.Visibility = Visibility.Collapsed;
-                    }
-                    return;
                 }
+                if (dishTypes_stckp.Children.Count <= 0)
+                {
+                    dishTypes_stckp.Visibility = Visibility.Collapsed;
+                    canteenDate_tbx.Visibility = Visibility.Collapsed;
+                }
+                return;
             }
             dsp.Visibility = Visibility.Collapsed;
         }
