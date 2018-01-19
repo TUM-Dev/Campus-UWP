@@ -25,6 +25,15 @@ If you want to help, feel free to do so. Help is allways appreciated 🥓.
 * Fix Cortana integration
 * [MORE NOTES TO COME]
 
+## Get it from the Windows Store:
+[<img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" width="150">](https://www.microsoft.com/store/apps/9n3p75398fkb?ocid=badge)
+
+## Installation (build it by your own):
+1. Clone the repo with Visual Studio
+2. Build the project for your target platform
+3. Install the app on your target system:
+[Here](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development) you can find more information about: How to install UWP apps, using the developer mode.
+
 ## Examples:
 <img src="http://imgur.com/No1QIHz.png" width="400"> <img src="http://imgur.com/ph06ekU.png" width="400">
 <img src="http://imgur.com/YQCys0F.png" width="400"> <img src="http://imgur.com/omGKvUa.png" width="400">
