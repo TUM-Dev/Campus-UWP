@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusApp.Controls;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
-using TUMCampusAppAPI.Syncs;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI.DBTables;
+using TUMCampusAppAPI;
 
 namespace TUMCampusApp.Pages
 {
@@ -82,7 +82,7 @@ namespace TUMCampusApp.Pages
         /// Adds a calendar entry to the calendarEntries_stckp.
         /// </summary>
         /// <param name="entry">The entry that should get added.</param>
-        private void addCalendarControl(TUMOnlineCalendarEntry entry)
+        private void addCalendarControl(TUMOnlineCalendarTable entry)
         {
             CalendarControl cC = new CalendarControl(entry)
             {
@@ -97,7 +97,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showCalendarEntriesTask()
         {
-            List<TUMOnlineCalendarEntry> list = CalendarManager.INSTANCE.getEntries();
+            List<TUMOnlineCalendarTable> list = CalendarManager.INSTANCE.getEntries();
             list.Sort();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -109,7 +109,7 @@ namespace TUMCampusApp.Pages
         /// Shows all given entries on the screen.
         /// </summary>
         /// <param name="list">A list of entries that should get shown.</param>
-        private void showEntries(List<TUMOnlineCalendarEntry> list)
+        private void showEntries(List<TUMOnlineCalendarTable> list)
         {
             if (list == null || list.Count <= 0)
             {
@@ -131,9 +131,9 @@ namespace TUMCampusApp.Pages
                 return;
             }
             calendarEntries_stckp.Children.Clear();
-            TUMOnlineCalendarEntry pre = null;
+            TUMOnlineCalendarTable pre = null;
             bool foundOne = false;
-            foreach (TUMOnlineCalendarEntry entry in list)
+            foreach (TUMOnlineCalendarTable entry in list)
             {
                 if (entry != null && entry.dTStrat.Date.CompareTo(DateTime.Now.Date) >= 0)
                 {

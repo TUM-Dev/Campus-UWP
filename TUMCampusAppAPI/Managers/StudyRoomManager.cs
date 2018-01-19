@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.StudyRooms;
+using TUMCampusAppAPI.DBTables;
 using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Managers
@@ -34,17 +34,17 @@ namespace TUMCampusAppAPI.Managers
         /// Returns all rooms that are contained in the db and match the given groupID.
         /// </summary>
         /// <param name="groupID">Specifies a group of rooms.</param>
-        public List<StudyRoom> getRooms(int groupID)
+        public List<StudyRoomTable> getRooms(int groupID)
         {
-            return dB.Query<StudyRoom>("SELECT * FROM StudyRoom WHERE group_id = ?", groupID);
+            return dB.Query<StudyRoomTable>("SELECT * FROM StudyRoomTable WHERE group_id = ?", groupID);
         }
 
         /// <summary>
         /// Returns all room groups that are found in the db.
         /// </summary>
-        public List<StudyRoomGroup> getRoomGroups()
+        public List<StudyRoomGroupTable> getRoomGroups()
         {
-            return dB.Query<StudyRoomGroup>("SELECT * FROM StudyRoomGroup");
+            return dB.Query<StudyRoomGroupTable>("SELECT * FROM StudyRoomGroupTable");
         }
 
         #endregion
@@ -52,8 +52,8 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<StudyRoom>();
-            dB.CreateTable<StudyRoomGroup>();
+            dB.CreateTable<StudyRoomTable>();
+            dB.CreateTable<StudyRoomGroupTable>();
         }
 
         /// <summary>
@@ -67,16 +67,16 @@ namespace TUMCampusAppAPI.Managers
                 return;
             }
 
-            List<StudyRoom> rooms = new List<StudyRoom>();
+            List<StudyRoomTable> rooms = new List<StudyRoomTable>();
             foreach (JsonValue val in jsonO.GetNamedArray("raeume"))
             {
-                rooms.Add(new StudyRoom(val.GetObject()));
+                rooms.Add(new StudyRoomTable(val.GetObject()));
             }
 
-            List<StudyRoomGroup> roomGroups = new List<StudyRoomGroup>();
+            List<StudyRoomGroupTable> roomGroups = new List<StudyRoomGroupTable>();
             foreach (JsonValue val in jsonO.GetNamedArray("gruppen"))
             {
-                StudyRoomGroup g = new StudyRoomGroup(val.GetObject());
+                StudyRoomGroupTable g = new StudyRoomGroupTable(val.GetObject());
                 foreach (JsonValue v in val.GetObject().GetNamedArray("raeume"))
                 {
                     int nr = (int)v.GetNumber();
@@ -91,9 +91,9 @@ namespace TUMCampusAppAPI.Managers
                 roomGroups.Add(g);
             }
 
-            dB.DeleteAll<StudyRoom>();
+            dB.DeleteAll<StudyRoomTable>();
             dB.InsertAll(rooms);
-            dB.DeleteAll<StudyRoomGroup>();
+            dB.DeleteAll<StudyRoomGroupTable>();
             dB.InsertAll(roomGroups);
         }
 

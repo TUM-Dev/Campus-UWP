@@ -1,9 +1,9 @@
 ﻿using SQLite.Net.Attributes;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusAppAPI.TUMOnline
+namespace TUMCampusAppAPI.DBTables
 {
-    public class TUMOnlineLecture
+    public class TUMOnlineLectureTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -32,12 +32,12 @@ namespace TUMCampusAppAPI.TUMOnline
         /// <history>
         /// 13/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TUMOnlineLecture()
+        public TUMOnlineLectureTable()
         {
 
         }
 
-        public TUMOnlineLecture(IXmlNode element)
+        public TUMOnlineLectureTable(IXmlNode element)
         {
             fromXml(element);
         }

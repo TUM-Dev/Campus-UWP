@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
-using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Controls;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using TUMCampusAppAPI.Syncs;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.Pages
 {
@@ -95,7 +93,7 @@ namespace TUMCampusApp.Pages
                 });
                 return;
             }
-            List<TUMOnlineLecture> list = LecturesManager.INSTANCE.getLectures();
+            List<TUMOnlineLectureTable> list = LecturesManager.INSTANCE.getLectures();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showLectures(list);
@@ -109,7 +107,7 @@ namespace TUMCampusApp.Pages
         /// <param name="query">The search query. At least three characters.</param>
         private async void downloadAndShowQueriedLecturesTask(string query)
         {
-            List<TUMOnlineLecture> list = null;
+            List<TUMOnlineLectureTable> list = null;
             try
             {
                 list = await LecturesManager.INSTANCE.searchForLecturesAsync(query);
@@ -158,7 +156,7 @@ namespace TUMCampusApp.Pages
         /// Shows all given lectures on the screen.
         /// </summary>
         /// <param name="list">The lectures list that should get shown.</param>
-        private void showLectures(List<TUMOnlineLecture> list)
+        private void showLectures(List<TUMOnlineLectureTable> list)
         {
             lectures_stckp.Children.Clear();
             if(list != null && list.Count > 0)

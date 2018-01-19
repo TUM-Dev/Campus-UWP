@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.UserDatas;
+using TUMCampusAppAPI.DBTables;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
@@ -22,7 +22,7 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public UserDataManager()
         {
-            dB.CreateTable<UserData>();
+            dB.CreateTable<UserDataTable>();
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace TUMCampusAppAPI.Managers
         public Geopoint getLastKnownDevicePosition()
         {
             waitWhileLocked();
-            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if(list == null || list.Count <= 0)
             {
                 return null;
@@ -52,10 +52,10 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="pos">The Geopoint that should get saved.</param>
         public void setLastKnownDevicePosition(Geopoint pos)
         {
-            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                dB.Insert(new UserData(pos));
+                dB.Insert(new UserDataTable(pos));
             }
             else
             {
@@ -72,7 +72,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the last selected canteen id or 'mensa-garching' if none exists.</returns>
         public string getLastSelectedCanteenId()
         {
-            List<UserData> list = dB.Query<UserData>("SELECT * FROM UserData WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
                 return "mensa-garching";
@@ -91,9 +91,9 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">Saves the given canteen_id as the last selected canteen id.</param>
         public void setLastSelectedCanteenId(string canteen_id)
         {
-            if(dB.Execute("UPDATE UserData SET lastSelectedCanteenId = ? WHERE id = ?", canteen_id, DeviceInfo.INSTANCE.Id) <= 0)
+            if(dB.Execute("UPDATE UserDataTable SET lastSelectedCanteenId = ? WHERE id = ?", canteen_id, DeviceInfo.INSTANCE.Id) <= 0)
             {
-                dB.Insert(new UserData() { lastSelectedCanteenId = canteen_id });
+                dB.Insert(new UserDataTable() { lastSelectedCanteenId = canteen_id });
             }
         }
 

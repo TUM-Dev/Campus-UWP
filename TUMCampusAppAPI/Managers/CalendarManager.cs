@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.Syncs;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
@@ -36,15 +35,15 @@ namespace TUMCampusAppAPI.Managers
         /// Returns the next calendar entry.
         /// </summary>
         /// <returns>Returns the next calendar entry</returns>
-        public TUMOnlineCalendarEntry getNextEntry()
+        public TUMOnlineCalendarTable getNextEntry()
         {
-            List<TUMOnlineCalendarEntry> list = getEntries();
+            List<TUMOnlineCalendarTable> list = getEntries();
             if(list == null || list.Count <= 0)
             {
                 return null;
             }
-            TUMOnlineCalendarEntry entry = null;
-            foreach(TUMOnlineCalendarEntry e in list)
+            TUMOnlineCalendarTable entry = null;
+            foreach(TUMOnlineCalendarTable e in list)
             {
                 if(entry == null)
                 {
@@ -67,11 +66,11 @@ namespace TUMCampusAppAPI.Managers
         /// Also converts dTStrat and dTEnd from universal time to local time.
         /// </summary>
         /// <returns>Returns all calendar entries</returns>
-        public List<TUMOnlineCalendarEntry> getEntries()
+        public List<TUMOnlineCalendarTable> getEntries()
         {
             lock (thisLock)
             {
-                List<TUMOnlineCalendarEntry> list = dB.Query<TUMOnlineCalendarEntry>("SELECT * FROM TUMOnlineCalendarEntry");
+                List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>("SELECT * FROM TUMOnlineCalendarTable");
                 for(int i = 0; i < list.Count; i++)
                 {
                     list[i].dTStrat = list[i].dTStrat.ToLocalTime();
@@ -86,7 +85,7 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<TUMOnlineCalendarEntry>();
+            dB.CreateTable<TUMOnlineCalendarTable>();
             syncCalendar();
         }
 
@@ -145,7 +144,7 @@ namespace TUMCampusAppAPI.Managers
             if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 long time = SyncManager.GetCurrentUnixTimestampMillis();
-                List<TUMOnlineCalendarEntry> list = null;
+                List<TUMOnlineCalendarTable> list = null;
                 XmlDocument doc = null;
                 try
                 {
@@ -154,24 +153,24 @@ namespace TUMCampusAppAPI.Managers
                 catch (Exception e)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync(this, e));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this, e));
                     return;
                 }
 
                 if (doc == null)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncManager.INSTANCE.replaceIntoDb(new Sync("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
                     return;
                 }
                 list = parseToList(doc);
 
                 if (force)
                 {
-                    dB.DropTable<TUMOnlineCalendarEntry>();
-                    dB.CreateTable<TUMOnlineCalendarEntry>();
+                    dB.DropTable<TUMOnlineCalendarTable>();
+                    dB.CreateTable<TUMOnlineCalendarTable>();
                 }
-                foreach (TUMOnlineCalendarEntry entry in list)
+                foreach (TUMOnlineCalendarTable entry in list)
                 {
                     dB.InsertOrReplace(entry);
                 }
@@ -180,7 +179,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     await insterInCalendarAsync(list);
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
                 Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
         }
@@ -191,15 +190,15 @@ namespace TUMCampusAppAPI.Managers
         /// Parses a xml document into a list of TUMOnlineCalendarEntries.
         /// </summary>
         /// <param name="doc"></param>
-        /// <returns>Returns a list of TUMOnlineCalendarEntry</returns>
-        private List<TUMOnlineCalendarEntry> parseToList(XmlDocument doc)
+        /// <returns>Returns a list of TUMOnlineCalendarTable</returns>
+        private List<TUMOnlineCalendarTable> parseToList(XmlDocument doc)
         {
-            List<TUMOnlineCalendarEntry> list = new List<TUMOnlineCalendarEntry>();
+            List<TUMOnlineCalendarTable> list = new List<TUMOnlineCalendarTable>();
             foreach (var element in doc.SelectNodes("/events/event"))
             {
                 try
                 {
-                    addEntryToList(list, new TUMOnlineCalendarEntry(element));
+                    addEntryToList(list, new TUMOnlineCalendarTable(element));
                 }
                 catch (Exception e)
                 {
@@ -210,11 +209,11 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Adds a given TUMOnlineCalendarEntry to the given list. Checks before adding whether the entity is valid.
+        /// Adds a given TUMOnlineCalendarTable to the given list. Checks before adding whether the entity is valid.
         /// </summary>
         /// <param name="list"></param>
         /// <param name="entry"></param>
-        private void addEntryToList(List<TUMOnlineCalendarEntry> list, TUMOnlineCalendarEntry entry)
+        private void addEntryToList(List<TUMOnlineCalendarTable> list, TUMOnlineCalendarTable entry)
         {
             for(var i = 0; i < list.Count; i++)
             {
@@ -237,7 +236,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="list"></param>
         /// <returns>Returns an asynchronous Task</returns>
-        private async Task insterInCalendarAsync(List<TUMOnlineCalendarEntry> list)
+        private async Task insterInCalendarAsync(List<TUMOnlineCalendarTable> list)
         {
             // 1. get access to appointmentstore
             AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
@@ -253,7 +252,7 @@ namespace TUMCampusAppAPI.Managers
             if(calendar != null)
             {
                 calendar.DisplayColor = Windows.UI.Color.FromArgb(0,101,189,1);
-                foreach (TUMOnlineCalendarEntry entry in list)
+                foreach (TUMOnlineCalendarTable entry in list)
                 {
                     await calendar.SaveAppointmentAsync(entry.getAppointment());
                 }

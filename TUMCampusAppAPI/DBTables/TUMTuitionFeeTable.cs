@@ -1,17 +1,18 @@
 ﻿using SQLite.Net.Attributes;
-using System;
+using Windows.Data.Xml.Dom;
 
-namespace TUMCampusAppAPI.Caches
+namespace TUMCampusAppAPI.DBTables
 {
-    public class Cache
-    {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
+    public class TUMTuitionFeeTable
+    {
+        //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Unique, PrimaryKey]
-        public string url { get; set; }
-        public byte[] data { get; set; }
-        public int validity { get; set; }
-        public string max_age { get; set; }
-        public int type { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int id { get; set; }
+        public string money { get; set; }
+        public string deadline { get; set; }
+        public string semesterDescripion { get; set; }
+        public string semesterId { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -20,27 +21,22 @@ namespace TUMCampusAppAPI.Caches
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 10/12/2016  Created [Fabian Sauter]
+        /// 05/01/2017 Created [Fabian Sauter]
         /// </history>
-        public Cache()
+        public TUMTuitionFeeTable(IXmlNode xml)
         {
-
+            fromXml(xml);
         }
 
         /// <summary>
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 14/01/2017  Created [Fabian Sauter]
+        /// 05/01/2017 Created [Fabian Sauter]
         /// </history>
-        public Cache(string url, byte[] data, int validity, int max_age, int type)
+        public TUMTuitionFeeTable()
         {
-            this.url = url;
-            this.data = data;
-            this.validity = validity;
-            DateTime date = DateTime.Now.AddSeconds(max_age);
-            this.max_age = date.Year.ToString() + '-' + date.Month.ToString() + '-' + date.Day.ToString() + ' ' + date.Hour.ToString() + ':' + date.Minute.ToString() + ':' + date.Second.ToString();
-            this.type = type;
+
         }
 
         #endregion
@@ -56,7 +52,17 @@ namespace TUMCampusAppAPI.Caches
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private void fromXml(IXmlNode xml)
+        {
+            if (xml == null)
+            {
+                return;
+            }
+            this.money = xml.SelectSingleNode("soll").InnerText;
+            this.deadline = xml.SelectSingleNode("frist").InnerText;
+            this.semesterDescripion = xml.SelectSingleNode("semester_bezeichnung").InnerText;
+            this.semesterId = xml.SelectSingleNode("semester_id").InnerText;
+        }
 
         #endregion
 

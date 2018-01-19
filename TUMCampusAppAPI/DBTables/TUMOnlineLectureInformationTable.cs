@@ -1,8 +1,8 @@
 ﻿using Windows.Data.Xml.Dom;
 
-namespace TUMCampusAppAPI.TUMOnline
+namespace TUMCampusAppAPI.DBTables
 {
-    public class TUMOnlineLectureInformation
+    public class TUMOnlineLectureInformationTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -25,7 +25,7 @@ namespace TUMCampusAppAPI.TUMOnline
         /// <history>
         /// 15/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TUMOnlineLectureInformation(IXmlNode element)
+        public TUMOnlineLectureInformationTable(IXmlNode element)
         {
             fromXml(element);
         }

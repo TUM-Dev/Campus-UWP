@@ -1,16 +1,18 @@
 ﻿using SQLite.Net.Attributes;
 using Windows.Data.Json;
 
-namespace TUMCampusAppAPI.StudyRooms
+namespace TUMCampusAppAPI.DBTables
 {
-    public class StudyRoomGroup
+    public class NewsSourceTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public string src { get; set; }
+        public string title { get; set; }
+        public string icon { get; set; }
+        public bool enabled { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -19,18 +21,20 @@ namespace TUMCampusAppAPI.StudyRooms
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 24/02/2017 Created [Fabian Sauter]
+        /// 01/06/2017 Created [Fabian Sauter]
         /// </history>
-        public StudyRoomGroup()
+        public NewsSourceTable()
         {
 
         }
 
-        public StudyRoomGroup(JsonObject json)
+        public NewsSourceTable(JsonObject json)
         {
-            this.id = (int)json.GetNamedNumber("nr");
-            this.name = json.GetNamedString("name");
-            this.description = json.GetNamedString("detail");
+            this.src = json.GetNamedString(Const.JSON_SOURCE);
+            this.title = json.GetNamedString(Const.JSON_TITLE).Replace("newspread Live ", "");
+            JsonValue val = json.GetNamedValue(Const.JSON_ICON);
+            this.icon = val.ValueType == JsonValueType.Null ? null : val.Stringify();
+            this.enabled = true;
         }
 
         #endregion

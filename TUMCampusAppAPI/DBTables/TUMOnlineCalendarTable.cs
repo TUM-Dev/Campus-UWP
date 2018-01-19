@@ -3,9 +3,9 @@ using System;
 using Windows.ApplicationModel.Appointments;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusAppAPI.TUMOnline
+namespace TUMCampusAppAPI.DBTables
 {
-    public class TUMOnlineCalendarEntry : IComparable
+    public class TUMOnlineCalendarTable : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -28,12 +28,12 @@ namespace TUMCampusAppAPI.TUMOnline
         /// <history>
         /// 20/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TUMOnlineCalendarEntry()
+        public TUMOnlineCalendarTable()
         {
 
         }
 
-        public TUMOnlineCalendarEntry(IXmlNode element)
+        public TUMOnlineCalendarTable(IXmlNode element)
         {
             fromXml(element);
         }
@@ -61,9 +61,9 @@ namespace TUMCampusAppAPI.TUMOnline
         #region --Misc Methods (Public)--
         public override bool Equals(object obj)
         {
-            if(obj != null && obj is TUMOnlineCalendarEntry)
+            if(obj != null && obj is TUMOnlineCalendarTable)
             {
-                TUMOnlineCalendarEntry cE = obj as TUMOnlineCalendarEntry;
+                TUMOnlineCalendarTable cE = obj as TUMOnlineCalendarTable;
                 if(cE.title.Equals(title) && cE.description.Equals(description) && cE.dTStrat.Equals(dTStrat) && cE.dTEnd.Equals(dTEnd) && cE.url.Equals(url))
                 {
                     return true;
@@ -74,9 +74,9 @@ namespace TUMCampusAppAPI.TUMOnline
 
         public int CompareTo(object obj)
         {
-            if(obj != null && obj is TUMOnlineCalendarEntry)
+            if(obj != null && obj is TUMOnlineCalendarTable)
             {
-                return dTStrat.CompareTo((obj as TUMOnlineCalendarEntry).dTStrat);
+                return dTStrat.CompareTo((obj as TUMOnlineCalendarTable).dTStrat);
             }
             return 1;
         }

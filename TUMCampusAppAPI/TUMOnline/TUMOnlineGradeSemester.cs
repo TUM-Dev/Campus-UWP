@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI.TUMOnline
 {
@@ -10,7 +7,7 @@ namespace TUMCampusAppAPI.TUMOnline
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private List<TUMOnlineGrade> grades;
+        private List<TUMOnlineGradeTable> grades;
         private string semester;
         private string semesterId;
 
@@ -23,7 +20,7 @@ namespace TUMCampusAppAPI.TUMOnline
         /// <history>
         /// 13/03/2017 Created [Fabian Sauter]
         /// </history>
-        public TUMOnlineGradeSemester(TUMOnlineGrade grade)
+        public TUMOnlineGradeSemester(TUMOnlineGradeTable grade)
         {
             semesterId = grade.lvSemester;
             if (grade.lvSemester.EndsWith("W"))
@@ -40,7 +37,7 @@ namespace TUMCampusAppAPI.TUMOnline
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        public List<TUMOnlineGrade> getGrades()
+        public List<TUMOnlineGradeTable> getGrades()
         {
             return grades;
         }
@@ -63,11 +60,11 @@ namespace TUMCampusAppAPI.TUMOnline
         /// </summary>
         /// <param name="grade">The grade that should get added.</param>
         /// <returns>Returns true if it got added to the current semester.</returns>
-        public bool tryAddGrade(TUMOnlineGrade grade)
+        public bool tryAddGrade(TUMOnlineGradeTable grade)
         {
             if(grades == null)
             {
-                grades = new List<TUMOnlineGrade>();
+                grades = new List<TUMOnlineGradeTable>();
             }
             if (grades.Count <= 0 || grades[0].lvSemester.Equals(grade.lvSemester))
             {

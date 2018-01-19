@@ -1,5 +1,5 @@
 ﻿using System;
-using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.DBTables;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,7 +9,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private TUMOnlineGrade grade;
+        private TUMOnlineGradeTable grade;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -20,7 +20,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 12/03/2017 Created [Fabian Sauter]
         /// </history>
-        public GradeControl(TUMOnlineGrade grade)
+        public GradeControl(TUMOnlineGradeTable grade)
         {
             this.grade = grade;
             this.InitializeComponent();

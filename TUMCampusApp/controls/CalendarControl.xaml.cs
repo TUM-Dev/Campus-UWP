@@ -1,6 +1,6 @@
 ﻿using System;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.DBTables;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -11,7 +11,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private TUMOnlineCalendarEntry entry;
+        private TUMOnlineCalendarTable entry;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -22,7 +22,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CalendarControl(TUMOnlineCalendarEntry entry)
+        public CalendarControl(TUMOnlineCalendarTable entry)
         {
             this.entry = entry;
             this.InitializeComponent();

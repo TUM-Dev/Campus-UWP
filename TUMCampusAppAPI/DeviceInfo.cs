@@ -3,7 +3,7 @@ using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
 
-namespace TUMCampusAppAPI.UserDatas
+namespace TUMCampusAppAPI
 {
     public class DeviceInfo
     {

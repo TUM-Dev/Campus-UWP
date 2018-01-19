@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
@@ -205,7 +203,7 @@ namespace TUMCampusAppAPI.Managers
                 }
                 dB.DeleteAll<CanteenTable>();
                 dB.InsertAll(list);
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }
             catch (Exception e)
             {

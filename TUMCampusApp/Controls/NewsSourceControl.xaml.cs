@@ -1,6 +1,6 @@
 ﻿using TUMCampusApp.Pages;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.News;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,7 +10,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private NewsSource source;
+        private NewsSourceTable source;
         private NewsPage newsPage;
 
         #endregion
@@ -22,7 +22,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 08/06/2017 Created [Fabian Sauter]
         /// </history>
-        public NewsSourceControl(NewsSource source, NewsPage newsPage)
+        public NewsSourceControl(NewsSourceTable source, NewsPage newsPage)
         {
             this.source = source;
             this.newsPage = newsPage;

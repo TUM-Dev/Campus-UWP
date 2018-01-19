@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Controls;
 using TUMCampusAppAPI;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.TUMOnline;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -69,7 +68,7 @@ namespace TUMCampusApp.Pages
                 }).AsTask();
                 return;
             }
-            List<TUMTuitionFee> list = new List<TUMTuitionFee>();
+            List<TUMTuitionFeeTable> list = new List<TUMTuitionFeeTable>();
             list = TuitionFeeManager.INSTANCE.getFees();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -106,7 +105,7 @@ namespace TUMCampusApp.Pages
         /// Shows the given tuition fees on the screen.
         /// </summary>
         /// <param name="list">The tuition fees that should get shown on the screen.</param>
-        private void showFees(List<TUMTuitionFee> list)
+        private void showFees(List<TUMTuitionFeeTable> list)
         {
             noData_grid.Visibility = Visibility.Collapsed;
             tuitionFees_stckp.Children.Clear();

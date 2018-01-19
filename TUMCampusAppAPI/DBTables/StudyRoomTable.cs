@@ -3,9 +3,9 @@ using System;
 using System.Globalization;
 using Windows.Data.Json;
 
-namespace TUMCampusAppAPI.StudyRooms
+namespace TUMCampusAppAPI.DBTables
 {
-    public class StudyRoom
+    public class StudyRoomTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -26,12 +26,12 @@ namespace TUMCampusAppAPI.StudyRooms
         /// <history>
         /// 29/01/2017 Created [Fabian Sauter]
         /// </history>
-        public StudyRoom()
+        public StudyRoomTable()
         {
 
         }
 
-        public StudyRoom(JsonObject json)
+        public StudyRoomTable(JsonObject json)
         {
             this.id = (int)json.GetNamedNumber("raum_nr");
             this.name = json.GetNamedString("raum_name");

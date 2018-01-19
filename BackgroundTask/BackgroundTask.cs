@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
 using Windows.ApplicationModel.Background;
 
 namespace TUMCampusApp.BackgroundTask

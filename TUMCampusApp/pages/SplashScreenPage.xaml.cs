@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.UserDatas;
 using TUMCampusApp.Pages.Setup;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
-using TUMCampusAppAPI.Syncs;
 using System.Text.RegularExpressions;
-using TUMCampusAppAPI.UserDatas;
 using System.Linq;
 
 namespace TUMCampusAppAPI.Managers
@@ -215,7 +213,7 @@ namespace TUMCampusAppAPI.Managers
                     dB.DeleteAll<CanteenDishTable>();
                     dB.InsertAll(menus);
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }
             catch (Exception e)
             {

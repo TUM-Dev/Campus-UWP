@@ -2,8 +2,8 @@
 using System;
 using System.Threading.Tasks;
 using TUMCampusAppAPI;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.News;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,16 +16,16 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public News News
+        public NewsTable News
         {
-            get { return (News)GetValue(NewsProperty); }
+            get { return (NewsTable)GetValue(NewsProperty); }
             set
             {
                 SetValue(NewsProperty, value);
                 showNews();
             }
         }
-        public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("NewsProperty", typeof(News), typeof(NewsControl), null);
+        public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("NewsProperty", typeof(NewsTable), typeof(NewsControl), null);
 
         private int imageLoadingFailedCounter;
 
@@ -99,7 +99,7 @@ namespace TUMCampusApp.Controls
                     logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/BadgeLogo.scale-200.png"));
                 }
                 title_tbx.Text = News.title;
-                NewsSource source = NewsManager.INSTANCE.getNewsSource(News.src);
+                NewsSourceTable source = NewsManager.INSTANCE.getNewsSource(News.src);
                 src_tbx.Text = source.title ?? News.src;
                 date_tbx.Text = News.date.ToLocalTime().ToString("dd.MM.yyyy");
                 loading_ring.IsActive = false;

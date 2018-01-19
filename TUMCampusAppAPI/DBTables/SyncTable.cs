@@ -3,9 +3,9 @@ using System;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 
-namespace TUMCampusAppAPI.Syncs
+namespace TUMCampusAppAPI
 {
-    public class Sync
+    public class SyncTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -24,12 +24,12 @@ namespace TUMCampusAppAPI.Syncs
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public Sync()
+        public SyncTable()
         {
 
         }
 
-        public Sync(Object obj, Exception e) : this(obj.GetType().Name)
+        public SyncTable(Object obj, Exception e) : this(obj.GetType().Name)
         {
             if(e is InvalidTokenTUMOnlineException)
             {
@@ -48,27 +48,27 @@ namespace TUMCampusAppAPI.Syncs
             }
         }
 
-        public Sync(Object obj) : this(obj.GetType().Name)
+        public SyncTable(Object obj) : this(obj.GetType().Name)
         {
         }
 
-        public Sync(string id) : this(id, SyncResult.STATUS_OK, null)
+        public SyncTable(string id) : this(id, SyncResult.STATUS_OK, null)
         {
         }
 
-        public Sync(Object obj, int status) : this(obj.GetType().Name, status)
+        public SyncTable(Object obj, int status) : this(obj.GetType().Name, status)
         {
         }
 
-        public Sync(string id, int status) : this(id, status, null)
+        public SyncTable(string id, int status) : this(id, status, null)
         {
         }
 
-        public Sync(Object obj, int status, string errorMessage) : this(obj.GetType().Name, status, errorMessage)
+        public SyncTable(Object obj, int status, string errorMessage) : this(obj.GetType().Name, status, errorMessage)
         {
         }
 
-        public Sync(string id, int status, string errorMessage)
+        public SyncTable(string id, int status, string errorMessage)
         {
             this.id = id;
             this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();

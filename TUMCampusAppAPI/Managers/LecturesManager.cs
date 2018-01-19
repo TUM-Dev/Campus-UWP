@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
@@ -73,16 +73,16 @@ namespace TUMCampusAppAPI.Managers
         /// Searches in the local db for all lectures and returns them.
         /// </summary>
         /// <returns>Returns all found lectures.</returns>
-        public List<TUMOnlineLecture> getLectures()
+        public List<TUMOnlineLectureTable> getLectures()
         {
-            return dB.Query<TUMOnlineLecture>("SELECT * FROM TUMOnlineLecture");
+            return dB.Query<TUMOnlineLectureTable>("SELECT * FROM TUMOnlineLectureTable");
         }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<TUMOnlineLecture>();
+            dB.CreateTable<TUMOnlineLectureTable>();
         }
 
         /// <summary>
@@ -90,18 +90,18 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="stp_sp_nr">The lectures stp_sp number.</param>
         /// <returns>Returns the found lecture information or null if none found.</returns>
-        public async Task<List<TUMOnlineLectureInformation>> searchForLectureInformationAsync(string stp_sp_nr)
+        public async Task<List<TUMOnlineLectureInformationTable>> searchForLectureInformationAsync(string stp_sp_nr)
         {
-            List<TUMOnlineLectureInformation> list = null;
+            List<TUMOnlineLectureInformationTable> list = null;
             XmlDocument doc = await getLectureInformationDocumentAsync(stp_sp_nr);
             if (doc == null || doc.SelectSingleNode("/error") != null)
             {
                 return list;
             }
-            list = new List<TUMOnlineLectureInformation>();
+            list = new List<TUMOnlineLectureInformationTable>();
             foreach (var element in doc.SelectNodes("/rowset/row"))
             {
-                list.Add(new TUMOnlineLectureInformation(element));
+                list.Add(new TUMOnlineLectureInformationTable(element));
             }
             return list;
         }
@@ -124,13 +124,13 @@ namespace TUMCampusAppAPI.Managers
                 {
                     return;
                 }
-                dB.DropTable<TUMOnlineLecture>();
-                dB.CreateTable<TUMOnlineLecture>();
+                dB.DropTable<TUMOnlineLectureTable>();
+                dB.CreateTable<TUMOnlineLectureTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMOnlineLecture(element));
+                    dB.Insert(new TUMOnlineLectureTable(element));
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new Syncs.Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }
         }
 
@@ -139,18 +139,18 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         /// <param name="query">The search query. Min 4 chars!</param>
         /// <returns>Returns the downloaded lectures.</returns>
-        public async Task<List<TUMOnlineLecture>> searchForLecturesAsync(string query)
+        public async Task<List<TUMOnlineLectureTable>> searchForLecturesAsync(string query)
         {
-            List<TUMOnlineLecture> list = null;
+            List<TUMOnlineLectureTable> list = null;
             XmlDocument doc = await getQueryedLecturesDocumentAsync(query);
             if (doc == null || doc.SelectSingleNode("/error") != null)
             {
                 return list;
             }
-            list = new List<TUMOnlineLecture>();
+            list = new List<TUMOnlineLectureTable>();
             foreach (var element in doc.SelectNodes("/rowset/row"))
             {
-                list.Add(new TUMOnlineLecture(element));
+                list.Add(new TUMOnlineLectureTable(element));
             }
             return list;
         }

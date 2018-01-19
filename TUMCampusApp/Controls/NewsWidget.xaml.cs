@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Pages;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
-using TUMCampusAppAPI.News;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +54,7 @@ namespace TUMCampusApp.Controls
             Task t2 = NewsManager.INSTANCE.downloadNewsAsync(false);
             Task.WaitAll(t1, t2);
 
-            List<News> news = NewsManager.INSTANCE.getNewsForHomePage();
+            List<NewsTable> news = NewsManager.INSTANCE.getNewsForHomePage();
             if (news == null || news.Count <= 0)
             {
                 return;
@@ -62,7 +62,7 @@ namespace TUMCampusApp.Controls
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                foreach (News item in news)
+                foreach (NewsTable item in news)
                 {
                     homePage.addWidget(new DropShadowPanel()
                     {

@@ -2,9 +2,9 @@
 using TUMCampusAppAPI.Managers;
 using Windows.Devices.Geolocation;
 
-namespace TUMCampusAppAPI.UserDatas
+namespace TUMCampusAppAPI.DBTables
 {
-    public class UserData
+    public class UserDataTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -24,7 +24,7 @@ namespace TUMCampusAppAPI.UserDatas
         /// <history>
         /// 15/12/2016  Created [Fabian Sauter]
         /// </history>
-        public UserData(Geopoint lastKnownDevicePosition)
+        public UserDataTable(Geopoint lastKnownDevicePosition)
         {
             this.lat = lastKnownDevicePosition.Position.Latitude;
             this.lng = lastKnownDevicePosition.Position.Longitude;
@@ -38,7 +38,7 @@ namespace TUMCampusAppAPI.UserDatas
         /// <history>
         /// 15/12/2016  Created [Fabian Sauter]
         /// </history>
-        public UserData()
+        public UserDataTable()
         {
             this.id = DeviceInfo.INSTANCE.Id;
         }

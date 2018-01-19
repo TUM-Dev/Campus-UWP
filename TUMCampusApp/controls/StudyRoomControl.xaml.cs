@@ -1,5 +1,5 @@
 ﻿using System;
-using TUMCampusAppAPI.StudyRooms;
+using TUMCampusAppAPI.DBTables;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -10,7 +10,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private StudyRoom room;
+        private StudyRoomTable room;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -21,7 +21,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 24/02/2017 Created [Fabian Sauter]
         /// </history>
-        public StudyRoomControl(StudyRoom room)
+        public StudyRoomControl(StudyRoomTable room)
         {
             this.room = room;
             this.InitializeComponent();

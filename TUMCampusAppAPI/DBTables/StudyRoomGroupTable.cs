@@ -1,20 +1,16 @@
-﻿
-namespace TUMCampusAppAPI.Syncs
+﻿using SQLite.Net.Attributes;
+using Windows.Data.Json;
+
+namespace TUMCampusAppAPI.DBTables
 {
-    public class SyncResult
+    public class StudyRoomGroupTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly int STATUS_NOT_FOUND = 1;
-        public static readonly int STATUS_OK = 0;
-        public static readonly int STATUS_ERROR_UNKNOWN = -1;
-        public static readonly int STATUS_ERROR_TUM_ONLINE = -2;
-        public static readonly int STATUS_ERROR_SQL = -3;
-
-        public readonly long LAST_SYNC;
-        public readonly int STATUS;
-        public readonly bool NEEDS_SYNC;
-        public readonly string ERROR_MESSAGE;
+        [PrimaryKey]
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -23,28 +19,18 @@ namespace TUMCampusAppAPI.Syncs
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 01/05/2017 Created [Fabian Sauter]
+        /// 24/02/2017 Created [Fabian Sauter]
         /// </history>
-        public SyncResult()
+        public StudyRoomGroupTable()
         {
-            this.STATUS = STATUS_ERROR_UNKNOWN;
-            this.NEEDS_SYNC = true;
+
         }
 
-        public SyncResult(long lastSync, int status, bool needsSync, string errorMessage)
+        public StudyRoomGroupTable(JsonObject json)
         {
-            this.LAST_SYNC = lastSync;
-            this.STATUS = status;
-            this.NEEDS_SYNC = needsSync;
-            this.ERROR_MESSAGE = errorMessage;
-        }
-
-        public SyncResult(Sync sync, bool needsSync)
-        {
-            this.LAST_SYNC = sync.lastSync;
-            this.STATUS = sync.status;
-            this.ERROR_MESSAGE = sync.errorMessage;
-            this.NEEDS_SYNC = needsSync;
+            this.id = (int)json.GetNamedNumber("nr");
+            this.name = json.GetNamedString("name");
+            this.description = json.GetNamedString("detail");
         }
 
         #endregion

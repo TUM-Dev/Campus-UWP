@@ -3,9 +3,9 @@ using System;
 using System.Globalization;
 using Windows.Data.Json;
 
-namespace TUMCampusAppAPI.News
+namespace TUMCampusAppAPI.DBTables
 {
-    public class News : IComparable
+    public class NewsTable : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -27,12 +27,12 @@ namespace TUMCampusAppAPI.News
         /// <history>
         /// 01/06/2017 Created [Fabian Sauter]
         /// </history>
-        public News()
+        public NewsTable()
         {
 
         }
 
-        public News(JsonObject json)
+        public NewsTable(JsonObject json)
         {
             this.id = json.GetNamedString(Const.JSON_NEWS);
             this.src = json.GetNamedString(Const.JSON_SRC);
@@ -60,11 +60,11 @@ namespace TUMCampusAppAPI.News
 
         public int CompareTo(object obj)
         {
-            if(obj == null || !(obj is News))
+            if(obj == null || !(obj is NewsTable))
             {
                 return -1;
             }
-            return date.CompareTo((obj as News).date);
+            return date.CompareTo((obj as NewsTable).date);
         }
 
         #endregion

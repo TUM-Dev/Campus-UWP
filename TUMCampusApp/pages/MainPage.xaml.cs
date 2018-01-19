@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 using static TUMCampusApp.Classes.Utillities;
 using TUMCampusAppAPI;
 using Windows.UI.Popups;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
 using Windows.UI;

@@ -2,11 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Thread_Save_Components.Classes.SQLite;
-using TUMCampusAppAPI.Caches;
 using TUMCampusAppAPI.DBTables;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Storage;
 
 namespace TUMCampusAppAPI.Managers
@@ -54,16 +50,16 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public static void resetDB()
         {
-            dB.DropTable<Cache>();
+            dB.DropTable<CacheTable>();
             dB.DropTable<CanteenTable>();
             dB.DropTable<CanteenDishTable>();
             dB.DropTable<FavoriteCanteenDishTypeTable>();
-            dB.DropTable<Sync>();
-            dB.DropTable<UserData>();
-            dB.DropTable<TUMOnlineLecture>();
-            dB.DropTable<TUMTuitionFee>();
-            dB.DropTable<TUMOnlineLecture>();
-            dB.DropTable<TUMOnlineCalendarEntry>();
+            dB.DropTable<SyncTable>();
+            dB.DropTable<UserDataTable>();
+            dB.DropTable<TUMOnlineLectureTable>();
+            dB.DropTable<TUMTuitionFeeTable>();
+            dB.DropTable<TUMOnlineLectureTable>();
+            dB.DropTable<TUMOnlineCalendarTable>();
         }
 
         /// <summary>

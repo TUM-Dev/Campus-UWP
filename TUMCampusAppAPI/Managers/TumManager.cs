@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.TUMOnline;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers

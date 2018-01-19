@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using TUMCampusAppAPI.DBTables;
-using TUMCampusAppAPI.Syncs;
-using TUMCampusAppAPI.UserDatas;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
@@ -97,7 +93,7 @@ namespace TUMCampusAppAPI.Managers
                 geoLocator.DesiredAccuracy = PositionAccuracy.Default;
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
                 UserDataManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
-                SyncManager.INSTANCE.replaceIntoDb(new Sync(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
                 return pos.Coordinate.Point;
             }
             catch (Exception e)

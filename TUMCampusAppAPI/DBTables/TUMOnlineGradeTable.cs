@@ -2,9 +2,9 @@
 using System;
 using Windows.Data.Xml.Dom;
 
-namespace TUMCampusAppAPI.TUMOnline
+namespace TUMCampusAppAPI.DBTables
 {
-    public class TUMOnlineGrade
+    public class TUMOnlineGradeTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -32,12 +32,12 @@ namespace TUMCampusAppAPI.TUMOnline
         /// <history>
         /// 12/03/2017 Created [Fabian Sauter]
         /// </history>
-        public TUMOnlineGrade()
+        public TUMOnlineGradeTable()
         {
 
         }
 
-        public TUMOnlineGrade(IXmlNode element)
+        public TUMOnlineGradeTable(IXmlNode element)
         {
             fromXml(element);
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.TUMOnline;
+using TUMCampusAppAPI.DBTables;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -10,7 +10,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private TUMTuitionFee tuitionFee;
+        private TUMTuitionFeeTable tuitionFee;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -21,7 +21,7 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 20/07/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeControl(TUMTuitionFee tuitionFee)
+        public TuitionFeeControl(TUMTuitionFeeTable tuitionFee)
         {
             this.tuitionFee = tuitionFee;
             this.InitializeComponent();

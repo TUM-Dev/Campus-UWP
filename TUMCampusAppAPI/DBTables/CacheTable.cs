@@ -1,18 +1,17 @@
 ﻿using SQLite.Net.Attributes;
-using Windows.Data.Json;
+using System;
 
-namespace TUMCampusAppAPI.News
+namespace TUMCampusAppAPI
 {
-    public class NewsSource
-    {
-        //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
+    public class CacheTable
+    {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [PrimaryKey, AutoIncrement]
-        public int id { get; set; }
-        public string src { get; set; }
-        public string title { get; set; }
-        public string icon { get; set; }
-        public bool enabled { get; set; }
+        [Unique, PrimaryKey]
+        public string url { get; set; }
+        public byte[] data { get; set; }
+        public int validity { get; set; }
+        public string max_age { get; set; }
+        public int type { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -21,20 +20,27 @@ namespace TUMCampusAppAPI.News
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 01/06/2017 Created [Fabian Sauter]
+        /// 10/12/2016  Created [Fabian Sauter]
         /// </history>
-        public NewsSource()
+        public CacheTable()
         {
 
         }
 
-        public NewsSource(JsonObject json)
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
+        /// <history>
+        /// 14/01/2017  Created [Fabian Sauter]
+        /// </history>
+        public CacheTable(string url, byte[] data, int validity, int max_age, int type)
         {
-            this.src = json.GetNamedString(Const.JSON_SOURCE);
-            this.title = json.GetNamedString(Const.JSON_TITLE).Replace("newspread Live ", "");
-            JsonValue val = json.GetNamedValue(Const.JSON_ICON);
-            this.icon = val.ValueType == JsonValueType.Null ? null : val.Stringify();
-            this.enabled = true;
+            this.url = url;
+            this.data = data;
+            this.validity = validity;
+            DateTime date = DateTime.Now.AddSeconds(max_age);
+            this.max_age = date.Year.ToString() + '-' + date.Month.ToString() + '-' + date.Day.ToString() + ' ' + date.Hour.ToString() + ':' + date.Minute.ToString() + ':' + date.Second.ToString();
+            this.type = type;
         }
 
         #endregion
