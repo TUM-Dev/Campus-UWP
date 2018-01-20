@@ -152,7 +152,11 @@ namespace TUMCampusApp.Controls
 
                 if (a.favorite == b.favorite)
                 {
-                    if (a.distance > b.distance)
+                    if(a.distance == b.distance)
+                    {
+                        return 0;
+                    }
+                    else if (a.distance > b.distance)
                     {
                         return 1;
                     }
