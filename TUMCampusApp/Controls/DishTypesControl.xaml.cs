@@ -42,9 +42,9 @@ namespace TUMCampusApp.Controls
             List<string> types = new List<string>();
             foreach (object o in dishTypes_list.SelectedItems)
             {
-                if (o is CanteenDishTable)
+                if (o is DishTypeTemplate)
                 {
-                    types.Add((o as CanteenDishTable).dish_type);
+                    types.Add((o as DishTypeTemplate).dishType);
                 }
             }
             return types;
