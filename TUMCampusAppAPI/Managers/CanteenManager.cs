@@ -199,7 +199,14 @@ namespace TUMCampusAppAPI.Managers
                 List<CanteenTable> list = new List<CanteenTable>();
                 foreach (JsonValue val in jsonArr)
                 {
-                    list.Add(getFromJson(val.GetObject()));
+                    CanteenTable c = getFromJson(val.GetObject());
+                    // Get the "old" canteen from the db to prevent losing favorite canteens:
+                    CanteenTable old = getCanteen(c.canteen_id);
+                    if(old != null)
+                    {
+                        c.favorite = old.favorite;
+                    }
+                    list.Add(c);
                 }
                 dB.DeleteAll<CanteenTable>();
                 dB.InsertAll(list);
