@@ -226,6 +226,7 @@ namespace TUMCampusApp.Controls
             if (canteen != null)
             {
                 UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
+                showSelectedCanteen();
             }
             close();
         }
