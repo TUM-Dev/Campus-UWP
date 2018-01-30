@@ -75,7 +75,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found lectures.</returns>
         public List<TUMOnlineLectureTable> getLectures()
         {
-            return dB.Query<TUMOnlineLectureTable>("SELECT * FROM TUMOnlineLectureTable");
+            return dB.Query<TUMOnlineLectureTable>(true, "SELECT * FROM TUMOnlineLectureTable");
         }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

@@ -59,7 +59,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all Canteens from the db.</returns>
         public List<CanteenTable> getCanteens()
         {
-            return dB.Query<CanteenTable>("SELECT * FROM CanteenTable;");
+            return dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable;");
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<CanteenTable> getCanteenByIdAsync(string canteen_id)
         {
             await downloadCanteensAsync(false);
-            List<CanteenTable> list = dB.Query<CanteenTable>("SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
+            List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
             if (list != null && list.Count > 0)
             {
                 return list[0];
@@ -113,7 +113,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public CanteenTable getCanteen(string canteen_id)
         {
-            List<CanteenTable> list = dB.Query<CanteenTable>("SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
+            List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
             if(list.Count >= 1)
             {
                 return list[0];
@@ -146,7 +146,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<CanteenTable> getFavoriteCanteens()
         {
-            return dB.Query<CanteenTable>("SELECT canteen_id FROM CanteenTable WHERE favorite = 1;");
+            return dB.Query<CanteenTable>(true, "SELECT canteen_id FROM CanteenTable WHERE favorite = 1;");
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">The canteen id you want all dish types for.</param>
         public List<FavoriteCanteenDishTypeTable> getDishTypesForFavoriteCanteen(string canteen_id)
         {
-            return dB.Query<FavoriteCanteenDishTypeTable>("SELECT * FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
+            return dB.Query<FavoriteCanteenDishTypeTable>(true, "SELECT * FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
         }
 
         /// <summary>

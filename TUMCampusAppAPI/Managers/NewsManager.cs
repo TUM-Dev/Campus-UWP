@@ -36,7 +36,7 @@ namespace TUMCampusAppAPI.Managers
         private string getLastNewsId()
         {
             string lastId = "";
-            List<NewsTable> list = dB.Query<NewsTable>("SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
+            List<NewsTable> list = dB.Query<NewsTable>(true, "SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
             if (list != null && list.Count > 0)
             {
                 lastId += list[0].id;
@@ -50,12 +50,12 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsSourceTable elements.</returns>
         public List<NewsSourceTable> getAllNewsSourcesFormDb()
         {
-            return dB.Query<NewsSourceTable>("SELECT * FROM NewsSourceTable");
+            return dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable");
         }
 
         public List<NewsTable> getNewsWithImage()
         {
-            return dB.Query<NewsTable>("SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
+            return dB.Query<NewsTable>(true, "SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsTable elements.</returns>
         public List<NewsTable> getAllNewsFormDb()
         {
-            return dB.Query<NewsTable>("SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
+            return dB.Query<NewsTable>(true, "SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the NewsSourceTable for the given id.</returns>
         public NewsSourceTable getNewsSource(string src)
         {
-            List<NewsSourceTable> sources = dB.Query<NewsSourceTable>("SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
+            List<NewsSourceTable> sources = dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
             return sources.Count > 0 ? sources[0] : null;
         }
 

@@ -47,7 +47,7 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id))
+            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id))
             {
                 if (m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
                 {
@@ -92,7 +92,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">Canteen id</param>
         public static List<CanteenDishTable> getDishes(string canteen_id)
         {
-            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
             return list;
         }
 
@@ -109,11 +109,11 @@ namespace TUMCampusAppAPI.Managers
             List<CanteenDishTable> list;
             if (contains)
             {
-                list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
+                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
             }
             else
             {
-                list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
+                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
             }
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
@@ -126,7 +126,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns a list of all dishes, that match the given date and canteen_id.</returns>
         public List<CanteenDishTable> getDishes(string canteen_id, DateTime date)
         {
-            List<CanteenDishTable> list = dB.Query<CanteenDishTable>("SELECT * FROM CanteenDishTable WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
 
@@ -136,7 +136,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of CanteenDishTable objects, only populated with the dish_type attribute.</returns>
         public List<CanteenDishTable> getAllDishTypes()
         {
-            return dB.Query<CanteenDishTable>("SELECT DISTINCT dish_type FROM CanteenDishTable;");
+            return dB.Query<CanteenDishTable>(true, "SELECT DISTINCT dish_type FROM CanteenDishTable;");
         }
 
         #endregion

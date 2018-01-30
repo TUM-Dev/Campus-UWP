@@ -35,7 +35,7 @@ namespace TUMCampusAppAPI.Managers
         public Geopoint getLastKnownDevicePosition()
         {
             waitWhileLocked();
-            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if(list == null || list.Count <= 0)
             {
                 return null;
@@ -52,7 +52,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="pos">The Geopoint that should get saved.</param>
         public void setLastKnownDevicePosition(Geopoint pos)
         {
-            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
                 dB.Insert(new UserDataTable(pos));
@@ -72,7 +72,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the last selected canteen id or 'mensa-garching' if none exists.</returns>
         public string getLastSelectedCanteenId()
         {
-            List<UserDataTable> list = dB.Query<UserDataTable>("SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
+            List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
                 return "mensa-garching";

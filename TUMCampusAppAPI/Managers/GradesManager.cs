@@ -44,7 +44,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found grads as a list of TUMOnlineGradeSemester with their grades.</returns>
         public List<TUMOnlineGradeSemester> getGradesSemester()
         {
-            List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>("SELECT * FROM TUMOnlineGradeTable");
+            List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>(true, "SELECT * FROM TUMOnlineGradeTable");
             List<TUMOnlineGradeSemester> semester = new List<TUMOnlineGradeSemester>();
             bool match = false;
             foreach (TUMOnlineGradeTable g in list)

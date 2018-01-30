@@ -70,7 +70,7 @@ namespace TUMCampusAppAPI.Managers
         {
             lock (thisLock)
             {
-                List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>("SELECT * FROM TUMOnlineCalendarTable");
+                List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM TUMOnlineCalendarTable");
                 for(int i = 0; i < list.Count; i++)
                 {
                     list[i].dTStrat = list[i].dTStrat.ToLocalTime();

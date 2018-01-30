@@ -36,7 +36,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="groupID">Specifies a group of rooms.</param>
         public List<StudyRoomTable> getRooms(int groupID)
         {
-            return dB.Query<StudyRoomTable>("SELECT * FROM StudyRoomTable WHERE group_id = ?", groupID);
+            return dB.Query<StudyRoomTable>(true, "SELECT * FROM StudyRoomTable WHERE group_id = ?", groupID);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<StudyRoomGroupTable> getRoomGroups()
         {
-            return dB.Query<StudyRoomGroupTable>("SELECT * FROM StudyRoomGroupTable");
+            return dB.Query<StudyRoomGroupTable>(true, "SELECT * FROM StudyRoomGroupTable");
         }
 
         #endregion

@@ -109,7 +109,7 @@ namespace TUMCampusAppAPI.Managers
         {
             try
             {
-                List<SyncTable> list = dB.Query<SyncTable>("SELECT * FROM SyncTable WHERE id LIKE ?", id);
+                List<SyncTable> list = dB.Query<SyncTable>(true, "SELECT * FROM SyncTable WHERE id LIKE ?", id);
                 if(list == null || list.Count <= 0)
                 {
                     return new SyncResult(-1, SyncResult.STATUS_NOT_FOUND, true, null);
