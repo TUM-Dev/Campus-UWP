@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="790FabianSauter.TUM-Campus-App" Publisher="CN=8AFEBA0F-E085-403B-A05B-71A8952F40A3" Version="1.2.1.0" />
+  <Identity Name="790FabianSauter.TUM-Campus-App" Publisher="CN=8AFEBA0F-E085-403B-A05B-71A8952F40A3" Version="1.2.2.0" />
   <mp:PhoneIdentity PhoneProductId="15773f6d-1e85-434f-92d3-ac90d3a52c1e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>TUM-Campus-App</DisplayName>
@@ -22,15 +22,15 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#0061b7" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.personalAssistantLaunch" />
-        <uap:Extension Category="windows.appService" EntryPoint="TUMCampusApp.VoiceCommands.TUMVoiceCommandService">
-          <uap:AppService Name="TUMCampusAppVoiceCommandsService" />
-        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="TUMCampusApp.BackgroundTask.BackgroundTask">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="TUMCampusApp.VoiceCommands.TUMVoiceCommandService">
+          <uap:AppService Name="TUMCampusAppVoiceCommandsService" />
+        </uap:Extension>
+        <uap:Extension Category="windows.personalAssistantLaunch" />
       </Extensions>
     </Application>
   </Applications>
