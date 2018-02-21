@@ -57,7 +57,7 @@ namespace TUMCampusApp.Controls
 
                 if (date != DateTime.MaxValue)
                 {
-                    canteenDate_tbx.Text = date.ToString("dd.MM.yyyy");
+                    canteenDate_tbx.Text = date.AddDays(1).ToString("dd.MM.yyyy");
 
                     foreach (FavoriteCanteenDishTypeTable f in CanteenManager.INSTANCE.getDishTypesForFavoriteCanteen(canteen_id))
                     {
