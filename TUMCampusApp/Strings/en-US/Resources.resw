@@ -646,4 +646,53 @@
   <data name="DishTypesControlUnSelectAll.Content" xml:space="preserve">
     <value>Unselect all</value>
   </data>
+  <data name="IngredientsDialogIngredients_text" xml:space="preserve">
+    <value>(1)	 with dyestuff
+(2)	 with preservative
+(3)	 with antioxidant
+(4)	 with flavor enhancers
+(5)	 sulphured
+(6)	 blackened (olive)
+(8)	 with phosphate
+(9)	 with sweeteners
+(10)	 contains a source of phenylalanine
+(11)	 with sugar and sweeteners
+(13)	 with cocoa-containing grease
+(14)	 with gelatin
+(99)	 dish with alcohol
+
+(f)	 meatless dish
+(v)	 vegan dish	
+(S)	 dish with pork
+(R)	 dish with beef
+(K)	 dish with veal
+(GQB)	 Certified Quality - Bavaria
+(MSC)	 Marine Stewardship Council
+(Kn)	 dish with garlic
+(Ei)	 dish with chicken egg
+(En)	 dish with peanut
+(Fi)	 dish with fish
+(Gl)	 dish with gluten-containing cereals
+(GlW)	 dish with wheat
+(GlR)	 dish with rye
+(GlG)	 dish with barley
+(GlH)	 dish with oats
+(GlD)	 dish with spelt
+(Kr)	 dish with crustaceans
+(Lu)	 dish with lupines
+(Mi)	 dish with milk and lactose
+(Sc)	 dish with shell fruits
+(ScM)	 dish with almonds
+(ScH)	 dish with hazelnuts
+(ScW)	 dish with Walnuts
+(ScC)	 dish with cashew nuts
+(ScP)	 dish with pistachios
+(ScP)	 dish with pistachios
+(Se)	 dish with sesame seeds
+(Sf)	 dish with mustard
+(Sl)	 dish with celery
+(So)	 dish with soy
+(Sw)	 dish with sulfur dioxide and sulfites
+(Wt)	 dish with mollusks</value>
+  </data>
 </root>
