@@ -26,7 +26,7 @@ namespace TUMCampusApp.Classes.Helpers
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Registers a background task if necessarry.
+        /// Registers a background task if necessary.
         /// </summary>
         public async static void RegisterBackgroundTask()
         {
@@ -44,7 +44,7 @@ namespace TUMCampusApp.Classes.Helpers
         }
 
         /// <summary>
-        /// Removes a background task if necessarry.
+        /// Removes a background task if necessary.
         /// </summary>
         public static void RemoveBackgroundTask()
         {
