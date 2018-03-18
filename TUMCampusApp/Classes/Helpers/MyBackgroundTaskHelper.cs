@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp;
-using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using TUMCampusAppAPI;
 using Windows.ApplicationModel.Background;

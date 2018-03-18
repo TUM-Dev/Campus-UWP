@@ -91,7 +91,7 @@ namespace TUMCampusAppAPI.Managers
                 dB.CreateTable<TUMOnlineGradeTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMOnlineGradeTable(element));
+                    update(new TUMOnlineGradeTable(element));
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }

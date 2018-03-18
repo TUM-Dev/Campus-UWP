@@ -76,7 +76,7 @@ namespace TUMCampusAppAPI.Managers
                 dB.CreateTable<TUMTuitionFeeTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMTuitionFeeTable(element));
+                    update(new TUMTuitionFeeTable(element));
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }

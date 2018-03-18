@@ -1,4 +1,4 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using TUMCampusAppAPI.Managers;
 using Windows.Devices.Geolocation;
 

@@ -128,7 +128,7 @@ namespace TUMCampusAppAPI.Managers
                 dB.CreateTable<TUMOnlineLectureTable>();
                 foreach (var element in doc.SelectNodes("/rowset/row"))
                 {
-                    dB.Insert(new TUMOnlineLectureTable(element));
+                    update(new TUMOnlineLectureTable(element));
                 }
                 SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
             }

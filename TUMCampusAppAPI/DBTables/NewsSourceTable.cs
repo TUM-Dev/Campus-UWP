@@ -1,4 +1,4 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables

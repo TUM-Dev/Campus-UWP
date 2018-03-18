@@ -1,4 +1,4 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using System;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;

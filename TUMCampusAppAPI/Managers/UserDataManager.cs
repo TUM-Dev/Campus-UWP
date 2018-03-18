@@ -55,7 +55,7 @@ namespace TUMCampusAppAPI.Managers
             List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                dB.Insert(new UserDataTable(pos));
+                update(new UserDataTable(pos));
             }
             else
             {
@@ -93,7 +93,7 @@ namespace TUMCampusAppAPI.Managers
         {
             if(dB.Execute("UPDATE UserDataTable SET lastSelectedCanteenId = ? WHERE id = ?", canteen_id, DeviceInfo.INSTANCE.Id) <= 0)
             {
-                dB.Insert(new UserDataTable() { lastSelectedCanteenId = canteen_id });
+                update(new UserDataTable() { lastSelectedCanteenId = canteen_id });
             }
         }
 
