@@ -104,6 +104,7 @@
     <Compile Include="Classes\AppUpdateHandler.cs" />
     <Compile Include="Classes\Events\CanteenSelectionChangedEventArgs.cs" />
     <Compile Include="Classes\Events\ExpandedChangedEventArgs.cs" />
+    <Compile Include="Classes\Helpers\EduroamHelper.cs" />
     <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
     <Compile Include="Classes\Helpers\TileHelper.cs" />
     <Compile Include="Classes\Utillities.cs" />

@@ -39,6 +39,10 @@
                 <ToggleSwitch x:Uid="SettingsPageDisableCalendarWidget" x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
                 <ToggleSwitch x:Uid="SettingsPageDisableNewsWidget" x:Name="disableNewsWidget_tgls"  Margin="10,10,0,0" Toggled="disableNewsWidget_tgls_Toggled" Header="Disable News Widget"/>
 
+                <TextBlock x:Uid="SettingsPageEduroam" Text="Eduroam:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
+                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
+                <Button x:Name="connectEduroam_btn" Content="Connect" Click="connectEduroam_btn_Click"/>
+
                 <TextBlock x:Uid="SettingsPageMiscellaneous" Text="Miscellaneous:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <Button x:Uid="SettingsPageOpenAppDataFolder" x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,15,0,0" Click="openLogFolder_btn_ClickAsync"/>

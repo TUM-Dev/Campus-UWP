@@ -362,5 +362,10 @@ namespace TUMCampusApp.Pages
         }
 
         #endregion
+
+        private async void connectEduroam_btn_Click(object sender, RoutedEventArgs e)
+        {
+            await EduroamHelper.connectAsync(null, null);
+        }
     }
 }
