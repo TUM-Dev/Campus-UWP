@@ -38,5 +38,6 @@
     <Capability Name="internetClient" />
     <uap:Capability Name="appointments" />
     <DeviceCapability Name="location" />
+    <DeviceCapability Name="wifiControl" />
   </Capabilities>
 </Package>

@@ -1,0 +1,57 @@
+﻿<ContentDialog
+    x:Class="TUMCampusApp.Dialogs.EduroamHelperDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Title="Eduroam helper:"
+    SecondaryButtonText="Cancel"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    Closing="ContentDialog_Closing">
+
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <TextBlock x:Name="status_btn"
+                   Visibility="Collapsed"
+                       Margin="0, 0, 0, 10"/>
+                <TextBox x:Name="userName_tbx"
+                     HorizontalAlignment="Stretch"
+                     Header="User name:"
+                     TextChanged="userName_tbx_TextChanged"/>
+                <HyperlinkButton Content="Edurom user name"
+                             NavigateUri="https://www.lrz.de/services/netz/wlan/eduroam/benutzernamen"/>
+                <PasswordBox x:Name="password_pwbx"
+                         Header="Password"
+                         Margin="0, 10, 0, 0"
+                         PasswordChanged="password_pwbx_PasswordChanged"/>
+            </StackPanel>
+            <Button x:Name="setup_btn"
+                Margin="0, 10, 0, 0"
+                Grid.Row="1"
+                Content="Setup"
+                Click="setup_btn_Click"/>
+            <controls:Expander Header="Advanced"
+                           Grid.Row="2"
+                           Margin="0, 10, 0, 0">
+                <StackPanel>
+                    <Button x:Name="installCert_btn"
+                    Content="Install certificate"
+                        Click="installCert_btn_Click"/>
+                    <Button x:Name="connetToEduroam_btn"
+                        Content="Connect to Eduroam"
+                        Margin="0, 10, 0, 0"
+                        Click="connetToEduroam_btn_Click"/>
+                </StackPanel>
+            </controls:Expander>
+        </Grid>
+    </ScrollViewer>
+</ContentDialog>

@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Input;
 using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
 using Windows.UI.Core;
+using TUMCampusApp.Dialogs;
 
 namespace TUMCampusApp.Pages
 {
@@ -165,7 +166,8 @@ namespace TUMCampusApp.Pages
         private void showLogSize()
         {
             logSize_tblck.Text = Utillities.getLocalizedString("SettingsPageLogSizeCalculating_Text");
-            Task.Factory.StartNew(async () => {
+            Task.Factory.StartNew(async () =>
+            {
                 long size = await Logger.getLogFolderSizeAsync();
                 string text = "~ ";
                 if (size >= 1024)
@@ -336,7 +338,7 @@ namespace TUMCampusApp.Pages
 
         private void showToken_btn_Click(object sender, RoutedEventArgs e)
         {
-            if(tumonlineToken_tbx.Visibility == Visibility.Visible)
+            if (tumonlineToken_tbx.Visibility == Visibility.Visible)
             {
                 tumonlineToken_tbx.Text = "";
                 tumonlineToken_tbx.Visibility = Visibility.Collapsed;
@@ -361,11 +363,12 @@ namespace TUMCampusApp.Pages
             showLogSize();
         }
 
-        #endregion
-
-        private async void connectEduroam_btn_Click(object sender, RoutedEventArgs e)
+        private async void setupEduroam_btn_Click(object sender, RoutedEventArgs e)
         {
-            await EduroamHelper.connectAsync(null, null);
+            EduroamHelperDialog dialog = new EduroamHelperDialog();
+            await dialog.ShowAsync();
         }
+
+        #endregion
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes.Events;
+using Windows.Devices.Enumeration;
 using Windows.Devices.WiFi;
+using Windows.Security.Credentials;
+using Windows.UI.Xaml;
 
 namespace TUMCampusApp.Classes.Helpers
 {
@@ -11,7 +12,12 @@ namespace TUMCampusApp.Classes.Helpers
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        private WiFiAdapter adapter = null;
+        private DispatcherTimer timer = null;
 
+        public delegate void EduroamNetworkFoundEventHandler(WiFiAdapter adapter, EduroamNetworkFoundEventArgs args);
+
+        public event EduroamNetworkFoundEventHandler EduroamNetworkFound;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,7 +30,6 @@ namespace TUMCampusApp.Classes.Helpers
         /// </history>
         public EduroamHelper()
         {
-
         }
 
         #endregion
@@ -40,15 +45,69 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
 
         #region --Misc Methods (Private)--
-        public static async Task connectAsync(string id, string password)
+        public async Task connectAsync(WiFiAvailableNetwork network, WiFiReconnectionKind wiFiReconnectionKind, PasswordCredential passwordCredential)
         {
-            WiFiAdapter adapter = null;
-            await adapter.ConnectAsync(null, WiFiReconnectionKind.Automatic, new Windows.Security.Credentials.PasswordCredential("", null, null), "eduroam");
+            await adapter.ConnectAsync(network, wiFiReconnectionKind, passwordCredential);
         }
 
-        public static async Task installCertificateAsync()
+        public async Task installCertificateAsync()
         {
 
+        }
+
+        public async Task<WiFiAccessStatus> requestAccessAsync()
+        {
+            return await WiFiAdapter.RequestAccessAsync();
+        }
+
+        public async Task<WiFiAdapter> loadAdapterAsync()
+        {
+            DeviceInformationCollection adapterResult = await DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
+            if (adapterResult.Count >= 1)
+            {
+                return await WiFiAdapter.FromIdAsync(adapterResult[0].Id);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task startSearchingAsync()
+        {
+            WiFiAccessStatus access = await WiFiAdapter.RequestAccessAsync();
+            if (access != WiFiAccessStatus.Allowed)
+            {
+                // No access:
+            }
+            else
+            {
+                DeviceInformationCollection adapterResult = await DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
+                if (adapterResult.Count >= 1)
+                {
+                    adapter = await WiFiAdapter.FromIdAsync(adapterResult[0].Id);
+                    adapter.AvailableNetworksChanged += Adapter_AvailableNetworksChanged;
+                    await adapter.ScanAsync();
+                }
+                else
+                {
+                    // No wifi adapter
+                }
+            }
+
+            await adapter.ScanAsync();
+            timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 10)
+            };
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        public void stopSearching()
+        {
+            adapter.AvailableNetworksChanged -= Adapter_AvailableNetworksChanged;
+            timer?.Stop();
         }
 
         #endregion
@@ -59,7 +118,22 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void Adapter_AvailableNetworksChanged(WiFiAdapter sender, object args)
+        {
+            foreach (WiFiAvailableNetwork n in sender.NetworkReport.AvailableNetworks)
+            {
+                if (Equals(n.Ssid, "eduroam") && n.SecuritySettings.NetworkEncryptionType == Windows.Networking.Connectivity.NetworkEncryptionType.None)
+                {
+                    stopSearching();
+                    EduroamNetworkFound?.Invoke(sender, new EduroamNetworkFoundEventArgs(n));
+                }
+            }
+        }
 
+        private async void Timer_Tick(object sender, object e)
+        {
+            await adapter.ScanAsync();
+        }
 
         #endregion
     }
