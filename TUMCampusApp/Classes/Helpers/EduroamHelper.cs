@@ -51,9 +51,9 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
 
         #region --Misc Methods (Private)--
-        public async Task connectAsync(WiFiAvailableNetwork network, WiFiReconnectionKind wiFiReconnectionKind, PasswordCredential passwordCredential)
+        public async Task<WiFiConnectionResult> connectAsync(WiFiAvailableNetwork network, WiFiReconnectionKind wiFiReconnectionKind, PasswordCredential passwordCredential)
         {
-            await adapter.ConnectAsync(network, wiFiReconnectionKind, passwordCredential);
+            return await adapter.ConnectAsync(network, wiFiReconnectionKind, passwordCredential);
         }
 
         public async Task installCertificateAsync()

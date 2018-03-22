@@ -55,24 +55,31 @@ namespace TUMCampusApp.Dialogs
         #region --Misc Methods (Private)--
         private async Task connectToEduroamAsync()
         {
+            showStatus("Requesting wireless adapter access...");
             WiFiAccessStatus status = await helper.requestAccessAsync();
             if(status == WiFiAccessStatus.Allowed)
             {
+                showStatus("Loading wireless adapters...");
                 WiFiAdapter adapter = await helper.loadAdapterAsync();
                 if(adapter != null)
                 {
+                    showStatus("Searching for eduroam network...");
                     await helper.startSearchingAsync();
                     helper.EduroamNetworkFound += Helper_EduroamNetworkFound;
                     await helper.startSearchingAsync();
                 }
                 else
                 {
-                    // No adapter
+                    // No adapter:
+                    showStatus("ERROR no wireless adapter found!");
+                    enableButtons();
                 }
             }
             else
             {
-                // Access denied
+                // Access denied:
+                showStatus("ERROR access to wireless adapter denied!");
+                enableButtons();
             }
         }
 
@@ -85,7 +92,39 @@ namespace TUMCampusApp.Dialogs
 
         private async Task installCertAsync()
         {
+            showStatus("Installing certificate...");
 
+            showStatus("Finished certificate installation.");
+        }
+
+        private void showStatus(string msg)
+        {
+            status_tbx.Text = msg;
+            status_tbx.Visibility = Visibility.Visible;
+        }
+
+        private void disableButtons()
+        {
+            setup_btn.IsEnabled = false;
+            setup_prgr.Visibility = Visibility.Visible;
+
+            connetToEduroam_btn.IsEnabled = false;
+            connetToEduroam_prgr.Visibility = Visibility.Visible;
+
+            installCert_btn.IsEnabled = false;
+            installCert_prgr.Visibility = Visibility.Visible;
+        }
+
+        private void enableButtons()
+        {
+            setup_btn.IsEnabled = true;
+            setup_prgr.Visibility = Visibility.Collapsed;
+
+            connetToEduroam_btn.IsEnabled = true;
+            connetToEduroam_prgr.Visibility = Visibility.Collapsed;
+
+            installCert_btn.IsEnabled = true;
+            installCert_prgr.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -103,23 +142,29 @@ namespace TUMCampusApp.Dialogs
 
         private async void setup_btn_Click(object sender, RoutedEventArgs e)
         {
+            disableButtons();
+
             await installCertAsync();
             await connectToEduroamAsync();
         }
 
         private async void installCert_btn_Click(object sender, RoutedEventArgs e)
         {
+            disableButtons();
+
             await installCertAsync();
         }
 
         private async void connetToEduroam_btn_Click(object sender, RoutedEventArgs e)
         {
+            disableButtons();
+
             await connectToEduroamAsync();
         }
 
         private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            //helper.EduroamNetworkFound -= Helper_EduroamNetworkFound;
+            helper.EduroamNetworkFound -= Helper_EduroamNetworkFound;
             helper.stopSearching();
         }
 
@@ -127,12 +172,21 @@ namespace TUMCampusApp.Dialogs
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                showStatus("Connecting to eduroam...");
                 PasswordCredential passwordCredential = new PasswordCredential
                 {
                     Password = password_pwbx.Password,
                     UserName = userName_tbx.Text
                 };
-                Task t = helper.connectAsync(args.NETWORK, WiFiReconnectionKind.Automatic, passwordCredential);
+                Task.Run(async () =>
+                {
+                    WiFiConnectionResult result = await helper.connectAsync(args.NETWORK, WiFiReconnectionKind.Automatic, passwordCredential);
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        showStatus("Connecting to eduroam finished with: " + result.ConnectionStatus.ToString());
+                        enableButtons();
+                    });
+                });
             });
         }
 
