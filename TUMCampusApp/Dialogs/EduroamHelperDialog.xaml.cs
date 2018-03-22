@@ -8,6 +8,7 @@ using TUMCampusApp.Classes.Helpers;
 using Windows.Devices.WiFi;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -118,13 +119,21 @@ namespace TUMCampusApp.Dialogs
 
         private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            helper.EduroamNetworkFound -= Helper_EduroamNetworkFound;
+            //helper.EduroamNetworkFound -= Helper_EduroamNetworkFound;
             helper.stopSearching();
         }
 
         private async void Helper_EduroamNetworkFound(WiFiAdapter adapter, Classes.Events.EduroamNetworkFoundEventArgs args)
         {
-
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                PasswordCredential passwordCredential = new PasswordCredential
+                {
+                    Password = password_pwbx.Password,
+                    UserName = userName_tbx.Text
+                };
+                Task t = helper.connectAsync(args.NETWORK, WiFiReconnectionKind.Automatic, passwordCredential);
+            });
         }
 
         private void userName_tbx_TextChanged(object sender, TextChangedEventArgs e)

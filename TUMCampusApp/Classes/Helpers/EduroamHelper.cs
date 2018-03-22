@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Events;
 using Windows.Devices.Enumeration;
 using Windows.Devices.WiFi;
+using Windows.Networking.Connectivity;
 using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 
@@ -12,8 +14,11 @@ namespace TUMCampusApp.Classes.Helpers
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        public const string EDUROAM_SSID = "eduroam";
+
         private WiFiAdapter adapter = null;
         private DispatcherTimer timer = null;
+        private bool stopRequested;
 
         public delegate void EduroamNetworkFoundEventHandler(WiFiAdapter adapter, EduroamNetworkFoundEventArgs args);
 
@@ -30,6 +35,7 @@ namespace TUMCampusApp.Classes.Helpers
         /// </history>
         public EduroamHelper()
         {
+            this.stopRequested = false;
         }
 
         #endregion
@@ -107,7 +113,7 @@ namespace TUMCampusApp.Classes.Helpers
         public void stopSearching()
         {
             adapter.AvailableNetworksChanged -= Adapter_AvailableNetworksChanged;
-            timer?.Stop();
+            stopRequested = true;
         }
 
         #endregion
@@ -122,16 +128,22 @@ namespace TUMCampusApp.Classes.Helpers
         {
             foreach (WiFiAvailableNetwork n in sender.NetworkReport.AvailableNetworks)
             {
-                if (Equals(n.Ssid, "eduroam") && n.SecuritySettings.NetworkEncryptionType == Windows.Networking.Connectivity.NetworkEncryptionType.None)
+                if (string.Equals(n.Ssid, EDUROAM_SSID) && n.SecuritySettings.NetworkEncryptionType == NetworkEncryptionType.Ccmp)
                 {
                     stopSearching();
                     EduroamNetworkFound?.Invoke(sender, new EduroamNetworkFoundEventArgs(n));
+                    return;
                 }
             }
         }
 
         private async void Timer_Tick(object sender, object e)
         {
+            if (stopRequested)
+            {
+                timer.Stop();
+                return;
+            }
             await adapter.ScanAsync();
         }
 

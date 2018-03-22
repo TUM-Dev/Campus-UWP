@@ -26,6 +26,7 @@
                 <TextBox x:Name="userName_tbx"
                      HorizontalAlignment="Stretch"
                      Header="User name:"
+                         Text="ga87qip@eduroam.mwn.de"
                      TextChanged="userName_tbx_TextChanged"/>
                 <HyperlinkButton Content="Edurom user name"
                              NavigateUri="https://www.lrz.de/services/netz/wlan/eduroam/benutzernamen"/>
