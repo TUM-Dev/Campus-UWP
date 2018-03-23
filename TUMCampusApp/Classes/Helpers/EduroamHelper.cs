@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Events;
 using Windows.Devices.Enumeration;
 using Windows.Devices.WiFi;
 using Windows.Networking.Connectivity;
 using Windows.Security.Credentials;
+using Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace TUMCampusApp.Classes.Helpers
@@ -58,7 +60,25 @@ namespace TUMCampusApp.Classes.Helpers
 
         public async Task installCertificateAsync()
         {
+            StorageFile certFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Resources/Telekom_root_cert_eduroam.cer"));
+            byte[] certBytes;
 
+            using (Stream stream = await certFile.OpenStreamForReadAsync())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    certBytes = memoryStream.ToArray();
+                }
+            }
+
+            using (X509Store store = new X509Store(StoreName.My, StoreLocation.LocalMachine))
+            {
+                X509Certificate2 cert = new X509Certificate2(certBytes);
+
+                store.Open(OpenFlags.ReadWrite);
+                store.Add(cert);
+            }
         }
 
         public async Task<WiFiAccessStatus> requestAccessAsync()

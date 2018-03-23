@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Helpers;
 using Windows.Devices.WiFi;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Dialogs
 {
@@ -55,15 +45,15 @@ namespace TUMCampusApp.Dialogs
         #region --Misc Methods (Private)--
         private async Task connectToEduroamAsync()
         {
-            showStatus("Requesting wireless adapter access...");
+            showStatus(Utillities.getLocalizedString("EduroamHelperDialogRequestingAccess_Text"));
             WiFiAccessStatus status = await helper.requestAccessAsync();
-            if(status == WiFiAccessStatus.Allowed)
+            if (status == WiFiAccessStatus.Allowed)
             {
-                showStatus("Loading wireless adapters...");
+                showStatus(Utillities.getLocalizedString("EduroamHelperDialogLoadingAdapters_Text"));
                 WiFiAdapter adapter = await helper.loadAdapterAsync();
-                if(adapter != null)
+                if (adapter != null)
                 {
-                    showStatus("Searching for eduroam network...");
+                    showStatus(Utillities.getLocalizedString("EduroamHelperDialogSearchingEduroam_Text"));
                     await helper.startSearchingAsync();
                     helper.EduroamNetworkFound += Helper_EduroamNetworkFound;
                     await helper.startSearchingAsync();
@@ -71,14 +61,14 @@ namespace TUMCampusApp.Dialogs
                 else
                 {
                     // No adapter:
-                    showStatus("ERROR no wireless adapter found!");
+                    showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorNoAdapter_Text"));
                     enableButtons();
                 }
             }
             else
             {
                 // Access denied:
-                showStatus("ERROR access to wireless adapter denied!");
+                showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorAdapterNoAccess_Text"));
                 enableButtons();
             }
         }
@@ -92,9 +82,11 @@ namespace TUMCampusApp.Dialogs
 
         private async Task installCertAsync()
         {
-            showStatus("Installing certificate...");
+            showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCert_Text"));
 
-            showStatus("Finished certificate installation.");
+            await helper.installCertificateAsync();
+
+            showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFinished_Text"));
         }
 
         private void showStatus(string msg)
@@ -107,24 +99,30 @@ namespace TUMCampusApp.Dialogs
         {
             setup_btn.IsEnabled = false;
             setup_prgr.Visibility = Visibility.Visible;
+            setup_prgr.IsActive = true;
 
             connetToEduroam_btn.IsEnabled = false;
             connetToEduroam_prgr.Visibility = Visibility.Visible;
+            connetToEduroam_prgr.IsActive = true;
 
             installCert_btn.IsEnabled = false;
             installCert_prgr.Visibility = Visibility.Visible;
+            installCert_prgr.IsActive = true;
         }
 
         private void enableButtons()
         {
             setup_btn.IsEnabled = true;
             setup_prgr.Visibility = Visibility.Collapsed;
+            setup_prgr.IsActive = false;
 
             connetToEduroam_btn.IsEnabled = true;
             connetToEduroam_prgr.Visibility = Visibility.Collapsed;
+            connetToEduroam_prgr.IsActive = false;
 
             installCert_btn.IsEnabled = true;
             installCert_prgr.Visibility = Visibility.Collapsed;
+            installCert_prgr.IsActive = false;
         }
 
         #endregion
@@ -172,7 +170,7 @@ namespace TUMCampusApp.Dialogs
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                showStatus("Connecting to eduroam...");
+                showStatus(Utillities.getLocalizedString("EduroamHelperDialogConnectingToEduroam_Text"));
                 PasswordCredential passwordCredential = new PasswordCredential
                 {
                     Password = password_pwbx.Password,
@@ -183,7 +181,7 @@ namespace TUMCampusApp.Dialogs
                     WiFiConnectionResult result = await helper.connectAsync(args.NETWORK, WiFiReconnectionKind.Automatic, passwordCredential);
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
-                        showStatus("Connecting to eduroam finished with: " + result.ConnectionStatus.ToString());
+                        showStatus(Utillities.getLocalizedString("EduroamHelperDialogConnectingToEduroamFinished_Text") + result.ConnectionStatus.ToString());
                         enableButtons();
                     });
                 });

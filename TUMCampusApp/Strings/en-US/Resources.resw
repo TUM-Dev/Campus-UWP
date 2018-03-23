@@ -695,4 +695,64 @@
 (Sw)	 dish with sulfur dioxide and sulfites
 (Wt)	 dish with mollusks</value>
   </data>
+  <data name="EduroamHelperDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="EduroamHelperDialog.Title" xml:space="preserve">
+    <value>Eduroam helper:</value>
+  </data>
+  <data name="EduroamHelperDialogAdvanced.Header" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="EduroamHelperDialogConnectToEduroam.Text" xml:space="preserve">
+    <value>Connect to eduroam</value>
+  </data>
+  <data name="EduroamHelperDialogInstallCert.Text" xml:space="preserve">
+    <value>Install certificate</value>
+  </data>
+  <data name="EduroamHelperDialogPassword.Header" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="EduroamHelperDialogSetup.Content" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="EduroamHelperDialogUserName.Header" xml:space="preserve">
+    <value>User name:</value>
+  </data>
+  <data name="EduroamHelperDialogUserNameLink.Content" xml:space="preserve">
+    <value>Edurom user name</value>
+  </data>
+  <data name="SettingsPageEduroam.Text" xml:space="preserve">
+    <value>Eduroam:</value>
+  </data>
+  <data name="SettingsPageSetupEduroam.Content" xml:space="preserve">
+    <value>Setup eduroam</value>
+  </data>
+  <data name="EduroamHelperDialogConnectingToEduroamFinished_Text" xml:space="preserve">
+    <value>Connecting to eduroam finished with: </value>
+  </data>
+  <data name="EduroamHelperDialogConnectingToEduroam_Text" xml:space="preserve">
+    <value>Connecting to eduroam...</value>
+  </data>
+  <data name="EduroamHelperDialogErrorAdapterNoAccess_Text" xml:space="preserve">
+    <value>ERROR access to wireless adapter denied!</value>
+  </data>
+  <data name="EduroamHelperDialogErrorNoAdapter_Text" xml:space="preserve">
+    <value>ERROR no wireless adapter found!</value>
+  </data>
+  <data name="EduroamHelperDialogInstallingCertFinished_Text" xml:space="preserve">
+    <value>Finished certificate installation.</value>
+  </data>
+  <data name="EduroamHelperDialogInstallingCert_Text" xml:space="preserve">
+    <value>Installing certificate...</value>
+  </data>
+  <data name="EduroamHelperDialogLoadingAdapters_Text" xml:space="preserve">
+    <value>Loading wireless adapters...</value>
+  </data>
+  <data name="EduroamHelperDialogRequestingAccess_Text" xml:space="preserve">
+    <value>Requesting wireless adapter access...</value>
+  </data>
+  <data name="EduroamHelperDialogSearchingEduroam_Text" xml:space="preserve">
+    <value>Searching for eduroam...</value>
+  </data>
 </root>
