@@ -128,7 +128,7 @@ namespace TUMCampusApp.Classes.Helpers
         {
             foreach (WiFiAvailableNetwork n in sender.NetworkReport.AvailableNetworks)
             {
-                if (string.Equals(n.Ssid, EDUROAM_SSID) && n.SecuritySettings.NetworkEncryptionType == NetworkEncryptionType.Ccmp)
+                if (string.Equals(n.Ssid, EDUROAM_SSID) && n.SecuritySettings.NetworkEncryptionType == NetworkEncryptionType.Ccmp && n.SecuritySettings.NetworkAuthenticationType == NetworkAuthenticationType.Rsna)
                 {
                     stopSearching();
                     EduroamNetworkFound?.Invoke(sender, new EduroamNetworkFoundEventArgs(n));
