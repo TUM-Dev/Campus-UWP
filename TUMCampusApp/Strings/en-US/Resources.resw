@@ -713,7 +713,7 @@
   <data name="EduroamHelperDialogPassword.Header" xml:space="preserve">
     <value>Password:</value>
   </data>
-  <data name="EduroamHelperDialogSetup.Content" xml:space="preserve">
+  <data name="EduroamHelperDialogSetup.Text" xml:space="preserve">
     <value>Setup</value>
   </data>
   <data name="EduroamHelperDialogUserName.Header" xml:space="preserve">

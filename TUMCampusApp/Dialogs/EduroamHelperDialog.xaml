@@ -25,12 +25,11 @@
                            Visibility="Collapsed"
                            Margin="0, 0, 0, 10"
                            TextWrapping="Wrap"/>
-                <TextBox x:Name="userName_tbx"
-                         x:Uid="EduroamHelperDialogUserName"
-                         HorizontalAlignment="Stretch"
-                         Header="User name:"
-                         Text="ga87qip@eduroam.mwn.de"
-                         TextChanged="userName_tbx_TextChanged"/>
+                <AutoSuggestBox x:Name="userName_asgbx"
+                                x:Uid="EduroamHelperDialogUserName"
+                                Header="User name:"
+                                TextChanged="userName_asgbx_TextChanged"
+                                ItemsSource="{x:Bind suggestions, Mode=OneWay}"/>
                 <HyperlinkButton Content="Edurom user name"
                                  x:Uid="EduroamHelperDialogUserNameLink"
                                  NavigateUri="https://www.lrz.de/services/netz/wlan/eduroam/benutzernamen"/>

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes.Events;
 using Windows.Devices.Enumeration;
 using Windows.Devices.WiFi;
 using Windows.Networking.Connectivity;
 using Windows.Security.Credentials;
+using Windows.Security.Cryptography.Certificates;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 
 namespace TUMCampusApp.Classes.Helpers
@@ -17,6 +17,7 @@ namespace TUMCampusApp.Classes.Helpers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public const string EDUROAM_SSID = "eduroam";
+        public const string EDUROAM_CERT_PATH = "ms-appx:///Assets/Resources/Telekom_root_cert_eduroam.cer";
 
         private WiFiAdapter adapter = null;
         private DispatcherTimer timer = null;
@@ -43,7 +44,15 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Returns the eduroam certificate.
+        /// </summary>
+        public async Task<Certificate> getCertificateAsync()
+        {
+            StorageFile certFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(EDUROAM_CERT_PATH));
+            IBuffer certBuffer = await FileIO.ReadBufferAsync(certFile);
+            return new Certificate(certBuffer);
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -53,39 +62,45 @@ namespace TUMCampusApp.Classes.Helpers
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Connects to the given wifi network with the given credentials.
+        /// </summary>
+        /// <param name="network">The wifi network you with to connect to.</param>
+        /// <param name="wiFiReconnectionKind">The wifi reconnection type used for the given wifi network.</param>
+        /// <param name="passwordCredential">The password and user name credentials.</param>
+        /// <returns>Returns the connection result.</returns>
         public async Task<WiFiConnectionResult> connectAsync(WiFiAvailableNetwork network, WiFiReconnectionKind wiFiReconnectionKind, PasswordCredential passwordCredential)
         {
             return await adapter.ConnectAsync(network, wiFiReconnectionKind, passwordCredential);
         }
 
+        /// <summary>
+        /// Installs the eduroam certificate.
+        /// </summary>
+        /// <returns></returns>
         public async Task installCertificateAsync()
         {
-            StorageFile certFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Resources/Telekom_root_cert_eduroam.cer"));
-            byte[] certBytes;
+            // Load certificate:
+            Certificate cert = await getCertificateAsync();
 
-            using (Stream stream = await certFile.OpenStreamForReadAsync())
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    certBytes = memoryStream.ToArray();
-                }
-            }
+            // Load certificate store:
+            UserCertificateStore userStore = CertificateStores.GetUserStoreByName(StandardCertificateStoreNames.Personal);
 
-            using (X509Store store = new X509Store(StoreName.My, StoreLocation.LocalMachine))
-            {
-                X509Certificate2 cert = new X509Certificate2(certBytes);
-
-                store.Open(OpenFlags.ReadWrite);
-                store.Add(cert);
-            }
+            // Request add certificate:
+            await userStore.RequestAddAsync(cert);
         }
 
-        public async Task<WiFiAccessStatus> requestAccessAsync()
+        /// <summary>
+        /// Requests access to the wifi adapter and returns the result.
+        /// </summary>
+        public async Task<WiFiAccessStatus> requestWifiAdapterAccessAsync()
         {
             return await WiFiAdapter.RequestAccessAsync();
         }
 
+        /// <summary>
+        /// Returns the first available wifi adapter.
+        /// </summary>
         public async Task<WiFiAdapter> loadAdapterAsync()
         {
             DeviceInformationCollection adapterResult = await DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
@@ -99,29 +114,16 @@ namespace TUMCampusApp.Classes.Helpers
             }
         }
 
-        public async Task startSearchingAsync()
+        /// <summary>
+        /// Starts searching for the eduroam wifi network.
+        /// </summary>
+        /// <param name="adapter">The adapter for searching for the eduroam wifi network.</param>
+        public async Task startSearchingAsync(WiFiAdapter adapter)
         {
-            WiFiAccessStatus access = await WiFiAdapter.RequestAccessAsync();
-            if (access != WiFiAccessStatus.Allowed)
-            {
-                // No access:
-            }
-            else
-            {
-                DeviceInformationCollection adapterResult = await DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
-                if (adapterResult.Count >= 1)
-                {
-                    adapter = await WiFiAdapter.FromIdAsync(adapterResult[0].Id);
-                    adapter.AvailableNetworksChanged += Adapter_AvailableNetworksChanged;
-                    await adapter.ScanAsync();
-                }
-                else
-                {
-                    // No wifi adapter
-                }
-            }
-
+            this.adapter = adapter;
+            adapter.AvailableNetworksChanged += Adapter_AvailableNetworksChanged;
             await adapter.ScanAsync();
+
             timer = new DispatcherTimer
             {
                 Interval = new TimeSpan(0, 0, 10)
@@ -130,9 +132,15 @@ namespace TUMCampusApp.Classes.Helpers
             timer.Start();
         }
 
+        /// <summary>
+        /// Stops searching for the eduroam wifi network.
+        /// </summary>
         public void stopSearching()
         {
-            adapter.AvailableNetworksChanged -= Adapter_AvailableNetworksChanged;
+            if (adapter != null)
+            {
+                adapter.AvailableNetworksChanged -= Adapter_AvailableNetworksChanged;
+            }
             stopRequested = true;
         }
 

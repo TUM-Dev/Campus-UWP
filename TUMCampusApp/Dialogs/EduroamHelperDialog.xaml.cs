@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Helpers;
+using TUMCampusAppAPI;
 using Windows.Devices.WiFi;
 using Windows.Security.Credentials;
 using Windows.UI.Xaml;
@@ -15,6 +17,8 @@ namespace TUMCampusApp.Dialogs
         #region --Attributes--
         private EduroamHelper helper;
 
+        private ObservableCollection<string> suggestions;
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -27,6 +31,7 @@ namespace TUMCampusApp.Dialogs
         public EduroamHelperDialog()
         {
             this.helper = new EduroamHelper();
+            this.suggestions = new ObservableCollection<string>();
             this.InitializeComponent();
         }
 
@@ -43,10 +48,37 @@ namespace TUMCampusApp.Dialogs
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Updates the user names auto suggest box with its suggestions.
+        /// </summary>
+        private void updateSuggestions()
+        {
+            suggestions.Clear();
+            if (!string.IsNullOrWhiteSpace(userName_asgbx.Text))
+            {
+                int index = userName_asgbx.Text.IndexOf('@');
+                if (index > 0)
+                {
+                    string userName = userName_asgbx.Text.Substring(0, index);
+                    suggestions.Add(userName + "@campus.lmu.de");
+                    suggestions.Add(userName + "@eduroam.mwn.de");
+                }
+                else
+                {
+                    suggestions.Add(userName_asgbx.Text + "@campus.lmu.de");
+                    suggestions.Add(userName_asgbx.Text + "@eduroam.mwn.de");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Starts connecting to the eduroam wifi network.
+        /// </summary>
         private async Task connectToEduroamAsync()
         {
+            Logger.Info("Starting setting up the eduroam connection...");
             showStatus(Utillities.getLocalizedString("EduroamHelperDialogRequestingAccess_Text"));
-            WiFiAccessStatus status = await helper.requestAccessAsync();
+            WiFiAccessStatus status = await helper.requestWifiAdapterAccessAsync();
             if (status == WiFiAccessStatus.Allowed)
             {
                 showStatus(Utillities.getLocalizedString("EduroamHelperDialogLoadingAdapters_Text"));
@@ -54,49 +86,74 @@ namespace TUMCampusApp.Dialogs
                 if (adapter != null)
                 {
                     showStatus(Utillities.getLocalizedString("EduroamHelperDialogSearchingEduroam_Text"));
-                    await helper.startSearchingAsync();
                     helper.EduroamNetworkFound += Helper_EduroamNetworkFound;
-                    await helper.startSearchingAsync();
+                    await helper.startSearchingAsync(adapter);
                 }
                 else
                 {
                     // No adapter:
                     showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorNoAdapter_Text"));
-                    enableButtons();
+                    enableControl();
                 }
             }
             else
             {
                 // Access denied:
                 showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorAdapterNoAccess_Text"));
-                enableButtons();
+                enableControl();
             }
         }
 
+        /// <summary>
+        /// Enables or disables the setup_btn and connetToEduroam_btn based on the current user name and password.
+        /// </summary>
         private void onPasswordOrUserNameChanged()
         {
-            bool hasPasswordAndUserName = !string.IsNullOrWhiteSpace(userName_tbx.Text) && !string.IsNullOrWhiteSpace(password_pwbx.Password);
+            bool hasPasswordAndUserName = !string.IsNullOrWhiteSpace(userName_asgbx.Text) && !string.IsNullOrWhiteSpace(password_pwbx.Password);
             setup_btn.IsEnabled = hasPasswordAndUserName;
             connetToEduroam_btn.IsEnabled = hasPasswordAndUserName;
         }
 
+        /// <summary>
+        /// Installs the eduroam certificate.
+        /// </summary>
         private async Task installCertAsync()
         {
             showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCert_Text"));
 
-            await helper.installCertificateAsync();
+            try
+            {
+                await helper.installCertificateAsync();
+                showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFinished_Text"));
+                Logger.Info("Certificate installation finished!");
+            }
+            catch (Exception e)
+            {
+                showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFailed_Text") + e.Message);
+                Logger.Error("Certificate installation failed!", e);
+            }
 
-            showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFinished_Text"));
+            enableControl();
         }
 
+        /// <summary>
+        /// Shows a given status message.
+        /// </summary>
+        /// <param name="msg">The status message that should get shown.</param>
         private void showStatus(string msg)
         {
             status_tbx.Text = msg;
             status_tbx.Visibility = Visibility.Visible;
         }
 
-        private void disableButtons()
+        /// <summary>
+        /// Disables all controls.
+        /// </summary>
+        private void disableControls()
         {
+            userName_asgbx.IsEnabled = false;
+            password_pwbx.IsEnabled = false;
+
             setup_btn.IsEnabled = false;
             setup_prgr.Visibility = Visibility.Visible;
             setup_prgr.IsActive = true;
@@ -110,8 +167,14 @@ namespace TUMCampusApp.Dialogs
             installCert_prgr.IsActive = true;
         }
 
-        private void enableButtons()
+        /// <summary>
+        /// Enables all controls.
+        /// </summary>
+        private void enableControl()
         {
+            userName_asgbx.IsEnabled = true;
+            password_pwbx.IsEnabled = true;
+
             setup_btn.IsEnabled = true;
             setup_prgr.Visibility = Visibility.Collapsed;
             setup_prgr.IsActive = false;
@@ -140,7 +203,7 @@ namespace TUMCampusApp.Dialogs
 
         private async void setup_btn_Click(object sender, RoutedEventArgs e)
         {
-            disableButtons();
+            disableControls();
 
             await installCertAsync();
             await connectToEduroamAsync();
@@ -148,14 +211,14 @@ namespace TUMCampusApp.Dialogs
 
         private async void installCert_btn_Click(object sender, RoutedEventArgs e)
         {
-            disableButtons();
+            disableControls();
 
             await installCertAsync();
         }
 
         private async void connetToEduroam_btn_Click(object sender, RoutedEventArgs e)
         {
-            disableButtons();
+            disableControls();
 
             await connectToEduroamAsync();
         }
@@ -174,7 +237,7 @@ namespace TUMCampusApp.Dialogs
                 PasswordCredential passwordCredential = new PasswordCredential
                 {
                     Password = password_pwbx.Password,
-                    UserName = userName_tbx.Text
+                    UserName = userName_asgbx.Text
                 };
                 Task.Run(async () =>
                 {
@@ -182,15 +245,16 @@ namespace TUMCampusApp.Dialogs
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
                         showStatus(Utillities.getLocalizedString("EduroamHelperDialogConnectingToEduroamFinished_Text") + result.ConnectionStatus.ToString());
-                        enableButtons();
+                        enableControl();
                     });
                 });
             });
         }
 
-        private void userName_tbx_TextChanged(object sender, TextChangedEventArgs e)
+        private void userName_asgbx_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             onPasswordOrUserNameChanged();
+            updateSuggestions();
         }
 
         private void password_pwbx_PasswordChanged(object sender, RoutedEventArgs e)
