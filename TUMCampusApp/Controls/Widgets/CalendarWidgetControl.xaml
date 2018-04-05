@@ -11,25 +11,19 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"
-                        Grid.Row="0">
-                <TextBlock x:Name="nextDate_tbx"
-                           Text="Loading calendar..."
-                           HorizontalAlignment="Center"
-                           Margin="0, 5, 0, 5"
-                           x:Uid="CalendarWidgetNextDate"/>
-            </StackPanel>
-            <controls:CalendarEntryControl x:Name="entry_cec"
-                                           Grid.Row="1"
-                                           Margin="10"/>
-        </Grid>
+        <StackPanel Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"
+                    Grid.Row="0">
+            <TextBlock x:Name="nextDate_tbx"
+                       Text="Loading calendar..."
+                       HorizontalAlignment="Center"
+                       Margin="0, 5, 0, 5"
+                       x:Uid="CalendarWidgetNextDate"/>
+        </StackPanel>
+        <controls:CalendarEntryControl x:Name="entry_cec"
+                                       Grid.Row="1"
+                                       Margin="10"/>
     </Grid>
 </UserControl>

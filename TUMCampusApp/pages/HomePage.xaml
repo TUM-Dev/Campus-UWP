@@ -21,6 +21,12 @@
                     </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
+                <controls1:WidgetControl x:Name="eduroamWidget_ds">
+                    <controls1:WidgetControl.WidgetContent>
+                        <widgets:EduroamWidgetControl/>
+                    </controls1:WidgetControl.WidgetContent>
+                </controls1:WidgetControl>
+
                 <controls1:WidgetControl x:Name="calendarWidget_wc">
                     <controls1:WidgetControl.WidgetContent>
                         <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>

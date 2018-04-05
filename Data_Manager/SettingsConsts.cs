@@ -7,6 +7,8 @@
         public const string DISABLE_TUITION_FEE_WIDGET = "disable_tuition_fee_widget";
         public const string DISABLE_CALENDAR_WIDGET = "disable_calendar_widget";
         public const string DISABLE_NEWS_WIDGET = "disable_news_widget";
+        public const string DISABLE_EDUROAM_WIDGET = "disable_eduroam_widget";
+
         public const string DISABLE_BACKGROUND_TASKS = "disable_background_tasks";
         public const string DISABLE_CRASH_REPORTING = "disable_crash_reporting";
 

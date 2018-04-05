@@ -3,11 +3,10 @@ using TUMCampusApp.Classes;
 using TUMCampusApp.Pages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace TUMCampusApp.Controls.Widgets
 {
-    public sealed partial class ExampleWidgetControl : UserControl, IHideableWidget
+    public sealed partial class EduroamWidgetControl : UserControl, IHideableWidget
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -22,7 +21,7 @@ namespace TUMCampusApp.Controls.Widgets
         /// <history>
         /// 05/04/2018 Created [Fabian Sauter]
         /// </history>
-        public ExampleWidgetControl()
+        public EduroamWidgetControl()
         {
             this.InitializeComponent();
         }
@@ -32,7 +31,7 @@ namespace TUMCampusApp.Controls.Widgets
         #region --Set-, Get- Methods--
         public string getSettingsToken()
         {
-            return SettingsConsts.DISABLE_EXAMPLE_WIDGET;
+            return SettingsConsts.DISABLE_EDUROAM_WIDGET;
         }
 
         #endregion
@@ -55,7 +54,7 @@ namespace TUMCampusApp.Controls.Widgets
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             UIUtils.mainPage?.navigateToPage(UIUtils.EnumPage.SettingsPage, null);
         }

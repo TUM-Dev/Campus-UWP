@@ -87,6 +87,7 @@ namespace TUMCampusApp.Pages
         private void initWidgetControls()
         {
             disableExampleWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_EXAMPLE_WIDGET);
+            disableEduroamWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_EDUROAM_WIDGET);
             disableCanteenWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CANTEEN_WIDGET);
             disableCalendarWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_WIDGET);
             disableTuitionFeeWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_TUITION_FEE_WIDGET);
@@ -146,7 +147,7 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Resets the apps cache (db).
+        /// Resets the Apps cache (db).
         /// </summary>
         private async Task deleteCacheAsync()
         {
@@ -263,6 +264,11 @@ namespace TUMCampusApp.Pages
         private void diableExampleWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, disableExampleWidget_tgls.IsOn);
+        }
+
+        private void disableEduroamWidget_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            Settings.setSetting(SettingsConsts.DISABLE_EDUROAM_WIDGET, disableEduroamWidget_tgls.IsOn);
         }
 
         private void diableCanteenWidget_tgls_Toggled(object sender, RoutedEventArgs e)

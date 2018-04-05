@@ -166,6 +166,9 @@
     <Compile Include="Controls\Widgets\CalendarWidgetControl.xaml.cs">
       <DependentUpon>CalendarWidgetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Widgets\EduroamWidgetControl.xaml.cs">
+      <DependentUpon>EduroamWidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\ExampleWidgetControl.xaml.cs">
       <DependentUpon>ExampleWidgetControl.xaml</DependentUpon>
     </Compile>
@@ -381,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Widgets\CalendarWidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\EduroamWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

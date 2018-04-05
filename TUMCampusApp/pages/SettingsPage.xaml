@@ -34,6 +34,7 @@
                 <TextBlock x:Uid="SettingsPageWidgets" Text="Widgets:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
                 <ToggleSwitch x:Uid="SettingsPageDisableExampleWidget" x:Name="disableExampleWidget_tgls"  Margin="10,10,0,0" Toggled="diableExampleWidget_tgls_Toggled" Header="Disable Example Widget"/>
+                <ToggleSwitch x:Uid="SettingsPageDisableEduroamWidget" x:Name="disableEduroamWidget_tgls"  Margin="10,10,0,0" Toggled="disableEduroamWidget_tgls_Toggled" Header="Disable Eduroam Widget"/>
                 <ToggleSwitch x:Uid="SettingsPageDisableCanteenWidget" x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
                 <ToggleSwitch x:Uid="SettingsPageDisableTuitionFeeWidget" x:Name="disableTuitionFeeWidget_tgls"  Margin="10,10,0,0" Toggled="disableTuitionFeeWidget_tgls_Toggled" Header="Disable Tuition Fee Widget"/>
                 <ToggleSwitch x:Uid="SettingsPageDisableCalendarWidget" x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>

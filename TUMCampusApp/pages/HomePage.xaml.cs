@@ -1,7 +1,6 @@
 ﻿using TUMCampusApp.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System;
 using TUMCampusApp.Classes;
 
 namespace TUMCampusApp.Pages
@@ -25,7 +24,6 @@ namespace TUMCampusApp.Pages
         {
             this.InitializeComponent();
             showWidgets();
-            Application.Current.Resuming += new EventHandler<Object>(onAppResumed);
         }
 
         #endregion
@@ -68,11 +66,6 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void onAppResumed(Object sender, Object e)
-        {
-
-        }
-
         private void widgets_stckp_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
 

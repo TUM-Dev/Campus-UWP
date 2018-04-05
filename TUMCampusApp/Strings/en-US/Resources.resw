@@ -695,7 +695,7 @@
     <value>Cancel</value>
   </data>
   <data name="EduroamHelperDialog.Title" xml:space="preserve">
-    <value>Eduroam helper:</value>
+    <value>Eduroam helper [Experimental]:</value>
   </data>
   <data name="EduroamHelperDialogAdvanced.Header" xml:space="preserve">
     <value>Advanced</value>
@@ -722,7 +722,7 @@
     <value>Eduroam:</value>
   </data>
   <data name="SettingsPageSetupEduroam.Content" xml:space="preserve">
-    <value>Setup eduroam</value>
+    <value>Setup eduroam [Experimental]</value>
   </data>
   <data name="EduroamHelperDialogConnectingToEduroamFinished_Text" xml:space="preserve">
     <value>Connecting to eduroam finished with: </value>
@@ -765,6 +765,12 @@
   </data>
   <data name="CalendarWidgetNextDate.Text" xml:space="preserve">
     <value>Loading calendar...</value>
+  </data>
+  <data name="EduroamWidgetControl.Text" xml:space="preserve">
+    <value>Eduroam helper:</value>
+  </data>
+  <data name="SettingsPageDisableEduroamWidget.Header" xml:space="preserve">
+    <value>Disable Eduroam Widget</value>
   </data>
   <data name="WidgetControlLoading.Text" xml:space="preserve">
     <value>Loading...</value>
