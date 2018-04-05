@@ -73,10 +73,14 @@ namespace TUMCampusApp.Pages
         private void showNews(bool forceReload)
         {
             disableUi();
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 reloadingNews = true;
-                await NewsManager.INSTANCE.downloadNewsAsync(forceReload);
+                Task t = NewsManager.INSTANCE.downloadNews(forceReload);
+                if (t != null)
+                {
+                    await t;
+                }
                 List<NewsTable> news = NewsManager.INSTANCE.getAllNewsFormDb();
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -128,13 +132,16 @@ namespace TUMCampusApp.Pages
         private void showNewsSources(bool forceReload)
         {
             disableUi();
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
                 reloadingNewsSources = true;
-                Task t1 = NewsManager.INSTANCE.downloadNewsSourcesAsync(forceReload);
-                Task.WaitAll(t1);
+                Task t1 = NewsManager.INSTANCE.downloadNewsSources(forceReload);
+                if (t1 != null)
+                {
+                    await t1;
+                }
                 List<NewsSourceTable> sources = NewsManager.INSTANCE.getAllNewsSourcesFormDb();
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     newsSources_stckp.Children.Clear();
                     foreach (NewsSourceTable source in sources)
@@ -146,7 +153,7 @@ namespace TUMCampusApp.Pages
                     }
                     reloadingNewsSources = false;
                     enableUi();
-                }).AsTask();
+                });
             });
         }
 

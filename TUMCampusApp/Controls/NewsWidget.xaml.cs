@@ -31,7 +31,7 @@ namespace TUMCampusApp.Controls
             this.widgetControl = widgetControl;
             this.homePage = homePage;
             this.InitializeComponent();
-            Task.Factory.StartNew(() => showNews());
+            Task.Run(async () => await showNewsAsync());
         }
 
         #endregion
@@ -47,11 +47,18 @@ namespace TUMCampusApp.Controls
         #endregion
 
         #region --Misc Methods (Private)--
-        private void showNews()
+        private async Task showNewsAsync()
         {
-            Task t1 = NewsManager.INSTANCE.downloadNewsSourcesAsync(false);
-            Task t2 = NewsManager.INSTANCE.downloadNewsAsync(false);
-            Task.WaitAll(t1, t2);
+            Task t1 = NewsManager.INSTANCE.downloadNewsSources(false);
+            Task t2 = NewsManager.INSTANCE.downloadNews(false);
+            if (t1 != null)
+            {
+                await t1;
+            }
+            if (t2 != null)
+            {
+                await t2;
+            }
 
             List<NewsTable> news = NewsManager.INSTANCE.getNewsForHomePage();
             if (news == null || news.Count <= 0)
@@ -59,7 +66,7 @@ namespace TUMCampusApp.Controls
                 return;
             }
 
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            Task t3 = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 foreach (NewsTable item in news)
                 {

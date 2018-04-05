@@ -36,6 +36,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="groupID">Specifies a group of rooms.</param>
         public List<StudyRoomTable> getRooms(int groupID)
         {
+            waitForSyncToFinish();
             return dB.Query<StudyRoomTable>(true, "SELECT * FROM StudyRoomTable WHERE group_id = ?", groupID);
         }
 
@@ -44,6 +45,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<StudyRoomGroupTable> getRoomGroups()
         {
+            waitForSyncToFinish();
             return dB.Query<StudyRoomGroupTable>(true, "SELECT * FROM StudyRoomGroupTable");
         }
 
@@ -59,42 +61,51 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Downloads the status of all study rooms and study room groups from an external source.
         /// </summary>
-        public async Task downloadStudyRoomsAndGroups()
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadStudyRoomsAndGroups()
         {
-            JsonObject jsonO = await NetUtils.downloadJsonObjectAsync(new Uri(STUDYROOM_URL));
-            if(jsonO == null)
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
             {
-                return;
-            }
-
-            List<StudyRoomTable> rooms = new List<StudyRoomTable>();
-            foreach (JsonValue val in jsonO.GetNamedArray("raeume"))
-            {
-                rooms.Add(new StudyRoomTable(val.GetObject()));
-            }
-
-            List<StudyRoomGroupTable> roomGroups = new List<StudyRoomGroupTable>();
-            foreach (JsonValue val in jsonO.GetNamedArray("gruppen"))
-            {
-                StudyRoomGroupTable g = new StudyRoomGroupTable(val.GetObject());
-                foreach (JsonValue v in val.GetObject().GetNamedArray("raeume"))
+                JsonObject jsonO = await NetUtils.downloadJsonObjectAsync(new Uri(STUDYROOM_URL));
+                if (jsonO == null)
                 {
-                    int nr = (int)v.GetNumber();
-                    for (int i = 0; i < rooms.Count; i++)
+                    return;
+                }
+
+                List<StudyRoomTable> rooms = new List<StudyRoomTable>();
+                foreach (JsonValue val in jsonO.GetNamedArray("raeume"))
+                {
+                    rooms.Add(new StudyRoomTable(val.GetObject()));
+                }
+
+                List<StudyRoomGroupTable> roomGroups = new List<StudyRoomGroupTable>();
+                foreach (JsonValue val in jsonO.GetNamedArray("gruppen"))
+                {
+                    StudyRoomGroupTable g = new StudyRoomGroupTable(val.GetObject());
+                    foreach (JsonValue v in val.GetObject().GetNamedArray("raeume"))
                     {
-                        if(rooms[i].id == nr)
+                        int nr = (int)v.GetNumber();
+                        for (int i = 0; i < rooms.Count; i++)
                         {
-                            rooms[i].group_id = g.id;
+                            if (rooms[i].id == nr)
+                            {
+                                rooms[i].group_id = g.id;
+                            }
                         }
                     }
+                    roomGroups.Add(g);
                 }
-                roomGroups.Add(g);
-            }
 
-            dB.DeleteAll<StudyRoomTable>();
-            dB.InsertAll(rooms);
-            dB.DeleteAll<StudyRoomGroupTable>();
-            dB.InsertAll(roomGroups);
+                dB.DeleteAll<StudyRoomTable>();
+                dB.InsertAll(rooms);
+                dB.DeleteAll<StudyRoomGroupTable>();
+                dB.InsertAll(roomGroups);
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         #endregion

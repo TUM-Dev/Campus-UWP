@@ -50,15 +50,19 @@ namespace TUMCampusApp.Pages
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Downloads all study rooms and all study room groups and shows them on the screen. This method has to get as a Task!
+        /// Downloads all study rooms and all study room groups and shows them on the screen.
         /// </summary>
-        private void downloadAndShowStudyRoomsTask()
+        private async Task downloadAndShowStudyRoomsAsync()
         {
             try
             {
-                Task.WaitAll(StudyRoomManager.INSTANCE.downloadStudyRoomsAndGroups());
+                Task t = StudyRoomManager.INSTANCE.downloadStudyRoomsAndGroups();
+                if (t != null)
+                {
+                    await t;
+                }
             }
-            catch (AggregateException e)
+            catch (Exception e)
             {
                 Logger.Error("StudyRoomPage - downloadAndShowStudyRoomsTask", e);
             }
@@ -66,13 +70,13 @@ namespace TUMCampusApp.Pages
             groups = StudyRoomManager.INSTANCE.getRoomGroups();
             if (groups == null || groups.Count <= 0)
             {
-                Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     noDate_tbx.Visibility = Visibility.Visible;
                     rooms_stckp.Children.Clear();
                     room_groups_cmbb.Items.Clear();
                     enableRefresh();
-                }).AsTask().Wait();
+                });
                 return;
             }
 
@@ -89,7 +93,7 @@ namespace TUMCampusApp.Pages
                 Settings.setSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP, 0);
             }
 
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 noDate_tbx.Visibility = Visibility.Collapsed;
                 room_groups_cmbb.Items.Clear();
@@ -98,7 +102,7 @@ namespace TUMCampusApp.Pages
                     room_groups_cmbb.Items.Add(new ComboBoxItem() { Content = g.name });
                 }
                 room_groups_cmbb.SelectedIndex = lastSelectedIndex;
-            }).AsTask();
+            });
 
             showRoomsForGroupIdTask(groups[lastSelectedIndex].id);
         }
@@ -148,16 +152,16 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             disableRefresh();
-            await Task.Factory.StartNew(() => downloadAndShowStudyRoomsTask());
+            Task.Run(() => downloadAndShowStudyRoomsAsync());
         }
 
-        private async void refresh_btn_Click(object sender, RoutedEventArgs e)
+        private void refresh_btn_Click(object sender, RoutedEventArgs e)
         {
             disableRefresh();
-            await Task.Factory.StartNew(() => downloadAndShowStudyRoomsTask());
+            Task.Run(() => downloadAndShowStudyRoomsAsync());
         }
 
         private void room_groups_cmbb_SelectionChanged(object sender, SelectionChangedEventArgs e)

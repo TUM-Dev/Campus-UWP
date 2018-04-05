@@ -26,7 +26,7 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public CalendarManager()
         {
-
+            this.refreshingTask = null;
         }
 
         #endregion
@@ -35,26 +35,26 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns the next calendar entry.
         /// </summary>
-        /// <returns>Returns the next calendar entry</returns>
+        /// <returns>Returns the next calendar entry.</returns>
         public TUMOnlineCalendarTable getNextEntry()
         {
             List<TUMOnlineCalendarTable> list = getEntries();
-            if(list == null || list.Count <= 0)
+            if (list == null || list.Count <= 0)
             {
                 return null;
             }
             TUMOnlineCalendarTable entry = null;
-            foreach(TUMOnlineCalendarTable e in list)
+            foreach (TUMOnlineCalendarTable e in list)
             {
-                if(entry == null)
+                if (entry == null)
                 {
-                    if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0)
+                    if (e != null && e.dTEnd.CompareTo(DateTime.Now) > 0)
                     {
                         entry = e;
                     }
                     continue;
                 }
-                if(e != null && e.dTEnd.CompareTo(DateTime.Now) > 0 && e.dTEnd.CompareTo(entry.dTEnd) < 0)
+                if (e != null && e.dTEnd.CompareTo(DateTime.Now) > 0 && e.dTEnd.CompareTo(entry.dTEnd) < 0)
                 {
                     entry = e;
                 }
@@ -64,21 +64,18 @@ namespace TUMCampusAppAPI.Managers
 
         /// <summary>
         /// Returns all calendar entries, the db contains.
-        /// Also converts dTStrat and dTEnd from universal time to local time.
         /// </summary>
-        /// <returns>Returns all calendar entries</returns>
+        /// <returns>Returns all calendar entries.</returns>
         public List<TUMOnlineCalendarTable> getEntries()
         {
-            lock (thisLock)
+            waitForSyncToFinish();
+            List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM TUMOnlineCalendarTable");
+            for (int i = 0; i < list.Count; i++)
             {
-                List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM TUMOnlineCalendarTable");
-                for(int i = 0; i < list.Count; i++)
-                {
-                    list[i].dTStrat = list[i].dTStrat.ToLocalTime();
-                    list[i].dTEnd = list[i].dTEnd.ToLocalTime();
-                }
-                return list;
+                list[i].dTStrat = list[i].dTStrat;
+                list[i].dTEnd = list[i].dTEnd;
             }
+            return list;
         }
 
         #endregion
@@ -91,7 +88,7 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Creates a new Task and starts syncing the calendar in the background
+        /// Creates a new Task and starts syncing the calendar in the background.
         /// </summary>
         public void syncCalendar()
         {
@@ -99,27 +96,29 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Creates a new Task and starts syncing the calendar in the background
+        /// Creates a new Task and starts syncing the calendar in the background.
         /// </summary>
-        /// <param name="force">Force sync calendar</param>
-        public void syncCalendar(bool force)
+        /// <param name="force">Force sync calendar.</param>
+        /// <returns>Returns the sync task or null if not syncing.</returns>
+        public Task syncCalendar(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            Task.Factory.StartNew(() => {
-                lock (thisLock)
-                {
-                    Task.WaitAny(syncCalendarTaskAsync(force));
-                }
+            return Task.Run(() =>
+            {
+                waitForSyncToFinish();
+
+                REFRESHING_TASK_SEMA.Wait();
+                refreshingTask = syncCalendarTaskAsync(force);
+                REFRESHING_TASK_SEMA.Release();
             });
         }
 
         /// <summary>
-        /// Deletes all calendars created by this app
+        /// Deletes all calendars created by this app.
         /// </summary>
-        /// <returns></returns>
         public async Task deleteCalendarAsync()
         {
             AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
@@ -131,12 +130,15 @@ namespace TUMCampusAppAPI.Managers
             Logger.Info("Deleted all existing calendars.");
         }
 
+        #endregion
+
+        #region --Misc Methods (Private)--
         /// <summary>
         /// Refreshes the whole calendar if needed or force == true.
         /// </summary>
         /// <param name="force">Force sync calendar.</param>
         /// <returns></returns>
-        public async Task syncCalendarTaskAsync(bool force)
+        private async Task syncCalendarTaskAsync(bool force)
         {
             if (!DeviceInfo.isConnectedToInternet() || (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi()))
             {
@@ -171,10 +173,7 @@ namespace TUMCampusAppAPI.Managers
                     dB.DropTable<TUMOnlineCalendarTable>();
                     dB.CreateTable<TUMOnlineCalendarTable>();
                 }
-                foreach (TUMOnlineCalendarTable entry in list)
-                {
-                    dB.InsertOrReplace(entry);
-                }
+                dB.InsertAll(list);
 
                 if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION))
                 {
@@ -184,14 +183,12 @@ namespace TUMCampusAppAPI.Managers
                 Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
         }
-        #endregion
 
-        #region --Misc Methods (Private)--
         /// <summary>
         /// Parses a xml document into a list of TUMOnlineCalendarEntries.
         /// </summary>
-        /// <param name="doc"></param>
-        /// <returns>Returns a list of TUMOnlineCalendarTable</returns>
+        /// <param name="doc">The XmlDocument that should get parsed.</param>
+        /// <returns>Returns a list of TUMOnlineCalendarTable.</returns>
         private List<TUMOnlineCalendarTable> parseToList(XmlDocument doc)
         {
             List<TUMOnlineCalendarTable> list = new List<TUMOnlineCalendarTable>();
@@ -203,7 +200,7 @@ namespace TUMCampusAppAPI.Managers
                 }
                 catch (Exception e)
                 {
-                    Logger.Error("Error during parsing calendar entry (" + (element == null? "NULL": element.GetXml() + ')'), e);
+                    Logger.Error("Error during parsing calendar entry (" + (element == null ? "NULL" : element.GetXml() + ')'), e);
                 }
             }
             return list;
@@ -212,11 +209,9 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Adds a given TUMOnlineCalendarTable to the given list. Checks before adding whether the entity is valid.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="entry"></param>
         private void addEntryToList(List<TUMOnlineCalendarTable> list, TUMOnlineCalendarTable entry)
         {
-            for(var i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 if (entry.status.Equals("CANCEL"))
                 {
@@ -235,24 +230,23 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Resets the calendar, creates a new one and inserts all given TUMOnlineCalendarEntries into it.
         /// </summary>
-        /// <param name="list"></param>
-        /// <returns>Returns an asynchronous Task</returns>
+        /// <param name="list">A list with all TUMOnlineCalendarTable entries that should get added to the calendar.</param>
         private async Task insterInCalendarAsync(List<TUMOnlineCalendarTable> list)
         {
-            // 1. get access to appointmentstore
+            // 1. Get access to appointmentstore:
             AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
 
-            // 2. delete the calendar if one exists
+            // 2. Delete the calendar if one exists:
             await deleteCalendarAsync();
 
-            // 3. request a new one
+            // 3. Request a new one:
             AppointmentCalendar calendar = null;
             calendar = await aS.CreateAppointmentCalendarAsync(Const.CALENDAR_NAME);
 
-            // 4. insert appointments
-            if(calendar != null)
+            // 4. Insert appointments:
+            if (calendar != null)
             {
-                calendar.DisplayColor = Windows.UI.Color.FromArgb(0,101,189,1);
+                calendar.DisplayColor = Windows.UI.Color.FromArgb(0, 101, 189, 1);
                 foreach (TUMOnlineCalendarTable entry in list)
                 {
                     await calendar.SaveAppointmentAsync(entry.getAppointment());
@@ -262,9 +256,9 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Creates a TUMOnlineRequest to request the personal calendar
+        /// Creates a TUMOnlineRequest to request the personal calendar.
         /// </summary>
-        /// <returns>Returns the personal calendar in form of a xml document</returns>
+        /// <returns>Returns the personal calendar in form of a xml document.</returns>
         private async Task<XmlDocument> getCalendarEntriesDocumentAsync()
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.CALENDAR);

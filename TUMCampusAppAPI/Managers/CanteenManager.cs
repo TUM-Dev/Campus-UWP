@@ -60,6 +60,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all Canteens from the db.</returns>
         public List<CanteenTable> getCanteens()
         {
+            waitForSyncToFinish();
+
             return dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable;");
         }
 
@@ -94,22 +96,6 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Tries to download and return the canteen associated by the given id
-        /// </summary>
-        /// <param name="canteen_id">Canteen id</param>
-        /// <returns>Returns the canteen associated by the given id</returns>
-        public async Task<CanteenTable> getCanteenByIdAsync(string canteen_id)
-        {
-            await downloadCanteensAsync(false);
-            List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
-            if (list != null && list.Count > 0)
-            {
-                return list[0];
-            }
-            return null;
-        }
-
-        /// <summary>
         /// Returns the CanteenTable that matches the given canteen_id.
         /// </summary>
         public CanteenTable getCanteen(string canteen_id)
@@ -129,6 +115,8 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="dish_types">All dish types.</param>
         public void setFavoriteCanteenDishTypes(string canteen_id, List<string> dish_types)
         {
+            waitForSyncToFinish();
+
             dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 1, canteen_id);
             List<FavoriteCanteenDishTypeTable> fav = new List<FavoriteCanteenDishTypeTable>();
             foreach (string dish_type in dish_types)
@@ -147,6 +135,8 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<CanteenTable> getFavoriteCanteens()
         {
+            waitForSyncToFinish();
+
             return dB.Query<CanteenTable>(true, "SELECT canteen_id FROM CanteenTable WHERE favorite = 1;");
         }
 
@@ -156,6 +146,8 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">The canteen id you want all dish types for.</param>
         public List<FavoriteCanteenDishTypeTable> getDishTypesForFavoriteCanteen(string canteen_id)
         {
+            waitForSyncToFinish();
+
             return dB.Query<FavoriteCanteenDishTypeTable>(true, "SELECT * FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
         }
 
@@ -166,6 +158,8 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">The canteen id you want to unfavorite.</param>
         public void unfavoriteCanteen(string canteen_id)
         {
+            waitForSyncToFinish();
+
             dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 0, canteen_id);
             dB.Execute("DELETE FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
         }
@@ -177,46 +171,57 @@ namespace TUMCampusAppAPI.Managers
         /// Downloads the canteens if necessary or if force = true.
         /// </summary>
         /// <param name="force">Forces to download all canteens.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadCanteensAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadCanteens(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            try
-            {
-                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
-                {
-                    return;
-                }
-                Uri url = new Uri(Const.CANTEENS_URL);
-                JsonArray jsonArr = await NetUtils.downloadJsonArrayAsync(url);
-                if (jsonArr == null)
-                {
-                    return;
-                }
+            waitForSyncToFinish();
 
-                List<CanteenTable> list = new List<CanteenTable>();
-                foreach (JsonValue val in jsonArr)
-                {
-                    CanteenTable c = getFromJson(val.GetObject());
-                    // Get the "old" canteen from the db to prevent losing favorite canteens:
-                    CanteenTable old = getCanteen(c.canteen_id);
-                    if (old != null)
-                    {
-                        c.favorite = old.favorite;
-                    }
-                    list.Add(c);
-                }
-                dB.DeleteAll<CanteenTable>();
-                dB.InsertAll(list);
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
-            }
-            catch (Exception e)
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
             {
-                Logger.Error("Unable to download canteens.", e);
-            }
+                try
+                {
+                    if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
+                    {
+                        return;
+                    }
+                    Logger.Info("Started downloading canteens...");
+                    Uri url = new Uri(Const.CANTEENS_URL);
+                    JsonArray jsonArr = await NetUtils.downloadJsonArrayAsync(url);
+                    if (jsonArr == null)
+                    {
+                        return;
+                    }
+
+                    List<CanteenTable> list = new List<CanteenTable>();
+                    foreach (JsonValue val in jsonArr)
+                    {
+                        CanteenTable c = getFromJson(val.GetObject());
+                        // Get the "old" canteen from the db to prevent losing favorite canteens:
+                        CanteenTable old = getCanteen(c.canteen_id);
+                        if (old != null)
+                        {
+                            c.favorite = old.favorite;
+                        }
+                        list.Add(c);
+                    }
+                    dB.DeleteAll<CanteenTable>();
+                    dB.InsertAll(list);
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    Logger.Info("Finished downloading canteens.");
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Unable to download canteens.", e);
+                }
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         public async override Task InitManagerAsync()

@@ -51,8 +51,16 @@ namespace TUMCampusApp.Controls
         /// </summary>
         private async Task showCanteensAsync()
         {
-            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
+            Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+            if (t2 != null)
+            {
+                await t2;
+            }
+            Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+            if (t != null)
+            {
+                await t;
+            }
 
             foreach (CanteenTable c in CanteenManager.INSTANCE.getFavoriteCanteens())
             {

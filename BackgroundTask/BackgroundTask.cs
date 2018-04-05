@@ -119,8 +119,16 @@ namespace TUMCampusApp.BackgroundTask
             await CanteenManager.INSTANCE.InitManagerAsync();
             await CanteenDishManager.INSTANCE.InitManagerAsync();
 
-            await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-            await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
+            Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+            if (t2 != null)
+            {
+                await t2;
+            }
+            Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+            if (t != null)
+            {
+                await t;
+            }
 
             Logger.Info("[Background] Finished refreshing 2.");
         }
@@ -133,7 +141,11 @@ namespace TUMCampusApp.BackgroundTask
 
             await TuitionFeeManager.INSTANCE.InitManagerAsync();
 
-            await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+            Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
+            if (t != null)
+            {
+                await t;
+            }
 
             Logger.Info("[Background] Finished refreshing 3.");
         }

@@ -58,7 +58,11 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                await TuitionFeeManager.INSTANCE.downloadFeesAsync(forceRedownload);
+                Task t = TuitionFeeManager.INSTANCE.downloadFees(forceRedownload);
+                if (t != null)
+                {
+                    await t;
+                }
             }
             catch (BaseTUMOnlineException e)
             {

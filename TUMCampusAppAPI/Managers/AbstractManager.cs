@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Thread_Save_Components.Classes.SQLite;
 using TUMCampusAppAPI.DBTables;
@@ -14,8 +15,8 @@ namespace TUMCampusAppAPI.Managers
         public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
         protected static TSSQLiteConnection dB = new TSSQLiteConnection(DB_PATH);
         protected readonly Object thisLock = new Object();
-        protected bool isLocked = false;
-        protected Task workingTask = null;
+        protected Task refreshingTask;
+        protected readonly SemaphoreSlim REFRESHING_TASK_SEMA = new SemaphoreSlim(1);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -71,7 +72,7 @@ namespace TUMCampusAppAPI.Managers
             try
             {
                 dB.Close();
-                File.Delete(AbstractManager.DB_PATH);
+                File.Delete(DB_PATH);
             }
             catch (Exception e)
             {
@@ -86,15 +87,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns></returns>
         public abstract Task InitManagerAsync();
 
-        /// <summary>
-        /// Updates a given db entry
-        /// </summary>
-        /// <param name="obj"></param>
-        public void update(object obj)
-        {
-            dB.InsertOrReplace(obj);
-        }
-
         #endregion
 
         #region --Misc Methods (Private)--
@@ -103,43 +95,19 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected void lockClass()
+        /// <summary>
+        /// Waits for the sync task to finish.
+        /// </summary>
+        protected void waitForSyncToFinish()
         {
+            REFRESHING_TASK_SEMA.Wait();
 
-        }
-
-        protected void lockClass(Task t)
-        {
-            waitWhileLocked();
-            lock (thisLock)
+            if (refreshingTask != null)
             {
-                isLocked = true;
-                workingTask = t;
+                Task.WaitAny(refreshingTask);
             }
-        }
 
-        protected void waitWhileLocked()
-        {
-            while (isLocked)
-            {
-                try
-                {
-                    Task.WaitAll(workingTask);
-                }
-                catch
-                {
-
-                }
-            }
-        }
-
-        protected void releaseClass()
-        {
-            lock (thisLock)
-            {
-                isLocked = false;
-                workingTask = null;
-            }
+            REFRESHING_TASK_SEMA.Release();
         }
 
         #endregion

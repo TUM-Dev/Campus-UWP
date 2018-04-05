@@ -96,7 +96,7 @@ namespace TUMCampusApp.Classes
                     // Storage for news changed between version 1.0.3 and 1.0.4:
                     if (versionLastStart.Major <= 1 && versionLastStart.Minor <= 0 && versionLastStart.Build < 4)
                     {
-                        Task t = NewsManager.INSTANCE.downloadNewsAsync(true);
+                        NewsManager.INSTANCE.downloadNews(true);
                     }
 
                     // Insert code here for update routines:

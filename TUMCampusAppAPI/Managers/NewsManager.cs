@@ -36,6 +36,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         private string getLastNewsId()
         {
+            waitForSyncToFinish();
             string lastId = "";
             List<NewsTable> list = dB.Query<NewsTable>(true, "SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
             if (list != null && list.Count > 0)
@@ -51,11 +52,13 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsSourceTable elements.</returns>
         public List<NewsSourceTable> getAllNewsSourcesFormDb()
         {
+            waitForSyncToFinish();
             return dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable");
         }
 
         public List<NewsTable> getNewsWithImage()
         {
+            waitForSyncToFinish();
             return dB.Query<NewsTable>(true, "SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
         }
 
@@ -66,6 +69,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsTable elements.</returns>
         public List<NewsTable> getAllNewsFormDb()
         {
+            waitForSyncToFinish();
             return dB.Query<NewsTable>(true, "SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
         }
 
@@ -119,6 +123,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the NewsSourceTable for the given id.</returns>
         public NewsSourceTable getNewsSource(string src)
         {
+            waitForSyncToFinish();
             List<NewsSourceTable> sources = dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
             return sources.Count > 0 ? sources[0] : null;
         }
@@ -136,109 +141,127 @@ namespace TUMCampusAppAPI.Managers
         /// Tries to download news if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all news.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadNewsAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadNews(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            if ((force || SyncManager.INSTANCE.needSync("NewsTable", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
             {
-                if (force)
+                if ((force || SyncManager.INSTANCE.needSync("NewsTable", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
-                    clearCachedNewsImages();
-                }
-                try
-                {
-                    Uri url;
                     if (force)
                     {
-                        url = new Uri(Const.NEWS_URL);
+                        clearCachedNewsImages();
                     }
-                    else
+                    try
                     {
-                        url = new Uri(Const.NEWS_URL + getLastNewsId());
-                    }
-                    JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(url);
-                    if (jsonArray == null)
-                    {
-                        return;
-                    }
-
-                    cleanupDb();
-                    List<NewsTable> news = new List<NewsTable>();
-                    foreach (JsonValue val in jsonArray)
-                    {
-                        try
+                        Uri url;
+                        if (force)
                         {
+                            url = new Uri(Const.NEWS_URL);
+                        }
+                        else
+                        {
+                            url = new Uri(Const.NEWS_URL + getLastNewsId());
+                        }
+                        JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(url);
+                        if (jsonArray == null)
+                        {
+                            return;
+                        }
 
-                            NewsTable n = new NewsTable(val.GetObject());
-                            news.Add(n);
-                            if (!string.IsNullOrEmpty(n.imageUrl))
+                        cleanupDb();
+                        List<NewsTable> news = new List<NewsTable>();
+                        foreach (JsonValue val in jsonArray)
+                        {
+                            try
                             {
-                                Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
+
+                                NewsTable n = new NewsTable(val.GetObject());
+                                news.Add(n);
+                                if (!string.IsNullOrEmpty(n.imageUrl))
+                                {
+                                    Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Logger.Error("Caught an exception during parsing news!", e);
                             }
                         }
-                        catch (Exception e)
+                        foreach (NewsTable n in news)
                         {
-                            Logger.Error("Caught an exception during parsing news!", e);
+                            dB.InsertOrReplace(n);
                         }
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable"));
                     }
-                    foreach (NewsTable n in news)
+                    catch (Exception e)
                     {
-                        dB.InsertOrReplace(n);
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable"));
                 }
-                catch (Exception e)
-                {
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
-                }
-            }
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         /// <summary>
         /// Tries to download news sources if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all news sources.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadNewsSourcesAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadNewsSources(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            if ((force || SyncManager.INSTANCE.needSync("NewsSourceTable", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
-            {
-                try
-                {
-                    JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(new Uri(Const.NEWS_SOURCES_URL));
-                    if (jsonArray == null)
-                    {
-                        return;
-                    }
 
-                    List<NewsSourceTable> list = new List<NewsSourceTable>();
-                    foreach (JsonValue val in jsonArray)
-                    {
-                        try
-                        {
-                            list.Add(new NewsSourceTable(val.GetObject()));
-                        }
-                        catch (Exception e)
-                        {
-                            Logger.Error("Caught an exception during parsing news sources!", e);
-                        }
-                    }
-                    replaceNewsSources(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable"));
-                }
-                catch (Exception e)
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
+            {
+                if ((force || SyncManager.INSTANCE.needSync("NewsSourceTable", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    try
+                    {
+                        JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(new Uri(Const.NEWS_SOURCES_URL));
+                        if (jsonArray == null)
+                        {
+                            return;
+                        }
+
+                        List<NewsSourceTable> list = new List<NewsSourceTable>();
+                        foreach (JsonValue val in jsonArray)
+                        {
+                            try
+                            {
+                                list.Add(new NewsSourceTable(val.GetObject()));
+                            }
+                            catch (Exception e)
+                            {
+                                Logger.Error("Caught an exception during parsing news sources!", e);
+                            }
+                        }
+                        replaceNewsSources(list);
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable"));
+                    }
+                    catch (Exception e)
+                    {
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                    }
                 }
-            }
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         /// <summary>
@@ -248,6 +271,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="enabled">Whether to enable it.</param>
         public void updateNewsSourceStatus(int id, bool enabled)
         {
+            waitForSyncToFinish();
             dB.Execute("UPDATE NewsSourceTable SET enabled = ? WHERE id = ?", new object[] { enabled, id });
         }
 
@@ -290,11 +314,11 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Clears all cached news images.
+        /// Starts a new task and clears all cached news images.
         /// </summary>
         private void clearCachedNewsImages()
         {
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 List<Uri> uris = new List<Uri>();
                 foreach (NewsTable n in getNewsWithImage())

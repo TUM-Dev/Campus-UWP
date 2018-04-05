@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:TUMCampusApp.Controls"
     mc:Ignorable="d"
-    Loaded="UserControl_Loaded">
+    Loaded="UserControl_Loaded"
+    MinHeight="100">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -24,6 +25,7 @@
         </StackPanel>
         <controls:CalendarEntryControl x:Name="entry_cec"
                                        Grid.Row="1"
-                                       Margin="10"/>
+                                       Margin="10"
+                                       Visibility="Collapsed"/>
     </Grid>
 </UserControl>

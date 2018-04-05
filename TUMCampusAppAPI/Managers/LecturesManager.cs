@@ -76,6 +76,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found lectures.</returns>
         public List<TUMOnlineLectureTable> getLectures()
         {
+            waitForSyncToFinish();
             return dB.Query<TUMOnlineLectureTable>(true, "SELECT * FROM TUMOnlineLectureTable");
         }
         #endregion
@@ -111,28 +112,37 @@ namespace TUMCampusAppAPI.Managers
         /// Tries to download your personal lectures if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all lectures.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadLecturesAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadLectures(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
             {
-                XmlDocument doc = await getPersonalLecturesDocumentAsync();
-                if (doc == null || doc.SelectSingleNode("/error") != null)
+                if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
-                    return;
+                    XmlDocument doc = await getPersonalLecturesDocumentAsync();
+                    if (doc == null || doc.SelectSingleNode("/error") != null)
+                    {
+                        return;
+                    }
+                    dB.DropTable<TUMOnlineLectureTable>();
+                    dB.CreateTable<TUMOnlineLectureTable>();
+                    foreach (var element in doc.SelectNodes("/rowset/row"))
+                    {
+                        dB.InsertOrReplace(new TUMOnlineLectureTable(element));
+                    }
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
                 }
-                dB.DropTable<TUMOnlineLectureTable>();
-                dB.CreateTable<TUMOnlineLectureTable>();
-                foreach (var element in doc.SelectNodes("/rowset/row"))
-                {
-                    update(new TUMOnlineLectureTable(element));
-                }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
-            }
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         /// <summary>

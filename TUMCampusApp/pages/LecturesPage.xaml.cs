@@ -83,7 +83,11 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                await LecturesManager.INSTANCE.downloadLecturesAsync(forceRedownload);
+                Task t = LecturesManager.INSTANCE.downloadLectures(forceRedownload);
+                if(t != null)
+                {
+                    await t;
+                }
             }
             catch (BaseTUMOnlineException e)
             {

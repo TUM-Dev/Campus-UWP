@@ -35,7 +35,7 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns the date of the first next dish for the given canteen_id.
         /// </summary>
-        public static DateTime getFirstNextDate(string canteen_id)
+        public DateTime getFirstNextDate(string canteen_id)
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
@@ -48,11 +48,11 @@ namespace TUMCampusAppAPI.Managers
                 dateToday = dateToday.AddDays(-1);
             }
 
-            foreach (CanteenDishTable m in dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ?;", canteen_id))
+            foreach (DateTime dT in getDishDates(canteen_id))
             {
-                if (m.date.Date.CompareTo(time.Date) < 0 && m.date.Date.CompareTo(dateToday) >= 0)
+                if (dT.Date.CompareTo(time.Date) < 0 && dT.Date.CompareTo(dateToday) >= 0)
                 {
-                    time = m.date;
+                    time = dT;
                 }
             }
             return time;
@@ -91,8 +91,10 @@ namespace TUMCampusAppAPI.Managers
         /// Returns all dishes contained in the db that match the given canteen_id.
         /// </summary>
         /// <param name="canteen_id">Canteen id</param>
-        public static List<CanteenDishTable> getDishes(string canteen_id)
+        public List<CanteenDishTable> getDishes(string canteen_id)
         {
+            waitForSyncToFinish();
+
             List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
             return list;
         }
@@ -107,6 +109,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
         public List<CanteenDishTable> getDishesForType(string canteen_id, string dish_type, bool contains, DateTime date)
         {
+            waitForSyncToFinish();
+
             List<CanteenDishTable> list;
             if (contains)
             {
@@ -127,6 +131,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns a list of all dishes, that match the given date and canteen_id.</returns>
         public List<CanteenDishTable> getDishes(string canteen_id, DateTime date)
         {
+            waitForSyncToFinish();
+
             List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
@@ -137,6 +143,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of CanteenDishTable objects, only populated with the dish_type attribute.</returns>
         public List<CanteenDishTable> getAllDishTypes()
         {
+            waitForSyncToFinish();
+
             return dB.Query<CanteenDishTable>(true, "SELECT DISTINCT dish_type FROM CanteenDishTable;");
         }
 
@@ -177,49 +185,60 @@ namespace TUMCampusAppAPI.Managers
         /// Downloads the menus if necessary or if force == true.
         /// </summary>
         /// <param name="force">Forces to download all menus.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadCanteenDishesAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadCanteenDishes(bool force)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            try
-            {
-                if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
-                {
-                    return;
-                }
-                Uri url = new Uri(Const.MENUS_URL);
-                JsonArray json = await NetUtils.downloadJsonArrayAsync(url);
+            waitForSyncToFinish();
 
-                if (json != null && json.Count > 0)
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
+            {
+                try
                 {
-                    List<CanteenDishTable> menus = new List<CanteenDishTable>();
-                    foreach (JsonValue canteen in json)
+                    if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
                     {
-                        JsonObject obj = canteen.GetObject();
-                        string canteen_id = obj.GetNamedString("canteen_id");
-                        if (!string.IsNullOrEmpty(canteen_id))
+                        return;
+                    }
+                    Logger.Info("Started downloading canteen dishes...");
+                    Uri url = new Uri(Const.MENUS_URL);
+                    JsonArray json = await NetUtils.downloadJsonArrayAsync(url);
+
+                    if (json != null && json.Count > 0)
+                    {
+                        List<CanteenDishTable> menus = new List<CanteenDishTable>();
+                        foreach (JsonValue canteen in json)
                         {
-                            foreach (JsonValue dish in obj.GetNamedArray("dishes"))
+                            JsonObject obj = canteen.GetObject();
+                            string canteen_id = obj.GetNamedString("canteen_id");
+                            if (!string.IsNullOrEmpty(canteen_id))
                             {
-                                CanteenDishTable m = new CanteenDishTable(dish.GetObject(), canteen_id);
-                                m.nameEmojis = m.name + ' ' + replaceDishStringWithEmojis(m.ingredients, true);
-                                menus.Add(m);
+                                foreach (JsonValue dish in obj.GetNamedArray("dishes"))
+                                {
+                                    CanteenDishTable m = new CanteenDishTable(dish.GetObject(), canteen_id);
+                                    m.nameEmojis = m.name + ' ' + replaceDishStringWithEmojis(m.ingredients, true);
+                                    menus.Add(m);
+                                }
                             }
                         }
-                    }
 
-                    dB.DeleteAll<CanteenDishTable>();
-                    dB.InsertAll(menus);
+                        dB.DeleteAll<CanteenDishTable>();
+                        dB.InsertAll(menus);
+                    }
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    Logger.Info("Finished downloading canteen dishes.");
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Unable to download Canteen Menus", e);
-            }
+                catch (Exception e)
+                {
+                    Logger.Error("Unable to download Canteen Menus", e);
+                }
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         public async override Task InitManagerAsync()

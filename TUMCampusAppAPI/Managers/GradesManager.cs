@@ -22,7 +22,9 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 04/03/2017 Created [Fabian Sauter]
         /// </history>
-
+        public GradesManager()
+        {
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -44,6 +46,8 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found grads as a list of TUMOnlineGradeSemester with their grades.</returns>
         public List<TUMOnlineGradeSemester> getGradesSemester()
         {
+            waitForSyncToFinish();
+
             List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>(true, "SELECT * FROM TUMOnlineGradeTable");
             List<TUMOnlineGradeSemester> semester = new List<TUMOnlineGradeSemester>();
             bool match = false;
@@ -74,27 +78,38 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Tries to download all grades and caches them into the local db.
+        /// Tries to download all grades and caches them into the local DB.
         /// </summary>
         /// <param name="force">Force download and ignore cache.</param>
-        /// <returns></returns>
-        public async Task downloadGradesAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadGrades(bool force)
         {
             if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
-                XmlDocument doc = await getGradesDocumentAsync();
-                if (doc == null || doc.SelectSingleNode("/error") != null)
+                waitForSyncToFinish();
+                REFRESHING_TASK_SEMA.Wait();
+                refreshingTask = Task.Run(async () =>
                 {
-                    return;
-                }
-                dB.DropTable<TUMOnlineGradeTable>();
-                dB.CreateTable<TUMOnlineGradeTable>();
-                foreach (var element in doc.SelectNodes("/rowset/row"))
-                {
-                    update(new TUMOnlineGradeTable(element));
-                }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    Logger.Info("Started downloading grades...");
+                    XmlDocument doc = await getGradesDocumentAsync();
+                    if (doc == null || doc.SelectSingleNode("/error") != null)
+                    {
+                        return;
+                    }
+                    dB.DropTable<TUMOnlineGradeTable>();
+                    dB.CreateTable<TUMOnlineGradeTable>();
+                    foreach (var element in doc.SelectNodes("/rowset/row"))
+                    {
+                        dB.InsertOrReplace(new TUMOnlineGradeTable(element));
+                    }
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    Logger.Info("Finished downloading grades.");
+                });
+                REFRESHING_TASK_SEMA.Release();
+
+                return refreshingTask;
             }
+            return null;
         }
 
         #endregion

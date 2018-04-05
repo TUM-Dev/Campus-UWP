@@ -100,10 +100,7 @@ namespace TUMCampusApp.Pages
         {
             List<TUMOnlineCalendarTable> list = CalendarManager.INSTANCE.getEntries();
             list.Sort();
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                showEntries(list);
-            }).AsTask();
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showEntries(list)).AsTask();
         }
 
         /// <summary>
@@ -171,9 +168,13 @@ namespace TUMCampusApp.Pages
         {
             refresh_pTRV.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
-                CalendarManager.INSTANCE.syncCalendar(force);
+                Task t = CalendarManager.INSTANCE.syncCalendar(force);
+                if(t != null)
+                {
+                    await t;
+                }
                 showCalendarEntriesTask();
             });
         }

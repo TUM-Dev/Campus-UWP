@@ -48,6 +48,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found tuition fees.</returns>
         public List<TUMTuitionFeeTable> getFees()
         {
+            waitForSyncToFinish();
             return dB.Query<TUMTuitionFeeTable>(true, "SELECT * FROM TUMTuitionFeeTable WHERE money NOT LIKE 0");
         }
 
@@ -56,32 +57,40 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            //await downloadFeesAsync(false);
         }
 
         /// <summary>
         /// Tries to download your tuition fees if it is necessary and caches them into the local db.
         /// </summary>
         /// <param name="force">Forces to redownload all tuition fees.</param>
-        /// <returns>Returns an async Task.</returns>
-        public async Task downloadFeesAsync(bool force)
+        /// <returns>Returns the syncing task or null if did not sync.</returns>
+        public Task downloadFees(bool force)
         {
-            if(!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
-                return;
+                return null;
             }
-            if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = Task.Run(async () =>
             {
-                XmlDocument doc = await getFeeStatusAsync();
-                dB.DropTable<TUMTuitionFeeTable>();
-                dB.CreateTable<TUMTuitionFeeTable>();
-                foreach (var element in doc.SelectNodes("/rowset/row"))
+                if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
-                    update(new TUMTuitionFeeTable(element));
+                    XmlDocument doc = await getFeeStatusAsync();
+                    dB.DropTable<TUMTuitionFeeTable>();
+                    dB.CreateTable<TUMTuitionFeeTable>();
+                    foreach (var element in doc.SelectNodes("/rowset/row"))
+                    {
+                        dB.InsertOrReplace(new TUMTuitionFeeTable(element));
+                    }
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
-            }
-            return;
+                return;
+            });
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         #endregion

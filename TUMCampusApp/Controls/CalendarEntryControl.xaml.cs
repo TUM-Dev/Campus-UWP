@@ -80,6 +80,12 @@ namespace TUMCampusApp.Controls
                         calendarEntryName_tbx.Foreground = new SolidColorBrush(Colors.DarkGray);
                     }
                 }
+
+                Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
             }
         }
 

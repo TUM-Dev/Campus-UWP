@@ -34,7 +34,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the last known device position.</returns>
         public Geopoint getLastKnownDevicePosition()
         {
-            waitWhileLocked();
             List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if(list == null || list.Count <= 0)
             {
@@ -55,7 +54,7 @@ namespace TUMCampusAppAPI.Managers
             List<UserDataTable> list = dB.Query<UserDataTable>(true, "SELECT * FROM UserDataTable WHERE id = ?", DeviceInfo.INSTANCE.Id);
             if (list == null || list.Count <= 0)
             {
-                update(new UserDataTable(pos));
+                dB.InsertOrReplace(new UserDataTable(pos));
             }
             else
             {
@@ -93,7 +92,7 @@ namespace TUMCampusAppAPI.Managers
         {
             if(dB.Execute("UPDATE UserDataTable SET lastSelectedCanteenId = ? WHERE id = ?", canteen_id, DeviceInfo.INSTANCE.Id) <= 0)
             {
-                update(new UserDataTable() { lastSelectedCanteenId = canteen_id });
+                dB.InsertOrReplace(new UserDataTable() { lastSelectedCanteenId = canteen_id });
             }
         }
 

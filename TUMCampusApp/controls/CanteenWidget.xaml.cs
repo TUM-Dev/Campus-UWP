@@ -52,7 +52,7 @@ namespace TUMCampusApp.Controls
             if (canteen != null)
             {
                 canteenName_tbx.Text = canteen.name ?? "";
-                DateTime date = CanteenDishManager.getFirstNextDate(canteen_id);
+                DateTime date = CanteenDishManager.INSTANCE.getFirstNextDate(canteen_id);
 
                 if (date != DateTime.MaxValue)
                 {

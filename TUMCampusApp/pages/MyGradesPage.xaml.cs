@@ -68,7 +68,11 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                await GradesManager.INSTANCE.downloadGradesAsync(force);
+                Task t = GradesManager.INSTANCE.downloadGrades(force);
+                if (t != null)
+                {
+                    await t;
+                }
             }
             catch (BaseTUMOnlineException e)
             {
@@ -93,7 +97,8 @@ namespace TUMCampusApp.Pages
         /// <param name="list">The list that should get sorted.</param>
         private void sortSemesterList(List<TUMOnlineGradeSemester> list)
         {
-            list.Sort((TUMOnlineGradeSemester a, TUMOnlineGradeSemester b) => {
+            list.Sort((TUMOnlineGradeSemester a, TUMOnlineGradeSemester b) =>
+            {
                 if (a == b)
                 {
                     if (a == null || a.getGrades().Count == b.getGrades().Count && a.getGrades().Count == 0)
@@ -142,11 +147,11 @@ namespace TUMCampusApp.Pages
             grades_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesNoAccess_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesTokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesTokenNotActivated_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesNoAccess_Text");
             }
             else
             {
@@ -204,7 +209,7 @@ namespace TUMCampusApp.Pages
             };
             for (int i = 0; i < semester.getGrades().Count; i++)
             {
-                if(i == semester.getGrades().Count - 1)
+                if (i == semester.getGrades().Count - 1)
                 {
                     GradeControl gC = new GradeControl(semester.getGrades()[i]);
                     gC.setRectangleVisability(Visibility.Collapsed);

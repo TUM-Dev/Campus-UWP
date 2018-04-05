@@ -68,7 +68,7 @@ namespace TUMCampusApp.Controls.Widgets
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => WidgetContainer?.setIsLoading(true)).AsTask();
 
-                CalendarManager.INSTANCE.syncCalendar(false);
+                CalendarManager.INSTANCE.syncCalendar();
                 TUMOnlineCalendarTable entry = CalendarManager.INSTANCE.getNextEntry();
 
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showCalendarEntry(entry)).AsTask();

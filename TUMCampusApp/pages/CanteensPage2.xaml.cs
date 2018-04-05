@@ -164,8 +164,16 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenManager.INSTANCE.downloadCanteensAsync(force);
-                await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(force);
+                Task t2 = CanteenManager.INSTANCE.downloadCanteens(force);
+                if (t2 != null)
+                {
+                    await t2;
+                }
+                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(force);
+                if (t != null)
+                {
+                    await t;
+                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
@@ -234,8 +242,16 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenManager.INSTANCE.downloadCanteensAsync(true);
-                await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(true);
+                Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
+                if (t2 != null)
+                {
+                    await t2;
+                }
+                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(true);
+                if (t != null)
+                {
+                    await t;
+                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
@@ -256,7 +272,11 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenManager.INSTANCE.downloadCanteensAsync(true);
+                Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
+                if (t2 != null)
+                {
+                    await t2;
+                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     loading_prgb.Visibility = Visibility.Collapsed;
@@ -272,7 +292,11 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(true);
+                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(true);
+                if (t != null)
+                {
+                    await t;
+                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     showDishesForSelctedDate();
@@ -321,8 +345,16 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Factory.StartNew(async () =>
             {
-                await CanteenManager.INSTANCE.downloadCanteensAsync(false);
-                await CanteenDishManager.INSTANCE.downloadCanteenDishesAsync(false);
+                Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+                if (t2 != null)
+                {
+                    await t2;
+                }
+                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+                if (t != null)
+                {
+                    await t;
+                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     await canteens_ctrl.reloadCanteensAsync(param);

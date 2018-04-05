@@ -53,7 +53,11 @@ namespace TUMCampusApp.Controls
         {
             try
             {
-                await TuitionFeeManager.INSTANCE.downloadFeesAsync(false);
+                Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
+                if (t != null)
+                {
+                    await t;
+                }
             }
             catch (BaseTUMOnlineException e)
             {
@@ -82,7 +86,8 @@ namespace TUMCampusApp.Controls
                 {
                     if (item != null && item.money != null)
                     {
-                        tuitionFees_stckp.Children.Add(new TuitionFeeControl(item) {
+                        tuitionFees_stckp.Children.Add(new TuitionFeeControl(item)
+                        {
                             Margin = new Thickness(0, 0, 0, 10)
                         });
                     }
