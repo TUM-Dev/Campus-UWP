@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using TUMCampusAppAPI;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Controls.Widgets
 {
-    public sealed partial class ExampleWidgetControl : UserControl
+    public sealed partial class ExampleWidgetControl : UserControl, IHideableWidget
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -38,7 +27,10 @@ namespace TUMCampusApp.Controls.Widgets
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getSettingsToken()
+        {
+            return Const.DISABLE_EXAMPLE_WIDGET;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -58,13 +50,11 @@ namespace TUMCampusApp.Controls.Widgets
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
-
-        #endregion
-
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
         }
+
+        #endregion
     }
 }
