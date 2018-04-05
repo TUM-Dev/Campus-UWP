@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using TUMCampusApp.Classes;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
@@ -13,7 +12,7 @@ namespace TUMCampusApp.Controls
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private string canteen_id;
-        private DropShadowPanel dsp;
+        private WidgetControl widgetControl;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,10 +23,10 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 01/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CanteenWidget(string canteen_id, DropShadowPanel dsp)
+        public CanteenWidget(string canteen_id, WidgetControl widgetControl)
         {
             this.canteen_id = canteen_id;
-            this.dsp = dsp;
+            this.widgetControl = widgetControl;
             this.InitializeComponent();
         }
 
@@ -86,7 +85,7 @@ namespace TUMCampusApp.Controls
                 }
                 return;
             }
-            dsp.Visibility = Visibility.Collapsed;
+            widgetControl.Visibility = Visibility.Collapsed;
         }
 
         #endregion

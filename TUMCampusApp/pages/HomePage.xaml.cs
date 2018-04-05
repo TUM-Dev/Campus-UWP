@@ -66,22 +66,22 @@ namespace TUMCampusApp.Pages
             }
             if (!Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
             {
-                canteenWidget_ds.Content = new CanteenDummyWidget(canteenWidget_ds, this);
+                canteenWidget_ds.WidgetContent = new CanteenDummyWidget(canteenWidget_ds, this);
                 canteenWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
             {
-                tutionFeeWidget_ds.Content = new TuitionFeeWidget(tutionFeeWidget_ds);
+                tutionFeeWidget_ds.WidgetContent = new TuitionFeeWidget(tutionFeeWidget_ds);
                 tutionFeeWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
             {
-                calendarWidget_ds.Content = new CalendarWidget(calendarWidget_ds);
+                calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
                 calendarWidget_ds.Visibility = Visibility.Visible;
             }
             if (!Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET))
             {
-                newsWidget_ds.Content = new NewsWidget(newsWidget_ds, this);
+                newsWidget_ds.WidgetContent = new NewsWidget(newsWidget_ds, this);
             }
         }
         #endregion
@@ -96,11 +96,16 @@ namespace TUMCampusApp.Pages
         {
             if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
             {
-                calendarWidget_ds.Content = new CalendarWidget(calendarWidget_ds);
+                calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
                 calendarWidget_ds.Visibility = Visibility.Visible;
             }
         }
 
         #endregion
+
+        private void widgets_stckp_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+
+        }
     }
 }

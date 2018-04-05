@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Pages;
@@ -15,7 +14,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private DropShadowPanel newsWidget_ds;
+        private WidgetControl widgetControl;
         private HomePage homePage;
 
         #endregion
@@ -27,9 +26,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 17/06/2017 Created [Fabian Sauter]
         /// </history>
-        public NewsWidget(DropShadowPanel newsWidget_ds, HomePage homePage)
+        public NewsWidget(WidgetControl widgetControl, HomePage homePage)
         {
-            this.newsWidget_ds = newsWidget_ds;
+            this.widgetControl = widgetControl;
             this.homePage = homePage;
             this.InitializeComponent();
             Task.Factory.StartNew(() => showNews());
@@ -64,10 +63,9 @@ namespace TUMCampusApp.Controls
             {
                 foreach (NewsTable item in news)
                 {
-                    homePage.addWidget(new DropShadowPanel()
+                    homePage.addWidget(new WidgetControl()
                     {
-                        Style = newsWidget_ds.Style,
-                        Content = new NewsControl() { News = item },
+                        WidgetContent = new NewsControl() { News = item },
                         Visibility = Visibility.Visible
                     });
                 }

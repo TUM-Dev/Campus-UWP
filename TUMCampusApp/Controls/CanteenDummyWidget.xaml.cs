@@ -1,6 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using TUMCampusApp.Pages;
 using TUMCampusAppAPI.DBTables;
@@ -15,7 +13,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private DropShadowPanel dsp;
+        private WidgetControl widgetControl;
         private HomePage homePage;
 
         #endregion
@@ -27,9 +25,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 19/01/2018 Created [Fabian Sauter]
         /// </history>
-        public CanteenDummyWidget(DropShadowPanel dsp, HomePage homePage)
+        public CanteenDummyWidget(WidgetControl widgetControl, HomePage homePage)
         {
-            this.dsp = dsp;
+            this.widgetControl = widgetControl;
             this.homePage = homePage;
             this.InitializeComponent();
             Task.Factory.StartNew(() => showCanteensAsync());
@@ -60,17 +58,12 @@ namespace TUMCampusApp.Controls
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    dsp.Visibility = Visibility.Collapsed;
-                    DropShadowPanel canteen_dsp = new DropShadowPanel()
-                    {
-                        Style = dsp.Style,
-                        Visibility = Visibility.Visible
-                    };
-                    canteen_dsp.Content = new CanteenWidget(c.canteen_id, canteen_dsp);
-                    homePage.addWidget(canteen_dsp);
+                    WidgetControl canteen_wc = new WidgetControl();
+                    canteen_wc.WidgetContent = new CanteenWidget(c.canteen_id, canteen_wc);
+                    homePage.addWidget(canteen_wc);
                 });
             }
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => dsp.Visibility = Visibility.Collapsed);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => widgetControl.Visibility = Visibility.Collapsed);
         }
 
         #endregion

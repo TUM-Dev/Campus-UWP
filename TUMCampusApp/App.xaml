@@ -1,7 +1,8 @@
 ﻿<Application
     x:Class="TUMCampusApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <!-- RequestedTheme="Dark">-->
     <Application.Resources>
         <Style TargetType="ListViewItem">
@@ -9,5 +10,15 @@
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         </Style>
         <SolidColorBrush x:Key="TUM_blue" Color="#0061b7"/>
+
+        <Style TargetType="controls:DropShadowPanel" x:Key="ShadowPanelStyle">
+            <Setter Property="BlurRadius" Value="3.6"/>
+            <Setter Property="ShadowOpacity" Value="0.52"/>
+            <Setter Property="OffsetX" Value="5"/>
+            <Setter Property="OffsetY" Value="5"/>
+            <Setter Property="Margin" Value="15, 10, 15, 0"/>
+            <Setter Property="Color" Value="Black"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
     </Application.Resources>
 </Application>

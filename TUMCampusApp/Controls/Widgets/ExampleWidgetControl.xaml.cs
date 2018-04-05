@@ -1,10 +1,21 @@
-﻿using TUMCampusApp.Classes;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.Controls
+namespace TUMCampusApp.Controls.Widgets
 {
-    public sealed partial class TutWidget : UserControl
+    public sealed partial class ExampleWidgetControl : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -17,9 +28,9 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 03/01/2017 Created [Fabian Sauter]
+        /// 05/04/2018 Created [Fabian Sauter]
         /// </history>
-        public TutWidget()
+        public ExampleWidgetControl()
         {
             this.InitializeComponent();
         }
@@ -47,11 +58,13 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Utillities.mainPage.navigateToPage(Utillities.EnumPage.SettingsPage, null);
-        }
+
 
         #endregion
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

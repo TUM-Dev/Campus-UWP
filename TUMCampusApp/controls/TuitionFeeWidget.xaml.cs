@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
@@ -15,7 +14,7 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private DropShadowPanel dSP;
+        private WidgetControl widgetControl;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -26,9 +25,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 22/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeWidget(DropShadowPanel dSP)
+        public TuitionFeeWidget(WidgetControl widgetControl)
         {
-            this.dSP = dSP;
+            this.widgetControl = widgetControl;
             this.InitializeComponent();
             Task.Factory.StartNew(() => ShowTuitionFeesAsync());
         }
@@ -58,15 +57,11 @@ namespace TUMCampusApp.Controls
             }
             catch (BaseTUMOnlineException e)
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    showFees(null);
-                });
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(null));
                 return;
             }
             List<TUMTuitionFeeTable> list = TuitionFeeManager.INSTANCE.getFees();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                showFees(list);
-            });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(list));
         }
 
         /// <summary>
@@ -79,7 +74,7 @@ namespace TUMCampusApp.Controls
 
             if (list == null || list.Count <= 0 || list[0].money == null)
             {
-                dSP.Visibility = Visibility.Collapsed;
+                widgetControl.Visibility = Visibility.Collapsed;
             }
             else
             {

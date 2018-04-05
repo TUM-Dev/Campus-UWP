@@ -132,10 +132,6 @@
   <data name="Information_Text" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="IngredientsInfoBox_Text" xml:space="preserve">
-    <value />
-    <comment>TODO</comment>
-  </data>
   <data name="CanteenIngredients_Text" xml:space="preserve">
     <value>Ingredients:</value>
   </data>
@@ -754,5 +750,17 @@
   </data>
   <data name="EduroamHelperDialogSearchingEduroam_Text" xml:space="preserve">
     <value>Searching for eduroam...</value>
+  </data>
+  <data name="ExampleWidgetControlInfo1.Text" xml:space="preserve">
+    <value>You can disable / enable widgets, if you switch over to the</value>
+  </data>
+  <data name="ExampleWidgetControlInfo2.Text" xml:space="preserve">
+    <value>Settings Page</value>
+  </data>
+  <data name="ExampleWidgetControlInfo3.Text" xml:space="preserve">
+    <value> and disable / enable them there.</value>
+  </data>
+  <data name="ExampleWidgetControlSwipeToHide.Text" xml:space="preserve">
+    <value>Swipe to hide widgets...</value>
   </data>
 </root>

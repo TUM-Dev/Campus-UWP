@@ -2,44 +2,37 @@
     x:Class="TUMCampusApp.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls1="using:TUMCampusApp.Controls"
+    xmlns:controls11="using:TUMCampusApp.Controls.Widgets"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <Style TargetType="controls:DropShadowPanel" x:Key="ShadowPanelStyle">
-            <Setter Property="BlurRadius" Value="3.6"/>
-            <Setter Property="ShadowOpacity" Value="0.52"/>
-            <Setter Property="OffsetX" Value="5"/>
-            <Setter Property="OffsetY" Value="5"/>
-            <Setter Property="Margin" Value="15, 10, 15, 0"/>
-            <Setter Property="Color" Value="Black"/>
-            <Setter Property="Visibility" Value="Collapsed"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        </Style>
-    </Page.Resources>
-
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
-        <StackPanel x:Name="color_stckp" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="0"/>
-        <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollMode="Disabled">
-            <StackPanel x:Name="widgets_stckp" Margin="0,0,0,10" HorizontalAlignment="Stretch">
-                <controls:DropShadowPanel x:Name="exampleWidget_ds" Style="{StaticResource ShadowPanelStyle}">
-                    <controls1:TutWidget/>
-                </controls:DropShadowPanel>
+        <ScrollViewer HorizontalAlignment="Stretch"
+                      HorizontalScrollMode="Disabled">
+            <StackPanel x:Name="widgets_stckp"
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Stretch"
+                        DataContextChanged="widgets_stckp_DataContextChanged">
+                <controls1:WidgetControl x:Name="exampleWidget_ds">
+                    <controls1:WidgetControl.WidgetContent>
+                        <controls11:ExampleWidgetControl/>
+                    </controls1:WidgetControl.WidgetContent>
+                </controls1:WidgetControl>
 
-                <controls:DropShadowPanel x:Name="calendarWidget_ds" Style="{StaticResource ShadowPanelStyle}">
-                </controls:DropShadowPanel>
+                <controls1:WidgetControl x:Name="calendarWidget_ds">
+                </controls1:WidgetControl>
 
-                <controls:DropShadowPanel x:Name="canteenWidget_ds" Style="{StaticResource ShadowPanelStyle}">
-                </controls:DropShadowPanel>
+                <controls1:WidgetControl x:Name="canteenWidget_ds">
+                </controls1:WidgetControl>
 
-                <controls:DropShadowPanel x:Name="tutionFeeWidget_ds" Style="{StaticResource ShadowPanelStyle}">
-                </controls:DropShadowPanel>
+                <controls1:WidgetControl x:Name="tutionFeeWidget_ds">
+                </controls1:WidgetControl>
 
-                <controls:DropShadowPanel x:Name="newsWidget_ds" Style="{StaticResource ShadowPanelStyle}" Visibility="Collapsed">
-                </controls:DropShadowPanel>
+                <controls1:WidgetControl x:Name="newsWidget_ds"
+                                         Visibility="Collapsed">
+                </controls1:WidgetControl>
             </StackPanel>
         </ScrollViewer>
     </Grid>

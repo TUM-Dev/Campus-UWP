@@ -163,8 +163,11 @@
     <Compile Include="Controls\TuitionFeeWidget.xaml.cs">
       <DependentUpon>TuitionFeeWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TutWidget.xaml.cs">
-      <DependentUpon>TutWidget.xaml</DependentUpon>
+    <Compile Include="Controls\WidgetControl.xaml.cs">
+      <DependentUpon>WidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\ExampleWidgetControl.xaml.cs">
+      <DependentUpon>ExampleWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\CanteenTemplate.cs" />
     <Compile Include="DataTemplates\DishTypeTemplate.cs" />
@@ -376,7 +379,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TutWidget.xaml">
+    <Page Include="Controls\WidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\ExampleWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

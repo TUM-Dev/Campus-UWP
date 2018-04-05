@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
@@ -11,11 +10,9 @@ namespace TUMCampusApp.Controls
 {
     public sealed partial class CalendarWidget : UserControl
     {
-        private DropShadowPanel calendarWidget_ds;
-
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private DropShadowPanel dSP;
+        private WidgetControl widgetControl;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -26,9 +23,9 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 29/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CalendarWidget(DropShadowPanel dSP)
+        public CalendarWidget(WidgetControl widgetControl)
         {
-            this.dSP = dSP;
+            this.widgetControl = widgetControl;
             this.InitializeComponent();
             Task.Factory.StartNew(() => ShowCalendarEntry());
         }
@@ -72,13 +69,13 @@ namespace TUMCampusApp.Controls
         {
             if(entry == null)
             {
-                dSP.Visibility = Visibility.Collapsed;
+                widgetControl.Visibility = Visibility.Collapsed;
                 return;
             }
             addSeperator(entry.dTStrat);
             if (entry == null)
             {
-                dSP.Visibility = Visibility.Collapsed;
+                widgetControl.Visibility = Visibility.Collapsed;
             }
             else
             {
