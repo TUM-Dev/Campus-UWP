@@ -1,4 +1,7 @@
-﻿using TUMCampusAppAPI;
+﻿using Data_Manager;
+using System.Threading.Tasks;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.Managers;
 using Windows.ApplicationModel;
 
 namespace TUMCampusApp.Classes
@@ -41,10 +44,10 @@ namespace TUMCampusApp.Classes
         /// <param name="version">The package version, that should get saved.</param>
         private void setVersion(PackageVersion version)
         {
-            Util.setSetting(Const.VERSION_MAJOR, version.Major);
-            Util.setSetting(Const.VERSION_MINOR, version.Minor);
-            Util.setSetting(Const.VERSION_BUILD, version.Build);
-            Util.setSetting(Const.VERSION_REVISION, version.Revision);
+            Settings.setSetting(SettingsConsts.VERSION_MAJOR, version.Major);
+            Settings.setSetting(SettingsConsts.VERSION_MINOR, version.Minor);
+            Settings.setSetting(SettingsConsts.VERSION_BUILD, version.Build);
+            Settings.setSetting(SettingsConsts.VERSION_REVISION, version.Revision);
         }
 
         /// <summary>
@@ -56,10 +59,10 @@ namespace TUMCampusApp.Classes
         {
             return new PackageVersion()
             {
-                Major = Util.getSettingUshort(Const.VERSION_MAJOR),
-                Minor = Util.getSettingUshort(Const.VERSION_MINOR),
-                Build = Util.getSettingUshort(Const.VERSION_BUILD),
-                Revision = Util.getSettingUshort(Const.VERSION_REVISION),
+                Major = Settings.getSettingUshort(SettingsConsts.VERSION_MAJOR),
+                Minor = Settings.getSettingUshort(SettingsConsts.VERSION_MINOR),
+                Build = Settings.getSettingUshort(SettingsConsts.VERSION_BUILD),
+                Revision = Settings.getSettingUshort(SettingsConsts.VERSION_REVISION),
             };
         }
 
@@ -86,11 +89,17 @@ namespace TUMCampusApp.Classes
             PackageVersion versionLastStart = handler.getLastStartedVersion();
 
             // Check if version != 0.0.0.0 => first ever start of the app:
-            if (!(versionLastStart.Major == versionLastStart.Minor && versionLastStart.Build == versionLastStart.Revision && versionLastStart.Minor == versionLastStart.Build && versionLastStart.Major == 0) || Util.getSettingBoolean(Const.INITIALLY_STARTED))
+            if (!(versionLastStart.Major == versionLastStart.Minor && versionLastStart.Build == versionLastStart.Revision && versionLastStart.Minor == versionLastStart.Build && versionLastStart.Major == 0) || Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED))
             {
                 if (!handler.compare(versionLastStart, handler.getPackageVersion()))
                 {
-                    // Insert code here for update routines
+                    // Storage for news changed between version 1.0.3 and 1.0.4:
+                    if (versionLastStart.Major <= 1 && versionLastStart.Minor <= 0 && versionLastStart.Build < 4)
+                    {
+                        Task t = NewsManager.INSTANCE.downloadNewsAsync(true);
+                    }
+
+                    // Insert code here for update routines:
                 }
             }
             handler.setVersion(handler.getPackageVersion());

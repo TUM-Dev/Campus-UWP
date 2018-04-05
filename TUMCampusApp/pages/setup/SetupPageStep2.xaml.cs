@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusAppAPI;
@@ -87,8 +88,8 @@ namespace TUMCampusApp.Pages.Setup
 
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.TUMO_ENABLED, false);
-            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
+            Settings.setSetting(SettingsConsts.TUMO_ENABLED, false);
+            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, true);
             if (Window.Current.Content is Frame f)
             {
                 f.Navigate(typeof(MainPage));
@@ -105,7 +106,7 @@ namespace TUMCampusApp.Pages.Setup
             }
             else
             {
-                Util.setSetting(Const.TUMO_ENABLED, true);
+                Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
                 Frame f = new Frame();
                 f.Navigate(typeof(MainPage));
                 Window.Current.Content = f;
@@ -136,7 +137,7 @@ namespace TUMCampusApp.Pages.Setup
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 0)
             {
-                string result = await TumManager.INSTANCE.reqestNewTokenAsync(Util.getSettingString(Const.USER_ID));
+                string result = await TumManager.INSTANCE.reqestNewTokenAsync(Settings.getSettingString(SettingsConsts.USER_ID));
                 if (result == null)
                 {
                     MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("RequestNewTokenError_Text"));
@@ -169,7 +170,7 @@ namespace TUMCampusApp.Pages.Setup
             startValidatToken();
             if (await TumManager.INSTANCE.isTokenConfirmedAsync())
             {
-                Util.setSetting(Const.TUMO_ENABLED, true);
+                Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
                 Frame f = new Frame();
                 f.Navigate(typeof(MainPage));
                 Window.Current.Content = f;

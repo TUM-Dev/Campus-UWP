@@ -1,4 +1,4 @@
-﻿using TUMCampusAppAPI;
+﻿using Data_Manager;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -29,7 +29,7 @@ namespace TUMCampusApp.Controls.Widgets
         #region --Set-, Get- Methods--
         public string getSettingsToken()
         {
-            return Const.DISABLE_EXAMPLE_WIDGET;
+            return SettingsConsts.DISABLE_EXAMPLE_WIDGET;
         }
 
         #endregion

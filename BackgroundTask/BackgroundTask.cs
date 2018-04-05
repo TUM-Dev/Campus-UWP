@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Data_Manager;
+using System.Threading.Tasks;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using Windows.ApplicationModel.Background;
@@ -48,14 +49,14 @@ namespace TUMCampusApp.BackgroundTask
         /// <returns></returns>
         private async Task refreshData()
         {
-            if (!DeviceInfo.isConnectedToInternet() || Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!DeviceInfo.isConnectedToInternet() || Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 Logger.Info("[Background] Canceling background task. Device not connected to a WIFI network.");
                 return;
             }
             await generalInit();
 
-            byte lastState = Util.getSettingByte(Const.LAST_BACKGROUND_TASK_ACTION);
+            byte lastState = Settings.getSettingByte(SettingsConsts.LAST_BACKGROUND_TASK_ACTION);
             switch (lastState)
             {
                 case 0:
@@ -74,7 +75,7 @@ namespace TUMCampusApp.BackgroundTask
                     lastState = 0;
                     break;
             }
-            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, lastState);
+            Settings.setSetting(SettingsConsts.LAST_BACKGROUND_TASK_ACTION, lastState);
             Logger.Info("[Background] Finished background task.");
         }
 

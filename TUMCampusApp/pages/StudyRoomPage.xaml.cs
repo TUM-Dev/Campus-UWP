@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
@@ -63,7 +64,7 @@ namespace TUMCampusApp.Pages
             }
 
             groups = StudyRoomManager.INSTANCE.getRoomGroups();
-            if(groups == null || groups.Count <= 0)
+            if (groups == null || groups.Count <= 0)
             {
                 Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -75,7 +76,7 @@ namespace TUMCampusApp.Pages
                 return;
             }
 
-            var temp = Util.getSetting(Const.LAST_SELECTED_STUDY_ROOM_GROUP);
+            var temp = Settings.getSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP);
             int lastSelectedIndex = 0;
             if (temp != null)
             {
@@ -85,7 +86,7 @@ namespace TUMCampusApp.Pages
             if (lastSelectedIndex < 0 || lastSelectedIndex > groups.Count - 1)
             {
                 lastSelectedIndex = 0;
-                Util.setSetting(Const.LAST_SELECTED_STUDY_ROOM_GROUP, 0);
+                Settings.setSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP, 0);
             }
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -94,7 +95,7 @@ namespace TUMCampusApp.Pages
                 room_groups_cmbb.Items.Clear();
                 foreach (StudyRoomGroupTable g in groups)
                 {
-                    room_groups_cmbb.Items.Add(new ComboBoxItem() { Content = g.name});
+                    room_groups_cmbb.Items.Add(new ComboBoxItem() { Content = g.name });
                 }
                 room_groups_cmbb.SelectedIndex = lastSelectedIndex;
             }).AsTask();
@@ -115,7 +116,7 @@ namespace TUMCampusApp.Pages
                 rooms_stckp.Children.Clear();
                 foreach (StudyRoomTable r in rooms)
                 {
-                    rooms_stckp.Children.Add(new StudyRoomControl(r) { Margin = new Thickness(10,5,10,5)});
+                    rooms_stckp.Children.Add(new StudyRoomControl(r) { Margin = new Thickness(10, 5, 10, 5) });
                 }
                 enableRefresh();
             }).AsTask();
@@ -161,14 +162,14 @@ namespace TUMCampusApp.Pages
 
         private void room_groups_cmbb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(groups == null)
+            if (groups == null)
             {
                 return;
             }
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showRoomsForGroupIdTask(groups[room_groups_cmbb.SelectedIndex].id);
-                Util.setSetting(Const.LAST_SELECTED_STUDY_ROOM_GROUP, room_groups_cmbb.SelectedIndex);
+                Settings.setSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP, room_groups_cmbb.SelectedIndex);
             }).AsTask();
         }
 

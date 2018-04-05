@@ -1,12 +1,8 @@
 ﻿using TUMCampusApp.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using TUMCampusAppAPI;
 using System;
 using TUMCampusApp.Classes;
-using TUMCampusAppAPI.DBTables;
-using TUMCampusAppAPI.Managers;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace TUMCampusApp.Pages
 {
@@ -56,33 +52,14 @@ namespace TUMCampusApp.Pages
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Shows all widgets that didn't got disabled in the settings.
+        /// Shows all widgets.
         /// </summary>
         private void showWidgets()
         {
-            if (!Util.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET))
-            {
-                exampleWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET))
-            {
-                canteenWidget_ds.WidgetContent = new CanteenDummyWidget(canteenWidget_ds, this);
-                canteenWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET))
-            {
-                tutionFeeWidget_ds.WidgetContent = new TuitionFeeWidget(tutionFeeWidget_ds);
-                tutionFeeWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
-            {
-                calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
-                calendarWidget_ds.Visibility = Visibility.Visible;
-            }
-            if (!Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET))
-            {
-                newsWidget_ds.WidgetContent = new NewsWidget(newsWidget_ds, this);
-            }
+            canteenWidget_ds.WidgetContent = new CanteenDummyWidget(canteenWidget_ds, this);
+            tutionFeeWidget_ds.WidgetContent = new TuitionFeeWidget(tutionFeeWidget_ds);
+            calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
+            newsWidget_ds.WidgetContent = new NewsWidget(newsWidget_ds, this);
         }
         #endregion
 
@@ -94,18 +71,14 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void onAppResumed(Object sender, Object e)
         {
-            if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET))
-            {
-                calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
-                calendarWidget_ds.Visibility = Visibility.Visible;
-            }
+            calendarWidget_ds.WidgetContent = new CalendarWidget(calendarWidget_ds);
         }
-
-        #endregion
 
         private void widgets_stckp_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
 
         }
+
+        #endregion
     }
 }

@@ -465,9 +465,6 @@
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
@@ -479,6 +476,10 @@
     <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
       <Project>{6651b12f-f088-40de-a285-c1b94e1993b5}</Project>
       <Name>BackgroundTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data_Manager\Data_Manager.csproj">
+      <Project>{3f43f80b-a65c-46ab-b30c-f7113d5c8473}</Project>
+      <Name>Data_Manager</Name>
     </ProjectReference>
     <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
       <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>

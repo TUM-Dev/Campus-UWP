@@ -11,6 +11,7 @@ using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
 using Windows.UI.Popups;
+using Data_Manager;
 
 namespace TUMCampusApp.Pages
 {
@@ -262,13 +263,13 @@ namespace TUMCampusApp.Pages
              {
                  positionElements();
              });
-            bool initialStart = !Util.getSettingBoolean(Const.INITIALLY_STARTED);
+            bool initialStart = !Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED);
             Task.WaitAll(initAppAsync(initialStart));
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 DismissExtendedSplashAsync();
             });
-            Util.setSetting(Const.INITIALLY_STARTED, true);
+            Settings.setSetting(SettingsConsts.INITIALLY_STARTED, true);
         }
 
         /// <summary>
@@ -313,10 +314,10 @@ namespace TUMCampusApp.Pages
             {
                 Frame f = new Frame();
                 bool connectedToInternet = DeviceInfo.isConnectedToInternet();
-                if (!Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP))
+                if (!Settings.getSettingBoolean(SettingsConsts.HIDE_WIZARD_ON_STARTUP))
                 {
                     task_tbx.Text = "Validating TUM Online Token...";
-                    bool wifiOnly = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
+                    bool wifiOnly = Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING);
                     if ((!wifiOnly && connectedToInternet) || (wifiOnly && DeviceInfo.isConnectedToWifi() && connectedToInternet))
                     {
                         if(TumManager.getToken() == null || TumManager.getToken() == "")
@@ -329,14 +330,14 @@ namespace TUMCampusApp.Pages
                         }
                         else
                         {
-                            Util.setSetting(Const.TUMO_ENABLED, true);
+                            Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
                             f.Navigate(typeof(MainPage));
                         }
                     }
                     else
                     {
                         string token = TumManager.getToken();
-                        Util.setSetting(Const.TUMO_ENABLED, (token != null && token != ""));
+                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, (token != null && token != ""));
                         f.Navigate(typeof(MainPage));
                     }
                 }
@@ -344,7 +345,7 @@ namespace TUMCampusApp.Pages
                 {
                     if(TumManager.getToken() == null || TumManager.getToken() == "")
                     {
-                        Util.setSetting(Const.TUMO_ENABLED, false);
+                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, false);
                         f.Navigate(typeof(MainPage));
                     }
                     else if (connectedToInternet && !await isTokenConfirmedWithTimeoutAsync())
@@ -353,7 +354,7 @@ namespace TUMCampusApp.Pages
                     }
                     else
                     {
-                        Util.setSetting(Const.TUMO_ENABLED, true);
+                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
                         f.Navigate(typeof(MainPage));
                     }
                 }

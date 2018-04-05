@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the current TUMOnline token or null if none exists.</returns>
         public static string getToken()
         {
-            return (string)Util.getSetting(Const.ACCESS_TOKEN);
+            return (string)Settings.getSetting(SettingsConsts.ACCESS_TOKEN);
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace TUMCampusAppAPI.Managers
                 }
                 return bool.Parse(node.InnerText);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -158,7 +159,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="token">The token that should get saved.</param>
         public void saveToken(string token)
         {
-            Util.setSetting(Const.ACCESS_TOKEN, token);
+            Settings.setSetting(SettingsConsts.ACCESS_TOKEN, token);
         }
 
         /// <summary>

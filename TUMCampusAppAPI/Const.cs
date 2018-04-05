@@ -5,8 +5,6 @@ namespace TUMCampusAppAPI
     public class Const
     {
         public static readonly string MENSA_FOR_FAVORITEDISH = "FavoriteDishCafeteriaID";
-        public static readonly string ACCESS_TOKEN = "access_token";
-        public static readonly string USER_ID = "user_id";
         public static readonly string ACTION_EXTRA = "action";
         public static readonly string ADDRESS_COLUMN = "address";
         public static readonly string BACKGROUND_MODE = "background_mode";
@@ -22,9 +20,8 @@ namespace TUMCampusAppAPI
         public static readonly string ERROR = "error";
         public static readonly string MESSAGE = "message";
         public static readonly string FORCE_DOWNLOAD = "force_download";
-        public static readonly string HIDE_WIZARD_ON_STARTUP = "hide_wizard_on_startup";
-        public static readonly string ONLY_USE_WIFI_FOR_UPDATING = "only_use_wifi_for_updating";
-        public static readonly string DISABLE_CALENDAR_INTEGRATION = "disable_calendar_integration";
+
+
         public static readonly string HOURS_COLUMN = "hours";
         public static readonly string ID_COLUMN = "_id";
         public static readonly string JSON_ADDRESS = "address";
@@ -72,8 +69,7 @@ namespace TUMCampusAppAPI
         public static readonly string PUBLIC_KEY = "chat_member_public_key";
         public static readonly string PUBLIC_KEY_UPLOADED = "chat_member_public_key_uploaded";
 
-        public static readonly string TUMO_PIDENT_NR = "pIdentNr";
-        public static readonly string TUMO_ENABLED = "tumo_is_enabled";
+
 
         public static readonly string GCM_REG_ID = "gcm_registration_id";
         public static readonly string GCM_REG_ID_SENT_TO_SERVER = "gcm_registration_id_sent_to_server";
@@ -131,15 +127,9 @@ namespace TUMCampusAppAPI
         public static readonly string AUTO_JOIN_NEW_ROOMS = "auto_join_new_rooms";
         public static readonly string CHAT_MEMBER = "chat_member";
         public static readonly string POSITION = "position";
-        public static readonly string LAST_SELECTED_STUDY_ROOM_GROUP = "last_selected_study_room_group";
-        public static readonly string VERSION_MAJOR = "version_major";
-        public static readonly string VERSION_MINOR = "version_minor";
-        public static readonly string VERSION_BUILD = "version_build";
-        public static readonly string VERSION_REVISION = "version_revision";
 
         public static readonly string PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
         public static readonly string CHATTERMS_URL = "https://tumcabe.in.tum.de/landing/chatterms/";
-        public static readonly string V_1_0_4_CLEANED_NEWS = "v.1.0.4_cleaned_news";
 
         public static readonly Uri Square44x44Logo = new Uri("ms-appx:///Assets/Square44x44Logo.png");
         public static readonly Uri Square150x150Logo = new Uri("ms-appx:///Assets/Square150x150Logo.png");
@@ -147,17 +137,5 @@ namespace TUMCampusAppAPI
         public static readonly Uri Square310x310Logo = new Uri("ms-appx:///Assets/Square310x310Logo.png");
 
         public static readonly string TILE_ID_CANTEEN = "canteenTile";
-
-        public static readonly string DISABLE_EXAMPLE_WIDGET = "disable_example_widget";
-        public static readonly string DISABLE_CANTEEN_WIDGET = "disable_canteen_widget";
-        public static readonly string DISABLE_TUITION_FEE_WIDGET = "disable_tuition_fee_widget";
-        public static readonly string DISABLE_CALENDAR_WIDGET = "disable_calendar_widget";
-        public static readonly string DISABLE_NEWS_WIDGET = "disable_news_widget";
-        public static readonly string DISABLE_BACKGROUND_TASKS = "disable_background_tasks";
-        public static readonly string DISABLE_CRASH_REPORTING = "disable_crash_reporting";
-
-        public static readonly string LAST_BACKGROUND_TASK_ACTION = "last_background_task_action";
-        public static readonly string INITIALLY_STARTED= "initially_started";
-        public static readonly string FACULTY_INDEX = "faculty_index";
     }
 }

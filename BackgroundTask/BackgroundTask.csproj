@@ -103,7 +103,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-  <PropertyGroup> 
+  <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
@@ -111,6 +111,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data_Manager\Data_Manager.csproj">
+      <Project>{3f43f80b-a65c-46ab-b30c-f7113d5c8473}</Project>
+      <Name>Data_Manager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
       <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>
       <Name>TUMCampusAppAPI</Name>

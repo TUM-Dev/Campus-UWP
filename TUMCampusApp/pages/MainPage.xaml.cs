@@ -10,6 +10,7 @@ using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
+using Data_Manager;
 
 namespace TUMCampusApp.Pages
 {
@@ -173,7 +174,7 @@ namespace TUMCampusApp.Pages
         private void setVisiblilityMyTum()
         {
             Visibility v;
-            if (Util.getSettingBoolean(Const.TUMO_ENABLED))
+            if (Settings.getSettingBoolean(SettingsConsts.TUMO_ENABLED))
             {
                 v = Visibility.Visible;
             }
@@ -209,7 +210,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void setImage()
         {
-            int facultyIndex = Util.getSettingInt(Const.FACULTY_INDEX);
+            int facultyIndex = Settings.getSettingInt(SettingsConsts.FACULTY_INDEX);
             switch (facultyIndex)
             {
                 case 0:

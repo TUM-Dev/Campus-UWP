@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
@@ -103,7 +104,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="force">Force sync calendar</param>
         public void syncCalendar(bool force)
         {
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
@@ -137,7 +138,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns></returns>
         public async Task syncCalendarTaskAsync(bool force)
         {
-            if (!DeviceInfo.isConnectedToInternet() || (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi()))
+            if (!DeviceInfo.isConnectedToInternet() || (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi()))
             {
                 return;
             }
@@ -175,7 +176,7 @@ namespace TUMCampusAppAPI.Managers
                     dB.InsertOrReplace(entry);
                 }
 
-                if (!Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION))
+                if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION))
                 {
                     await insterInCalendarAsync(list);
                 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
+﻿using Data_Manager;
+using Microsoft.Toolkit.Uwp.UI;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -138,14 +139,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsAsync(bool force)
         {
-            // Storage for news changed between version 1.0.3 and 1.0.4:
-            if (!Util.getSettingBoolean(Const.V_1_0_4_CLEANED_NEWS))
-            {
-                force = true;
-                Util.setSetting(Const.V_1_0_4_CLEANED_NEWS, true);
-            }
-
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
@@ -211,7 +205,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadNewsSourcesAsync(bool force)
         {
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }

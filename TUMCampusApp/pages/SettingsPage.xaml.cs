@@ -11,6 +11,7 @@ using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
 using Windows.UI.Core;
 using TUMCampusApp.Dialogs;
+using Data_Manager;
 
 namespace TUMCampusApp.Pages
 {
@@ -21,10 +22,10 @@ namespace TUMCampusApp.Pages
 
 
         #endregion
-        //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
-        #region --Constructors--
+        //--------------------------------------------------------SettingsConstsructor:----------------------------------------------------------------\\
+        #region --SettingsConstsructors--
         /// <summary>
-        /// Basic Constructor
+        /// Basic SettingsConstsructor
         /// </summary>
         /// <history>
         /// 24/12/2016  Created [Fabian Sauter]
@@ -66,7 +67,7 @@ namespace TUMCampusApp.Pages
 
         private void initMiscControls()
         {
-            disableCrashReporting_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CRASH_REPORTING);
+            disableCrashReporting_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING);
         }
 
         /// <summary>
@@ -85,11 +86,11 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void initWidgetControls()
         {
-            disableExampleWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_EXAMPLE_WIDGET);
-            disableCanteenWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CANTEEN_WIDGET);
-            disableCalendarWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_WIDGET);
-            disableTuitionFeeWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_TUITION_FEE_WIDGET);
-            disableNewsWidget_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_NEWS_WIDGET);
+            disableExampleWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_EXAMPLE_WIDGET);
+            disableCanteenWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CANTEEN_WIDGET);
+            disableCalendarWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_WIDGET);
+            disableTuitionFeeWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_TUITION_FEE_WIDGET);
+            disableNewsWidget_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_NEWS_WIDGET);
         }
 
         /// <summary>
@@ -97,8 +98,8 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void initServices()
         {
-            disableCalendar_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_CALENDAR_INTEGRATION);
-            disableBackgroundTask_tgls.IsOn = Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS);
+            disableCalendar_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION);
+            disableBackgroundTask_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.DISABLE_BACKGROUND_TASKS);
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void initGeneralControls()
         {
-            wifiOnly_tgls.IsOn = Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING);
+            wifiOnly_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING);
         }
 
         /// <summary>
@@ -114,7 +115,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void initTUMonlineControls()
         {
-            hideWizardOnStartup_tgls.IsOn = Util.getSettingBoolean(Const.HIDE_WIZARD_ON_STARTUP);
+            hideWizardOnStartup_tgls.IsOn = Settings.getSettingBoolean(SettingsConsts.HIDE_WIZARD_ON_STARTUP);
         }
 
         /// <summary>
@@ -124,20 +125,20 @@ namespace TUMCampusApp.Pages
         {
             pleaseWait_grid.Visibility = Visibility.Visible;
             await CalendarManager.INSTANCE.deleteCalendarAsync();
-            Util.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, false);
-            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, false);
-            Util.setSetting(Const.DISABLE_EXAMPLE_WIDGET, false);
-            Util.setSetting(Const.DISABLE_CANTEEN_WIDGET, false);
-            Util.setSetting(Const.DISABLE_CALENDAR_WIDGET, false);
-            Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, false);
-            Util.setSetting(Const.DISABLE_CRASH_REPORTING, false);
-            Util.setSetting(Const.DISABLE_NEWS_WIDGET, false);
-            Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, false);
-            Util.setSetting(Const.INITIALLY_STARTED, false);
-            Util.setSetting(Const.ACCESS_TOKEN, null);
-            Util.setSetting(Const.LAST_BACKGROUND_TASK_ACTION, null);
-            Util.setSetting(Const.FACULTY_INDEX, null);
-            Util.setSetting(Const.USER_ID, null);
+            Settings.setSetting(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING, false);
+            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, false);
+            Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, false);
+            Settings.setSetting(SettingsConsts.DISABLE_CANTEEN_WIDGET, false);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, false);
+            Settings.setSetting(SettingsConsts.DISABLE_TUITION_FEE_WIDGET, false);
+            Settings.setSetting(SettingsConsts.DISABLE_CRASH_REPORTING, false);
+            Settings.setSetting(SettingsConsts.DISABLE_NEWS_WIDGET, false);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, false);
+            Settings.setSetting(SettingsConsts.INITIALLY_STARTED, false);
+            Settings.setSetting(SettingsConsts.ACCESS_TOKEN, null);
+            Settings.setSetting(SettingsConsts.LAST_BACKGROUND_TASK_ACTION, null);
+            Settings.setSetting(SettingsConsts.FACULTY_INDEX, null);
+            Settings.setSetting(SettingsConsts.USER_ID, null);
 
             await deleteCacheAsync();
             pleaseWait_grid.Visibility = Visibility.Collapsed;
@@ -204,7 +205,7 @@ namespace TUMCampusApp.Pages
             {
                 CalendarManager.INSTANCE.syncCalendar(true);
             }
-            Util.setSetting(Const.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
         }
 
         private async void exportLogs_btn_ClickAsync(object sender, RoutedEventArgs e)
@@ -222,12 +223,12 @@ namespace TUMCampusApp.Pages
 
         private void wifiOnly_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.ONLY_USE_WIFI_FOR_UPDATING, wifiOnly_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING, wifiOnly_tgls.IsOn);
         }
 
         private void hideWizardOnStartup_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, hideWizardOnStartup_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, hideWizardOnStartup_tgls.IsOn);
         }
 
         private async void deleteCache_btn_Click(object sender, RoutedEventArgs e)
@@ -261,27 +262,27 @@ namespace TUMCampusApp.Pages
 
         private void diableExampleWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_EXAMPLE_WIDGET, disableExampleWidget_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, disableExampleWidget_tgls.IsOn);
         }
 
         private void diableCanteenWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_CANTEEN_WIDGET, disableCanteenWidget_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_CANTEEN_WIDGET, disableCanteenWidget_tgls.IsOn);
         }
 
         private void disableCalendarWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_CALENDAR_WIDGET, disableCalendar_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, disableCalendar_tgls.IsOn);
         }
 
         private void disableTuitionFeeWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_TUITION_FEE_WIDGET, disableTuitionFeeWidget_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_TUITION_FEE_WIDGET, disableTuitionFeeWidget_tgls.IsOn);
         }
 
         private void disableNewsWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_NEWS_WIDGET, disableNewsWidget_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_NEWS_WIDGET, disableNewsWidget_tgls.IsOn);
         }
 
         private async void feedback_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
@@ -320,7 +321,7 @@ namespace TUMCampusApp.Pages
 
         private void disableBackgroundTask_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_BACKGROUND_TASKS, disableBackgroundTask_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_BACKGROUND_TASKS, disableBackgroundTask_tgls.IsOn);
             if (disableBackgroundTask_tgls.IsOn)
             {
                 MyBackgroundTaskHelper.RemoveBackgroundTask();
@@ -355,7 +356,7 @@ namespace TUMCampusApp.Pages
 
         private void disableCrashReporting_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.DISABLE_CRASH_REPORTING, disableCrashReporting_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_CRASH_REPORTING, disableCrashReporting_tgls.IsOn);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

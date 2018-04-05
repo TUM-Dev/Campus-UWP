@@ -1,7 +1,7 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+﻿using Data_Manager;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using TUMCampusApp.Controls.Widgets;
-using TUMCampusAppAPI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -60,7 +60,7 @@ namespace TUMCampusApp.Controls
                 string setting = hW.getSettingsToken();
                 if (setting != null)
                 {
-                    Visibility = Util.getSettingBoolean(setting) ? Visibility.Collapsed : Visibility.Visible;
+                    Visibility = Settings.getSettingBoolean(setting) ? Visibility.Collapsed : Visibility.Visible;
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace TUMCampusApp.Controls
                 string token = hW.getSettingsToken();
                 if (token != null)
                 {
-                    Util.setSetting(token, true);
+                    Settings.setSetting(token, true);
                     Visibility = Visibility.Collapsed;
                 }
             }

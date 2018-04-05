@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
+using Data_Manager;
 
 namespace TUMCampusApp.Pages.Setup
 {
@@ -27,10 +28,10 @@ namespace TUMCampusApp.Pages.Setup
         public SetupPageStep1()
         {
             this.InitializeComponent();
-            string uId = Util.getSettingString(Const.USER_ID);
+            string uId = Settings.getSettingString(SettingsConsts.USER_ID);
             studentID_tbx.Text = uId == null ? "" : uId;
             populateFacultiesComboBox();
-            faculty_cbox.SelectedIndex = Util.getSettingInt(Const.FACULTY_INDEX);
+            faculty_cbox.SelectedIndex = Settings.getSettingInt(SettingsConsts.FACULTY_INDEX);
         }
 
         #endregion
@@ -79,8 +80,8 @@ namespace TUMCampusApp.Pages.Setup
         #region --Events--
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            Util.setSetting(Const.TUMO_ENABLED, false);
-            Util.setSetting(Const.HIDE_WIZARD_ON_STARTUP, true);
+            Settings.setSetting(SettingsConsts.TUMO_ENABLED, false);
+            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, true);
             if (Window.Current.Content is Frame f)
             {
                 f.Navigate(typeof(MainPage));
@@ -129,8 +130,8 @@ namespace TUMCampusApp.Pages.Setup
                     }
                     else
                     {
-                        Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
-                        Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+                        Settings.setSetting(SettingsConsts.FACULTY_INDEX, faculty_cbox.SelectedIndex);
+                        Settings.setSetting(SettingsConsts.USER_ID, studentID_tbx.Text.ToLower());
                         if (Window.Current.Content is Frame f)
                         {
                             f.Navigate(typeof(SetupPageStep2));
@@ -150,8 +151,8 @@ namespace TUMCampusApp.Pages.Setup
                     }
                     else
                     {
-                        Util.setSetting(Const.FACULTY_INDEX, faculty_cbox.SelectedIndex);
-                        Util.setSetting(Const.USER_ID, studentID_tbx.Text.ToLower());
+                        Settings.setSetting(SettingsConsts.FACULTY_INDEX, faculty_cbox.SelectedIndex);
+                        Settings.setSetting(SettingsConsts.USER_ID, studentID_tbx.Text.ToLower());
                         TumManager.INSTANCE.saveToken(token);
                         if (Window.Current.Content is Frame f)
                         {

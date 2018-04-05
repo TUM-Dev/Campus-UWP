@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
 using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
+using Data_Manager;
 
 namespace TUMCampusApp
 {
@@ -102,7 +103,7 @@ namespace TUMCampusApp
                 Logger.Error("Installing Voice Commands Failed!", ex);
             }
 
-            if (!Util.getSettingBoolean(Const.DISABLE_BACKGROUND_TASKS))
+            if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_BACKGROUND_TASKS))
             {
                 MyBackgroundTaskHelper.RegisterBackgroundTask();
             }

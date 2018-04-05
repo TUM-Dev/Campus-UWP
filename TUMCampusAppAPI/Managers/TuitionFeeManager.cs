@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
@@ -65,7 +66,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadFeesAsync(bool force)
         {
-            if(!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if(!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
 using Windows.Devices.Geolocation;
+using Data_Manager;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -179,7 +180,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns an async Task.</returns>
         public async Task downloadCanteensAsync(bool force)
         {
-            if (!force && Util.getSettingBoolean(Const.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
+            if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
                 return;
             }
