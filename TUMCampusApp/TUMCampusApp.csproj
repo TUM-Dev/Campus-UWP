@@ -111,7 +111,7 @@
     <Compile Include="Classes\Helpers\EduroamHelper.cs" />
     <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
     <Compile Include="Classes\Helpers\TileHelper.cs" />
-    <Compile Include="Classes\Utillities.cs" />
+    <Compile Include="Classes\UIUtils.cs" />
     <Compile Include="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
     </Compile>

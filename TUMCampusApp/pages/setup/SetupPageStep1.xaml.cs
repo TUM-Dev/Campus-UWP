@@ -63,7 +63,7 @@ namespace TUMCampusApp.Pages.Setup
             foreach (Faculties f in Enum.GetValues(typeof(Faculties))) {
                 faculty_cbox.Items.Add(new ComboBoxItem()
                 {
-                    Content = Utillities.getLocalizedString(f.ToString() + "_Text"),
+                    Content = UIUtils.getLocalizedString(f.ToString() + "_Text"),
 
                 });
             }
@@ -92,17 +92,17 @@ namespace TUMCampusApp.Pages.Setup
             next_btn.IsEnabled = false;
             if (!isIdValid())
             {
-                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"))
+                MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidId_Text"))
                 {
-                    Title = Utillities.getLocalizedString("Error_Text")
+                    Title = UIUtils.getLocalizedString("Error_Text")
                 };
                 await message.ShowAsync();
             }
             else if(faculty_cbox.SelectedIndex < 0)
             {
-                MessageDialog message = new MessageDialog(Utillities.getLocalizedString("SelectFaculty_Text"))
+                MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("SelectFaculty_Text"))
                 {
-                    Title = Utillities.getLocalizedString("Error_Text")
+                    Title = UIUtils.getLocalizedString("Error_Text")
                 };
                 await message.ShowAsync();
             }
@@ -113,17 +113,17 @@ namespace TUMCampusApp.Pages.Setup
                     string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
                     if (result == null)
                     {
-                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("RequestNewTokenError_Text"))
+                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("RequestNewTokenError_Text"))
                         {
-                            Title = Utillities.getLocalizedString("Error_Text")
+                            Title = UIUtils.getLocalizedString("Error_Text")
                         };
                         await message.ShowAsync();
                     }
                     else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
                     {
-                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidId_Text"))
+                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidId_Text"))
                         {
-                            Title = Utillities.getLocalizedString("Error_Text")
+                            Title = UIUtils.getLocalizedString("Error_Text")
                         };
                         await message.ShowAsync();
                     }
@@ -142,9 +142,9 @@ namespace TUMCampusApp.Pages.Setup
                     string token = tumOnlineToken_tbx.Text.ToUpper();
                     if (!TumManager.INSTANCE.isTokenValid(token))
                     {
-                        MessageDialog message = new MessageDialog(Utillities.getLocalizedString("InvalidToken_Text"))
+                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidToken_Text"))
                         {
-                            Title = Utillities.getLocalizedString("Error_Text")
+                            Title = UIUtils.getLocalizedString("Error_Text")
                         };
                         await message.ShowAsync();
                     }
@@ -168,12 +168,12 @@ namespace TUMCampusApp.Pages.Setup
             if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
             {
                 tumOnlineToken_tbx.Visibility = Visibility.Visible;
-                useExistingToken_btn.Content = Utillities.getLocalizedString("SetupPage1DontUseExistingToken");
+                useExistingToken_btn.Content = UIUtils.getLocalizedString("SetupPage1DontUseExistingToken");
             }
             else
             {
                 tumOnlineToken_tbx.Visibility = Visibility.Collapsed;
-                useExistingToken_btn.Content = Utillities.getLocalizedString("SetupPage1UseExistingToken");
+                useExistingToken_btn.Content = UIUtils.getLocalizedString("SetupPage1UseExistingToken");
             }
         }
 

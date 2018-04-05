@@ -77,29 +77,29 @@ namespace TUMCampusApp.Dialogs
         private async Task connectToEduroamAsync()
         {
             Logger.Info("Starting setting up the eduroam connection...");
-            showStatus(Utillities.getLocalizedString("EduroamHelperDialogRequestingAccess_Text"));
+            showStatus(UIUtils.getLocalizedString("EduroamHelperDialogRequestingAccess_Text"));
             WiFiAccessStatus status = await helper.requestWifiAdapterAccessAsync();
             if (status == WiFiAccessStatus.Allowed)
             {
-                showStatus(Utillities.getLocalizedString("EduroamHelperDialogLoadingAdapters_Text"));
+                showStatus(UIUtils.getLocalizedString("EduroamHelperDialogLoadingAdapters_Text"));
                 WiFiAdapter adapter = await helper.loadAdapterAsync();
                 if (adapter != null)
                 {
-                    showStatus(Utillities.getLocalizedString("EduroamHelperDialogSearchingEduroam_Text"));
+                    showStatus(UIUtils.getLocalizedString("EduroamHelperDialogSearchingEduroam_Text"));
                     helper.EduroamNetworkFound += Helper_EduroamNetworkFound;
                     await helper.startSearchingAsync(adapter);
                 }
                 else
                 {
                     // No adapter:
-                    showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorNoAdapter_Text"));
+                    showStatus(UIUtils.getLocalizedString("EduroamHelperDialogErrorNoAdapter_Text"));
                     enableControl();
                 }
             }
             else
             {
                 // Access denied:
-                showStatus(Utillities.getLocalizedString("EduroamHelperDialogErrorAdapterNoAccess_Text"));
+                showStatus(UIUtils.getLocalizedString("EduroamHelperDialogErrorAdapterNoAccess_Text"));
                 enableControl();
             }
         }
@@ -119,17 +119,17 @@ namespace TUMCampusApp.Dialogs
         /// </summary>
         private async Task installCertAsync()
         {
-            showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCert_Text"));
+            showStatus(UIUtils.getLocalizedString("EduroamHelperDialogInstallingCert_Text"));
 
             try
             {
                 await helper.installCertificateAsync();
-                showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFinished_Text"));
+                showStatus(UIUtils.getLocalizedString("EduroamHelperDialogInstallingCertFinished_Text"));
                 Logger.Info("Certificate installation finished!");
             }
             catch (Exception e)
             {
-                showStatus(Utillities.getLocalizedString("EduroamHelperDialogInstallingCertFailed_Text") + e.Message);
+                showStatus(UIUtils.getLocalizedString("EduroamHelperDialogInstallingCertFailed_Text") + e.Message);
                 Logger.Error("Certificate installation failed!", e);
             }
 
@@ -233,7 +233,7 @@ namespace TUMCampusApp.Dialogs
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                showStatus(Utillities.getLocalizedString("EduroamHelperDialogConnectingToEduroam_Text"));
+                showStatus(UIUtils.getLocalizedString("EduroamHelperDialogConnectingToEduroam_Text"));
                 PasswordCredential passwordCredential = new PasswordCredential
                 {
                     Password = password_pwbx.Password,
@@ -244,7 +244,7 @@ namespace TUMCampusApp.Dialogs
                     WiFiConnectionResult result = await helper.connectAsync(args.NETWORK, WiFiReconnectionKind.Automatic, passwordCredential);
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                     {
-                        showStatus(Utillities.getLocalizedString("EduroamHelperDialogConnectingToEduroamFinished_Text") + result.ConnectionStatus.ToString());
+                        showStatus(UIUtils.getLocalizedString("EduroamHelperDialogConnectingToEduroamFinished_Text") + result.ConnectionStatus.ToString());
                         enableControl();
                     });
                 });

@@ -40,7 +40,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return Utillities.getLocalizedString("LectureInformationPageName_Text");
+            return UIUtils.getLocalizedString("LectureInformationPageName_Text");
         }
 
         #endregion
@@ -74,7 +74,7 @@ namespace TUMCampusApp.Pages
             if (list == null || list.Count <= 0)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                    lectureName_tbx.Text = Utillities.getLocalizedString("LectureInfosUnableToGatherInformation_Text");
+                    lectureName_tbx.Text = UIUtils.getLocalizedString("LectureInfosUnableToGatherInformation_Text");
                     progressBar.Visibility = Visibility.Collapsed;
                 });
                 return;
@@ -96,15 +96,15 @@ namespace TUMCampusApp.Pages
 
             if (e is InvalidTokenTUMOnlineException)
             {
-                noData_tbx.Text = Utillities.getLocalizedString("TokenNotActivated_Text");
+                noData_tbx.Text = UIUtils.getLocalizedString("TokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noData_tbx.Text = Utillities.getLocalizedString("NoAccessToTuitionFees_Text");
+                noData_tbx.Text = UIUtils.getLocalizedString("NoAccessToTuitionFees_Text");
             }
             else
             {
-                noData_tbx.Text = Utillities.getLocalizedString("UnknownException_Text") + "\n\n" + e.ToString();
+                noData_tbx.Text = UIUtils.getLocalizedString("UnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
         }

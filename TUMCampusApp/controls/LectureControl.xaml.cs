@@ -68,7 +68,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         protected override void OnTapped(TappedRoutedEventArgs e)
         {
-            Utillities.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
+            UIUtils.mainPage.navigateToPage(typeof(LectureInformationPage), lecture);
         }
 
         #endregion

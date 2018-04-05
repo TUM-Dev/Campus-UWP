@@ -61,7 +61,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void UserControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            dishType_tbx.Text = Utillities.translateDishType(dishType) + ':';
+            dishType_tbx.Text = UIUtils.translateDishType(dishType) + ':';
         }
 
         #endregion

@@ -1,9 +1,11 @@
 ﻿using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Resources;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Classes
 {
-    public class Utillities
+    public class UIUtils
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -90,38 +92,51 @@ namespace TUMCampusApp.Classes
             switch (dishType)
             {
                 case "Tagesgericht":
-                    return Utillities.getLocalizedString("CanteenDishOfTheDay_Text");
+                    return UIUtils.getLocalizedString("CanteenDishOfTheDay_Text");
                 case "Aktionsessen":
-                    return Utillities.getLocalizedString("CanteenActionDishes_Text");
+                    return UIUtils.getLocalizedString("CanteenActionDishes_Text");
                 case "Biogericht":
-                    return Utillities.getLocalizedString("CanteenBioDish_Text");
+                    return UIUtils.getLocalizedString("CanteenBioDish_Text");
                 case "StuBistro Gericht":
-                    return Utillities.getLocalizedString("CanteenStuBistroDishes_Text");
+                    return UIUtils.getLocalizedString("CanteenStuBistroDishes_Text");
                 case "Baustellenteller":
-                    return Utillities.getLocalizedString("CanteenBaustellenteller_Text");
+                    return UIUtils.getLocalizedString("CanteenBaustellenteller_Text");
                 case "Fast Lane":
-                    return Utillities.getLocalizedString("CanteenFastLane_Text");
+                    return UIUtils.getLocalizedString("CanteenFastLane_Text");
                 case "Mensa Klassiker":
-                    return Utillities.getLocalizedString("CanteenCanteenClassics_Text");
+                    return UIUtils.getLocalizedString("CanteenCanteenClassics_Text");
                 case "Mensa Spezial":
-                    return Utillities.getLocalizedString("CanteenCanteenSpecial_Text");
+                    return UIUtils.getLocalizedString("CanteenCanteenSpecial_Text");
                 case "Self-Service Grüne Mensa":
-                    return Utillities.getLocalizedString("CanteenSelf-ServiceGreenCanteen_Text");
+                    return UIUtils.getLocalizedString("CanteenSelf-ServiceGreenCanteen_Text");
                 case "Self-Service Arcisstraße":
-                    return Utillities.getLocalizedString("CanteenSelf-ServiceArcisstraße_Text");
+                    return UIUtils.getLocalizedString("CanteenSelf-ServiceArcisstraße_Text");
                 case "Self-Service":
-                    return Utillities.getLocalizedString("CanteenSelf-Service_Text");
+                    return UIUtils.getLocalizedString("CanteenSelf-Service_Text");
                 case "Aktion":
-                    return Utillities.getLocalizedString("CanteenSpecialDishes_Text");
+                    return UIUtils.getLocalizedString("CanteenSpecialDishes_Text");
                 case "Beilagen":
-                    return Utillities.getLocalizedString("CanteenSideDishes_Text");
+                    return UIUtils.getLocalizedString("CanteenSideDishes_Text");
                 case "Tagesdessert":
-                    return Utillities.getLocalizedString("CanteenDessertOfTheDay_Text");
+                    return UIUtils.getLocalizedString("CanteenDessertOfTheDay_Text");
                 case "Dessert":
-                    return Utillities.getLocalizedString("CanteenDessert_Text");
+                    return UIUtils.getLocalizedString("CanteenDessert_Text");
                 default:
                     return dishType;
             }
+        }
+
+        /// <summary>
+        /// Source: https://social.msdn.microsoft.com/Forums/sqlserver/en-US/0cc87160-5b0c-4fc1-b685-ff50117984f7/uwp-access-control-on-parent-page-through-frame-object?forum=wpdevelop
+        /// </summary>
+        public static T findParent<T>(DependencyObject dependencyObject) where T : DependencyObject
+        {
+            var parent = VisualTreeHelper.GetParent(dependencyObject);
+
+            if (parent == null) return null;
+
+            var parentT = parent as T;
+            return parentT ?? findParent<T>(parent);
         }
 
         #endregion

@@ -15,7 +15,7 @@ using Windows.UI.ViewManagement;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
-using static TUMCampusApp.Classes.Utillities;
+using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
 
 namespace TUMCampusApp

@@ -103,7 +103,7 @@ namespace TUMCampusApp.Controls
 
         private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            Utillities.mainPage.navigateToPage(Utillities.EnumPage.CanteensPage, canteen_id);
+            UIUtils.mainPage.navigateToPage(UIUtils.EnumPage.CanteensPage, canteen_id);
         }
 
         #endregion

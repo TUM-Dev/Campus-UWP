@@ -3,7 +3,7 @@ using TUMCampusApp.Classes;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static TUMCampusApp.Classes.Utillities;
+using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusAppAPI;
 using Windows.UI.Popups;
 using Windows.Networking.Connectivity;
@@ -31,7 +31,7 @@ namespace TUMCampusApp.Pages
         public MainPage()
         {
             InitializeComponent();
-            Utillities.mainPage = this;
+            UIUtils.mainPage = this;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
@@ -47,7 +47,7 @@ namespace TUMCampusApp.Pages
         /// </history>
         public MainPage(EnumPage page, string args)
         {
-            Utillities.mainPage = this;
+            UIUtils.mainPage = this;
             InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
@@ -286,15 +286,15 @@ namespace TUMCampusApp.Pages
             string text = "";
             if (DeviceInfo.isConnectedToInternet())
             {
-                text += Utillities.getLocalizedString("NetworkConnectionStatusConnected_Text");
+                text += UIUtils.getLocalizedString("NetworkConnectionStatusConnected_Text");
             }
             else
             {
-                text += Utillities.getLocalizedString("NetworkConnectionStatusDisconnected_Text");
+                text += UIUtils.getLocalizedString("NetworkConnectionStatusDisconnected_Text");
             }
             MessageDialog message = new MessageDialog(text)
             {
-                Title = Utillities.getLocalizedString("NetworkConnectionStatusBase_Text")
+                Title = UIUtils.getLocalizedString("NetworkConnectionStatusBase_Text")
             };
             await message.ShowAsync();
         }

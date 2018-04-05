@@ -8,7 +8,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
-using static TUMCampusApp.Classes.Utillities;
+using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
 using Windows.UI.Popups;
 
@@ -194,7 +194,7 @@ namespace TUMCampusApp.Pages
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    MessageDialog message = new MessageDialog(Utillities.getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
+                    MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
                     await message.ShowAsync();
                 });
             }

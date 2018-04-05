@@ -40,7 +40,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return Utillities.getLocalizedString("MyGradesPageName_Text");
+            return UIUtils.getLocalizedString("MyGradesPageName_Text");
         }
 
         #endregion
@@ -142,15 +142,15 @@ namespace TUMCampusApp.Pages
             grades_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesNoAccess_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesNoAccess_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesTokenNotActivated_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesTokenNotActivated_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("GradesUnknownException_Text") + "\n\n" + e.ToString();
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("GradesUnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;
@@ -218,7 +218,7 @@ namespace TUMCampusApp.Pages
 
             grades_stckp.Children.Add(new Expander()
             {
-                Header = Utillities.translateSemester(semester.getSemester()),
+                Header = UIUtils.translateSemester(semester.getSemester()),
                 Content = stackPanel,
                 Margin = new Thickness(0, 10, 0, 0),
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,

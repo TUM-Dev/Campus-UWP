@@ -40,7 +40,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return Utillities.getLocalizedString("MyCalendarPageName_Text");
+            return UIUtils.getLocalizedString("MyCalendarPageName_Text");
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace TUMCampusApp.Pages
             Brush brushText = Resources["CalendarDatePickerTextForeground"] as Brush;
             TextBlock tb = new TextBlock()
             {
-                Text = Utillities.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy"),
+                Text = UIUtils.getLocalizedString(date.DayOfWeek.ToString() + "_Text") + ", " + date.ToString("dd.MM.yyyy"),
                 Margin = new Thickness(10, 20, 0, 0),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Foreground = brushText
@@ -116,7 +116,7 @@ namespace TUMCampusApp.Pages
                 SyncResult syncResult = CalendarManager.INSTANCE.getSyncStatus();
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
-                    noDataInfo_tbx.Text = Utillities.getLocalizedString("MyCalendarGeneralError_Text") + "\n\n" + syncResult.ERROR_MESSAGE;
+                    noDataInfo_tbx.Text = UIUtils.getLocalizedString("MyCalendarGeneralError_Text") + "\n\n" + syncResult.ERROR_MESSAGE;
                     noEntries_grid.Visibility = Visibility.Collapsed;
                     noData_grid.Visibility = Visibility.Visible;
                 }

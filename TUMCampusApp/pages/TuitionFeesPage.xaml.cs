@@ -38,7 +38,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return Utillities.getLocalizedString("TuitionFeesPageName_text");
+            return UIUtils.getLocalizedString("TuitionFeesPageName_text");
         }
 
         #endregion
@@ -87,15 +87,15 @@ namespace TUMCampusApp.Pages
 
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeNoAccess_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("TuitionFeeNoAccess_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeTokenNotActivated_Text");
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("TuitionFeeTokenNotActivated_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = Utillities.getLocalizedString("TuitionFeeNoUnknownError_Text") + "\n\n" + e.ToString();
+                noDataInfo_tbx.Text = UIUtils.getLocalizedString("TuitionFeeNoUnknownError_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             refresh_pTRV.IsEnabled = true;

@@ -40,7 +40,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return Utillities.getLocalizedString("SettingsPageName_text");
+            return UIUtils.getLocalizedString("SettingsPageName_text");
         }
 
         #endregion
@@ -165,7 +165,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showLogSize()
         {
-            logSize_tblck.Text = Utillities.getLocalizedString("SettingsPageLogSizeCalculating_Text");
+            logSize_tblck.Text = UIUtils.getLocalizedString("SettingsPageLogSizeCalculating_Text");
             Task.Factory.StartNew(async () =>
             {
                 long size = await Logger.getLogFolderSizeAsync();
@@ -232,9 +232,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteCache_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageDeleteCache_Text"));
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UIUtils.getLocalizedString("SettingsPageDeleteCache_Text"));
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -244,9 +244,9 @@ namespace TUMCampusApp.Pages
 
         private async void resetApp_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageResetApp_Text"));
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UIUtils.getLocalizedString("SettingsPageResetApp_Text"));
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -307,9 +307,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteLogs_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(Utillities.getLocalizedString("SettingsPageDeleteLoggs_Text"));
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = Utillities.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UIUtils.getLocalizedString("SettingsPageDeleteLoggs_Text"));
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -342,14 +342,14 @@ namespace TUMCampusApp.Pages
             {
                 tumonlineToken_tbx.Text = "";
                 tumonlineToken_tbx.Visibility = Visibility.Collapsed;
-                showToken_btn.Content = Utillities.getLocalizedString("SettingsPageShowToken_Text");
+                showToken_btn.Content = UIUtils.getLocalizedString("SettingsPageShowToken_Text");
             }
             else
             {
                 string token = TumManager.getToken();
-                tumonlineToken_tbx.Text = token == null ? Utillities.getLocalizedString("SettingsPageNoToken_Text") : token;
+                tumonlineToken_tbx.Text = token == null ? UIUtils.getLocalizedString("SettingsPageNoToken_Text") : token;
                 tumonlineToken_tbx.Visibility = Visibility.Visible;
-                showToken_btn.Content = Utillities.getLocalizedString("SettingsPageShowToken_Text");
+                showToken_btn.Content = UIUtils.getLocalizedString("SettingsPageShowToken_Text");
             }
         }
 
