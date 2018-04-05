@@ -1,6 +1,5 @@
 ﻿using Data_Manager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using System;
 using TUMCampusApp.Controls.Widgets;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,10 +20,6 @@ namespace TUMCampusApp.Controls
             }
         }
         public static readonly DependencyProperty WidgetContentProperty = DependencyProperty.Register("WidgetContent", typeof(object), typeof(WidgetControl), null);
-
-        public delegate void RemoveWidgetHandler(WidgetControl sender, EventArgs args);
-
-        public event RemoveWidgetHandler RemoveWidget;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -72,6 +67,8 @@ namespace TUMCampusApp.Controls
                 string token = hW.getSettingsToken();
                 if (token != null)
                 {
+                    hW.onHiding();
+
                     Settings.setSetting(token, true);
                     Visibility = Visibility.Collapsed;
                 }
@@ -93,7 +90,6 @@ namespace TUMCampusApp.Controls
                 if (args.OldValue == SwipeStatus.SwipingPassedLeftThreshold || args.OldValue == SwipeStatus.SwipingPassedRightThreshold)
                 {
                     hideWidget();
-                    RemoveWidget?.Invoke(this, new EventArgs());
                 }
             }
 

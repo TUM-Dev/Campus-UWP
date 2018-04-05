@@ -115,7 +115,7 @@ namespace TUMCampusAppAPI.Managers
         public CanteenTable getCanteen(string canteen_id)
         {
             List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
-            if(list.Count >= 1)
+            if (list.Count >= 1)
             {
                 return list[0];
             }
@@ -203,7 +203,7 @@ namespace TUMCampusAppAPI.Managers
                     CanteenTable c = getFromJson(val.GetObject());
                     // Get the "old" canteen from the db to prevent losing favorite canteens:
                     CanteenTable old = getCanteen(c.canteen_id);
-                    if(old != null)
+                    if (old != null)
                     {
                         c.favorite = old.favorite;
                     }
