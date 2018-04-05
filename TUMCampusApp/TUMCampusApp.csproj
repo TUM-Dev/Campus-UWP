@@ -112,11 +112,8 @@
     <Compile Include="Classes\Helpers\MyBackgroundTaskHelper.cs" />
     <Compile Include="Classes\Helpers\TileHelper.cs" />
     <Compile Include="Classes\UIUtils.cs" />
-    <Compile Include="Controls\CalendarControl.xaml.cs">
-      <DependentUpon>CalendarControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CalendarWidget.xaml.cs">
-      <DependentUpon>CalendarWidget.xaml</DependentUpon>
+    <Compile Include="Controls\CalendarEntryControl.xaml.cs">
+      <DependentUpon>CalendarEntryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CanteenControl.xaml.cs">
       <DependentUpon>CanteenControl.xaml</DependentUpon>
@@ -165,6 +162,9 @@
     </Compile>
     <Compile Include="Controls\WidgetControl.xaml.cs">
       <DependentUpon>WidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\CalendarWidgetControl.xaml.cs">
+      <DependentUpon>CalendarWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\ExampleWidgetControl.xaml.cs">
       <DependentUpon>ExampleWidgetControl.xaml</DependentUpon>
@@ -312,11 +312,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\CalendarControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CalendarWidget.xaml">
+    <Page Include="Controls\CalendarEntryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -381,6 +377,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\WidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\CalendarWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

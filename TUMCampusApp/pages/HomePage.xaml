@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls1="using:TUMCampusApp.Controls"
-    xmlns:controls11="using:TUMCampusApp.Controls.Widgets"
+    xmlns:widgets="using:TUMCampusApp.Controls.Widgets"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
@@ -17,11 +17,14 @@
                         DataContextChanged="widgets_stckp_DataContextChanged">
                 <controls1:WidgetControl x:Name="exampleWidget_ds">
                     <controls1:WidgetControl.WidgetContent>
-                        <controls11:ExampleWidgetControl/>
+                        <widgets:ExampleWidgetControl/>
                     </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
-                <controls1:WidgetControl x:Name="calendarWidget_ds">
+                <controls1:WidgetControl x:Name="calendarWidget_wc">
+                    <controls1:WidgetControl.WidgetContent>
+                        <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
+                    </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="canteenWidget_ds">

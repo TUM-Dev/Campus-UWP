@@ -32,15 +32,12 @@ namespace TUMCampusApp.Controls.Widgets
             return SettingsConsts.DISABLE_EXAMPLE_WIDGET;
         }
 
-        public void onHiding()
-        {
-
-        }
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public void onHiding()
+        {
+        }
 
         #endregion
 

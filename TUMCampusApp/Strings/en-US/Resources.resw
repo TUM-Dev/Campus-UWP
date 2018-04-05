@@ -763,4 +763,16 @@
   <data name="ExampleWidgetControlSwipeToHide.Text" xml:space="preserve">
     <value>Swipe to hide widgets...</value>
   </data>
+  <data name="CalendarWidgetNextDate.Text" xml:space="preserve">
+    <value>Loading calendar...</value>
+  </data>
+  <data name="WidgetControlLoading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="WidgetControlSlideList.LeftLabel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="WidgetControlSlideList.RightLabel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

@@ -84,8 +84,9 @@ namespace TUMCampusApp.Pages
         /// <param name="entry">The entry that should get added.</param>
         private void addCalendarControl(TUMOnlineCalendarTable entry)
         {
-            CalendarControl cC = new CalendarControl(entry)
+            CalendarEntryControl cC = new CalendarEntryControl()
             {
+                Entry = entry,
                 Margin = new Thickness(0, 10, 0, 0)
             };
             calendarEntries_stckp.Children.Add(cC);
