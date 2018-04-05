@@ -25,7 +25,7 @@
 
         public const string ACCESS_TOKEN = "access_token";
         public const string USER_ID = "user_id";
-        public const string TUMO_ENABLED = "tumo_is_enabled";
+        public const string TUM_ONLINE_ENABLED = "tum_online_enabled";
 
         public const string LAST_SELECTED_STUDY_ROOM_GROUP = "last_selected_study_room_group";
     }

@@ -330,14 +330,14 @@ namespace TUMCampusApp.Pages
                         }
                         else
                         {
-                            Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
+                            Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
                             f.Navigate(typeof(MainPage));
                         }
                     }
                     else
                     {
                         string token = TumManager.getToken();
-                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, (token != null && token != ""));
+                        Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, (token != null && token != ""));
                         f.Navigate(typeof(MainPage));
                     }
                 }
@@ -345,7 +345,7 @@ namespace TUMCampusApp.Pages
                 {
                     if(TumManager.getToken() == null || TumManager.getToken() == "")
                     {
-                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, false);
+                        Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, false);
                         f.Navigate(typeof(MainPage));
                     }
                     else if (connectedToInternet && !await isTokenConfirmedWithTimeoutAsync())
@@ -354,7 +354,7 @@ namespace TUMCampusApp.Pages
                     }
                     else
                     {
-                        Settings.setSetting(SettingsConsts.TUMO_ENABLED, true);
+                        Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
                         f.Navigate(typeof(MainPage));
                     }
                 }

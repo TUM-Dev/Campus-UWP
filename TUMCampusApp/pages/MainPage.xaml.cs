@@ -174,7 +174,7 @@ namespace TUMCampusApp.Pages
         private void setVisiblilityMyTum()
         {
             Visibility v;
-            if (Settings.getSettingBoolean(SettingsConsts.TUMO_ENABLED))
+            if (Settings.getSettingBoolean(SettingsConsts.TUM_ONLINE_ENABLED))
             {
                 v = Visibility.Visible;
             }

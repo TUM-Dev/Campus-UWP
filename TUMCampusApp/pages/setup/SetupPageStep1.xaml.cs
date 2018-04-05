@@ -80,7 +80,7 @@ namespace TUMCampusApp.Pages.Setup
         #region --Events--
         private void skip_btn_Click(object sender, RoutedEventArgs e)
         {
-            Settings.setSetting(SettingsConsts.TUMO_ENABLED, false);
+            Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, false);
             Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, true);
             if (Window.Current.Content is Frame f)
             {
