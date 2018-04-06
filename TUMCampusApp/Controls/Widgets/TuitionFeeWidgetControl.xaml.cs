@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
@@ -8,13 +9,18 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace TUMCampusApp.Controls
+namespace TUMCampusApp.Controls.Widgets
 {
-    public sealed partial class TuitionFeeWidget : UserControl
+    public sealed partial class TuitionFeeWidgetControl : UserControl, IHideableWidget
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private WidgetControl widgetControl;
+        public WidgetControl WidgetContainer
+        {
+            get { return (WidgetControl)GetValue(WidgetContainerProperty); }
+            set { SetValue(WidgetContainerProperty, value); }
+        }
+        public static readonly DependencyProperty WidgetContainerProperty = DependencyProperty.Register("WidgetContainer", typeof(WidgetControl), typeof(TuitionFeeWidgetControl), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -23,53 +29,56 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 22/01/2017 Created [Fabian Sauter]
+        /// 06/04/2018 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeWidget(WidgetControl widgetControl)
+		public TuitionFeeWidgetControl()
         {
-            this.widgetControl = widgetControl;
             this.InitializeComponent();
-            Task.Factory.StartNew(() => ShowTuitionFeesAsync());
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public string getSettingsToken()
+        {
+            return SettingsConsts.DISABLE_TUITION_FEE_WIDGET;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public void onHiding()
+        {
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        /// <summary>
-        /// Refreshes and shows the current tuition fee status. Or hides the widget if no outstanding fees are found.
-        /// This method has to get called in a separate task.
-        /// </summary>
-        private async Task ShowTuitionFeesAsync()
+        private void loadFees()
         {
-            try
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => WidgetContainer?.setIsLoading(true)).AsTask();
+            Task.Run(async () =>
             {
-                Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
-                if (t != null)
+                try
                 {
-                    await t;
+                    Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
+                    if (t != null)
+                    {
+                        await t;
+                    }
                 }
-            }
-            catch (BaseTUMOnlineException e)
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(null));
-                return;
-            }
-            List<TUMTuitionFeeTable> list = TuitionFeeManager.INSTANCE.getFees();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(list));
+                catch (BaseTUMOnlineException e)
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(null));
+                    return;
+                }
+                List<TUMTuitionFeeTable> list = TuitionFeeManager.INSTANCE.getFees();
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(list));
+            });
         }
 
         /// <summary>
-        /// Shows the given fees list on the screen or hides the widget if the list is empty.
+        /// Shows the given fees list on the screen or hides the widget if the list is empty/null.
         /// </summary>
         /// <param name="list">A list of tuition fees.</param>
         private void showFees(List<TUMTuitionFeeTable> list)
@@ -78,7 +87,10 @@ namespace TUMCampusApp.Controls
 
             if (list == null || list.Count <= 0 || list[0].money == null)
             {
-                widgetControl.Visibility = Visibility.Collapsed;
+                if (WidgetContainer != null)
+                {
+                    WidgetContainer.Visibility = Visibility.Collapsed;
+                }
             }
             else
             {
@@ -93,7 +105,7 @@ namespace TUMCampusApp.Controls
                     }
                 }
             }
-            progressRing.Visibility = Visibility.Collapsed;
+            WidgetContainer.setIsLoading(false);
         }
 
         #endregion
@@ -104,7 +116,10 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadFees();
+        }
 
         #endregion
     }

@@ -55,7 +55,6 @@ namespace TUMCampusApp.Pages
         private void showWidgets()
         {
             canteenWidget_ds.WidgetContent = new CanteenDummyWidget(canteenWidget_ds, this);
-            tutionFeeWidget_ds.WidgetContent = new TuitionFeeWidget(tutionFeeWidget_ds);
         }
         #endregion
 

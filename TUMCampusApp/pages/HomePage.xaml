@@ -37,6 +37,9 @@
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="tutionFeeWidget_ds">
+                    <controls1:WidgetControl.WidgetContent>
+                        <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
+                    </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="newsWidget_ds">

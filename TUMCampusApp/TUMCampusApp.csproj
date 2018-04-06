@@ -157,9 +157,6 @@
     <Compile Include="Controls\TuitionFeeControl.xaml.cs">
       <DependentUpon>TuitionFeeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TuitionFeeWidget.xaml.cs">
-      <DependentUpon>TuitionFeeWidget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\WidgetControl.xaml.cs">
       <DependentUpon>WidgetControl.xaml</DependentUpon>
     </Compile>
@@ -178,6 +175,9 @@
     </Compile>
     <Compile Include="Controls\Widgets\NewsWidgetControl.xaml.cs">
       <DependentUpon>NewsWidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\TuitionFeeWidgetControl.xaml.cs">
+      <DependentUpon>TuitionFeeWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplates\CanteenTemplate.cs" />
     <Compile Include="DataTemplates\DishTypeTemplate.cs" />
@@ -382,10 +382,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TuitionFeeWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\WidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -407,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Widgets\NewsWidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\TuitionFeeWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
