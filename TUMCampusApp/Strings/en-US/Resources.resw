@@ -799,4 +799,13 @@
   <data name="NewsPageHideUnread.Text" xml:space="preserve">
     <value>Hide unread</value>
   </data>
+  <data name="CanteenDummyWidgetControlHeader.Text" xml:space="preserve">
+    <value>Loading canteens...</value>
+  </data>
+  <data name="CanteenWidgetControlSlideList.LeftLabel" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="CanteenWidgetControlSlideList.RightLabel" xml:space="preserve">
+    <value>Unfavorite</value>
+  </data>
 </root>

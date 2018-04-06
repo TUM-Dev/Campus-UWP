@@ -102,7 +102,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMOnlineGradeTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_GRADE_TABLE));
                     Logger.Info("Finished downloading grades.");
                 });
                 REFRESHING_TASK_SEMA.Release();

@@ -34,17 +34,22 @@
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="canteenWidget_ds">
+                    <controls1:WidgetControl.WidgetContent>
+                        <widgets:CanteenDummyWidgetControl WidgetContainer="{x:Bind canteenWidget_ds}"
+                                                           HPage="{x:Bind}"/>
+                    </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="tutionFeeWidget_ds">
                     <controls1:WidgetControl.WidgetContent>
-                        <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
+                        <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"/>
                     </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
 
                 <controls1:WidgetControl x:Name="newsWidget_ds">
                     <controls1:WidgetControl.WidgetContent>
-                        <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}" HPage="{x:Bind}"/>
+                        <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}"
+                                                        HPage="{x:Bind}"/>
                     </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
             </StackPanel>

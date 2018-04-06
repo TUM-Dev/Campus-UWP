@@ -124,12 +124,6 @@
     <Compile Include="Controls\CanteensControl.xaml.cs">
       <DependentUpon>CanteensControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CanteenDummyWidget.xaml.cs">
-      <DependentUpon>CanteenDummyWidget.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CanteenWidget.xaml.cs">
-      <DependentUpon>CanteenWidget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\DishTypeControl.xaml.cs">
       <DependentUpon>DishTypeControl.xaml</DependentUpon>
     </Compile>
@@ -170,8 +164,14 @@
       <DependentUpon>ExampleWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\IHideableWidget.cs" />
+    <Compile Include="Controls\Widgets\CanteenDummyWidgetControl.xaml.cs">
+      <DependentUpon>CanteenDummyWidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\NewsDummyWidgetControl.xaml.cs">
       <DependentUpon>NewsDummyWidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\CanteenWidgetControl.xaml.cs">
+      <DependentUpon>CanteenWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\NewsWidgetControl.xaml.cs">
       <DependentUpon>NewsWidgetControl.xaml</DependentUpon>
@@ -338,14 +338,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CanteenDummyWidget.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\CanteenWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\DishTypeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -398,9 +390,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Widgets\CanteenDummyWidgetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Widgets\NewsDummyWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\CanteenWidgetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Widgets\NewsWidgetControl.xaml">
       <SubType>Designer</SubType>

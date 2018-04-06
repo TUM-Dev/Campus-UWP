@@ -137,7 +137,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMOnlineLectureTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_LECTURE_TABLE));
                 }
             });
             REFRESHING_TASK_SEMA.Release();

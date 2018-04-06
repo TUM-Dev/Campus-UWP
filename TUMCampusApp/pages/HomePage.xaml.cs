@@ -23,7 +23,6 @@ namespace TUMCampusApp.Pages
         public HomePage()
         {
             this.InitializeComponent();
-            showWidgets();
         }
 
         #endregion
@@ -49,13 +48,7 @@ namespace TUMCampusApp.Pages
         #endregion
 
         #region --Misc Methods (Private)--
-        /// <summary>
-        /// Shows all widgets.
-        /// </summary>
-        private void showWidgets()
-        {
-            canteenWidget_ds.WidgetContent = new CanteenDummyWidget(canteenWidget_ds, this);
-        }
+
         #endregion
 
         #region --Misc Methods (Protected)--

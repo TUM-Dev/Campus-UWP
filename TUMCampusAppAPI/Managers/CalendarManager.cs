@@ -173,13 +173,18 @@ namespace TUMCampusAppAPI.Managers
                     dB.DropTable<TUMOnlineCalendarTable>();
                     dB.CreateTable<TUMOnlineCalendarTable>();
                 }
-                dB.InsertAll(list);
+
+                // Do not use insertAll, because insertAll is unable to replace entries => Exception:
+                for (int i = 0; i < list.Count; i++)
+                {
+                    dB.InsertOrReplace(list[i]);
+                }
 
                 if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION))
                 {
                     await insterInCalendarAsync(list);
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE));
                 Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
         }

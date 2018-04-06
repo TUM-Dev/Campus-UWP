@@ -93,8 +93,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">Canteen id</param>
         public List<CanteenDishTable> getDishes(string canteen_id)
         {
-            waitForSyncToFinish();
-
             List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
             return list;
         }
@@ -109,8 +107,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all menus that match the given canteen id, type name and date from the db.</returns>
         public List<CanteenDishTable> getDishesForType(string canteen_id, string dish_type, bool contains, DateTime date)
         {
-            waitForSyncToFinish();
-
             List<CanteenDishTable> list;
             if (contains)
             {
@@ -131,8 +127,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns a list of all dishes, that match the given date and canteen_id.</returns>
         public List<CanteenDishTable> getDishes(string canteen_id, DateTime date)
         {
-            waitForSyncToFinish();
-
             List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
@@ -143,8 +137,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of CanteenDishTable objects, only populated with the dish_type attribute.</returns>
         public List<CanteenDishTable> getAllDishTypes()
         {
-            waitForSyncToFinish();
-
             return dB.Query<CanteenDishTable>(true, "SELECT DISTINCT dish_type FROM " + DBTableConsts.CANTEEN_DISH_TABLE + ";");
         }
 
@@ -228,7 +220,7 @@ namespace TUMCampusAppAPI.Managers
                         dB.DeleteAll<CanteenDishTable>();
                         dB.InsertAll(menus);
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.CANTEEN_DISH_TABLE));
                     Logger.Info("Finished downloading canteen dishes.");
                 }
                 catch (Exception e)

@@ -202,11 +202,11 @@ namespace TUMCampusAppAPI.Managers
                         {
                             dB.InsertOrReplace(n);
                         }
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable"));
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });
@@ -254,11 +254,11 @@ namespace TUMCampusAppAPI.Managers
                             }
                         }
                         replaceNewsSources(list);
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable"));
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable("NewsSourceTable", SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });

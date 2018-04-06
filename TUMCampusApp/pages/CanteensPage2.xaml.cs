@@ -105,13 +105,10 @@ namespace TUMCampusApp.Pages
                     {
                         if (dishTypeControl == null || !Equals(dish.dish_type, dishTypeControl.dishType))
                         {
-                            dishTypeControl = new DishTypeControl(dish);
+                            dishTypeControl = new DishTypeControl();
                             dishType_stckp.Children.Add(dishTypeControl);
                         }
-                        else
-                        {
-                            dishTypeControl.addDish(dish);
-                        }
+                        dishTypeControl.addDish(dish);
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using TUMCampusApp.Classes;
+﻿using System.Collections.Generic;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.DBTables;
 using Windows.UI.Xaml.Controls;
 
@@ -19,11 +20,10 @@ namespace TUMCampusApp.Controls
         /// <history>
         /// 15/01/2018 Created [Fabian Sauter]
         /// </history>
-        public DishTypeControl(CanteenDishTable dish)
+        public DishTypeControl()
         {
-            this.dishType = dish.dish_type;
+            this.dishType = "";
             this.InitializeComponent();
-            addDish(dish);
         }
 
         #endregion
@@ -40,9 +40,15 @@ namespace TUMCampusApp.Controls
         /// <param name="dish">The dish, that should get added.</param>
         public void addDish(CanteenDishTable dish)
         {
-            if (Equals(dishType, dish.dish_type))
+            dishType = dish.dish_type;
+            dishes_stckp.Children.Add(new CanteenDishControl(dish));
+        }
+
+        public void addDishes(List<CanteenDishTable> dishes)
+        {
+            foreach (CanteenDishTable dish in dishes)
             {
-                dishes_stckp.Children.Add(new CanteenDishControl(dish));
+                addDish(dish);
             }
         }
 

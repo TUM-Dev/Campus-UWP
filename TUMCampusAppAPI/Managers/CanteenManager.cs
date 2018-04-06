@@ -137,7 +137,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            return dB.Query<CanteenTable>(true, "SELECT canteen_id FROM " + DBTableConsts.CANTEEN_TABLE + " WHERE favorite = 1;");
+            return dB.Query<CanteenTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_TABLE + " WHERE favorite = ?;", true);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace TUMCampusAppAPI.Managers
                     }
                     dB.DeleteAll<CanteenTable>();
                     dB.InsertAll(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.CANTEEN_TABLE));
                     Logger.Info("Finished downloading canteens.");
                 }
                 catch (Exception e)

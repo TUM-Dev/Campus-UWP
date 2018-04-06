@@ -84,7 +84,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMTuitionFeeTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE));
                 }
                 return;
             });
