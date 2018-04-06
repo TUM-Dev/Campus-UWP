@@ -77,11 +77,11 @@ namespace TUMCampusApp.Controls.Widgets
         {
             if (args.NewValue == SwipeStatus.Idle)
             {
-                if (args.OldValue == SwipeStatus.SwipingPassedRightThreshold)
+                if (args.OldValue == SwipeStatus.SwipingPassedLeftThreshold)
                 {
                     markAsRead();
                 }
-                else if (args.OldValue == SwipeStatus.SwipingPassedLeftThreshold)
+                else if (args.OldValue == SwipeStatus.SwipingPassedRightThreshold)
                 {
                     NewsDummyWidget?.disableNewsWidgets();
                 }
