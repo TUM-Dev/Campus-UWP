@@ -3,6 +3,7 @@ using System;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.CANTEEN_TABLE)]
     public class CanteenTable : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

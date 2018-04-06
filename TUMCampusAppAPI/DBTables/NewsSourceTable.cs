@@ -3,6 +3,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.NEWS_SOURCE_TABLE)]
     public class NewsSourceTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

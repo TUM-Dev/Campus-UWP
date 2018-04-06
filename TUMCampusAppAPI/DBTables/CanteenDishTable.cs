@@ -5,6 +5,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.CANTEEN_DISH_TABLE)]
     public class CanteenDishTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

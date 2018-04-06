@@ -1,7 +1,9 @@
-﻿using Windows.Data.Xml.Dom;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.TUM_ONLINE_LECTURE_INFORMATION_TABLE)]
     public class TUMOnlineLectureInformationTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

@@ -5,6 +5,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.STUDY_ROOM_TABLE)]
     public class StudyRoomTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

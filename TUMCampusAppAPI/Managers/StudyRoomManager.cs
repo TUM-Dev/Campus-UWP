@@ -37,7 +37,7 @@ namespace TUMCampusAppAPI.Managers
         public List<StudyRoomTable> getRooms(int groupID)
         {
             waitForSyncToFinish();
-            return dB.Query<StudyRoomTable>(true, "SELECT * FROM StudyRoomTable WHERE group_id = ?", groupID);
+            return dB.Query<StudyRoomTable>(true, "SELECT * FROM " + DBTableConsts.STUDY_ROOM_TABLE + " WHERE group_id = ?;", groupID);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace TUMCampusAppAPI.Managers
         public List<StudyRoomGroupTable> getRoomGroups()
         {
             waitForSyncToFinish();
-            return dB.Query<StudyRoomGroupTable>(true, "SELECT * FROM StudyRoomGroupTable");
+            return dB.Query<StudyRoomGroupTable>(true, "SELECT * FROM " + DBTableConsts.STUDY_ROOM_GROUP_TABLE + ";");
         }
 
         #endregion

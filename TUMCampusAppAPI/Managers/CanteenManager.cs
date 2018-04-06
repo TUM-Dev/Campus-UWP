@@ -62,7 +62,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            return dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable;");
+            return dB.Query<CanteenTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_TABLE + ";");
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public CanteenTable getCanteen(string canteen_id)
         {
-            List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM CanteenTable WHERE canteen_id = ?;", canteen_id);
+            List<CanteenTable> list = dB.Query<CanteenTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_TABLE + " WHERE canteen_id = ?;", canteen_id);
             if (list.Count >= 1)
             {
                 return list[0];
@@ -117,7 +117,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 1, canteen_id);
+            dB.Execute("UPDATE " + DBTableConsts.CANTEEN_TABLE + " SET favorite = ? WHERE canteen_id = ?;", 1, canteen_id);
             List<FavoriteCanteenDishTypeTable> fav = new List<FavoriteCanteenDishTypeTable>();
             foreach (string dish_type in dish_types)
             {
@@ -137,7 +137,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            return dB.Query<CanteenTable>(true, "SELECT canteen_id FROM CanteenTable WHERE favorite = 1;");
+            return dB.Query<CanteenTable>(true, "SELECT canteen_id FROM " + DBTableConsts.CANTEEN_TABLE + " WHERE favorite = 1;");
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            return dB.Query<FavoriteCanteenDishTypeTable>(true, "SELECT * FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
+            return dB.Query<FavoriteCanteenDishTypeTable>(true, "SELECT * FROM " + DBTableConsts.FAVORITE_CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            dB.Execute("UPDATE CanteenTable SET favorite = ? WHERE canteen_id = ?;", 0, canteen_id);
-            dB.Execute("DELETE FROM FavoriteCanteenDishTypeTable WHERE canteen_id = ?;", canteen_id);
+            dB.Execute("UPDATE " + DBTableConsts.CANTEEN_TABLE + " SET favorite = ? WHERE canteen_id = ?;", 0, canteen_id);
+            dB.Execute("DELETE FROM " + DBTableConsts.FAVORITE_CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
         }
 
         #endregion
@@ -185,7 +185,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
+                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_TABLE, TIME_TO_SYNC).NEEDS_SYNC)
                     {
                         return;
                     }

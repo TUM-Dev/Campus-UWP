@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -109,7 +110,7 @@ namespace TUMCampusAppAPI.Managers
         {
             try
             {
-                List<SyncTable> list = dB.Query<SyncTable>(true, "SELECT * FROM SyncTable WHERE id LIKE ?", id);
+                List<SyncTable> list = dB.Query<SyncTable>(true, "SELECT * FROM " + DBTableConsts.SYNC_TABLE + " WHERE id LIKE ?;", id);
                 if(list == null || list.Count <= 0)
                 {
                     return new SyncResult(-1, SyncResult.STATUS_NOT_FOUND, true, null);
@@ -129,7 +130,7 @@ namespace TUMCampusAppAPI.Managers
             }
             catch (SQLiteException e)
             {
-                Logger.Error("Unable to execute a query for checking if the given object needs to sync again", e);
+                Logger.Error("Unable to execute a query for checking if the given object needs to sync again: ", e);
                 return new SyncResult(-1, SyncResult.STATUS_ERROR_SQL, true, e.Message);
             }
         }

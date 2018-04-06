@@ -49,7 +49,7 @@ namespace TUMCampusAppAPI.Managers
         public List<TUMTuitionFeeTable> getFees()
         {
             waitForSyncToFinish();
-            return dB.Query<TUMTuitionFeeTable>(true, "SELECT * FROM TUMTuitionFeeTable WHERE money NOT LIKE 0");
+            return dB.Query<TUMTuitionFeeTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE + " WHERE money != 0;");
         }
 
         #endregion
@@ -75,7 +75,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getFeeStatusAsync();
                     dB.DropTable<TUMTuitionFeeTable>();

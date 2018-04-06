@@ -3,6 +3,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE)]
     public class TUMTuitionFeeTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

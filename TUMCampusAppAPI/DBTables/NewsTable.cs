@@ -5,6 +5,7 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.NEWS_TABLE)]
     public class NewsTable : IComparable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

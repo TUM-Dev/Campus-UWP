@@ -37,7 +37,7 @@ namespace TUMCampusAppAPI.Managers
         private string getLastNewsId()
         {
             string lastId = "";
-            List<NewsTable> list = dB.Query<NewsTable>(true, "SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
+            List<NewsTable> list = dB.Query<NewsTable>(true, "SELECT id FROM " + DBTableConsts.NEWS_TABLE + " ORDER BY id DESC LIMIT 1;");
             if (list != null && list.Count > 0)
             {
                 lastId += list[0].id;
@@ -51,12 +51,12 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsSourceTable elements.</returns>
         public List<NewsSourceTable> getAllNewsSourcesFormDb()
         {
-            return dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable");
+            return dB.Query<NewsSourceTable>(true, "SELECT * FROM " + DBTableConsts.NEWS_SOURCE_TABLE + ";");
         }
 
         public List<NewsTable> getNewsWithImage()
         {
-            return dB.Query<NewsTable>(true, "SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
+            return dB.Query<NewsTable>(true, "SELECT * FROM " + DBTableConsts.NEWS_TABLE + " WHERE imageUrl IS NOT NULL AND imageUrl != '';");
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsTable elements.</returns>
         public List<NewsTable> getAllNewsFormDb()
         {
-            return dB.Query<NewsTable>(true, "SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
+            return dB.Query<NewsTable>(true, "SELECT n.* FROM " + DBTableConsts.NEWS_TABLE + " n JOIN " + DBTableConsts.NEWS_SOURCE_TABLE + " s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC;");
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the NewsSourceTable for the given id.</returns>
         public NewsSourceTable getNewsSource(string src)
         {
-            List<NewsSourceTable> sources = dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
+            List<NewsSourceTable> sources = dB.Query<NewsSourceTable>(true, "SELECT * FROM " + DBTableConsts.NEWS_SOURCE_TABLE + " WHERE src LIKE ?;", src);
             return sources.Count > 0 ? sources[0] : null;
         }
 
@@ -139,7 +139,7 @@ namespace TUMCampusAppAPI.Managers
 
         public void markNewsAsRead(string id)
         {
-            dB.Execute("UPDATE NewsTable SET read = ? WHERE id = ?;", true, id);
+            dB.Execute("UPDATE " + DBTableConsts.NEWS_TABLE + " SET read = ? WHERE id = ?;", true, id);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync("NewsTable", CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_TABLE, CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     if (force)
                     {
@@ -233,7 +233,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync("NewsSourceTable", CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_SOURCE_TABLE, CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     try
                     {
@@ -276,7 +276,7 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="enabled">Whether to enable it.</param>
         public void updateNewsSourceStatus(int id, bool enabled)
         {
-            dB.Execute("UPDATE NewsSourceTable SET enabled = ? WHERE id = ?", new object[] { enabled, id });
+            dB.Execute("UPDATE " + DBTableConsts.NEWS_SOURCE_TABLE + " SET enabled = ? WHERE id = ?;", enabled, id);
         }
 
         #endregion
@@ -293,7 +293,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 if (item.date.CompareTo(date) < 0)
                 {
-                    dB.Execute("DELETE FROM NewsTable WHERE id = " + item.id);
+                    dB.Execute("DELETE FROM " + DBTableConsts.NEWS_TABLE + " WHERE id = ?;", item.id);
                 }
             }
         }

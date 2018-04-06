@@ -1,8 +1,10 @@
 ﻿using SQLite;
 using System;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI
 {
+    [Table(DBTableConsts.CACHE_TABLE)]
     public class CacheTable
     {//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

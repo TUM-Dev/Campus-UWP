@@ -4,6 +4,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.TUM_ONLINE_GRADE_TABLE)]
     public class TUMOnlineGradeTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

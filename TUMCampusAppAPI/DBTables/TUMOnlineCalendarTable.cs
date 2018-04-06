@@ -5,7 +5,10 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE)]
+#pragma warning disable CS0659
     public class TUMOnlineCalendarTable : IComparable
+#pragma warning restore CS0659
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

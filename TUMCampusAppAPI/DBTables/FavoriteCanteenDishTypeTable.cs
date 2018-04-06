@@ -2,6 +2,7 @@
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.FAVORITE_CANTEEN_DISH_TABLE)]
     public class FavoriteCanteenDishTypeTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

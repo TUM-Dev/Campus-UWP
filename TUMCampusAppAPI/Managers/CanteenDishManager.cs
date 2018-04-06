@@ -95,7 +95,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ?", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
             return list;
         }
 
@@ -114,11 +114,11 @@ namespace TUMCampusAppAPI.Managers
             List<CanteenDishTable> list;
             if (contains)
             {
-                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
+                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ? AND dish_type LIKE '%" + dish_type + "%';", canteen_id);
             }
             else
             {
-                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
+                list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ? AND dish_type = ?;", canteen_id, dish_type);
             }
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
@@ -133,7 +133,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM CanteenDishTable WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
+            List<CanteenDishTable> list = dB.Query<CanteenDishTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ? ORDER BY dish_type DESC;", canteen_id);
             return list.Where(d => d.date.Date.Equals(date.Date)).ToList();
         }
 
@@ -145,7 +145,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            return dB.Query<CanteenDishTable>(true, "SELECT DISTINCT dish_type FROM CanteenDishTable;");
+            return dB.Query<CanteenDishTable>(true, "SELECT DISTINCT dish_type FROM " + DBTableConsts.CANTEEN_DISH_TABLE + ";");
         }
 
         #endregion
@@ -199,7 +199,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC)
+                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_DISH_TABLE, TIME_TO_SYNC).NEEDS_SYNC)
                     {
                         return;
                     }

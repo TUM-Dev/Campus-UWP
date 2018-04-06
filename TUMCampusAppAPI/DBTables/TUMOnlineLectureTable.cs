@@ -3,6 +3,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.TUM_ONLINE_LECTURE_TABLE)]
     public class TUMOnlineLectureTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

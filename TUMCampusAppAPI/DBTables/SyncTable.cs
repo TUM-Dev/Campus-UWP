@@ -1,10 +1,12 @@
 ﻿using SQLite;
 using System;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 
 namespace TUMCampusAppAPI
 {
+    [Table(DBTableConsts.SYNC_TABLE)]
     public class SyncTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

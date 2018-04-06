@@ -69,7 +69,7 @@ namespace TUMCampusAppAPI.Managers
         public List<TUMOnlineCalendarTable> getEntries()
         {
             waitForSyncToFinish();
-            List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM TUMOnlineCalendarTable");
+            List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_CALENDAR_TABLE + ";");
             for (int i = 0; i < list.Count; i++)
             {
                 list[i].dTStrat = list[i].dTStrat;
@@ -144,7 +144,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
+            if (force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 long time = SyncManager.GetCurrentUnixTimestampMillis();
                 List<TUMOnlineCalendarTable> list = null;

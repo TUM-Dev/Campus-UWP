@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -49,7 +50,7 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             dB.CreateTable<CacheTable>();
-            dB.Execute("DELETE FROM CacheTable WHERE datetime() > max_age");
+            dB.Execute("DELETE FROM " + DBTableConsts.CACHE_TABLE + " WHERE datetime() > max_age;");
 
             // CacheTable images 30 days:
             ImageCache.Instance.CacheDuration = new TimeSpan(30, 0, 0, 0, 0);
@@ -76,7 +77,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns null if it is not cached or the cached string</returns>
         public string isCached(string url)
         {
-            List<CacheTable> list = dB.Query<CacheTable>(true, "SELECT * FROM CacheTable WHERE datetime() < max_age AND url LIKE ?", url);
+            List<CacheTable> list = dB.Query<CacheTable>(true, "SELECT * FROM " + DBTableConsts.CACHE_TABLE + " WHERE datetime() < max_age AND url LIKE ?;", url);
             if(list == null || list.Count <= 0)
             {
                 return null;

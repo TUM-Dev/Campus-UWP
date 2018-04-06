@@ -4,6 +4,7 @@ using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.DBTables
 {
+    [Table(DBTableConsts.USER_DATA_TABLE)]
     public class UserDataTable
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\

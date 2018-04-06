@@ -48,7 +48,7 @@ namespace TUMCampusAppAPI.Managers
         {
             waitForSyncToFinish();
 
-            List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>(true, "SELECT * FROM TUMOnlineGradeTable");
+            List<TUMOnlineGradeTable> list = dB.Query<TUMOnlineGradeTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_GRADE_TABLE + ";");
             List<TUMOnlineGradeSemester> semester = new List<TUMOnlineGradeSemester>();
             bool match = false;
             foreach (TUMOnlineGradeTable g in list)
@@ -84,7 +84,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the syncing task or null if did not sync.</returns>
         public Task downloadGrades(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
+            if (force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_GRADE_TABLE, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 waitForSyncToFinish();
                 REFRESHING_TASK_SEMA.Wait();

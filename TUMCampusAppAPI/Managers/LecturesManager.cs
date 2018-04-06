@@ -77,7 +77,7 @@ namespace TUMCampusAppAPI.Managers
         public List<TUMOnlineLectureTable> getLectures()
         {
             waitForSyncToFinish();
-            return dB.Query<TUMOnlineLectureTable>(true, "SELECT * FROM TUMOnlineLectureTable");
+            return dB.Query<TUMOnlineLectureTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_LECTURE_TABLE + ";");
         }
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -124,7 +124,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(this, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_LECTURE_TABLE, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getPersonalLecturesDocumentAsync();
                     if (doc == null || doc.SelectSingleNode("/error") != null)
