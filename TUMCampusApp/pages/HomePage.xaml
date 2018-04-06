@@ -39,8 +39,10 @@
                 <controls1:WidgetControl x:Name="tutionFeeWidget_ds">
                 </controls1:WidgetControl>
 
-                <controls1:WidgetControl x:Name="newsWidget_ds"
-                                         Visibility="Collapsed">
+                <controls1:WidgetControl x:Name="newsWidget_ds">
+                    <controls1:WidgetControl.WidgetContent>
+                        <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}" HPage="{x:Bind}"/>
+                    </controls1:WidgetControl.WidgetContent>
                 </controls1:WidgetControl>
             </StackPanel>
         </ScrollViewer>

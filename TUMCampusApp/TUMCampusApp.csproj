@@ -148,9 +148,6 @@
     <Compile Include="Controls\NewsSourceControl.xaml.cs">
       <DependentUpon>NewsSourceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NewsWidget.xaml.cs">
-      <DependentUpon>NewsWidget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\StudyRoomControl.xaml.cs">
       <DependentUpon>StudyRoomControl.xaml</DependentUpon>
     </Compile>
@@ -173,6 +170,12 @@
       <DependentUpon>ExampleWidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\IHideableWidget.cs" />
+    <Compile Include="Controls\Widgets\NewsDummyWidgetControl.xaml.cs">
+      <DependentUpon>NewsDummyWidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\NewsWidgetControl.xaml.cs">
+      <DependentUpon>NewsWidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplates\CanteenTemplate.cs" />
     <Compile Include="DataTemplates\DishTypeTemplate.cs" />
     <Compile Include="DataTemplates\NewsTemplate.cs" />
@@ -363,10 +366,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\NewsWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\StudyRoomControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -392,6 +391,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Widgets\ExampleWidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\NewsDummyWidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\NewsWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -776,9 +776,21 @@
     <value>Loading...</value>
   </data>
   <data name="WidgetControlSlideList.LeftLabel" xml:space="preserve">
-    <value>Delete</value>
+    <value>Disable</value>
   </data>
   <data name="WidgetControlSlideList.RightLabel" xml:space="preserve">
-    <value>Delete</value>
+    <value>Disable</value>
+  </data>
+  <data name="NewsDummyWidgetControlHeader.Text" xml:space="preserve">
+    <value>Loading news...</value>
+  </data>
+  <data name="NewsWidgetControlLoading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="NewsWidgetControlSlideList.LeftLabel" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="NewsWidgetControlSlideList.RightLabel" xml:space="preserve">
+    <value>Read</value>
   </data>
 </root>

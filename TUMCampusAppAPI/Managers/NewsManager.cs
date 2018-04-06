@@ -36,7 +36,6 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         private string getLastNewsId()
         {
-            waitForSyncToFinish();
             string lastId = "";
             List<NewsTable> list = dB.Query<NewsTable>(true, "SELECT id FROM NewsTable ORDER BY id DESC LIMIT 1");
             if (list != null && list.Count > 0)
@@ -52,13 +51,11 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsSourceTable elements.</returns>
         public List<NewsSourceTable> getAllNewsSourcesFormDb()
         {
-            waitForSyncToFinish();
             return dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable");
         }
 
         public List<NewsTable> getNewsWithImage()
         {
-            waitForSyncToFinish();
             return dB.Query<NewsTable>(true, "SELECT * FROM NewsTable n WHERE n.imageUrl IS NOT NULL AND n.imageUrl != ''");
         }
 
@@ -69,7 +66,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsTable elements.</returns>
         public List<NewsTable> getAllNewsFormDb()
         {
-            waitForSyncToFinish();
             return dB.Query<NewsTable>(true, "SELECT n.* FROM NewsTable n JOIN NewsSourceTable s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC");
         }
 
@@ -87,6 +83,11 @@ namespace TUMCampusAppAPI.Managers
             DateTime yesterday = DateTime.Now.AddDays(-1);
             for (int i = 0; i < news.Count; i++)
             {
+                if (news[i].read)
+                {
+                    continue;
+                }
+
                 if (result.Count >= 10 || news[i].date.CompareTo(yesterday) < 0)
                 {
                     break;
@@ -100,16 +101,16 @@ namespace TUMCampusAppAPI.Managers
                         tumMovieDate = news[i].date;
                     }
                 }
-                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0)
+                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0 && !news[i].read)
                 {
                     result.Add(news[i]);
                 }
-                else if (i < 3)
+                else if (i < 3 && !news[i].read)
                 {
                     result.Add(news[i]);
                 }
             }
-            if (tumMovieIndex >= 0)
+            if (tumMovieIndex >= 0 && !news[tumMovieIndex].read)
             {
                 result.Insert(0, news[tumMovieIndex]);
             }
@@ -123,7 +124,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the NewsSourceTable for the given id.</returns>
         public NewsSourceTable getNewsSource(string src)
         {
-            waitForSyncToFinish();
             List<NewsSourceTable> sources = dB.Query<NewsSourceTable>(true, "SELECT * FROM NewsSourceTable WHERE src LIKE ?", src);
             return sources.Count > 0 ? sources[0] : null;
         }
@@ -135,6 +135,11 @@ namespace TUMCampusAppAPI.Managers
         {
             dB.CreateTable<NewsTable>();
             dB.CreateTable<NewsSourceTable>();
+        }
+
+        public void markNewsAsRead(string id)
+        {
+            dB.Execute("UPDATE NewsTable SET read = ? WHERE id = ?;", true, id);
         }
 
         /// <summary>
@@ -271,7 +276,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="enabled">Whether to enable it.</param>
         public void updateNewsSourceStatus(int id, bool enabled)
         {
-            waitForSyncToFinish();
             dB.Execute("UPDATE NewsSourceTable SET enabled = ? WHERE id = ?", new object[] { enabled, id });
         }
 

@@ -1,10 +1,11 @@
 ﻿<UserControl
-    x:Class="TUMCampusApp.Controls.WidgetControl"
+    x:Class="TUMCampusApp.Controls.Widgets.NewsWidgetControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls1="using:TUMCampusApp.Controls"
     mc:Ignorable="d">
 
     <controls:DropShadowPanel Style="{StaticResource ShadowPanelStyle}">
@@ -14,18 +15,17 @@
                                    LeftForeground="White"
                                    LeftLabel="Disable"
                                    LeftIcon="Delete"
-                                   RightBackground="OrangeRed"
+                                   RightBackground="{StaticResource TUM_blue}"
                                    RightForeground="White"
-                                   RightIcon="Delete"
-                                   RightLabel="Disable"
+                                   RightIcon="Accept"
+                                   RightLabel="Read"
                                    SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged"
-                                   x:Uid="WidgetControlSlideList">
+                                   x:Uid="NewsWidgetControlSlideList">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ContentPresenter Content="{x:Bind WidgetContent, Mode=OneWay}"
-                                  Grid.Row="0"/>
+                <controls1:NewsControl News="{x:Bind News, Mode=OneWay}"/>
                 <controls:Loading x:Name="loading_ldng"
                                   Grid.Row="0"
                                   Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
@@ -37,7 +37,7 @@
                                       Margin="0 , 0, 10, 0"
                                       Foreground="{StaticResource TUM_blue}"/>
                         <TextBlock Text="Loading..."
-                                   x:Uid="WidgetControlLoading"
+                                   x:Uid="NewsWidgetControlLoading"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </controls:Loading>

@@ -1,25 +1,29 @@
-﻿using Data_Manager;
-using Microsoft.Toolkit.Uwp.UI.Controls;
-using TUMCampusApp.Controls.Widgets;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
+using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace TUMCampusApp.Controls
+namespace TUMCampusApp.Controls.Widgets
 {
-    public sealed partial class WidgetControl : UserControl
+    public sealed partial class NewsWidgetControl : UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public object WidgetContent
+        public NewsTable News
         {
-            get { return GetValue(WidgetContentProperty); }
-            set
-            {
-                SetValue(WidgetContentProperty, value);
-                onWidgetContentChanged();
-            }
+            get { return (NewsTable)GetValue(NewsProperty); }
+            set { SetValue(NewsProperty, value); }
         }
-        public static readonly DependencyProperty WidgetContentProperty = DependencyProperty.Register("WidgetContent", typeof(object), typeof(WidgetControl), null);
+        public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("News", typeof(NewsTable), typeof(NewsWidgetControl), null);
+
+        public NewsDummyWidgetControl NewsDummyWidget
+        {
+            get { return (NewsDummyWidgetControl)GetValue(NewsDummyWidgetProperty); }
+            set { SetValue(NewsDummyWidgetProperty, value); }
+        }
+        public static readonly DependencyProperty NewsDummyWidgetProperty = DependencyProperty.Register("NewsDummyWidget", typeof(NewsDummyWidgetControl), typeof(NewsWidgetControl), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -28,9 +32,9 @@ namespace TUMCampusApp.Controls
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 05/04/2018 Created [Fabian Sauter]
+        /// 06/04/2018 Created [Fabian Sauter]
         /// </history>
-        public WidgetControl()
+        public NewsWidgetControl()
         {
             this.InitializeComponent();
         }
@@ -38,41 +42,26 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        public void setIsLoading(bool isLoading)
-        {
-            loading_ldng.IsLoading = isLoading;
-        }
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void disableWidget()
-        {
-            if (WidgetContent is IHideableWidget hW)
-            {
-                string token = hW.getSettingsToken();
-                if (token != null)
-                {
-                    hW.onHiding();
 
-                    Settings.setSetting(token, true);
-                    Visibility = Visibility.Collapsed;
-                }
-            }
-        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        private void onWidgetContentChanged()
+        private void markAsRead()
         {
-            if (WidgetContent is IHideableWidget hW)
+            Visibility = Visibility.Collapsed;
+            if (News != null)
             {
-                string setting = hW.getSettingsToken();
-                if (setting != null)
+                string id = News.id;
+                Task.Run(() =>
                 {
-                    Visibility = Settings.getSettingBoolean(setting) ? Visibility.Collapsed : Visibility.Visible;
-                }
+                    NewsManager.INSTANCE.markNewsAsRead(id);
+                });
             }
         }
 
@@ -88,9 +77,13 @@ namespace TUMCampusApp.Controls
         {
             if (args.NewValue == SwipeStatus.Idle)
             {
-                if (args.OldValue == SwipeStatus.SwipingPassedLeftThreshold || args.OldValue == SwipeStatus.SwipingPassedRightThreshold)
+                if (args.OldValue == SwipeStatus.SwipingPassedRightThreshold)
                 {
-                    disableWidget();
+                    markAsRead();
+                }
+                else if (args.OldValue == SwipeStatus.SwipingPassedLeftThreshold)
+                {
+                    NewsDummyWidget?.disableNewsWidgets();
                 }
             }
         }

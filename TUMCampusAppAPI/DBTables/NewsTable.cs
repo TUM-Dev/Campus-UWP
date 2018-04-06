@@ -17,6 +17,7 @@ namespace TUMCampusAppAPI.DBTables
         public string imageUrl { get; set; }
         public DateTime date { get; set; }
         public DateTime created { get; set; }
+        public bool read { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -56,6 +57,7 @@ namespace TUMCampusAppAPI.DBTables
 
             this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
             this.created = DateTime.ParseExact(json.GetNamedString(Const.JSON_CREATED), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
+            this.read = false;
         }
 
         public int CompareTo(object obj)
