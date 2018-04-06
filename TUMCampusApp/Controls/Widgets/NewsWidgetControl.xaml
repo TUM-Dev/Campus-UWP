@@ -17,8 +17,8 @@
                                    LeftIcon="Delete"
                                    RightBackground="{StaticResource TUM_blue}"
                                    RightForeground="White"
-                                   RightIcon="Accept"
                                    RightLabel="Read"
+                                   RightIcon="Accept"
                                    SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged"
                                    x:Uid="NewsWidgetControlSlideList">
             <Grid>
@@ -29,17 +29,7 @@
                 <controls:Loading x:Name="loading_ldng"
                                   Grid.Row="0"
                                   Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
-                    <StackPanel Orientation="Horizontal"
-                                Padding="10"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                        <ProgressRing IsActive="True"
-                                      Margin="0 , 0, 10, 0"
-                                      Foreground="{StaticResource TUM_blue}"/>
-                        <TextBlock Text="Loading..."
-                                   x:Uid="NewsWidgetControlLoading"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
+                    <controls1:LoadingContentControl/>
                 </controls:Loading>
             </Grid>
         </controls:SlidableListItem>

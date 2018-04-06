@@ -11,15 +11,14 @@
     Loaded="Page_Loaded">
 
     <Page.Resources>
-        <Style TargetType="controls:DropShadowPanel" x:Key="ShadowPanelStyle">
-            <Setter Property="BlurRadius" Value="3.6"/>
-            <Setter Property="ShadowOpacity" Value="0.52"/>
-            <Setter Property="OffsetX" Value="5"/>
-            <Setter Property="OffsetY" Value="5"/>
-            <Setter Property="Margin" Value="15, 10, 15, 0"/>
-            <Setter Property="Color" Value="Black"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        </Style>
+        <DataTemplate x:Key="newsTemplate"
+                      x:DataType="datatemplates:NewsTemplate">
+            <controls:DropShadowPanel Margin="5, 10, 5, 0"
+                                      x:Name="news_dsp"
+                                      Style="{StaticResource ShadowPanelStyle}">
+                <controls1:NewsControl News="{x:Bind news}"/>
+            </controls:DropShadowPanel>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
@@ -28,57 +27,150 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="0">
+
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Grid Grid.Row="0" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="expand_btn" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="28" Click="expand_btn_Click" Margin="0,0,0,0" HorizontalAlignment="Left"/>
-                <Rectangle Grid.Column="1" Width="2" Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
-                <TextBlock x:Uid="ManageSources" Grid.Column="2" Text="Manage Sources" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center" FontSize="20"/>
+
+                <Button x:Name="expand_btn"
+                        Grid.Column="0"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE019;"
+                        Background="Transparent"
+                        FontSize="28"
+                        Click="expand_btn_Click"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Left"/>
+                <Rectangle Grid.Column="1"
+                           Width="2"
+                           Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
+                <TextBlock x:Uid="ManageSources"
+                           Grid.Column="2"
+                           Text="Manage Sources"
+                           HorizontalAlignment="Left"
+                           Margin="10, 0, 0, 0"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                <Rectangle Grid.Column="3"
+                           Width="2"
+                           Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
+                <Button x:Name="more_btn"
+                        Grid.Column="4"
+                        Content="&#xE712;"
+                        FontFamily="Segoe MDL2 Assets"
+                        VerticalAlignment="Stretch"
+                        FontSize="20"
+                        Width="48"
+                        Background="Transparent">
+                    <Button.Flyout>
+                        <MenuFlyout x:Name="more_mfo">
+                            <ToggleMenuFlyoutItem x:Name="hideRead_tglmfo"
+                                                  x:Uid="NewsPageHideRead"
+                                                  Text="Hide read"
+                                                  Click="hideRead_tglmfo_Click"/>
+                            <ToggleMenuFlyoutItem x:Name="hideUnread_tglmfo"
+                                                  x:Uid="NewsPageHideUnread"
+                                                  Text="Hide unread"
+                                                  Click="hideUnread_tglmfo_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
             </Grid>
-            <ScrollViewer x:Name="newsSources_scv" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2" Visibility="Collapsed" Height="310" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
-                <StackPanel x:Name="newsSources_stckp" VerticalAlignment="Stretch" Margin="0, 10, 0, 0">
+            <ScrollViewer x:Name="newsSources_scv"
+                          HorizontalAlignment="Stretch"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Grid.Row="2"
+                          Visibility="Collapsed"
+                          Height="310"
+                          Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+                <StackPanel x:Name="newsSources_stckp"
+                            VerticalAlignment="Stretch"
+                            Margin="0, 10, 0, 0">
                     <!--News Sources-->
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Stretch" Grid.Row="1" IsIndeterminate="True" Visibility="Collapsed"/>
+        <ProgressBar x:Name="progressBar"
+                     HorizontalAlignment="Stretch"
+                     Grid.Row="1"
+                     IsIndeterminate="True"
+                     Visibility="Collapsed"/>
 
-        <Grid x:Name="noNews_grid" Grid.Row="2" Visibility="Collapsed">
+        <Grid x:Name="noNews_grid"
+              Grid.Row="2"
+              Visibility="Collapsed">
             <StackPanel>
-                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE701;" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="120" Foreground="{StaticResource TUM_blue}"/>
-                <TextBlock x:Uid="NewsPageNoNews" Text="No news found! Please come back later." HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock FontFamily="Segoe MDL2 Assets"
+                           Text="&#xE701;"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,20"
+                           FontSize="120"
+                           Foreground="{StaticResource TUM_blue}"/>
+                <TextBlock x:Uid="NewsPageNoNews"
+                           Text="No news found! Please come back later."
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"/>
             </StackPanel>
         </Grid>
-        <controls:PullToRefreshListView x:Name="refresh_pTRV" RefreshRequested="refresh_pTRV_RefreshRequested" OverscrollLimit="0.4" PullThreshold="100" IsPullToRefreshWithMouseEnabled="True" Grid.Row="2" SelectionMode="None" ItemsSource="{x:Bind newsList}">
+        <controls:PullToRefreshListView x:Name="refresh_pTRV"
+                                        RefreshRequested="refresh_pTRV_RefreshRequested"
+                                        OverscrollLimit="0.4"
+                                        PullThreshold="100"
+                                        IsPullToRefreshWithMouseEnabled="True"
+                                        Grid.Row="2"
+                                        SelectionMode="None"
+                                        ItemsSource="{x:Bind newsList}"
+                                        ItemTemplate="{StaticResource newsTemplate}">
             <controls:PullToRefreshListView.PullToRefreshContent>
-                <TextBlock Text="Pull down to refresh data" Margin="0,0,0,10" FontSize="20" Opacity="0.5"/>
+                <TextBlock Text="Pull down to refresh data"
+                           Margin="0,0,0,10"
+                           FontSize="20"
+                           Opacity="0.5"/>
             </controls:PullToRefreshListView.PullToRefreshContent>
-            <controls:PullToRefreshListView.ItemTemplate>
-                <DataTemplate x:DataType="datatemplates:NewsTemplate">
-                    <controls:DropShadowPanel Margin="5, 10, 5, 0" Style="{StaticResource ShadowPanelStyle}">
-                        <controls1:NewsControl News="{x:Bind news}"/>
-                    </controls:DropShadowPanel>
-                </DataTemplate>
-            </controls:PullToRefreshListView.ItemTemplate>
         </controls:PullToRefreshListView>
-        <Grid x:Name="navigate_grid" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Background="{ThemeResource SystemControlBackgroundAltMediumBrush}" Visibility="Collapsed">
+        <Grid x:Name="navigate_grid"
+              Grid.Row="2"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Bottom"
+              Margin="10"
+              Background="{ThemeResource SystemControlBackgroundAltMediumBrush}"
+              Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="scrollUp_btn" Grid.Column="0" FontSize="30" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Click="scrollUp_btn_Click"/>
-            <Rectangle Grid.Column="1" Height="Auto" Width="2" Fill="Black"/>
-            <Button x:Name="goToToday_btn" Grid.Column="2" FontSize="30" FontFamily="Segoe MDL2 Assets" Content="&#xE8D1;" Click="goToToday_btn_Click"/>
+
+            <Button x:Name="scrollUp_btn"
+                    Grid.Column="0"
+                    FontSize="30"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE898;"
+                    Click="scrollUp_btn_Click"/>
+            <Rectangle Grid.Column="1"
+                       Height="Auto"
+                       Width="2"
+                       Fill="Black"/>
+            <Button x:Name="goToToday_btn"
+                    Grid.Column="2"
+                    FontSize="30"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE8D1;"
+                    Click="goToToday_btn_Click"/>
         </Grid>
     </Grid>
 </Page>

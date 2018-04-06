@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -82,6 +83,16 @@ namespace TUMCampusApp.Pages
                     await t;
                 }
                 List<NewsTable> news = NewsManager.INSTANCE.getAllNewsFormDb();
+
+                if (Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_READ))
+                {
+                    news.RemoveAll((n) => n.read);
+                }
+
+                if (Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_UNREAD))
+                {
+                    news.RemoveAll((n) => !n.read);
+                }
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -184,6 +195,10 @@ namespace TUMCampusApp.Pages
             refresh_pTRV.IsEnabled = false;
             scrollUp_btn.IsEnabled = false;
             goToToday_btn.IsEnabled = false;
+            more_btn.IsEnabled = false;
+            hideRead_tglmfo.IsEnabled = false;
+            hideUnread_tglmfo.IsEnabled = false;
+            more_mfo.Hide();
             progressBar.Visibility = Visibility.Visible;
         }
 
@@ -198,8 +213,17 @@ namespace TUMCampusApp.Pages
                 refresh_pTRV.IsEnabled = true;
                 scrollUp_btn.IsEnabled = true;
                 goToToday_btn.IsEnabled = true;
+                more_btn.IsEnabled = true;
+                hideRead_tglmfo.IsEnabled = true;
+                hideUnread_tglmfo.IsEnabled = true;
                 progressBar.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void setupMFO()
+        {
+            hideRead_tglmfo.IsChecked = Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_READ);
+            hideUnread_tglmfo.IsChecked = Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_UNREAD);
         }
         #endregion
 
@@ -235,6 +259,7 @@ namespace TUMCampusApp.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            setupMFO();
             showNewsSources(false);
             showNews(false);
         }
@@ -253,6 +278,18 @@ namespace TUMCampusApp.Pages
             {
                 refresh_pTRV.ScrollIntoView(newsList[mostCurrentNewsIndex]);
             }
+        }
+
+        private void hideRead_tglmfo_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.setSetting(SettingsConsts.NEWS_PAGE_HIDE_READ, hideRead_tglmfo.IsChecked);
+            showNews(false);
+        }
+
+        private void hideUnread_tglmfo_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.setSetting(SettingsConsts.NEWS_PAGE_HIDE_UNREAD, hideUnread_tglmfo.IsChecked);
+            showNews(false);
         }
 
         #endregion

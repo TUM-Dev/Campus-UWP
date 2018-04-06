@@ -81,6 +81,7 @@ namespace TUMCampusAppAPI.Managers
             DateTime tumMovieDate = DateTime.MaxValue;
             int tumMovieIndex = -1;
             DateTime yesterday = DateTime.Now.AddDays(-1);
+            int defaultNewsCount = 0;
             for (int i = 0; i < news.Count; i++)
             {
                 if (news[i].read)
@@ -101,16 +102,13 @@ namespace TUMCampusAppAPI.Managers
                         tumMovieDate = news[i].date;
                     }
                 }
-                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0 && !news[i].read)
+                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0 || defaultNewsCount < 3)
                 {
-                    result.Add(news[i]);
-                }
-                else if (i < 3 && !news[i].read)
-                {
+                    defaultNewsCount++;
                     result.Add(news[i]);
                 }
             }
-            if (tumMovieIndex >= 0 && !news[tumMovieIndex].read)
+            if (tumMovieIndex >= 0)
             {
                 result.Insert(0, news[tumMovieIndex]);
             }
@@ -137,9 +135,9 @@ namespace TUMCampusAppAPI.Managers
             dB.CreateTable<NewsSourceTable>();
         }
 
-        public void markNewsAsRead(string id)
+        public void updateNewsRead(string id, bool read)
         {
-            dB.Execute("UPDATE " + DBTableConsts.NEWS_TABLE + " SET read = ? WHERE id = ?;", true, id);
+            dB.Execute("UPDATE " + DBTableConsts.NEWS_TABLE + " SET read = ? WHERE id = ?;", read, id);
         }
 
         /// <summary>

@@ -267,7 +267,7 @@
   <data name="ManageSources.Text" xml:space="preserve">
     <value>Manage Sources</value>
   </data>
-  <data name="Loading.Text" xml:space="preserve">
+  <data name="NewsControlLoading.Text" xml:space="preserve">
     <value>Loading...</value>
   </data>
   <data name="MessageBoxNo_Text" xml:space="preserve">
@@ -784,7 +784,7 @@
   <data name="NewsDummyWidgetControlHeader.Text" xml:space="preserve">
     <value>Loading news...</value>
   </data>
-  <data name="NewsWidgetControlLoading.Text" xml:space="preserve">
+  <data name="LoadingContentControl.Text" xml:space="preserve">
     <value>Loading...</value>
   </data>
   <data name="NewsWidgetControlSlideList.LeftLabel" xml:space="preserve">
@@ -792,5 +792,11 @@
   </data>
   <data name="NewsWidgetControlSlideList.RightLabel" xml:space="preserve">
     <value>Read</value>
+  </data>
+  <data name="NewsPageHideRead.Text" xml:space="preserve">
+    <value>Hide read</value>
+  </data>
+  <data name="NewsPageHideUnread.Text" xml:space="preserve">
+    <value>Hide unread</value>
   </data>
 </root>

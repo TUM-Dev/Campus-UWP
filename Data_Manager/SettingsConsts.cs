@@ -29,6 +29,9 @@
         public const string USER_ID = "user_id";
         public const string TUM_ONLINE_ENABLED = "tum_online_enabled";
 
+        public const string NEWS_PAGE_HIDE_READ = "news_page_hide_read";
+        public const string NEWS_PAGE_HIDE_UNREAD = "news_page_hide_unread";
+
         public const string LAST_SELECTED_STUDY_ROOM_GROUP = "last_selected_study_room_group";
     }
 }
