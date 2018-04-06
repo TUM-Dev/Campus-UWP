@@ -1,8 +1,6 @@
 ﻿using System;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.DataTemplates
 {
@@ -39,7 +37,7 @@ namespace TUMCampusApp.DataTemplates
             {
                 return Application.Current.Resources["TUM_blue"];
             }
-            return new SolidColorBrush((Color)Application.Current.Resources["SystemColorButtonTextColor"]);
+            return Application.Current.Resources["SystemControlForegroundBaseMediumBrush"];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
