@@ -195,7 +195,7 @@ namespace TUMCampusApp.Pages
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
+                    MessageDialog message = new MessageDialog(getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
                     await message.ShowAsync();
                 });
             }
@@ -220,9 +220,7 @@ namespace TUMCampusApp.Pages
 
             await invokeTbxAsync("Initializing TumManager...");
             await TumManager.INSTANCE.InitManagerAsync();
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressBar.Value = 100.0;
-            });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => splashProgressBar.Value = 100.0);
 
             Logger.Info("Finished loading app in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
@@ -235,9 +233,7 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task invokeTbxAsync(string s)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                task_tbx.Text = s;
-            });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => task_tbx.Text = s);
         }
 
         /// <summary>
@@ -247,9 +243,7 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task incProgressAsync()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
-                splashProgressBar.Value += INC_PROGRESS_STEP;
-            });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => splashProgressBar.Value += INC_PROGRESS_STEP);
         }
 
         /// <summary>
@@ -259,16 +253,10 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task initAppTaskAsync()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-             {
-                 positionElements();
-             });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => positionElements());
             bool initialStart = !Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED);
-            Task.WaitAll(initAppAsync(initialStart));
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                DismissExtendedSplashAsync();
-            });
+            await initAppAsync(initialStart);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => DismissExtendedSplashAsync());
             Settings.setSetting(SettingsConsts.INITIALLY_STARTED, true);
         }
 
@@ -320,7 +308,7 @@ namespace TUMCampusApp.Pages
                     bool wifiOnly = Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING);
                     if ((!wifiOnly && connectedToInternet) || (wifiOnly && DeviceInfo.isConnectedToWifi() && connectedToInternet))
                     {
-                        if(TumManager.getToken() == null || TumManager.getToken() == "")
+                        if (TumManager.getToken() == null || TumManager.getToken() == "")
                         {
                             f.Navigate(typeof(SetupPageStep1));
                         }
@@ -343,7 +331,7 @@ namespace TUMCampusApp.Pages
                 }
                 else
                 {
-                    if(TumManager.getToken() == null || TumManager.getToken() == "")
+                    if (TumManager.getToken() == null || TumManager.getToken() == "")
                     {
                         Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, false);
                         f.Navigate(typeof(MainPage));
@@ -373,7 +361,7 @@ namespace TUMCampusApp.Pages
         private void DismissedEventHandler(SplashScreen sender, object e)
         {
             dismissed = true;
-            Task.Factory.StartNew(() => initAppTaskAsync());
+            Task.Run(() => initAppTaskAsync());
         }
 
         private void ExtendedSplash_OnResize(Object sender, WindowSizeChangedEventArgs e)
