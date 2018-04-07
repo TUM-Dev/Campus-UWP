@@ -18,6 +18,7 @@ using Microsoft.HockeyApp;
 using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusApp
 {

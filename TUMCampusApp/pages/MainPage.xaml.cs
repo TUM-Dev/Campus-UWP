@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusApp.Pages
 {

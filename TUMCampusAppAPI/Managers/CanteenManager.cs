@@ -5,6 +5,7 @@ using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
 using Windows.Devices.Geolocation;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusAppAPI.Managers
 {

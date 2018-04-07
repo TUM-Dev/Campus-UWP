@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Logging;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

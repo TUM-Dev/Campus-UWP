@@ -9,9 +9,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using static TUMCampusApp.Classes.UIUtils;
-using TUMCampusApp.Classes;
 using Windows.UI.Popups;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusApp.Pages
 {

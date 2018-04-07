@@ -12,6 +12,7 @@ using TUMCampusApp.Classes;
 using Windows.UI.Core;
 using TUMCampusApp.Dialogs;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusApp.Pages
 {

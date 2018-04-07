@@ -1,6 +1,5 @@
 ﻿using Data_Manager;
 using System;
-using System.Threading.Tasks;
 using TUMCampusApp.Classes;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
@@ -163,8 +162,6 @@ namespace TUMCampusApp.Pages.Setup
             requestNewToken_btn.IsEnabled = true;
         }
 
-        #endregion
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             startValidatToken();
@@ -184,5 +181,7 @@ namespace TUMCampusApp.Pages.Setup
             f.Navigate(typeof(SetupPageStep1));
             Window.Current.Content = f;
         }
+
+        #endregion
     }
 }

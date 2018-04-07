@@ -1,6 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Logging;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
-using TUMCampusAppAPI;
 using Windows.ApplicationModel.Background;
 
 namespace TUMCampusApp.Classes.Helpers

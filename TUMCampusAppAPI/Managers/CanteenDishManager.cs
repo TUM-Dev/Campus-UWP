@@ -6,6 +6,7 @@ using TUMCampusAppAPI.DBTables;
 using System.Text.RegularExpressions;
 using System.Linq;
 using Data_Manager;
+using Logging;
 
 namespace TUMCampusAppAPI.Managers
 {

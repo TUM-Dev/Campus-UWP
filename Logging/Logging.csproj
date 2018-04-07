@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96299629-0869-4BAE-8CED-95EB0E9EFACD}</ProjectGuid>
+    <ProjectGuid>{BA194139-EC89-4063-B044-3AD40FC1FF61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TUMCampusAppAPI</RootNamespace>
-    <AssemblyName>TUMCampusAppAPI</AssemblyName>
+    <RootNamespace>Logging</RootNamespace>
+    <AssemblyName>Logging</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -102,72 +102,19 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DBTables\CacheTable.cs" />
-    <Compile Include="DBTables\CanteenTable.cs" />
-    <Compile Include="DBTables\CanteenDishTable.cs" />
-    <Compile Include="DBTables\DBTableConsts.cs" />
-    <Compile Include="DBTables\FavoriteCanteenDishTypeTable.cs" />
-    <Compile Include="Faculties.cs" />
-    <Compile Include="Consts.cs" />
-    <Compile Include="CustomAccelerometer.cs" />
-    <Compile Include="Managers\AbstractManager.cs" />
-    <Compile Include="Managers\CacheManager.cs" />
-    <Compile Include="Managers\CalendarManager.cs" />
-    <Compile Include="Managers\CanteenManager.cs" />
-    <Compile Include="Managers\CanteenDishManager.cs" />
-    <Compile Include="Managers\GradesManager.cs" />
-    <Compile Include="Managers\NewsManager.cs" />
-    <Compile Include="Managers\LecturesManager.cs" />
-    <Compile Include="Managers\LocationManager.cs" />
-    <Compile Include="Managers\RoomFinderManager.cs" />
-    <Compile Include="Managers\StudyRoomManager.cs" />
-    <Compile Include="Managers\SyncManager.cs" />
-    <Compile Include="Managers\TuitionFeeManager.cs" />
-    <Compile Include="Managers\TumManager.cs" />
-    <Compile Include="Managers\UserDataManager.cs" />
-    <Compile Include="NetUtils.cs" />
-    <Compile Include="DBTables\NewsSourceTable.cs" />
-    <Compile Include="DBTables\NewsTable.cs" />
-    <Compile Include="DBTables\StudyRoomGroupTable.cs" />
-    <Compile Include="DBTables\StudyRoomTable.cs" />
-    <Compile Include="DBTables\SyncTable.cs" />
-    <Compile Include="SyncResult.cs" />
-    <Compile Include="TUMOnline\Exceptions\BaseTUMOnlineException.cs" />
-    <Compile Include="TUMOnline\Exceptions\InvalidTokenTUMOnlineException.cs" />
-    <Compile Include="TUMOnline\Exceptions\NoAccessTUMOnlineException.cs" />
-    <Compile Include="DBTables\TUMOnlineCalendarTable.cs" />
-    <Compile Include="TUMOnline\TUMOnlineConst.cs" />
-    <Compile Include="DBTables\TUMOnlineGradeTable.cs" />
-    <Compile Include="TUMOnline\TUMOnlineGradeSemester.cs" />
-    <Compile Include="DBTables\TUMOnlineLectureTable.cs" />
-    <Compile Include="DBTables\TUMOnlineLectureInformationTable.cs" />
-    <Compile Include="TUMOnline\TUMOnlineRequest.cs" />
-    <Compile Include="DBTables\TUMTuitionFeeTable.cs" />
-    <Compile Include="TUMOnline\TUMUser.cs" />
-    <Compile Include="DeviceInfo.cs" />
-    <Compile Include="DBTables\UserDataTable.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util.cs" />
-    <EmbeddedResource Include="Properties\TUMCampusAppAPI.rd.xml" />
+    <EmbeddedResource Include="Properties\Logging.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data_Manager\Data_Manager.csproj">
-      <Project>{3f43f80b-a65c-46ab-b30c-f7113d5c8473}</Project>
-      <Name>Data_Manager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{ba194139-ec89-4063-b044-3ad40fc1ff61}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Thread_Save_Components\Thread_Save_Components.csproj">
-      <Project>{422d37e6-2d0f-42af-8b26-88e007bd022d}</Project>
-      <Name>Thread_Save_Components</Name>
-    </ProjectReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.8</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

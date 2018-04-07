@@ -103,9 +103,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-  <PropertyGroup> 
+  <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="TUMVoiceCommandService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

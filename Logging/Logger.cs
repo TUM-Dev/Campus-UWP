@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using System.Linq;
 using Windows.Storage.Search;
 
-namespace TUMCampusAppAPI
+namespace Logging
 {
     public class Logger
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private static readonly Object thisLock = new Object();
+        private static StorageFile logFile = null;
+
+        public static LogLevel logLevel;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -91,7 +94,10 @@ namespace TUMCampusAppAPI
         /// </history>
         public static void Debug(string message)
         {
-            addToLog(message, null, "DEBUG");
+            if (logLevel >= LogLevel.DEBUG)
+            {
+                addToLog(message, null, "DEBUG");
+            }
         }
 
         /// <summary>
@@ -102,7 +108,10 @@ namespace TUMCampusAppAPI
         /// </history>
         public static void Info(string message)
         {
-            addToLog(message, null, "INFO");
+            if (logLevel >= LogLevel.INFO)
+            {
+                addToLog(message, null, "INFO");
+            }
         }
 
         /// <summary>
@@ -113,7 +122,10 @@ namespace TUMCampusAppAPI
         /// </history>
         public static void Warn(string message)
         {
-            addToLog(message, null, "WARN");
+            if (logLevel >= LogLevel.WARNING)
+            {
+                addToLog(message, null, "WARN");
+            }
         }
 
         /// <summary>
@@ -124,7 +136,10 @@ namespace TUMCampusAppAPI
         /// </history>
         public static void Error(string message, Exception e)
         {
-            addToLog(message, e, "ERROR");
+            if (logLevel >= LogLevel.ERROR)
+            {
+                addToLog(message, e, "ERROR");
+            }
         }
 
         /// <summary>
@@ -155,7 +170,7 @@ namespace TUMCampusAppAPI
         public static async Task deleteLogsAsync()
         {
             StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Logs");
-            if(folder != null)
+            if (folder != null)
             {
                 await folder.DeleteAsync();
             }
@@ -177,7 +192,7 @@ namespace TUMCampusAppAPI
                 {
                     return;
                 }
-                await Task.Factory.StartNew(async () =>
+                await Task.Run(async () =>
                 {
                     try
                     {
@@ -193,11 +208,11 @@ namespace TUMCampusAppAPI
                             StorageFile f = file as StorageFile;
                             await f.CopyAndReplaceAsync(target);
                         }
-                        Logger.Info("Exported logs successfully to:" + target.Path);
+                        Info("Exported logs successfully to:" + target.Path);
                     }
                     catch (Exception e)
                     {
-                        Logger.Error("Error during exporting logs", e);
+                        Error("Error during exporting logs", e);
                     }
                 });
             }
@@ -214,7 +229,7 @@ namespace TUMCampusAppAPI
         /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static void addToLog(string message, Exception e, string code)
         {
-            Task t = addToLogAsync(message, e, code);
+            Task.Run(async () => await addToLogAsync(message, e, code));
         }
 
         /// <summary>
@@ -225,7 +240,10 @@ namespace TUMCampusAppAPI
         /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
-            StorageFile logFile = await (await getLogFolderAsync()).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
+            if (logFile == null)
+            {
+                logFile = await (await getLogFolderAsync()).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
+            }
             string s = "[" + code + "][" + getTimeStamp() + "]: " + message;
             if (e != null)
             {

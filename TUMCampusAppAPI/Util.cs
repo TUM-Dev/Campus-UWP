@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logging;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 

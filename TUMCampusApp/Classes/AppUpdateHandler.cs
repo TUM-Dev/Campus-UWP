@@ -1,6 +1,4 @@
 ﻿using Data_Manager;
-using System.Threading.Tasks;
-using TUMCampusAppAPI;
 using TUMCampusAppAPI.Managers;
 using Windows.ApplicationModel;
 
