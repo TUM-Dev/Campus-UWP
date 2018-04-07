@@ -51,8 +51,8 @@ namespace TUMCampusAppAPI.Managers
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_SEARCH);
             req.addToken();
-            req.addParameter(Const.P_SEARCH, query);
-            req.setValidity(CacheManager.VALIDITY_TEN_DAYS);
+            req.addParameter(Consts.P_SEARCH, query);
+            req.setValidity(Consts.VALIDITY_TEN_DAYS);
             return await req.doRequestDocumentAsync();
         }
 
@@ -65,8 +65,8 @@ namespace TUMCampusAppAPI.Managers
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.LECTURES_DETAILS);
             req.addToken();
-            req.addParameter(Const.P_LV_NR, stp_sp_nr);
-            req.setValidity(CacheManager.VALIDITY_TEN_DAYS);
+            req.addParameter(Consts.P_LV_NR, stp_sp_nr);
+            req.setValidity(Consts.VALIDITY_TEN_DAYS);
             return await req.doRequestDocumentAsync();
         }
 
@@ -124,7 +124,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_LECTURE_TABLE, CacheManager.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_LECTURE_TABLE, Consts.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getPersonalLecturesDocumentAsync();
                     if (doc == null || doc.SelectSingleNode("/error") != null)

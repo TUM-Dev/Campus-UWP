@@ -167,11 +167,11 @@ namespace TUMCampusAppAPI.Managers
                         Uri url;
                         if (force)
                         {
-                            url = new Uri(Const.NEWS_URL);
+                            url = new Uri(Consts.NEWS_URL);
                         }
                         else
                         {
-                            url = new Uri(Const.NEWS_URL + getLastNewsId());
+                            url = new Uri(Consts.NEWS_URL + getLastNewsId());
                         }
                         JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(url);
                         if (jsonArray == null)
@@ -235,7 +235,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     try
                     {
-                        JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(new Uri(Const.NEWS_SOURCES_URL));
+                        JsonArray jsonArray = await NetUtils.downloadJsonArrayAsync(new Uri(Consts.NEWS_SOURCES_URL));
                         if (jsonArray == null)
                         {
                             return;

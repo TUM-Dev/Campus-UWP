@@ -313,17 +313,17 @@ namespace TUMCampusApp.Pages
 
         private async void contributeGithub_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App"));
+            await Util.launchBrowser(new Uri(Consts.GITHUB_PROJECT));
         }
 
         private async void license_stckp_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/LICENSE"));
+            await Util.launchBrowser(new Uri(Consts.GITHUB_LICENSE));
         }
 
         private async void reportBug_stckp_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/issues"));
+            await Util.launchBrowser(new Uri(Consts.GITHUB_ISSUES));
         }
 
         private async void deleteLogs_btn_Click(object sender, RoutedEventArgs e)
@@ -354,7 +354,7 @@ namespace TUMCampusApp.Pages
 
         private async void privacyPolicy_stckp_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await Util.launchBrowser(new Uri("https://github.com/COM8/UWP-TUM-Campus-App/blob/master/PRIVACY_POLICY.md"));
+            await Util.launchBrowser(new Uri(Consts.GITHUB_PRIVACY_POLICY));
         }
 
         private void showToken_btn_Click(object sender, RoutedEventArgs e)

@@ -36,10 +36,10 @@ namespace TUMCampusAppAPI.DBTables
 
         public NewsTable(JsonObject json)
         {
-            this.id = json.GetNamedString(Const.JSON_NEWS);
-            this.src = json.GetNamedString(Const.JSON_SRC);
+            this.id = json.GetNamedString(Consts.JSON_NEWS);
+            this.src = json.GetNamedString(Consts.JSON_SRC);
 
-            this.title = json.GetNamedString(Const.JSON_TITLE);
+            this.title = json.GetNamedString(Consts.JSON_TITLE);
             if (src.Equals("2"))
             {
                 int index = this.title.IndexOf(':');
@@ -48,16 +48,16 @@ namespace TUMCampusAppAPI.DBTables
                     this.title = this.title.Substring(index + 2);
                 }
             }
-            this.link = json.GetNamedString(Const.JSON_LINK);
-            JsonValue val = json.GetNamedValue(Const.JSON_IMAGE);
+            this.link = json.GetNamedString(Consts.JSON_LINK);
+            JsonValue val = json.GetNamedValue(Consts.JSON_IMAGE);
             this.imageUrl = val.ValueType == JsonValueType.Null ? null : val.Stringify();
             if(imageUrl != null)
             {
                 this.imageUrl = imageUrl.Replace("\"", "");
             }
 
-            this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
-            this.created = DateTime.ParseExact(json.GetNamedString(Const.JSON_CREATED), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
+            this.date = DateTime.ParseExact(json.GetNamedString(Consts.JSON_DATE), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
+            this.created = DateTime.ParseExact(json.GetNamedString(Consts.JSON_CREATED), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
             this.read = false;
         }
 

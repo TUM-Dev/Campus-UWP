@@ -101,7 +101,7 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            await Task.Factory.StartNew(async () =>
+            await Task.Run(async () =>
             {
                 try
                 {

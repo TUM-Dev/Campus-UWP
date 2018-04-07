@@ -14,7 +14,6 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static CanteenDishManager INSTANCE;
-        private static readonly int TIME_TO_SYNC = 86400; // 1 day
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -191,12 +190,12 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_DISH_TABLE, TIME_TO_SYNC).NEEDS_SYNC)
+                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_DISH_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
                     {
                         return;
                     }
                     Logger.Info("Started downloading canteen dishes...");
-                    Uri url = new Uri(Const.MENUS_URL);
+                    Uri url = new Uri(Consts.MENUS_URL);
                     JsonArray json = await NetUtils.downloadJsonArrayAsync(url);
 
                     if (json != null && json.Count > 0)
@@ -397,7 +396,7 @@ namespace TUMCampusAppAPI.Managers
         {
             string name = dish.name.Replace(' ', '+');
 
-            string result = @"https://www.google.com/search?hl=en&as_st=y&site=imghp&tbm=isch&source=hp&biw=1502&bih=682&q=" + name + "&oq=" + name;
+            string result = Consts.GOOGLE_IMAGES_SEARCH_STRING_START + name + "&oq=" + name;
             return new Uri(result);
         }
 

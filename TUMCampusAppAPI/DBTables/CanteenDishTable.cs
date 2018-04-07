@@ -52,10 +52,10 @@ namespace TUMCampusAppAPI.DBTables
         public CanteenDishTable(JsonObject json, string canteen_id)
         {
             this.canteen_id = canteen_id;
-            this.name = json.GetNamedString(Const.JSON_NAME);
-            this.ingredients = json.GetNamedString(Const.JSON_INGREDIENTS) ?? "";
-            this.dish_type = json.GetNamedString(Const.JSON_DISH_TYPE) ?? "";
-            this.date = DateTime.ParseExact(json.GetNamedString(Const.JSON_DATE), "yyyy-MM-dd", CULTURE_INFO);
+            this.name = json.GetNamedString(Consts.JSON_NAME);
+            this.ingredients = json.GetNamedString(Consts.JSON_INGREDIENTS) ?? "";
+            this.dish_type = json.GetNamedString(Consts.JSON_DISH_TYPE) ?? "";
+            this.date = DateTime.ParseExact(json.GetNamedString(Consts.JSON_DATE), "yyyy-MM-dd", CULTURE_INFO);
             JsonValue p = json.GetNamedValue("price");
             // If a price in form of e.g. '2.4' is given, add €:
             if(p == null)

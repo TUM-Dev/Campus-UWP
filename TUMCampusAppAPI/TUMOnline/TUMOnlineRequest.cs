@@ -126,7 +126,7 @@ namespace TUMCampusAppAPI.TUMOnline
 
         public void addToken()
         {
-            addParameter(Const.P_TOKEN, TumManager.getToken());
+            addParameter(Consts.P_TOKEN, TumManager.getToken());
         }
 
         public override string ToString()

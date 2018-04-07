@@ -246,7 +246,7 @@ namespace TUMCampusAppAPI.Managers
 
             // 3. Request a new one:
             AppointmentCalendar calendar = null;
-            calendar = await aS.CreateAppointmentCalendarAsync(Const.CALENDAR_NAME);
+            calendar = await aS.CreateAppointmentCalendarAsync(Consts.CALENDAR_NAME);
 
             // 4. Insert appointments:
             if (calendar != null)
@@ -268,8 +268,8 @@ namespace TUMCampusAppAPI.Managers
         {
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.CALENDAR);
             req.addToken();
-            req.addParameter(Const.P_MONTH_AHEAD, "2");
-            req.addParameter(Const.P_MONTH_BACK, "5");
+            req.addParameter(Consts.P_MONTH_AHEAD, "2");
+            req.addParameter(Consts.P_MONTH_BACK, "5");
             return await req.doRequestDocumentAsync();
         }
 

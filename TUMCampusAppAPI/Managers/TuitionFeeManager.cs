@@ -75,7 +75,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE, CacheManager.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getFeeStatusAsync();
                     dB.DropTable<TUMTuitionFeeTable>();

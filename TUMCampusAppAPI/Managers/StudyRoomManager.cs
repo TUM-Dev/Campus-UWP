@@ -11,7 +11,6 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static StudyRoomManager INSTANCE;
-        public static readonly string STUDYROOM_URL = "https://www.devapp.it.tum.de/iris/ris_api.php?format=json";
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -36,7 +35,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="groupID">Specifies a group of rooms.</param>
         public List<StudyRoomTable> getRooms(int groupID)
         {
-            waitForSyncToFinish();
             return dB.Query<StudyRoomTable>(true, "SELECT * FROM " + DBTableConsts.STUDY_ROOM_TABLE + " WHERE group_id = ?;", groupID);
         }
 
@@ -45,7 +43,6 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<StudyRoomGroupTable> getRoomGroups()
         {
-            waitForSyncToFinish();
             return dB.Query<StudyRoomGroupTable>(true, "SELECT * FROM " + DBTableConsts.STUDY_ROOM_GROUP_TABLE + ";");
         }
 
@@ -68,23 +65,23 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                JsonObject jsonO = await NetUtils.downloadJsonObjectAsync(new Uri(STUDYROOM_URL));
+                JsonObject jsonO = await NetUtils.downloadJsonObjectAsync(new Uri(Consts.STUDYROOM_URL));
                 if (jsonO == null)
                 {
                     return;
                 }
 
                 List<StudyRoomTable> rooms = new List<StudyRoomTable>();
-                foreach (JsonValue val in jsonO.GetNamedArray("raeume"))
+                foreach (JsonValue val in jsonO.GetNamedArray(Consts.JSON_RAEUME))
                 {
                     rooms.Add(new StudyRoomTable(val.GetObject()));
                 }
 
                 List<StudyRoomGroupTable> roomGroups = new List<StudyRoomGroupTable>();
-                foreach (JsonValue val in jsonO.GetNamedArray("gruppen"))
+                foreach (JsonValue val in jsonO.GetNamedArray(Consts.JSON_GRUPPEN))
                 {
                     StudyRoomGroupTable g = new StudyRoomGroupTable(val.GetObject());
-                    foreach (JsonValue v in val.GetObject().GetNamedArray("raeume"))
+                    foreach (JsonValue v in val.GetObject().GetNamedArray(Consts.JSON_RAEUME))
                     {
                         int nr = (int)v.GetNumber();
                         for (int i = 0; i < rooms.Count; i++)

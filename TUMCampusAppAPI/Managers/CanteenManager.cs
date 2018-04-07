@@ -13,7 +13,6 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static CanteenManager INSTANCE;
-        private static readonly int TIME_TO_SYNC = 604800; // 1 week
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -40,16 +39,16 @@ namespace TUMCampusAppAPI.Managers
         {
             CanteenTable c = new CanteenTable()
             {
-                canteen_id = json.GetNamedString(Const.JSON_CANTEEN_ID),
-                name = json.GetNamedString(Const.JSON_NAME)
+                canteen_id = json.GetNamedString(Consts.JSON_CANTEEN_ID),
+                name = json.GetNamedString(Consts.JSON_NAME)
             };
 
-            JsonObject location = json.GetNamedObject(Const.JSON_LOCATION);
+            JsonObject location = json.GetNamedObject(Consts.JSON_LOCATION);
             if (location != null)
             {
-                c.address = location.GetNamedString(Const.JSON_ADDRESS);
-                c.latitude = location.GetNamedNumber(Const.JSON_LATITUDE);
-                c.longitude = location.GetNamedNumber(Const.JSON_LONGITUDE);
+                c.address = location.GetNamedString(Consts.JSON_ADDRESS);
+                c.latitude = location.GetNamedNumber(Consts.JSON_LATITUDE);
+                c.longitude = location.GetNamedNumber(Consts.JSON_LONGITUDE);
             }
             return c;
         }
@@ -185,12 +184,12 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_TABLE, TIME_TO_SYNC).NEEDS_SYNC)
+                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_TABLE, Consts.VALIDITY_ONE_WEEK).NEEDS_SYNC)
                     {
                         return;
                     }
                     Logger.Info("Started downloading canteens...");
-                    Uri url = new Uri(Const.CANTEENS_URL);
+                    Uri url = new Uri(Consts.CANTEENS_URL);
                     JsonArray jsonArr = await NetUtils.downloadJsonArrayAsync(url);
                     if (jsonArr == null)
                     {

@@ -31,9 +31,9 @@ namespace TUMCampusAppAPI.DBTables
 
         public NewsSourceTable(JsonObject json)
         {
-            this.src = json.GetNamedString(Const.JSON_SOURCE);
-            this.title = json.GetNamedString(Const.JSON_TITLE).Replace("newspread Live ", "");
-            JsonValue val = json.GetNamedValue(Const.JSON_ICON);
+            this.src = json.GetNamedString(Consts.JSON_SOURCE);
+            this.title = json.GetNamedString(Consts.JSON_TITLE).Replace("newspread Live ", "");
+            JsonValue val = json.GetNamedValue(Consts.JSON_ICON);
             this.icon = val.ValueType == JsonValueType.Null ? null : val.Stringify();
             this.enabled = true;
         }

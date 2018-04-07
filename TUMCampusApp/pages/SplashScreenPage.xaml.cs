@@ -305,7 +305,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private async void DismissExtendedSplashAsync()
         {
-            if (tileID != null && tileID.Equals(Const.TILE_ID_CANTEEN))
+            if (tileID != null && tileID.Equals(Consts.TILE_ID_CANTEEN))
             {
 
                 Window.Current.Content = new MainPage(EnumPage.CanteensPage, arguments);

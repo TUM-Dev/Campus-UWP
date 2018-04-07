@@ -82,7 +82,7 @@ namespace TUMCampusApp
             }
             else
             {
-                if (args.TileId != null && args.TileId.Equals(Const.TILE_ID_CANTEEN))
+                if (args.TileId != null && args.TileId.Equals(Consts.TILE_ID_CANTEEN))
                 {
 
                     Window.Current.Content = new MainPage(EnumPage.CanteensPage, args.Arguments);

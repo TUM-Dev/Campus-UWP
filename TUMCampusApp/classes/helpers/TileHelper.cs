@@ -37,14 +37,14 @@ namespace TUMCampusApp.Classes.Helpers
         /// <param name="logo">The tiles logo</param>
         public static async void PinTileAsync(string name, string text, string args, string logo)
         {
-            SecondaryTile tile = new SecondaryTile(Const.TILE_ID_CANTEEN)
+            SecondaryTile tile = new SecondaryTile(Consts.TILE_ID_CANTEEN)
             {
                 DisplayName = name,
                 Arguments = args
             };
-            tile.VisualElements.Square150x150Logo = Const.Square150x150Logo;
-            tile.VisualElements.Wide310x150Logo = Const.Wide310x150Logo;
-            tile.VisualElements.Square310x310Logo = Const.Square310x310Logo;
+            tile.VisualElements.Square150x150Logo = Consts.Square150x150Logo;
+            tile.VisualElements.Wide310x150Logo = Consts.Wide310x150Logo;
+            tile.VisualElements.Square310x310Logo = Consts.Square310x310Logo;
             tile.VisualElements.ShowNameOnSquare150x150Logo = true;
             tile.VisualElements.ShowNameOnSquare310x310Logo = true;
             tile.VisualElements.ShowNameOnWide310x150Logo = true;

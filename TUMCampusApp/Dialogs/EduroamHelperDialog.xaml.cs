@@ -61,13 +61,17 @@ namespace TUMCampusApp.Dialogs
                 if (index > 0)
                 {
                     string userName = userName_asgbx.Text.Substring(0, index);
-                    suggestions.Add(userName + "@campus.lmu.de");
-                    suggestions.Add(userName + "@eduroam.mwn.de");
+                    foreach (string extension in Consts.EDUROAM_NAME_EXTENSIONS)
+                    {
+                        suggestions.Add(userName + extension);
+                    }
                 }
                 else
                 {
-                    suggestions.Add(userName_asgbx.Text + "@campus.lmu.de");
-                    suggestions.Add(userName_asgbx.Text + "@eduroam.mwn.de");
+                    foreach (string extension in Consts.EDUROAM_NAME_EXTENSIONS)
+                    {
+                        suggestions.Add(userName_asgbx.Text + extension);
+                    }
                 }
             }
         }
@@ -266,7 +270,7 @@ namespace TUMCampusApp.Dialogs
         private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
         {
             string userId = Settings.getSettingString(SettingsConsts.USER_ID);
-            if(userId != null)
+            if (userId != null)
             {
                 userName_asgbx.Text = userId;
             }

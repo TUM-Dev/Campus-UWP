@@ -9,39 +9,16 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static LocationManager INSTANCE;
-        private static readonly int TIME_TO_SYNC = 360; // 1Hour
         private static readonly double[][] CAMPUS_LOCATIONS = {
             new double[] {48.2648424, 11.6709511}, // Garching Forschungszentrum
-            new double[] {48.249432, 11.633905}, // Garching HochbrÃ¼ck
+            new double[] {48.249432, 11.633905}, // Garching Hochbrück
             new double[] {48.397990, 11.722727}, // Weihenstephan
-            new double[] {48.149436, 11.567635}, // StammgelÃ¤nde
-            new double[] {48.110847, 11.4703001}, // Klinikum GroÃŸhadern
+            new double[] {48.149436, 11.567635}, // Stammgelände
+            new double[] {48.110847, 11.4703001}, // Klinikum Großhadern
             new double[] {48.137539, 11.601119}, // Klinikum rechts der Isar
-            new double[] {48.155916, 11.583095}, // LeopoldstraÃŸe
-            new double[] {48.150244, 11.580665} // Geschwister Schollplatz/AdalbertstraÃŸe
-    };
-        private static readonly String[] CAMPUS_SHORT = {
-            "G", // Garching Forschungszentrum
-            "H", // Garching HochbrÃ¼ck
-            "W", // Weihenstephan
-            "C", // StammgelÃ¤nde
-            "K", // Klinikum GroÃŸhadern
-            "I", // Klinikum rechts der Isar
-            "L", // LeopoldstraÃŸe
-            "S" // Geschwister Schollplatz/AdalbertstraÃŸe
-    };
-        private static readonly String[] DEFAULT_CAMPUS_STATION = {
-            "Garching-Forschungszentrum",
-            "Garching-HochbrÃ¼ck",
-            "Weihenstephan",
-            "TheresienstraÃŸe",//TODO need to use id instead of name, otherwise it does not work = 1000120
-            "Klinikum GroÃŸhadern",
-            "Max-Weber-Platz",
-            "GiselastraÃŸe",
-            "UniversitÃ¤t"
-    };
-
-        private static readonly String[] DEFAULT_CAMPUS_CAFETERIA = { "422", null, "423", "421", "414", null, "411", null };
+            new double[] {48.155916, 11.583095}, // Leopoldstraße
+            new double[] {48.150244, 11.580665} // Geschwister Schollplatz/Adalbertstraße
+        };
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -69,7 +46,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<Geopoint> getCurrentLocationAsync()
         {
             Geopoint p;
-            if(!SyncManager.INSTANCE.needSync(this, TIME_TO_SYNC).NEEDS_SYNC && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
+            if (!SyncManager.INSTANCE.needSync(this, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
             {
                 Logger.Info("Position is still up to date, no need to refresh it again");
                 return p;
@@ -89,8 +66,10 @@ namespace TUMCampusAppAPI.Managers
                         Logger.Warn("No access to GeoLocation");
                         return null;
                 }
-                Geolocator geoLocator = new Geolocator();
-                geoLocator.DesiredAccuracy = PositionAccuracy.Default;
+                Geolocator geoLocator = new Geolocator
+                {
+                    DesiredAccuracy = PositionAccuracy.Default
+                };
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
                 UserDataManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
                 SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
@@ -112,7 +91,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<int> getCurrentCampusAsync()
         {
             Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
-            if(pos == null)
+            if (pos == null)
             {
                 pos = await getCurrentLocationAsync();
             }

@@ -113,7 +113,7 @@
     <Compile Include="DBTables\DBTableConsts.cs" />
     <Compile Include="DBTables\FavoriteCanteenDishTypeTable.cs" />
     <Compile Include="Faculties.cs" />
-    <Compile Include="Const.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="CustomAccelerometer.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Managers\AbstractManager.cs" />
