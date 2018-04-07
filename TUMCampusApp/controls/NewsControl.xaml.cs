@@ -3,6 +3,9 @@ using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Threading.Tasks;
+using TUMCampusApp.Controls.Widgets;
+using TUMCampusApp.DataTemplates;
+using TUMCampusApp.Pages;
 using TUMCampusAppAPI;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
@@ -10,6 +13,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace TUMCampusApp.Controls
@@ -28,6 +32,27 @@ namespace TUMCampusApp.Controls
             }
         }
         public static readonly DependencyProperty NewsProperty = DependencyProperty.Register("NewsProperty", typeof(NewsTable), typeof(NewsControl), null);
+
+        public NewsPage ParentPage
+        {
+            get { return (NewsPage)GetValue(ParentPageProperty); }
+            set { SetValue(ParentPageProperty, value); }
+        }
+        public static readonly DependencyProperty ParentPageProperty = DependencyProperty.Register("ParentPage", typeof(NewsPage), typeof(NewsControl), null);
+
+        public NewsTemplate NewsTemp
+        {
+            get { return (NewsTemplate)GetValue(NewsTempProperty); }
+            set { SetValue(NewsTempProperty, value); }
+        }
+        public static readonly DependencyProperty NewsTempProperty = DependencyProperty.Register("NewsTemp", typeof(NewsTemplate), typeof(NewsControl), null);
+
+        public NewsWidgetControl NewsWidget
+        {
+            get { return (NewsWidgetControl)GetValue(NewsWidgetProperty); }
+            set { SetValue(NewsWidgetProperty, value); }
+        }
+        public static readonly DependencyProperty NewsWidgetProperty = DependencyProperty.Register("NewsWidget", typeof(NewsWidgetControl), typeof(NewsControl), null);
 
         private int imageLoadingFailedCounter;
 
@@ -128,7 +153,7 @@ namespace TUMCampusApp.Controls
             showNews();
         }
 
-        private async void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void main_grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (News == null || News.link == null || loading_ldng.IsLoading)
             {
@@ -152,23 +177,31 @@ namespace TUMCampusApp.Controls
             if (News != null)
             {
                 News.read = !News.read;
+
+                // Update button color:
+                NewsControlReadButtonValueConverter converter = (NewsControlReadButtonValueConverter)Resources["newsControlReadButtonValueConverter"];
+                read_btn.Foreground = (SolidColorBrush)converter.Convert(News.read, null, null, null);
+
                 string id = News.id;
                 bool read = News.read;
                 Task.Run(() => NewsManager.INSTANCE.updateNewsRead(id, read));
 
-
-                if (News.read && Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_READ))
+                if (News.read)
                 {
-                    if (Parent is DropShadowPanel dsp)
+                    if (ParentPage != null && NewsTemp != null && Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_READ))
                     {
-                        dsp.Visibility = Visibility.Collapsed;
+                        ParentPage.removeNews(NewsTemp);
+                    }
+                    if (NewsWidget != null)
+                    {
+                        NewsWidget.markAsRead();
                     }
                 }
-                else if (!News.read && Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_UNREAD))
+                else
                 {
-                    if (Parent is DropShadowPanel dsp)
+                    if (ParentPage != null && NewsTemp != null && Settings.getSettingBoolean(SettingsConsts.NEWS_PAGE_HIDE_UNREAD))
                     {
-                        dsp.Visibility = Visibility.Collapsed;
+                        ParentPage.removeNews(NewsTemp);
                     }
                 }
             }

@@ -47,12 +47,7 @@ namespace TUMCampusApp.Controls.Widgets
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
-
-        #endregion
-
-        #region --Misc Methods (Private)--
-        private void markAsRead()
+        public void markAsRead()
         {
             Visibility = Visibility.Collapsed;
             if (News != null)
@@ -64,6 +59,11 @@ namespace TUMCampusApp.Controls.Widgets
                 });
             }
         }
+
+        #endregion
+
+        #region --Misc Methods (Private)--
+
 
         #endregion
 

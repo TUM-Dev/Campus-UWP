@@ -64,6 +64,11 @@ namespace TUMCampusApp.Pages
             showNews(false);
         }
 
+        public void removeNews(NewsTemplate newsTemplate)
+        {
+            newsList.Remove(newsTemplate);
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
@@ -115,7 +120,11 @@ namespace TUMCampusApp.Pages
                         for (int i = 0; i < l; i++)
                         {
 
-                            NewsTemplate nT = new NewsTemplate() { news = news[i] };
+                            NewsTemplate nT = new NewsTemplate()
+                            {
+                                news = news[i],
+                                parentPage = this
+                            };
                             newsList.Add(nT);
                             temp = (news[i].created - DateTime.Now).Duration().TotalHours;
                             if (mostCurrentNewsIndex < 0 || temp < dateDiff)

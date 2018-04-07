@@ -16,7 +16,9 @@
             <controls:DropShadowPanel Margin="5, 10, 5, 0"
                                       x:Name="news_dsp"
                                       Style="{StaticResource ShadowPanelStyle}">
-                <controls1:NewsControl News="{x:Bind news}"/>
+                <controls1:NewsControl News="{x:Bind news}"
+                                       ParentPage="{x:Bind parentPage}"
+                                       NewsTemp="{x:Bind}"/>
             </controls:DropShadowPanel>
         </DataTemplate>
     </Page.Resources>

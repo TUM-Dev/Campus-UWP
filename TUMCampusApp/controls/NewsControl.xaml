@@ -7,9 +7,9 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls1="using:TUMCampusApp.Controls"
     xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d"
-    Loaded="UserControl_Loaded"
-    Tapped="UserControl_Tapped">
+    Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
         <datatemplates:NewsControlReadButtonValueConverter x:Key="newsControlReadButtonValueConverter"/>
@@ -18,61 +18,70 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <StackPanel x:Name="main_grid"
-                        Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
-                <TextBlock x:Name="title_tbx"
-                           x:Uid="NewsControlLoading"
-                           Text="{x:Bind News.title, Mode=OneWay, FallbackValue='Loading...'}"
-                           HorizontalAlignment="Center"
-                           Margin="10, 5, 10, 5"
-                           TextWrapping="Wrap"
-                           MaxLines="5"/>
-            </StackPanel>
-            <controls:ImageEx x:Name="image_img"
-                              IsCacheEnabled="True"
-                              VerticalContentAlignment="Center"
-                              HorizontalContentAlignment="Center"
-                              Stretch="Uniform"
-                              ImageExFailed="image_img_ImageExFailed"
-                              ImageExOpened="image_img_ImageExOpened"
-                              MaxHeight="300"/>
-            <Grid Margin="0, 10, 0, 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="read_btn"
-                        Grid.Column="0"
-                        Content="&#xE8FB;"
-                        FontFamily="Segoe MDL2 Assets"
-                        Background="Transparent"
-                        Foreground="{x:Bind News.read, Converter={StaticResource newsControlReadButtonValueConverter}, Mode=OneWay}"
-                        Click="read_btn_Click"/>
-
-                <StackPanel Grid.Column="1">
-                    <TextBlock x:Name="src_tbx"
-                               TextWrapping="Wrap"
-                               Margin="10, 0, 0, 0"/>
-                    <TextBlock x:Name="date_tbx"
-                               TextWrapping="Wrap"
-                               Margin="10, 0, 0, 10"/>
-                </StackPanel>
-
-                <Image x:Name="logo_img"
-                       Grid.Column="2"
-                       Width="40"
-                       Height="40"
-                       HorizontalAlignment="Right"
-                       Margin="0, 0, 10, 0"/>
-            </Grid>
+        <StackPanel x:Name="main_grid"
+                    Grid.Row="0"
+                    Tapped="main_grid_Tapped"
+                    extensions:Mouse.Cursor="Hand"
+                    Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+            <TextBlock x:Name="title_tbx"
+                       x:Uid="NewsControlLoading"
+                       Text="{x:Bind News.title, Mode=OneWay, FallbackValue='Loading...'}"
+                       HorizontalAlignment="Center"
+                       Margin="10, 5, 10, 5"
+                       TextWrapping="Wrap"
+                       MaxLines="5"/>
         </StackPanel>
+
+        <controls:ImageEx x:Name="image_img"
+                          Grid.Row="1"
+                          Tapped="main_grid_Tapped"
+                          extensions:Mouse.Cursor="Hand"
+                          IsCacheEnabled="True"
+                          VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Center"
+                          Stretch="Uniform"
+                          ImageExFailed="image_img_ImageExFailed"
+                          ImageExOpened="image_img_ImageExOpened"
+                          MaxHeight="300"/>
+
+        <Grid Margin="0, 10, 0, 10"
+              Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="read_btn"
+                    Grid.Column="0"
+                    Content="&#xE8FB;"
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="{x:Bind News.read, Converter={StaticResource newsControlReadButtonValueConverter}, Mode=OneWay}"
+                    Margin="10, 0, 10, 0"
+                    VerticalAlignment="Center"
+                    Click="read_btn_Click"/>
+
+            <StackPanel Grid.Column="1">
+                <TextBlock x:Name="src_tbx"
+                           TextWrapping="Wrap"/>
+                <TextBlock x:Name="date_tbx"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <Image x:Name="logo_img"
+                   Grid.Column="2"
+                   Width="40"
+                   Height="40"
+                   HorizontalAlignment="Right"
+                   Margin="0, 0, 10, 0"/>
+        </Grid>
         <controls:Loading x:Name="loading_ldng"
                           Grid.Row="0"
+                          Grid.RowSpan="3"
                           Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
             <controls1:LoadingContentControl/>
         </controls:Loading>

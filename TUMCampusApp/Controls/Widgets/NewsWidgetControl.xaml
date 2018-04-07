@@ -25,7 +25,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <controls1:NewsControl News="{x:Bind News, Mode=OneWay}"/>
+                <controls1:NewsControl News="{x:Bind News, Mode=OneWay}"
+                                       NewsWidget="{x:Bind}"/>
                 <controls:Loading x:Name="loading_ldng"
                                   Grid.Row="0"
                                   Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">

@@ -1,4 +1,5 @@
-﻿using TUMCampusAppAPI.DBTables;
+﻿using TUMCampusApp.Pages;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.DataTemplates
 {
@@ -7,6 +8,7 @@ namespace TUMCampusApp.DataTemplates
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public NewsTable news { get; set; }
+        public NewsPage parentPage { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
