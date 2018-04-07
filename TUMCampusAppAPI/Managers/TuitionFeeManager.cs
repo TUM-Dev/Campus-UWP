@@ -48,7 +48,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found tuition fees.</returns>
         public List<TUMTuitionFeeTable> getFees()
         {
-            waitForSyncToFinish();
             return dB.Query<TUMTuitionFeeTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE + " WHERE money != 0;");
         }
 

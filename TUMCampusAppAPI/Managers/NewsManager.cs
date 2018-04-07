@@ -156,7 +156,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_TABLE, CacheManager.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_TABLE, Consts.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     if (force)
                     {
@@ -231,7 +231,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_SOURCE_TABLE, CacheManager.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_SOURCE_TABLE, Consts.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     try
                     {

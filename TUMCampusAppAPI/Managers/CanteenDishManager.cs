@@ -183,8 +183,8 @@ namespace TUMCampusAppAPI.Managers
             {
                 return null;
             }
-            waitForSyncToFinish();
 
+            waitForSyncToFinish();
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {

@@ -1,5 +1,4 @@
 ﻿using System;
-using TUMCampusAppAPI.Managers;
 
 namespace TUMCampusAppAPI.TUMOnline
 {
@@ -7,23 +6,20 @@ namespace TUMCampusAppAPI.TUMOnline
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly TUMOnlineConst REQUEST_TOKEN = new TUMOnlineConst("requestToken", CacheManager.VALIDITY_DO_NOT_CACHE);
-        public static readonly TUMOnlineConst TOKEN_CONFIRMED = new TUMOnlineConst("isTokenConfirmed", CacheManager.VALIDITY_DO_NOT_CACHE);
+        public static readonly TUMOnlineConst REQUEST_TOKEN = new TUMOnlineConst("requestToken", Consts.VALIDITY_DO_NOT_CACHE);
+        public static readonly TUMOnlineConst TOKEN_CONFIRMED = new TUMOnlineConst("isTokenConfirmed", Consts.VALIDITY_DO_NOT_CACHE);
 
-        public static readonly TUMOnlineConst CALENDAR = new TUMOnlineConst("kalender", CacheManager.VALIDITY_FIFE_DAYS);
-        public static readonly TUMOnlineConst TUITION_FEE_STATUS = new TUMOnlineConst("studienbeitragsstatus", CacheManager.VALIDITY_TWO_DAYS);
-        public static readonly TUMOnlineConst LECTURES_PERSONAL = new TUMOnlineConst("veranstaltungenEigene", CacheManager.VALIDITY_FIFE_DAYS);
-        public static readonly TUMOnlineConst LECTURES_DETAILS = new TUMOnlineConst("veranstaltungenDetails", CacheManager.VALIDITY_TEN_DAYS);
-        public static readonly TUMOnlineConst LECTURES_APPOINTMENTS = new TUMOnlineConst("veranstaltungenTermine", CacheManager.VALIDITY_TEN_DAYS);
-        public static readonly TUMOnlineConst LECTURES_SEARCH = new TUMOnlineConst("veranstaltungenSuche", CacheManager.VALIDITY_DO_NOT_CACHE);
-        public static readonly TUMOnlineConst ORG_TREE = new TUMOnlineConst("orgBaum", CacheManager.VALIDITY_ONE_MONTH);
-        public static readonly TUMOnlineConst ORG_DETAILS = new TUMOnlineConst("orgDetails", CacheManager.VALIDITY_ONE_MONTH);
-        public static readonly TUMOnlineConst PERSON_DETAILS = new TUMOnlineConst("personenDetails", CacheManager.VALIDITY_FIFE_DAYS);
-        public static readonly TUMOnlineConst PERSON_SEARCH = new TUMOnlineConst("personenSuche", CacheManager.VALIDITY_DO_NOT_CACHE);
-        public static readonly TUMOnlineConst EXAMS = new TUMOnlineConst("noten", CacheManager.VALIDITY_TEN_DAYS);
-
-        public static readonly TUMOnlineConst IDENTITY = new TUMOnlineConst("id", CacheManager.VALIDITY_DO_NOT_CACHE);
-        public static readonly TUMOnlineConst SECRET_UPLOAD = new TUMOnlineConst("secretUpload", CacheManager.VALIDITY_DO_NOT_CACHE);
+        public static readonly TUMOnlineConst CALENDAR = new TUMOnlineConst("kalender", Consts.VALIDITY_FIFE_DAYS);
+        public static readonly TUMOnlineConst TUITION_FEE_STATUS = new TUMOnlineConst("studienbeitragsstatus", Consts.VALIDITY_TWO_DAYS);
+        public static readonly TUMOnlineConst LECTURES_PERSONAL = new TUMOnlineConst("veranstaltungenEigene", Consts.VALIDITY_FIFE_DAYS);
+        public static readonly TUMOnlineConst LECTURES_DETAILS = new TUMOnlineConst("veranstaltungenDetails", Consts.VALIDITY_TEN_DAYS);
+        public static readonly TUMOnlineConst LECTURES_APPOINTMENTS = new TUMOnlineConst("veranstaltungenTermine", Consts.VALIDITY_TEN_DAYS);
+        public static readonly TUMOnlineConst LECTURES_SEARCH = new TUMOnlineConst("veranstaltungenSuche", Consts.VALIDITY_DO_NOT_CACHE);
+        public static readonly TUMOnlineConst ORG_TREE = new TUMOnlineConst("orgBaum", Consts.VALIDITY_ONE_MONTH);
+        public static readonly TUMOnlineConst ORG_DETAILS = new TUMOnlineConst("orgDetails", Consts.VALIDITY_ONE_MONTH);
+        public static readonly TUMOnlineConst PERSON_DETAILS = new TUMOnlineConst("personenDetails", Consts.VALIDITY_FIFE_DAYS);
+        public static readonly TUMOnlineConst PERSON_SEARCH = new TUMOnlineConst("personenSuche", Consts.VALIDITY_DO_NOT_CACHE);
+        public static readonly TUMOnlineConst EXAMS = new TUMOnlineConst("noten", Consts.VALIDITY_TEN_DAYS);
 
         public static readonly string SERVICE_REQEST_TOKEN_ANSWER_INACTIV = "Token ist inaktiv, muss über TUMonline oder Email aktiviert werden!";
 

@@ -76,7 +76,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all found lectures.</returns>
         public List<TUMOnlineLectureTable> getLectures()
         {
-            waitForSyncToFinish();
             return dB.Query<TUMOnlineLectureTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_LECTURE_TABLE + ";");
         }
         #endregion

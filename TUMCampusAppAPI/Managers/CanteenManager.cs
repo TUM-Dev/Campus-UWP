@@ -59,8 +59,6 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns all Canteens from the db.</returns>
         public List<CanteenTable> getCanteens()
         {
-            waitForSyncToFinish();
-
             return dB.Query<CanteenTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_TABLE + ";");
         }
 
@@ -114,8 +112,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="dish_types">All dish types.</param>
         public void setFavoriteCanteenDishTypes(string canteen_id, List<string> dish_types)
         {
-            waitForSyncToFinish();
-
             dB.Execute("UPDATE " + DBTableConsts.CANTEEN_TABLE + " SET favorite = ? WHERE canteen_id = ?;", 1, canteen_id);
             List<FavoriteCanteenDishTypeTable> fav = new List<FavoriteCanteenDishTypeTable>();
             foreach (string dish_type in dish_types)
@@ -134,8 +130,6 @@ namespace TUMCampusAppAPI.Managers
         /// </summary>
         public List<CanteenTable> getFavoriteCanteens()
         {
-            waitForSyncToFinish();
-
             return dB.Query<CanteenTable>(true, "SELECT * FROM " + DBTableConsts.CANTEEN_TABLE + " WHERE favorite = ?;", true);
         }
 
@@ -145,8 +139,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">The canteen id you want all dish types for.</param>
         public List<FavoriteCanteenDishTypeTable> getDishTypesForFavoriteCanteen(string canteen_id)
         {
-            waitForSyncToFinish();
-
             return dB.Query<FavoriteCanteenDishTypeTable>(true, "SELECT * FROM " + DBTableConsts.FAVORITE_CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
         }
 
@@ -157,8 +149,6 @@ namespace TUMCampusAppAPI.Managers
         /// <param name="canteen_id">The canteen id you want to unfavorite.</param>
         public void unfavoriteCanteen(string canteen_id)
         {
-            waitForSyncToFinish();
-
             dB.Execute("UPDATE " + DBTableConsts.CANTEEN_TABLE + " SET favorite = ? WHERE canteen_id = ?;", 0, canteen_id);
             dB.Execute("DELETE FROM " + DBTableConsts.FAVORITE_CANTEEN_DISH_TABLE + " WHERE canteen_id = ?;", canteen_id);
         }
@@ -177,8 +167,8 @@ namespace TUMCampusAppAPI.Managers
             {
                 return null;
             }
-            waitForSyncToFinish();
 
+            waitForSyncToFinish();
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
