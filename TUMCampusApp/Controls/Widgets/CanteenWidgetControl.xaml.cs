@@ -81,7 +81,7 @@ namespace TUMCampusApp.Controls.Widgets
                     int dishTypesCount = 0;
                     if (date != DateTime.MaxValue)
                     {
-                        Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => canteenDate_tbx.Text = date.AddDays(1).ToString("dd.MM.yyyy")).AsTask();
+                        Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => canteenDate_tbx.Text = date.ToString("dd.MM.yyyy")).AsTask();
 
                         foreach (FavoriteCanteenDishTypeTable f in CanteenManager.INSTANCE.getDishTypesForFavoriteCanteen(canteenId))
                         {

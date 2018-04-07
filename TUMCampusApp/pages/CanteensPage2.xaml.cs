@@ -82,7 +82,7 @@ namespace TUMCampusApp.Pages
         {
             if (dishDateOffset >= 0)
             {
-                day_tbx.Text = UIUtils.getLocalizedString(dishDates[dishDateOffset].AddDays(1).DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].AddDays(1).ToString("dd.MM.yyyy");
+                day_tbx.Text = UIUtils.getLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
             }
             else
             {
