@@ -91,7 +91,7 @@ namespace TUMCampusApp.Pages.Setup
             Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, true);
             if (Window.Current.Content is Frame f)
             {
-                f.Navigate(typeof(MainPage));
+                f.Navigate(typeof(MainPage2));
             }
         }
 
@@ -107,7 +107,7 @@ namespace TUMCampusApp.Pages.Setup
             {
                 Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
                 Frame f = new Frame();
-                f.Navigate(typeof(MainPage));
+                f.Navigate(typeof(MainPage2));
                 Window.Current.Content = f;
             }
             finishValidatingToken();
@@ -169,7 +169,7 @@ namespace TUMCampusApp.Pages.Setup
             {
                 Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
                 Frame f = new Frame();
-                f.Navigate(typeof(MainPage));
+                f.Navigate(typeof(MainPage2));
                 Window.Current.Content = f;
             }
             finishValidatingToken();

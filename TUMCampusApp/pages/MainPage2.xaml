@@ -11,27 +11,26 @@
     <Page.Resources>
         <DataTemplate x:Key="mainPageSplitViewItemButtonTemplate"
                       x:DataType="datatemplates:MainPageSplitViewItemButtonTemplate">
-            <ListBoxItem IsEnabled="{x:Bind isEnabled}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{x:Bind iconFont}"
-                               Width="30"
-                               VerticalAlignment="Center"
-                               FontSize="24"
-                               Text="{x:Bind icon}"
-                               Margin="{x:Bind iconMargin}"/>
-                    <TextBlock Text="{x:Bind text}"
-                               Margin="{x:Bind textMargin}"
-                               VerticalAlignment="Center"/>
-                </StackPanel>
-            </ListBoxItem>
+            <StackPanel Orientation="Horizontal"
+                        DataContextChanged="ItemButtonStackPanel_DataContextChanged">
+                <TextBlock FontFamily="{x:Bind iconFont}"
+                           Width="30"
+                           VerticalAlignment="Center"
+                           FontSize="24"
+                           Text="{x:Bind icon}"
+                           Margin="{x:Bind iconMargin}"/>
+                <TextBlock Text="{x:Bind text}"
+                           Margin="{x:Bind textMargin}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Key="mainPageSplitViewItemDescriptionTemplate"
                       x:DataType="datatemplates:MainPageSplitViewItemDescriptionTemplate">
-            <ListBoxItem IsEnabled="False">
-                <TextBlock Text="{x:Bind text}"
-                           Margin="{x:Bind textMargin}"/>
-            </ListBoxItem>
+            <TextBlock Text="{x:Bind text}"
+                       Margin="{x:Bind textMargin}"
+                       DataContextChanged="ItemDescriptionTextBlock_DataContextChanged"
+                       Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
         </DataTemplate>
 
         <datatemplates:MainPageSplitViewItemTemplateSelector x:Name="mainPageSplitViewItemTemplateSelector"
@@ -101,13 +100,7 @@
                              SelectionMode="Single"
                              SelectionChanged="ListBox_SelectionChanged"
                              ItemsSource="{x:Bind splitViewItems}"
-                             ItemTemplateSelector="{StaticResource mainPageSplitViewItemTemplateSelector}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="5"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
+                             ItemTemplateSelector="{StaticResource mainPageSplitViewItemTemplateSelector}"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>

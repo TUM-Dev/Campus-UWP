@@ -186,15 +186,6 @@
   <data name="MainPageTuitionFeesItem_Text" xml:space="preserve">
     <value>Tuition Fees</value>
   </data>
-  <data name="NetworkConnectionStatusBase_Text" xml:space="preserve">
-    <value>Network connection status</value>
-  </data>
-  <data name="NetworkConnectionStatusConnected_Text" xml:space="preserve">
-    <value>Connected</value>
-  </data>
-  <data name="NetworkConnectionStatusDisconnected_Text" xml:space="preserve">
-    <value>Disconnected</value>
-  </data>
   <data name="SetupPage1NextButton.Content" xml:space="preserve">
     <value>Next</value>
   </data>

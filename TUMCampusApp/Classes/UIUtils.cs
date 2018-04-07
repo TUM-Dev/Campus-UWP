@@ -9,26 +9,7 @@ namespace TUMCampusApp.Classes
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public enum EnumPage
-        {
-            MyCalendarPage,
-            MyLecturesPage,
-            MyGradesPage,
-            TuitionFeesPage,
-            HomePage,
-            CanteensPage,
-            NewsPage,
-            MVPage,
-            PlansPage,
-            RoomfinderPage,
-            StudyRoomsPage,
-            OpeningHoursPage,
-            StudyPlansPage,
-            SettingsPage,
-            SetupPage,
-        }
-
-        public static MainPage mainPage;
+        public static MainPage2 mainPage;
 
         private static ResourceLoader loader;
 

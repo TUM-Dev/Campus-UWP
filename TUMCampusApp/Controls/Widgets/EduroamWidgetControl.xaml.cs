@@ -56,7 +56,7 @@ namespace TUMCampusApp.Controls.Widgets
         #region --Events--
         private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            UIUtils.mainPage?.navigateToPage(UIUtils.EnumPage.SettingsPage, null);
+            UIUtils.mainPage?.navigateToPage(typeof(SettingsPage), null);
         }
 
         #endregion

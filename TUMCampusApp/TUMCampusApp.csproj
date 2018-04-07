@@ -209,9 +209,6 @@
     <Compile Include="Pages\LectureInformationPage.xaml.cs">
       <DependentUpon>LectureInformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\MainPage2.xaml.cs">
       <DependentUpon>MainPage2.xaml</DependentUpon>
     </Compile>
@@ -445,10 +442,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LectureInformationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

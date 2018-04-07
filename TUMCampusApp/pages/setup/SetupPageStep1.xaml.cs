@@ -84,7 +84,7 @@ namespace TUMCampusApp.Pages.Setup
             Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, true);
             if (Window.Current.Content is Frame f)
             {
-                f.Navigate(typeof(MainPage));
+                f.Navigate(typeof(MainPage2));
             }
         }
 

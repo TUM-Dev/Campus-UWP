@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.DataTemplates
 {
@@ -8,6 +9,7 @@ namespace TUMCampusApp.DataTemplates
         #region --Attributes--
         public string text { get; set; }
         public Thickness textMargin { get; set; }
+        public SolidColorBrush foreground { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

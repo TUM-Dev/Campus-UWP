@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Margin="10,10,10,10" Grid.Row="0">
             <TextBlock x:Uid="SetupPageStep2" Foreground="{ThemeResource CalendarDatePickerTextForeground}"/>
             <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>

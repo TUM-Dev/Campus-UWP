@@ -1,4 +1,5 @@
 ﻿using TUMCampusApp.Classes;
+using TUMCampusApp.Pages;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -49,7 +50,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            UIUtils.mainPage?.navigateToPage(UIUtils.EnumPage.SettingsPage, null);
+            UIUtils.mainPage?.navigateToPage(typeof(SettingsPage), null);
         }
 
         #endregion

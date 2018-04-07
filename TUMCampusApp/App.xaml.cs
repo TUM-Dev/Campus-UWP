@@ -14,7 +14,6 @@ using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
-using static TUMCampusApp.Classes.UIUtils;
 using TUMCampusApp.Classes;
 using Data_Manager;
 using Logging;
@@ -65,7 +64,7 @@ namespace TUMCampusApp
                 if (args.TileId != null && args.TileId.Equals(Consts.TILE_ID_CANTEEN))
                 {
 
-                    Window.Current.Content = new MainPage(EnumPage.CanteensPage, args.Arguments);
+                    Window.Current.Content = new MainPage2(typeof(CanteensPage2), args.Arguments);
                 }
             }
 
