@@ -808,4 +808,13 @@
   <data name="CanteenWidgetControlSlideList.RightLabel" xml:space="preserve">
     <value>Unfavorite</value>
   </data>
+  <data name="NoWidgetsControlInfo2.Text" xml:space="preserve">
+    <value>App Settings</value>
+  </data>
+  <data name="NoWidgetsControlInfo1.Text" xml:space="preserve">
+    <value>No widgets available or all widgets disabled, please come back later or enable them in the </value>
+  </data>
+  <data name="NoWidgetsControlInfo3.Text" xml:space="preserve">
+    <value>.</value>
+  </data>
 </root>

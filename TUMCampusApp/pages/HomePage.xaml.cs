@@ -42,11 +42,31 @@ namespace TUMCampusApp.Pages
         public void addWidget(UIElement widget)
         {
             widgets_stckp.Children.Add(widget);
+            updateWidgetsVisibility();
+        }
+
+        public void removeWidget(UIElement widget)
+        {
+            widgets_stckp.Children.Remove(widget);
+            updateWidgetsVisibility();
         }
 
         #endregion
 
         #region --Misc Methods (Private)--
+        private void updateWidgetsVisibility()
+        {
+            if (widgets_stckp.Children.Count <= 0)
+            {
+                noWidgets_nwc.Visibility = Visibility.Visible;
+                widgets_stckp.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                noWidgets_nwc.Visibility = Visibility.Collapsed;
+                widgets_stckp.Visibility = Visibility.Visible;
+            }
+        }
 
         #endregion
 
@@ -58,7 +78,7 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void widgets_stckp_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-
+            updateWidgetsVisibility();
         }
 
         #endregion

@@ -101,7 +101,8 @@ namespace TUMCampusApp.Controls.Widgets
                             NewsWidgetControl newsWidgetControl = new NewsWidgetControl()
                             {
                                 News = item,
-                                NewsDummyWidget = this
+                                NewsDummyWidget = this,
+                                HPage = HPage
                             };
                             NEWS_WIDGETS.Add(newsWidgetControl);
                             HPage?.addWidget(newsWidgetControl);

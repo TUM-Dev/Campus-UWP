@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Threading.Tasks;
+using TUMCampusApp.Pages;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
@@ -25,6 +26,13 @@ namespace TUMCampusApp.Controls.Widgets
         }
         public static readonly DependencyProperty NewsDummyWidgetProperty = DependencyProperty.Register("NewsDummyWidget", typeof(NewsDummyWidgetControl), typeof(NewsWidgetControl), null);
 
+        public HomePage HPage
+        {
+            get { return (HomePage)GetValue(HPageProperty); }
+            set { SetValue(HPageProperty, value); }
+        }
+        public static readonly DependencyProperty HPageProperty = DependencyProperty.Register("HPage", typeof(HomePage), typeof(NewsWidgetControl), null);
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -49,7 +57,7 @@ namespace TUMCampusApp.Controls.Widgets
         #region --Misc Methods (Public)--
         public void markAsRead()
         {
-            Visibility = Visibility.Collapsed;
+            HPage?.removeWidget(this);
             if (News != null)
             {
                 string id = News.id;

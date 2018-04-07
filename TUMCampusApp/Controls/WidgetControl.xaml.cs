@@ -1,6 +1,7 @@
 ﻿using Data_Manager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using TUMCampusApp.Controls.Widgets;
+using TUMCampusApp.Pages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,16 +11,23 @@ namespace TUMCampusApp.Controls
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public object WidgetContent
+        public UIElement WidgetContent
         {
-            get { return GetValue(WidgetContentProperty); }
+            get { return (UIElement)GetValue(WidgetContentProperty); }
             set
             {
                 SetValue(WidgetContentProperty, value);
                 onWidgetContentChanged();
             }
         }
-        public static readonly DependencyProperty WidgetContentProperty = DependencyProperty.Register("WidgetContent", typeof(object), typeof(WidgetControl), null);
+        public static readonly DependencyProperty WidgetContentProperty = DependencyProperty.Register("WidgetContent", typeof(UIElement), typeof(WidgetControl), null);
+
+        public HomePage HPage
+        {
+            get { return (HomePage)GetValue(HPageProperty); }
+            set { SetValue(HPageProperty, value); }
+        }
+        public static readonly DependencyProperty HPageProperty = DependencyProperty.Register("HPage", typeof(HomePage), typeof(WidgetControl), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -56,7 +64,7 @@ namespace TUMCampusApp.Controls
                     hW.onHiding();
 
                     Settings.setSetting(token, true);
-                    Visibility = Visibility.Collapsed;
+                    HPage?.removeWidget(this);
                 }
             }
         }
@@ -66,14 +74,21 @@ namespace TUMCampusApp.Controls
         #region --Misc Methods (Private)--
         private void onWidgetContentChanged()
         {
+            setVisability();
+        }
+
+        private void setVisability()
+        {
             if (WidgetContent is IHideableWidget hW)
             {
-                string setting = hW.getSettingsToken();
-                if (setting != null)
+                string token = hW.getSettingsToken();
+                if (token != null && Settings.getSettingBoolean(token))
                 {
-                    Visibility = Settings.getSettingBoolean(setting) ? Visibility.Collapsed : Visibility.Visible;
+                    HPage?.removeWidget(this);
+                    return;
                 }
             }
+            Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -93,6 +108,11 @@ namespace TUMCampusApp.Controls
                     disableWidget();
                 }
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            setVisability();
         }
 
         #endregion

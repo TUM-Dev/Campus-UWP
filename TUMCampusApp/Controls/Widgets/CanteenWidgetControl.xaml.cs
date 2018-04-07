@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
+using TUMCampusApp.Pages;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
@@ -30,7 +31,14 @@ namespace TUMCampusApp.Controls.Widgets
             get { return (CanteenDummyWidgetControl)GetValue(CanteenDummyWidgetProperty); }
             set { SetValue(CanteenDummyWidgetProperty, value); }
         }
-        public static readonly DependencyProperty CanteenDummyWidgetProperty = DependencyProperty.Register("CanteenDummyWidget", typeof(CanteenDummyWidgetControl), typeof(NewsWidgetControl), null);
+        public static readonly DependencyProperty CanteenDummyWidgetProperty = DependencyProperty.Register("CanteenDummyWidget", typeof(CanteenDummyWidgetControl), typeof(CanteenWidgetControl), null);
+
+        public HomePage HPage
+        {
+            get { return (HomePage)GetValue(HPageProperty); }
+            set { SetValue(HPageProperty, value); }
+        }
+        public static readonly DependencyProperty HPageProperty = DependencyProperty.Register("HPage", typeof(HomePage), typeof(CanteenWidgetControl), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -63,7 +71,7 @@ namespace TUMCampusApp.Controls.Widgets
         {
             if (Canteen != null)
             {
-                Visibility = Visibility.Collapsed;
+                HPage?.removeWidget(this);
                 string canteen_id = Canteen.canteen_id;
                 Task.Run(() => CanteenManager.INSTANCE.unfavoriteCanteen(canteen_id));
             }

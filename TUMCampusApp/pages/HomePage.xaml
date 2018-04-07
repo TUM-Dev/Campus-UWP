@@ -11,48 +11,65 @@
     <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
         <ScrollViewer HorizontalAlignment="Stretch"
                       HorizontalScrollMode="Disabled">
-            <StackPanel x:Name="widgets_stckp"
-                        Margin="0,0,0,10"
-                        HorizontalAlignment="Stretch"
-                        DataContextChanged="widgets_stckp_DataContextChanged">
-                <controls1:WidgetControl x:Name="exampleWidget_ds">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:ExampleWidgetControl/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <controls1:WidgetControl x:Name="eduroamWidget_ds">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:EduroamWidgetControl/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
+                <controls1:NoWidgetsControl x:Name="noWidgets_nwc"
+                                            Grid.Row="0"
+                                            Visibility="Collapsed"/>
 
-                <controls1:WidgetControl x:Name="calendarWidget_wc">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
+                <StackPanel x:Name="widgets_stckp"
+                            Grid.Row="0"
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Stretch"
+                            DataContextChanged="widgets_stckp_DataContextChanged">
+                    <controls1:WidgetControl x:Name="exampleWidget_ds"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:ExampleWidgetControl/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
 
-                <controls1:WidgetControl x:Name="canteenWidget_ds">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:CanteenDummyWidgetControl WidgetContainer="{x:Bind canteenWidget_ds}"
-                                                           HPage="{x:Bind}"/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
+                    <controls1:WidgetControl x:Name="eduroamWidget_ds"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:EduroamWidgetControl/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
 
-                <controls1:WidgetControl x:Name="tutionFeeWidget_ds">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
+                    <controls1:WidgetControl x:Name="calendarWidget_wc"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
 
-                <controls1:WidgetControl x:Name="newsWidget_ds">
-                    <controls1:WidgetControl.WidgetContent>
-                        <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}"
-                                                        HPage="{x:Bind}"/>
-                    </controls1:WidgetControl.WidgetContent>
-                </controls1:WidgetControl>
-            </StackPanel>
+                    <controls1:WidgetControl x:Name="canteenWidget_ds"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:CanteenDummyWidgetControl WidgetContainer="{x:Bind canteenWidget_ds}"
+                                                               HPage="{x:Bind}"/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
+
+                    <controls1:WidgetControl x:Name="tutionFeeWidget_ds"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
+
+                    <controls1:WidgetControl x:Name="newsWidget_ds"
+                                             HPage="{x:Bind}">
+                        <controls1:WidgetControl.WidgetContent>
+                            <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}"
+                                                            HPage="{x:Bind}"/>
+                        </controls1:WidgetControl.WidgetContent>
+                    </controls1:WidgetControl>
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>

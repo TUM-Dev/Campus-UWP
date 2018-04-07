@@ -93,7 +93,8 @@ namespace TUMCampusApp.Controls.Widgets
                         CanteenWidgetControl canteenWidgetControl = new CanteenWidgetControl()
                         {
                             Canteen = c,
-                            CanteenDummyWidget = this
+                            CanteenDummyWidget = this,
+                            HPage = HPage
                         };
 
                         CANTEEN_WIDGETS.Add(canteenWidgetControl);
