@@ -1,6 +1,9 @@
 ﻿using Data_Manager;
+using System.Threading.Tasks;
 using TUMCampusAppAPI.Managers;
 using Windows.ApplicationModel;
+using Windows.Storage;
+using System;
 
 namespace TUMCampusApp.Classes
 {
@@ -95,6 +98,22 @@ namespace TUMCampusApp.Classes
                     if (versionLastStart.Major <= 1 && versionLastStart.Minor <= 0 && versionLastStart.Build < 4)
                     {
                         NewsManager.INSTANCE.downloadNews(true);
+
+                        // Deletes the unused "Cache" folder and its contents, which was used in versions bellow v.1.0.4 for storing cached images:
+                        Task.Run(async () =>
+                        {
+                            try
+                            {
+                                StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Cache");
+                                if (folder != null)
+                                {
+                                    await folder.DeleteAsync();
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        });
                     }
 
                     // Insert code here for update routines:

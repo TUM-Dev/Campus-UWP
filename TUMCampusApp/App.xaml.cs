@@ -12,7 +12,6 @@ using TUMCampusApp.Classes.Helpers;
 using TUMCampusAppAPI;
 using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
 using static TUMCampusApp.Classes.UIUtils;
@@ -49,25 +48,6 @@ namespace TUMCampusApp
         }
 
         /// <summary>
-        /// Deletes the unused "Cache" folder and its contents, which was used in versions bellow v.1.0.4 for storing cached images.
-        /// </summary>
-        /// <returns></returns>
-        private async Task deleteCacheFolderAsync()
-        {
-            try
-            {
-                StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Cache");
-                if (folder != null)
-                {
-                    await folder.DeleteAsync();
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
-
-        /// <summary>
         /// Wird aufgerufen, wenn die Anwendung durch den Endbenutzer normal gestartet wird. Weitere Einstiegspunkte
         /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
         /// </summary>
@@ -75,7 +55,6 @@ namespace TUMCampusApp
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
             dyeStatusBar();
-            await deleteCacheFolderAsync();
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 SplashScreenPage extendedSplash = new SplashScreenPage(args);
