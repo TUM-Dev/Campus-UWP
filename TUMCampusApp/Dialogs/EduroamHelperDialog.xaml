@@ -10,7 +10,8 @@
     SecondaryButtonText="Cancel"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     Closing="ContentDialog_Closing"
-    x:Uid="EduroamHelperDialog">
+    x:Uid="EduroamHelperDialog"
+    Loaded="ContentDialog_Loaded">
 
     <ScrollViewer>
         <Grid>

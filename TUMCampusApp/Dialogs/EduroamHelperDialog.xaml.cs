@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data_Manager;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TUMCampusApp.Classes;
@@ -260,6 +261,15 @@ namespace TUMCampusApp.Dialogs
         private void password_pwbx_PasswordChanged(object sender, RoutedEventArgs e)
         {
             onPasswordOrUserNameChanged();
+        }
+
+        private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            string userId = Settings.getSettingString(SettingsConsts.USER_ID);
+            if(userId != null)
+            {
+                userName_asgbx.Text = userId;
+            }
         }
 
         #endregion
