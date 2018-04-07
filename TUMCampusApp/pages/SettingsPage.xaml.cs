@@ -126,20 +126,34 @@ namespace TUMCampusApp.Pages
         {
             pleaseWait_grid.Visibility = Visibility.Visible;
             await CalendarManager.INSTANCE.deleteCalendarAsync();
-            Settings.setSetting(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING, false);
-            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, false);
-            Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, false);
-            Settings.setSetting(SettingsConsts.DISABLE_CANTEEN_WIDGET, false);
-            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, false);
-            Settings.setSetting(SettingsConsts.DISABLE_TUITION_FEE_WIDGET, false);
-            Settings.setSetting(SettingsConsts.DISABLE_CRASH_REPORTING, false);
-            Settings.setSetting(SettingsConsts.DISABLE_NEWS_WIDGET, false);
-            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, false);
-            Settings.setSetting(SettingsConsts.INITIALLY_STARTED, false);
-            Settings.setSetting(SettingsConsts.ACCESS_TOKEN, null);
+
+            // Reset widget settings:
+            Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, null);
+            Settings.setSetting(SettingsConsts.DISABLE_CANTEEN_WIDGET, null);
+            Settings.setSetting(SettingsConsts.DISABLE_TUITION_FEE_WIDGET, null);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, null);
+            Settings.setSetting(SettingsConsts.DISABLE_NEWS_WIDGET, null);
+            Settings.setSetting(SettingsConsts.DISABLE_EDUROAM_WIDGET, null);
+
+            Settings.setSetting(SettingsConsts.DISABLE_BACKGROUND_TASKS, null);
+            Settings.setSetting(SettingsConsts.DISABLE_CRASH_REPORTING, null);
+
             Settings.setSetting(SettingsConsts.LAST_BACKGROUND_TASK_ACTION, null);
+            Settings.setSetting(SettingsConsts.INITIALLY_STARTED, null);
             Settings.setSetting(SettingsConsts.FACULTY_INDEX, null);
+
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, null);
+            Settings.setSetting(SettingsConsts.HIDE_WIZARD_ON_STARTUP, null);
+            Settings.setSetting(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING, null);
+
+            Settings.setSetting(SettingsConsts.ACCESS_TOKEN, null);
             Settings.setSetting(SettingsConsts.USER_ID, null);
+            Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, null);
+
+            Settings.setSetting(SettingsConsts.NEWS_PAGE_HIDE_READ, null);
+            Settings.setSetting(SettingsConsts.NEWS_PAGE_HIDE_UNREAD, null);
+
+            Settings.setSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP, null);
 
             await deleteCacheAsync();
             pleaseWait_grid.Visibility = Visibility.Collapsed;
@@ -196,15 +210,15 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void disableCalendar_tgls_ToggledAsync(object sender, RoutedEventArgs e)
+        private void disableCalendar_tgls_ToggledAsync(object sender, RoutedEventArgs e)
         {
             if (disableCalendar_tgls.IsOn)
             {
-                await CalendarManager.INSTANCE.deleteCalendarAsync();
+                Task t = CalendarManager.INSTANCE.deleteCalendarAsync();
             }
             else
             {
-                CalendarManager.INSTANCE.syncCalendar(true);
+                Task t = CalendarManager.INSTANCE.syncCalendar(true);
             }
             Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
         }
