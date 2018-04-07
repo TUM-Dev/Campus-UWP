@@ -38,7 +38,6 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
             navigateToSelectedPage(null);
-            NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
         /// <summary>
@@ -55,7 +54,6 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().BackRequested += goBackRequest;
             setVisiblilityMyTum();
             navigateToPage(page, args);
-            NetworkInformation.NetworkStatusChanged += new NetworkStatusChangedEventHandler(onNetworkStatusChangedAsync);
         }
 
         #endregion
@@ -191,22 +189,6 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Updates the color of networkConnectionStatus_tblck.
-        /// Red if the device is not connected and green if the device is connected to the internet.
-        /// </summary>
-        private void updateConnectionStatus()
-        {
-            if (DeviceInfo.isConnectedToInternet())
-            {
-                networkConnectionStatus_tblck.Foreground = new SolidColorBrush(Colors.DarkGreen);
-            }
-            else
-            {
-                networkConnectionStatus_tblck.Foreground = new SolidColorBrush(Colors.DarkRed);
-            }
-        }
-
-        /// <summary>
         /// Sets the faculty_img source based on the selected faculty.
         /// </summary>
         private void setImage()
@@ -258,7 +240,6 @@ namespace TUMCampusApp.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            updateConnectionStatus();
             setImage();
         }
 
@@ -299,14 +280,6 @@ namespace TUMCampusApp.Pages
                 Title = UIUtils.getLocalizedString("NetworkConnectionStatusBase_Text")
             };
             await message.ShowAsync();
-        }
-
-        private async void onNetworkStatusChangedAsync(object sender)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                updateConnectionStatus();
-            });
         }
 
         #endregion

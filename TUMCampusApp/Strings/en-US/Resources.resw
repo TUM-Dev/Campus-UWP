@@ -141,49 +141,49 @@
   <data name="CanteenMainCourse_Text" xml:space="preserve">
     <value>Main Course</value>
   </data>
-  <data name="MainPageCanteens.Text" xml:space="preserve">
+  <data name="MainPageCanteensItem_Text" xml:space="preserve">
     <value>Canteens</value>
   </data>
-  <data name="MainPageGeneralTUM.Text" xml:space="preserve">
+  <data name="MainPageGeneralTUMItem_Text" xml:space="preserve">
     <value>General TUM</value>
   </data>
-  <data name="MainPageHome.Text" xml:space="preserve">
+  <data name="MainPageHomeItem_Text" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="MainPageLectures.Text" xml:space="preserve">
+  <data name="MainPageLecturesItem_Text" xml:space="preserve">
     <value>Lectures</value>
   </data>
-  <data name="MainPageMVV.Text" xml:space="preserve">
-    <value>MVV</value>
+  <data name="MainPageTransportItem_Text" xml:space="preserve">
+    <value>Transport</value>
   </data>
-  <data name="MainPageMyCalendar.Text" xml:space="preserve">
+  <data name="MainPageCalendarItem_Text" xml:space="preserve">
     <value>My Calendar</value>
   </data>
-  <data name="MainPageMyGrades.Text" xml:space="preserve">
+  <data name="MainPageGradesItem_Text" xml:space="preserve">
     <value>My Grades</value>
   </data>
-  <data name="MainPageMyTUM.Text" xml:space="preserve">
+  <data name="MainPageMyTUMItem_Text" xml:space="preserve">
     <value>My TUM</value>
   </data>
-  <data name="MainPageNews.Text" xml:space="preserve">
+  <data name="MainPageNewsItem_Text" xml:space="preserve">
     <value>News</value>
   </data>
-  <data name="MainPageOpeningHours.Text" xml:space="preserve">
+  <data name="MainPageOpeningHoursItem_Text" xml:space="preserve">
     <value>Opening Hours</value>
   </data>
-  <data name="MainPagePlans.Text" xml:space="preserve">
+  <data name="MainPagePlansItem_Text" xml:space="preserve">
     <value>Plans</value>
   </data>
-  <data name="MainPageRoomFinder.Text" xml:space="preserve">
+  <data name="MainPageRoomfinderItem_Text" xml:space="preserve">
     <value>Roomfinder</value>
   </data>
-  <data name="MainPageSettings.Text" xml:space="preserve">
+  <data name="MainPageSettingsItem_Text" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="MainPageStudyRooms.Text" xml:space="preserve">
+  <data name="MainPageStudyRoomItem_Text" xml:space="preserve">
     <value>Study Rooms</value>
   </data>
-  <data name="MainPageTuitionFees.Text" xml:space="preserve">
+  <data name="MainPageTuitionFeesItem_Text" xml:space="preserve">
     <value>Tuition Fees</value>
   </data>
   <data name="NetworkConnectionStatusBase_Text" xml:space="preserve">
@@ -816,5 +816,8 @@
   </data>
   <data name="NoWidgetsControlInfo3.Text" xml:space="preserve">
     <value>.</value>
+  </data>
+  <data name="MainPageStudyPlansItem_Text" xml:space="preserve">
+    <value>Study Plans</value>
   </data>
 </root>

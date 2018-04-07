@@ -296,7 +296,7 @@ namespace TUMCampusApp.Pages
             if (tileID != null && tileID.Equals(Consts.TILE_ID_CANTEEN))
             {
 
-                Window.Current.Content = new MainPage(EnumPage.CanteensPage, arguments);
+                Window.Current.Content = new MainPage2(typeof(CanteensPage2), arguments);
             }
             else
             {
@@ -319,14 +319,14 @@ namespace TUMCampusApp.Pages
                         else
                         {
                             Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
-                            f.Navigate(typeof(MainPage));
+                            f.Navigate(typeof(MainPage2));
                         }
                     }
                     else
                     {
                         string token = TumManager.getToken();
                         Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, (token != null && token != ""));
-                        f.Navigate(typeof(MainPage));
+                        f.Navigate(typeof(MainPage2));
                     }
                 }
                 else
@@ -334,7 +334,7 @@ namespace TUMCampusApp.Pages
                     if (TumManager.getToken() == null || TumManager.getToken() == "")
                     {
                         Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, false);
-                        f.Navigate(typeof(MainPage));
+                        f.Navigate(typeof(MainPage2));
                     }
                     else if (connectedToInternet && !await isTokenConfirmedWithTimeoutAsync())
                     {
@@ -343,7 +343,7 @@ namespace TUMCampusApp.Pages
                     else
                     {
                         Settings.setSetting(SettingsConsts.TUM_ONLINE_ENABLED, true);
-                        f.Navigate(typeof(MainPage));
+                        f.Navigate(typeof(MainPage2));
                     }
                 }
                 Window.Current.Content = f;

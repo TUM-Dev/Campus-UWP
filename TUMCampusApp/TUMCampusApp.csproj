@@ -184,6 +184,10 @@
     </Compile>
     <Compile Include="DataTemplates\CanteenTemplate.cs" />
     <Compile Include="DataTemplates\DishTypeTemplate.cs" />
+    <Compile Include="DataTemplates\MainPageSplitViewItemButtonTemplate.cs" />
+    <Compile Include="DataTemplates\MainPageSplitViewItemDescriptionTemplate.cs" />
+    <Compile Include="DataTemplates\MainPageSplitViewItemTemplate.cs" />
+    <Compile Include="DataTemplates\MainPageSplitViewItemTemplateSelector.cs" />
     <Compile Include="DataTemplates\NewsControlReadButtonValueConverter.cs" />
     <Compile Include="DataTemplates\NewsTemplate.cs" />
     <Compile Include="Dialogs\EduroamHelperDialog.xaml.cs">
@@ -207,6 +211,9 @@
     </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainPage2.xaml.cs">
+      <DependentUpon>MainPage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MyCalendarPage.xaml.cs">
       <DependentUpon>MyCalendarPage.xaml</DependentUpon>
@@ -442,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
