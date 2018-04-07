@@ -66,14 +66,15 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>A list of NewsTable elements.</returns>
         public List<NewsTable> getAllNewsFormDb()
         {
-            return dB.Query<NewsTable>(true, "SELECT n.* FROM " + DBTableConsts.NEWS_TABLE + " n JOIN " + DBTableConsts.NEWS_SOURCE_TABLE + " s ON n.src = s.src WHERE s.enabled = 1 ORDER BY date DESC;");
+            return dB.Query<NewsTable>(true, "SELECT n.* FROM " + DBTableConsts.NEWS_TABLE + " n JOIN " + DBTableConsts.NEWS_SOURCE_TABLE + " s ON n.src = s.src WHERE s.enabled = ? ORDER BY date DESC;", true);
         }
 
         /// <summary>
-        /// Returns a list of news, their date matches todays date.
+        /// Returns a list of news, their date is greater or equal to yesterdays date.
         /// Also the first tumMovie news, that is equal or bigger than todays date gets added to the list.
+        /// Will not add read news.
         /// </summary>
-        /// <returns>Returns a list of NewsTable elements, max 10 entries.</returns>
+        /// <returns>Returns a list of NewsTable elements, max 11 entries.</returns>
         public List<NewsTable> getNewsForHomePage()
         {
             List<NewsTable> news = getAllNewsFormDb();
@@ -81,7 +82,8 @@ namespace TUMCampusAppAPI.Managers
             DateTime tumMovieDate = DateTime.MaxValue;
             int tumMovieIndex = -1;
             DateTime yesterday = DateTime.Now.AddDays(-1);
-            int defaultNewsCount = 0;
+
+            // First run get next tumMovie:
             for (int i = 0; i < news.Count; i++)
             {
                 if (news[i].read)
@@ -89,7 +91,7 @@ namespace TUMCampusAppAPI.Managers
                     continue;
                 }
 
-                if (result.Count >= 10 || news[i].date.CompareTo(yesterday) < 0)
+                if (news[i].date.CompareTo(yesterday.Date) < 0)
                 {
                     break;
                 }
@@ -102,16 +104,31 @@ namespace TUMCampusAppAPI.Managers
                         tumMovieDate = news[i].date;
                     }
                 }
-                else if (news[i].date.Date.CompareTo(DateTime.Now.Date) == 0 || defaultNewsCount < 3)
-                {
-                    defaultNewsCount++;
-                    result.Add(news[i]);
-                }
             }
             if (tumMovieIndex >= 0)
             {
                 result.Insert(0, news[tumMovieIndex]);
             }
+
+            // Second run add current news from yesterday and today:
+            for (int i = 0; i < news.Count; i++)
+            {
+                if (news[i].read || news[i].src.Equals("2"))
+                {
+                    continue;
+                }
+
+                if (result.Count >= 10 || news[i].date.Date.CompareTo(yesterday.Date) < 0)
+                {
+                    break;
+                }
+
+                if (news[i].date.Date.CompareTo(yesterday.Date) >= 0)
+                {
+                    result.Add(news[i]);
+                }
+            }
+
             return result;
         }
 
