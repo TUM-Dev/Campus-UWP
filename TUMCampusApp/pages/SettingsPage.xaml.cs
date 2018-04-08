@@ -293,7 +293,7 @@ namespace TUMCampusApp.Pages
 
         private void disableCalendarWidget_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, disableCalendar_tgls.IsOn);
+            Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_WIDGET, disableCalendarWidget_tgls.IsOn);
         }
 
         private void disableTuitionFeeWidget_tgls_Toggled(object sender, RoutedEventArgs e)

@@ -175,7 +175,7 @@ namespace TUMCampusApp.Pages
                     bool found = false;
                     for(var e = 0; e < controls.Count; e++)
                     {
-                        if(controls[e] != null && controls[e].First<LectureControl>() != null && controls[e].First<LectureControl>().lecture.semesterName.Equals(list[i].semesterName))
+                        if(controls[e] != null && controls[e].First() != null && controls[e].First().lecture.semesterName.Equals(list[i].semesterName))
                         {
                             controls[e].Add(lC);
                             found = true;
@@ -212,7 +212,7 @@ namespace TUMCampusApp.Pages
 
                     lectures_stckp.Children.Add(new Expander()
                     {
-                        Header = UIUtils.translateSemester(controls[i].First<LectureControl>().lecture.semesterName),
+                        Header = UIUtils.translateSemester(controls[i].First().lecture.semesterName),
                         Content = stackPanel,
                         Margin = new Thickness(0, 10, 0, 0),
                         HorizontalContentAlignment = HorizontalAlignment.Stretch,

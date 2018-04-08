@@ -40,7 +40,7 @@ namespace TUMCampusApp.Controls
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         /// <summary>
-        /// Sets the visability of the line at the bottom of the control.
+        /// Sets the viability of the line at the bottom of the control.
         /// </summary>
         /// <param name="visability">Show or hide line.</param>
         public void setRectangleVisability(Visibility visability)
@@ -68,7 +68,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         protected override void OnTapped(TappedRoutedEventArgs e)
         {
-            UIUtils.mainPage?.navigateToPage(typeof(LectureInformationPage), null);
+            UIUtils.mainPage?.navigateToPage(typeof(LectureInformationPage), lecture);
         }
 
         #endregion

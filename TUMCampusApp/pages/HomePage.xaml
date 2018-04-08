@@ -42,7 +42,8 @@
                     <controls1:WidgetControl x:Name="calendarWidget_wc"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"/>
+                            <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"
+                                                           HPage="{x:Bind}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
 
@@ -57,7 +58,8 @@
                     <controls1:WidgetControl x:Name="tutionFeeWidget_ds"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"/>
+                            <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"
+                                                             HPage="{x:Bind}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
 

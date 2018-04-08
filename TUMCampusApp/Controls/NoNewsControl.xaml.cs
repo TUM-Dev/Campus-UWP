@@ -1,13 +1,25 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
-namespace TUMCampusApp.DataTemplates
+namespace TUMCampusApp.Controls
 {
-    abstract class MainPageSplitViewItemTemplate
+    public sealed partial class NoNewsControl : UserControl
     {
-        //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
+		//--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string text { get; set; }
-        public Thickness textMargin { get; set; }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -16,10 +28,11 @@ namespace TUMCampusApp.DataTemplates
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 07/04/2018 Created [Fabian Sauter]
+        /// 08/04/2018 Created [Fabian Sauter]
         /// </history>
-        public MainPageSplitViewItemTemplate()
+		public NoNewsControl()
         {
+            this.InitializeComponent();
         }
 
         #endregion

@@ -3,7 +3,10 @@ using System;
 using System.Collections.ObjectModel;
 using TUMCampusApp.Classes;
 using TUMCampusApp.DataTemplates;
+using Windows.Foundation.Metadata;
+using Windows.System.Profile;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -61,14 +64,7 @@ namespace TUMCampusApp.Pages
         {
             if (page != null)
             {
-                for (int i = 0; i < splitViewItems.Count; i++)
-                {
-                    if (splitViewItems[i] is MainPageSplitViewItemButtonTemplate buttonTemplate && buttonTemplate.page == page)
-                    {
-                        mainFrame.Navigate(page, args);
-                        return;
-                    }
-                }
+                mainFrame.Navigate(page, args);
             }
         }
 
@@ -218,6 +214,7 @@ namespace TUMCampusApp.Pages
             if (main_lb.SelectedItem != null && main_lb.SelectedItem is MainPageSplitViewItemButtonTemplate buttonTemplate)
             {
                 navigateToPage(buttonTemplate.page, null);
+                mainPage_spv.IsPaneOpen = false;
             }
         }
 
@@ -248,10 +245,15 @@ namespace TUMCampusApp.Pages
                 {
                     if (splitViewItems[i] is MainPageSplitViewItemButtonTemplate buttonTemplate && buttonTemplate.page == contentType)
                     {
-                        main_lb.SelectedIndex = i;
                         pageName_tbx.Text = splitViewItems[i].text ?? "";
+                        main_lb.SelectedIndex = i;
                         return;
                     }
+                }
+
+                if (e.Content is INamedPage page)
+                {
+                    pageName_tbx.Text = page.getLocalizedName() ?? "";
                 }
             }
         }
@@ -294,6 +296,31 @@ namespace TUMCampusApp.Pages
                 {
                     item.IsEnabled = template.isEnabled;
                 }
+            }
+        }
+
+        private async void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            switch (AnalyticsInfo.VersionInfo.DeviceFamily)
+            {
+                case "Windows.Mobile":
+                    if (e.NewSize.Height < e.NewSize.Width)
+                    {
+                        headerRect_rect.Visibility = Visibility.Collapsed;
+                        if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                        {
+                            await StatusBar.GetForCurrentView().HideAsync();
+                        }
+                    }
+                    else
+                    {
+                        headerRect_rect.Visibility = Visibility.Visible;
+                        if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                        {
+                            await StatusBar.GetForCurrentView().ShowAsync();
+                        }
+                    }
+                    break;
             }
         }
 

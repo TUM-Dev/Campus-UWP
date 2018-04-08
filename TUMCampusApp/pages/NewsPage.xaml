@@ -112,22 +112,9 @@
                      IsIndeterminate="True"
                      Visibility="Collapsed"/>
 
-        <Grid x:Name="noNews_grid"
-              Grid.Row="2"
-              Visibility="Collapsed">
-            <StackPanel>
-                <TextBlock FontFamily="Segoe MDL2 Assets"
-                           Text="&#xE701;"
-                           HorizontalAlignment="Center"
-                           Margin="0,20,0,20"
-                           FontSize="120"
-                           Foreground="{StaticResource TUM_blue}"/>
-                <TextBlock x:Uid="NewsPageNoNews"
-                           Text="No news found! Please come back later."
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"/>
-            </StackPanel>
-        </Grid>
+        <controls1:NoNewsControl x:Name="noNews_nnc"
+                                 Grid.Row="2"
+                                 Visibility="Collapsed"/>
         <controls:PullToRefreshListView x:Name="refresh_pTRV"
                                         RefreshRequested="refresh_pTRV_RefreshRequested"
                                         OverscrollLimit="0.4"

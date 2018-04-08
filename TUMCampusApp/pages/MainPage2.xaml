@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
     mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    Loaded="Page_Loaded"
+    SizeChanged="Page_SizeChanged">
 
     <Page.Resources>
         <DataTemplate x:Key="mainPageSplitViewItemButtonTemplate"
@@ -46,7 +47,8 @@
         </Grid.RowDefinitions>
 
         <!-- Header: -->
-        <Rectangle Grid.Row="0"
+        <Rectangle x:Name="headerRect_rect"
+                   Grid.Row="0"
                    Height="2"
                    Fill="{ThemeResource AppBarBackgroundThemeBrush}"/>
         <Grid Grid.Row="1"

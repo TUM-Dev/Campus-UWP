@@ -107,12 +107,12 @@ namespace TUMCampusApp.Pages
                     int l = news.Count > 50 ? 50 : news.Count;
                     if (l <= 0)
                     {
-                        noNews_grid.Visibility = Visibility.Visible;
+                        noNews_nnc.Visibility = Visibility.Visible;
                         navigate_grid.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        noNews_grid.Visibility = Visibility.Collapsed;
+                        noNews_nnc.Visibility = Visibility.Collapsed;
                         navigate_grid.Visibility = Visibility.Visible;
 
                         double dateDiff = -1;

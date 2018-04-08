@@ -145,6 +145,9 @@
     <Compile Include="Controls\NewsSourceControl.xaml.cs">
       <DependentUpon>NewsSourceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NoNewsControl.xaml.cs">
+      <DependentUpon>NoNewsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NoWidgetsControl.xaml.cs">
       <DependentUpon>NoWidgetsControl.xaml</DependentUpon>
     </Compile>
@@ -370,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NewsSourceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NoNewsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

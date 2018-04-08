@@ -1,6 +1,7 @@
 ﻿using Data_Manager;
 using System;
 using System.Threading.Tasks;
+using TUMCampusApp.Pages;
 using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Core;
@@ -19,6 +20,13 @@ namespace TUMCampusApp.Controls.Widgets
             set { SetValue(WidgetContainerProperty, value); }
         }
         public static readonly DependencyProperty WidgetContainerProperty = DependencyProperty.Register("WidgetContainer", typeof(WidgetControl), typeof(CalendarWidgetControl), null);
+
+        public HomePage HPage
+        {
+            get { return (HomePage)GetValue(HPageProperty); }
+            set { SetValue(HPageProperty, value); }
+        }
+        public static readonly DependencyProperty HPageProperty = DependencyProperty.Register("HPage", typeof(HomePage), typeof(CalendarWidgetControl), null);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -86,6 +94,7 @@ namespace TUMCampusApp.Controls.Widgets
                 if (WidgetContainer != null)
                 {
                     WidgetContainer.Visibility = Visibility.Collapsed;
+                    HPage?.removeWidget(WidgetContainer);
                 }
                 return;
             }
@@ -95,6 +104,7 @@ namespace TUMCampusApp.Controls.Widgets
                 if (WidgetContainer != null)
                 {
                     WidgetContainer.Visibility = Visibility.Collapsed;
+                    HPage?.removeWidget(WidgetContainer);
                 }
             }
             else

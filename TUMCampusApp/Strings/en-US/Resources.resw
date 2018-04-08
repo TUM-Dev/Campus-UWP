@@ -564,7 +564,7 @@
   <data name="MyGradesPageNoGardes.Text" xml:space="preserve">
     <value>No grades found!</value>
   </data>
-  <data name="NewsPageNoNews.Text" xml:space="preserve">
+  <data name="NoNewsControlInfo.Text" xml:space="preserve">
     <value>No news found! Please come back later.</value>
   </data>
   <data name="SettingsPagePleaseWait" xml:space="preserve">

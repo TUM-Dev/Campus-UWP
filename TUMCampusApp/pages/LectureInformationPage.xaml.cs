@@ -57,6 +57,11 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private async void downloadAndShowLectureInformationTask()
         {
+            if (lecture == null)
+            {
+                return;
+            }
+
             List<TUMOnlineLectureInformationTable> list = null;
             try
             {
@@ -73,14 +78,16 @@ namespace TUMCampusApp.Pages
 
             if (list == null || list.Count <= 0)
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     lectureName_tbx.Text = UIUtils.getLocalizedString("LectureInfosUnableToGatherInformation_Text");
                     progressBar.Visibility = Visibility.Collapsed;
                 });
                 return;
             }
             lectureInfo = list[0];
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 showLectureInformation();
             });
         }
@@ -114,14 +121,17 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showLectureInformation()
         {
-            lectureName_tbx.Text = lecture.title;
-            detail_tbx.Text = lecture.semesterName + "\n" + lecture.typeLong + " - " + lecture.duration + " SWS";
-            lectureBeginn_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.startDate) ? "-" : lectureInfo.startDate;
-            lectureContributors_tbx.Text = string.IsNullOrWhiteSpace(lecture.existingContributors) ? "-" : lecture.existingContributors;
-            lectureContent_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingContent) ? "-" : lectureInfo.teachingContent;
-            method_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingMethod) ? "-" : lectureInfo.teachingMethod;
-            targets_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.learningTarget) ? "-" : lectureInfo.learningTarget;
-            examinationAids_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.testMode) ? "-" : lectureInfo.testMode;
+            if (lecture != null)
+            {
+                lectureName_tbx.Text = lecture.title ?? "";
+                detail_tbx.Text = lecture.semesterName + "\n" + lecture.typeLong + " - " + lecture.duration + " SWS";
+                lectureBeginn_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.startDate) ? "-" : lectureInfo.startDate ?? "";
+                lectureContributors_tbx.Text = string.IsNullOrWhiteSpace(lecture.existingContributors) ? "-" : lecture.existingContributors ?? "";
+                lectureContent_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingContent) ? "-" : lectureInfo.teachingContent ?? "";
+                method_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.teachingMethod) ? "-" : lectureInfo.teachingMethod ?? "";
+                targets_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.learningTarget) ? "-" : lectureInfo.learningTarget ?? "";
+                examinationAids_tbx.Text = string.IsNullOrWhiteSpace(lectureInfo.testMode) ? "-" : lectureInfo.testMode ?? "";
+            }
             info_stckp.Visibility = Visibility.Visible;
             progressBar.Visibility = Visibility.Collapsed;
         }
@@ -138,7 +148,7 @@ namespace TUMCampusApp.Pages
         {
             lecture = e.Parameter as TUMOnlineLectureTable;
             progressBar.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(() => downloadAndShowLectureInformationTask());
+            Task.Run(() => downloadAndShowLectureInformationTask());
         }
 
         /// TODO: Add lecture Appointments page.
