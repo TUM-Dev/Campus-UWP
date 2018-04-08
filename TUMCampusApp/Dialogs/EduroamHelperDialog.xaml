@@ -31,7 +31,7 @@
                                 Header="User name:"
                                 TextChanged="userName_asgbx_TextChanged"
                                 ItemsSource="{x:Bind suggestions, Mode=OneWay}"/>
-                <HyperlinkButton Content="Edurom user name"
+                <HyperlinkButton Content="Eduroam user name"
                                  x:Uid="EduroamHelperDialogUserNameLink"
                                  NavigateUri="https://www.lrz.de/services/netz/wlan/eduroam/benutzernamen"/>
                 <PasswordBox x:Name="password_pwbx"
