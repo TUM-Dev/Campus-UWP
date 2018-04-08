@@ -89,21 +89,25 @@
             </SplitView.Content>
 
             <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Image x:Name="faculty_img"
-                           Grid.Row="0"
-                           Source="ms-appx:///Assets/Images/im.png"/>
-                    <ListBox x:Name="main_lb"
-                             Grid.Row="1"
-                             SelectionMode="Single"
-                             SelectionChanged="ListBox_SelectionChanged"
-                             ItemsSource="{x:Bind splitViewItems}"
-                             ItemTemplateSelector="{StaticResource mainPageSplitViewItemTemplateSelector}"/>
-                </Grid>
+                <ScrollViewer HorizontalScrollMode="Disabled">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="faculty_img"
+                               Grid.Row="0"
+                               Source="ms-appx:///Assets/Images/im.png"/>
+                        <ListBox x:Name="main_lb"
+                                 Grid.Row="1"
+                                 ScrollViewer.VerticalScrollMode="Disabled"
+                                 ScrollViewer.HorizontalScrollMode="Disabled"
+                                 SelectionMode="Single"
+                                 SelectionChanged="ListBox_SelectionChanged"
+                                 ItemsSource="{x:Bind splitViewItems}"
+                                 ItemTemplateSelector="{StaticResource mainPageSplitViewItemTemplateSelector}"/>
+                    </Grid>
+                </ScrollViewer>
             </SplitView.Pane>
         </SplitView>
     </Grid>
