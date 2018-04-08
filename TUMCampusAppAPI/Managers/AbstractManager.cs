@@ -13,7 +13,7 @@ namespace TUMCampusAppAPI.Managers
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
+        public static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data2.db");
         protected static TSSQLiteConnection dB = new TSSQLiteConnection(DB_PATH);
         protected readonly Object thisLock = new Object();
         protected Task refreshingTask;
