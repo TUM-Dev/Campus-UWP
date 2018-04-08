@@ -33,7 +33,7 @@ namespace TUMCampusApp
         {
             //Crash reports capturing
 #if !DEBUG
-            if (!Util.getSettingBoolean(Const.DISABLE_CRASH_REPORTING))
+            if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING))
             {
                 HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
             }
