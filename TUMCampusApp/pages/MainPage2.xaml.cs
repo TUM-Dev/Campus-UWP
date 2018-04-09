@@ -251,6 +251,9 @@ namespace TUMCampusApp.Pages
                     }
                 }
 
+                // Select no item if the page is not one of the available split view items:
+                main_lb.SelectedItem = null;
+
                 if (e.Content is INamedPage page)
                 {
                     pageName_tbx.Text = page.getLocalizedName() ?? "";
