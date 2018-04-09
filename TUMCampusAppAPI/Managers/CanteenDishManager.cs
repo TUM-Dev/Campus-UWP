@@ -39,18 +39,14 @@ namespace TUMCampusAppAPI.Managers
         {
             DateTime time = DateTime.MaxValue;
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
+            if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
             {
-                dateToday = dateToday.AddDays(-2);
-            }
-            else
-            {
-                dateToday = dateToday.AddDays(-1);
+                dateToday = dateToday.AddDays(1);
             }
 
             foreach (DateTime dT in getDishDates(canteen_id))
             {
-                if (dT.Date.CompareTo(time.Date) < 0 && dT.Date.CompareTo(dateToday) >= 0)
+                if (dT.Date.CompareTo(time.Date) < 0 && dT.Date.CompareTo(dateToday.Date) >= 0)
                 {
                     time = dT;
                 }
@@ -66,19 +62,11 @@ namespace TUMCampusAppAPI.Managers
         {
             List<DateTime> dates = new List<DateTime>();
             DateTime dateToday = DateTime.Now;
-            if (dateToday.Hour < 16) // If it's after 16 o' clock show the menus for the next day
-            {
-                dateToday = dateToday.AddDays(-2);
-            }
-            else
-            {
-                dateToday = dateToday.AddDays(-1);
-            }
 
             List<CanteenDishTable> x = getDishes(canteen_id);
             foreach (CanteenDishTable m in getDishes(canteen_id))
             {
-                if (m.date.Date.CompareTo(dateToday) >= 0 && !dates.Contains(m.date))
+                if (m.date.Date.CompareTo(dateToday.Date) >= 0 && !dates.Contains(m.date))
                 {
                     dates.Add(m.date);
                 }
