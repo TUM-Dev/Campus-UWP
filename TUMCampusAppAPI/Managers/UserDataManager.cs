@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
 using Windows.Devices.Geolocation;
@@ -101,18 +103,16 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            await Task.Run(async () =>
+            Task t = LocationManager.INSTANCE.getCurrentLocationAsync();
+            try
             {
-                try
-                {
-                    await LocationManager.INSTANCE.getCurrentLocationAsync();
-                }
-                catch
-                {
-
-                }
-
-            });
+                // 2 sec timeout:
+                await Task.WhenAny(t, Task.Delay(2000));
+            }
+            catch (AggregateException e)
+            {
+                Logger.Error("await getCurrentLocationAsync() has thrown an exception during UserDataManager.InitManagerAsync!", e);
+            }
         }
         #endregion
 
