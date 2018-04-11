@@ -93,6 +93,17 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showDate()
         {
+            if(dishDates != null && dishDates.Count > 0)
+            {
+                left_btn.IsEnabled = true;
+                right_btn.IsEnabled = true;
+            }
+            else
+            {
+                left_btn.IsEnabled = false;
+                right_btn.IsEnabled = false;
+            }
+
             if (dishDateOffset >= 0)
             {
                 day_tbx.Text = UIUtils.getLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
@@ -157,14 +168,6 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Shows a dialog with a random menu for the currently selected canteen and date.
-        /// </summary>
-        private async Task showRandomMenuAsync()
-        {
-
-        }
-
-        /// <summary>
         /// Refreshes all canteens and dishes.
         /// </summary>
         /// <param name="force">Whether to force the refresh.</param>
@@ -172,7 +175,7 @@ namespace TUMCampusApp.Pages
         {
             disableRefreshButtons();
             loading_prgb.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 Task t2 = CanteenManager.INSTANCE.downloadCanteens(force);
                 if (t2 != null)
@@ -207,7 +210,15 @@ namespace TUMCampusApp.Pages
         {
             if (args.SELECTED_CANTEEN != null)
             {
+                left_btn.IsEnabled = true;
+                right_btn.IsEnabled = true;
+
                 showDishesForCanteen(args.SELECTED_CANTEEN);
+            }
+            else
+            {
+                left_btn.IsEnabled = false;
+                right_btn.IsEnabled = false;
             }
         }
 
@@ -264,7 +275,7 @@ namespace TUMCampusApp.Pages
         {
             disableRefreshButtons();
             loading_prgb.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
                 if (t2 != null)
@@ -294,7 +305,7 @@ namespace TUMCampusApp.Pages
         {
             disableRefreshButtons();
             loading_prgb.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
                 if (t2 != null)
@@ -314,7 +325,7 @@ namespace TUMCampusApp.Pages
         {
             disableRefreshButtons();
             loading_prgb.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(true);
                 if (t != null)
@@ -352,9 +363,9 @@ namespace TUMCampusApp.Pages
             await dialog.ShowAsync();
         }
 
-        private async void CustomAccelerometer_Shaken(object sender, EventArgs e)
+        private void CustomAccelerometer_Shaken(object sender, EventArgs e)
         {
-            await showRandomMenuAsync();
+            // ToDo: Show random menu
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -367,7 +378,7 @@ namespace TUMCampusApp.Pages
 
             disableRefreshButtons();
             loading_prgb.Visibility = Visibility.Visible;
-            Task.Factory.StartNew(async () =>
+            Task.Run(async () =>
             {
                 Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
                 if (t2 != null)
@@ -395,6 +406,20 @@ namespace TUMCampusApp.Pages
         private void contentOverlay_grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             canteens_ctrl.close();
+        }
+
+        private async void openMap_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (canteens_ctrl.Canteen != null)
+            {
+                // Encode '~' and '-' in canteen name:
+                string canteenName = canteens_ctrl.Canteen.name.Replace("_", "%255F");
+                canteenName = canteenName.Replace("~", "%7E");
+
+                // Open bing maps:
+                Uri mapCanteenUri = new Uri(@"bingmaps:?collection=point." + canteens_ctrl.Canteen.latitude + "_" + canteens_ctrl.Canteen.longitude + "_" + canteenName);
+                await Windows.System.Launcher.LaunchUriAsync(mapCanteenUri);
+            }
         }
 
         #endregion
