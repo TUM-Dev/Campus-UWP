@@ -34,6 +34,7 @@ namespace TUMCampusApp.Pages
         public CanteensPage2()
         {
             this.dishDateOffset = 0;
+            this.dishDates = null;
             this.InitializeComponent();
         }
 
@@ -43,6 +44,28 @@ namespace TUMCampusApp.Pages
         public string getLocalizedName()
         {
             return UIUtils.getLocalizedString("CanteenesPageName_Text");
+        }
+
+        private int getNextDishDateOffset()
+        {
+            if (dishDates != null && dishDates.Count > 0)
+            {
+                DateTime dateToday = DateTime.Now;
+                if (dateToday.Hour >= 16) // If it's after 16 o' clock show the menus for the next day
+                {
+                    dateToday = dateToday.AddDays(1);
+                }
+
+                for (int i = 0; i < dishDates.Count; i++)
+                {
+                    if (dishDates[i].Date.CompareTo(dateToday.Date) >= 0)
+                    {
+                        return i;
+                    }
+                }
+                return dishDates.Count - 1;
+            }
+            return -1;
         }
 
         #endregion
@@ -60,19 +83,9 @@ namespace TUMCampusApp.Pages
         private void showDishesForCanteen(CanteenTable canteen)
         {
             dishDates = CanteenDishManager.INSTANCE.getDishDates(canteen.canteen_id);
-            if (dishDates != null)
-            {
-                if (dishDates.Count <= dishDateOffset)
-                {
-                    dishDateOffset = dishDates.Count - 1;
-                }
-                else if (dishDates.Count > 0 && dishDateOffset < 0)
-                {
-                    dishDateOffset = 0;
-                }
-                showDate();
-                showDishesForSelctedDate();
-            }
+            dishDateOffset = getNextDishDateOffset();
+            showDate();
+            showDishesForSelctedDate();
         }
 
         /// <summary>
@@ -200,9 +213,16 @@ namespace TUMCampusApp.Pages
 
         private void left_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (dishDates != null && dishDateOffset > 0)
+            if (dishDates != null)
             {
-                dishDateOffset--;
+                if (dishDateOffset > 0)
+                {
+                    dishDateOffset--;
+                }
+                else
+                {
+                    dishDateOffset = dishDates.Count - 1;
+                }
                 showDate();
                 showDishesForSelctedDate();
             }
@@ -210,9 +230,16 @@ namespace TUMCampusApp.Pages
 
         private void right_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (dishDates != null && dishDateOffset < dishDates.Count - 1 && dishDateOffset >= 0)
+            if (dishDates != null)
             {
-                dishDateOffset++;
+                if (dishDateOffset < dishDates.Count - 1)
+                {
+                    dishDateOffset++;
+                }
+                else
+                {
+                    dishDateOffset = 0;
+                }
                 showDate();
                 showDishesForSelctedDate();
             }

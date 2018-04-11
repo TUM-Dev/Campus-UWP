@@ -55,23 +55,18 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns all dates where a dish was found and the date is greater or equal to the current date.
+        /// Returns all dates where a dish exist for the given canteen.
         /// </summary>
         /// <param name="canteen_id">The id of the canteen you want the dates for.</param>
         public List<DateTime> getDishDates(string canteen_id)
         {
             List<DateTime> dates = new List<DateTime>();
-            DateTime dateToday = DateTime.Now;
 
-            List<CanteenDishTable> x = getDishes(canteen_id);
-            foreach (CanteenDishTable m in getDishes(canteen_id))
+            List<CanteenDishTable> dishes = dB.Query<CanteenDishTable>(true, "SELECT DISTINCT date FROM " + DBTableConsts.CANTEEN_DISH_TABLE + " WHERE canteen_id = ? ORDER BY date;", canteen_id);
+            foreach (CanteenDishTable m in dishes)
             {
-                if (m.date.Date.CompareTo(dateToday.Date) >= 0 && !dates.Contains(m.date))
-                {
-                    dates.Add(m.date);
-                }
+                dates.Add(m.date);
             }
-            dates.Sort();
             return dates;
         }
 
