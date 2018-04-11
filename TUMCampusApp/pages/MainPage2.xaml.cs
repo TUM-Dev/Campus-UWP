@@ -266,7 +266,13 @@ namespace TUMCampusApp.Pages
             if (mainFrame.CanGoBack && !e.Handled)
             {
                 e.Handled = true;
-                mainFrame.GoBack();
+                if (mainFrame.Content is IBackRequestedPage page && page.onBackRequest())
+                {
+                }
+                else
+                {
+                    mainFrame.GoBack();
+                }
             }
         }
 

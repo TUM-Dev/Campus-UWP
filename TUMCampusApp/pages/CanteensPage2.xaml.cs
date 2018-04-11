@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TUMCampusApp.Pages
 {
-    public sealed partial class CanteensPage2 : Page, INamedPage
+    public sealed partial class CanteensPage2 : Page, INamedPage, IBackRequestedPage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -71,7 +71,15 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public bool onBackRequest()
+        {
+            if (canteens_ctrl.Expanded)
+            {
+                canteens_ctrl.close();
+                return true;
+            }
+            return false;
+        }
 
         #endregion
 
@@ -93,7 +101,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showDate()
         {
-            if(dishDates != null && dishDates.Count > 0)
+            if (dishDates != null && dishDates.Count > 0)
             {
                 left_btn.IsEnabled = true;
                 right_btn.IsEnabled = true;
