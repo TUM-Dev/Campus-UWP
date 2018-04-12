@@ -219,7 +219,7 @@ namespace TUMCampusApp.Pages
             }
             else
             {
-                Task t = CalendarManager.INSTANCE.syncCalendar(true);
+                Task t = CalendarManager.INSTANCE.syncCalendar(true, true);
             }
             Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
         }

@@ -170,7 +170,7 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t = CalendarManager.INSTANCE.syncCalendar(force);
+                Task t = CalendarManager.INSTANCE.syncCalendar(force, true);
                 if(t != null)
                 {
                     await t;

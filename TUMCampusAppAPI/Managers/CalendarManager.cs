@@ -83,24 +83,22 @@ namespace TUMCampusAppAPI.Managers
         #region --Misc Methods (Public)--
         public async override Task InitManagerAsync()
         {
-            dB.CreateTable<TUMOnlineCalendarTable>();
-            syncCalendar();
+            initForBackgroundTask();
+            Task t = syncCalendar(false, true);
         }
 
-        /// <summary>
-        /// Creates a new Task and starts syncing the calendar in the background.
-        /// </summary>
-        public void syncCalendar()
+        public void initForBackgroundTask()
         {
-            syncCalendar(false);
+            dB.CreateTable<TUMOnlineCalendarTable>();
         }
 
         /// <summary>
         /// Creates a new Task and starts syncing the calendar in the background.
         /// </summary>
         /// <param name="force">Force sync calendar.</param>
+        /// <param name="insertInCalendar">Add downloaded entries to the system calendar.</param>
         /// <returns>Returns the sync task or null if not syncing.</returns>
-        public Task syncCalendar(bool force)
+        public Task syncCalendar(bool force, bool insertInCalendar)
         {
             if (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi())
             {
@@ -110,7 +108,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 waitForSyncToFinish();
                 REFRESHING_TASK_SEMA.Wait();
-                refreshingTask = syncCalendarTaskAsync(force);
+                refreshingTask = syncCalendarTaskAsync(force, insertInCalendar);
                 REFRESHING_TASK_SEMA.Release();
             });
         }
@@ -129,6 +127,34 @@ namespace TUMCampusAppAPI.Managers
             Logger.Info("Deleted all existing calendars.");
         }
 
+        /// <summary>
+        /// Resets the calendar, creates a new one and inserts all given TUMOnlineCalendarEntries into it.
+        /// </summary>
+        /// <param name="list">A list with all TUMOnlineCalendarTable entries that should get added to the calendar.</param>
+        public async Task insterInCalendarAsync(List<TUMOnlineCalendarTable> list)
+        {
+            // 1. Get access to appointmentstore:
+            AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
+
+            // 2. Delete the calendar if one exists:
+            await deleteCalendarAsync();
+
+            // 3. Request a new one:
+            AppointmentCalendar calendar = null;
+            calendar = await aS.CreateAppointmentCalendarAsync(Consts.CALENDAR_NAME);
+
+            // 4. Insert appointments:
+            if (calendar != null)
+            {
+                calendar.DisplayColor = Windows.UI.Color.FromArgb(0, 101, 189, 1);
+                foreach (TUMOnlineCalendarTable entry in list)
+                {
+                    await calendar.SaveAppointmentAsync(entry.getAppointment());
+                }
+            }
+            Logger.Info("Finished loading calendar.");
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
@@ -136,8 +162,9 @@ namespace TUMCampusAppAPI.Managers
         /// Refreshes the whole calendar if needed or force == true.
         /// </summary>
         /// <param name="force">Force sync calendar.</param>
+        /// <param name="insertInCalendar">Add downloaded entries to the system calendar.</param>
         /// <returns></returns>
-        private async Task syncCalendarTaskAsync(bool force)
+        private async Task syncCalendarTaskAsync(bool force, bool insertInCalendar)
         {
             if (!DeviceInfo.isConnectedToInternet() || (!force && Settings.getSettingBoolean(SettingsConsts.ONLY_USE_WIFI_FOR_UPDATING) && !DeviceInfo.isConnectedToWifi()))
             {
@@ -179,7 +206,7 @@ namespace TUMCampusAppAPI.Managers
                     dB.InsertOrReplace(list[i]);
                 }
 
-                if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION))
+                if (insertInCalendar && !Settings.getSettingBoolean(SettingsConsts.DISABLE_CALENDAR_INTEGRATION))
                 {
                     await insterInCalendarAsync(list);
                 }
@@ -228,35 +255,6 @@ namespace TUMCampusAppAPI.Managers
                 }
             }
             list.Add(entry);
-        }
-
-
-        /// <summary>
-        /// Resets the calendar, creates a new one and inserts all given TUMOnlineCalendarEntries into it.
-        /// </summary>
-        /// <param name="list">A list with all TUMOnlineCalendarTable entries that should get added to the calendar.</param>
-        private async Task insterInCalendarAsync(List<TUMOnlineCalendarTable> list)
-        {
-            // 1. Get access to appointmentstore:
-            AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
-
-            // 2. Delete the calendar if one exists:
-            await deleteCalendarAsync();
-
-            // 3. Request a new one:
-            AppointmentCalendar calendar = null;
-            calendar = await aS.CreateAppointmentCalendarAsync(Consts.CALENDAR_NAME);
-
-            // 4. Insert appointments:
-            if (calendar != null)
-            {
-                calendar.DisplayColor = Windows.UI.Color.FromArgb(0, 101, 189, 1);
-                foreach (TUMOnlineCalendarTable entry in list)
-                {
-                    await calendar.SaveAppointmentAsync(entry.getAppointment());
-                }
-            }
-            Logger.Info("Finished loading calendar.");
         }
 
         /// <summary>

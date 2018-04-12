@@ -1,6 +1,8 @@
 ﻿using System;
 using TUMCampusApp.Classes;
+using TUMCampusAppAPI;
 using TUMCampusAppAPI.DBTables;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -89,6 +91,13 @@ namespace TUMCampusApp.Controls
             }
         }
 
+        private void setClipboardString(string text)
+        {
+            DataPackage package = new DataPackage();
+            package.SetText(text);
+            Clipboard.SetContent(package);
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -97,7 +106,53 @@ namespace TUMCampusApp.Controls
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void copyName_btn_Click(object sender, RoutedEventArgs e)
+        {
+            setClipboardString(calendarEntryName_tbx.Text);
+        }
 
+        private void copyDescription_btn_Click(object sender, RoutedEventArgs e)
+        {
+            setClipboardString(calendarEntryDescription_tbx.Text);
+        }
+
+        private void copyLocation_btn_Click(object sender, RoutedEventArgs e)
+        {
+            setClipboardString(location_tbx.Text);
+        }
+
+        private void openRoomfinder_btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void openUrl_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Entry.url))
+            {
+                await Util.launchBrowser(new Uri(Entry.url));
+            }
+        }
+
+        private void MenuFlyout_Opening(object sender, object e)
+        {
+            if (Entry != null)
+            {
+                copyName_btn.IsEnabled = true;
+                copyDescription_btn.IsEnabled = true;
+                copyLocation_btn.IsEnabled = true;
+                openRoomfinder_btn.IsEnabled = true;
+                openUrl_btn.IsEnabled = true;
+            }
+            else
+            {
+                copyName_btn.IsEnabled = false;
+                copyDescription_btn.IsEnabled = false;
+                copyLocation_btn.IsEnabled = false;
+                openRoomfinder_btn.IsEnabled = false;
+                openUrl_btn.IsEnabled = false;
+            }
+        }
 
         #endregion
     }

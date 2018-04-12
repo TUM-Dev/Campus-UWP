@@ -832,4 +832,19 @@
   <data name="CanteensPageRefreshDishes.Text" xml:space="preserve">
     <value>Dishes</value>
   </data>
+  <data name="CalendarEntryControlCopyDescription.Text" xml:space="preserve">
+    <value>Copy description</value>
+  </data>
+  <data name="CalendarEntryControlCopyLocation.Text" xml:space="preserve">
+    <value>Copy location</value>
+  </data>
+  <data name="CalendarEntryControlCopyName.Text" xml:space="preserve">
+    <value>Copy name</value>
+  </data>
+  <data name="CalendarEntryOpenRoomfinder.Text" xml:space="preserve">
+    <value>Open roomfinder</value>
+  </data>
+  <data name="CalendarEntryOpenUrl.Text" xml:space="preserve">
+    <value>Open URL</value>
+  </data>
 </root>

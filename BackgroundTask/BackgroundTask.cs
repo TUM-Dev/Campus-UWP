@@ -1,7 +1,9 @@
 ﻿using Data_Manager;
 using Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using Windows.ApplicationModel.Background;
 
@@ -61,17 +63,30 @@ namespace TUMCampusApp.BackgroundTask
             switch (lastState)
             {
                 case 0:
-                    await refreshData1();
+                    await syncCalendarEntriesAsync();
                     lastState++;
                     break;
+
                 case 1:
-                    await refreshData2();
+                    await insertCalendarEntriesIntoCalendarAsync();
                     lastState++;
                     break;
+
                 case 2:
-                    await refreshData3();
+                    await syncCanteensAndDishesAsync();
+                    lastState++;
+                    break;
+
+                case 3:
+                    await syncTuitionFeesAsync();
+                    lastState++;
+                    break;
+
+                case 4:
+                    await syncTuitionFeesAsync();
                     lastState = 0;
                     break;
+
                 default:
                     lastState = 0;
                     break;
@@ -99,20 +114,41 @@ namespace TUMCampusApp.BackgroundTask
             Logger.Info("[Background] Finished general init.");
         }
 
-        private async Task refreshData1()
+        private async Task syncCalendarEntriesAsync()
         {
-            Logger.Info("[Background] Started refreshing 1.");
+            Logger.Info("[Background] Started downloading calendar entries.");
 
             CalendarManager.INSTANCE = new CalendarManager();
+            CalendarManager.INSTANCE.initForBackgroundTask();
 
-            await CalendarManager.INSTANCE.InitManagerAsync();
+            Task t = CalendarManager.INSTANCE.syncCalendar(false, false);
+            if (t != null)
+            {
+                await t;
+            }
 
-            Logger.Info("[Background] Finished refreshing 1.");
+            Logger.Info("[Background] Finished downloading calendar entries.");
         }
 
-        private async Task refreshData2()
+        private async Task insertCalendarEntriesIntoCalendarAsync()
         {
-            Logger.Info("[Background] Started refreshing 2.");
+            Logger.Info("[Background] Started inserting calendar entries into calendar.");
+
+            CalendarManager.INSTANCE = new CalendarManager();
+            CalendarManager.INSTANCE.initForBackgroundTask();
+
+            List<TUMOnlineCalendarTable> list = CalendarManager.INSTANCE.getEntries();
+            if (list != null)
+            {
+                await CalendarManager.INSTANCE.insterInCalendarAsync(list);
+            }
+
+            Logger.Info("[Background] Finished inserting calendar entries into calendar.");
+        }
+
+        private async Task syncCanteensAndDishesAsync()
+        {
+            Logger.Info("[Background] Started syncing canteens and dishes.");
 
             CanteenManager.INSTANCE = new CanteenManager();
             CanteenDishManager.INSTANCE = new CanteenDishManager();
@@ -131,12 +167,12 @@ namespace TUMCampusApp.BackgroundTask
                 await t;
             }
 
-            Logger.Info("[Background] Finished refreshing 2.");
+            Logger.Info("[Background] Finished syncing canteens and dishes.");
         }
 
-        private async Task refreshData3()
+        private async Task syncTuitionFeesAsync()
         {
-            Logger.Info("[Background] Started refreshing 3.");
+            Logger.Info("[Background] Started syncing tuition fees.");
 
             TuitionFeeManager.INSTANCE = new TuitionFeeManager();
 
@@ -148,7 +184,29 @@ namespace TUMCampusApp.BackgroundTask
                 await t;
             }
 
-            Logger.Info("[Background] Finished refreshing 3.");
+            Logger.Info("[Background] Finished syncing tuition fees.");
+        }
+
+        private async Task syncNewsAsync()
+        {
+            Logger.Info("[Background] Started syncing news.");
+
+            NewsManager.INSTANCE = new NewsManager();
+
+            await NewsManager.INSTANCE.InitManagerAsync();
+
+            Task t1 = NewsManager.INSTANCE.downloadNewsSources(false);
+            Task t2 = NewsManager.INSTANCE.downloadNews(false);
+            if (t1 != null)
+            {
+                await t1;
+            }
+            if (t2 != null)
+            {
+                await t2;
+            }
+
+            Logger.Info("[Background] Finished syncing news.");
         }
 
         #endregion
