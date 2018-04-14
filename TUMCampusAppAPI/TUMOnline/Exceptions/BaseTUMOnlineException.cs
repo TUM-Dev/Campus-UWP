@@ -7,7 +7,6 @@ namespace TUMCampusAppAPI.TUMOnline.Exceptions
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         protected readonly string url;
-        private readonly string message;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -18,10 +17,9 @@ namespace TUMCampusAppAPI.TUMOnline.Exceptions
         /// <history>
         /// 29/01/2017 Created [Fabian Sauter]
         /// </history>
-        public BaseTUMOnlineException(string url, string message)
+        public BaseTUMOnlineException(string url, string message) : base(message)
         {
             this.url = url;
-            this.message = message;
         }
 
         #endregion
@@ -34,7 +32,7 @@ namespace TUMCampusAppAPI.TUMOnline.Exceptions
         #region --Misc Methods (Public)--
         public override string ToString()
         {
-            return base.ToString() + " URL:" + url + " Message:" + message;
+            return base.ToString() + " URL:" + url + " Message:" + Message;
         }
 
         #endregion

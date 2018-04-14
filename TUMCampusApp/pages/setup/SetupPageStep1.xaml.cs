@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
 using TUMCampusApp.Classes;
 using Data_Manager;
+using System.Threading.Tasks;
 
 namespace TUMCampusApp.Pages.Setup
 {
@@ -61,13 +62,40 @@ namespace TUMCampusApp.Pages.Setup
         /// </summary>
         private void populateFacultiesComboBox()
         {
-            foreach (Faculties f in Enum.GetValues(typeof(Faculties))) {
+            foreach (Faculties f in Enum.GetValues(typeof(Faculties)))
+            {
                 faculty_cbox.Items.Add(new ComboBoxItem()
                 {
                     Content = UIUtils.getLocalizedString(f.ToString() + "_Text"),
 
                 });
             }
+        }
+
+        private void enableNextButton()
+        {
+            next_btn.IsEnabled = true;
+            next_prgr.Visibility = Visibility.Collapsed;
+        }
+
+        private void disableNextButton()
+        {
+            next_btn.IsEnabled = false;
+            next_prgr.Visibility = Visibility.Visible;
+        }
+
+        private async Task showMessageDialogAsync(string title, string msg)
+        {
+            MessageDialog message = new MessageDialog(msg)
+            {
+                Title = title
+            };
+            await message.ShowAsync();
+        }
+
+        private async Task showErrorMessageDialogAsync(string msg)
+        {
+            await showMessageDialogAsync(UIUtils.getLocalizedString("Error_Text"), msg);
         }
 
         #endregion
@@ -90,64 +118,64 @@ namespace TUMCampusApp.Pages.Setup
 
         private async void next_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            next_btn.IsEnabled = false;
+            disableNextButton();
             if (!isIdValid())
             {
-                MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidId_Text"))
-                {
-                    Title = UIUtils.getLocalizedString("Error_Text")
-                };
-                await message.ShowAsync();
+                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("InvalidId_Text"));
             }
-            else if(faculty_cbox.SelectedIndex < 0)
+            else if (faculty_cbox.SelectedIndex < 0)
             {
-                MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("SelectFaculty_Text"))
-                {
-                    Title = UIUtils.getLocalizedString("Error_Text")
-                };
-                await message.ShowAsync();
+                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("SelectFaculty_Text"));
             }
             else
             {
-                if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
+                if (tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
                 {
-                    string result = await TumManager.INSTANCE.reqestNewTokenAsync(studentID_tbx.Text.ToLower());
-                    if (result == null)
+                    string studentId = studentID_tbx.Text.ToLower();
+                    int facultyIndex = faculty_cbox.SelectedIndex;
+                    Task t = Task.Run(async () =>
                     {
-                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("RequestNewTokenError_Text"))
+                        Task t1;
+                        string result = null;
+                        try
                         {
-                            Title = UIUtils.getLocalizedString("Error_Text")
-                        };
-                        await message.ShowAsync();
-                    }
-                    else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
-                    {
-                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidId_Text"))
-                        {
-                            Title = UIUtils.getLocalizedString("Error_Text")
-                        };
-                        await message.ShowAsync();
-                    }
-                    else
-                    {
-                        Settings.setSetting(SettingsConsts.FACULTY_INDEX, faculty_cbox.SelectedIndex);
-                        Settings.setSetting(SettingsConsts.USER_ID, studentID_tbx.Text.ToLower());
-                        if (Window.Current.Content is Frame f)
-                        {
-                            f.Navigate(typeof(SetupPageStep2));
+                            result = await TumManager.INSTANCE.reqestNewTokenAsync(studentId);
                         }
-                    }
+                        catch (Exception ex)
+                        {
+                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                            {
+                                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("RequestTokenError_Text") + ex.Message);
+                                enableNextButton();
+                            }).AsTask();
+                            return;
+                        }
+
+                        if (result == null)
+                        {
+                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => await showErrorMessageDialogAsync(UIUtils.getLocalizedString("RequestNewTokenError_Text"))).AsTask();
+                        }
+                        else
+                        {
+                            Settings.setSetting(SettingsConsts.FACULTY_INDEX, facultyIndex);
+                            Settings.setSetting(SettingsConsts.USER_ID, studentId);
+                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                if (Window.Current.Content is Frame f)
+                                {
+                                    f.Navigate(typeof(SetupPageStep2));
+                                }
+                            }).AsTask();
+                        }
+                        t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => enableNextButton()).AsTask();
+                    });
                 }
                 else
                 {
                     string token = tumOnlineToken_tbx.Text.ToUpper();
                     if (!TumManager.INSTANCE.isTokenValid(token))
                     {
-                        MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidToken_Text"))
-                        {
-                            Title = UIUtils.getLocalizedString("Error_Text")
-                        };
-                        await message.ShowAsync();
+                        await showErrorMessageDialogAsync(UIUtils.getLocalizedString("InvalidToken_Text"));
                     }
                     else
                     {
@@ -159,14 +187,14 @@ namespace TUMCampusApp.Pages.Setup
                             f.Navigate(typeof(SetupPageStep2));
                         }
                     }
+                    enableNextButton();
                 }
             }
-            next_btn.IsEnabled = true;
         }
 
         private void useExistingToken_btn_Click(object sender, RoutedEventArgs e)
         {
-            if(tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
+            if (tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
             {
                 tumOnlineToken_tbx.Visibility = Visibility.Visible;
                 useExistingToken_btn.Content = UIUtils.getLocalizedString("SetupPage1DontUseExistingToken");

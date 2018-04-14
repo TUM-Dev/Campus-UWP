@@ -41,24 +41,6 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Returns a specific node from the given xml string.
-        /// </summary>
-        /// <param name="xml">The xml string.</param>
-        /// <param name="node">The nodes name.</param>
-        /// <returns>Returns a specific node from the given xml string.</returns>
-        private string getNodeFromXML(string xml, string node)
-        {
-            if (xml == null)
-            {
-                return null;
-            }
-
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xml);
-            return xmlDoc.SelectSingleNode(node).InnerText;
-        }
-
-        /// <summary>
         /// Checks if the current token is still active and enabled.
         /// </summary>
         /// <returns>Returns true if yes.</returns>
@@ -128,9 +110,9 @@ namespace TUMCampusAppAPI.Managers
             TUMOnlineRequest req = new TUMOnlineRequest(TUMOnlineConst.REQUEST_TOKEN);
             req.addParameter(Consts.P_TOKEN_NAME, "TUM UWP App " + DeviceInfo.INSTANCE.Name);
             req.addParameter(Consts.P_USER_NAME, userId);
-            string result = await req.doRequestAsync();
-            analyseAndSaveToken(result);
-            return result;
+            XmlDocument doc = await req.doRequestDocumentAsync();
+            analyseAndSaveToken(doc);
+            return doc.ToString();
         }
 
         #endregion
@@ -139,17 +121,17 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Checks and saves the given token.
         /// </summary>
-        /// <param name="result">The xml document that contains the token.</param>
-        private void analyseAndSaveToken(string result)
+        /// <param name="doc">The XML document that contains the token.</param>
+        private void analyseAndSaveToken(XmlDocument doc)
         {
-            if (result != null && result != "" && result.Contains(TUMOnlineConst.SERVICE_REQEST_TOKEN_ANSWER_INACTIV))
+            if (doc != null)
             {
-                string token = getNodeFromXML(result, "token");
-                if (token == null)
+                IXmlNode tNode = doc.SelectSingleNode("token");
+                if (tNode == null)
                 {
                     return;
                 }
-                saveToken(token);
+                saveToken(tNode.InnerText);
             }
         }
 

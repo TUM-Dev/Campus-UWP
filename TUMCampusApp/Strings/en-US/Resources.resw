@@ -136,7 +136,7 @@
     <value>Ingredients:</value>
   </data>
   <data name="InvalidId_Text" xml:space="preserve">
-    <value>You id is invalid!</value>
+    <value>The given id is invalid!</value>
   </data>
   <data name="CanteenMainCourse_Text" xml:space="preserve">
     <value>Main Course</value>
@@ -186,7 +186,7 @@
   <data name="MainPageTuitionFeesItem_Text" xml:space="preserve">
     <value>Tuition Fees</value>
   </data>
-  <data name="SetupPage1NextButton.Content" xml:space="preserve">
+  <data name="SetupPage1NextButton.Text" xml:space="preserve">
     <value>Next</value>
   </data>
   <data name="LecturesNoAccessToLectures_Text" xml:space="preserve">
@@ -846,5 +846,8 @@
   </data>
   <data name="CalendarEntryOpenUrl.Text" xml:space="preserve">
     <value>Open URL</value>
+  </data>
+  <data name="RequestTokenError_Text" xml:space="preserve">
+    <value>The token request encountered an error:</value>
   </data>
 </root>

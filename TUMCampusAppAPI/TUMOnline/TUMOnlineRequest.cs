@@ -46,34 +46,6 @@ namespace TUMCampusAppAPI.TUMOnline
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        [Obsolete("doRequestAsync() is deprecated, please use doRequestDocumentAsync() instead.")]
-        public async Task<string> doRequestAsync()
-        {
-            Uri url = buildUrl();
-            string result = null;
-            if (validity > 0)
-            {
-                result = CacheManager.INSTANCE.isCached(url.ToString());
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-            if (!DeviceInfo.isConnectedToInternet())
-            {
-                return null;
-            }
-            result = await NetUtils.downloadStringAsync(url);
-            if (validity > 0)
-            {
-                if (result != null)
-                {
-                    cacheResult(url.ToString(), result);
-                }
-            }
-            return result;
-        }
-
         public async Task<XmlDocument> doRequestDocumentAsync()
         {
             Uri url = buildUrl();
@@ -146,9 +118,9 @@ namespace TUMCampusAppAPI.TUMOnline
         private Uri buildUrl()
         {
             string s = SERVICE_BASE_URL + addition;
-            for(int i = 0; i < parameters.Count; i++)
+            for (int i = 0; i < parameters.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     s += "?";
                 }
