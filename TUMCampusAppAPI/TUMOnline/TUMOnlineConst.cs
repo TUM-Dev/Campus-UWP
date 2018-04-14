@@ -21,8 +21,6 @@ namespace TUMCampusAppAPI.TUMOnline
         public static readonly TUMOnlineConst PERSON_SEARCH = new TUMOnlineConst("personenSuche", Consts.VALIDITY_DO_NOT_CACHE);
         public static readonly TUMOnlineConst EXAMS = new TUMOnlineConst("noten", Consts.VALIDITY_TEN_DAYS);
 
-        public static readonly string SERVICE_REQEST_TOKEN_ANSWER_INACTIV = "Token ist inaktiv, muss über TUMonline oder Email aktiviert werden!";
-
         private readonly String webservice;
         private readonly int validity;
 
