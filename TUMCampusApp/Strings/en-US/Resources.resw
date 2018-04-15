@@ -850,4 +850,22 @@
   <data name="RequestTokenError_Text" xml:space="preserve">
     <value>The token request encountered an error:</value>
   </data>
+  <data name="SettingsPageLoggLevelDebug_text" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="SettingsPageLoggLevelError_text" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SettingsPageLoggLevelInfo_text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="SettingsPageLoggLevelNone_text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SettingsPageLoggLevelWarning_text" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="SettingsPageLogLevel.Header" xml:space="preserve">
+    <value>Log-Level:</value>
+  </data>
 </root>

@@ -213,19 +213,19 @@ namespace TUMCampusApp.Pages
                 switch (l)
                 {
                     case LogLevel.NONE:
-                        items.Add("None");
+                        items.Add(UIUtils.getLocalizedString("SettingsPageLoggLevelNone_text"));
                         break;
                     case LogLevel.ERROR:
-                        items.Add("Error");
+                        items.Add(UIUtils.getLocalizedString("SettingsPageLoggLevelError_text"));
                         break;
                     case LogLevel.WARNING:
-                        items.Add("Warning");
+                        items.Add(UIUtils.getLocalizedString("SettingsPageLoggLevelWarning_text"));
                         break;
                     case LogLevel.INFO:
-                        items.Add("Info");
+                        items.Add(UIUtils.getLocalizedString("SettingsPageLoggLevelInfo_text"));
                         break;
                     case LogLevel.DEBUG:
-                        items.Add("Debug");
+                        items.Add(UIUtils.getLocalizedString("SettingsPageLoggLevelDebug_text"));
                         break;
                     default:
                         items.Add(l.ToString());
