@@ -67,7 +67,7 @@ namespace TUMCampusApp.Pages.Setup
             skip_btn.IsEnabled = true;
             startOverAgain_btn.IsEnabled = true;
             requestNewToken_btn.IsEnabled = true;
-            validating_pgr.Visibility = Visibility.Visible;
+            validating_pgr.Visibility = Visibility.Collapsed;
             validating_pgr.IsActive = false;
             next_tbx.Text = UIUtils.getLocalizedString("Next_Text");
         }
