@@ -46,7 +46,7 @@
 
                 <TextBlock x:Uid="SettingsPageMiscellaneous" Text="Miscellaneous:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
                 <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ComboBox x:Name="logLevel_cbx" Grid.Column="0" Header="Log-Level:" Margin="10, 10, 0, 0" SelectionChanged="logLevel_cbx_SelectionChanged" VerticalAlignment="Center"/>
+                <ComboBox x:Name="logLevel_cbx" Grid.Column="0" x:Uid="SettingsPageLogLevel" Header="Log-Level:" Margin="10, 10, 0, 0" SelectionChanged="logLevel_cbx_SelectionChanged" VerticalAlignment="Center"/>
                 <Button x:Uid="SettingsPageOpenAppDataFolder" x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,15,0,0" Click="openLogFolder_btn_ClickAsync"/>
                 <Button x:Uid="SettingsPageExportLoggs" x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
                 <StackPanel Orientation="Horizontal">
