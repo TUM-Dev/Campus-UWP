@@ -322,6 +322,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Classes\Tiles\CanteenTile.xml" />
     <None Include="Package.StoreAssociation.xml" />
+    <None Include="Package.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="TUMCampusAppCommands.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
