@@ -20,15 +20,8 @@ using Logging;
 
 namespace TUMCampusApp
 {
-    /// <summary>
-    /// Stellt das anwendungsspezifische Verhalten bereit, um die Standardanwendungsklasse zu ergänzen.
-    /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Initialisiert das Singletonanwendungsobjekt. Dies ist die erste Zeile von erstelltem Code
-        /// und daher das logische Äquivalent von main() bzw. WinMain().
-        /// </summary>
         public App()
         {
             //Crash reports capturing
@@ -47,12 +40,32 @@ namespace TUMCampusApp
         }
 
         /// <summary>
+        /// Sets the log level for the logger class.
+        /// </summary>
+        private void initLogLevel()
+        {
+            object o = Settings.getSetting(SettingsConsts.LOG_LEVEL);
+            if (o is int)
+            {
+                Logger.logLevel = (LogLevel)o;
+            }
+            else
+            {
+                Settings.setSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.INFO);
+                Logger.logLevel = LogLevel.INFO;
+            }
+        }
+
+        /// <summary>
         /// Wird aufgerufen, wenn die Anwendung durch den Endbenutzer normal gestartet wird. Weitere Einstiegspunkte
         /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
         /// </summary>
         /// <param name="e">Details über Startanforderung und -prozess.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            // Sets the log level:
+            initLogLevel();
+
             dyeStatusBar();
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {

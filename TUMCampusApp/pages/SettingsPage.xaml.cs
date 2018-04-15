@@ -13,6 +13,7 @@ using Windows.UI.Core;
 using TUMCampusApp.Dialogs;
 using Data_Manager;
 using Logging;
+using System.Collections.Generic;
 
 namespace TUMCampusApp.Pages
 {
@@ -34,7 +35,6 @@ namespace TUMCampusApp.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
-            initControls();
         }
 
         #endregion
@@ -156,6 +156,8 @@ namespace TUMCampusApp.Pages
 
             Settings.setSetting(SettingsConsts.LAST_SELECTED_STUDY_ROOM_GROUP, null);
 
+            Settings.setSetting(SettingsConsts.LOG_LEVEL, null);
+
             await deleteCacheAsync();
             pleaseWait_grid.Visibility = Visibility.Collapsed;
             Logger.Info("Finished reseting the app.");
@@ -201,6 +203,37 @@ namespace TUMCampusApp.Pages
                     logSize_tblck.Text = text;
                 });
             });
+        }
+
+        private void showLogLevels()
+        {
+            List<string> items = new List<string>();
+            foreach (LogLevel l in Enum.GetValues(typeof(LogLevel)))
+            {
+                switch (l)
+                {
+                    case LogLevel.NONE:
+                        items.Add("None");
+                        break;
+                    case LogLevel.ERROR:
+                        items.Add("Error");
+                        break;
+                    case LogLevel.WARNING:
+                        items.Add("Warning");
+                        break;
+                    case LogLevel.INFO:
+                        items.Add("Info");
+                        break;
+                    case LogLevel.DEBUG:
+                        items.Add("Debug");
+                        break;
+                    default:
+                        items.Add(l.ToString());
+                        break;
+                }
+            }
+            logLevel_cbx.ItemsSource = items;
+            logLevel_cbx.SelectedIndex = (int)Logger.logLevel;
         }
 
         #endregion
@@ -382,13 +415,24 @@ namespace TUMCampusApp.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            initControls();
             showLogSize();
+            showLogLevels();
         }
 
         private async void setupEduroam_btn_Click(object sender, RoutedEventArgs e)
         {
             EduroamHelperDialog dialog = new EduroamHelperDialog();
             await dialog.ShowAsync();
+        }
+
+        private void logLevel_cbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (logLevel_cbx.SelectedIndex >= 0)
+            {
+                Settings.setSetting(SettingsConsts.LOG_LEVEL, logLevel_cbx.SelectedIndex);
+                Logger.logLevel = (LogLevel)logLevel_cbx.SelectedIndex;
+            }
         }
 
         #endregion
