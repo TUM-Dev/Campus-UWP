@@ -35,6 +35,6 @@ If you want to help, feel free to do so. Help is allways appreciated 🥓.
 [Here](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development) you can find more information about: How to install UWP apps, using the developer mode.
 
 ## Examples:
-<img src="http://imgur.com/No1QIHz.png" width="400"> <img src="http://imgur.com/ph06ekU.png" width="400">
+<img src="http://imgur.com/No1QIHz.png" width="400"> <img src="http://imgur.com/PliUTko.png" width="400">
 <img src="http://imgur.com/YQCys0F.png" width="400"> <img src="http://imgur.com/omGKvUa.png" width="400">
 <img src="http://imgur.com/ncmI51W.png" width="400"> <img src="http://imgur.com/R5b7nrK.png" width="400">
