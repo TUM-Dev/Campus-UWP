@@ -101,7 +101,7 @@ namespace TUMCampusApp.Pages
         /// <returns></returns>
         private async Task initAppAsync(bool initialInit)
         {
-            Logger.Info("Started loading app...");
+            Logger.Info("Started loading App...");
             long time = SyncManager.GetCurrentUnixTimestampMillis();
 
             await invokeTbxAsync("Gathering device infos...");
@@ -222,7 +222,7 @@ namespace TUMCampusApp.Pages
             await TumManager.INSTANCE.InitManagerAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => splashProgressBar.Value = 100.0);
 
-            Logger.Info("Finished loading app in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
+            Logger.Info("Finished loading App in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
         /// <summary>
