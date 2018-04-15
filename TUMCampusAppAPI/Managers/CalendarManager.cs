@@ -84,7 +84,7 @@ namespace TUMCampusAppAPI.Managers
         public async override Task InitManagerAsync()
         {
             initForBackgroundTask();
-            Task t = syncCalendar(false, true);
+            Task t = Task.Run(() => syncCalendar(false, true));
         }
 
         public void initForBackgroundTask()
@@ -104,13 +104,13 @@ namespace TUMCampusAppAPI.Managers
             {
                 return null;
             }
-            return Task.Run(() =>
-            {
-                waitForSyncToFinish();
-                REFRESHING_TASK_SEMA.Wait();
-                refreshingTask = syncCalendarTaskAsync(force, insertInCalendar);
-                REFRESHING_TASK_SEMA.Release();
-            });
+
+            waitForSyncToFinish();
+            REFRESHING_TASK_SEMA.Wait();
+            refreshingTask = syncCalendarTaskAsync(force, insertInCalendar);
+            REFRESHING_TASK_SEMA.Release();
+
+            return refreshingTask;
         }
 
         /// <summary>
