@@ -70,11 +70,6 @@ namespace TUMCampusAppAPI.Managers
         public List<TUMOnlineCalendarTable> getEntries()
         {
             List<TUMOnlineCalendarTable> list = dB.Query<TUMOnlineCalendarTable>(true, "SELECT * FROM " + DBTableConsts.TUM_ONLINE_CALENDAR_TABLE + ";");
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].dTStrat = list[i].dTStrat;
-                list[i].dTEnd = list[i].dTEnd;
-            }
             return list;
         }
 

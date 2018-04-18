@@ -141,8 +141,6 @@ namespace TUMCampusApp.Pages
                         pre = entry;
                         addSeperator(pre.dTStrat);
                     }
-                    entry.dTStrat = entry.dTStrat;
-                    entry.dTEnd = entry.dTEnd;
                     addCalendarControl(entry);
                 }
             }
