@@ -58,7 +58,7 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                Task t = TuitionFeeManager.INSTANCE.downloadFees(forceRedownload);
+                Task t = TuitionFeeDBManager.INSTANCE.downloadFees(forceRedownload);
                 if (t != null)
                 {
                     await t;
@@ -73,7 +73,7 @@ namespace TUMCampusApp.Pages
                 return;
             }
             List<TUMTuitionFeeTable> list = new List<TUMTuitionFeeTable>();
-            list = TuitionFeeManager.INSTANCE.getFees();
+            list = TuitionFeeDBManager.INSTANCE.getFees();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showFees(list);
@@ -116,7 +116,7 @@ namespace TUMCampusApp.Pages
 
             if (list == null || list.Count <= 0 || list[0].money == null)
             {
-                SyncResult syncResult = TuitionFeeManager.INSTANCE.getSyncStatus();
+                SyncResult syncResult = TuitionFeeDBManager.INSTANCE.getSyncStatus();
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;

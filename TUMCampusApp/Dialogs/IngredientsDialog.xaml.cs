@@ -43,7 +43,7 @@ namespace TUMCampusApp.Dialogs
         /// </summary>
         private void showIngredients()
         {
-            ingredients_tblck.Text = CanteenDishManager.INSTANCE.replaceDishStringWithEmojis(UIUtils.getLocalizedString("IngredientsDialogIngredients_text"), false);
+            ingredients_tblck.Text = CanteenDishDBManager.INSTANCE.replaceDishStringWithEmojis(UIUtils.getLocalizedString("IngredientsDialogIngredients_text"), false);
         }
 
         #endregion

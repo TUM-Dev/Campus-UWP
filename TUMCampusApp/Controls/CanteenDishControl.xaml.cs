@@ -81,7 +81,7 @@ namespace TUMCampusApp.Controls
 
         private async void FOutGoogleIt_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await CanteenDishManager.INSTANCE.googleDishString(menu);
+            await CanteenDishDBManager.INSTANCE.googleDishString(menu);
         }
 
         private async void FOutChefkoch_ClickAsync(object sender, RoutedEventArgs e)

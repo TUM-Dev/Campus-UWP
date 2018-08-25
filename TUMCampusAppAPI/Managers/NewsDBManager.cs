@@ -9,11 +9,11 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class NewsManager : AbstractManager
+    public class NewsDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static NewsManager INSTANCE;
+        public static NewsDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,7 +24,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 06/01/2017 Created [Fabian Sauter]
         /// </history>
-        public NewsManager()
+        public NewsDBManager()
         {
 
         }
@@ -147,12 +147,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<NewsTable>();
-            dB.CreateTable<NewsSourceTable>();
-        }
-
         public void updateNewsRead(string id, bool read)
         {
             dB.Execute("UPDATE " + DBTableConsts.NEWS_TABLE + " SET read = ? WHERE id = ?;", read, id);
@@ -174,7 +168,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_TABLE, Consts.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncDBManager.INSTANCE.needSync(DBTableConsts.NEWS_TABLE, Consts.VALIDITY_THREE_HOURS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     if (force)
                     {
@@ -208,7 +202,7 @@ namespace TUMCampusAppAPI.Managers
                                 news.Add(n);
                                 if (!string.IsNullOrEmpty(n.imageUrl))
                                 {
-                                    Task t = CacheManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
+                                    Task t = CacheDBManager.INSTANCE.cacheImageAsync(new Uri(n.imageUrl));
                                 }
                             }
                             catch (Exception e)
@@ -220,11 +214,11 @@ namespace TUMCampusAppAPI.Managers
                         {
                             dB.InsertOrReplace(n);
                         }
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_TABLE));
+                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });
@@ -249,7 +243,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.NEWS_SOURCE_TABLE, Consts.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncDBManager.INSTANCE.needSync(DBTableConsts.NEWS_SOURCE_TABLE, Consts.VALIDITY_ONE_MONTH).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     try
                     {
@@ -272,11 +266,11 @@ namespace TUMCampusAppAPI.Managers
                             }
                         }
                         replaceNewsSources(list);
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE));
+                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });
@@ -352,7 +346,17 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<NewsTable>();
+            dB.DropTable<NewsSourceTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<NewsTable>();
+            dB.CreateTable<NewsSourceTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

@@ -1,5 +1,4 @@
 ﻿using Logging;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
@@ -8,11 +7,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class GradesManager : AbstractManager
+    public class GradesDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static GradesManager INSTANCE;
+        public static GradesDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -23,7 +22,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 04/03/2017 Created [Fabian Sauter]
         /// </history>
-        public GradesManager()
+        public GradesDBManager()
         {
         }
 
@@ -71,11 +70,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<TUMOnlineGradeTable>();
-        }
-
         /// <summary>
         /// Tries to download all grades and caches them into the local DB.
         /// </summary>
@@ -83,7 +77,7 @@ namespace TUMCampusAppAPI.Managers
         /// <returns>Returns the syncing task or null if did not sync.</returns>
         public Task downloadGrades(bool force)
         {
-            if (force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_GRADE_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
+            if (force || SyncDBManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_GRADE_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
                 waitForSyncToFinish();
                 REFRESHING_TASK_SEMA.Wait();
@@ -101,7 +95,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMOnlineGradeTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_GRADE_TABLE));
+                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_GRADE_TABLE));
                     Logger.Info("Finished downloading grades.");
                 });
                 REFRESHING_TASK_SEMA.Release();
@@ -119,7 +113,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<TUMOnlineGradeTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<TUMOnlineGradeTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

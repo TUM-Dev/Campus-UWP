@@ -35,11 +35,11 @@ namespace TUMCampusApp.BackgroundTask
             taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
 
             Logger.Info("[Background] Started background task.");
-            long time = SyncManager.GetCurrentUnixTimestampMillis();
+            long time = SyncDBManager.GetCurrentUnixTimestampMillis();
 
             await refreshData();
 
-            Logger.Info("[Background] Finished background task in " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms.");
+            Logger.Info("[Background] Finished background task in " + (SyncDBManager.GetCurrentUnixTimestampMillis() - time) + " ms.");
             _deferral.Complete();
         }
 
@@ -99,17 +99,17 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started general init.");
 
-            CacheManager.INSTANCE = new CacheManager();
-            SyncManager.INSTANCE = new SyncManager();
+            CacheDBManager.INSTANCE = new CacheDBManager();
+            SyncDBManager.INSTANCE = new SyncDBManager();
             LocationManager.INSTANCE = new LocationManager();
-            UserDataManager.INSTANCE = new UserDataManager();
+            UserDataDBManager.INSTANCE = new UserDataDBManager();
             TumManager.INSTANCE = new TumManager();
 
-            await CacheManager.INSTANCE.InitManagerAsync();
-            await SyncManager.INSTANCE.InitManagerAsync();
-            await LocationManager.INSTANCE.InitManagerAsync();
-            await UserDataManager.INSTANCE.InitManagerAsync();
-            await TumManager.INSTANCE.InitManagerAsync();
+            CacheDBManager.INSTANCE.initManager();
+            SyncDBManager.INSTANCE.initManager();
+            LocationManager.INSTANCE.initManager();
+            UserDataDBManager.INSTANCE.initManager();
+            TumManager.INSTANCE.initManager();
 
             Logger.Info("[Background] Finished general init.");
         }
@@ -118,10 +118,10 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started downloading calendar entries.");
 
-            CalendarManager.INSTANCE = new CalendarManager();
-            CalendarManager.INSTANCE.initForBackgroundTask();
+            CalendarDBManager.INSTANCE = new CalendarDBManager();
+            CalendarDBManager.INSTANCE.initManagerForBackgroundTask();
 
-            Task t = CalendarManager.INSTANCE.syncCalendar(false, false);
+            Task t = CalendarDBManager.INSTANCE.syncCalendar(false, false);
             if (t != null)
             {
                 await t;
@@ -134,13 +134,13 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started inserting calendar entries into calendar.");
 
-            CalendarManager.INSTANCE = new CalendarManager();
-            CalendarManager.INSTANCE.initForBackgroundTask();
+            CalendarDBManager.INSTANCE = new CalendarDBManager();
+            CalendarDBManager.INSTANCE.initManagerForBackgroundTask();
 
-            List<TUMOnlineCalendarTable> list = CalendarManager.INSTANCE.getEntries();
+            List<TUMOnlineCalendarTable> list = CalendarDBManager.INSTANCE.getEntries();
             if (list != null)
             {
-                await CalendarManager.INSTANCE.insterInCalendarAsync(list);
+                await CalendarDBManager.INSTANCE.insterInCalendarAsync(list);
             }
 
             Logger.Info("[Background] Finished inserting calendar entries into calendar.");
@@ -150,18 +150,18 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started syncing canteens and dishes.");
 
-            CanteenManager.INSTANCE = new CanteenManager();
-            CanteenDishManager.INSTANCE = new CanteenDishManager();
+            CanteenDBManager.INSTANCE = new CanteenDBManager();
+            CanteenDishDBManager.INSTANCE = new CanteenDishDBManager();
 
-            await CanteenManager.INSTANCE.InitManagerAsync();
-            await CanteenDishManager.INSTANCE.InitManagerAsync();
+            CanteenDBManager.INSTANCE.initManager();
+            CanteenDishDBManager.INSTANCE.initManager();
 
-            Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+            Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(false);
             if (t2 != null)
             {
                 await t2;
             }
-            Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+            Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(false);
             if (t != null)
             {
                 await t;
@@ -174,11 +174,11 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started syncing tuition fees.");
 
-            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+            TuitionFeeDBManager.INSTANCE = new TuitionFeeDBManager();
 
-            await TuitionFeeManager.INSTANCE.InitManagerAsync();
+            TuitionFeeDBManager.INSTANCE.initManager();
 
-            Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
+            Task t = TuitionFeeDBManager.INSTANCE.downloadFees(false);
             if (t != null)
             {
                 await t;
@@ -191,12 +191,12 @@ namespace TUMCampusApp.BackgroundTask
         {
             Logger.Info("[Background] Started syncing news.");
 
-            NewsManager.INSTANCE = new NewsManager();
+            NewsDBManager.INSTANCE = new NewsDBManager();
 
-            await NewsManager.INSTANCE.InitManagerAsync();
+            NewsDBManager.INSTANCE.initManager();
 
-            Task t1 = NewsManager.INSTANCE.downloadNewsSources(false);
-            Task t2 = NewsManager.INSTANCE.downloadNews(false);
+            Task t1 = NewsDBManager.INSTANCE.downloadNewsSources(false);
+            Task t2 = NewsDBManager.INSTANCE.downloadNews(false);
             if (t1 != null)
             {
                 await t1;

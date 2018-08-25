@@ -1,11 +1,12 @@
 ﻿using Logging;
 using System;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class LocationManager : AbstractManager
+    public class LocationManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -47,7 +48,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<Geopoint> getCurrentLocationAsync()
         {
             Geopoint p;
-            if (!SyncManager.INSTANCE.needSync(this, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC && (p = UserDataManager.INSTANCE.getLastKnownDevicePosition()) != null)
+            if (!SyncDBManager.INSTANCE.needSync(this, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC && (p = UserDataDBManager.INSTANCE.getLastKnownDevicePosition()) != null)
             {
                 Logger.Info("Position is still up to date, no need to refresh it again");
                 return p;
@@ -72,8 +73,8 @@ namespace TUMCampusAppAPI.Managers
                     DesiredAccuracy = PositionAccuracy.Default
                 };
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
-                UserDataManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this));
+                UserDataDBManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
+                SyncDBManager.INSTANCE.update(new SyncTable(this));
                 return pos.Coordinate.Point;
             }
             catch (Exception e)
@@ -91,7 +92,7 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public async Task<int> getCurrentCampusAsync()
         {
-            Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
+            Geopoint pos = UserDataDBManager.INSTANCE.getLastKnownDevicePosition();
             if (pos == null)
             {
                 pos = await getCurrentLocationAsync();
@@ -150,11 +151,6 @@ namespace TUMCampusAppAPI.Managers
             return c * 6371000;
         }
 
-        public async override Task InitManagerAsync()
-        {
-
-        }
-
         #endregion
 
         #region --Misc Methods (Private)--
@@ -169,7 +165,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+        }
 
+        protected override void createTables()
+        {
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

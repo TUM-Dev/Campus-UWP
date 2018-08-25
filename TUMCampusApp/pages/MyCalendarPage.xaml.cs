@@ -98,7 +98,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showCalendarEntriesTask()
         {
-            List<TUMOnlineCalendarTable> list = CalendarManager.INSTANCE.getEntries();
+            List<TUMOnlineCalendarTable> list = CalendarDBManager.INSTANCE.getEntries();
             list.Sort();
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showEntries(list)).AsTask();
         }
@@ -111,7 +111,7 @@ namespace TUMCampusApp.Pages
         {
             if (list == null || list.Count <= 0)
             {
-                SyncResult syncResult = CalendarManager.INSTANCE.getSyncStatus();
+                SyncResult syncResult = CalendarDBManager.INSTANCE.getSyncStatus();
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = UIUtils.getLocalizedString("MyCalendarGeneralError_Text") + "\n\n" + syncResult.ERROR_MESSAGE;
@@ -168,7 +168,7 @@ namespace TUMCampusApp.Pages
             progressBar.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t = CalendarManager.INSTANCE.syncCalendar(force, true);
+                Task t = CalendarDBManager.INSTANCE.syncCalendar(force, true);
                 if(t != null)
                 {
                     await t;

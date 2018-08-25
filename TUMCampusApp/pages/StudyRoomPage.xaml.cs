@@ -56,7 +56,7 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                Task t = StudyRoomManager.INSTANCE.downloadStudyRoomsAndGroups();
+                Task t = StudyRoomDBManager.INSTANCE.downloadStudyRoomsAndGroups();
                 if (t != null)
                 {
                     await t;
@@ -67,7 +67,7 @@ namespace TUMCampusApp.Pages
                 Logger.Error("StudyRoomPage - downloadAndShowStudyRoomsTask", e);
             }
 
-            groups = StudyRoomManager.INSTANCE.getRoomGroups();
+            groups = StudyRoomDBManager.INSTANCE.getRoomGroups();
             if (groups == null || groups.Count <= 0)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -113,7 +113,7 @@ namespace TUMCampusApp.Pages
         /// <param name="groupID">The study room group id.</param>
         private void showRoomsForGroupIdTask(int groupID)
         {
-            List<StudyRoomTable> rooms = StudyRoomManager.INSTANCE.getRooms(groupID);
+            List<StudyRoomTable> rooms = StudyRoomDBManager.INSTANCE.getRooms(groupID);
 
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {

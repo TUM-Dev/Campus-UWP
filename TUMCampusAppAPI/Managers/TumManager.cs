@@ -1,4 +1,5 @@
 ﻿using Data_Manager;
+using Logging;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -8,7 +9,7 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class TumManager : AbstractManager
+    public class TumManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -65,6 +66,7 @@ namespace TUMCampusAppAPI.Managers
             }
             catch (Exception e)
             {
+                Logger.Error("Failed to check if token is confirmed!", e);
                 return false;
             }
         }
@@ -96,10 +98,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-        }
-
         /// <summary>
         /// Requests and returns a new token.
         /// </summary>
@@ -159,7 +157,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+        }
 
+        protected override void createTables()
+        {
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

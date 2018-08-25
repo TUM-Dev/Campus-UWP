@@ -63,7 +63,7 @@ namespace TUMCampusApp.Controls.Widgets
                 string id = News.id;
                 Task.Run(() =>
                 {
-                    NewsManager.INSTANCE.updateNewsRead(id, true);
+                    NewsDBManager.INSTANCE.updateNewsRead(id, true);
                 });
             }
         }

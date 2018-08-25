@@ -9,11 +9,11 @@ using Logging;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class CanteenManager : AbstractManager
+    public class CanteenDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static CanteenManager INSTANCE;
+        public static CanteenDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,7 +24,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 10/12/2016  Created [Fabian Sauter]
         /// </history>
-        public CanteenManager()
+        public CanteenDBManager()
         {
         }
 
@@ -70,7 +70,7 @@ namespace TUMCampusAppAPI.Managers
         public async Task<List<CanteenTable>> getCanteensWithDistanceAsync()
         {
             List<CanteenTable> list = getCanteens();
-            Geopoint pos = UserDataManager.INSTANCE.getLastKnownDevicePosition();
+            Geopoint pos = UserDataDBManager.INSTANCE.getLastKnownDevicePosition();
             if (pos == null)
             {
                 pos = await LocationManager.INSTANCE.getCurrentLocationAsync();
@@ -175,7 +175,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_TABLE, Consts.VALIDITY_ONE_WEEK).NEEDS_SYNC)
+                    if (!force && !SyncDBManager.INSTANCE.needSync(DBTableConsts.CANTEEN_TABLE, Consts.VALIDITY_ONE_WEEK).NEEDS_SYNC)
                     {
                         return;
                     }
@@ -201,7 +201,7 @@ namespace TUMCampusAppAPI.Managers
                     }
                     dB.DeleteAll<CanteenTable>();
                     dB.InsertAll(list);
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.CANTEEN_TABLE));
+                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.CANTEEN_TABLE));
                     Logger.Info("Finished downloading canteens.");
                 }
                 catch (Exception e)
@@ -213,12 +213,6 @@ namespace TUMCampusAppAPI.Managers
 
             return refreshingTask;
         }
-
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<CanteenTable>();
-            dB.CreateTable<FavoriteCanteenDishTypeTable>();
-        }
         #endregion
 
         #region --Misc Methods (Private)--
@@ -227,7 +221,17 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<CanteenTable>();
+            dB.DropTable<FavoriteCanteenDishTypeTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<CanteenTable>();
+            dB.CreateTable<FavoriteCanteenDishTypeTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

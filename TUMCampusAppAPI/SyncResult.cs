@@ -1,4 +1,6 @@
-﻿namespace TUMCampusAppAPI
+﻿using TUMCampusAppAPI.DBTables;
+
+namespace TUMCampusAppAPI
 {
     public class SyncResult
     {

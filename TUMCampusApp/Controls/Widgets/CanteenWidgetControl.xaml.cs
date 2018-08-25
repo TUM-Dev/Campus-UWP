@@ -73,7 +73,7 @@ namespace TUMCampusApp.Controls.Widgets
             {
                 HPage?.removeWidget(this);
                 string canteen_id = Canteen.canteen_id;
-                Task.Run(() => CanteenManager.INSTANCE.unfavoriteCanteen(canteen_id));
+                Task.Run(() => CanteenDBManager.INSTANCE.unfavoriteCanteen(canteen_id));
             }
         }
 
@@ -85,15 +85,15 @@ namespace TUMCampusApp.Controls.Widgets
                 string canteenId = Canteen.canteen_id;
                 Task.Run(() =>
                 {
-                    DateTime date = CanteenDishManager.INSTANCE.getFirstNextDate(canteenId);
+                    DateTime date = CanteenDishDBManager.INSTANCE.getFirstNextDate(canteenId);
                     int dishTypesCount = 0;
                     if (date != DateTime.MaxValue)
                     {
                         Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => canteenDate_tbx.Text = date.ToString("dd.MM.yyyy")).AsTask();
 
-                        foreach (FavoriteCanteenDishTypeTable f in CanteenManager.INSTANCE.getDishTypesForFavoriteCanteen(canteenId))
+                        foreach (FavoriteCanteenDishTypeTable f in CanteenDBManager.INSTANCE.getDishTypesForFavoriteCanteen(canteenId))
                         {
-                            List<CanteenDishTable> dishes = CanteenDishManager.INSTANCE.getDishesForType(canteenId, f.dish_type, false, date);
+                            List<CanteenDishTable> dishes = CanteenDishDBManager.INSTANCE.getDishesForType(canteenId, f.dish_type, false, date);
 
                             if (dishes.Count > 0)
                             {

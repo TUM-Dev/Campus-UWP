@@ -119,6 +119,10 @@
       <Project>{ba194139-ec89-4063-b044-3ad40fc1ff61}</Project>
       <Name>Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Thread_Save_Components\Thread_Save_Components.csproj">
+      <Project>{422D37E6-2D0F-42AF-8B26-88E007BD022D}</Project>
+      <Name>Thread_Save_Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
       <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>
       <Name>TUMCampusAppAPI</Name>

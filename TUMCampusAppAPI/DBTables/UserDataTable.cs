@@ -30,7 +30,7 @@ namespace TUMCampusAppAPI.DBTables
             this.lat = lastKnownDevicePosition.Position.Latitude;
             this.lng = lastKnownDevicePosition.Position.Longitude;
             this.id = DeviceInfo.INSTANCE.Id;
-            this.unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
+            this.unixTimeSeconds = SyncDBManager.GetCurrentUnixTimestampSeconds();
         }
 
         /// <summary>

@@ -59,7 +59,7 @@ namespace TUMCampusApp.Controls
         #region --Events--
         private void enabled_chbx_Checked_Changed(object sender, RoutedEventArgs e)
         {
-            NewsManager.INSTANCE.updateNewsSourceStatus(source.id, (bool)enabled_chbx.IsChecked);
+            NewsDBManager.INSTANCE.updateNewsSourceStatus(source.id, (bool)enabled_chbx.IsChecked);
             newsPage.setNewsSourcesChanged();
         }
 

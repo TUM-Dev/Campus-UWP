@@ -14,6 +14,8 @@ using TUMCampusApp.Dialogs;
 using Data_Manager;
 using Logging;
 using System.Collections.Generic;
+using Thread_Save_Components.Classes.SQLite;
+using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.Pages
 {
@@ -126,7 +128,7 @@ namespace TUMCampusApp.Pages
         private async Task resetAppAsync()
         {
             pleaseWait_grid.Visibility = Visibility.Visible;
-            await CalendarManager.INSTANCE.deleteCalendarAsync();
+            await CalendarDBManager.INSTANCE.deleteCalendarAsync();
 
             // Reset widget settings:
             Settings.setSetting(SettingsConsts.DISABLE_EXAMPLE_WIDGET, null);
@@ -164,14 +166,29 @@ namespace TUMCampusApp.Pages
         }
 
         /// <summary>
-        /// Resets the Apps cache (db).
+        /// Resets the apps cache (db).
         /// </summary>
         private async Task deleteCacheAsync()
         {
             pleaseWait_grid.Visibility = Visibility.Visible;
-            await CacheManager.INSTANCE.clearCacheAsync();
-            AbstractManager.resetDB();
-            AbstractManager.deleteDB();
+            await CacheDBManager.INSTANCE.clearCacheAsync();
+
+            // Recreate all DB tables:
+            AbstractDBManager.dB.RecreateTable<CacheTable>();
+            AbstractDBManager.dB.RecreateTable<CanteenTable>();
+            AbstractDBManager.dB.RecreateTable<CanteenDishTable>();
+            AbstractDBManager.dB.RecreateTable<FavoriteCanteenDishTypeTable>();
+            AbstractDBManager.dB.RecreateTable<NewsSourceTable>();
+            AbstractDBManager.dB.RecreateTable<NewsTable>();
+            AbstractDBManager.dB.RecreateTable<StudyRoomGroupTable>();
+            AbstractDBManager.dB.RecreateTable<StudyRoomTable>();
+            AbstractDBManager.dB.RecreateTable<SyncTable>();
+            AbstractDBManager.dB.RecreateTable<TUMOnlineCalendarTable>();
+            AbstractDBManager.dB.RecreateTable<TUMOnlineGradeTable>();
+            AbstractDBManager.dB.RecreateTable<TUMOnlineLectureInformationTable>();
+            AbstractDBManager.dB.RecreateTable<TUMOnlineLectureTable>();
+            AbstractDBManager.dB.RecreateTable<TUMTuitionFeeTable>();
+            AbstractDBManager.dB.RecreateTable<UserDataTable>();
 
             SplashScreenPage extendedSplash = new SplashScreenPage();
             Window.Current.Content = extendedSplash;
@@ -248,11 +265,11 @@ namespace TUMCampusApp.Pages
         {
             if (disableCalendar_tgls.IsOn)
             {
-                Task t = CalendarManager.INSTANCE.deleteCalendarAsync();
+                Task t = CalendarDBManager.INSTANCE.deleteCalendarAsync();
             }
             else
             {
-                Task t = CalendarManager.INSTANCE.syncCalendar(true, true);
+                Task t = CalendarDBManager.INSTANCE.syncCalendar(true, true);
             }
             Settings.setSetting(SettingsConsts.DISABLE_CALENDAR_INTEGRATION, disableCalendar_tgls.IsOn);
         }

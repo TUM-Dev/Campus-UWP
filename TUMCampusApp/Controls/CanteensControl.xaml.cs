@@ -111,8 +111,8 @@ namespace TUMCampusApp.Controls
         public async Task reloadCanteensAsync(string canteen_id)
         {
             canteens.Clear();
-            string lastSelectedCanteen = canteen_id ?? UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            List<CanteenTable> c = await CanteenManager.INSTANCE.getCanteensWithDistanceAsync();
+            string lastSelectedCanteen = canteen_id ?? UserDataDBManager.INSTANCE.getLastSelectedCanteenId();
+            List<CanteenTable> c = await CanteenDBManager.INSTANCE.getCanteensWithDistanceAsync();
             sortCanteens(c);
             for (int i = 0; i < c.Count; i++)
             {
@@ -225,7 +225,7 @@ namespace TUMCampusApp.Controls
             CanteenTable canteen = getSelectedCanteen();
             if (canteen != null)
             {
-                UserDataManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
+                UserDataDBManager.INSTANCE.setLastSelectedCanteenId(canteen.canteen_id);
                 showSelectedCanteen();
             }
             close();

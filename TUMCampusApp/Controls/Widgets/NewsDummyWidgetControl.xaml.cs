@@ -76,8 +76,8 @@ namespace TUMCampusApp.Controls.Widgets
             {
                 Task t = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => WidgetContainer?.setIsLoading(true)).AsTask();
 
-                Task t1 = NewsManager.INSTANCE.downloadNewsSources(false);
-                Task t2 = NewsManager.INSTANCE.downloadNews(false);
+                Task t1 = NewsDBManager.INSTANCE.downloadNewsSources(false);
+                Task t2 = NewsDBManager.INSTANCE.downloadNews(false);
                 if (t1 != null)
                 {
                     await t1;
@@ -87,7 +87,7 @@ namespace TUMCampusApp.Controls.Widgets
                     await t2;
                 }
 
-                List<NewsTable> news = NewsManager.INSTANCE.getNewsForHomePage();
+                List<NewsTable> news = NewsDBManager.INSTANCE.getNewsForHomePage();
 
                 t = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

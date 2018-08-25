@@ -90,7 +90,7 @@ namespace TUMCampusApp.Pages
         /// <param name="canteen">The canteen, you want to show all dishes for.</param>
         private void showDishesForCanteen(CanteenTable canteen)
         {
-            dishDates = CanteenDishManager.INSTANCE.getDishDates(canteen.canteen_id);
+            dishDates = CanteenDishDBManager.INSTANCE.getDishDates(canteen.canteen_id);
             dishDateOffset = getNextDishDateOffset();
             showDate();
             showDishesForSelctedDate();
@@ -133,7 +133,7 @@ namespace TUMCampusApp.Pages
                 if (dishDateOffset >= 0 && dishDates.Count > dishDateOffset)
                 {
                     DishTypeControl dishTypeControl = null;
-                    foreach (CanteenDishTable dish in CanteenDishManager.INSTANCE.getDishes(canteens_ctrl.Canteen.canteen_id, dishDates[dishDateOffset]))
+                    foreach (CanteenDishTable dish in CanteenDishDBManager.INSTANCE.getDishes(canteens_ctrl.Canteen.canteen_id, dishDates[dishDateOffset]))
                     {
                         if (dishTypeControl == null || !Equals(dish.dish_type, dishTypeControl.dishType))
                         {
@@ -185,12 +185,12 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t2 = CanteenManager.INSTANCE.downloadCanteens(force);
+                Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(force);
                 if (t2 != null)
                 {
                     await t2;
                 }
-                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(force);
+                Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(force);
                 if (t != null)
                 {
                     await t;
@@ -285,12 +285,12 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
+                Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(true);
                 if (t2 != null)
                 {
                     await t2;
                 }
-                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(true);
+                Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(true);
                 if (t != null)
                 {
                     await t;
@@ -315,7 +315,7 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t2 = CanteenManager.INSTANCE.downloadCanteens(true);
+                Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(true);
                 if (t2 != null)
                 {
                     await t2;
@@ -335,7 +335,7 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(true);
+                Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(true);
                 if (t != null)
                 {
                     await t;
@@ -388,12 +388,12 @@ namespace TUMCampusApp.Pages
             loading_prgb.Visibility = Visibility.Visible;
             Task.Run(async () =>
             {
-                Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+                Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(false);
                 if (t2 != null)
                 {
                     await t2;
                 }
-                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+                Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(false);
                 if (t != null)
                 {
                     await t;

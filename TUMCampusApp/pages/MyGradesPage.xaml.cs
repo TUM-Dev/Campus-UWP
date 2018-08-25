@@ -68,7 +68,7 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                Task t = GradesManager.INSTANCE.downloadGrades(force);
+                Task t = GradesDBManager.INSTANCE.downloadGrades(force);
                 if (t != null)
                 {
                     await t;
@@ -83,7 +83,7 @@ namespace TUMCampusApp.Pages
                 return;
             }
 
-            List<TUMOnlineGradeSemester> list = GradesManager.INSTANCE.getGradesSemester();
+            List<TUMOnlineGradeSemester> list = GradesDBManager.INSTANCE.getGradesSemester();
             sortSemesterList(list);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
              {
@@ -170,7 +170,7 @@ namespace TUMCampusApp.Pages
             grades_stckp.Children.Clear();
             if (list == null || list.Count <= 0)
             {
-                SyncResult syncResult = GradesManager.INSTANCE.getSyncStatus();
+                SyncResult syncResult = GradesDBManager.INSTANCE.getSyncStatus();
                 if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                 {
                     noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;

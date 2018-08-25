@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 using Windows.Data.Xml.Dom;
@@ -52,7 +53,7 @@ namespace TUMCampusAppAPI.TUMOnline
             XmlDocument doc = null;
             if (validity > 0)
             {
-                string result = CacheManager.INSTANCE.isCached(url.ToString());
+                string result = CacheDBManager.INSTANCE.isCached(url.ToString());
                 if (result != null)
                 {
                     doc = new XmlDocument();
@@ -112,7 +113,7 @@ namespace TUMCampusAppAPI.TUMOnline
         #region --Misc Methods (Private)--
         private void cacheResult(string url, string result)
         {
-            CacheManager.INSTANCE.cache(new CacheTable(url, CacheManager.encodeString(result), validity, validity, CacheManager.CACHE_TYP_DATA));
+            CacheDBManager.INSTANCE.cache(new CacheTable(url, CacheDBManager.encodeString(result), validity, validity, CacheDBManager.CACHE_TYP_DATA));
         }
 
         private Uri buildUrl()

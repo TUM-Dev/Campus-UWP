@@ -8,11 +8,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class TuitionFeeManager : AbstractManager
+    public class TuitionFeeDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static TuitionFeeManager INSTANCE;
+        public static TuitionFeeDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -23,9 +23,8 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 05/01/2017 Created [Fabian Sauter]
         /// </history>
-        public TuitionFeeManager()
+        public TuitionFeeDBManager()
         {
-            dB.CreateTable<TUMTuitionFeeTable>();
         }
 
         #endregion
@@ -54,10 +53,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-        }
-
         /// <summary>
         /// Tries to download your tuition fees if it is necessary and caches them into the local db.
         /// </summary>
@@ -74,7 +69,7 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncDBManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getFeeStatusAsync();
                     dB.DropTable<TUMTuitionFeeTable>();
@@ -83,7 +78,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMTuitionFeeTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE));
+                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_TUITION_FEE_TABLE));
                 }
                 return;
             });
@@ -100,7 +95,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<TUMTuitionFeeTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<TUMTuitionFeeTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

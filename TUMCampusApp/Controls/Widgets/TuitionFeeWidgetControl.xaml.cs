@@ -69,7 +69,7 @@ namespace TUMCampusApp.Controls.Widgets
             {
                 try
                 {
-                    Task t = TuitionFeeManager.INSTANCE.downloadFees(false);
+                    Task t = TuitionFeeDBManager.INSTANCE.downloadFees(false);
                     if (t != null)
                     {
                         await t;
@@ -80,7 +80,7 @@ namespace TUMCampusApp.Controls.Widgets
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(null));
                     return;
                 }
-                List<TUMTuitionFeeTable> list = TuitionFeeManager.INSTANCE.getFees();
+                List<TUMTuitionFeeTable> list = TuitionFeeDBManager.INSTANCE.getFees();
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => showFees(list));
             });
         }

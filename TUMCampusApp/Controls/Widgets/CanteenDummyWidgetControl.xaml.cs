@@ -75,18 +75,18 @@ namespace TUMCampusApp.Controls.Widgets
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => WidgetContainer?.setIsLoading(true)).AsTask();
             Task.Run(async () =>
             {
-                Task t2 = CanteenManager.INSTANCE.downloadCanteens(false);
+                Task t2 = CanteenDBManager.INSTANCE.downloadCanteens(false);
                 if (t2 != null)
                 {
                     await t2;
                 }
-                Task t = CanteenDishManager.INSTANCE.downloadCanteenDishes(false);
+                Task t = CanteenDishDBManager.INSTANCE.downloadCanteenDishes(false);
                 if (t != null)
                 {
                     await t;
                 }
 
-                foreach (CanteenTable c in CanteenManager.INSTANCE.getFavoriteCanteens())
+                foreach (CanteenTable c in CanteenDBManager.INSTANCE.getFavoriteCanteens())
                 {
                     t = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {

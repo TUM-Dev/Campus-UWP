@@ -1,8 +1,7 @@
 ﻿using SQLite;
 using System;
-using TUMCampusAppAPI.DBTables;
 
-namespace TUMCampusAppAPI
+namespace TUMCampusAppAPI.DBTables
 {
     [Table(DBTableConsts.CACHE_TABLE)]
     public class CacheTable

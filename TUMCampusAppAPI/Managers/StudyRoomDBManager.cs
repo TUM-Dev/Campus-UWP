@@ -6,11 +6,11 @@ using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class StudyRoomManager : AbstractManager
+    public class StudyRoomDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static StudyRoomManager INSTANCE;
+        public static StudyRoomDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -21,7 +21,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 24/02/2017 Created [Fabian Sauter]
         /// </history>
-        public StudyRoomManager()
+        public StudyRoomDBManager()
         {
 
         }
@@ -49,12 +49,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<StudyRoomTable>();
-            dB.CreateTable<StudyRoomGroupTable>();
-        }
-
         /// <summary>
         /// Downloads the status of all study rooms and study room groups from an external source.
         /// </summary>
@@ -113,7 +107,17 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<StudyRoomTable>();
+            dB.DropTable<StudyRoomGroupTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<StudyRoomTable>();
+            dB.CreateTable<StudyRoomGroupTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

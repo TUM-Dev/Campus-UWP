@@ -27,6 +27,11 @@ namespace TUMCampusAppAPI.DBTables
         /// <history>
         /// 15/01/2017 Created [Fabian Sauter]
         /// </history>
+        public TUMOnlineLectureInformationTable()
+        {
+
+        }
+
         public TUMOnlineLectureInformationTable(IXmlNode element)
         {
             fromXml(element);

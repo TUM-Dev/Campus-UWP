@@ -97,7 +97,7 @@ namespace TUMCampusApp.Classes
                     // Storage for news changed between version 1.0.3 and 1.0.4:
                     if (versionLastStart.Major <= 1 && versionLastStart.Minor <= 0 && versionLastStart.Build < 4)
                     {
-                        NewsManager.INSTANCE.downloadNews(true);
+                        NewsDBManager.INSTANCE.downloadNews(true);
 
                         // Deletes the unused "Cache" folder and its contents, which was used in versions bellow v.1.0.4 for storing cached images:
                         Task.Run(async () =>

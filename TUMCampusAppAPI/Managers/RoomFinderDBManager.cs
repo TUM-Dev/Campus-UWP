@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace TUMCampusAppAPI.Managers
+﻿namespace TUMCampusAppAPI.Managers
 {
-    class RoomFinderManager : AbstractManager
+    class RoomFinderDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly RoomFinderManager INSTANCE = new RoomFinderManager();
+        public static readonly RoomFinderDBManager INSTANCE = new RoomFinderDBManager();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -17,7 +15,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 29/12/2017 Created [Fabian Sauter]
         /// </history>
-        public RoomFinderManager()
+        public RoomFinderDBManager()
         {
         }
 
@@ -29,9 +27,7 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override async Task InitManagerAsync()
-        {
-        }
+
 
         #endregion
 
@@ -41,7 +37,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+        }
 
+        protected override void createTables()
+        {
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

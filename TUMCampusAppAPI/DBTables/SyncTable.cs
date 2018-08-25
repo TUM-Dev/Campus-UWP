@@ -1,10 +1,9 @@
 ﻿using SQLite;
 using System;
-using TUMCampusAppAPI.DBTables;
 using TUMCampusAppAPI.Managers;
 using TUMCampusAppAPI.TUMOnline.Exceptions;
 
-namespace TUMCampusAppAPI
+namespace TUMCampusAppAPI.DBTables
 {
     [Table(DBTableConsts.SYNC_TABLE)]
     public class SyncTable
@@ -73,7 +72,7 @@ namespace TUMCampusAppAPI
         public SyncTable(string id, int status, string errorMessage)
         {
             this.id = id;
-            this.lastSync = SyncManager.GetCurrentUnixTimestampSeconds();
+            this.lastSync = SyncDBManager.GetCurrentUnixTimestampSeconds();
             this.status = status;
             this.errorMessage = errorMessage;
         }

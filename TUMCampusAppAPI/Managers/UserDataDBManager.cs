@@ -7,11 +7,11 @@ using Windows.Devices.Geolocation;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class UserDataManager : AbstractManager
+    public class UserDataDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static UserDataManager INSTANCE;
+        public static UserDataDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -22,9 +22,8 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 15/12/2016  Created [Fabian Sauter]
         /// </history>
-        public UserDataManager()
+        public UserDataDBManager()
         {
-            dB.CreateTable<UserDataTable>();
         }
 
         #endregion
@@ -41,9 +40,11 @@ namespace TUMCampusAppAPI.Managers
             {
                 return null;
             }
-            BasicGeoposition pos = new BasicGeoposition();
-            pos.Latitude = list[0].lat;
-            pos.Longitude = list[0].lng;
+            BasicGeoposition pos = new BasicGeoposition
+            {
+                Latitude = list[0].lat,
+                Longitude = list[0].lng
+            };
             return new Geopoint(pos);
         }
 
@@ -62,7 +63,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 list[0].lat = pos.Position.Latitude;
                 list[0].lng = pos.Position.Longitude;
-                list[0].unixTimeSeconds = SyncManager.GetCurrentUnixTimestampSeconds();
+                list[0].unixTimeSeconds = SyncDBManager.GetCurrentUnixTimestampSeconds();
                 dB.InsertOrReplace(list[0]);
             }
         }
@@ -101,13 +102,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
+        public override void initManager()
         {
             Task t = LocationManager.INSTANCE.getCurrentLocationAsync();
             try
             {
                 // 2 sec timeout:
-                await Task.WhenAny(t, Task.Delay(2000));
+                Task.WaitAny(t, Task.Delay(2000));
             }
             catch (AggregateException e)
             {
@@ -121,7 +122,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<UserDataTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<UserDataTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

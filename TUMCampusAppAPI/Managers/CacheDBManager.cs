@@ -8,11 +8,11 @@ using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class CacheManager : AbstractManager
+    public class CacheDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static CacheManager INSTANCE;
+        public static CacheDBManager INSTANCE;
         public static readonly int CACHE_TYP_DATA = 0;
 
 
@@ -25,7 +25,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public CacheManager()
+        public CacheDBManager()
         {
         }
 
@@ -37,7 +37,7 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
+        public override void initManager()
         {
             dB.CreateTable<CacheTable>();
             dB.Execute("DELETE FROM " + DBTableConsts.CACHE_TABLE + " WHERE datetime() > max_age;");
@@ -112,6 +112,16 @@ namespace TUMCampusAppAPI.Managers
         public static byte[] encodeString(string s)
         {
             return Encoding.UTF8.GetBytes(s);
+        }
+
+        protected override void dropTables()
+        {
+            dB.DropTable<CacheTable>();
+        }
+
+        protected override void createTables()
+        {
+            dB.CreateTable<CacheTable>();
         }
         #endregion
 

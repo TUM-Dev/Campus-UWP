@@ -64,7 +64,7 @@ namespace TUMCampusApp.Dialogs
         {
             if(Canteen_id != null)
             {
-                CanteenManager.INSTANCE.setFavoriteCanteenDishTypes(Canteen_id, dishes_contrl.getSelectedDishTypes());
+                CanteenDBManager.INSTANCE.setFavoriteCanteenDishTypes(Canteen_id, dishes_contrl.getSelectedDishTypes());
             }
             Hide();
         }

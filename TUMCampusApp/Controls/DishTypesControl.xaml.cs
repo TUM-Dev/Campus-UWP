@@ -64,7 +64,7 @@ namespace TUMCampusApp.Controls
         private void loadDishTypes()
         {
             dishTypes.Clear();
-            foreach (CanteenDishTable dishType in CanteenDishManager.INSTANCE.getAllDishTypes())
+            foreach (CanteenDishTable dishType in CanteenDishDBManager.INSTANCE.getAllDishTypes())
             {
                 dishTypes.Add(new DishTypeTemplate()
                 {

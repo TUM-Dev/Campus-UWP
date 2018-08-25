@@ -65,7 +65,7 @@ namespace TUMCampusApp.Pages
             List<TUMOnlineLectureInformationTable> list = null;
             try
             {
-                list = await LecturesManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
+                list = await LecturesDBManager.INSTANCE.searchForLectureInformationAsync(lecture.sp_nr.ToString());
             }
             catch (BaseTUMOnlineException e)
             {

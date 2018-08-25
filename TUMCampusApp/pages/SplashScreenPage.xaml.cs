@@ -102,30 +102,30 @@ namespace TUMCampusApp.Pages
         private async Task initAppAsync(bool initialInit)
         {
             Logger.Info("Started loading App...");
-            long time = SyncManager.GetCurrentUnixTimestampMillis();
+            long time = SyncDBManager.GetCurrentUnixTimestampMillis();
 
             await invokeTbxAsync("Gathering device infos...");
             DeviceInfo.INSTANCE = new DeviceInfo();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading cache manager...");
-            CacheManager.INSTANCE = new CacheManager();
+            CacheDBManager.INSTANCE = new CacheDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading study room manager...");
-            StudyRoomManager.INSTANCE = new StudyRoomManager();
+            StudyRoomDBManager.INSTANCE = new StudyRoomDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading canteen manager...");
-            CanteenManager.INSTANCE = new CanteenManager();
+            CanteenDBManager.INSTANCE = new CanteenDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading canteen menu manager...");
-            CanteenDishManager.INSTANCE = new CanteenDishManager();
+            CanteenDishDBManager.INSTANCE = new CanteenDishDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading grades manager...");
-            GradesManager.INSTANCE = new GradesManager();
+            GradesDBManager.INSTANCE = new GradesDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading location manager...");
@@ -133,11 +133,11 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Loading sync manager...");
-            SyncManager.INSTANCE = new SyncManager();
+            SyncDBManager.INSTANCE = new SyncDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading user data manager...");
-            UserDataManager.INSTANCE = new UserDataManager();
+            UserDataDBManager.INSTANCE = new UserDataDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading TumManager...");
@@ -145,48 +145,48 @@ namespace TUMCampusApp.Pages
             await incProgressAsync();
 
             await invokeTbxAsync("Loading tuition fee manager...");
-            TuitionFeeManager.INSTANCE = new TuitionFeeManager();
+            TuitionFeeDBManager.INSTANCE = new TuitionFeeDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading my lectures manager...");
-            LecturesManager.INSTANCE = new LecturesManager();
+            LecturesDBManager.INSTANCE = new LecturesDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading my TUM calendar manager...");
-            CalendarManager.INSTANCE = new CalendarManager();
+            CalendarDBManager.INSTANCE = new CalendarDBManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Loading news manager...");
-            NewsManager.INSTANCE = new NewsManager();
+            NewsDBManager.INSTANCE = new NewsDBManager();
             await incProgressAsync();
 
 
             await invokeTbxAsync("Initializing cache manager...");
-            await CacheManager.INSTANCE.InitManagerAsync();
+            CacheDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing study room manager...");
-            await StudyRoomManager.INSTANCE.InitManagerAsync();
+            StudyRoomDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteen manager...");
-            await CanteenManager.INSTANCE.InitManagerAsync();
+            CanteenDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing canteen menu manager...");
-            await CanteenDishManager.INSTANCE.InitManagerAsync();
+            CanteenDishDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing grades manager...");
-            await GradesManager.INSTANCE.InitManagerAsync();
+            GradesDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing location manager...");
-            await LocationManager.INSTANCE.InitManagerAsync();
+            LocationManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing sync manager...");
-            await SyncManager.INSTANCE.InitManagerAsync();
+            SyncDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing device position...");
@@ -199,30 +199,30 @@ namespace TUMCampusApp.Pages
                     await message.ShowAsync();
                 });
             }
-            await UserDataManager.INSTANCE.InitManagerAsync();
+            UserDataDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing tuition fee manager...");
-            await TuitionFeeManager.INSTANCE.InitManagerAsync();
+            TuitionFeeDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing my lectures manager...");
-            await LecturesManager.INSTANCE.InitManagerAsync();
+            LecturesDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing my TUM calendar manager...");
-            await CalendarManager.INSTANCE.InitManagerAsync();
+            CalendarDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing news manager...");
-            await NewsManager.INSTANCE.InitManagerAsync();
+            NewsDBManager.INSTANCE.initManager();
             await incProgressAsync();
 
             await invokeTbxAsync("Initializing TumManager...");
-            await TumManager.INSTANCE.InitManagerAsync();
+            TumManager.INSTANCE.initManager();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => splashProgressBar.Value = 100.0);
 
-            Logger.Info("Finished loading App in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
+            Logger.Info("Finished loading App in: " + (SyncDBManager.GetCurrentUnixTimestampMillis() - time) + " ms");
         }
 
         /// <summary>

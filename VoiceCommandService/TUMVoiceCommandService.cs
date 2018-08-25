@@ -40,15 +40,15 @@ namespace TUMCampusApp.VoiceCommands
         private List<CanteenDishTable> getMenus(DateTime date)
         {
             List<CanteenDishTable> list = new List<CanteenDishTable>();
-            if(CanteenDishManager.INSTANCE == null)
+            if(CanteenDishDBManager.INSTANCE == null)
             {
-                CanteenDishManager.INSTANCE = new CanteenDishManager();
-                UserDataManager.INSTANCE = new UserDataManager();
+                CanteenDishDBManager.INSTANCE = new CanteenDishDBManager();
+                UserDataDBManager.INSTANCE = new UserDataDBManager();
             }
 
-            string canteen_id = UserDataManager.INSTANCE.getLastSelectedCanteenId();
-            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Tagesgericht", true, date));
-            list.AddRange(CanteenDishManager.INSTANCE.getDishesForType(canteen_id, "Aktionsessen", true, date));
+            string canteen_id = UserDataDBManager.INSTANCE.getLastSelectedCanteenId();
+            list.AddRange(CanteenDishDBManager.INSTANCE.getDishesForType(canteen_id, "Tagesgericht", true, date));
+            list.AddRange(CanteenDishDBManager.INSTANCE.getDishesForType(canteen_id, "Aktionsessen", true, date));
             return list;
         }
 

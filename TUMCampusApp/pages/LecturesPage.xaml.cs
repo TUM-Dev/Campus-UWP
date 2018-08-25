@@ -83,7 +83,7 @@ namespace TUMCampusApp.Pages
         {
             try
             {
-                Task t = LecturesManager.INSTANCE.downloadLectures(forceRedownload);
+                Task t = LecturesDBManager.INSTANCE.downloadLectures(forceRedownload);
                 if(t != null)
                 {
                     await t;
@@ -97,7 +97,7 @@ namespace TUMCampusApp.Pages
                 });
                 return;
             }
-            List<TUMOnlineLectureTable> list = LecturesManager.INSTANCE.getLectures();
+            List<TUMOnlineLectureTable> list = LecturesDBManager.INSTANCE.getLectures();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 showLectures(list);
@@ -114,7 +114,7 @@ namespace TUMCampusApp.Pages
             List<TUMOnlineLectureTable> list = null;
             try
             {
-                list = await LecturesManager.INSTANCE.searchForLecturesAsync(query);
+                list = await LecturesDBManager.INSTANCE.searchForLecturesAsync(query);
             }
             catch (BaseTUMOnlineException e)
             {
@@ -226,7 +226,7 @@ namespace TUMCampusApp.Pages
                 status_tbx.Text = UIUtils.getLocalizedString("LecturesNoneFound_Text");
                 if(showingOwnLectures)
                 {
-                    SyncResult syncResult = LecturesManager.INSTANCE.getSyncStatus();
+                    SyncResult syncResult = LecturesDBManager.INSTANCE.getSyncStatus();
                     if (syncResult.STATUS < 0 && syncResult.ERROR_MESSAGE != null)
                     {
                         noDataInfo_tbx.Text = syncResult.ERROR_MESSAGE;

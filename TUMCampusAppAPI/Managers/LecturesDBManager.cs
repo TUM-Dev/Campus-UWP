@@ -8,11 +8,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class LecturesManager : AbstractManager
+    public class LecturesDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static LecturesManager INSTANCE;
+        public static LecturesDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -23,7 +23,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 06/01/2017 Created [Fabian Sauter]
         /// </history>
-        public LecturesManager()
+        public LecturesDBManager()
         {
 
         }
@@ -81,11 +81,6 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<TUMOnlineLectureTable>();
-        }
-
         /// <summary>
         /// Tries to download the information for the given lecture if it is not cached.
         /// </summary>
@@ -123,20 +118,19 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Wait();
             refreshingTask = Task.Run(async () =>
             {
-                if ((force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_LECTURE_TABLE, Consts.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
+                if ((force || SyncDBManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_LECTURE_TABLE, Consts.VALIDITY_FIFE_DAYS).NEEDS_SYNC) && DeviceInfo.isConnectedToInternet())
                 {
                     XmlDocument doc = await getPersonalLecturesDocumentAsync();
                     if (doc == null || doc.SelectSingleNode("/error") != null)
                     {
                         return;
                     }
-                    dB.DropTable<TUMOnlineLectureTable>();
-                    dB.CreateTable<TUMOnlineLectureTable>();
+                    dB.DeleteAll<TUMOnlineLectureTable>();
                     foreach (var element in doc.SelectNodes("/rowset/row"))
                     {
                         dB.InsertOrReplace(new TUMOnlineLectureTable(element));
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_LECTURE_TABLE));
+                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_LECTURE_TABLE));
                 }
             });
             REFRESHING_TASK_SEMA.Release();
@@ -172,7 +166,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<TUMOnlineLectureTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<TUMOnlineLectureTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

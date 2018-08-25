@@ -118,7 +118,7 @@ namespace TUMCampusApp.Controls
                 }
                 else
                 {
-                    CanteenManager.INSTANCE.unfavoriteCanteen(Canteen.canteen_id);
+                    CanteenDBManager.INSTANCE.unfavoriteCanteen(Canteen.canteen_id);
                 }
                 showFavoriteStar();
             }

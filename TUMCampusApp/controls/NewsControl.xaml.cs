@@ -118,7 +118,7 @@ namespace TUMCampusApp.Controls
                 {
                     logo_img.Source = new BitmapImage(new Uri("ms-appx:///Assets/BadgeLogo.scale-200.png"));
                 }
-                NewsSourceTable source = NewsManager.INSTANCE.getNewsSource(News.src);
+                NewsSourceTable source = NewsDBManager.INSTANCE.getNewsSource(News.src);
                 src_tbx.Text = source.title ?? (News.src ?? "");
                 date_tbx.Text = News.date.ToString("dd.MM.yyyy");
                 loading_ldng.IsLoading = false;
@@ -184,7 +184,7 @@ namespace TUMCampusApp.Controls
 
                 string id = News.id;
                 bool read = News.read;
-                Task.Run(() => NewsManager.INSTANCE.updateNewsRead(id, read));
+                Task.Run(() => NewsDBManager.INSTANCE.updateNewsRead(id, read));
 
                 if (News.read)
                 {

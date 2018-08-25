@@ -10,11 +10,11 @@ using Logging;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class CanteenDishManager : AbstractManager
+    public class CanteenDishDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static CanteenDishManager INSTANCE;
+        public static CanteenDishDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,7 +25,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 10/12/2016  Created [Fabian Sauter]
         /// </history>
-        public CanteenDishManager()
+        public CanteenDishDBManager()
         {
         }
 
@@ -174,7 +174,7 @@ namespace TUMCampusAppAPI.Managers
             {
                 try
                 {
-                    if (!force && !SyncManager.INSTANCE.needSync(DBTableConsts.CANTEEN_DISH_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
+                    if (!force && !SyncDBManager.INSTANCE.needSync(DBTableConsts.CANTEEN_DISH_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
                     {
                         return;
                     }
@@ -203,7 +203,7 @@ namespace TUMCampusAppAPI.Managers
                         dB.DeleteAll<CanteenDishTable>();
                         dB.InsertAll(menus);
                     }
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.CANTEEN_DISH_TABLE));
+                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.CANTEEN_DISH_TABLE));
                     Logger.Info("Finished downloading canteen dishes.");
                 }
                 catch (Exception e)
@@ -214,11 +214,6 @@ namespace TUMCampusAppAPI.Managers
             REFRESHING_TASK_SEMA.Release();
 
             return refreshingTask;
-        }
-
-        public async override Task InitManagerAsync()
-        {
-            dB.CreateTable<CanteenDishTable>();
         }
         #endregion
 
@@ -387,7 +382,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<CanteenDishTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<CanteenDishTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

@@ -2,16 +2,15 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class SyncManager : AbstractManager
+    public class SyncDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static SyncManager INSTANCE;
+        public static SyncDBManager INSTANCE;
         private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         #endregion
@@ -23,9 +22,8 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public SyncManager()
+        public SyncDBManager()
         {
-            dB.CreateTable<SyncTable>();
         }
 
         #endregion
@@ -72,7 +70,7 @@ namespace TUMCampusAppAPI.Managers
         /// <summary>
         /// Returns the sync status for the given object.
         /// </summary>
-        public SyncResult getSyncStatus(Object obj)
+        public SyncResult getSyncStatus(object obj)
         {
             return getSyncStatus(obj.GetType().Name);
         }
@@ -95,7 +93,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 14/12/2016  Created [Fabian Sauter]
         /// </history>
-        public SyncResult needSync(Object obj, int seconds)
+        public SyncResult needSync(object obj, int seconds)
         {
             return needSync(obj.GetType().Name, seconds);
         }
@@ -112,12 +110,12 @@ namespace TUMCampusAppAPI.Managers
             try
             {
                 List<SyncTable> list = dB.Query<SyncTable>(true, "SELECT * FROM " + DBTableConsts.SYNC_TABLE + " WHERE id LIKE ?;", id);
-                if(list == null || list.Count <= 0)
+                if (list == null || list.Count <= 0)
                 {
                     return new SyncResult(-1, SyncResult.STATUS_NOT_FOUND, true, null);
                 }
 
-                if(seconds < 0)
+                if (seconds < 0)
                 {
                     return new SyncResult(list[0], false);
                 }
@@ -136,32 +134,6 @@ namespace TUMCampusAppAPI.Managers
             }
         }
 
-        /// <summary>
-        /// Replace or Insert a successful sync event in the database
-        /// </summary>
-        /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public void replaceIntoDb(SyncTable s)
-        {
-            dB.InsertOrReplace(s);
-        }
-
-        /// <summary>
-        /// Removes all items from database
-        /// </summary>
-        /// <history>
-        /// 14/12/2016  Created [Fabian Sauter]
-        /// </history>
-        public void deleteFromDb()
-        {
-            dB.DropTable<SyncTable>();
-            dB.CreateTable<SyncTable>();
-        }
-
-        public async override Task InitManagerAsync()
-        {
-        }
         #endregion
 
         #region --Misc Methods (Private)--
@@ -170,7 +142,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<SyncTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<SyncTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

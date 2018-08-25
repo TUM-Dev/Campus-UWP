@@ -10,11 +10,11 @@ using Windows.Data.Xml.Dom;
 
 namespace TUMCampusAppAPI.Managers
 {
-    public class CalendarManager : AbstractManager
+    public class CalendarDBManager : AbstractTumDBManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static CalendarManager INSTANCE;
+        public static CalendarDBManager INSTANCE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,7 +25,7 @@ namespace TUMCampusAppAPI.Managers
         /// <history>
         /// 20/01/2017 Created [Fabian Sauter]
         /// </history>
-        public CalendarManager()
+        public CalendarDBManager()
         {
             this.refreshingTask = null;
         }
@@ -76,15 +76,9 @@ namespace TUMCampusAppAPI.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async override Task InitManagerAsync()
+        public override void initManager()
         {
-            initForBackgroundTask();
-            Task t = Task.Run(() => syncCalendar(false, true));
-        }
-
-        public void initForBackgroundTask()
-        {
-            dB.CreateTable<TUMOnlineCalendarTable>();
+            Task.Run(() => syncCalendar(false, true));
         }
 
         /// <summary>
@@ -165,9 +159,9 @@ namespace TUMCampusAppAPI.Managers
             {
                 return;
             }
-            if (force || SyncManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
+            if (force || SyncDBManager.INSTANCE.needSync(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE, Consts.VALIDITY_ONE_DAY).NEEDS_SYNC)
             {
-                long time = SyncManager.GetCurrentUnixTimestampMillis();
+                long time = SyncDBManager.GetCurrentUnixTimestampMillis();
                 List<TUMOnlineCalendarTable> list = null;
                 XmlDocument doc = null;
                 try
@@ -177,22 +171,21 @@ namespace TUMCampusAppAPI.Managers
                 catch (Exception e)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable(this, e));
+                    SyncDBManager.INSTANCE.update(new SyncTable(this, e));
                     return;
                 }
 
                 if (doc == null)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncManager.INSTANCE.replaceIntoDb(new SyncTable("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
+                    SyncDBManager.INSTANCE.update(new SyncTable("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
                     return;
                 }
                 list = parseToList(doc);
 
                 if (force)
                 {
-                    dB.DropTable<TUMOnlineCalendarTable>();
-                    dB.CreateTable<TUMOnlineCalendarTable>();
+                    dB.DeleteAll<TUMOnlineCalendarTable>();
                 }
 
                 // Do not use insertAll, because insertAll is unable to replace entries => Exception:
@@ -205,8 +198,8 @@ namespace TUMCampusAppAPI.Managers
                 {
                     await insterInCalendarAsync(list);
                 }
-                SyncManager.INSTANCE.replaceIntoDb(new SyncTable(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE));
-                Logger.Info("Finished syncing calendar in: " + (SyncManager.GetCurrentUnixTimestampMillis() - time) + " ms");
+                SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE));
+                Logger.Info("Finished syncing calendar in: " + (SyncDBManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
         }
 
@@ -268,7 +261,15 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
+        protected override void dropTables()
+        {
+            dB.DropTable<TUMOnlineCalendarTable>();
+        }
 
+        protected override void createTables()
+        {
+            dB.CreateTable<TUMOnlineCalendarTable>();
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
