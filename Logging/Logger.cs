@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
@@ -12,7 +13,7 @@ namespace Logging
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly Object thisLock = new Object();
+        private static readonly SemaphoreSlim WRITE_SEMA = new SemaphoreSlim(1);
         private static StorageFile logFile = null;
 
         public static LogLevel logLevel;
@@ -175,6 +176,11 @@ namespace Logging
                 await folder.DeleteAsync();
             }
             await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+
+            await WRITE_SEMA.WaitAsync();
+            logFile = null;
+            WRITE_SEMA.Release();
+
             Info("Deleted logs!");
         }
 
@@ -240,6 +246,8 @@ namespace Logging
         /// <param name="code">The log code (INFO, DEBUG, ...)</param>
         private static async Task addToLogAsync(string message, Exception e, string code)
         {
+            await WRITE_SEMA.WaitAsync();
+
             if (logFile == null)
             {
                 logFile = await (await getLogFolderAsync()).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
@@ -249,11 +257,18 @@ namespace Logging
             {
                 s += ":\n" + e.Message + "\n" + e.StackTrace;
             }
-            lock (thisLock)
+
+            System.Diagnostics.Debug.WriteLine(s);
+            try
             {
-                System.Diagnostics.Debug.WriteLine(s);
-                Task.WaitAny(FileIO.AppendTextAsync(logFile, s + Environment.NewLine).AsTask());
+                await FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
             }
+            catch (Exception)
+            {
+                logFile = null;
+            }
+
+            WRITE_SEMA.Release();
         }
 
         #endregion
