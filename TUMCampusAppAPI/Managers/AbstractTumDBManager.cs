@@ -40,15 +40,6 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Initializes the manager.
-        /// </summary>
-        /// <returns></returns>
-        public virtual void initManager()
-        {
-
-        }
-
-        /// <summary>
         /// Initializes the manager for a background task.
         /// </summary>
         /// <returns></returns>

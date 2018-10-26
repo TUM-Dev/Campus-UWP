@@ -47,9 +47,8 @@ namespace TUMCampusAppAPI.DBTables
             {
                 this.occupied_till = DateTime.ParseExact(json.GetNamedString("belegung_bis"), "yyyy-MM-dd HH:mm:ss", new CultureInfo("de-DE"));
             }
-            catch (Exception e)
+            catch
             {
-
             }
         }
 
