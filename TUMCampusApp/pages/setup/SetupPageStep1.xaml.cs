@@ -66,7 +66,7 @@ namespace TUMCampusApp.Pages.Setup
             {
                 faculty_cbox.Items.Add(new ComboBoxItem()
                 {
-                    Content = UIUtils.getLocalizedString(f.ToString() + "_Text"),
+                    Content = UiUtils.getLocalizedString(f.ToString() + "_Text"),
 
                 });
             }
@@ -95,7 +95,7 @@ namespace TUMCampusApp.Pages.Setup
 
         private async Task showErrorMessageDialogAsync(string msg)
         {
-            await showMessageDialogAsync(UIUtils.getLocalizedString("Error_Text"), msg);
+            await showMessageDialogAsync(UiUtils.getLocalizedString("Error_Text"), msg);
         }
 
         #endregion
@@ -121,11 +121,11 @@ namespace TUMCampusApp.Pages.Setup
             disableNextButton();
             if (!isIdValid())
             {
-                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("InvalidId_Text"));
+                await showErrorMessageDialogAsync(UiUtils.getLocalizedString("InvalidId_Text"));
             }
             else if (faculty_cbox.SelectedIndex < 0)
             {
-                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("SelectFaculty_Text"));
+                await showErrorMessageDialogAsync(UiUtils.getLocalizedString("SelectFaculty_Text"));
             }
             else
             {
@@ -145,7 +145,7 @@ namespace TUMCampusApp.Pages.Setup
                         {
                             t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                             {
-                                await showErrorMessageDialogAsync(UIUtils.getLocalizedString("RequestTokenError_Text") + ex.Message);
+                                await showErrorMessageDialogAsync(UiUtils.getLocalizedString("RequestTokenError_Text") + ex.Message);
                                 enableNextButton();
                             }).AsTask();
                             return;
@@ -153,7 +153,7 @@ namespace TUMCampusApp.Pages.Setup
 
                         if (result == null)
                         {
-                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => await showErrorMessageDialogAsync(UIUtils.getLocalizedString("RequestNewTokenError_Text"))).AsTask();
+                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => await showErrorMessageDialogAsync(UiUtils.getLocalizedString("RequestNewTokenError_Text"))).AsTask();
                         }
                         else
                         {
@@ -175,7 +175,7 @@ namespace TUMCampusApp.Pages.Setup
                     string token = tumOnlineToken_tbx.Text.ToUpper();
                     if (!TumManager.INSTANCE.isTokenValid(token))
                     {
-                        await showErrorMessageDialogAsync(UIUtils.getLocalizedString("InvalidToken_Text"));
+                        await showErrorMessageDialogAsync(UiUtils.getLocalizedString("InvalidToken_Text"));
                     }
                     else
                     {
@@ -197,12 +197,12 @@ namespace TUMCampusApp.Pages.Setup
             if (tumOnlineToken_tbx.Visibility == Visibility.Collapsed)
             {
                 tumOnlineToken_tbx.Visibility = Visibility.Visible;
-                useExistingToken_btn.Content = UIUtils.getLocalizedString("SetupPage1DontUseExistingToken");
+                useExistingToken_btn.Content = UiUtils.getLocalizedString("SetupPage1DontUseExistingToken");
             }
             else
             {
                 tumOnlineToken_tbx.Visibility = Visibility.Collapsed;
-                useExistingToken_btn.Content = UIUtils.getLocalizedString("SetupPage1UseExistingToken");
+                useExistingToken_btn.Content = UiUtils.getLocalizedString("SetupPage1UseExistingToken");
             }
         }
 

@@ -57,7 +57,7 @@ namespace TUMCampusApp.Controls.Widgets
         #region --Events--
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            UIUtils.mainPage?.navigateToPage(typeof(SettingsPage), null);
+            UiUtils.mainPage?.navigateToPage(typeof(SettingsPage), null);
         }
 
         #endregion

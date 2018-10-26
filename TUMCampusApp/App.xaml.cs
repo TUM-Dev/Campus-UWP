@@ -267,7 +267,7 @@ namespace TUMCampusApp
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     AppCenterPushDialog dialog = new AppCenterPushDialog(e.Title, markdownText);
-                    await UIUtils.showDialogAsyncQueue(dialog);
+                    await UiUtils.showDialogAsyncQueue(dialog);
                 });
             }
         }

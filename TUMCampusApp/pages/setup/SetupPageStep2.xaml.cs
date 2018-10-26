@@ -55,7 +55,7 @@ namespace TUMCampusApp.Pages.Setup
             requestNewToken_btn.IsEnabled = false;
             validating_pgr.Visibility = Visibility.Visible;
             validating_pgr.IsActive = true;
-            next_tbx.Text = UIUtils.getLocalizedString("SetupPage2ValidatingToken_Text");
+            next_tbx.Text = UiUtils.getLocalizedString("SetupPage2ValidatingToken_Text");
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace TUMCampusApp.Pages.Setup
             requestNewToken_btn.IsEnabled = true;
             validating_pgr.Visibility = Visibility.Collapsed;
             validating_pgr.IsActive = false;
-            next_tbx.Text = UIUtils.getLocalizedString("Next_Text");
+            next_tbx.Text = UiUtils.getLocalizedString("Next_Text");
         }
 
         #endregion
@@ -99,8 +99,8 @@ namespace TUMCampusApp.Pages.Setup
         {
             startValidatToken();
             if (!await TumManager.INSTANCE.isTokenConfirmedAsync()){
-                MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("ActivateTokenFirst_Text"));
-                message.Title = UIUtils.getLocalizedString("Error_Text");
+                MessageDialog message = new MessageDialog(UiUtils.getLocalizedString("ActivateTokenFirst_Text"));
+                message.Title = UiUtils.getLocalizedString("Error_Text");
                 await message.ShowAsync();
             }
             else
@@ -130,23 +130,23 @@ namespace TUMCampusApp.Pages.Setup
         private async void requestNewToken_btn_Click(object sender, RoutedEventArgs e)
         {
             requestNewToken_btn.IsEnabled = false;
-            MessageDialog dialog = new MessageDialog(UIUtils.getLocalizedString("SetupPageRequestNewTokenMessageBox_Text"));
-            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxYes_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = UIUtils.getLocalizedString("MessageBoxNo_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UiUtils.getLocalizedString("SetupPageRequestNewTokenMessageBox_Text"));
+            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxYes_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxNo_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 0)
             {
                 string result = await TumManager.INSTANCE.reqestNewTokenAsync(Settings.getSettingString(SettingsConsts.USER_ID));
                 if (result == null)
                 {
-                    MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("RequestNewTokenError_Text"));
-                    message.Title = UIUtils.getLocalizedString("Error_Text");
+                    MessageDialog message = new MessageDialog(UiUtils.getLocalizedString("RequestNewTokenError_Text"));
+                    message.Title = UiUtils.getLocalizedString("Error_Text");
                     await message.ShowAsync();
                 }
                 else if (result.Contains("Es wurde kein Benutzer zu diesen Benutzerdaten gefunden"))
                 {
-                    MessageDialog message = new MessageDialog(UIUtils.getLocalizedString("InvalidId_Text"));
-                    message.Title = UIUtils.getLocalizedString("Error_Text");
+                    MessageDialog message = new MessageDialog(UiUtils.getLocalizedString("InvalidId_Text"));
+                    message.Title = UiUtils.getLocalizedString("Error_Text");
                     await message.ShowAsync();
                     if (Window.Current.Content is Frame f)
                     {
@@ -156,7 +156,7 @@ namespace TUMCampusApp.Pages.Setup
                 }
                 else
                 {
-                    await Util.showMessageBoxAsync(UIUtils.getLocalizedString("SetupPageRequestedNewTokenSuccessMessageBox_Text"));
+                    await Util.showMessageBoxAsync(UiUtils.getLocalizedString("SetupPageRequestedNewTokenSuccessMessageBox_Text"));
                 }
             }
             requestNewToken_btn.IsEnabled = true;

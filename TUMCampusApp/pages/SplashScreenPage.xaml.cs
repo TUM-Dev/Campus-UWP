@@ -8,7 +8,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TUMCampusAppAPI;
-using static TUMCampusApp.Classes.UIUtils;
+using static TUMCampusApp.Classes.UiUtils;
 using Windows.UI.Popups;
 using Data_Manager;
 using Logging;

@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Classes
 {
-    public class UIUtils
+    public static class UiUtils
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--

@@ -57,7 +57,7 @@ namespace TUMCampusApp.Dialogs
         #region --Events--
         private async void MarkdownTextBlock_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
-            await UIUtils.launchUriAsync(new Uri(e.Link));
+            await UiUtils.launchUriAsync(new Uri(e.Link));
         }
 
         #endregion

@@ -147,7 +147,7 @@ namespace TUMCampusApp.Controls.Widgets
         {
             if (Canteen != null)
             {
-                UIUtils.mainPage.navigateToPage(typeof(CanteensPage2), Canteen.canteen_id);
+                UiUtils.mainPage.navigateToPage(typeof(CanteensPage2), Canteen.canteen_id);
             }
         }
 

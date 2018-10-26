@@ -48,7 +48,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return UIUtils.getLocalizedString("NewsPageName_Text");
+            return UiUtils.getLocalizedString("NewsPageName_Text");
         }
 
         public void setNewsSourcesChanged()
