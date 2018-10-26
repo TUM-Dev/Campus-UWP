@@ -1,6 +1,7 @@
 ﻿using System;
 using TUMCampusAppAPI.DBTables;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -27,9 +28,9 @@ namespace TUMCampusApp.Controls
             this.InitializeComponent();
             this.name_tbx.Text = room.name;
             this.location_tbx.Text = room.code;
-            if(room.occupied_till == null || room.occupied_till.CompareTo(DateTime.Now) <= 0)
+            if (room.occupied_till == null || room.occupied_till.CompareTo(DateTime.Now) <= 0)
             {
-                main_grid.Background = new SolidColorBrush(Colors.DarkGreen);
+                main_grid.Background = ((Microsoft.UI.Xaml.Media.AcrylicBrush)Resources["StatusDarkGreenAcrylicWindowBrush"]);
                 status_tbx.Text = "Free";
             }
             else
@@ -38,7 +39,7 @@ namespace TUMCampusApp.Controls
                 string statusText = "Occupied for ";
                 if (timeSpan.Hours > 0)
                 {
-                    if(timeSpan.Hours == 1)
+                    if (timeSpan.Hours == 1)
                     {
                         statusText += timeSpan.Hours + " hours and ";
                     }
@@ -47,7 +48,7 @@ namespace TUMCampusApp.Controls
                         statusText += timeSpan.Hours + " hour and ";
                     }
                 }
-                if(timeSpan.Minutes == 1)
+                if (timeSpan.Minutes == 1)
                 {
                     statusText += timeSpan.Minutes + " minute, until: ";
                 }

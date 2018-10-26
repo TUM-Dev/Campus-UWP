@@ -206,6 +206,7 @@ namespace TUMCampusApp.Pages
             StackPanel stackPanel = new StackPanel()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
+                Margin = new Thickness(0, 0, 0, 10)
             };
             for (int i = 0; i < semester.getGrades().Count; i++)
             {

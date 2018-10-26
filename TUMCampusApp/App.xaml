@@ -39,7 +39,12 @@
                                        BackgroundSource="HostBackdrop"
                                        FallbackColor="{ThemeResource SystemChromeMediumColor}"
                                        TintColor="{ThemeResource SystemChromeMediumColor}"
-                                       TintOpacity="0.4"/>
+                                       TintOpacity="0.6"/>
+            <controlsComp:AcrylicBrush x:Name="AppBackgroundAltAcrylicWindowBrush"
+                                       BackgroundSource="HostBackdrop"
+                                       FallbackColor="{ThemeResource SystemChromeBlackMediumColor}"
+                                       TintColor="{ThemeResource SystemChromeBlackMediumColor}"
+                                       TintOpacity="0.6"/>
 
             <!--  Styles:  -->
             <Style x:Key="ShadowPanelStyle"

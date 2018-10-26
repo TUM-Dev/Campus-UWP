@@ -5,9 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:TUMCampusApp.Controls"
+    Background="{StaticResource AppBackgroundAltAcrylicWindowBrush}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -99,7 +100,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="{StaticResource TumBlueBrush}">
+            <Grid Grid.Row="0" Background="{StaticResource TumBlueAcrylicElementBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -111,7 +112,7 @@
                         FontSize="28"
                         HorizontalAlignment="Left"
                         Grid.Column="0"
-                        Background="{StaticResource TumBlueBrush}"
+                        Background="{StaticResource TumBlueAcrylicElementBrush}"
                         Click="left_btn_Click"/>
                 <TextBlock x:Name="day_tbx"
                            Grid.Column="1"
@@ -125,7 +126,7 @@
                         FontSize="28"
                         HorizontalAlignment="Right"
                         Grid.Column="2"
-                        Background="{StaticResource TumBlueBrush}"
+                        Background="{StaticResource TumBlueAcrylicElementBrush}"
                         Click="right_btn_Click"/>
             </Grid>
 
