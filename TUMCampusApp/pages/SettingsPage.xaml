@@ -1,92 +1,274 @@
-﻿<Page
-    x:Class="TUMCampusApp.Pages.SettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Loaded="Page_Loaded">
+﻿<Page x:Class="TUMCampusApp.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource AppBackgroundAltAcrylicWindowBrush}"
+      Loaded="Page_Loaded"
+      mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
             <StackPanel Margin="0,0,0,15">
-                <TextBlock x:Uid="SettingsPageGeneralSettings" Text="General settings:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ToggleSwitch x:Uid="SettingsPageWifiOnly" x:Name="wifiOnly_tgls"  Margin="10,10,0,0" Toggled="wifiOnly_tgls_Toggled" Header="Update App With WIFI Only"/>
-                <Button x:Uid="SettingsPageDeleteCache" x:Name="deleteCache_btn" Content="Delete Cache" Margin="10,10,0,0" Click="deleteCache_btn_Click"/>
-                <Button x:Uid="SettingsPageResetApp" x:Name="resetApp_btn" Content="Reset App" Margin="10,10,0,0" Click="resetApp_btn_ClickAsync"/>
+                <TextBlock x:Uid="SettingsPageGeneralSettings"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="General settings:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <ToggleSwitch x:Name="wifiOnly_tgls"
+                              x:Uid="SettingsPageWifiOnly"
+                              Margin="10,10,0,0"
+                              Header="Update App With WIFI Only"
+                              Toggled="wifiOnly_tgls_Toggled"/>
+                <Button x:Name="deleteCache_btn"
+                        x:Uid="SettingsPageDeleteCache"
+                        Margin="10,10,0,0"
+                        Click="deleteCache_btn_Click"
+                        Content="Delete Cache"/>
+                <Button x:Name="resetApp_btn"
+                        x:Uid="SettingsPageResetApp"
+                        Margin="10,10,0,0"
+                        Click="resetApp_btn_ClickAsync"
+                        Content="Reset App"/>
 
-                <TextBlock x:Uid="SettingsPageTUMonline" Text="TUMonline:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ToggleSwitch x:Uid="SettingsPageHideWizardOnStartup" x:Name="hideWizardOnStartup_tgls"  Margin="10,10,0,0" Toggled="hideWizardOnStartup_tgls_Toggled" Header="Hide TUMonline On Startup"/>
-                <Button x:Uid="SettingsPageLauchWizard" x:Name="showWizard_btn" Content="Launch TUMonline Wizard" Margin="10,10,0,0" Click="showWizard_btn_Click"/>
-                <Button x:Uid="SettingsPageShowToken" x:Name="showToken_btn" Content="Show TUMonline Token" Margin="10,10,0,0" Click="showToken_btn_Click"/>
-                <TextBox x:Uid="SettingsPageTUMonlineToken" x:Name="tumonlineToken_tbx"  IsReadOnly="True" Margin="10,10,10,0" Visibility="Collapsed"/>
+                <TextBlock x:Uid="SettingsPageTUMonline"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="TUMonline:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <ToggleSwitch x:Name="hideWizardOnStartup_tgls"
+                              x:Uid="SettingsPageHideWizardOnStartup"
+                              Margin="10,10,0,0"
+                              Header="Hide TUMonline On Startup"
+                              Toggled="hideWizardOnStartup_tgls_Toggled"/>
+                <Button x:Name="showWizard_btn"
+                        x:Uid="SettingsPageLauchWizard"
+                        Margin="10,10,0,0"
+                        Click="showWizard_btn_Click"
+                        Content="Launch TUMonline Wizard"/>
+                <Button x:Name="showToken_btn"
+                        x:Uid="SettingsPageShowToken"
+                        Margin="10,10,0,0"
+                        Click="showToken_btn_Click"
+                        Content="Show TUMonline Token"/>
+                <TextBox x:Name="tumonlineToken_tbx"
+                         x:Uid="SettingsPageTUMonlineToken"
+                         Margin="10,10,10,0"
+                         IsReadOnly="True"
+                         Visibility="Collapsed"/>
 
-                <TextBlock x:Uid="SettingsPageServices" Text="Services:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableCalendar" x:Name="disableCalendar_tgls"  Margin="10,10,0,0" Toggled="disableCalendar_tgls_ToggledAsync" Header="Disable TUM Online Calendar Integration"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableBackgroundTask" x:Name="disableBackgroundTask_tgls"  Margin="10,10,0,0" Toggled="disableBackgroundTask_tgls_Toggled" Header="Disable Background Tasks"/>
+                <TextBlock x:Uid="SettingsPageServices"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="Services:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <ToggleSwitch x:Name="disableCalendar_tgls"
+                              x:Uid="SettingsPageDisableCalendar"
+                              Margin="10,10,0,0"
+                              Header="Disable TUM Online Calendar Integration"
+                              Toggled="disableCalendar_tgls_ToggledAsync"/>
+                <ToggleSwitch x:Name="disableBackgroundTask_tgls"
+                              x:Uid="SettingsPageDisableBackgroundTask"
+                              Margin="10,10,0,0"
+                              Header="Disable Background Tasks"
+                              Toggled="disableBackgroundTask_tgls_Toggled"/>
 
-                <TextBlock x:Uid="SettingsPageWidgets" Text="Widgets:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableExampleWidget" x:Name="disableExampleWidget_tgls"  Margin="10,10,0,0" Toggled="diableExampleWidget_tgls_Toggled" Header="Disable Example Widget"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableEduroamWidget" x:Name="disableEduroamWidget_tgls"  Margin="10,10,0,0" Toggled="disableEduroamWidget_tgls_Toggled" Header="Disable Eduroam Widget"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableCanteenWidget" x:Name="disableCanteenWidget_tgls"  Margin="10,10,0,0" Toggled="diableCanteenWidget_tgls_Toggled" Header="Disable Canteen Widget"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableTuitionFeeWidget" x:Name="disableTuitionFeeWidget_tgls"  Margin="10,10,0,0" Toggled="disableTuitionFeeWidget_tgls_Toggled" Header="Disable Tuition Fee Widget"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableCalendarWidget" x:Name="disableCalendarWidget_tgls"  Margin="10,10,0,0" Toggled="disableCalendarWidget_tgls_Toggled" Header="Disable Calendar Widget"/>
-                <ToggleSwitch x:Uid="SettingsPageDisableNewsWidget" x:Name="disableNewsWidget_tgls"  Margin="10,10,0,0" Toggled="disableNewsWidget_tgls_Toggled" Header="Disable News Widget"/>
+                <TextBlock x:Uid="SettingsPageWidgets"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="Widgets:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <ToggleSwitch x:Name="disableExampleWidget_tgls"
+                              x:Uid="SettingsPageDisableExampleWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable Example Widget"
+                              Toggled="diableExampleWidget_tgls_Toggled"/>
+                <ToggleSwitch x:Name="disableEduroamWidget_tgls"
+                              x:Uid="SettingsPageDisableEduroamWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable Eduroam Widget"
+                              Toggled="disableEduroamWidget_tgls_Toggled"/>
+                <ToggleSwitch x:Name="disableCanteenWidget_tgls"
+                              x:Uid="SettingsPageDisableCanteenWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable Canteen Widget"
+                              Toggled="diableCanteenWidget_tgls_Toggled"/>
+                <ToggleSwitch x:Name="disableTuitionFeeWidget_tgls"
+                              x:Uid="SettingsPageDisableTuitionFeeWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable Tuition Fee Widget"
+                              Toggled="disableTuitionFeeWidget_tgls_Toggled"/>
+                <ToggleSwitch x:Name="disableCalendarWidget_tgls"
+                              x:Uid="SettingsPageDisableCalendarWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable Calendar Widget"
+                              Toggled="disableCalendarWidget_tgls_Toggled"/>
+                <ToggleSwitch x:Name="disableNewsWidget_tgls"
+                              x:Uid="SettingsPageDisableNewsWidget"
+                              Margin="10,10,0,0"
+                              Header="Disable News Widget"
+                              Toggled="disableNewsWidget_tgls_Toggled"/>
 
-                <TextBlock x:Uid="SettingsPageEduroam" Text="Eduroam:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <Button x:Name="setupEduroam_btn" x:Uid="SettingsPageSetupEduroam" Content="Setup eduroam" Click="setupEduroam_btn_Click" Margin="10, 10, 0, 0"/>
+                <TextBlock x:Uid="SettingsPageEduroam"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="Eduroam:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <Button x:Name="setupEduroam_btn"
+                        x:Uid="SettingsPageSetupEduroam"
+                        Margin="10,10,0,0"
+                        Click="setupEduroam_btn_Click"
+                        Content="Setup eduroam"/>
 
-                <TextBlock x:Uid="SettingsPageMiscellaneous" Text="Miscellaneous:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <ComboBox x:Name="logLevel_cbx" Grid.Column="0" x:Uid="SettingsPageLogLevel" Header="Log-Level:" Margin="10, 10, 0, 0" SelectionChanged="logLevel_cbx_SelectionChanged" VerticalAlignment="Center"/>
-                <Button x:Uid="SettingsPageOpenAppDataFolder" x:Name="openLogFolder_btn" Content="Open App Data Folder" Margin="10,15,0,0" Click="openLogFolder_btn_ClickAsync"/>
-                <Button x:Uid="SettingsPageExportLoggs" x:Name="exportLogs_btn" Content="Export Logs" Margin="10,10,0,0" Click="exportLogs_btn_ClickAsync"/>
+                <TextBlock x:Uid="SettingsPageMiscellaneous"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="Miscellaneous:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <ComboBox x:Name="logLevel_cbx"
+                          x:Uid="SettingsPageLogLevel"
+                          Grid.Column="0"
+                          Margin="10,10,0,0"
+                          VerticalAlignment="Center"
+                          Header="Log-Level:"
+                          SelectionChanged="logLevel_cbx_SelectionChanged"/>
+                <Button x:Name="openLogFolder_btn"
+                        x:Uid="SettingsPageOpenAppDataFolder"
+                        Margin="10,15,0,0"
+                        Click="openLogFolder_btn_ClickAsync"
+                        Content="Open App Data Folder"/>
+                <Button x:Name="exportLogs_btn"
+                        x:Uid="SettingsPageExportLoggs"
+                        Margin="10,10,0,0"
+                        Click="exportLogs_btn_ClickAsync"
+                        Content="Export Logs"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Uid="SettingsPageDeleteLogs" x:Name="deleteLogs_btn" Content="Delete Logs" Margin="10,10,0,0" Click="deleteLogs_btn_Click"/>
-                    <TextBlock x:Uid="SettingsPageLogSize" x:Name="logSize_tblck" Text="calculating..." Foreground="{ThemeResource CalendarDatePickerTextForeground}" VerticalAlignment="Center" Margin="10, 10, 0, 0"/>
+                    <Button x:Name="deleteLogs_btn"
+                            x:Uid="SettingsPageDeleteLogs"
+                            Margin="10,10,0,0"
+                            Click="deleteLogs_btn_Click"
+                            Content="Delete Logs"/>
+                    <TextBlock x:Name="logSize_tblck"
+                               x:Uid="SettingsPageLogSize"
+                               Margin="10,10,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                               Text="calculating..."/>
                 </StackPanel>
-                <ToggleSwitch x:Uid="SettingsPageDisableCrashReporting" x:Name="disableCrashReporting_tgls"  Margin="10,10,0,0" Toggled="disableCrashReporting_tgls_Toggled" Header="Disable Crash Reports"/>
+                <ToggleSwitch x:Name="disableCrashReporting_tgls"
+                              x:Uid="SettingsPageDisableCrashReporting"
+                              Margin="10,10,0,0"
+                              Header="Disable Crash Reports"
+                              Toggled="disableCrashReporting_tgls_Toggled"/>
 
-                <TextBlock x:Uid="SettingsPageAboutAndLinks" Text="About And Links:" Foreground="{ThemeResource CalendarDatePickerTextForeground}" Margin="10,20,0,0"/>
-                <Rectangle Height="2" Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}" Margin="0,5,0,5"/>
-                <StackPanel x:Name="contributeGithub_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="contributeGithub_stckp_TappedAsync">
-                    <Image Source="ms-appx:///Assets/Images/github_mark.png" Height="30"/>
-                    <TextBlock x:Uid="SettingsPageContribute" Text="Contribute On GitHub" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="SettingsPageAboutAndLinks"
+                           Margin="10,20,0,0"
+                           Foreground="{ThemeResource CalendarDatePickerTextForeground}"
+                           Text="About And Links:"/>
+                <Rectangle Height="2"
+                           Margin="0,5,0,5"
+                           Fill="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
+                <StackPanel x:Name="contributeGithub_stckp"
+                            Margin="10,10,0,0"
+                            Orientation="Horizontal"
+                            Tapped="contributeGithub_stckp_TappedAsync">
+                    <Image Height="30"
+                           Source="ms-appx:///Assets/Images/github_mark.png"/>
+                    <TextBlock x:Uid="SettingsPageContribute"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="30"
+                               Text="Contribute On GitHub"/>
                 </StackPanel>
-                <StackPanel x:Name="reportBug_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="reportBug_stckp_TappedAsync" Height="33">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEBE8;" FontSize="30"/>
-                    <TextBlock x:Uid="SettingsReportBug" Text="Report A Bug" Margin="10,-7,0,0" FontSize="30" VerticalAlignment="Center"/>
+                <StackPanel x:Name="reportBug_stckp"
+                            Height="33"
+                            Margin="10,10,0,0"
+                            Orientation="Horizontal"
+                            Tapped="reportBug_stckp_TappedAsync">
+                    <TextBlock FontFamily="Segoe MDL2 Assets"
+                               FontSize="30"
+                               Text="&#xEBE8;"/>
+                    <TextBlock x:Uid="SettingsReportBug"
+                               Margin="10,-7,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="30"
+                               Text="Report A Bug"/>
                 </StackPanel>
-                <StackPanel x:Name="feedback_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="feedback_stckp_TappedAsync" Height="30">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE939;" FontSize="30"/>
-                    <TextBlock x:Uid="SettingsPageFeedback" Text="Give Feedback" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                <StackPanel x:Name="feedback_stckp"
+                            Height="30"
+                            Margin="10,10,0,0"
+                            Orientation="Horizontal"
+                            Tapped="feedback_stckp_TappedAsync">
+                    <TextBlock FontFamily="Segoe MDL2 Assets"
+                               FontSize="30"
+                               Text="&#xE939;"/>
+                    <TextBlock x:Uid="SettingsPageFeedback"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="30"
+                               Text="Give Feedback"/>
                 </StackPanel>
-                <StackPanel x:Name="license_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="license_stckp_Tapped" Height="30">
-                    <Image Source="ms-appx:///Assets/Images/license.png" Height="30"/>
-                    <TextBlock x:Uid="SettingsPageLicense" Text="License" Margin="10,-6,0,0" FontSize="30"/>
+                <StackPanel x:Name="license_stckp"
+                            Height="30"
+                            Margin="10,10,0,0"
+                            Orientation="Horizontal"
+                            Tapped="license_stckp_Tapped">
+                    <Image Height="30"
+                           Source="ms-appx:///Assets/Images/license.png"/>
+                    <TextBlock x:Uid="SettingsPageLicense"
+                               Margin="10,-6,0,0"
+                               FontSize="30"
+                               Text="License"/>
                 </StackPanel>
-                <StackPanel x:Name="privacyPolicy_stckp" Orientation="Horizontal" Margin="10,10,0,0" Tapped="privacyPolicy_stckp_Tapped" Height="30">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" FontSize="30"/>
-                    <TextBlock x:Uid="SettingsPagePrivacyPolicy" Text="Privacy Policy" Margin="10,0,0,0" FontSize="30" VerticalAlignment="Center"/>
+                <StackPanel x:Name="privacyPolicy_stckp"
+                            Height="30"
+                            Margin="10,10,0,0"
+                            Orientation="Horizontal"
+                            Tapped="privacyPolicy_stckp_Tapped">
+                    <TextBlock FontFamily="Segoe MDL2 Assets"
+                               FontSize="30"
+                               Text="&#xE72E;"/>
+                    <TextBlock x:Uid="SettingsPagePrivacyPolicy"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="30"
+                               Text="Privacy Policy"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <Grid x:Name="pleaseWait_grid" Background="{ThemeResource SystemControlBackgroundAltMediumBrush}" Visibility="Collapsed">
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid x:Name="pleaseWait_grid"
+              Background="{ThemeResource SystemControlBackgroundAltMediumBrush}"
+              Visibility="Collapsed">
+            <Grid HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ProgressRing Height="50" Width="50" Grid.Row="0" IsActive="True"/>
-                <TextBlock x:Uid="SettingsPagePleaseWait" Text="Please wait!" Grid.Row="1" Margin="0, 10, 0, 0" FontSize="22"/>
+                <ProgressRing Grid.Row="0"
+                              Width="50"
+                              Height="50"
+                              IsActive="True"/>
+                <TextBlock x:Uid="SettingsPagePleaseWait"
+                           Grid.Row="1"
+                           Margin="0,10,0,0"
+                           FontSize="22"
+                           Text="Please wait!"/>
             </Grid>
         </Grid>
     </Grid>

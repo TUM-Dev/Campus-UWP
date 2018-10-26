@@ -60,7 +60,7 @@ namespace TUMCampusApp.Controls
             if (Entry != null)
             {
                 calendarEntryName_tbx.Text = Entry.title;
-                location_tbx.Text = Entry.location;
+                location_tbx.Text = Entry.location ?? "-";
                 calendar_tbx.Text = UiUtils.getLocalizedString(Entry.dTStrat.DayOfWeek.ToString() + "_Text") + ", " + Entry.dTStrat.ToString("HH:mm") + " - " + Entry.dTEnd.ToString("HH:mm");
                 if (!string.IsNullOrWhiteSpace(Entry.description))
                 {

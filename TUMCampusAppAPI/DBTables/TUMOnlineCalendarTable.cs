@@ -47,16 +47,29 @@ namespace TUMCampusAppAPI.DBTables
         #region --Set-, Get- Methods--
         public Appointment getAppointment()
         {
-            Appointment app = new Appointment();
-
-            app.Subject = title;
-            app.Details = description;
-            app.Location = location;
-            app.StartTime = dTStrat;
-            app.Duration = dTEnd.Subtract(dTStrat);
-            app.BusyStatus = AppointmentBusyStatus.Busy;
+            Appointment app = new Appointment
+            {
+                Subject = title,
+                Details = description,
+                Location = location ?? "",
+                StartTime = dTStrat,
+                Duration = dTEnd.Subtract(dTStrat),
+                BusyStatus = AppointmentBusyStatus.Busy
+            };
 
             return app;
+        }
+
+        private IXmlNode getNode(string name, IXmlNode node)
+        {
+            foreach (IXmlNode n in node.ChildNodes)
+            {
+                if (string.Equals(n.NodeName, name))
+                {
+                    return n;
+                }
+            }
+            return null;
         }
 
         #endregion
@@ -100,11 +113,11 @@ namespace TUMCampusAppAPI.DBTables
             this.nr = int.Parse(xml.SelectSingleNode("nr").InnerText);
             this.status = xml.SelectSingleNode("status").InnerText;
             this.title = xml.SelectSingleNode("title").InnerText;
-            this.url = xml.SelectSingleNode("url").InnerText;
+            this.url = getNode("url", xml)?.InnerText; // Personal calendar entries don't have an "url" attribute
             this.description = xml.SelectSingleNode("description").InnerText;
             this.dTStrat = DateTime.Parse(xml.SelectSingleNode("dtstart").InnerText);
             this.dTEnd = DateTime.Parse(xml.SelectSingleNode("dtend").InnerText);
-            this.location = xml.SelectSingleNode("location").InnerText;
+            this.location = getNode("location", xml)?.InnerText; // Personal calendar entries don't have a "location" attribute
         }
 
         #endregion
