@@ -1,8 +1,9 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using NLog;
 
-namespace Thread_Save_Components.Classes.Threading
+namespace Logging
 {
-    public class MySemaphoreSlim : SemaphoreSlim
+    class ConsoleTarget : NLog.Targets.TargetWithLayout
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -15,9 +16,9 @@ namespace Thread_Save_Components.Classes.Threading
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 31/01/2018 Created [Fabian Sauter]
+        /// 14/10/2018 Created [Fabian Sauter]
         /// </history>
-        public MySemaphoreSlim(int initialCount, int maxCount) : base(initialCount, maxCount)
+        public ConsoleTarget()
         {
         }
 
@@ -29,12 +30,9 @@ namespace Thread_Save_Components.Classes.Threading
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void WaitCount(int count)
+        protected override void Write(LogEventInfo logEvent)
         {
-            for (int i = 0; i < count; i++)
-            {
-                Wait();
-            }
+            Debug.WriteLine(Layout.Render(logEvent));
         }
 
         #endregion

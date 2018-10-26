@@ -868,4 +868,10 @@
   <data name="SettingsPageLogLevel.Header" xml:space="preserve">
     <value>Log-Level:</value>
   </data>
+  <data name="AppCenterPushDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppCenterPushDialog.Title" xml:space="preserve">
+    <value>AppCenter push message:</value>
+  </data>
 </root>

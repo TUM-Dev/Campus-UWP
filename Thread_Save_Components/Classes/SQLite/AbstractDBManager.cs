@@ -9,7 +9,7 @@ namespace Thread_Save_Components.Classes.SQLite
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
+        private static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data2.db");
         public static TSSQLiteConnection dB = new TSSQLiteConnection(DB_PATH);
 
         public const bool RESET_DB_ON_STARTUP = false;
@@ -23,7 +23,7 @@ namespace Thread_Save_Components.Classes.SQLite
         /// <history>
         /// 17/11/2017 Created [Fabian Sauter]
         /// </history>
-        public AbstractDBManager()
+        protected AbstractDBManager()
         {
             if (RESET_DB_ON_STARTUP)
             {
@@ -36,11 +36,30 @@ namespace Thread_Save_Components.Classes.SQLite
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
 
-
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        /// <summary>
+        /// Inits the manager.
+        /// </summary>
+        public void initManager()
+        {
+        }
 
+        /// <summary>
+        /// Inserts or replaces the given object into the db.
+        /// </summary>
+        public virtual void update(object obj)
+        {
+            try
+            {
+                dB.InsertOrReplace(obj);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Error in update", e);
+            }
+        }
 
         #endregion
 
@@ -77,22 +96,6 @@ namespace Thread_Save_Components.Classes.SQLite
         /// Creates all required tables.
         /// </summary>
         protected abstract void createTables();
-
-        /// <summary>
-        /// Inserts or replaces the given object into the db.
-        /// </summary>
-        public virtual void update(object obj)
-        {
-            try
-            {
-                dB.InsertOrReplace(obj);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Error in update", e);
-            }
-        }
-
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--

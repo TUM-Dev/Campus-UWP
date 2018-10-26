@@ -15,6 +15,13 @@ using Microsoft.HockeyApp;
 using TUMCampusApp.Classes;
 using Data_Manager;
 using Logging;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Push;
+using Microsoft.AppCenter.Analytics;
+using System.Text;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using TUMCampusApp.Dialogs;
 
 namespace TUMCampusApp
 {
@@ -22,7 +29,8 @@ namespace TUMCampusApp
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private readonly string APP_CENTER_SECRET = "24b423fc-b785-4399-94ef-1c96b818e72e";
+        private readonly string HOCKEY_APP_SECRET = "24b423fcb785439994ef1c96b818e72e";
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -36,12 +44,14 @@ namespace TUMCampusApp
         public App()
         {
             //Crash reports capturing:
-#if !DEBUG
             if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING))
             {
-                HockeyClient.Current.Configure("24b423fcb785439994ef1c96b818e72e");
+                // Setup Hockey App crashes:
+                HockeyClient.Current.Configure(HOCKEY_APP_SECRET);
+
+                // Setup App Center crashes, push:
+                setupAppCenter();
             }
-#endif
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -64,6 +74,33 @@ namespace TUMCampusApp
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Sets up App Center crash and push support.
+        /// </summary>
+        private void setupAppCenter()
+        {
+            try
+            {
+                Microsoft.AppCenter.AppCenter.Start(APP_CENTER_SECRET, typeof(Crashes));
+#if DEBUG
+                Microsoft.AppCenter.AppCenter.Start(APP_CENTER_SECRET, typeof(Analytics), typeof(Push)); // Only enable analytics and push for debug builds
+#endif
+
+                if (!Microsoft.AppCenter.AppCenter.Configured)
+                {
+                    Push.PushNotificationReceived -= Push_PushNotificationReceived;
+                    Push.PushNotificationReceived += Push_PushNotificationReceived;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to start APPCenter!", e);
+                throw e;
+            }
+            Logger.Info("App Center crash reporting registered.");
+            Logger.Info("App Center push registered.");
+        }
+
         /// <summary>
         /// Sets the log level for the logger class.
         /// </summary>
@@ -202,6 +239,37 @@ namespace TUMCampusApp
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Logger.Error("Unhandled exception:", e.Exception);
+        }
+
+        private async void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
+        {
+            // Add the notification message and title to the message:
+            StringBuilder pushSummary = new StringBuilder("Push notification received:\n");
+            pushSummary.Append($"\tNotification title: {e.Title}\n");
+            pushSummary.Append($"\tMessage: {e.Message}");
+
+            // If there is custom data associated with the notification, print the entries:
+            if (e.CustomData != null)
+            {
+                pushSummary.Append("\n\tCustom data:\n");
+                foreach (var key in e.CustomData.Keys)
+                {
+                    pushSummary.Append($"\t\t{key} : {e.CustomData[key]}\n");
+                }
+            }
+
+            // Log notification summary:
+            Logger.Info(pushSummary.ToString());
+
+            // Show push dialog:
+            if (e.CustomData.TryGetValue("markdown", out string markdownText))
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    AppCenterPushDialog dialog = new AppCenterPushDialog(e.Title, markdownText);
+                    await UIUtils.showDialogAsyncQueue(dialog);
+                });
+            }
         }
 
         #endregion

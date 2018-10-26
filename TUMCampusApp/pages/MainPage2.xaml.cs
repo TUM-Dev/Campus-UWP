@@ -3,10 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using TUMCampusApp.Classes;
 using TUMCampusApp.DataTemplates;
-using Windows.Foundation.Metadata;
-using Windows.System.Profile;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -310,29 +307,14 @@ namespace TUMCampusApp.Pages
 
         private async void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            switch (AnalyticsInfo.VersionInfo.DeviceFamily)
-            {
-                case "Windows.Mobile":
-                    if (e.NewSize.Height < e.NewSize.Width)
-                    {
-                        headerRect_rect.Visibility = Visibility.Collapsed;
-                        if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-                        {
-                            await StatusBar.GetForCurrentView().HideAsync();
-                        }
-                    }
-                    else
-                    {
-                        headerRect_rect.Visibility = Visibility.Visible;
-                        if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-                        {
-                            await StatusBar.GetForCurrentView().ShowAsync();
-                        }
-                    }
-                    break;
-            }
+            await UIUtils.onPageSizeChangedAsync(e);
         }
 
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            await UIUtils.onPageNavigatedFromAsync();
+        }
         #endregion
     }
 }

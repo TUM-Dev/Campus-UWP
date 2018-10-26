@@ -1,12 +1,13 @@
-﻿using System.Threading;
+﻿using System;
 
-namespace Thread_Save_Components.Classes.Threading
+namespace Thread_Save_Components.Classes.Collections
 {
-    public class MySemaphoreSlim : SemaphoreSlim
+    public class TimedListEntry<T> : ITimedEntry
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        public T item;
+        public DateTime insertionTime;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -15,10 +16,12 @@ namespace Thread_Save_Components.Classes.Threading
         /// Basic Constructor
         /// </summary>
         /// <history>
-        /// 31/01/2018 Created [Fabian Sauter]
+        /// 03/01/2018 Created [Fabian Sauter]
         /// </history>
-        public MySemaphoreSlim(int initialCount, int maxCount) : base(initialCount, maxCount)
+        public TimedListEntry(T item)
         {
+            this.item = item;
+            this.insertionTime = DateTime.Now;
         }
 
         #endregion
@@ -29,12 +32,13 @@ namespace Thread_Save_Components.Classes.Threading
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void WaitCount(int count)
+        public bool canGetRemoved()
         {
-            for (int i = 0; i < count; i++)
+            if(item is ITimedEntry)
             {
-                Wait();
+                return (item as ITimedEntry).canGetRemoved();
             }
+            return true;
         }
 
         #endregion

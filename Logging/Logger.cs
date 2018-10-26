@@ -1,62 +1,54 @@
-﻿using System;
+﻿using NLog;
+using NLog.Config;
+using NLog.Targets;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.Storage.Search;
 
 namespace Logging
 {
-    public class Logger
+    public static class Logger
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly SemaphoreSlim WRITE_SEMA = new SemaphoreSlim(1);
-        private static StorageFile logFile = null;
-
         public static LogLevel logLevel;
+        private static readonly NLog.Logger NLOGGER;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        static Logger()
+        {
+            Target.Register<ConsoleTarget>(nameof(ConsoleTarget));
+            Target.Register<WindowsLogChannel>(nameof(WindowsLogChannel));
+            LogManager.Configuration = new XmlLoggingConfiguration(Path.Combine(Package.Current.InstalledLocation.Path, @"Logging\NLog.config"));
+            LogManager.Configuration.Variables["LogPath"] = getLogsFolderPath();
+            LogManager.Configuration.Variables["LogArchivePath"] = getLogsArchivePath();
+            NLOGGER = LogManager.GetCurrentClassLogger();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        /// <summary>
-        /// Returns the current log file name.
-        /// </summary>
-        /// <returns>Returns the current log file name.</returns>
-        private static string getFilename()
-        {
-            return "Log-" + DateTime.Now.ToString("dd.MM.yyyy") + ".log";
-        }
-
-        /// <summary>
-        /// Returns the current time stamp as a string.
-        /// </summary>
-        /// <returns>Returns the current time stamp as a string.</returns>
-        private static string getTimeStamp()
-        {
-            return DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-        }
-
         /// <summary>
         /// Opens a FileSavePicker and lets the user pick the destination.
         /// </summary>
         /// <returns>Returns the selected path.</returns>
         private static async Task<StorageFile> getTargetPathAsync()
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker()
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker
             {
                 SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
             };
             savePicker.FileTypeChoices.Add("Logs", new List<string>() { ".zip" });
             savePicker.SuggestedFileName = "Logs";
-            return await savePicker.PickSaveFileAsync(); ;
+            return await savePicker.PickSaveFileAsync();
         }
 
         /// <summary>
@@ -65,8 +57,8 @@ namespace Logging
         /// <returns>Returns the "Logs" folder size in KB.</returns>
         public static async Task<long> getLogFolderSizeAsync()
         {
-            StorageFolder f = await getLogFolderAsync();
-            StorageFileQueryResult result = f.CreateFileQuery(CommonFileQuery.OrderByName);
+            StorageFolder logsFolder = await getLogFolderAsync();
+            StorageFileQueryResult result = logsFolder.CreateFileQuery();
 
             var fileSizeTasks = (await result.GetFilesAsync()).Select(async file => (await file.GetBasicPropertiesAsync()).Size);
             var sizes = await Task.WhenAll(fileSizeTasks);
@@ -80,8 +72,22 @@ namespace Logging
         /// <returns>Returns the "Logs" folder.</returns>
         private static async Task<StorageFolder> getLogFolderAsync()
         {
-            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
-            return await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
+            return await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+        }
+
+        private static string getLogsFolderPath()
+        {
+            return Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs");
+        }
+
+        private static string getExportedLogsPath()
+        {
+            return Path.Combine(ApplicationData.Current.LocalFolder.Path, "LogsExport.zip");
+        }
+
+        private static string getLogsArchivePath()
+        {
+            return Path.Combine(getLogsFolderPath(), "Archive");
         }
 
         #endregion
@@ -97,7 +103,7 @@ namespace Logging
         {
             if (logLevel >= LogLevel.DEBUG)
             {
-                addToLog(message, null, "DEBUG");
+                NLOGGER.Debug(message);
             }
         }
 
@@ -111,7 +117,7 @@ namespace Logging
         {
             if (logLevel >= LogLevel.INFO)
             {
-                addToLog(message, null, "INFO");
+                NLOGGER.Info(message);
             }
         }
 
@@ -125,7 +131,7 @@ namespace Logging
         {
             if (logLevel >= LogLevel.WARNING)
             {
-                addToLog(message, null, "WARN");
+                NLOGGER.Warn(message);
             }
         }
 
@@ -139,7 +145,14 @@ namespace Logging
         {
             if (logLevel >= LogLevel.ERROR)
             {
-                addToLog(message, e, "ERROR");
+                if (e != null)
+                {
+                    NLOGGER.Error(e, message);
+                }
+                else
+                {
+                    NLOGGER.Error(message);
+                }
             }
         }
 
@@ -165,21 +178,25 @@ namespace Logging
         }
 
         /// <summary>
-        /// Deletes the "Logs" folder and creates a new empty one.
+        /// Deletes all files inside the "Logs" folder, if they aren't opened by anything at the moment.
         /// </summary>
-        /// <returns>An async Task.</returns>
         public static async Task deleteLogsAsync()
         {
-            StorageFolder folder = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("Logs");
-            if (folder != null)
+            StorageFolder logsFolder = await getLogFolderAsync();
+            if (logsFolder != null)
             {
-                await folder.DeleteAsync();
+                foreach (var item in await logsFolder.GetItemsAsync())
+                {
+                    try
+                    {
+                        await item.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                    }
+                    catch
+                    {
+                        //ignore exception - could happen if some file is currently open
+                    }
+                }
             }
-            await ApplicationData.Current.LocalFolder.CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
-
-            await WRITE_SEMA.WaitAsync();
-            logFile = null;
-            WRITE_SEMA.Release();
 
             Info("Deleted logs!");
         }
@@ -187,89 +204,55 @@ namespace Logging
         /// <summary>
         /// Exports all logs as a .zip file to the selected path.
         /// </summary>
-        /// <returns>An async Task.</returns>
         public static async Task exportLogs()
         {
-            StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Logs");
-            if (folder != null)
+            // Get the target path/file.
+            StorageFile targetFile = await getTargetPathAsync().ConfigureAwait(false);
+            if (targetFile is null)
             {
-                StorageFile target = await getTargetPathAsync();
-                if (target == null)
+                Info("Exporting logs canceled.");
+                return;
+            }
+            Info("Started exporting logs to: " + targetFile.Path);
+
+            // Delete existing log export zip files:
+            IStorageItem zipItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync("LogsExport.zip");
+            if (zipItem != null)
+            {
+                await zipItem.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            }
+
+            StorageFolder logsFolder = await getLogFolderAsync().ConfigureAwait(false);
+            ZipFile.CreateFromDirectory(logsFolder.Path, getExportedLogsPath(), CompressionLevel.Fastest, true);
+
+            try
+            {
+                zipItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync("LogsExport.zip");
+                if (zipItem is null)
                 {
-                    return;
+                    Error("Failed to export logs - zipItem is null");
                 }
-                await Task.Run(async () =>
+                else if (zipItem is StorageFile zipFile)
                 {
-                    try
-                    {
-                        IStorageItem file = await ApplicationData.Current.LocalFolder.TryGetItemAsync("Logs.zip");
-                        if (file != null)
-                        {
-                            await file.DeleteAsync();
-                        }
-                        ZipFile.CreateFromDirectory(folder.Path, ApplicationData.Current.LocalFolder.Path + @"\Logs.zip", CompressionLevel.Optimal, false);
-                        file = await ApplicationData.Current.LocalFolder.GetFileAsync("Logs.zip");
-                        if (file != null && file is StorageFile)
-                        {
-                            StorageFile f = file as StorageFile;
-                            await f.CopyAndReplaceAsync(target);
-                        }
-                        Info("Exported logs successfully to:" + target.Path);
-                    }
-                    catch (Exception e)
-                    {
-                        Error("Error during exporting logs", e);
-                    }
-                });
+                    await zipFile.MoveAndReplaceAsync(targetFile);
+                    Info("Exported logs successfully to:" + targetFile.Path);
+                }
+                else
+                {
+                    Error("Failed to export logs - zipItem is no StorageFile");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Error("Error during exporting logs", e);
             }
         }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        /// <summary>
-        /// Creates a task that adds the given message and exception to the log.
-        /// </summary>
-        /// <param name="message">The log message.</param>
-        /// <param name="e">The thrown exception.</param>
-        /// <param name="code">The log code (INFO, DEBUG, ...)</param>
-        private static void addToLog(string message, Exception e, string code)
-        {
-            Task.Run(async () => await addToLogAsync(message, e, code));
-        }
 
-        /// <summary>
-        /// Adds the given message and exception to the log.
-        /// </summary>
-        /// <param name="message">The log message.</param>
-        /// <param name="e">The thrown exception.</param>
-        /// <param name="code">The log code (INFO, DEBUG, ...)</param>
-        private static async Task addToLogAsync(string message, Exception e, string code)
-        {
-            await WRITE_SEMA.WaitAsync();
-
-            if (logFile == null)
-            {
-                logFile = await (await getLogFolderAsync()).CreateFileAsync(getFilename(), CreationCollisionOption.OpenIfExists);
-            }
-            string s = "[" + code + "][" + getTimeStamp() + "]: " + message;
-            if (e != null)
-            {
-                s += ":\n" + e.Message + "\n" + e.StackTrace;
-            }
-
-            System.Diagnostics.Debug.WriteLine(s);
-            try
-            {
-                await FileIO.AppendTextAsync(logFile, s + Environment.NewLine);
-            }
-            catch (Exception)
-            {
-                logFile = null;
-            }
-
-            WRITE_SEMA.Release();
-        }
 
         #endregion
 

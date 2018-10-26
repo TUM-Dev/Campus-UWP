@@ -57,7 +57,7 @@ namespace TUMCampusApp.BackgroundTask
                 Logger.Info("[Background] Canceling background task. Device not connected to a WIFI network.");
                 return;
             }
-            await generalInit();
+            generalInit();
 
             byte lastState = Settings.getSettingByte(SettingsConsts.LAST_BACKGROUND_TASK_ACTION);
             switch (lastState)
@@ -95,7 +95,7 @@ namespace TUMCampusApp.BackgroundTask
             Logger.Info("[Background] Finished background task.");
         }
 
-        private async Task generalInit()
+        private void generalInit()
         {
             Logger.Info("[Background] Started general init.");
 

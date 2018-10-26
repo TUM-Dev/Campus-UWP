@@ -106,6 +106,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Compile Include="Classes\Collections\ITimedEntry.cs" />
+    <Compile Include="Classes\Collections\TSTimedList.cs" />
+    <Compile Include="Classes\Collections\TimedListEntry.cs" />
     <Compile Include="Classes\SQLite\AbstractDBManager.cs" />
     <Compile Include="Classes\SQLite\TSSQLiteConnection.cs" />
     <Compile Include="Classes\Threading\MySemaphoreSlim.cs" />
@@ -114,15 +118,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.7</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
-      <Version>1.4.118</Version>
+      <Version>1.5.231</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{ba194139-ec89-4063-b044-3ad40fc1ff61}</Project>
+      <Project>{53bb5463-9646-4f79-be97-3d73473aad92}</Project>
       <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
