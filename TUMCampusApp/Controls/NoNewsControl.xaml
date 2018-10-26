@@ -14,7 +14,7 @@
             <TextBlock FontFamily="Segoe MDL2 Assets"
                        Text="&#xE701;"
                        FontSize="120"
-                       Foreground="{StaticResource TUM_blue}"/>
+                       Foreground="{StaticResource TumBlueBrush}"/>
         </controls:DropShadowPanel>
         <TextBlock TextWrapping="Wrap"
                    Text="No news found! Please come back later."

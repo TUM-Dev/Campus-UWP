@@ -1,14 +1,13 @@
-﻿<Page
-    x:Class="TUMCampusApp.Pages.HomePage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls1="using:TUMCampusApp.Controls"
-    xmlns:widgets="using:TUMCampusApp.Controls.Widgets"
-    mc:Ignorable="d">
+﻿<Page x:Class="TUMCampusApp.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls1="using:TUMCampusApp.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:widgets="using:TUMCampusApp.Controls.Widgets"
+      mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPressedForegroundThemeBrush}">
+    <Grid>
         <ScrollViewer HorizontalAlignment="Stretch"
                       HorizontalScrollMode="Disabled">
             <Grid>
@@ -42,32 +41,32 @@
                     <controls1:WidgetControl x:Name="calendarWidget_wc"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:CalendarWidgetControl WidgetContainer="{x:Bind calendarWidget_wc}"
-                                                           HPage="{x:Bind}"/>
+                            <widgets:CalendarWidgetControl HPage="{x:Bind}"
+                                                           WidgetContainer="{x:Bind calendarWidget_wc}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
 
                     <controls1:WidgetControl x:Name="canteenWidget_ds"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:CanteenDummyWidgetControl WidgetContainer="{x:Bind canteenWidget_ds}"
-                                                               HPage="{x:Bind}"/>
+                            <widgets:CanteenDummyWidgetControl HPage="{x:Bind}"
+                                                               WidgetContainer="{x:Bind canteenWidget_ds}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
 
                     <controls1:WidgetControl x:Name="tutionFeeWidget_ds"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:TuitionFeeWidgetControl WidgetContainer="{x:Bind tutionFeeWidget_ds}"
-                                                             HPage="{x:Bind}"/>
+                            <widgets:TuitionFeeWidgetControl HPage="{x:Bind}"
+                                                             WidgetContainer="{x:Bind tutionFeeWidget_ds}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
 
                     <controls1:WidgetControl x:Name="newsWidget_ds"
                                              HPage="{x:Bind}">
                         <controls1:WidgetControl.WidgetContent>
-                            <widgets:NewsDummyWidgetControl WidgetContainer="{x:Bind newsWidget_ds}"
-                                                            HPage="{x:Bind}"/>
+                            <widgets:NewsDummyWidgetControl HPage="{x:Bind}"
+                                                            WidgetContainer="{x:Bind newsWidget_ds}"/>
                         </controls1:WidgetControl.WidgetContent>
                     </controls1:WidgetControl>
                 </StackPanel>

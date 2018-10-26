@@ -1,26 +1,16 @@
-﻿<UserControl
-    x:Class="TUMCampusApp.Controls.Widgets.NewsDummyWidgetControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Loaded="UserControl_Loaded"
-    MinHeight="100">
+﻿<UserControl x:Class="TUMCampusApp.Controls.Widgets.NewsDummyWidgetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"
-                    Grid.Row="0">
-            <TextBlock x:Name="header_tbx"
-                       Text="Loading news..."
-                       HorizontalAlignment="Center"
-                       Margin="0, 5, 0, 5"
-                       x:Uid="NewsDummyWidgetControlHeader"/>
-        </StackPanel>
-    </Grid>
+    <StackPanel Background="{StaticResource WidgetSecondaryAcrylicElementBrush}">
+        <TextBlock x:Name="header_tbx"
+                   x:Uid="NewsDummyWidgetControlHeader"
+                   Margin="0,5,0,5"
+                   HorizontalAlignment="Center"
+                   Text="Loading news..."/>
+    </StackPanel>
 </UserControl>

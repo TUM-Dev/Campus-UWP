@@ -1,89 +1,93 @@
-﻿<UserControl
-    x:Class="TUMCampusApp.Controls.NewsControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls1="using:TUMCampusApp.Controls"
-    xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    mc:Ignorable="d"
-    Loaded="UserControl_Loaded">
+﻿<UserControl x:Class="TUMCampusApp.Controls.NewsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:controls1="using:TUMCampusApp.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
+             xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <datatemplates:NewsControlReadButtonValueConverter x:Key="newsControlReadButtonValueConverter"/>
     </UserControl.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
         <StackPanel x:Name="main_grid"
                     Grid.Row="0"
-                    Tapped="main_grid_Tapped"
                     extensions:Mouse.Cursor="Hand"
-                    Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+                    Background="{StaticResource WidgetSecondaryAcrylicElementBrush}"
+                    Tapped="main_grid_Tapped">
             <TextBlock x:Name="title_tbx"
                        x:Uid="NewsControlLoading"
-                       Text="{x:Bind News.title, Mode=OneWay, FallbackValue='Loading...'}"
+                       Margin="10,5,10,5"
                        HorizontalAlignment="Center"
-                       Margin="10, 5, 10, 5"
-                       TextWrapping="Wrap"
-                       MaxLines="5"/>
+                       MaxLines="5"
+                       Text="{x:Bind News.title, Mode=OneWay, FallbackValue='Loading...'}"
+                       TextWrapping="Wrap"/>
         </StackPanel>
 
-        <controls:ImageEx x:Name="image_img"
-                          Grid.Row="1"
-                          Tapped="main_grid_Tapped"
-                          extensions:Mouse.Cursor="Hand"
-                          IsCacheEnabled="True"
-                          VerticalContentAlignment="Center"
-                          HorizontalContentAlignment="Center"
-                          Stretch="Uniform"
-                          ImageExFailed="image_img_ImageExFailed"
-                          ImageExOpened="image_img_ImageExOpened"
-                          MaxHeight="300"/>
+        <Grid Grid.Row="1"
+              Background="{StaticResource WidgetPrimaryAcrylicElementBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <controls:ImageEx x:Name="image_img"
+                              Grid.Row="0"
+                              MaxHeight="300"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              extensions:Mouse.Cursor="Hand"
+                              ImageExFailed="image_img_ImageExFailed"
+                              ImageExOpened="image_img_ImageExOpened"
+                              IsCacheEnabled="True"
+                              Stretch="Uniform"
+                              Tapped="main_grid_Tapped"/>
 
-        <Grid Margin="0, 10, 0, 10"
-              Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1"
+                  Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="read_btn"
-                    Grid.Column="0"
-                    Content="&#xE8FB;"
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="{x:Bind News.read, Converter={StaticResource newsControlReadButtonValueConverter}, Mode=OneWay}"
-                    Margin="10, 0, 10, 0"
-                    VerticalAlignment="Center"
-                    Click="read_btn_Click"/>
+                <Button x:Name="read_btn"
+                        Grid.Column="0"
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Click="read_btn_Click"
+                        Content="&#xE8FB;"
+                        FontFamily="Segoe MDL2 Assets"
+                        Foreground="{x:Bind News.read, Converter={StaticResource newsControlReadButtonValueConverter}, Mode=OneWay}"/>
 
-            <StackPanel Grid.Column="1">
-                <TextBlock x:Name="src_tbx"
-                           TextWrapping="Wrap"/>
-                <TextBlock x:Name="date_tbx"
-                           TextWrapping="Wrap"/>
-            </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="src_tbx"
+                               TextWrapping="Wrap"/>
+                    <TextBlock x:Name="date_tbx"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
 
-            <Image x:Name="logo_img"
-                   Grid.Column="2"
-                   Width="40"
-                   Height="40"
-                   HorizontalAlignment="Right"
-                   Margin="0, 0, 10, 0"/>
+                <Image x:Name="logo_img"
+                       Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="0,0,10,0"
+                       HorizontalAlignment="Right"/>
+            </Grid>
+            <controls:Loading x:Name="loading_ldng"
+                              Grid.Row="0"
+                              Grid.RowSpan="3"
+                              Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
+                <controls1:LoadingContentControl/>
+            </controls:Loading>
         </Grid>
-        <controls:Loading x:Name="loading_ldng"
-                          Grid.Row="0"
-                          Grid.RowSpan="3"
-                          Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
-            <controls1:LoadingContentControl/>
-        </controls:Loading>
     </Grid>
 </UserControl>

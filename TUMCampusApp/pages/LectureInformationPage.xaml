@@ -33,19 +33,19 @@
                     </StackPanel>
                 </Grid>
                 <StackPanel x:Name="info_stckp" Margin="10,0,10,10" Visibility="Collapsed">
-                    <TextBlock x:Uid="LectureInfosDetails" Text="Details:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}"/>
+                    <TextBlock x:Uid="LectureInfosDetails" Text="Details:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}"/>
                     <TextBlock x:Name="detail_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosLectureBeginn" Text="Begin:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosLectureBeginn" Text="Begin:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="lectureBeginn_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosLectureContributors" Text="Contributors:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosLectureContributors" Text="Contributors:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="lectureContributors_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosContent" Text="Content:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosContent" Text="Content:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="lectureContent_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosMethod" Text="Method:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosMethod" Text="Method:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="method_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosTargets" Text="Targets:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosTargets" Text="Targets:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="targets_tbx" Text="-" TextWrapping="Wrap"/>
-                    <TextBlock x:Uid="LectureInfosDetailsExaminationAids" Text="Examination Aids:" FontWeight="Bold" Foreground="{StaticResource TUM_blue}" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="LectureInfosDetailsExaminationAids" Text="Examination Aids:" FontWeight="Bold" Foreground="{StaticResource TumBlueBrush}" Margin="0,10,0,0"/>
                     <TextBlock x:Name="examinationAids_tbx" Text="-" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>

@@ -18,7 +18,7 @@
                      Grid.Row="0"
                      IsIndeterminate="True"
                      Visibility="Collapsed"
-                     Foreground="{StaticResource TUM_blue}"/>
+                     Foreground="{StaticResource TumBlueBrush}"/>
         <controls:CanteensControl x:Name="canteens_ctrl"
                                   Grid.Row="1"
                                   CanteenSelectionChanged="CanteensControl_CanteenSelectionChanged"
@@ -99,7 +99,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="{StaticResource TUM_blue}">
+            <Grid Grid.Row="0" Background="{StaticResource TumBlueBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -111,7 +111,7 @@
                         FontSize="28"
                         HorizontalAlignment="Left"
                         Grid.Column="0"
-                        Background="{StaticResource TUM_blue}"
+                        Background="{StaticResource TumBlueBrush}"
                         Click="left_btn_Click"/>
                 <TextBlock x:Name="day_tbx"
                            Grid.Column="1"
@@ -125,7 +125,7 @@
                         FontSize="28"
                         HorizontalAlignment="Right"
                         Grid.Column="2"
-                        Background="{StaticResource TUM_blue}"
+                        Background="{StaticResource TumBlueBrush}"
                         Click="right_btn_Click"/>
             </Grid>
 

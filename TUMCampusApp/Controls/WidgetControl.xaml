@@ -1,37 +1,36 @@
-﻿<UserControl
-    x:Class="TUMCampusApp.Controls.WidgetControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls1="using:TUMCampusApp.Controls"
-    mc:Ignorable="d"
-    Visibility="Collapsed"
-    Loaded="UserControl_Loaded">
+﻿<UserControl x:Class="TUMCampusApp.Controls.WidgetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:controls1="using:TUMCampusApp.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Loaded="UserControl_Loaded"
+             Visibility="Collapsed"
+             mc:Ignorable="d">
 
     <controls:DropShadowPanel Style="{StaticResource ShadowPanelStyle}">
         <controls:SlidableListItem x:Name="slideListItem_sli"
-                                   MouseSlidingEnabled="True"
+                                   x:Uid="WidgetControlSlideList"
                                    LeftBackground="OrangeRed"
                                    LeftForeground="White"
-                                   LeftLabel="Disable"
                                    LeftIcon="Delete"
+                                   LeftLabel="Disable"
+                                   MouseSlidingEnabled="True"
                                    RightBackground="OrangeRed"
                                    RightForeground="White"
                                    RightIcon="Delete"
                                    RightLabel="Disable"
-                                   SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged"
-                                   x:Uid="WidgetControlSlideList">
+                                   SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ContentPresenter Content="{x:Bind WidgetContent, Mode=OneWay}"
-                                  Grid.Row="0"/>
+                <ContentPresenter Grid.Row="0"
+                                  Content="{x:Bind WidgetContent, Mode=OneWay}"/>
                 <controls:Loading x:Name="loading_ldng"
                                   Grid.Row="0"
-                                  Background="{ThemeResource SystemControlBackgroundAltMediumBrush}">
+                                  Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}">
                     <controls1:LoadingContentControl/>
                 </controls:Loading>
             </Grid>

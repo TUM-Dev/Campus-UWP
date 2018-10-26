@@ -1,26 +1,25 @@
-﻿<UserControl
-    x:Class="TUMCampusApp.Controls.Widgets.NewsWidgetControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls1="using:TUMCampusApp.Controls"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="TUMCampusApp.Controls.Widgets.NewsWidgetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:controls1="using:TUMCampusApp.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
 
     <controls:DropShadowPanel Style="{StaticResource ShadowPanelStyle}">
         <controls:SlidableListItem x:Name="slideListItem_sli"
-                                   MouseSlidingEnabled="True"
+                                   x:Uid="NewsWidgetControlSlideList"
                                    LeftBackground="OrangeRed"
                                    LeftForeground="White"
-                                   LeftLabel="Disable"
                                    LeftIcon="Delete"
-                                   RightBackground="{StaticResource TUM_blue}"
+                                   LeftLabel="Disable"
+                                   MouseSlidingEnabled="True"
+                                   RightBackground="{StaticResource TumBlueBrush}"
                                    RightForeground="White"
-                                   RightLabel="Read"
                                    RightIcon="Accept"
-                                   SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged"
-                                   x:Uid="NewsWidgetControlSlideList">
+                                   RightLabel="Read"
+                                   SwipeStatusChanged="slideListItem_sli_SwipeStatusChanged">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

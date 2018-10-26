@@ -4,6 +4,7 @@ using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation.Metadata;
 using Windows.System.Profile;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,9 +44,50 @@ namespace TUMCampusApp.Classes
 
         }
 
+        public static bool isApplicationViewApiAvailable()
+        {
+            return ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView");
+        }
+
+        public static bool isStatusBarApiAvailable()
+        {
+            return ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar");
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public static void setupWindow(Application application)
+        {
+            //PC customization
+            if (isApplicationViewApiAvailable())
+            {
+                ApplicationView appView = ApplicationView.GetForCurrentView();
+                bool isDarkTheme = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+
+                //Dye title bar buttons:
+                appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                appView.TitleBar.ButtonInactiveForegroundColor = (isDarkTheme) ? Colors.White : Colors.Black;
+                appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                appView.TitleBar.ButtonForegroundColor = (isDarkTheme) ? Colors.White : Colors.Black;
+
+                // Extend window:
+                Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            }
+
+            //Mobile customization
+            if (isStatusBarApiAvailable())
+            {
+
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundColor = ((SolidColorBrush)application.Resources["TumBlueBrush"]).Color;
+                    statusBar.BackgroundOpacity = 1;
+                }
+            }
+        }
+
         /// <summary>
         /// Translates the given semester to the right language.
         /// </summary>

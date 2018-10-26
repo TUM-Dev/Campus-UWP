@@ -1,57 +1,56 @@
-﻿<UserControl
-    x:Class="TUMCampusApp.Controls.Widgets.ExampleWidgetControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="TUMCampusApp.Controls.Widgets.ExampleWidgetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <TextBlock TextWrapping="Wrap"
-                   HorizontalAlignment="Center"
-                   Tapped="TextBlock_Tapped"
-                   Margin="10, 10, 10, 0"
-                   extensions:Mouse.Cursor="Hand">
-            <Run Text="You can disable / enable widgets, if you switch over to the "
-                 x:Uid="ExampleWidgetControlInfo1"/>
-            <Run Text="Settings Page"
-                 Foreground="{StaticResource TUM_blue}"
-                 x:Uid="ExampleWidgetControlInfo2"/>
-            <Run Text=" and disable / enable them there."
-                 x:Uid="ExampleWidgetControlInfo3"/>
+    <Grid Background="{StaticResource WidgetPrimaryAcrylicElementBrush}">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Margin="10,10,10,0"
+                       HorizontalAlignment="Center"
+                       extensions:Mouse.Cursor="Hand"
+                       Tapped="TextBlock_Tapped"
+                       TextWrapping="Wrap">
+                <Run x:Uid="ExampleWidgetControlInfo1"
+                     Text="You can disable / enable widgets, if you switch over to the "/>
+                <Run x:Uid="ExampleWidgetControlInfo2"
+                     Foreground="{StaticResource TumBlueBrush}"
+                     Text="Settings Page"/>
+                <Run x:Uid="ExampleWidgetControlInfo3"
+                     Text=" and disable / enable them there."/>
             </TextBlock>
-            <Grid Margin="10, 10, 10, 0">
+            <Grid Margin="10,10,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
-                           FontWeight="Black"
-                           Text="&#xE00E;"
+                           VerticalAlignment="Center"
                            FontFamily="Segoe MDL2 Assets"
-                           VerticalAlignment="Center"/>
+                           FontWeight="Black"
+                           Text="&#xE00E;"/>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Swipe to hide widgets..."
+                    <TextBlock x:Uid="ExampleWidgetControlSwipeToHide"
                                HorizontalAlignment="Center"
-                               x:Uid="ExampleWidgetControlSwipeToHide"/>
+                               Text="Swipe to hide widgets..."/>
                     <Rectangle Grid.Row="1"
-                               Fill="White"
                                Height="1"
-                               Margin="0, 5, 0, 25"
+                               Margin="0,5,0,25"
+                               Fill="White"
                                StrokeDashArray="3,5"/>
                 </Grid>
                 <TextBlock Grid.Column="2"
-                           Text="&#xE00F;"
+                           VerticalAlignment="Center"
                            FontFamily="Segoe MDL2 Assets"
-                           VerticalAlignment="Center"/>
+                           Text="&#xE00F;"/>
             </Grid>
         </StackPanel>
     </Grid>

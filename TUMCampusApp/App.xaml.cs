@@ -119,34 +119,6 @@ namespace TUMCampusApp
         }
 
         /// <summary>
-        /// Dyes the TitleBar on the PC or the StatusBar on mobile.
-        /// </summary>
-        private void dyeStatusBar()
-        {
-            //PC customization
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-            {
-                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                if (titleBar != null)
-                {
-                    titleBar.BackgroundColor = ((SolidColorBrush)Current.Resources["TUM_blue"]).Color;
-                }
-            }
-
-            //Mobile customization
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-            {
-
-                var statusBar = StatusBar.GetForCurrentView();
-                if (statusBar != null)
-                {
-                    statusBar.BackgroundColor = ((SolidColorBrush)Current.Resources["TUM_blue"]).Color;
-                    statusBar.BackgroundOpacity = 1;
-                }
-            }
-        }
-
-        /// <summary>
         /// Returns the semantic interpretation of a speech result.
         /// Returns null if there is no interpretation for that key.
         /// </summary>
@@ -170,7 +142,7 @@ namespace TUMCampusApp
             // Sets the log level:
             initLogLevel();
 
-            dyeStatusBar();
+            UiUtils.setupWindow(Current);
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 SplashScreenPage extendedSplash = new SplashScreenPage(args);

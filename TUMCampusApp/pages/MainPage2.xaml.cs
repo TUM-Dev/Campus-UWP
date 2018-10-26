@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using TUMCampusApp.Classes;
 using TUMCampusApp.DataTemplates;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,6 +21,13 @@ namespace TUMCampusApp.Pages
         private Type requestedPage;
         private object requestedPageArgs;
 
+        public Visibility HeaderRectVisability
+        {
+            get { return (Visibility)GetValue(HeaderRectVisabilityProperty); }
+            set { SetValue(HeaderRectVisabilityProperty, value); }
+        }
+        public static readonly DependencyProperty HeaderRectVisabilityProperty = DependencyProperty.Register(nameof(HeaderRectVisability), typeof(Visibility), typeof(MainPage2), new PropertyMetadata(Visibility.Visible));
+        
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -40,8 +48,44 @@ namespace TUMCampusApp.Pages
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage2_BackRequested;
             UiUtils.mainPage = this;
+
             loadSplitViewItems();
             this.InitializeComponent();
+
+            if (UiUtils.isApplicationViewApiAvailable() && !UiUtils.isRunningOnMobileDevice())
+            {
+                HeaderRectVisability = Visibility.Collapsed;
+
+                // Set XAML element as a draggable region.
+                CoreApplicationViewTitleBar titleBar = CoreApplication.GetCurrentView().TitleBar;
+                updateTitleBarLayout(titleBar);
+                Window.Current.SetTitleBar(titleBar_grid);
+                titleBar.IsVisibleChanged += TitleBar_IsVisibleChanged;
+                titleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            }
+        }
+
+        private void updateTitleBarLayout(CoreApplicationViewTitleBar titleBar)
+        {
+            // Get the size of the caption controls area and back button 
+            // (returned in logical pixels), and move your content around as necessary.
+            leftPaddingColumn_cd.Width = new GridLength(titleBar.SystemOverlayLeftInset);
+            rightPaddingColumn_cd.Width = new GridLength(titleBar.SystemOverlayRightInset);
+            titleBarButtons_grid.Margin = new Thickness(titleBar.SystemOverlayLeftInset, 0, 0, 0);
+
+            navBackSeperator_rect.Visibility = titleBar.SystemOverlayLeftInset > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+            // Update title bar control size as needed to account for system size changes.
+            titleBar_grid.Height = titleBar.Height;
+        }
+
+        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            updateTitleBarLayout(sender);
+        }
+
+        private void TitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
+        {
         }
 
         #endregion
@@ -314,6 +358,14 @@ namespace TUMCampusApp.Pages
         {
             base.OnNavigatedFrom(e);
             await UiUtils.onPageNavigatedFromAsync();
+        }
+
+        private void openSplitView_hbtn_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (!double.IsNaN(openSplitView_hbtn.ActualWidth) && openSplitView_hbtn.Margin != null)
+            {
+                pageName_vb.Margin = new Thickness(openSplitView_hbtn.ActualWidth + openSplitView_hbtn.Margin.Left + 14, 0, 0, 0);
+            }
         }
         #endregion
     }

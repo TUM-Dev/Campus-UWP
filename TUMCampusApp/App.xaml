@@ -1,7 +1,8 @@
 ﻿<Application x:Class="TUMCampusApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:controlsComp="using:Microsoft.UI.Xaml.Media">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -11,8 +12,34 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Brushes:  -->
-            <SolidColorBrush x:Key="TUM_blue"
-                             Color="#0061b7"/>
+            <Color x:Key="TumBlueColor">#0061b7</Color>
+            <SolidColorBrush x:Key="TumBlueBrush"
+                             Color="{StaticResource TumBlueColor}"/>
+            <controlsComp:AcrylicBrush x:Name="TumBlueAcrylicWindowBrush"
+                                       BackgroundSource="HostBackdrop"
+                                       FallbackColor="{StaticResource TumBlueColor}"
+                                       TintColor="{StaticResource TumBlueColor}"
+                                       TintOpacity="0.8"/>
+            <controlsComp:AcrylicBrush x:Name="TumBlueAcrylicElementBrush"
+                                       BackgroundSource="HostBackdrop"
+                                       FallbackColor="{StaticResource TumBlueColor}"
+                                       TintColor="{StaticResource TumBlueColor}"
+                                       TintOpacity="0.8"/>
+            <controlsComp:AcrylicBrush x:Name="WidgetPrimaryAcrylicElementBrush"
+                                       BackgroundSource="Backdrop"
+                                       FallbackColor="{ThemeResource SystemChromeLowColor}"
+                                       TintColor="{ThemeResource SystemChromeLowColor}"
+                                       TintOpacity="0.5"/>
+            <controlsComp:AcrylicBrush x:Name="WidgetSecondaryAcrylicElementBrush"
+                                       BackgroundSource="Backdrop"
+                                       FallbackColor="{ThemeResource SystemChromeBlackHighColor}"
+                                       TintColor="{ThemeResource SystemChromeBlackHighColor}"
+                                       TintOpacity="0.5"/>
+            <controlsComp:AcrylicBrush x:Name="AppBackgroundAcrylicWindowBrush"
+                                       BackgroundSource="HostBackdrop"
+                                       FallbackColor="{ThemeResource SystemChromeMediumColor}"
+                                       TintColor="{ThemeResource SystemChromeMediumColor}"
+                                       TintOpacity="0.4"/>
 
             <!--  Styles:  -->
             <Style x:Key="ShadowPanelStyle"

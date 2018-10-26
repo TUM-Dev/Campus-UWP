@@ -12,7 +12,7 @@
                 VerticalAlignment="Center">
         <ProgressRing IsActive="True"
                       Margin="0 , 0, 10, 0"
-                      Foreground="{StaticResource TUM_blue}"/>
+                      Foreground="{StaticResource TumBlueBrush}"/>
         <TextBlock Text="Loading..."
                    x:Uid="LoadingContentControl"
                    VerticalAlignment="Center"/>

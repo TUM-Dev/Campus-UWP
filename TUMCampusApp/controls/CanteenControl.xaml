@@ -16,7 +16,7 @@
             <TextBlock x:Name="canteenName_tbx" TextTrimming="CharacterEllipsis"/>
             <TextBlock x:Name="canteenAdress_tbx" Foreground="{ThemeResource CalendarDatePickerTextForeground}" TextTrimming="CharacterEllipsis"/>
         </StackPanel>
-        <TextBlock x:Name="canteenDistance_tbx" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TUM_blue}" Grid.Column="1"/>
-        <Button x:Name="favorite_btn" Grid.Column="2" Background="Transparent" Content="&#xE734;" FontFamily="Segoe MDL2 Assets" Click="favorite_btn_Click" Foreground="{StaticResource TUM_blue}"/>
+        <TextBlock x:Name="canteenDistance_tbx" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TumBlueBrush}" Grid.Column="1"/>
+        <Button x:Name="favorite_btn" Grid.Column="2" Background="Transparent" Content="&#xE734;" FontFamily="Segoe MDL2 Assets" Click="favorite_btn_Click" Foreground="{StaticResource TumBlueBrush}"/>
     </Grid>
 </UserControl>

@@ -35,7 +35,7 @@ namespace TUMCampusApp.DataTemplates
         {
             if(value is bool b && b)
             {
-                return Application.Current.Resources["TUM_blue"];
+                return Application.Current.Resources["TumBlueBrush"];
             }
             return Application.Current.Resources["SystemControlForegroundBaseMediumBrush"];
         }

@@ -15,7 +15,7 @@
             <TextBlock FontFamily="Segoe MDL2 Assets"
                        Text="&#xED0C;"
                        FontSize="120"
-                       Foreground="{StaticResource TUM_blue}"/>
+                       Foreground="{StaticResource TumBlueBrush}"/>
         </controls:DropShadowPanel>
         <TextBlock TextWrapping="Wrap"
                    Tapped="TextBlock_Tapped"
@@ -25,7 +25,7 @@
             <Run Text="No widgets available or all widgets disabled, please come back later or enable them in the "
                  x:Uid="NoWidgetsControlInfo1"/>
             <Run Text="App Settings"
-                 Foreground="{StaticResource TUM_blue}"
+                 Foreground="{StaticResource TumBlueBrush}"
                  x:Uid="NoWidgetsControlInfo2"/>
             <Run Text="."
                  x:Uid="NoWidgetsControlInfo3"/>
