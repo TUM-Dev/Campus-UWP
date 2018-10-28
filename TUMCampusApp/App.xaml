@@ -6,13 +6,19 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <Color x:Key="SystemAccentColor">#0061B7</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
             <ResourceDictionary.MergedDictionaries>
                 <!--  Windows UI Library:  -->
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Brushes:  -->
-            <Color x:Key="TumBlueColor">#0061b7</Color>
+            <Color x:Key="TumBlueColor">#0061B7</Color>
             <SolidColorBrush x:Key="TumBlueBrush"
                              Color="{StaticResource TumBlueColor}"/>
             <controlsComp:AcrylicBrush x:Name="TumBlueAcrylicWindowBrush"

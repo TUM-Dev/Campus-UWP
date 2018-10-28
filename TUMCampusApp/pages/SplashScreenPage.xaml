@@ -1,22 +1,39 @@
-﻿<Page
-    x:Class="TUMCampusApp.Pages.SplashScreenPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="TUMCampusApp.Pages.SplashScreenPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{StaticResource TumBlueBrush}"
+      mc:Ignorable="d">
 
-    <Grid Background="{StaticResource TumBlueBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/SplashScreen.scale-200.png"/>
+        <RelativePanel HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+            <Image x:Name="extendedSplashImage"
+                   Source="ms-appx:///Assets/SplashScreen.scale-200.png"/>
         </RelativePanel>
-        <StackPanel VerticalAlignment="Center" Grid.Row="0" Margin="0, 220, 0, 0">
-            <ProgressRing Name="splashProgressRing" IsActive="True" Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,10"/>
-            <TextBlock x:Name="task_tbx" HorizontalAlignment="Center"/>
-            <ProgressBar x:Name="splashProgressBar" Value="0" Foreground="Green" Width="200" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="0"
+                    Margin="0,220,0,0"
+                    VerticalAlignment="Center">
+            <ProgressRing Name="splashProgressRing"
+                          Width="50"
+                          Height="50"
+                          Margin="0,10,0,10"
+                          HorizontalAlignment="Center"
+                          Foreground="White"
+                          IsActive="True"/>
+            <TextBlock x:Name="task_tbx"
+                       HorizontalAlignment="Center"
+                       Foreground="White"/>
+            <ProgressBar x:Name="splashProgressBar"
+                         Width="200"
+                         HorizontalAlignment="Center"
+                         Background="Gray"
+                         Foreground="White"
+                         Value="0"/>
         </StackPanel>
     </Grid>
 </Page>
