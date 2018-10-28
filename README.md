@@ -37,7 +37,7 @@ If you want to help, feel free to do so. Help is allways appreciated 🥓.
 ## Examples:
 ### Phone:
 <img src="http://imgur.com/7Q1UFOQ.png" width="400"> <img src="http://imgur.com/ztpO520.png" width="400">
-<img src="http://imgur.com/YQCys0F.png" width="400"> <img src="http://imgur.com/omGKvUa.png" width="400">
+<img src="http://imgur.com/DTrn7ye.png" width="400"> <img src="http://imgur.com/QVL0Dhx.png" width="400">
 <img src="http://imgur.com/yBDkctj.png" width="400"> <img src="http://imgur.com/9JcILX6.png" width="400">
 
 ### PC:
