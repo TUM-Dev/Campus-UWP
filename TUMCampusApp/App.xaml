@@ -50,7 +50,7 @@
                                        BackgroundSource="HostBackdrop"
                                        FallbackColor="{ThemeResource SystemChromeBlackMediumColor}"
                                        TintColor="{ThemeResource SystemChromeBlackMediumColor}"
-                                       TintOpacity="0.6"/>
+                                       TintOpacity="0.8"/>
 
             <!--  Styles:  -->
             <Style x:Key="ShadowPanelStyle"
