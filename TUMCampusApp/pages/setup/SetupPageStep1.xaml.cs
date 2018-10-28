@@ -122,10 +122,12 @@ namespace TUMCampusApp.Pages.Setup
             if (!isIdValid())
             {
                 await showErrorMessageDialogAsync(UiUtils.getLocalizedString("InvalidId_Text"));
+                enableNextButton();
             }
             else if (faculty_cbox.SelectedIndex < 0)
             {
                 await showErrorMessageDialogAsync(UiUtils.getLocalizedString("SelectFaculty_Text"));
+                enableNextButton();
             }
             else
             {
@@ -135,7 +137,6 @@ namespace TUMCampusApp.Pages.Setup
                     int facultyIndex = faculty_cbox.SelectedIndex;
                     Task t = Task.Run(async () =>
                     {
-                        Task t1;
                         string result = null;
                         try
                         {
@@ -143,31 +144,31 @@ namespace TUMCampusApp.Pages.Setup
                         }
                         catch (Exception ex)
                         {
-                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                             {
                                 await showErrorMessageDialogAsync(UiUtils.getLocalizedString("RequestTokenError_Text") + ex.Message);
                                 enableNextButton();
-                            }).AsTask();
+                            });
                             return;
                         }
 
                         if (result == null)
                         {
-                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => await showErrorMessageDialogAsync(UiUtils.getLocalizedString("RequestNewTokenError_Text"))).AsTask();
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => await showErrorMessageDialogAsync(UiUtils.getLocalizedString("RequestNewTokenError_Text")));
                         }
                         else
                         {
                             Settings.setSetting(SettingsConsts.FACULTY_INDEX, facultyIndex);
                             Settings.setSetting(SettingsConsts.USER_ID, studentId);
-                            t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
                                 if (Window.Current.Content is Frame f)
                                 {
                                     f.Navigate(typeof(SetupPageStep2));
                                 }
-                            }).AsTask();
+                            });
                         }
-                        t1 = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => enableNextButton()).AsTask();
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => enableNextButton());
                     });
                 }
                 else
@@ -176,6 +177,7 @@ namespace TUMCampusApp.Pages.Setup
                     if (!TumManager.INSTANCE.isTokenValid(token))
                     {
                         await showErrorMessageDialogAsync(UiUtils.getLocalizedString("InvalidToken_Text"));
+                        enableNextButton();
                     }
                     else
                     {
@@ -187,7 +189,6 @@ namespace TUMCampusApp.Pages.Setup
                             f.Navigate(typeof(SetupPageStep2));
                         }
                     }
-                    enableNextButton();
                 }
             }
         }
