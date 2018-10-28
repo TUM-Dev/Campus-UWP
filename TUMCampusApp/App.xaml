@@ -45,7 +45,7 @@
                                        BackgroundSource="HostBackdrop"
                                        FallbackColor="{ThemeResource SystemChromeMediumColor}"
                                        TintColor="{ThemeResource SystemChromeMediumColor}"
-                                       TintOpacity="0.6"/>
+                                       TintOpacity="0.8"/>
             <controlsComp:AcrylicBrush x:Name="AppBackgroundAltAcrylicWindowBrush"
                                        BackgroundSource="HostBackdrop"
                                        FallbackColor="{ThemeResource SystemChromeBlackMediumColor}"

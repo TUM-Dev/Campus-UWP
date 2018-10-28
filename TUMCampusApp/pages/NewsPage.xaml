@@ -6,7 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:datatemplates="using:TUMCampusApp.DataTemplates"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource AppBackgroundAltAcrylicWindowBrush}"
       Loaded="Page_Loaded"
       mc:Ignorable="d">
 
@@ -31,15 +30,13 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+              Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0"
-                  Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
