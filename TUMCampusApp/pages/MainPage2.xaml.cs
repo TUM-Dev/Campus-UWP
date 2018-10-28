@@ -27,7 +27,7 @@ namespace TUMCampusApp.Pages
             set { SetValue(HeaderRectVisabilityProperty, value); }
         }
         public static readonly DependencyProperty HeaderRectVisabilityProperty = DependencyProperty.Register(nameof(HeaderRectVisability), typeof(Visibility), typeof(MainPage2), new PropertyMetadata(Visibility.Visible));
-        
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -59,7 +59,7 @@ namespace TUMCampusApp.Pages
                 // Set XAML element as a draggable region.
                 CoreApplicationViewTitleBar titleBar = CoreApplication.GetCurrentView().TitleBar;
                 updateTitleBarLayout(titleBar);
-                Window.Current.SetTitleBar(titleBar_grid);
+                Window.Current.SetTitleBar(titleBarContent_grid);
                 titleBar.IsVisibleChanged += TitleBar_IsVisibleChanged;
                 titleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
             }
@@ -72,11 +72,12 @@ namespace TUMCampusApp.Pages
             leftPaddingColumn_cd.Width = new GridLength(titleBar.SystemOverlayLeftInset);
             rightPaddingColumn_cd.Width = new GridLength(titleBar.SystemOverlayRightInset);
             titleBarButtons_grid.Margin = new Thickness(titleBar.SystemOverlayLeftInset, 0, 0, 0);
+            titleBar_grid.Margin = new Thickness(0, -1, 0, 0);
 
             navBackSeperator_rect.Visibility = titleBar.SystemOverlayLeftInset > 0 ? Visibility.Visible : Visibility.Collapsed;
 
             // Update title bar control size as needed to account for system size changes.
-            titleBar_grid.Height = titleBar.Height;
+            titleBarContent_grid.Height = titleBar.Height;
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)

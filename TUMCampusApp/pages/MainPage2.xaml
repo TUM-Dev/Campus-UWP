@@ -46,7 +46,7 @@
                                    TintOpacity="0.2"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="titleBar_grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -59,7 +59,7 @@
                    Height="2"
                    Fill="{ThemeResource AppBarBackgroundThemeBrush}"
                    Visibility="{x:Bind HeaderRectVisability, Mode=OneWay}"/>
-        <Grid x:Name="titleBar_grid"
+        <Grid x:Name="titleBarContent_grid"
               Grid.Row="1"
               Height="40"
               Background="{StaticResource TumBlueAcrylicWindowBrush}">
