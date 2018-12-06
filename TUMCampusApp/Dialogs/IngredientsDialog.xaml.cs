@@ -1,4 +1,6 @@
-﻿using TUMCampusApp.Classes;
+﻿using System.Collections.Generic;
+using System.Text;
+using TUMCampusApp.Classes;
 using TUMCampusAppAPI.Managers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,7 +45,24 @@ namespace TUMCampusApp.Dialogs
         /// </summary>
         private void showIngredients()
         {
-            ingredients_tblck.Text = CanteenDishDBManager.INSTANCE.replaceDishStringWithEmojis(UiUtils.getLocalizedString("IngredientsDialogIngredients_text"), false);
+            StringBuilder sb = new StringBuilder();
+            addIngredients(sb, CanteenDishDBManager.INGREDIENTS_EMOJI_MISC_LOOKUP);
+            sb.Append('\n');
+            addIngredients(sb, CanteenDishDBManager.INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP);
+            sb.Append('\n');
+            addIngredients(sb, CanteenDishDBManager.INGREDIENTS_EMOJI_ALLERGENS_LOOKUP);
+            ingredients_tblck.Text = sb.ToString();
+        }
+
+        private void addIngredients(StringBuilder sb, Dictionary<string, string> ingredients)
+        {
+            foreach (var pair in ingredients)
+            {
+                sb.Append(pair.Value);
+                sb.Append('\t');
+                sb.Append(UiUtils.getLocalizedString("Ingredient_" + pair.Key));
+                sb.Append('\n');
+            }
         }
 
         #endregion

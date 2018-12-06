@@ -1,6 +1,8 @@
 ﻿using SQLite;
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.DBTables
@@ -18,6 +20,7 @@ namespace TUMCampusAppAPI.DBTables
         [NotNull]
         // The name of the dish e.g. 'Kaiserschmarrn mit Apfelmus'
         public string name { get; set; }
+        // The name of the dish with ingredient emojis e.g. 'Kaiserschmarrn mit Apfelmus 🥕'
         public string nameEmojis { get; set; }
         [NotNull]
         // The ingredients of the menu e.g. ''
@@ -53,7 +56,18 @@ namespace TUMCampusAppAPI.DBTables
         {
             this.canteen_id = canteen_id;
             this.name = json.GetNamedString(Consts.JSON_NAME);
-            this.ingredients = json.GetNamedString(Consts.JSON_INGREDIENTS) ?? "";
+            JsonArray ingredientsArr = json.GetNamedArray(Consts.JSON_INGREDIENTS);
+            StringBuilder sb = new StringBuilder();
+            // Convert all ingredients to a single string separated by whitespaces:
+            foreach (IJsonValue ingredient in ingredientsArr)
+            {
+                sb.Append(ingredient.GetString());
+                if (ingredient != ingredientsArr.Last())
+                {
+                    sb.Append(' ');
+                }
+            }
+            this.ingredients = sb.ToString();
             this.dish_type = json.GetNamedString(Consts.JSON_DISH_TYPE) ?? "";
             this.date = DateTime.ParseExact(json.GetNamedString(Consts.JSON_DATE), "yyyy-MM-dd", CULTURE_INFO);
             JsonValue p = json.GetNamedValue("price");

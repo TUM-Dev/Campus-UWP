@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
-using System.Text.RegularExpressions;
 using System.Linq;
 using Data_Manager;
 using Logging;
+using System.Text;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -15,6 +15,65 @@ namespace TUMCampusAppAPI.Managers
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public static CanteenDishDBManager INSTANCE;
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP = new Dictionary<string, string>()
+        {
+            { "1", "🎨" },
+            { "2", "🥫" },
+            { "3", "⚗" },
+            { "4", "🔬" },
+            { "5", "🔶" },
+            { "6", "⬛" },
+            { "8", "🔷" },
+            { "9", "🍬" },
+            { "10", "💊" },
+            { "11", "🍡" },
+            { "13", "🍫" },
+            { "14", "🍮" },
+            { "99", "🍷" }
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALLERGENS_LOOKUP = new Dictionary<string, string>()
+        {
+            { "F", "🌽" },
+            { "V", "🥕" },
+            { "S", "🐖" },
+            { "R", "🐄" },
+            { "K", "🐂" },
+            { "Kn", "Kn" },
+            { "Ei", "🥚" },
+            { "En", "🥜" },
+            { "Fi", "🐟" },
+            { "Gl", "🌾" },
+            { "GlW", "GlW" },
+            { "GlR", "GlR" },
+            { "GlG", "GlG" },
+            { "GlH", "GlH" },
+            { "GlD", "GlD" },
+            { "Kr", "🦀" },
+            { "Lu", "Lu" },
+            { "Mi", "🥛" },
+            { "Sc", "🥥" },
+            { "ScM", "ScM" },
+            { "ScH", "🌰" },
+            { "ScW", "ScW" },
+            { "ScC", "ScC" },
+            { "ScP", "ScP" },
+            { "Se", "Se" },
+            { "Sf", "Sf" },
+            { "Sl", "Sl" },
+            { "So", "So" },
+            { "Sw", "🔻" },
+            { "Wt", "🐙" }
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()
+        {
+            { "GQB", "GQB" },
+            { "MSC", "🎣" },
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALL_LOOKUP = new Dictionary<string, string>();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -27,6 +86,24 @@ namespace TUMCampusAppAPI.Managers
         /// </history>
         public CanteenDishDBManager()
         {
+        }
+
+        static CanteenDishDBManager()
+        {
+            foreach (var pair in INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
+
+            foreach (var pair in INGREDIENTS_EMOJI_ALLERGENS_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
+
+            foreach (var pair in INGREDIENTS_EMOJI_MISC_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
         }
 
         #endregion
@@ -136,24 +213,24 @@ namespace TUMCampusAppAPI.Managers
         }
 
         /// <summary>
-        /// Replaces the ingredients with Emojis.
+        /// Converts a list of string ingredients to a single string with emoji ingredients separated by ", ".
         /// </summary>
-        /// <param name="s">The dish name.</param>
-        /// <param name="withComma">Whether it should separate each emoji with a comma.</param>
-        /// <returns>Returns the replaced dish string</returns>
-        public string replaceDishStringWithEmojis(string s, bool withComma)
+        /// <param name="ingredients">A list of ingredients.</param>
+        /// <returns>All given ingredient strings as a single emoji ingredient string.</returns>
+        public string ingredientsToEmojiString(IEnumerable<string> ingredients)
         {
-            List<string> res = new List<string>();
-
-            Regex reg1 = new Regex(@"\((\w{1,3},?)*\)");
-            Regex reg2 = new Regex(@"\[(\w{1,3},?)*\]");
-            s = replaceMatches(s, reg1.Matches(s), withComma);
-            s = replaceMatches(s, reg2.Matches(s), withComma);
-            if (s.EndsWith(", "))
+            StringBuilder sb = new StringBuilder();
+            foreach (string ingredient in ingredients)
             {
-                s = s.Substring(0, s.Length - 2);
+                sb.Append(replaceWithEmoji(ingredient));
+
+                // If not last append with ", ":
+                if (ingredient != ingredients.Last())
+                {
+                    sb.Append(", ");
+                }
             }
-            return s;
+            return sb.ToString();
         }
 
         /// <summary>
@@ -194,7 +271,12 @@ namespace TUMCampusAppAPI.Managers
                                 foreach (JsonValue dish in obj.GetNamedArray("dishes"))
                                 {
                                     CanteenDishTable m = new CanteenDishTable(dish.GetObject(), canteen_id);
-                                    m.nameEmojis = m.name + ' ' + replaceDishStringWithEmojis(m.ingredients, true);
+                                    m.nameEmojis = m.name;
+                                    string ingredientsEmojiString = ingredientsToEmojiString(m.ingredients.Split(new char[] { ' ' }));
+                                    if (ingredientsEmojiString.Length > 0)
+                                    {
+                                        m.nameEmojis += " (" + ingredientsEmojiString + ')';
+                                    }
                                     menus.Add(m);
                                 }
                             }
@@ -219,151 +301,21 @@ namespace TUMCampusAppAPI.Managers
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Creates a string containing all given ingredients, represented as Emojis.
+        /// Replaces the given ingredient string with the right emoji.
+        /// E.g. "MSC" => "🎣"
         /// </summary>
-        /// <param name="ingredients">A list of all ingredients.</param>
-        /// <param name="withComma">Whether to Separate ingredients with commas.</param>
-        private string addEmojis(string[] ingredients, bool withComma)
+        /// <param name="s">The ingredient string.</param>
+        /// <returns>Returns the emoji for the given string.</returns>
+        private string replaceWithEmoji(string s)
         {
-            string s = "";
-            if (ingredients != null && ingredients.Length > 0)
+            if (INGREDIENTS_EMOJI_ALL_LOOKUP.ContainsKey(s))
             {
-                foreach (string item in ingredients)
-                {
-                    switch (item.ToLower())
-                    {
-                        case "v":
-                            s += "\U0001F33D";
-                            break;
-                        case "s":
-                            s += "\U0001F416";
-                            break;
-                        case "f":
-                            s += "\U0001F955";
-                            break;
-                        case "r":
-                            s += "\U0001F404";
-                            break;
-                        case "99":
-                            s += "\U0001F377";
-                            break;
-                        case "ei":
-                            s += "🥚";
-                            break;
-                        case "en":
-                            s += "🥜";
-                            break;
-                        case "fi":
-                            s += "🐟";
-                            break;
-                        case "kr":
-                            s += "🦀";
-                            break;
-                        case "mi":
-                            s += "🥛";
-                            break;
-                        case "wt":
-                            s += "🐙";
-                            break;
-                        case "sch":
-                            s += "🌰";
-                            break;
-                        case "13":
-                            s += "🍫";
-                            break;
-                        case "k":
-                            s += "🐂";
-                            break;
-                        case "9":
-                            s += "🍬";
-                            break;
-                        case "2":
-                            s += "🥫";
-                            break;
-                        case "msc":
-                            s += "🎣";
-                            break;
-                        case "sc":
-                            s += "🥥";
-                            break;
-                        case "1":
-                            s += "🍭";
-                            break;
-                        case "5":
-                            s += "🔶";
-                            break;
-                        case "6":
-                            s += "⚫";
-                            break;
-                        case "10":
-                            s += "💊";
-                            break;
-                        case "11":
-                            s += "🍡";
-                            break;
-                        case "sw":
-                            s += "🔻";
-                            break;
-                        case "14":
-                            s += "🍮";
-                            break;
-                        case "8":
-                            s += "🔷";
-                            break;
-                        case "gl":
-                            s += "🌾";
-                            break;
-                        case "4":
-                            s += "🔬";
-                            break;
-                        case "3":
-                            s += "⚗";
-                            break;
-                        default:
-                            s += item;
-                            break;
-                    }
-                    s += withComma ? ", " : " ";
-                }
+                return INGREDIENTS_EMOJI_ALL_LOOKUP[s];
             }
-            return s;
-        }
-
-        /// <summary>
-        /// Replaces all matches with the equivalent Emoji.
-        /// </summary>
-        /// <param name="s">The string, the ingredients should get replaced with Emojis.</param>
-        /// <param name="col">A collection of regex matches.</param>
-        /// <param name="withComma">Whether to Separate ingredients with commas.</param>
-        /// <returns>Returns the given string with all ingredients, replaced with Emojis.</returns>
-        private string replaceMatches(string s, MatchCollection col, bool withComma)
-        {
-            string ingredient = "";
-            List<string> list = null;
-            foreach (Match match in col)
+            else
             {
-                list = new List<string>();
-                foreach (char c in match.Value)
-                {
-                    if (c != ',' && c != '(' && c != ')' && c != '[' && c != ']')
-                    {
-                        ingredient += c;
-                    }
-                    else if (c != '(' && c != '[')
-                    {
-                        if (!ingredient.Equals(""))
-                        {
-                            list.Add(ingredient);
-                            ingredient = "";
-                        }
-                    }
-                }
-                if (list.Count > 0)
-                {
-                    s = s.Replace(match.Value, addEmojis(list.ToArray(), withComma));
-                }
+                return s;
             }
-            return s;
         }
 
         /// <summary>
