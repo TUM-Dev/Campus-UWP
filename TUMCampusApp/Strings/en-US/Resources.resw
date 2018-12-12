@@ -960,4 +960,7 @@
   <data name="Ingredient_Wt" xml:space="preserve">
     <value>with mollusks</value>
   </data>
+  <data name="Ingredient_7" xml:space="preserve">
+    <value>waxed</value>
+  </data>
 </root>
