@@ -8,7 +8,6 @@ using Windows.Media.SpeechRecognition;
 using System.Linq;
 using TUMCampusApp.Classes.Helpers;
 using TUMCampusAppAPI;
-using Microsoft.HockeyApp;
 using TUMCampusApp.Classes;
 using Data_Manager;
 using Logging;
@@ -26,8 +25,7 @@ namespace TUMCampusApp
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private readonly string APP_CENTER_SECRET = "24b423fc-b785-4399-94ef-1c96b818e72e";
-        private readonly string HOCKEY_APP_SECRET = "24b423fcb785439994ef1c96b818e72e";
+        private readonly string APP_CENTER_SECRET = "9c12f39c-8a1f-4015-9c92-2a4bf85afc42";
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -40,15 +38,8 @@ namespace TUMCampusApp
         /// </history>
         public App()
         {
-            //Crash reports capturing:
-            if (!Settings.getSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING))
-            {
-                // Setup Hockey App crashes:
-                HockeyClient.Current.Configure(HOCKEY_APP_SECRET);
-
-                // Setup App Center crashes, push:
-                setupAppCenter();
-            }
+            // Setup App Center crashes, push:
+            setupAppCenter();
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -71,6 +62,7 @@ namespace TUMCampusApp
         #endregion
 
         #region --Misc Methods (Private)--
+
         /// <summary>
         /// Sets up App Center crash and push support.
         /// </summary>
@@ -79,23 +71,30 @@ namespace TUMCampusApp
             try
             {
                 Microsoft.AppCenter.AppCenter.Start(APP_CENTER_SECRET, typeof(Crashes));
+                if (Settings.getSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING))
+                {
+                    Crashes.Instance.InstanceEnabled = false;
+                    Logger.Info("AppCenter crash reporting is disabled.");
+                }
 #if DEBUG
-                Microsoft.AppCenter.AppCenter.Start(APP_CENTER_SECRET, typeof(Analytics), typeof(Push)); // Only enable analytics and push for debug builds
-#endif
+                // Only enable push and analytics for debug builds:
+                Microsoft.AppCenter.AppCenter.Start(APP_CENTER_SECRET, typeof(Push), typeof(Analytics));
 
                 if (!Microsoft.AppCenter.AppCenter.Configured)
                 {
                     Push.PushNotificationReceived -= Push_PushNotificationReceived;
                     Push.PushNotificationReceived += Push_PushNotificationReceived;
                 }
+
+                Logger.Info("App Center push registered.");
+#endif
+                Logger.Info("App Center crash reporting registered.");
             }
             catch (Exception e)
             {
                 Logger.Error("Failed to start APPCenter!", e);
                 throw e;
             }
-            Logger.Info("App Center crash reporting registered.");
-            Logger.Info("App Center push registered.");
         }
 
         /// <summary>

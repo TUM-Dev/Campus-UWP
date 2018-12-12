@@ -543,9 +543,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HockeySDK.UWP">
-      <Version>4.1.6</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>1.11.0</Version>
     </PackageReference>
