@@ -963,4 +963,13 @@
   <data name="Ingredient_7" xml:space="preserve">
     <value>waxed</value>
   </data>
+  <data name="Ingredient_G" xml:space="preserve">
+    <value>with poultry</value>
+  </data>
+  <data name="Ingredient_L" xml:space="preserve">
+    <value>with lamb</value>
+  </data>
+  <data name="Ingredient_W" xml:space="preserve">
+    <value>with wild meat</value>
+  </data>
 </root>

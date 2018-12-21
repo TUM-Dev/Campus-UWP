@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.Data.Json;
-using TUMCampusAppAPI.DBTables;
-using System.Linq;
-using Data_Manager;
+﻿using Data_Manager;
 using Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using TUMCampusAppAPI.DBTables;
+using Windows.Data.Json;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -41,6 +41,9 @@ namespace TUMCampusAppAPI.Managers
             { "S", "🐖" },
             { "R", "🐄" },
             { "K", "🐂" },
+            { "G", "🐔" },
+            { "W", "🐗" },
+            { "L", "🐑" },
             { "Kn", "Kn" },
             { "Ei", "🥚" },
             { "En", "🥜" },
