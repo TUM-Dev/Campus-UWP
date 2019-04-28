@@ -60,7 +60,7 @@ namespace TUMCampusApp.Dialogs
             {
                 sb.Append(pair.Value);
                 sb.Append('\t');
-                sb.Append(UiUtils.getLocalizedString("Ingredient_" + pair.Key));
+                sb.Append(UiUtils.GetLocalizedString("Ingredient_" + pair.Key));
                 sb.Append('\n');
             }
         }

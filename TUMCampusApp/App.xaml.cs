@@ -138,7 +138,7 @@ namespace TUMCampusApp
             // Sets the log level:
             initLogLevel();
 
-            UiUtils.setupWindow(Current);
+            UiUtils.SetupWindow(Current);
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 SplashScreenPage extendedSplash = new SplashScreenPage(args);
@@ -235,7 +235,7 @@ namespace TUMCampusApp
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
                     AppCenterPushDialog dialog = new AppCenterPushDialog(e.Title, markdownText);
-                    await UiUtils.showDialogAsyncQueue(dialog);
+                    await UiUtils.ShowDialogAsyncQueue(dialog);
                 });
             }
         }

@@ -120,7 +120,7 @@
                    OpenPaneLength="270"
                    PaneBackground="{StaticResource SplitViewBackgroundAcrylicElementBrush}">
             <SplitView.Content>
-                <Frame Name="mainFrame"/>
+                <Frame x:Name="mainFrame"/>
             </SplitView.Content>
 
             <SplitView.Pane>

@@ -43,7 +43,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return UiUtils.getLocalizedString("CanteenesPageName_Text");
+            return UiUtils.GetLocalizedString("CanteenesPageName_Text");
         }
 
         private int getNextDishDateOffset()
@@ -114,11 +114,11 @@ namespace TUMCampusApp.Pages
 
             if (dishDateOffset >= 0)
             {
-                day_tbx.Text = UiUtils.getLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
+                day_tbx.Text = UiUtils.GetLocalizedString(dishDates[dishDateOffset].DayOfWeek.ToString() + "_Text") + ", " + dishDates[dishDateOffset].ToString("dd.MM.yyyy");
             }
             else
             {
-                day_tbx.Text = UiUtils.getLocalizedString("CanteenNoMenusFound_Text");
+                day_tbx.Text = UiUtils.GetLocalizedString("CanteenNoMenusFound_Text");
             }
         }
 

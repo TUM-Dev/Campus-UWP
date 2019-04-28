@@ -31,12 +31,6 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 07/04/2018 Created [Fabian Sauter]
-        /// </history>
         public MainPage2() : this(typeof(HomePage), null)
         {
         }
@@ -45,14 +39,12 @@ namespace TUMCampusApp.Pages
         {
             this.requestedPage = page;
             this.splitViewItems = new ObservableCollection<MainPageSplitViewItemTemplate>();
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage2_BackRequested;
             UiUtils.mainPage = this;
 
             loadSplitViewItems();
             this.InitializeComponent();
 
-            if (UiUtils.isApplicationViewApiAvailable() && !UiUtils.isRunningOnMobileDevice())
+            if (UiUtils.IsApplicationViewApiAvailable() && DeviceFamilyHelper.GetDeviceFamilyType() != DeviceFamilyType.Mobile)
             {
                 HeaderRectVisability = Visibility.Collapsed;
 
@@ -92,27 +84,6 @@ namespace TUMCampusApp.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
-
-        #endregion
-        //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
-        #region --Misc Methods (Public)--
-        /// <summary>
-        /// Navigates to the given page with the given arguments.
-        /// </summary>
-        /// <param name="page">The target page.</param>
-        /// <param name="args">The navigation arguments.</param>
-        public void navigateToPage(Type page, object args)
-        {
-            if (page != null)
-            {
-                mainFrame.Navigate(page, args);
-            }
-        }
-
-        #endregion
-
-        #region --Misc Methods (Private)--
         /// <summary>
         /// Sets the faculty_img source based on the selected faculty.
         /// </summary>
@@ -136,6 +107,30 @@ namespace TUMCampusApp.Pages
             }
         }
 
+        public Frame getMainFrame()
+        {
+            return mainFrame;
+        }
+
+        #endregion
+        //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
+        #region --Misc Methods (Public)--
+        /// <summary>
+        /// Navigates to the given page with the given arguments.
+        /// </summary>
+        /// <param name="page">The target page.</param>
+        /// <param name="args">The navigation arguments.</param>
+        public void navigateToPage(Type page, object args)
+        {
+            if (page != null)
+            {
+                mainFrame.Navigate(page, args);
+            }
+        }
+
+        #endregion
+
+        #region --Misc Methods (Private)--
         /// <summary>
         /// Adds all items to the splitViewItems.
         /// </summary>
@@ -143,28 +138,28 @@ namespace TUMCampusApp.Pages
         {
             if (Settings.getSettingBoolean(SettingsConsts.TUM_ONLINE_ENABLED))
             {
-                splitViewItems.Add(new MainPageSplitViewItemDescriptionTemplate() { text = UiUtils.getLocalizedString("MainPageMyTUMItem_Text") });
+                splitViewItems.Add(new MainPageSplitViewItemDescriptionTemplate() { text = UiUtils.GetLocalizedString("MainPageMyTUMItem_Text") });
                 splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
                 {
-                    text = UiUtils.getLocalizedString("MainPageCalendarItem_Text"),
+                    text = UiUtils.GetLocalizedString("MainPageCalendarItem_Text"),
                     icon = "\uE787",
                     page = typeof(MyCalendarPage)
                 });
                 splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
                 {
-                    text = UiUtils.getLocalizedString("MainPageLecturesItem_Text"),
+                    text = UiUtils.GetLocalizedString("MainPageLecturesItem_Text"),
                     icon = "\uEF16",
                     page = typeof(MyLecturesPage)
                 });
                 splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
                 {
-                    text = UiUtils.getLocalizedString("MainPageGradesItem_Text"),
+                    text = UiUtils.GetLocalizedString("MainPageGradesItem_Text"),
                     icon = "\uEADF",
                     page = typeof(MyGradesPage)
                 });
                 splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
                 {
-                    text = UiUtils.getLocalizedString("MainPageTuitionFeesItem_Text"),
+                    text = UiUtils.GetLocalizedString("MainPageTuitionFeesItem_Text"),
                     icon = "$",
                     page = typeof(TuitionFeesPage),
                     iconFont = new FontFamily("Segoe UI"),
@@ -173,16 +168,16 @@ namespace TUMCampusApp.Pages
                 });
             }
 
-            splitViewItems.Add(new MainPageSplitViewItemDescriptionTemplate() { text = UiUtils.getLocalizedString("MainPageGeneralTUMItem_Text") });
+            splitViewItems.Add(new MainPageSplitViewItemDescriptionTemplate() { text = UiUtils.GetLocalizedString("MainPageGeneralTUMItem_Text") });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageHomeItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageHomeItem_Text"),
                 icon = "\uE80F",
                 page = typeof(HomePage)
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageCanteensItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageCanteensItem_Text"),
                 icon = "\uD83C\uDF74",
                 page = typeof(CanteensPage2),
                 iconFont = new FontFamily("Segoe UI Symbol"),
@@ -190,49 +185,49 @@ namespace TUMCampusApp.Pages
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageNewsItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageNewsItem_Text"),
                 icon = "\uE701",
                 page = typeof(NewsPage)
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageTransportItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageTransportItem_Text"),
                 icon = "\uE7C0",
                 isEnabled = false
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPagePlansItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPagePlansItem_Text"),
                 icon = "\uE826",
                 isEnabled = false
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageRoomfinderItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageRoomfinderItem_Text"),
                 icon = "\uE816",
                 isEnabled = false
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageStudyRoomItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageStudyRoomItem_Text"),
                 icon = "\uE7BC",
                 page = typeof(StudyRoomPage)
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageOpeningHoursItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageOpeningHoursItem_Text"),
                 icon = "\uE823",
                 isEnabled = false
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageStudyPlansItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageStudyPlansItem_Text"),
                 icon = "\uE762",
                 isEnabled = false
             });
             splitViewItems.Add(new MainPageSplitViewItemButtonTemplate()
             {
-                text = UiUtils.getLocalizedString("MainPageSettingsItem_Text"),
+                text = UiUtils.GetLocalizedString("MainPageSettingsItem_Text"),
                 icon = "\uE713",
                 page = typeof(SettingsPage)
             });
@@ -352,13 +347,13 @@ namespace TUMCampusApp.Pages
 
         private async void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            await UiUtils.onPageSizeChangedAsync(e);
+            await UiUtils.OnPageSizeChangedAsync(e);
         }
 
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            await UiUtils.onPageNavigatedFromAsync();
+            await UiUtils.OnPageNavigatedFromAsync();
         }
 
         private void openSplitView_hbtn_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -69,7 +69,7 @@ namespace TUMCampusApp.Controls
                 dishTypes.Add(new DishTypeTemplate()
                 {
                     dishType = dishType.dish_type,
-                    dishTypeLocalized = UiUtils.translateDishType(dishType.dish_type)
+                    dishTypeLocalized = UiUtils.TranslateDishType(dishType.dish_type)
                 });
             }
             if (dishTypes.Count <= 0)

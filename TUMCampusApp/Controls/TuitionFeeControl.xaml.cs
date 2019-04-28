@@ -52,10 +52,10 @@ namespace TUMCampusApp.Controls
             }
 
             outsBalance_tbx.Text = tuitionFee.money + "€";
-            semester_tbx.Text = UiUtils.translateSemester(tuitionFee.semesterDescripion);
+            semester_tbx.Text = UiUtils.TranslateSemester(tuitionFee.semesterDescripion);
             DateTime deadLine = DateTime.Parse(tuitionFee.deadline);
             TimeSpan tS = deadLine.Subtract(DateTime.Now);
-            deadline_tbx.Text = deadLine.ToString("dd.MM.yyyy") + " ==> " + Math.Round(tS.TotalDays) + " " + UiUtils.getLocalizedString("TuitionFeeControlDaysLeft_Text");
+            deadline_tbx.Text = deadLine.ToString("dd.MM.yyyy") + " ==> " + Math.Round(tS.TotalDays) + " " + UiUtils.GetLocalizedString("TuitionFeeControlDaysLeft_Text");
             if (tS.TotalDays <= 30)
             {
                 main_grid.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);

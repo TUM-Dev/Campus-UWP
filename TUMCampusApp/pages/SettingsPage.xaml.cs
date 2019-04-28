@@ -44,7 +44,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return UiUtils.getLocalizedString("SettingsPageName_text");
+            return UiUtils.GetLocalizedString("SettingsPageName_text");
         }
 
         #endregion
@@ -201,7 +201,7 @@ namespace TUMCampusApp.Pages
         /// </summary>
         private void showLogSize()
         {
-            logSize_tblck.Text = UiUtils.getLocalizedString("SettingsPageLogSizeCalculating_Text");
+            logSize_tblck.Text = UiUtils.GetLocalizedString("SettingsPageLogSizeCalculating_Text");
             Task.Factory.StartNew(async () =>
             {
                 long size = await Logger.GetLogFolderSizeAsync();
@@ -230,19 +230,19 @@ namespace TUMCampusApp.Pages
                 switch (l)
                 {
                     case LogLevel.NONE:
-                        items.Add(UiUtils.getLocalizedString("SettingsPageLoggLevelNone_text"));
+                        items.Add(UiUtils.GetLocalizedString("SettingsPageLoggLevelNone_text"));
                         break;
                     case LogLevel.ERROR:
-                        items.Add(UiUtils.getLocalizedString("SettingsPageLoggLevelError_text"));
+                        items.Add(UiUtils.GetLocalizedString("SettingsPageLoggLevelError_text"));
                         break;
                     case LogLevel.WARNING:
-                        items.Add(UiUtils.getLocalizedString("SettingsPageLoggLevelWarning_text"));
+                        items.Add(UiUtils.GetLocalizedString("SettingsPageLoggLevelWarning_text"));
                         break;
                     case LogLevel.INFO:
-                        items.Add(UiUtils.getLocalizedString("SettingsPageLoggLevelInfo_text"));
+                        items.Add(UiUtils.GetLocalizedString("SettingsPageLoggLevelInfo_text"));
                         break;
                     case LogLevel.DEBUG:
-                        items.Add(UiUtils.getLocalizedString("SettingsPageLoggLevelDebug_text"));
+                        items.Add(UiUtils.GetLocalizedString("SettingsPageLoggLevelDebug_text"));
                         break;
                     default:
                         items.Add(l.ToString());
@@ -299,9 +299,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteCache_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(UiUtils.getLocalizedString("SettingsPageDeleteCache_Text"));
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UiUtils.GetLocalizedString("SettingsPageDeleteCache_Text"));
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -311,9 +311,9 @@ namespace TUMCampusApp.Pages
 
         private async void resetApp_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(UiUtils.getLocalizedString("SettingsPageResetApp_Text"));
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UiUtils.GetLocalizedString("SettingsPageResetApp_Text"));
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -379,9 +379,9 @@ namespace TUMCampusApp.Pages
 
         private async void deleteLogs_btn_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog(UiUtils.getLocalizedString("SettingsPageDeleteLoggs_Text"));
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxNo_Text"), Id = 0 });
-            dialog.Commands.Add(new UICommand { Label = UiUtils.getLocalizedString("MessageBoxYes_Text"), Id = 1 });
+            MessageDialog dialog = new MessageDialog(UiUtils.GetLocalizedString("SettingsPageDeleteLoggs_Text"));
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxNo_Text"), Id = 0 });
+            dialog.Commands.Add(new UICommand { Label = UiUtils.GetLocalizedString("MessageBoxYes_Text"), Id = 1 });
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
@@ -414,14 +414,14 @@ namespace TUMCampusApp.Pages
             {
                 tumonlineToken_tbx.Text = "";
                 tumonlineToken_tbx.Visibility = Visibility.Collapsed;
-                showToken_btn.Content = UiUtils.getLocalizedString("SettingsPageShowToken_Text");
+                showToken_btn.Content = UiUtils.GetLocalizedString("SettingsPageShowToken_Text");
             }
             else
             {
                 string token = TumManager.getToken();
-                tumonlineToken_tbx.Text = token == null ? UiUtils.getLocalizedString("SettingsPageNoToken_Text") : token;
+                tumonlineToken_tbx.Text = token == null ? UiUtils.GetLocalizedString("SettingsPageNoToken_Text") : token;
                 tumonlineToken_tbx.Visibility = Visibility.Visible;
-                showToken_btn.Content = UiUtils.getLocalizedString("SettingsPageShowToken_Text");
+                showToken_btn.Content = UiUtils.GetLocalizedString("SettingsPageShowToken_Text");
             }
         }
 

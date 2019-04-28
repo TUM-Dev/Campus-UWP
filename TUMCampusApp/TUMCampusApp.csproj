@@ -108,6 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AppUpdateHandler.cs" />
+    <Compile Include="Classes\DeviceFamilyHelper.cs" />
     <Compile Include="Classes\Events\CanteenSelectionChangedEventArgs.cs" />
     <Compile Include="Classes\Events\EduroamNetworkFoundEventArgs.cs" />
     <Compile Include="Classes\Events\ExpandedChangedEventArgs.cs" />

@@ -195,7 +195,7 @@ namespace TUMCampusApp.Pages
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    MessageDialog message = new MessageDialog(getLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
+                    MessageDialog message = new MessageDialog(GetLocalizedString("PrivacyPolicylocation_Text").Replace("\\n", "\n"));
                     await message.ShowAsync();
                 });
             }

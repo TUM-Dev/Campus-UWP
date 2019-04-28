@@ -45,7 +45,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return UiUtils.getLocalizedString("LecturesPageName_Text");
+            return UiUtils.GetLocalizedString("LecturesPageName_Text");
         }
 
         #endregion
@@ -141,15 +141,15 @@ namespace TUMCampusApp.Pages
             lectures_stckp.Visibility = Visibility.Collapsed;
             if (e is InvalidTokenTUMOnlineException)
             {
-                noDataInfo_tbx.Text = UiUtils.getLocalizedString("LecturesTokenNotActivated_Text");
+                noDataInfo_tbx.Text = UiUtils.GetLocalizedString("LecturesTokenNotActivated_Text");
             }
             else if (e is NoAccessTUMOnlineException)
             {
-                noDataInfo_tbx.Text = UiUtils.getLocalizedString("LecturesNoAccessToLectures_Text");
+                noDataInfo_tbx.Text = UiUtils.GetLocalizedString("LecturesNoAccessToLectures_Text");
             }
             else
             {
-                noDataInfo_tbx.Text = UiUtils.getLocalizedString("LecturesUnknownException_Text") + "\n\n" + e.ToString();
+                noDataInfo_tbx.Text = UiUtils.GetLocalizedString("LecturesUnknownException_Text") + "\n\n" + e.ToString();
             }
             progressBar.Visibility = Visibility.Collapsed;
             enableSearch();
@@ -212,7 +212,7 @@ namespace TUMCampusApp.Pages
 
                     lectures_stckp.Children.Add(new Expander()
                     {
-                        Header = UiUtils.translateSemester(controls[i].First().lecture.semesterName),
+                        Header = UiUtils.TranslateSemester(controls[i].First().lecture.semesterName),
                         Content = stackPanel,
                         Margin = new Thickness(0, 10, 0, 0),
                         HorizontalContentAlignment = HorizontalAlignment.Stretch,
@@ -223,7 +223,7 @@ namespace TUMCampusApp.Pages
             }
             else
             {
-                status_tbx.Text = UiUtils.getLocalizedString("LecturesNoneFound_Text");
+                status_tbx.Text = UiUtils.GetLocalizedString("LecturesNoneFound_Text");
                 if(showingOwnLectures)
                 {
                     SyncResult syncResult = LecturesDBManager.INSTANCE.getSyncStatus();
@@ -310,7 +310,7 @@ namespace TUMCampusApp.Pages
         {
             if (!DeviceInfo.isConnectedToInternet())
             {
-                await Util.showMessageBoxAsync(UiUtils.getLocalizedString("LecturesUnableToQuery_Text"));
+                await Util.showMessageBoxAsync(UiUtils.GetLocalizedString("LecturesUnableToQuery_Text"));
                 return;
             }
             disableSearch();
@@ -346,7 +346,7 @@ namespace TUMCampusApp.Pages
         {
             if (query.Length < 4)
             {
-                await Util.showMessageBoxAsync(UiUtils.getLocalizedString("LecturesQueryLength_Text"));
+                await Util.showMessageBoxAsync(UiUtils.GetLocalizedString("LecturesQueryLength_Text"));
                 return;
             }
             await showSearchResultAsync(query);

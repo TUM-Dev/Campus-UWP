@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TUMCampusApp.Pages;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation.Metadata;
+using Windows.System;
 using Windows.System.Profile;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace TUMCampusApp.Classes
@@ -16,7 +20,17 @@ namespace TUMCampusApp.Classes
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static MainPage2 mainPage;
+        public static MainPage2 mainPage
+        {
+            get => _mainPage;
+            set
+            {
+                _mainPage = value;
+                mainFrame = value.getMainFrame();
+            }
+        }
+        private static MainPage2 _mainPage;
+        public static Frame mainFrame { get; private set; }
 
         private static ResourceLoader loader;
         private static TaskCompletionSource<ContentDialog> contentDialogShowRequest;
@@ -34,7 +48,7 @@ namespace TUMCampusApp.Classes
         /// </summary>
         /// <param name="key">The key for the requested localized string.</param>
         /// <returns>a localized string for the given key.</returns>
-        public static string getLocalizedString(string key)
+        public static string GetLocalizedString(string key)
         {
             if (loader == null)
             {
@@ -44,23 +58,52 @@ namespace TUMCampusApp.Classes
 
         }
 
-        public static bool isApplicationViewApiAvailable()
+        public static bool IsApplicationViewApiAvailable()
         {
             return ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView");
         }
 
-        public static bool isStatusBarApiAvailable()
+        public static bool IsStatusBarApiAvailable()
         {
             return ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar");
+        }
+
+        /// <summary>
+        /// The KeyboardAccelerator class got introduced with v10.0.16299.0.
+        /// Source: https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.input.keyboardaccelerator
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsKeyboardAcceleratorApiAvailable()
+        {
+            return ApiInformation.IsTypePresent("Windows.UI.Xaml.Input.KeyboardAccelerator");
+        }
+
+        public static List<KeyboardAccelerator> GetGoBackKeyboardAccelerators()
+        {
+            return new List<KeyboardAccelerator>
+            {
+                new KeyboardAccelerator
+                {
+                    Key = VirtualKey.Back
+                },
+                new KeyboardAccelerator
+                {
+                    Key = VirtualKey.Left
+                },
+                new KeyboardAccelerator
+                {
+                    Key = VirtualKey.GoBack
+                }
+            };
         }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public static void setupWindow(Application application)
+        public static void SetupWindow(Application application)
         {
             //PC customization
-            if (isApplicationViewApiAvailable())
+            if (IsApplicationViewApiAvailable())
             {
                 ApplicationView appView = ApplicationView.GetForCurrentView();
                 bool isDarkTheme = Application.Current.RequestedTheme == ApplicationTheme.Dark;
@@ -76,7 +119,7 @@ namespace TUMCampusApp.Classes
             }
 
             //Mobile customization
-            if (isStatusBarApiAvailable())
+            if (IsStatusBarApiAvailable())
             {
 
                 var statusBar = StatusBar.GetForCurrentView();
@@ -93,7 +136,7 @@ namespace TUMCampusApp.Classes
         /// </summary>
         /// <param name="s">The string that should get translated.</param>
         /// <returns>A translated version of the given string.</returns>
-        public static string translateSemester(string s)
+        public static string TranslateSemester(string s)
         {
             if (s == null)
             {
@@ -101,14 +144,14 @@ namespace TUMCampusApp.Classes
             }
             if (s.Contains("Wintersemester") || s.Contains("Winter Semester"))
             {
-                return s.Replace("Wintersemester", getLocalizedString("TuitionFeeControlWinterTerm_Text"))
-                    .Replace("Winter Semester", getLocalizedString("TuitionFeeControlWinterTerm_Text"));
+                return s.Replace("Wintersemester", GetLocalizedString("TuitionFeeControlWinterTerm_Text"))
+                    .Replace("Winter Semester", GetLocalizedString("TuitionFeeControlWinterTerm_Text"));
             }
             else
             {
-                return s.Replace("Sommersemester", getLocalizedString("TuitionFeeControlSummerTerm_Text"))
-                    .Replace("Sommer Semester", getLocalizedString("TuitionFeeControlSummerTerm_Text"))
-                    .Replace("Summer Semester", getLocalizedString("TuitionFeeControlSummerTerm_Text"));
+                return s.Replace("Sommersemester", GetLocalizedString("TuitionFeeControlSummerTerm_Text"))
+                    .Replace("Sommer Semester", GetLocalizedString("TuitionFeeControlSummerTerm_Text"))
+                    .Replace("Summer Semester", GetLocalizedString("TuitionFeeControlSummerTerm_Text"));
             }
         }
 
@@ -117,40 +160,40 @@ namespace TUMCampusApp.Classes
         /// </summary>
         /// <param name="dishType">The dish type you want to translate.</param>
         /// <returns>A translated version of the given dish type.</returns>
-        public static string translateDishType(string dishType)
+        public static string TranslateDishType(string dishType)
         {
             switch (dishType)
             {
                 case "Tagesgericht":
-                    return getLocalizedString("CanteenDishOfTheDay_Text");
+                    return GetLocalizedString("CanteenDishOfTheDay_Text");
                 case "Aktionsessen":
-                    return getLocalizedString("CanteenActionDishes_Text");
+                    return GetLocalizedString("CanteenActionDishes_Text");
                 case "Biogericht":
-                    return getLocalizedString("CanteenBioDish_Text");
+                    return GetLocalizedString("CanteenBioDish_Text");
                 case "StuBistro Gericht":
-                    return getLocalizedString("CanteenStuBistroDishes_Text");
+                    return GetLocalizedString("CanteenStuBistroDishes_Text");
                 case "Baustellenteller":
-                    return getLocalizedString("CanteenBaustellenteller_Text");
+                    return GetLocalizedString("CanteenBaustellenteller_Text");
                 case "Fast Lane":
-                    return getLocalizedString("CanteenFastLane_Text");
+                    return GetLocalizedString("CanteenFastLane_Text");
                 case "Mensa Klassiker":
-                    return getLocalizedString("CanteenCanteenClassics_Text");
+                    return GetLocalizedString("CanteenCanteenClassics_Text");
                 case "Mensa Spezial":
-                    return getLocalizedString("CanteenCanteenSpecial_Text");
+                    return GetLocalizedString("CanteenCanteenSpecial_Text");
                 case "Self-Service Grüne Mensa":
-                    return getLocalizedString("CanteenSelf-ServiceGreenCanteen_Text");
+                    return GetLocalizedString("CanteenSelf-ServiceGreenCanteen_Text");
                 case "Self-Service Arcisstraße":
-                    return getLocalizedString("CanteenSelf-ServiceArcisstraße_Text");
+                    return GetLocalizedString("CanteenSelf-ServiceArcisstraße_Text");
                 case "Self-Service":
-                    return getLocalizedString("CanteenSelf-Service_Text");
+                    return GetLocalizedString("CanteenSelf-Service_Text");
                 case "Aktion":
-                    return getLocalizedString("CanteenSpecialDishes_Text");
+                    return GetLocalizedString("CanteenSpecialDishes_Text");
                 case "Beilagen":
-                    return getLocalizedString("CanteenSideDishes_Text");
+                    return GetLocalizedString("CanteenSideDishes_Text");
                 case "Tagesdessert":
-                    return getLocalizedString("CanteenDessertOfTheDay_Text");
+                    return GetLocalizedString("CanteenDessertOfTheDay_Text");
                 case "Dessert":
-                    return getLocalizedString("CanteenDessert_Text");
+                    return GetLocalizedString("CanteenDessert_Text");
                 default:
                     return dishType;
             }
@@ -159,14 +202,14 @@ namespace TUMCampusApp.Classes
         /// <summary>
         /// Source: https://social.msdn.microsoft.com/Forums/sqlserver/en-US/0cc87160-5b0c-4fc1-b685-ff50117984f7/uwp-access-control-on-parent-page-through-frame-object?forum=wpdevelop
         /// </summary>
-        public static T findParent<T>(DependencyObject dependencyObject) where T : DependencyObject
+        public static T FindParent<T>(DependencyObject dependencyObject) where T : DependencyObject
         {
             var parent = VisualTreeHelper.GetParent(dependencyObject);
 
             if (parent == null) return null;
 
             var parentT = parent as T;
-            return parentT ?? findParent<T>(parent);
+            return parentT ?? FindParent<T>(parent);
         }
 
         /// <summary>
@@ -174,12 +217,12 @@ namespace TUMCampusApp.Classes
         /// </summary>
         /// <param name="url">The Uri that defines the application that should get launched.</param>
         /// <returns>Returns true on success.</returns>
-        public static async Task<bool> launchUriAsync(Uri url)
+        public static async Task<bool> LaunchUriAsync(Uri url)
         {
             return await Windows.System.Launcher.LaunchUriAsync(url);
         }
 
-        public static async Task<ContentDialogResult> showDialogAsyncQueue(ContentDialog dialog)
+        public static async Task<ContentDialogResult> ShowDialogAsyncQueue(ContentDialog dialog)
         {
             // Make sure it gets invoked by the UI thread:
             if (!Window.Current.Dispatcher.HasThreadAccess)
@@ -203,7 +246,7 @@ namespace TUMCampusApp.Classes
         /// <summary>
         /// Checks whether the current device is a Windows Mobile device.
         /// </summary>
-        public static bool isRunningOnMobileDevice()
+        public static bool IsRunningOnMobileDevice()
         {
             return AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile");
         }
@@ -211,7 +254,7 @@ namespace TUMCampusApp.Classes
         /// <summary>
         /// Hides the StatusBar on Windows Mobile devices asynchronously.
         /// </summary>
-        public static async Task hideStatusBarAsync()
+        public static async Task HideStatusBarAsync()
         {
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
@@ -222,7 +265,7 @@ namespace TUMCampusApp.Classes
         /// <summary>
         /// Shows the StatusBar on Windows Mobile devices asynchronously.
         /// </summary>
-        public static async Task showStatusBarAsync()
+        public static async Task ShowStatusBarAsync()
         {
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
@@ -233,29 +276,86 @@ namespace TUMCampusApp.Classes
         /// <summary>
         /// Manages the Windows Mobile StatusBar asynchronously.
         /// </summary>
-        public static async Task onPageNavigatedFromAsync()
+        public static async Task OnPageNavigatedFromAsync()
         {
-            if (isRunningOnMobileDevice())
+            if (IsRunningOnMobileDevice())
             {
-                await showStatusBarAsync();
+                await ShowStatusBarAsync();
             }
         }
 
         /// <summary>
         /// Manages the Windows Mobile StatusBar asynchronously.
         /// </summary>
-        public static async Task onPageSizeChangedAsync(SizeChangedEventArgs e)
+        public static async Task OnPageSizeChangedAsync(SizeChangedEventArgs e)
         {
-            if (isRunningOnMobileDevice())
+            if (IsRunningOnMobileDevice())
             {
                 if (e.NewSize.Height < e.NewSize.Width)
                 {
-                    await hideStatusBarAsync();
+                    await HideStatusBarAsync();
                 }
                 else
                 {
-                    await showStatusBarAsync();
+                    await ShowStatusBarAsync();
                 }
+            }
+        }
+
+        public static bool OnGoBackRequested(Frame frame)
+        {
+            if (frame is null)
+            {
+                Logger.Error("Failed to execute back request - frame is null!");
+                return false;
+            }
+            else
+            {
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static void RemoveLastBackStackEntry()
+        {
+            if (!(mainFrame is null) && mainFrame.BackStackDepth > 0)
+            {
+                mainFrame.BackStack.RemoveAt(mainFrame.BackStack.Count - 1);
+            }
+        }
+
+        public static bool NavigateToPage(Type pageType)
+        {
+            return NavigateToPage(pageType, null);
+        }
+
+        public static bool NavigateToPage(Type pageType, object parameter)
+        {
+            if (pageType is null)
+            {
+                Logger.Error("Failed to navigate to given page type - type is null!");
+                return false;
+            }
+            if (!(mainFrame is null))
+            {
+                if (mainFrame.Content is null || mainFrame.Content.GetType() != pageType)
+                {
+                    return mainFrame.Navigate(pageType, parameter);
+                }
+                else
+                {
+                    Logger.Warn("No need to navigate to page " + pageType.ToString() + " - already on it.");
+                    return false;
+                }
+            }
+            else
+            {
+                Logger.Error("Failed to navigate to " + pageType.ToString() + " - mainFrame is null!");
+                return false;
             }
         }
 

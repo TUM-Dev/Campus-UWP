@@ -29,7 +29,7 @@ namespace TUMCampusApp.Pages
         #region --Set-, Get- Methods--
         public string getLocalizedName()
         {
-            return UiUtils.getLocalizedString("HomePageName_Text");
+            return UiUtils.GetLocalizedString("HomePageName_Text");
         }
 
         #endregion
