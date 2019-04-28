@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Data_Manager;
+using Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Thread_Save_Components.Classes.SQLite;
+using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Helpers;
-using TUMCampusAppAPI.Managers;
+using TUMCampusApp.Dialogs;
 using TUMCampusApp.Pages.Setup;
+using TUMCampusAppAPI;
+using TUMCampusAppAPI.DBTables;
+using TUMCampusAppAPI.Managers;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using TUMCampusAppAPI;
-using TUMCampusApp.Classes;
-using Windows.UI.Core;
-using TUMCampusApp.Dialogs;
-using Data_Manager;
-using Logging;
-using System.Collections.Generic;
-using Thread_Save_Components.Classes.SQLite;
-using TUMCampusAppAPI.DBTables;
 
 namespace TUMCampusApp.Pages
 {
@@ -204,7 +204,7 @@ namespace TUMCampusApp.Pages
             logSize_tblck.Text = UiUtils.getLocalizedString("SettingsPageLogSizeCalculating_Text");
             Task.Factory.StartNew(async () =>
             {
-                long size = await Logger.getLogFolderSizeAsync();
+                long size = await Logger.GetLogFolderSizeAsync();
                 string text = "~ ";
                 if (size >= 1024)
                 {
@@ -276,7 +276,7 @@ namespace TUMCampusApp.Pages
 
         private async void exportLogs_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Logger.exportLogs();
+            await Logger.ExportLogsAsync();
         }
 
         private void showWizard_btn_Click(object sender, RoutedEventArgs e)
@@ -323,7 +323,7 @@ namespace TUMCampusApp.Pages
 
         private async void openLogFolder_btn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Logger.openLogFolderAsync();
+            await Logger.OpenLogFolderAsync();
         }
 
         private void diableExampleWidget_tgls_Toggled(object sender, RoutedEventArgs e)
@@ -385,7 +385,7 @@ namespace TUMCampusApp.Pages
             IUICommand command = await dialog.ShowAsync();
             if ((int)command.Id == 1)
             {
-                await Logger.deleteLogsAsync();
+                await Logger.DeleteLogsAsync();
             }
             showLogSize();
         }
