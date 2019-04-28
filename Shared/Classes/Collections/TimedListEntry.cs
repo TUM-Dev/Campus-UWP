@@ -1,22 +1,21 @@
-﻿namespace TUMCampusAppAPI.Managers
+﻿using System;
+
+namespace Shared.Classes.Collections
 {
-    internal class RoomFinderDBManager : AbstractTumDBManager
+    public class TimedListEntry<T>: ITimedEntry
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly RoomFinderDBManager INSTANCE = new RoomFinderDBManager();
+        public T item;
+        public DateTime insertionTime;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 29/12/2017 Created [Fabian Sauter]
-        /// </history>
-        public RoomFinderDBManager()
+        public TimedListEntry(T item)
         {
+            this.item = item;
+            insertionTime = DateTime.Now;
         }
 
         #endregion
@@ -27,7 +26,10 @@
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public bool CanGetRemoved()
+        {
+            return item is ITimedEntry entry ? entry.CanGetRemoved() : true;
+        }
 
         #endregion
 
@@ -37,13 +39,7 @@
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void DropTables()
-        {
-        }
 
-        protected override void CreateTables()
-        {
-        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

@@ -1,22 +1,21 @@
-﻿namespace TUMCampusAppAPI.Managers
+﻿using System;
+
+namespace Shared.Classes.Network
 {
-    internal class RoomFinderDBManager : AbstractTumDBManager
+    public class DownloadStateChangedEventArgs: EventArgs
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly RoomFinderDBManager INSTANCE = new RoomFinderDBManager();
+        public readonly DownloadState OLD_STATE;
+        public readonly DownloadState NEW_STATE;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 29/12/2017 Created [Fabian Sauter]
-        /// </history>
-        public RoomFinderDBManager()
+        public DownloadStateChangedEventArgs(DownloadState oldState, DownloadState newState)
         {
+            OLD_STATE = oldState;
+            NEW_STATE = newState;
         }
 
         #endregion
@@ -37,13 +36,7 @@
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void DropTables()
-        {
-        }
 
-        protected override void CreateTables()
-        {
-        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

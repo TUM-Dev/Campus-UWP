@@ -115,9 +115,9 @@
       <Project>{ba194139-ec89-4063-b044-3ad40fc1ff61}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Thread_Save_Components\Thread_Save_Components.csproj">
-      <Project>{422d37e6-2d0f-42af-8b26-88e007bd022d}</Project>
-      <Name>Thread_Save_Components</Name>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{a3dd53fe-6113-4ccb-9c49-c92dc3a62e78}</Project>
+      <Name>Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\TUMCampusAppAPI\TUMCampusAppAPI.csproj">
       <Project>{96299629-0869-4bae-8ced-95eb0e9efacd}</Project>

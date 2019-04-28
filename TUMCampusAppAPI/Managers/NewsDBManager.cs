@@ -214,11 +214,11 @@ namespace TUMCampusAppAPI.Managers
                         {
                             dB.InsertOrReplace(n);
                         }
-                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_TABLE));
+                        SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.NEWS_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.NEWS_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });
@@ -266,11 +266,11 @@ namespace TUMCampusAppAPI.Managers
                             }
                         }
                         replaceNewsSources(list);
-                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE));
+                        SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE));
                     }
                     catch (Exception e)
                     {
-                        SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
+                        SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.NEWS_SOURCE_TABLE, SyncResult.STATUS_ERROR_UNKNOWN, e.ToString()));
                     }
                 }
             });
@@ -346,13 +346,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<NewsTable>();
             dB.DropTable<NewsSourceTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<NewsTable>();
             dB.CreateTable<NewsSourceTable>();

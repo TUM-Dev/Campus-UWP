@@ -1,21 +1,17 @@
-﻿namespace TUMCampusAppAPI.Managers
+﻿using System.Threading;
+
+namespace Shared.Classes.Threading
 {
-    internal class RoomFinderDBManager : AbstractTumDBManager
+    public class MySemaphoreSlim: SemaphoreSlim
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public static readonly RoomFinderDBManager INSTANCE = new RoomFinderDBManager();
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        /// <summary>
-        /// Basic Constructor
-        /// </summary>
-        /// <history>
-        /// 29/12/2017 Created [Fabian Sauter]
-        /// </history>
-        public RoomFinderDBManager()
+        public MySemaphoreSlim(int initialCount, int maxCount) : base(initialCount, maxCount)
         {
         }
 
@@ -27,7 +23,13 @@
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public void WaitCount(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Wait();
+            }
+        }
 
         #endregion
 
@@ -37,13 +39,7 @@
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void DropTables()
-        {
-        }
 
-        protected override void CreateTables()
-        {
-        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

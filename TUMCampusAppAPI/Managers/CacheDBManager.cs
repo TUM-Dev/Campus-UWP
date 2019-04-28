@@ -114,12 +114,12 @@ namespace TUMCampusAppAPI.Managers
             return Encoding.UTF8.GetBytes(s);
         }
 
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<CacheTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<CacheTable>();
         }

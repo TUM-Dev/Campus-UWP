@@ -1,9 +1,9 @@
 ﻿using Data_Manager;
 using Logging;
+using Shared.Classes.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Thread_Save_Components.Classes.SQLite;
 using TUMCampusApp.Classes;
 using TUMCampusApp.Classes.Helpers;
 using TUMCampusApp.Dialogs;

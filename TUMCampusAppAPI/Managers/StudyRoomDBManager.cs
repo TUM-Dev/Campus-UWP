@@ -107,13 +107,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<StudyRoomTable>();
             dB.DropTable<StudyRoomGroupTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<StudyRoomTable>();
             dB.CreateTable<StudyRoomGroupTable>();

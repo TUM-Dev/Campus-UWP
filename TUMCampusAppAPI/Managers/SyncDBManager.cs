@@ -134,6 +134,11 @@ namespace TUMCampusAppAPI.Managers
             }
         }
 
+        public void Update(SyncTable table)
+        {
+            dB.InsertOrReplace(table);
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
@@ -142,12 +147,12 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<SyncTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<SyncTable>();
         }

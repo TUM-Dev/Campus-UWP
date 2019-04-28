@@ -171,14 +171,14 @@ namespace TUMCampusAppAPI.Managers
                 catch (Exception e)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncDBManager.INSTANCE.update(new SyncTable(this, e));
+                    SyncDBManager.INSTANCE.Update(new SyncTable(this, e));
                     return;
                 }
 
                 if (doc == null)
                 {
                     Logger.Error("Unable to sync Calendar! Unable to request a document.");
-                    SyncDBManager.INSTANCE.update(new SyncTable("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
+                    SyncDBManager.INSTANCE.Update(new SyncTable("News", SyncResult.STATUS_ERROR_UNKNOWN, "Unable to sync Calendar! Unable to request a document."));
                     return;
                 }
                 list = parseToList(doc);
@@ -198,7 +198,7 @@ namespace TUMCampusAppAPI.Managers
                 {
                     await insterInCalendarAsync(list);
                 }
-                SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE));
+                SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.TUM_ONLINE_CALENDAR_TABLE));
                 Logger.Info("Finished syncing calendar in: " + (SyncDBManager.GetCurrentUnixTimestampMillis() - time) + " ms");
             }
         }
@@ -261,12 +261,12 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<TUMOnlineCalendarTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<TUMOnlineCalendarTable>();
         }

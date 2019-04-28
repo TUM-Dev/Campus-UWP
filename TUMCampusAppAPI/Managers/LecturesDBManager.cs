@@ -130,7 +130,7 @@ namespace TUMCampusAppAPI.Managers
                     {
                         dB.InsertOrReplace(new TUMOnlineLectureTable(element));
                     }
-                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.TUM_ONLINE_LECTURE_TABLE));
+                    SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.TUM_ONLINE_LECTURE_TABLE));
                 }
             });
             REFRESHING_TASK_SEMA.Release();
@@ -166,12 +166,12 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<TUMOnlineLectureTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<TUMOnlineLectureTable>();
         }

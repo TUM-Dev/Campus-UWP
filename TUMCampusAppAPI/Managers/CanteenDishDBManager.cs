@@ -289,7 +289,7 @@ namespace TUMCampusAppAPI.Managers
                         dB.DeleteAll<CanteenDishTable>();
                         dB.InsertAll(menus);
                     }
-                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.CANTEEN_DISH_TABLE));
+                    SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.CANTEEN_DISH_TABLE));
                     Logger.Info("Finished downloading canteen dishes.");
                 }
                 catch (Exception e)
@@ -338,12 +338,12 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<CanteenDishTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<CanteenDishTable>();
         }

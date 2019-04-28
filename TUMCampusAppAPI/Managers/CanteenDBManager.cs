@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Data_Manager;
+using Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using TUMCampusAppAPI.DBTables;
+using Windows.Data.Json;
 using Windows.Devices.Geolocation;
-using Data_Manager;
-using Logging;
 
 namespace TUMCampusAppAPI.Managers
 {
@@ -201,7 +201,7 @@ namespace TUMCampusAppAPI.Managers
                     }
                     dB.DeleteAll<CanteenTable>();
                     dB.InsertAll(list);
-                    SyncDBManager.INSTANCE.update(new SyncTable(DBTableConsts.CANTEEN_TABLE));
+                    SyncDBManager.INSTANCE.Update(new SyncTable(DBTableConsts.CANTEEN_TABLE));
                     Logger.Info("Finished downloading canteens.");
                 }
                 catch (Exception e)
@@ -221,13 +221,13 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
             dB.DropTable<CanteenTable>();
             dB.DropTable<FavoriteCanteenDishTypeTable>();
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
             dB.CreateTable<CanteenTable>();
             dB.CreateTable<FavoriteCanteenDishTypeTable>();

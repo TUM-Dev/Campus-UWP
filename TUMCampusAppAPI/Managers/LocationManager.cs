@@ -74,7 +74,7 @@ namespace TUMCampusAppAPI.Managers
                 };
                 Geoposition pos = await geoLocator.GetGeopositionAsync();
                 UserDataDBManager.INSTANCE.setLastKnownDevicePosition(pos.Coordinate.Point);
-                SyncDBManager.INSTANCE.update(new SyncTable(this));
+                SyncDBManager.INSTANCE.Update(new SyncTable(this));
                 return pos.Coordinate.Point;
             }
             catch (Exception e)
@@ -165,11 +165,11 @@ namespace TUMCampusAppAPI.Managers
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void dropTables()
+        protected override void DropTables()
         {
         }
 
-        protected override void createTables()
+        protected override void CreateTables()
         {
         }
 
