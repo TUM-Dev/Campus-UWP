@@ -170,7 +170,7 @@ namespace UI.Pages
         private void EvaluateActivationArgs()
         {
             // Initially started?
-            if (!Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED))
+            if (!Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED) || true)
             {
                 PerformInitialStartSetup();
 

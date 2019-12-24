@@ -80,6 +80,21 @@ namespace UI.Pages
             }
         }
 
+        private void WhatIsTumOnline_link_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void next1_ipbtn_Click(Controls.IconProgressButtonControl sender, RoutedEventArgs args)
+        {
+
+        }
+
+        private void cancel1_ibtn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
+        {
+
+        }
+
         #endregion
     }
 }

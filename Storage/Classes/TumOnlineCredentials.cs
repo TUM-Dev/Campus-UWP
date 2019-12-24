@@ -1,20 +1,22 @@
-﻿using System.Threading.Tasks;
-using TumOnline.Classes.Exceptions;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages;
-
-namespace UI_Context.Classes.Context.Pages
+﻿namespace Storage.Classes
 {
-    public class SetupPageContext
+    public class TumOnlineCredentials
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SetupPageTemplate MODEL = new SetupPageTemplate();
+        public readonly string TUM_ID;
+        public readonly string TOKEN;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
+        public TumOnlineCredentials(string tumId, string token)
+        {
+            TUM_ID = tumId;
+            TOKEN = token;
+        }
 
+        public TumOnlineCredentials(string tumId) : this(tumId, "") { }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,18 +26,7 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task RequestNewTokenAsync()
-        {
-            try
-            {
-                await AccessManager.RequestNewTokenAsync("");
-            }
-            catch (AbstractTumOnlineException e)
-            {
 
-                throw;
-            }
-        }
 
         #endregion
 

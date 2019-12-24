@@ -1,20 +1,20 @@
-﻿using System.Threading.Tasks;
-using TumOnline.Classes.Exceptions;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages;
+﻿using System;
 
-namespace UI_Context.Classes.Context.Pages
+namespace TumOnline.Classes.Exceptions
 {
-    public class SetupPageContext
+    public abstract class AbstractTumOnlineException: Exception
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SetupPageTemplate MODEL = new SetupPageTemplate();
+        public readonly string URL;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public AbstractTumOnlineException(string url, string message) : base(message)
+        {
+            URL = url;
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,17 +24,9 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task RequestNewTokenAsync()
+        public override string ToString()
         {
-            try
-            {
-                await AccessManager.RequestNewTokenAsync("");
-            }
-            catch (AbstractTumOnlineException e)
-            {
-
-                throw;
-            }
+            return base.ToString() + " URL:" + URL + " Message:" + Message;
         }
 
         #endregion

@@ -1,20 +1,15 @@
-﻿using System.Threading.Tasks;
-using TumOnline.Classes.Exceptions;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages;
-
-namespace UI_Context.Classes.Context.Pages
+﻿namespace TumOnline.Classes.Exceptions
 {
-    public class SetupPageContext
+    public class NoAccessTumOnlineException: AbstractTumOnlineException
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SetupPageTemplate MODEL = new SetupPageTemplate();
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public NoAccessTumOnlineException(string url, string message) : base(url, message) { }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,18 +19,7 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task RequestNewTokenAsync()
-        {
-            try
-            {
-                await AccessManager.RequestNewTokenAsync("");
-            }
-            catch (AbstractTumOnlineException e)
-            {
 
-                throw;
-            }
-        }
 
         #endregion
 

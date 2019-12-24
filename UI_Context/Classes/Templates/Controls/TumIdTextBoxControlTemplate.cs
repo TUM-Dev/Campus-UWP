@@ -1,15 +1,24 @@
-﻿using System.Threading.Tasks;
-using TumOnline.Classes.Exceptions;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages;
+﻿using Shared.Classes;
 
-namespace UI_Context.Classes.Context.Pages
+namespace UI_Context.Classes.Templates.Controls
 {
-    public class SetupPageContext
+    public class TumIdTextBoxControlTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SetupPageTemplate MODEL = new SetupPageTemplate();
+        private string _Text;
+        public string Text
+        {
+            get => _Text;
+            set => SetTextProperty(value);
+        }
+
+        private bool _IsValid;
+        public bool IsValid
+        {
+            get => _IsValid;
+            set => SetProperty(ref _IsValid, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -19,23 +28,18 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        private void SetTextProperty(string value)
+        {
+            if (SetProperty(ref _Text, value, nameof(Text)))
+            {
+                // Update is VAlid
+            }
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task RequestNewTokenAsync()
-        {
-            try
-            {
-                await AccessManager.RequestNewTokenAsync("");
-            }
-            catch (AbstractTumOnlineException e)
-            {
 
-                throw;
-            }
-        }
 
         #endregion
 

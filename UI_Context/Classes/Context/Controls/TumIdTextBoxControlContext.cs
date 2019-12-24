@@ -1,15 +1,12 @@
-﻿using System.Threading.Tasks;
-using TumOnline.Classes.Exceptions;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages;
+﻿using UI_Context.Classes.Templates.Controls;
 
-namespace UI_Context.Classes.Context.Pages
+namespace UI_Context.Classes.Context.Controls
 {
-    public class SetupPageContext
+    public class TumIdTextBoxControlContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SetupPageTemplate MODEL = new SetupPageTemplate();
+        public readonly TumIdTextBoxControlTemplate MODEL = new TumIdTextBoxControlTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,18 +21,7 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task RequestNewTokenAsync()
-        {
-            try
-            {
-                await AccessManager.RequestNewTokenAsync("");
-            }
-            catch (AbstractTumOnlineException e)
-            {
 
-                throw;
-            }
-        }
 
         #endregion
 

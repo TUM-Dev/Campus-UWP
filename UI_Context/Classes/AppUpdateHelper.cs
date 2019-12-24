@@ -77,7 +77,7 @@ namespace UI_Context.Classes
                     if (versionLastStart.Major <= 2)
                     {
                         Logger.Info("Started updating to version 2.0.0.0.");
-                        // TODO add update code here
+                        Settings.setSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.0.0.0.");
                     }
                 }

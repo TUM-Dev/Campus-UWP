@@ -6,7 +6,12 @@ namespace UI_Context.Classes.Templates.Pages
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private bool _IsValidTumID;
+        public bool IsValidTumID
+        {
+            get => _IsValidTumID;
+            set => SetProperty(ref _IsValidTumID, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

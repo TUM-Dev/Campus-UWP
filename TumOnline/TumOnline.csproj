@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{82960015-C6C1-4507-81DC-2D317A285394}</ProjectGuid>
+    <ProjectGuid>{26C29B40-A629-4D33-9FE2-7C2A0597FE16}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Storage</RootNamespace>
-    <AssemblyName>Storage</AssemblyName>
+    <RootNamespace>TumOnline</RootNamespace>
+    <AssemblyName>TumOnline</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -120,24 +120,28 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Settings.cs" />
-    <Compile Include="Classes\SettingsConsts.cs" />
-    <Compile Include="Classes\TumOnlineCredentials.cs" />
-    <Compile Include="Classes\Vault.cs" />
+    <Compile Include="Classes\Exceptions\AbstractTumOnlineException.cs" />
+    <Compile Include="Classes\Exceptions\InvalidTokenTumOnlineException.cs" />
+    <Compile Include="Classes\Exceptions\InvalidTumOnlineResponseException.cs" />
+    <Compile Include="Classes\Exceptions\MalformedXmlTumOnlineException.cs" />
+    <Compile Include="Classes\Exceptions\NoAccessTumOnlineException.cs" />
+    <Compile Include="Classes\Managers\AccessManager.cs" />
+    <Compile Include="Classes\TumOnlineRequest.cs" />
+    <Compile Include="Classes\TumOnlineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Storage.rd.xml" />
+    <EmbeddedResource Include="Properties\TumOnline.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp">
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity">
       <Version>6.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
+      <Project>{B1B74CB2-3E08-4FE7-876D-4F9C82A41C90}</Project>
       <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>

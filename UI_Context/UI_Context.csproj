@@ -121,7 +121,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\AppUpdateHelper.cs" />
+    <Compile Include="Classes\Context\Controls\TumIdTextBoxControlContext.cs" />
     <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
+    <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\SetupPageTemplate.cs" />
     <Compile Include="Classes\ThemeUtils.cs" />
     <Compile Include="Classes\UiUtils.cs" />
@@ -157,6 +159,10 @@
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{82960015-c6c1-4507-81dc-2d317a285394}</Project>
       <Name>Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TumOnline\TumOnline.csproj">
+      <Project>{26C29B40-A629-4D33-9FE2-7C2A0597FE16}</Project>
+      <Name>TumOnline</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
