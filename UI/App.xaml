@@ -1,7 +1,27 @@
-﻿<Application
-    x:Class="UI.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI">
+﻿<Application x:Class="UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--  Windows UI Library:  -->
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+
+                <!--  Fonts:  -->
+                <ResourceDictionary Source="ms-appx:///Resources/Fonts.xaml"/>
+
+                <!--  Brushes:  -->
+                <ResourceDictionary Source="ms-appx:///Resources/Brushes.xaml"/>
+
+                <!--  Styles:  -->
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/GeneralStyles.xaml"/>
+
+                <!--  Value Converters:  -->
+                <ResourceDictionary Source="ms-appx:///Resources/ValueConverter.xaml"/>
+
+                <!--  Controls:  -->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

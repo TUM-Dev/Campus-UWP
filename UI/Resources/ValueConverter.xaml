@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:valueConverter="using:UI_Context.Classes.ValueConverter">
+
+    <valueConverter:BoolVisibilityValueConverter x:Key="BoolVisibilityValueConverter"/>
+    <valueConverter:StringEmptyVisibilityValueConverter x:Key="StringEmptyVisibilityValueConverter"/>
+    <valueConverter:BoolInverterValueConverter x:Key="BoolInverterValueConverter"/>
+    <valueConverter:BoolInvertedVisibilityValueConverter x:Key="BoolInvertedVisibilityValueConverter"/>
+    <valueConverter:IsNullBoolValueConverter x:Key="IsNullBoolValueConverter"/>
+    <valueConverter:NullableBoolBoolValueConverter x:Key="NullableBoolBoolValueConverter"/>
+</ResourceDictionary>

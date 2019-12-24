@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+                    xmlns:media1="using:Microsoft.UI.Xaml.Media">
+
+    <!--  Source: https://gist.github.com/lnksz/51e3566af2df5c7aa678cd4dfc8305f7  -->
+    <SolidColorBrush x:Key="TumBlue"
+                     Color="#0065bd"/>
+    <SolidColorBrush x:Key="TumDarkBlue"
+                     Color="#005293"/>
+    <SolidColorBrush x:Key="TumLightBlue"
+                     Color="#64a0c8"/>
+    <SolidColorBrush x:Key="TumLighterBlue"
+                     Color="#98c6ea"/>
+    <SolidColorBrush x:Key="TumGray"
+                     Color="#999999"/>
+    <SolidColorBrush x:Key="TumOrange"
+                     Color="#e37222"/>
+    <SolidColorBrush x:Key="TumGreen"
+                     Color="#a2ad00"/>
+    <SolidColorBrush x:Key="TumLightGray"
+                     Color="#dad7cb"/>
+
+    <!--  ContentDialog background backdrop  -->
+    <media:BackdropBlurBrush x:Key="SystemControlPageBackgroundMediumAltMediumBrush"
+                             Amount="6.0"/>
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Dark">
+            <Color x:Key="DropShadowColor">#FF000000</Color>
+            <media1:AcrylicBrush x:Key="AppBackgroundAcrylicWindowBrush"
+                                 BackgroundSource="HostBackdrop"
+                                 FallbackColor="#FF2E2E2E"
+                                 TintColor="#FF2E2E2E"
+                                 TintOpacity="0.7"/>
+            <media1:AcrylicBrush x:Key="AppBackgroundAcrylicElementBrush"
+                                 BackgroundSource="Backdrop"
+                                 FallbackColor="#FF2A2A2A"
+                                 TintColor="#FF2A2A2A"
+                                 TintOpacity="0.6"/>
+            <SolidColorBrush x:Key="CaptionTextBrush"
+                             Color="#99FFFFFF"/>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <Color x:Key="DropShadowColor">#FF000000</Color>
+
+            <media1:AcrylicBrush x:Key="AppBackgroundAcrylicWindowBrush"
+                                 BackgroundSource="HostBackdrop"
+                                 FallbackColor="#FFF0F0F0"
+                                 TintColor="#FFF0F0F0"
+                                 TintOpacity="0.6"/>
+            <media1:AcrylicBrush x:Key="AppBackgroundAcrylicElementBrush"
+                                 BackgroundSource="Backdrop"
+                                 FallbackColor="#FFEDEDED"
+                                 TintColor="#FFEDEDED"
+                                 TintOpacity="0.6"/>
+            <SolidColorBrush x:Key="CaptionTextBrush"
+                             Color="#99000000"/>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

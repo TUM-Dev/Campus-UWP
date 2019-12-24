@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D5E0988-7316-4647-B8F8-000BE352076E}</ProjectGuid>
+    <ProjectGuid>{B1B74CB2-3E08-4FE7-876D-4F9C82A41C90}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UI_Context</RootNamespace>
-    <AssemblyName>UI_Context</AssemblyName>
+    <RootNamespace>Logging</RootNamespace>
+    <AssemblyName>Logging</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -120,49 +120,24 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\AppUpdateHelper.cs" />
-    <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
-    <Compile Include="Classes\Templates\Pages\SetupPageTemplate.cs" />
-    <Compile Include="Classes\ThemeUtils.cs" />
-    <Compile Include="Classes\UiUtils.cs" />
-    <Compile Include="Classes\ValueConverter\BoolInvertedVisibilityValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\BoolInverterValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\BoolVisibilityValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\StringEmptyVisibilityValueConverter.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Classes\ConsoleTarget.cs" />
+    <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\LogLevel.cs" />
+    <Compile Include="Classes\WindowsLogChannel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\UI_Context.rd.xml" />
+    <EmbeddedResource Include="Properties\Logging.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>6.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.3.191211002</Version>
+    <PackageReference Include="NLog">
+      <Version>4.6.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Shared\Shared.csproj">
-      <Project>{606760a5-8eb4-45d5-9de0-590b49e163de}</Project>
-      <Name>Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Storage\Storage.csproj">
-      <Project>{82960015-c6c1-4507-81dc-2d317a285394}</Project>
-      <Name>Storage</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.18362.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
+    <Content Include="NLog.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
