@@ -127,6 +127,12 @@ namespace UI.Pages
             {
                 doneTargetPage = type;
             }
+            titleBar.OnPageNavigatedTo();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            titleBar.OnPageNavigatedFrom();
         }
 
         private async void WhatIsTumOnline_link_Click(object sender, RoutedEventArgs e)
