@@ -1,25 +1,12 @@
-﻿using Shared.Classes;
-using TumOnline.Classes.Managers;
+﻿using Windows.ApplicationModel.Resources;
 
-namespace UI_Context.Classes.Templates.Controls
+namespace Shared.Classes
 {
-    public class TumIdTextBoxControlTemplate: AbstractDataTemplate
+    public static class Localisation
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private string _Text;
-        public string Text
-        {
-            get => _Text;
-            set => SetTextProperty(value);
-        }
-
-        private bool _IsValid;
-        public bool IsValid
-        {
-            get => _IsValid;
-            set => SetProperty(ref _IsValid, value);
-        }
+        private static ResourceLoader loader;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -29,13 +16,18 @@ namespace UI_Context.Classes.Templates.Controls
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private void SetTextProperty(string value)
+        /// <summary>
+        /// Returns a localized string for the given key.
+        /// </summary>
+        /// <param name="key">The key for the requested localized string.</param>
+        /// <returns>a localized string for the given key.</returns>
+        public static string GetLocalizedString(string key)
         {
-            value = value.ToLowerInvariant();
-            if (SetProperty(ref _Text, value, nameof(Text)))
+            if (loader is null)
             {
-                IsValid = AccessManager.IsTumIdValid(value);
+                loader = ResourceLoader.GetForCurrentView();
             }
+            return loader.GetString(key);
         }
 
         #endregion

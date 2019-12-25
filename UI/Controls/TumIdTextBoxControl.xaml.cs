@@ -1,6 +1,8 @@
 ﻿using UI_Context.Classes.Context.Controls;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace UI.Controls
 {
@@ -30,6 +32,8 @@ namespace UI.Controls
             set => SetValue(IsValidProperty, value);
         }
         public static readonly DependencyProperty IsValidProperty = DependencyProperty.Register(nameof(IsValid), typeof(bool), typeof(TumIdTextBoxControl), new PropertyMetadata(false));
+
+        public event KeyEventHandler EnterKeyDown;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -81,6 +85,27 @@ namespace UI.Controls
                     Text = VIEW_MODEL.MODEL.Text;
                     break;
             }
+        }
+
+        private void TextBox_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            int selectionStart = sender.SelectionStart;
+            sender.Text = sender.Text.ToLowerInvariant();
+            sender.SelectionStart = selectionStart;
+        }
+
+        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                EnterKeyDown?.Invoke(this, e);
+                if (e.Handled)
+                {
+                    return;
+                }
+            }
+
+            OnKeyDown(e);
         }
 
         #endregion

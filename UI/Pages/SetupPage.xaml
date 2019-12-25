@@ -26,6 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--  Header:  -->
@@ -84,7 +85,11 @@
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Text="Step 1"/>
                             <controls:TumIdTextBoxControl Margin="0,10,0,0"
-                                                          Header="Your TUM ID"/>
+                                                          EnterKeyDown="TumIdTextBoxControl_EnterKeyDown"
+                                                          Header="Your TUM ID"
+                                                          IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsRequestingToken, Mode=OneWay, Converter={StaticResource BoolInverterValueConverter}}"
+                                                          IsValid="{x:Bind VIEW_MODEL.MODEL.IsValidTumID, Mode=TwoWay}"
+                                                          Text="{x:Bind VIEW_MODEL.MODEL.TumId, Mode=TwoWay}"/>
                             <TextBlock Margin="0,10,0,0"
                                        Style="{ThemeResource CaptionTextBlockStyle}">
                                 <Run Text="After the setup you can:"/>
@@ -116,6 +121,7 @@
                                                             Click="cancel1_ibtn_Click"
                                                             Glyph="&#xE711;"
                                                             GlyphForeground="Red"
+                                                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsRequestingToken, Mode=OneWay, Converter={StaticResource BoolInverterValueConverter}}"
                                                             Text="Cancel"/>
                                 <controls:IconProgressButtonControl x:Name="next1_ipbtn"
                                                                     Grid.Column="2"
@@ -123,13 +129,229 @@
                                                                     Click="next1_ipbtn_Click"
                                                                     Glyph="&#xEBE7;"
                                                                     GlyphForeground="Green"
-                                                                    IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsValidTumID, Mode=OneWay}"
+                                                                    IsEnabled="{x:Bind VIEW_MODEL.MODEL.CanRequestToken, Mode=OneWay}"
+                                                                    ProgressRingVisibility="{x:Bind VIEW_MODEL.MODEL.IsRequestingToken, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"
                                                                     Text="Next"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </controls1:DropShadowPanel>
+
+                <!--  Step 2:  -->
+                <controls1:DropShadowPanel x:Name="step2_dsp"
+                                           Grid.Row="1"
+                                           MaxWidth="400"
+                                           HorizontalContentAlignment="Stretch"
+                                           Visibility="Collapsed">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:OpacityAnimation From="{StaticResource AnimationOpacityMin}"
+                                                     To="{StaticResource AnimationOpacityMax}"
+                                                     Duration="{StaticResource OpacityAnimationDuration}"/>
+                        <animations:TranslationAnimation From="{StaticResource AnimationPositionShowSource}"
+                                                         To="{StaticResource AnimationPositionShowTarget}"
+                                                         Duration="{StaticResource TranslationAnimationDuration}"/>
+                    </animations:Implicit.ShowAnimations>
+
+                    <animations:Implicit.HideAnimations>
+                        <animations:OpacityAnimation From="{StaticResource AnimationOpacityMax}"
+                                                     To="{StaticResource AnimationOpacityMin}"
+                                                     Duration="{StaticResource OpacityAnimationDuration}"/>
+                        <animations:TranslationAnimation From="{StaticResource AnimationPositionHideSource}"
+                                                         To="{StaticResource AnimationPositionHideTarget}"
+                                                         Duration="{StaticResource TranslationAnimationDuration}"/>
+                    </animations:Implicit.HideAnimations>
+                    <Border HorizontalAlignment="Stretch"
+                            Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                            CornerRadius="{ThemeResource OverlayCornerRadius}">
+                        <StackPanel Padding="10"
+                                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}">
+
+                            <TextBlock Foreground="{ThemeResource TumBlueBrush}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="Step 2"/>
+                            <TextBlock Margin="0,10,0,0"
+                                       TextWrapping="Wrap">
+                                <Run Text="Activate the token either by clicking the link send to you by"/>
+                                <Hyperlink x:Name="mail_link"
+                                           Click="mail_link_Click">
+                                    <Run Text="mail"/>
+                                </Hyperlink>
+                                <Run Text=", or activate it in"/>
+                                <Hyperlink x:Name="tumOnline_link"
+                                           Click="tumOnline_link_Click">
+                                    <Run Text="TUMonline"/>
+                                </Hyperlink>
+                                <Run Text="(Token-Management)."/>
+                            </TextBlock>
+                            <TextBlock Margin="0,10,0,0"
+                                       TextWrapping="Wrap">
+                                <Run Text="In TUMonline click on"/>
+                                <Run FontWeight="Bold"
+                                     Text="Token-Management"/><Run Text="."/>
+                            </TextBlock>
+                            <Image Source="ms-appx:///Assets//TUMonline/TUMonline_Token_Management_Section.png"/>
+                            <TextBlock Margin="0,10,0,0"
+                                       TextWrapping="Wrap">
+                                <Run Text="Activate the token by checking"/>
+                                <Run FontWeight="Bold"
+                                     Text="active"/><Run Text="."/>
+                                <LineBreak/><Run Text="After that, specify the access rights by clicking on:"/>
+                                <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                     Text="&#xED63;"/>
+                            </TextBlock>
+                            <Image Source="ms-appx:///Assets//TUMonline/TUMonline_Token_Activation.png"/>
+                            <TextBlock Margin="0,10,0,0"
+                                       Text="There you can check the individual options, you want this app to have access to."
+                                       TextWrapping="Wrap"/>
+                            <Image Source="ms-appx:///Assets//TUMonline/TUMonline_Token_Activation_2.png"/>
+
+                            <StackPanel Margin="0,10,0,0"
+                                        Orientation="Horizontal">
+                                <TextBlock>
+                                    <Run Text="Waiting for activation ("/><Run FontWeight="Bold"
+                                         Text="{x:Bind VIEW_MODEL.MODEL.TumId, Mode=OneWay}"/><Run Text=")."/>
+                                </TextBlock>
+                                <ProgressRing Margin="10,0,0,0"
+                                              VerticalAlignment="Center"
+                                              IsActive="True"
+                                              Visibility="{x:Bind VIEW_MODEL.MODEL.IsAutomatedActivationCheckRunnig, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+                                <FontIcon Margin="10,0,0,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TumBlueBrush}"
+                                          Glyph="&#xE8FB;"
+                                          Visibility="{x:Bind VIEW_MODEL.MODEL.IsTokenActivated, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+                            </StackPanel>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <controls:IconButtonControl x:Name="back2_ibtn"
+                                                            Grid.Column="0"
+                                                            Margin="0,0,0,1"
+                                                            Click="back2_ibtn_Click"
+                                                            Glyph="&#xE72B;"
+                                                            Text="Back"/>
+                                <controls:IconButtonControl x:Name="cancel2_ibtn"
+                                                            Grid.Column="1"
+                                                            Margin="1,0,0,1"
+                                                            Click="cancel2_ibtn_Click"
+                                                            Glyph="&#xE711;"
+                                                            GlyphForeground="Red"
+                                                            Text="Cancel"/>
+                                <controls:IconProgressButtonControl x:Name="check2_ipbtn"
+                                                                    Grid.Column="2"
+                                                                    Margin="1,0,0,1"
+                                                                    Click="check2_ipbtn_Click"
+                                                                    Glyph="&#xEBE7;"
+                                                                    GlyphForeground="Green"
+                                                                    IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsCheckingTokenActivation, Mode=OneWay, Converter={StaticResource BoolInverterValueConverter}}"
+                                                                    ProgressRingVisibility="{x:Bind VIEW_MODEL.MODEL.IsCheckingTokenActivation, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"
+                                                                    Text="Check"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </controls1:DropShadowPanel>
+
+                <!--  Step 3:  -->
+                <controls1:DropShadowPanel x:Name="step3_dsp"
+                                           Grid.Row="1"
+                                           MaxWidth="400"
+                                           HorizontalContentAlignment="Stretch"
+                                           Visibility="Collapsed">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:OpacityAnimation From="{StaticResource AnimationOpacityMin}"
+                                                     To="{StaticResource AnimationOpacityMax}"
+                                                     Duration="{StaticResource OpacityAnimationDuration}"/>
+                        <animations:TranslationAnimation From="{StaticResource AnimationPositionShowSource}"
+                                                         To="{StaticResource AnimationPositionShowTarget}"
+                                                         Duration="{StaticResource TranslationAnimationDuration}"/>
+                    </animations:Implicit.ShowAnimations>
+
+                    <animations:Implicit.HideAnimations>
+                        <animations:OpacityAnimation From="{StaticResource AnimationOpacityMax}"
+                                                     To="{StaticResource AnimationOpacityMin}"
+                                                     Duration="{StaticResource OpacityAnimationDuration}"/>
+                        <animations:TranslationAnimation From="{StaticResource AnimationPositionHideSource}"
+                                                         To="{StaticResource AnimationPositionHideTarget}"
+                                                         Duration="{StaticResource TranslationAnimationDuration}"/>
+                    </animations:Implicit.HideAnimations>
+                    <Border HorizontalAlignment="Stretch"
+                            Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                            CornerRadius="{ThemeResource OverlayCornerRadius}">
+                        <StackPanel Padding="10"
+                                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}">
+                            <Grid Margin="0,10,0,0"
+                                  Padding="20"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                           FontSize="50"
+                                           Foreground="{ThemeResource TumBlueBrush}"
+                                           Text="&#xE73E;"/>
+                                <TextBlock Grid.Row="1"
+                                           HorizontalAlignment="Center"
+                                           Text="Success!"/>
+                            </Grid>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <controls:IconButtonControl x:Name="done3_ibtn"
+                                                            Grid.Column="2"
+                                                            Margin="0,0,0,1"
+                                                            Click="done3_ibtn_Click"
+                                                            Glyph="&#xE8FB;"
+                                                            GlyphForeground="Green"
+                                                            Text="Done"/>
                             </Grid>
                         </StackPanel>
                     </Border>
                 </controls1:DropShadowPanel>
             </Grid>
         </ScrollViewer>
+
+        <controls1:InAppNotification x:Name="info_ian"
+                                     Grid.Row="2"
+                                     VerticalAlignment="Bottom"
+                                     ShowDismissButton="True"
+                                     StackMode="Replace"/>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="States">
+                <VisualState x:Name="State_1">
+                    <VisualState.Setters>
+                        <Setter Target="step1_dsp.Visibility" Value="Visible"/>
+                        <Setter Target="step2_dsp.Visibility" Value="Collapsed"/>
+                        <Setter Target="step3_dsp.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="State_2">
+                    <VisualState.Setters>
+                        <Setter Target="step1_dsp.Visibility" Value="Collapsed"/>
+                        <Setter Target="step2_dsp.Visibility" Value="Visible"/>
+                        <Setter Target="step3_dsp.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="State_3">
+                    <VisualState.Setters>
+                        <Setter Target="step1_dsp.Visibility" Value="Collapsed"/>
+                        <Setter Target="step2_dsp.Visibility" Value="Collapsed"/>
+                        <Setter Target="step3_dsp.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

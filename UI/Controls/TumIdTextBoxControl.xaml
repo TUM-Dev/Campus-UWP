@@ -14,8 +14,10 @@
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0"
                  Header="{x:Bind Header, Mode=OneWay}"
+                 KeyDown="TextBox_KeyDown"
                  PlaceholderText="ab12xyz"
-                 Text="{x:Bind Text, Mode=OneWay}"/>
+                 Text="{x:Bind VIEW_MODEL.MODEL.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 TextChanging="TextBox_TextChanging"/>
         <controls:IconTextBlockControl Grid.Row="1"
                                        Margin="0,5,0,0"
                                        Glyph="&#xE783;"

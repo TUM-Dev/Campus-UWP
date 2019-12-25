@@ -55,7 +55,7 @@ namespace UI
         /// <summary>
         /// Sets the log level for the logger class.
         /// </summary>
-        private void InitLogger()
+        private static void InitLogger()
         {
             object o = Settings.getSetting(SettingsConsts.LOG_LEVEL);
             if (o is int)
@@ -67,6 +67,8 @@ namespace UI
                 Settings.setSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.INFO);
                 Logger.logLevel = LogLevel.INFO;
             }
+            Logger.logLevel = LogLevel.DEBUG;
+            Settings.setSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.DEBUG);
         }
 
         private void OnActivatedOrLaunched(IActivatedEventArgs args)

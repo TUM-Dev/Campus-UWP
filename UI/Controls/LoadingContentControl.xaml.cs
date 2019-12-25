@@ -1,42 +1,31 @@
-﻿using Shared.Classes;
-using TumOnline.Classes.Managers;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Templates.Controls
+namespace UI.Controls
 {
-    public class TumIdTextBoxControlTemplate: AbstractDataTemplate
+    public sealed partial class LoadingContentControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private string _Text;
         public string Text
         {
-            get => _Text;
-            set => SetTextProperty(value);
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
-
-        private bool _IsValid;
-        public bool IsValid
-        {
-            get => _IsValid;
-            set => SetProperty(ref _IsValid, value);
-        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(LoadingContentControl), new PropertyMetadata("Loading..."));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public LoadingContentControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private void SetTextProperty(string value)
-        {
-            value = value.ToLowerInvariant();
-            if (SetProperty(ref _Text, value, nameof(Text)))
-            {
-                IsValid = AccessManager.IsTumIdValid(value);
-            }
-        }
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

@@ -17,7 +17,7 @@ namespace TumOnline.Classes
 
         // A Set of predefined services for TUMonline with their validity:
         public static readonly TumOnlineService REQUEST_TOKEN = new TumOnlineService("requestToken", VALIDITY_NONE);
-        public static readonly TumOnlineService TOKEN_CONFIRMED = new TumOnlineService("isTokenConfirmed", VALIDITY_NONE);
+        public static readonly TumOnlineService TOKEN_ACTIVATED = new TumOnlineService("isTokenConfirmed", VALIDITY_NONE);
 
         public static readonly TumOnlineService CALENDAR = new TumOnlineService("kalender", VALIDITY_FIVE_DAYS);
         public static readonly TumOnlineService TUITION_FEE_STATUS = new TumOnlineService("studienbeitragsstatus", VALIDITY_TWO_DAYS);

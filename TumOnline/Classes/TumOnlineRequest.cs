@@ -78,7 +78,7 @@ namespace TumOnline.Classes
         private Uri BuildUri()
         {
             string query = string.Join("&", QUERY.Keys.Select(key => !string.IsNullOrWhiteSpace(QUERY[key]) ? string.Format("{0}={1}", WebUtility.UrlEncode(key), WebUtility.UrlEncode(QUERY[key])) : WebUtility.UrlEncode(key)));
-            UriBuilder builder = new UriBuilder(SERVICE_BASE_URL)
+            UriBuilder builder = new UriBuilder(SERVICE_BASE_URL + SERVICE.NAME)
             {
                 Query = query
             };
@@ -87,6 +87,7 @@ namespace TumOnline.Classes
 
         private async Task<string> RequestStringAsync(Uri uri, bool checkCached)
         {
+            Logger.Debug("[" + nameof(TumOnlineRequest) + "] Request: " + uri.ToString());
             if (checkCached)
             {
                 // TODO check if the request has been cached
@@ -115,6 +116,7 @@ namespace TumOnline.Classes
                     {
                         // TODO cache result
                     }
+                    Logger.Debug("[" + nameof(TumOnlineRequest) + "] Response: " + result);
                     return result;
                 }
             }

@@ -132,6 +132,9 @@
     <Compile Include="Controls\IconTextBlockControl.xaml.cs">
       <DependentUpon>IconTextBlockControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LoadingContentControl.xaml.cs">
+      <DependentUpon>LoadingContentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TumIdTextBoxControl.xaml.cs">
       <DependentUpon>TumIdTextBoxControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +207,9 @@
     <Content Include="Assets\Store\StoreLogo.scale-150.png" />
     <Content Include="Assets\Store\StoreLogo.scale-200.png" />
     <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\TUMonline\TUMonline_Token_Activation.png" />
+    <Content Include="Assets\TUMonline\TUMonline_Token_Activation_2.png" />
+    <Content Include="Assets\TUMonline\TUMonline_Token_Management_Section.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />
@@ -230,6 +237,10 @@
     <Page Include="Controls\IconTextBlockControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LoadingContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TumIdTextBoxControl.xaml">
       <SubType>Designer</SubType>
