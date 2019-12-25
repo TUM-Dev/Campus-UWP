@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace UI.Pages
 {
@@ -39,7 +40,15 @@ namespace UI.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            titleBar.OnPageNavigatedTo();
+        }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            titleBar.OnPageNavigatedFrom();
+        }
 
         #endregion
     }
