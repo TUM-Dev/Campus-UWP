@@ -20,7 +20,7 @@ namespace UI_Context.Classes
             set
             {
                 _RootTheme = value;
-                Settings.setSetting(SettingsConsts.APP_REQUESTED_THEME, value.ToString());
+                Settings.SetSetting(SettingsConsts.APP_REQUESTED_THEME, value.ToString());
 
                 if (Window.Current.Content is FrameworkElement rootElement)
                 {
@@ -211,7 +211,7 @@ namespace UI_Context.Classes
         {
             ElementTheme theme = ElementTheme.Default;
 
-            string themeString = Settings.getSettingString(SettingsConsts.APP_REQUESTED_THEME);
+            string themeString = Settings.GetSettingString(SettingsConsts.APP_REQUESTED_THEME);
             if (themeString != null)
             {
                 Enum.TryParse(themeString, out theme);

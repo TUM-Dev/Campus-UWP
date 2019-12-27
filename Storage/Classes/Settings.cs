@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace Storage.Classes
 {
@@ -24,7 +24,7 @@ namespace Storage.Classes
         /// </summary>
         /// <param name="token">The token for saving.</param>
         /// <param name="value">The value that should get stored.</param>
-        public static void setSetting(string token, object value)
+        public static void SetSetting(string token, object value)
         {
             Windows.Storage.ApplicationData.Current.LocalSettings.Values[token] = value;
             SettingChanged?.Invoke(value, new PropertyChangedEventArgs(token));
@@ -35,7 +35,7 @@ namespace Storage.Classes
         /// </summary>
         /// <param name="token">The token for the setting.</param>
         /// <returns>Returns the setting behind the given token.</returns>
-        public static object getSetting(string token)
+        public static object GetSetting(string token)
         {
             try
             {
@@ -47,69 +47,69 @@ namespace Storage.Classes
             }
         }
 
-        public static bool getSettingBoolean(string token)
+        public static bool GetSettingBoolean(string token)
         {
-            return getSettingBoolean(token, false);
+            return GetSettingBoolean(token, false);
         }
 
-        public static bool getSettingBoolean(string token, bool fallBackValue)
+        public static bool GetSettingBoolean(string token, bool fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (bool)obj;
         }
 
-        public static string getSettingString(string token)
+        public static string GetSettingString(string token)
         {
-            return getSettingString(token, null);
+            return GetSettingString(token, null);
         }
 
-        public static string getSettingString(string token, string fallBackValue)
+        public static string GetSettingString(string token, string fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (string)obj;
         }
 
-        public static byte getSettingByte(string token)
+        public static byte GetSettingByte(string token)
         {
-            return getSettingByte(token, 0);
+            return GetSettingByte(token, 0);
         }
 
-        public static byte getSettingByte(string token, byte fallBackValue)
+        public static byte GetSettingByte(string token, byte fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (byte)obj;
         }
 
-        public static int getSettingInt(string token)
+        public static int GetSettingInt(string token)
         {
-            return getSettingInt(token, -1);
+            return GetSettingInt(token, -1);
         }
 
-        public static int getSettingInt(string token, int fallBackValue)
+        public static int GetSettingInt(string token, int fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (int)obj;
         }
 
-        public static ushort getSettingUshort(string token)
+        public static ushort GetSettingUshort(string token)
         {
-            return getSettingUshort(token, 0);
+            return GetSettingUshort(token, 0);
         }
 
-        public static ushort getSettingUshort(string token, ushort fallBackValue)
+        public static ushort GetSettingUshort(string token, ushort fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (ushort)obj;
         }
 
-        public static double getSettingDouble(string token)
+        public static double GetSettingDouble(string token)
         {
-            return getSettingDouble(token, -1);
+            return GetSettingDouble(token, -1);
         }
 
-        public static double getSettingDouble(string token, double fallBackValue)
+        public static double GetSettingDouble(string token, double fallBackValue)
         {
-            object obj = getSetting(token);
+            object obj = GetSetting(token);
             return obj is null ? fallBackValue : (double)obj;
         }
 

@@ -164,13 +164,13 @@ namespace UI.Pages
 
         private void PerformInitialStartSetup()
         {
-            Storage.Classes.Settings.setSetting(SettingsConsts.INITIALLY_STARTED, true);
+            Storage.Classes.Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, true);
         }
 
         private void EvaluateActivationArgs()
         {
             // Initially started?
-            if (Storage.Classes.Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED))
+            if (Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.INITIALLY_STARTED))
             {
                 if (ACTIVATION_ARGS is ProtocolActivatedEventArgs protocolActivationArgs)
                 {

@@ -57,18 +57,18 @@ namespace UI
         /// </summary>
         private static void InitLogger()
         {
-            object o = Settings.getSetting(SettingsConsts.LOG_LEVEL);
+            object o = Settings.GetSetting(SettingsConsts.LOG_LEVEL);
             if (o is int)
             {
                 Logger.logLevel = (LogLevel)o;
             }
             else
             {
-                Settings.setSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.INFO);
+                Settings.SetSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.INFO);
                 Logger.logLevel = LogLevel.INFO;
             }
             Logger.logLevel = LogLevel.DEBUG;
-            Settings.setSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.DEBUG);
+            Settings.SetSetting(SettingsConsts.LOG_LEVEL, (int)LogLevel.DEBUG);
         }
 
         private void OnActivatedOrLaunched(IActivatedEventArgs args)
