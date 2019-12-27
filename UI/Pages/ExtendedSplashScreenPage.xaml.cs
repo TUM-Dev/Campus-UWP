@@ -164,40 +164,42 @@ namespace UI.Pages
 
         private void PerformInitialStartSetup()
         {
-            Settings.setSetting(SettingsConsts.INITIALLY_STARTED, true);
+            Storage.Classes.Settings.setSetting(SettingsConsts.INITIALLY_STARTED, true);
         }
 
         private void EvaluateActivationArgs()
         {
             // Initially started?
-            if (!Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED) || true)
+            if (Storage.Classes.Settings.getSettingBoolean(SettingsConsts.INITIALLY_STARTED))
+            {
+                if (ACTIVATION_ARGS is ProtocolActivatedEventArgs protocolActivationArgs)
+                {
+                    Logger.Info("App activated by protocol activation with: " + protocolActivationArgs.Uri.ToString());
+                    ROOT_FRAME.Navigate(typeof(MainPage));
+                }
+                else if (ACTIVATION_ARGS is ToastNotificationActivatedEventArgs toastActivationArgs)
+                {
+                    Logger.Info("App activated by toast with: " + toastActivationArgs.Argument);
+                    ROOT_FRAME.Navigate(typeof(MainPage));
+                }
+                else if (ACTIVATION_ARGS is LaunchActivatedEventArgs launchActivationArgs)
+                {
+                    // If launched with arguments (not a normal primary tile/applist launch)
+                    if (launchActivationArgs.Arguments.Length > 0)
+                    {
+                        Logger.Debug(launchActivationArgs.Arguments);
+                        // TODO: Handle arguments for cases = launching from secondary Tile, so we navigate to the correct page
+                        //throw new NotImplementedException();
+                    }
+
+                    // If we're currently not on a page, navigate to the main page
+                    ROOT_FRAME.Navigate(typeof(MainPage));
+                }
+            }
+            else
             {
                 PerformInitialStartSetup();
-
                 ROOT_FRAME.Navigate(typeof(SetupPage), typeof(MainPage));
-            }
-            else if (ACTIVATION_ARGS is ProtocolActivatedEventArgs protocolActivationArgs)
-            {
-                Logger.Info("App activated by protocol activation with: " + protocolActivationArgs.Uri.ToString());
-                ROOT_FRAME.Navigate(typeof(MainPage));
-            }
-            else if (ACTIVATION_ARGS is ToastNotificationActivatedEventArgs toastActivationArgs)
-            {
-                Logger.Info("App activated by toast with: " + toastActivationArgs.Argument);
-                ROOT_FRAME.Navigate(typeof(MainPage));
-            }
-            else if (ACTIVATION_ARGS is LaunchActivatedEventArgs launchActivationArgs)
-            {
-                // If launched with arguments (not a normal primary tile/applist launch)
-                if (launchActivationArgs.Arguments.Length > 0)
-                {
-                    Logger.Debug(launchActivationArgs.Arguments);
-                    // TODO: Handle arguments for cases = launching from secondary Tile, so we navigate to the correct page
-                    //throw new NotImplementedException();
-                }
-
-                // If we're currently not on a page, navigate to the main page
-                ROOT_FRAME.Navigate(typeof(MainPage));
             }
         }
 

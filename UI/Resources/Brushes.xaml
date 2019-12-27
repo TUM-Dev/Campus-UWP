@@ -117,6 +117,12 @@
     <media:BackdropBlurBrush x:Key="SystemControlPageBackgroundMediumAltMediumBrush"
                              Amount="6.0"/>
 
+    <!--  Navigation View Pane Background  -->
+    <StaticResource x:Key="NavigationViewExpandedPaneBackground"
+                    ResourceKey="AppBackgroundAcrylicElementBrush"/>
+    <StaticResource x:Key="NavigationViewDefaultPaneBackground"
+                    ResourceKey="AppBackgroundAcrylicElementBrush"/>
+
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
             <Color x:Key="DropShadowColor">#FF000000</Color>
@@ -148,6 +154,7 @@
                                  TintOpacity="0.6"/>
             <SolidColorBrush x:Key="CaptionTextBrush"
                              Color="#99000000"/>
+
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

@@ -122,8 +122,12 @@
   <ItemGroup>
     <Compile Include="Classes\AppUpdateHelper.cs" />
     <Compile Include="Classes\Context\Controls\TumIdTextBoxControlContext.cs" />
+    <Compile Include="Classes\Context\Pages\HomePageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Settings\SettingsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Settings\SettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\SetupPageTemplate.cs" />
     <Compile Include="Classes\ThemeUtils.cs" />
     <Compile Include="Classes\UiUtils.cs" />
@@ -137,6 +141,11 @@
     <EmbeddedResource Include="Properties\UI_Context.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.9.8</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
@@ -169,6 +178,10 @@
     <SDKReference Include="WindowsMobile, Version=10.0.18362.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\Context\Pages\Content\" />
+    <Folder Include="Classes\Templates\Pages\Content\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

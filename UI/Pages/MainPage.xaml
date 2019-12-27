@@ -15,14 +15,76 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!--  Content:  -->
+        <controls1:NavigationView Grid.Row="1"
+                                  IsBackButtonVisible="Collapsed"
+                                  PaneDisplayMode="Left"
+                                  Loaded="NavigationView_Loaded"
+                                  ItemInvoked="NavigationView_ItemInvoked">
+            <controls1:NavigationView.MenuItems>
+                <controls1:NavigationViewItemHeader Content="My TUM"
+                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
+                <controls1:NavigationViewItem x:Name="calendar_navItem"
+                                              Content="Calendar">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE787;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="lectures_navItem"
+                                              Content="Lectures">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEE56;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="grades_navItem"
+                                              Content="Grades">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEADF;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="tuitionFees_navItem"
+                                              Content="Tuition Fees">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Symbol"
+                                  Glyph="&#x1F4B2;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItemHeader Content="General TUM"
+                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
+                <controls1:NavigationViewItem x:Name="home_navItem"
+                                              Content="Home">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="canteens_navItem"
+                                              Content="Canteens">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe UI Symbol"
+                                  Glyph="&#x1F374;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="news_navItem"
+                                              Content="News">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE701;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="studyRooms_navItem"
+                                              Content="Study Rooms">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE762;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItemHeader Content="Quick Links"
+                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
+            </controls1:NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </controls1:NavigationView>
+
         <!--  Header:  -->
         <controls:CustomTitleBarControl x:Name="titleBar"
                                         Grid.Row="0"
                                         Frame="{x:Bind Frame, Mode=OneWay}"/>
-
-        <!--  Content:  -->
-        <controls1:NavigationView Grid.Row="1"
-                                  IsBackButtonVisible="Collapsed"/>
-
     </Grid>
 </Page>
