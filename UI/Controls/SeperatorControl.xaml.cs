@@ -1,20 +1,26 @@
-﻿using Logging.Classes;
-using Storage.Classes;
-using UI_Context.Classes.Templates.Pages.Settings;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Context.Pages.Settings
+namespace UI.Controls
 {
-    public class SettingsPageContext
+    public sealed partial class SeperatorControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SettingsPageTemplate MODEL = new SettingsPageTemplate();
-        private int versionTappCount = 0;
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(SeperatorControl), new PropertyMetadata(""));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public SeperatorControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,26 +30,7 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void OnVersionTextTapped()
-        {
-            versionTappCount++;
-            if (versionTappCount >= 5)
-            {
-                versionTappCount = 0;
 
-                bool debugSettingsEnabled = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DEBUG_SETTINGS_ENABLED);
-                Storage.Classes.Settings.SetSetting(SettingsConsts.DEBUG_SETTINGS_ENABLED, debugSettingsEnabled);
-                MODEL.DebugSettingsEnabled = debugSettingsEnabled;
-                if (debugSettingsEnabled)
-                {
-                    Logger.Info("Debug settings enabled.");
-                }
-                else
-                {
-                    Logger.Info("Debug settings disabled.");
-                }
-            }
-        }
 
         #endregion
 

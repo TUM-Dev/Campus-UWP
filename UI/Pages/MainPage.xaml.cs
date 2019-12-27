@@ -1,6 +1,7 @@
 ﻿using System;
 using UI.Pages.Content;
 using UI.Pages.Settings;
+using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -19,6 +20,7 @@ namespace UI.Pages
         public MainPage()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         #endregion
@@ -56,16 +58,18 @@ namespace UI.Pages
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
+            if (args.IsSettingsInvoked)
+            {
+                UiUtils.NavigateToPage(typeof(SettingsPage));
+                return;
+            }
+
             FrameNavigationOptions navOptions = new FrameNavigationOptions
             {
                 TransitionInfoOverride = args.RecommendedNavigationTransitionInfo
             };
             Type targetPage = null;
-            if (args.IsSettingsInvoked)
-            {
-                targetPage = typeof(SettingsPage);
-            }
-            else if (args.InvokedItemContainer == calendar_navItem)
+            if (args.InvokedItemContainer == calendar_navItem)
             {
 
             }

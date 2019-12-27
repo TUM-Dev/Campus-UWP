@@ -121,13 +121,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\AppUpdateHelper.cs" />
+    <Compile Include="Classes\Context\Controls\Settings\SettingsPageButtonTemplate.cs" />
     <Compile Include="Classes\Context\Controls\TumIdTextBoxControlContext.cs" />
     <Compile Include="Classes\Context\Pages\HomePageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Settings\DebugSettingsPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Settings\GeneralSettingsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Settings\SettingsPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Settings\TumOnlineSettingsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Settings\GeneralSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\SettingsPageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Settings\TumOnlineSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\SetupPageTemplate.cs" />
     <Compile Include="Classes\ThemeUtils.cs" />
     <Compile Include="Classes\UiUtils.cs" />

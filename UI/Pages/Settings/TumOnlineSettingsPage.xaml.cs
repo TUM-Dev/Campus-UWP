@@ -1,20 +1,21 @@
-﻿using Logging.Classes;
-using Storage.Classes;
-using UI_Context.Classes.Templates.Pages.Settings;
+﻿using UI_Context.Classes.Context.Pages.Settings;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Context.Pages.Settings
+namespace UI.Pages.Settings
 {
-    public class SettingsPageContext
+    public sealed partial class TumOnlineSettingsPage: Page
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SettingsPageTemplate MODEL = new SettingsPageTemplate();
-        private int versionTappCount = 0;
+        public readonly TumOnlineSettingsPageContext VIEW_MODEL = new TumOnlineSettingsPageContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public TumOnlineSettingsPage()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,26 +25,7 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void OnVersionTextTapped()
-        {
-            versionTappCount++;
-            if (versionTappCount >= 5)
-            {
-                versionTappCount = 0;
 
-                bool debugSettingsEnabled = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DEBUG_SETTINGS_ENABLED);
-                Storage.Classes.Settings.SetSetting(SettingsConsts.DEBUG_SETTINGS_ENABLED, debugSettingsEnabled);
-                MODEL.DebugSettingsEnabled = debugSettingsEnabled;
-                if (debugSettingsEnabled)
-                {
-                    Logger.Info("Debug settings enabled.");
-                }
-                else
-                {
-                    Logger.Info("Debug settings disabled.");
-                }
-            }
-        }
 
         #endregion
 

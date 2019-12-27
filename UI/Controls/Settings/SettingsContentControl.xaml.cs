@@ -1,20 +1,33 @@
-﻿using Logging.Classes;
-using Storage.Classes;
-using UI_Context.Classes.Templates.Pages.Settings;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Context.Pages.Settings
+namespace UI.Controls.Settings
 {
-    public class SettingsPageContext
+    public sealed partial class SettingsContentControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SettingsPageTemplate MODEL = new SettingsPageTemplate();
-        private int versionTappCount = 0;
+        public string Header
+        {
+            get => (string)GetValue(HeaderProperty);
+            set => SetValue(HeaderProperty, value);
+        }
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(string), typeof(SettingsContentControl), new PropertyMetadata(""));
+
+        public object MainContent
+        {
+            get => GetValue(MainContentProperty);
+            set => SetValue(MainContentProperty, value);
+        }
+        public static readonly DependencyProperty MainContentProperty = DependencyProperty.Register(nameof(MainContent), typeof(object), typeof(SettingsContentControl), new PropertyMetadata(null));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public SettingsContentControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,26 +37,7 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void OnVersionTextTapped()
-        {
-            versionTappCount++;
-            if (versionTappCount >= 5)
-            {
-                versionTappCount = 0;
 
-                bool debugSettingsEnabled = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DEBUG_SETTINGS_ENABLED);
-                Storage.Classes.Settings.SetSetting(SettingsConsts.DEBUG_SETTINGS_ENABLED, debugSettingsEnabled);
-                MODEL.DebugSettingsEnabled = debugSettingsEnabled;
-                if (debugSettingsEnabled)
-                {
-                    Logger.Info("Debug settings enabled.");
-                }
-                else
-                {
-                    Logger.Info("Debug settings disabled.");
-                }
-            }
-        }
 
         #endregion
 

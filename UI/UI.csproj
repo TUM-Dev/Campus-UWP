@@ -135,9 +135,25 @@
     <Compile Include="Controls\LoadingContentControl.xaml.cs">
       <DependentUpon>LoadingContentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SeperatorControl.xaml.cs">
+      <DependentUpon>SeperatorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsContentControl.xaml.cs">
+      <DependentUpon>SettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsSelectionLargeControl.xaml.cs">
+      <DependentUpon>SettingsSelectionLargeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsSelectionSmallControl.xaml.cs">
+      <DependentUpon>SettingsSelectionSmallControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsTitleBarControl.xaml.cs">
+      <DependentUpon>SettingsTitleBarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TumIdTextBoxControl.xaml.cs">
       <DependentUpon>TumIdTextBoxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -147,8 +163,17 @@
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\DebugSettingsPage.xaml.cs">
+      <DependentUpon>DebugSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\GeneralSettingsPage.xaml.cs">
+      <DependentUpon>GeneralSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TumOnlineSettingsPage.xaml.cs">
+      <DependentUpon>TumOnlineSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
@@ -248,6 +273,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SeperatorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\SettingsContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\SettingsSelectionLargeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\SettingsSelectionSmallControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\SettingsTitleBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TumIdTextBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,7 +309,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Settings\DebugSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\GeneralSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TumOnlineSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,7 +337,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles\SettingsNavigationViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SettingsTitleBarButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\GeneralStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SettingsButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

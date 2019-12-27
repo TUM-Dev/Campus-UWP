@@ -1,15 +1,15 @@
-﻿using Logging.Classes;
-using Storage.Classes;
-using UI_Context.Classes.Templates.Pages.Settings;
+﻿using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
-namespace UI_Context.Classes.Context.Pages.Settings
+namespace UI.Extensions
 {
-    public class SettingsPageContext
+    public static class ScrollViewerExtensions
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly SettingsPageTemplate MODEL = new SettingsPageTemplate();
-        private int versionTappCount = 0;
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,25 +24,18 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void OnVersionTextTapped()
+        public static void ScrollIntoViewVertically(this ScrollViewer scrollViewer, UIElement element, bool disableAnimation)
         {
-            versionTappCount++;
-            if (versionTappCount >= 5)
-            {
-                versionTappCount = 0;
+            GeneralTransform visual = element.TransformToVisual((UIElement)scrollViewer.Content);
+            Point pos = visual.TransformPoint(new Point(0, 0));
+            scrollViewer.ChangeView(null, pos.Y, null, disableAnimation);
+        }
 
-                bool debugSettingsEnabled = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DEBUG_SETTINGS_ENABLED);
-                Storage.Classes.Settings.SetSetting(SettingsConsts.DEBUG_SETTINGS_ENABLED, debugSettingsEnabled);
-                MODEL.DebugSettingsEnabled = debugSettingsEnabled;
-                if (debugSettingsEnabled)
-                {
-                    Logger.Info("Debug settings enabled.");
-                }
-                else
-                {
-                    Logger.Info("Debug settings disabled.");
-                }
-            }
+        public static void ScrollIntoViewHorizontally(this ScrollViewer scrollViewer, UIElement element, bool disableAnimation)
+        {
+            GeneralTransform visual = element.TransformToVisual((UIElement)scrollViewer.Content);
+            Point pos = visual.TransformPoint(new Point(0, 0));
+            scrollViewer.ChangeView(pos.X, null, null, disableAnimation);
         }
 
         #endregion
