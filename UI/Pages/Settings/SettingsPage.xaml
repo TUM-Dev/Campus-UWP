@@ -5,7 +5,7 @@
       xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:controlsSettings="using:UI.Controls.Settings"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:datatemplates="using:UI_Context.Classes.Context.Controls.Settings"
+      xmlns:datatemplates="using:UI_Context.Classes.Templates.Controls.Settings"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">

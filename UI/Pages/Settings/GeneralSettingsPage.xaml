@@ -1,13 +1,177 @@
-﻿<Page
-    x:Class="UI.Pages.Settings.GeneralSettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI.Pages.Settings"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="UI.Pages.Settings.GeneralSettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controlsComp="using:Microsoft.UI.Xaml.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:settings="using:UI.Controls.Settings"
+      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+      mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/SettingsNavigationViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--  Content:  -->
+        <controlsComp:NavigationView x:Name="main_nview"
+                                     Grid.Row="1"
+                                     Loaded="Main_nview_Loaded"
+                                     SelectionChanged="Main_nview_SelectionChanged"
+                                     Style="{StaticResource SettingsNavigationViewStyle}">
+            <controlsComp:NavigationView.MenuItems>
+                <controlsComp:NavigationViewItem x:Name="logs_navItem"
+                                                 Content="Logs"
+                                                 Icon="List"/>
+                <controlsComp:NavigationViewItem x:Name="analytics_navItem"
+                                                 Content="Analytics and crash reporting"
+                                                 Icon="Admin"/>
+                <controlsComp:NavigationViewItem x:Name="misc_navItem"
+                                                 Content="Misc"
+                                                 Icon="Setting"/>
+                <controlsComp:NavigationViewItem x:Name="about_navItem"
+                                                 Content="About and links"
+                                                 Icon="Emoji2"/>
+            </controlsComp:NavigationView.MenuItems>
+            <ScrollViewer x:Name="main_scv"
+                          HorizontalScrollMode="Disabled"
+                          VerticalScrollBarVisibility="Hidden"
+                          VerticalScrollMode="Auto">
+                <StackPanel>
+                    <!--  Logs:  -->
+                    <settings:SettingsContentControl x:Name="logs_scp"
+                                                     Header="Logs:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <settings:LogLevelControl Margin="0,10,0,0"/>
+                                <Button x:Name="exportLogs_btn"
+                                        Margin="0,10,0,0"
+                                        Click="ExportLogs_btn_Click"
+                                        Content="Export logs"/>
+                                <StackPanel Margin="0,10,0,0"
+                                            Orientation="Horizontal">
+                                    <Button x:Name="deleteLogs_btn"
+                                            Margin="0"
+                                            Click="DeleteLogs_btn_Click"
+                                            Content="Delete logs"/>
+                                    <settings:FolderSizeControl x:Name="logsFolder_fsc"
+                                                                Margin="10,0,0,0"
+                                                                VerticalAlignment="Center"
+                                                                FolderPath="{x:Bind VIEW_MODEL.MODEL.LogFolderPath, Mode=OneWay}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+
+                    <!--  Analytics:  -->
+                    <settings:SettingsContentControl x:Name="analytics_scp"
+                                                     Header="Analytics and crash reporting:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <ToggleSwitch Margin="0,10,0,0"
+                                              Header="Crash reporting"
+                                              IsOn="{x:Bind VIEW_MODEL.MODEL.CrashReports, Mode=TwoWay}"
+                                              OffContent="Disabled 😥"
+                                              OnContent="Enabled"/>
+                                <ToggleSwitch Header="Analytics"
+                                              IsOn="{x:Bind VIEW_MODEL.MODEL.Analytics, Mode=TwoWay}"
+                                              OffContent="Disabled 😥"
+                                              OnContent="Enabled"/>
+                                <HyperlinkButton x:Name="moreInformation_hlb"
+                                                 Content="More information"
+                                                 Tapped="MoreInformation_hlb_Tapped"/>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+
+                    <!--  Misc:  -->
+                    <settings:SettingsContentControl x:Name="misc_scp"
+                                                     Header="Misc:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <ToggleSwitch Margin="0,10,0,0"
+                                              Header="Show what's new dialog on startup"
+                                              IsOn="{x:Bind VIEW_MODEL.MODEL.ShowWhatsNewDialogOnStartup, Mode=TwoWay}"/>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+
+                    <!--  About and Links:  -->
+                    <settings:SettingsContentControl x:Name="about_scp"
+                                                     Header="About and links:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style BasedOn="{StaticResource ButtonRevealStyle}"
+                                           TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Margin" Value="0,0,0,0"/>
+                                    </Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="Margin" Value="10,0,0,0"/>
+                                    </Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Height" Value="20"/>
+                                    </Style>
+                                    <Style TargetType="FontIcon">
+                                        <Setter Property="FontSize" Value="20"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Button x:Name="viewOnGitHub_btn"
+                                        Margin="0,10,0,0"
+                                        Click="ViewOnGitHub_btn_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="ms-appx:///Assets/Misc/github_mark.png"/>
+                                        <TextBlock Text="View on GitHub"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="reportBug_btn"
+                                        Click="ReportBug_btn_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xEBE8;"/>
+                                        <TextBlock Text="Report bugs"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="license_btn"
+                                        Click="License_btn_Click">
+                                    <TextBlock Margin="0">
+                                        <Run FontFamily="Segoe UI"
+                                             Text="&#xA9;"/>
+                                        <Run Text=" View license"/>
+                                    </TextBlock>
+                                </Button>
+                                <Button x:Name="privacyPolicy_btn"
+                                        Click="PrivacyPolicy_btn_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE72E;"/>
+                                        <TextBlock Text="View privacy policy"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+                </StackPanel>
+            </ScrollViewer>
+        </controlsComp:NavigationView>
+
+        <!--  Header:  -->
+        <!--  Has to be bellow content to correctly draw the drop shadow.  -->
+        <settings:SettingsTitleBarControl x:Name="titleBar"
+                                          Grid.Row="0"
+                                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                                          Frame="{x:Bind Frame, Mode=OneWay}"
+                                          Glyph="&#xEBE8;"
+                                          Text="Debug"/>
     </Grid>
 </Page>

@@ -29,22 +29,28 @@
                                      SelectionChanged="Main_nview_SelectionChanged"
                                      Style="{StaticResource SettingsNavigationViewStyle}">
             <controlsComp:NavigationView.MenuItems>
-                <controlsComp:NavigationViewItem x:Name="debug_navItem"
-                                                 Content="Debug"
-                                                 Icon="Globe"/>
+                <controlsComp:NavigationViewItem x:Name="misc_navItem"
+                                                 Content="Misc">
+                    <controlsComp:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE713;"/>
+                    </controlsComp:NavigationViewItem.Icon>
+                </controlsComp:NavigationViewItem>
             </controlsComp:NavigationView.MenuItems>
             <ScrollViewer x:Name="main_scv"
                           HorizontalScrollMode="Disabled"
                           VerticalScrollBarVisibility="Hidden"
                           VerticalScrollMode="Auto">
                 <StackPanel>
-                    <!--  Data:  -->
-                    <settings:SettingsContentControl x:Name="data_scp"
-                                                     Header="Debug:">
+                    <!--  Misc:  -->
+                    <settings:SettingsContentControl x:Name="misc_scp"
+                                                     Header="Misc:">
                         <settings:SettingsContentControl.MainContent>
                             <StackPanel>
-                                <TextBlock Margin="0,10,0,0"
-                                           Text="ToDo: Add settings here."/>
+                                <Button x:Name="openAppDataFolder_btn"
+                                        Margin="0,10,0,0"
+                                        Click="OpenAppDataFolder_btn_Click"
+                                        Content="Open app data folder (PC only)"
+                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsRunningOnPc, Mode=OneWay}"/>
                             </StackPanel>
                         </settings:SettingsContentControl.MainContent>
                     </settings:SettingsContentControl>

@@ -1,36 +1,14 @@
-﻿using System;
-using Shared.Classes;
+﻿using System.Threading.Tasks;
+using UI_Context.Classes.Templates.Controls.Settings;
+using Windows.UI.Xaml;
 
 namespace UI_Context.Classes.Context.Controls.Settings
 {
-    public class SettingsPageButtonTemplate: AbstractDataTemplate
+    public sealed class FolderSizeControlContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private string _Name;
-        public string Name
-        {
-            get => _Name;
-            set => SetProperty(ref _Name, value);
-        }
-        private string _Description;
-        public string Description
-        {
-            get => _Description;
-            set => SetProperty(ref _Description, value);
-        }
-        private string _Glyph;
-        public string Glyph
-        {
-            get => _Glyph;
-            set => SetProperty(ref _Glyph, value);
-        }
-        private Type _NavTarget;
-        public Type NavTarget
-        {
-            get => _NavTarget;
-            set => SetProperty(ref _NavTarget, value);
-        }
+        public readonly FolderSizeControlTemplate MODEL = new FolderSizeControlTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -45,7 +23,19 @@ namespace UI_Context.Classes.Context.Controls.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public Task UpdateViewAsync(DependencyPropertyChangedEventArgs e)
+        {
+            if (!Equals(e.OldValue, e.NewValue) && e.NewValue is string path)
+            {
+                return MODEL.UpdateViewAsync(path);
+            }
+            return null;
+        }
 
+        public Task RecalculateFolderSizeAsync(string path)
+        {
+            return MODEL.UpdateViewAsync(path);
+        }
 
         #endregion
 

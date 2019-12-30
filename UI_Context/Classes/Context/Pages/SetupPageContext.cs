@@ -57,7 +57,7 @@ namespace UI_Context.Classes.Context.Pages
 
         public async Task OnWhatIsTumOnlineAsync()
         {
-            await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumOnlineUrl.Text")));
+            await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumOnlineUrl")));
         }
 
         public async Task OpenDefaultMailAppAsync()

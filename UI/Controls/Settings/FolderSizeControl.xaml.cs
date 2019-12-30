@@ -1,20 +1,28 @@
-﻿using UI.Extensions;
-using UI_Context.Classes.Context.Pages.Settings;
+﻿using System.Threading.Tasks;
+using Shared.Classes;
+using UI_Context.Classes.Context.Controls.Settings;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
-namespace UI.Pages.Settings
+namespace UI.Controls.Settings
 {
-    public sealed partial class DebugSettingsPage: Page
+    public sealed partial class FolderSizeControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly DebugSettingsPageContext VIEW_MODEL = new DebugSettingsPageContext();
+        public string FolderPath
+        {
+            get => (string)GetValue(FolderPathProperty);
+            set => SetValue(FolderPathProperty, value);
+        }
+        public static readonly DependencyProperty FolderPathProperty = DependencyProperty.Register(nameof(FolderPath), typeof(string), typeof(FolderSizeControl), new PropertyMetadata(null, OnFolderPathChanged));
+
+        private readonly FolderSizeControlContext VIEW_MODEL = new FolderSizeControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPage()
+        public FolderSizeControl()
         {
             InitializeComponent();
         }
@@ -27,12 +35,18 @@ namespace UI.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public Task RecalculateFolderSizeAsync()
+        {
+            return VIEW_MODEL.RecalculateFolderSizeAsync(FolderPath);
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private Task UpdateViewAsync(DependencyPropertyChangedEventArgs e)
+        {
+            return VIEW_MODEL.UpdateViewAsync(e);
+        }
 
         #endregion
 
@@ -42,32 +56,12 @@ namespace UI.Pages.Settings
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void Main_nview_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private static async void OnFolderPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (args.SelectedItem == misc_navItem)
+            if (d is FolderSizeControl folderSizeControl)
             {
-                ScrollViewerExtensions.ScrollIntoViewVertically(main_scv, misc_scp, false);
+                await folderSizeControl.UpdateViewAsync(e).ConfAwaitFalse();
             }
-        }
-
-        private void Main_nview_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            main_nview.SelectedItem = misc_navItem;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            titleBar.OnPageNavigatedTo();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            titleBar.OnPageNavigatedFrom();
-        }
-
-        private void OpenAppDataFolder_btn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-
         }
 
         #endregion

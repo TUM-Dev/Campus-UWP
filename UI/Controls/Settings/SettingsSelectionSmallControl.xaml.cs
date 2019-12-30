@@ -1,5 +1,5 @@
 ﻿using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Settings;
+using UI_Context.Classes.Templates.Controls.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

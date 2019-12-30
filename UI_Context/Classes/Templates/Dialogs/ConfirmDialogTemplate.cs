@@ -1,25 +1,22 @@
 ﻿using Shared.Classes;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI_Context.Classes.Templates.Dialogs
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public sealed class ConfirmDialogTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
+        private bool _Confirmed;
+        public bool Confirmed
         {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
+            get => _Confirmed;
+            set => SetProperty(ref _Confirmed, value);
         }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
-        {
-            LoadSettings();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -34,10 +31,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

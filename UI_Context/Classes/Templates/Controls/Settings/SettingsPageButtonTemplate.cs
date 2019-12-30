@@ -1,25 +1,41 @@
-﻿using Shared.Classes;
+﻿using System;
+using Shared.Classes;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI_Context.Classes.Templates.Controls.Settings
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public class SettingsPageButtonTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
+        private string _Name;
+        public string Name
         {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
+            get => _Name;
+            set => SetProperty(ref _Name, value);
+        }
+        private string _Description;
+        public string Description
+        {
+            get => _Description;
+            set => SetProperty(ref _Description, value);
+        }
+        private string _Glyph;
+        public string Glyph
+        {
+            get => _Glyph;
+            set => SetProperty(ref _Glyph, value);
+        }
+        private Type _NavTarget;
+        public Type NavTarget
+        {
+            get => _NavTarget;
+            set => SetProperty(ref _NavTarget, value);
         }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
-        {
-            LoadSettings();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -34,10 +50,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

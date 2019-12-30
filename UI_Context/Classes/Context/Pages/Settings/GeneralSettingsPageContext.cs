@@ -1,4 +1,9 @@
-﻿using UI_Context.Classes.Templates.Pages.Settings;
+﻿using System;
+using System.Threading.Tasks;
+using Logging.Classes;
+using Shared.Classes;
+using UI_Context.Classes.Context.Dialogs;
+using UI_Context.Classes.Templates.Pages.Settings;
 
 namespace UI_Context.Classes.Context.Pages.Settings
 {
@@ -21,7 +26,49 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public Task ExportLogsAsync()
+        {
+            return Logger.ExportLogsAsync();
+        }
 
+        public Task DeleteLogsAsync(ConfirmDialogContext viewModel)
+        {
+            if (viewModel.MODEL.Confirmed)
+            {
+                return Logger.DeleteLogsAsync();
+            }
+            return null;
+        }
+
+        public Task ShowAnalyticsCrashesMoreInformationAsync()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("PrivacyPolicyCrashReportsUrl")));
+        }
+
+        public Task ShowLicenceAsync()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("LicenseUrl")));
+        }
+
+        public Task ShowPrivacyPolicy()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("PrivacyPolicyUrl")));
+        }
+
+        public Task ViewOnGithubAsync()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("GitHubUrl")));
+        }
+
+        public Task ReportBugAsync()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("BugReportsUrl")));
+        }
+
+        public Task GiveFeedbackAsync()
+        {
+            return UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("FeedbackUrl")));
+        }
 
         #endregion
 

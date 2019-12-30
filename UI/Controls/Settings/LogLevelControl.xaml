@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="UI.Controls.Settings.LogLevelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:datatemplates="using:UI_Context.Classes.Templates.Controls.Settings"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:valueconverter="using:UI_Context.Classes.ValueConverter.Settings"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <valueconverter:LogLevelStringValueConverter x:Key="LogLevelStringValueConverter"/>
+
+        <DataTemplate x:Key="LogLevelTemplate"
+                      x:DataType="datatemplates:LogLevelDataTemplate">
+            <TextBlock Text="{x:Bind LogLevel, Mode=OneWay, Converter={StaticResource LogLevelStringValueConverter}}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ComboBox x:Name="logLevel_cbx"
+              VerticalAlignment="Center"
+              Header="Log-Level"
+              ItemTemplate="{StaticResource LogLevelTemplate}"
+              ItemsSource="{x:Bind VIEW_MODEL.MODEL.LOG_LEVELS}"
+              SelectedItem="{x:Bind VIEW_MODEL.MODEL.LogLevelSelectedItem, Mode=TwoWay}"/>
+</UserControl>

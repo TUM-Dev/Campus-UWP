@@ -1,25 +1,19 @@
-﻿using Shared.Classes;
+﻿using System;
+using System.Threading.Tasks;
+using UI_Context.Classes.Templates.Dialogs;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI_Context.Classes.Context.Dialogs
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public sealed class ConfirmDialogContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
-        {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
-        }
+        public readonly ConfirmDialogTemplate MODEL = new ConfirmDialogTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
-        {
-            LoadSettings();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -29,15 +23,25 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public void OnPositive()
+        {
+            MODEL.Confirmed = true;
+        }
 
+        public void OnNegative()
+        {
+            MODEL.Confirmed = false;
+        }
+
+        public Task OnLinkClickedAsync(string link)
+        {
+            return UiUtils.LaunchUriAsync(new Uri(link));
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

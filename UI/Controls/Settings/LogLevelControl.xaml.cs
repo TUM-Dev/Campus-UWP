@@ -1,24 +1,20 @@
-﻿using Shared.Classes;
+﻿using UI_Context.Classes.Context.Controls.Settings;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI.Controls.Settings
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public sealed partial class LogLevelControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
-        {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
-        }
+        public readonly LogLevelControlContext VIEW_MODEL = new LogLevelControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
+        public LogLevelControl()
         {
-            LoadSettings();
+            InitializeComponent();
         }
 
         #endregion
@@ -34,10 +30,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

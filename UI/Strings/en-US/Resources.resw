@@ -117,15 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SetupPage.RequestTokenFailed.Text" xml:space="preserve">
+  <data name="BugReportsUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
+  </data>
+  <data name="FeedbackUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
+  </data>
+  <data name="GitHubUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2</value>
+  </data>
+  <data name="LicenseUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/blob/v2/LICENSE</value>
+  </data>
+  <data name="PrivacyPolicyCrashReportsUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md#crash-reporting</value>
+  </data>
+  <data name="PrivacyPolicyUrl" xml:space="preserve">
+    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md</value>
+  </data>
+  <data name="SetupPage.RequestTokenFailed" xml:space="preserve">
     <value>Failed to request a new token. Please try again.
 View the logs for more information.</value>
   </data>
-  <data name="SetupPage.TokenActivationFailed.Text" xml:space="preserve">
+  <data name="SetupPage.TokenActivationFailed" xml:space="preserve">
     <value>Token has not been activated yet.
 View the logs for more information.</value>
   </data>
-  <data name="TumOnlineUrl.Text" xml:space="preserve">
+  <data name="TumOnlineUrl" xml:space="preserve">
     <value>https://campus.tum.de/</value>
   </data>
 </root>

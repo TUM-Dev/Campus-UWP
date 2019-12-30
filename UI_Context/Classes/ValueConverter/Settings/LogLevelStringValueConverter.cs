@@ -1,25 +1,19 @@
-﻿using Shared.Classes;
+﻿using System;
+using Logging.Classes;
+using Windows.UI.Xaml.Data;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI_Context.Classes.ValueConverter.Settings
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public sealed class LogLevelStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
-        {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
-        }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
-        {
-            LoadSettings();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -29,15 +23,43 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is LogLevel logLevel)
+            {
+                switch (logLevel)
+                {
+                    case LogLevel.NONE:
+                        return "None";
 
+                    case LogLevel.ERROR:
+                        return "Error";
+
+                    case LogLevel.WARNING:
+                        return "Warning";
+
+                    case LogLevel.INFO:
+                        return "Info";
+
+                    case LogLevel.DEBUG:
+                        return "Debug";
+
+                    default:
+                        return logLevel.ToString();
+                }
+            }
+            return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

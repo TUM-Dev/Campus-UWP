@@ -1,25 +1,23 @@
-﻿using Shared.Classes;
+﻿using Logging.Classes;
+using Shared.Classes;
 
-namespace UI_Context.Classes.Templates.Pages.Settings
+namespace UI_Context.Classes.Templates.Controls.Settings
 {
-    public class DebugSettingsPageTemplate: AbstractDataTemplate
+    public sealed class LogLevelDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private bool _IsRunningOnPc;
-        public bool IsRunningOnPc
+        private LogLevel _LogLevel;
+        public LogLevel LogLevel
         {
-            get => _IsRunningOnPc;
-            set => SetProperty(ref _IsRunningOnPc, value);
+            get => _LogLevel;
+            set => SetProperty(ref _LogLevel, value);
         }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPageTemplate()
-        {
-            LoadSettings();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -34,10 +32,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadSettings()
-        {
-            IsRunningOnPc = DeviceFamilyHelper.IsRunningOnDesktopDevice();
-        }
+
 
         #endregion
 

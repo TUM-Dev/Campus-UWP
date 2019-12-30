@@ -121,7 +121,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\AppUpdateHelper.cs" />
-    <Compile Include="Classes\Context\Controls\Settings\SettingsPageButtonTemplate.cs" />
+    <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
+    <Compile Include="Classes\Context\Dialogs\ConfirmDialogContext.cs" />
+    <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />
+    <Compile Include="Classes\Context\Controls\Settings\LogLevelControlContext.cs" />
+    <Compile Include="Classes\Templates\Controls\Settings\SettingsPageButtonTemplate.cs" />
     <Compile Include="Classes\Context\Controls\TumIdTextBoxControlContext.cs" />
     <Compile Include="Classes\Context\Pages\HomePageContext.cs" />
     <Compile Include="Classes\Context\Pages\Settings\DebugSettingsPageContext.cs" />
@@ -129,7 +134,9 @@
     <Compile Include="Classes\Context\Pages\Settings\SettingsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Settings\TumOnlineSettingsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
+    <Compile Include="Classes\Templates\Controls\Settings\LogLevelControlTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
+    <Compile Include="Classes\Templates\Dialogs\ConfirmDialogTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\GeneralSettingsPageTemplate.cs" />
@@ -143,6 +150,7 @@
     <Compile Include="Classes\ValueConverter\BoolVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\StringEmptyVisibilityValueConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UI_Context.rd.xml" />
