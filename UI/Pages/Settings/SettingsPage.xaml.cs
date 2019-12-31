@@ -21,8 +21,8 @@ namespace UI.Pages.Settings
         public readonly SettingsPageContext VIEW_MODEL = new SettingsPageContext();
         private readonly ObservableCollection<SettingsPageButtonTemplate> SETTINGS_PAGES = new ObservableCollection<SettingsPageButtonTemplate>
         {
-            new SettingsPageButtonTemplate {Glyph = "\xE13D", Name = "General", Description = "Everything Else", NavTarget = typeof(GeneralSettingsPage)},
-            new SettingsPageButtonTemplate {Glyph = "\xE771", Name = "TUMonline", Description = "Token, Access Rights", NavTarget = typeof(TumOnlineSettingsPage)},
+            new SettingsPageButtonTemplate {Glyph = "\uE9E9", Name = "General", Description = "Logs, Crash Reporting, About", NavTarget = typeof(GeneralSettingsPage)},
+            new SettingsPageButtonTemplate {Glyph = "\xE774", Name = "TUMonline", Description = "Token, Access Rights", NavTarget = typeof(TumOnlineSettingsPage)},
         };
 
         private readonly SettingsPageButtonTemplate DEBUG_SETTINGS = new SettingsPageButtonTemplate { Glyph = "\uEBE8", Name = "Debug", Description = "Debug Test Features", NavTarget = typeof(DebugSettingsPage) };
