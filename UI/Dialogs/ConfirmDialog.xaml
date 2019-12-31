@@ -27,6 +27,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <controls1:IconButtonControl x:Name="negative_btn"
+                                         Grid.Column="0"
+                                         Margin="0,0,1,0"
+                                         Click="negative_btn_Click"
+                                         Glyph="&#xE711;"
+                                         GlyphForeground="Red"
+                                         Text="{x:Bind NegativeText, Mode=OneWay}"/>
             <controls1:IconButtonControl x:Name="positive_btn"
                                          Grid.Column="1"
                                          Margin="1,0,0,0"
@@ -34,13 +41,6 @@
                                          Glyph="&#xE8FB;"
                                          GlyphForeground="Green"
                                          Text="{x:Bind PositiveText, Mode=OneWay}"/>
-            <controls1:IconButtonControl x:Name="negative_btn"
-                                         Grid.Column="0"
-                                         Margin="1,0,0,0"
-                                         Click="negative_btn_Click"
-                                         Glyph="&#xE711;"
-                                         GlyphForeground="Red"
-                                         Text="{x:Bind NegativeText, Mode=OneWay}"/>
         </Grid>
     </Grid>
 </ContentDialog>
