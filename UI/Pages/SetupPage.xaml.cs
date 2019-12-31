@@ -109,7 +109,7 @@ namespace UI.Pages
 
         private void OnTokenActivated()
         {
-            VIEW_MODEL.StoreToken();
+            VIEW_MODEL.StoreIdAndToken();
             UpdateViewState(State_3);
         }
 

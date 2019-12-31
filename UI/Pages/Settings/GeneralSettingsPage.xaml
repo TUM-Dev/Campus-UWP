@@ -172,6 +172,6 @@
                                           Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
                                           Frame="{x:Bind Frame, Mode=OneWay}"
                                           Glyph="&#xE9E9;"
-                                          Text="Debug"/>
+                                          Text="General"/>
     </Grid>
 </Page>

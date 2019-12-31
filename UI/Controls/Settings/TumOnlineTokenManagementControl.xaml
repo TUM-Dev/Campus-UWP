@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="UI.Controls.Settings.TumOnlineTokenManagementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls1="using:UI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock Margin="0,10,0,0"
+                   Visibility="{x:Bind VIEW_MODEL.MODEL.TumId, Mode=OneWay, Converter={StaticResource StringEmptyVisibilityValueConverter}}">
+            <Run FontWeight="Bold"
+                 Text="TUM ID:"/>
+            <Run Text="{x:Bind VIEW_MODEL.MODEL.TumId, Mode=OneWay}"/>
+        </TextBlock>
+        <ToggleButton x:Name="token_tbtn"
+                      Margin="0,10,0,0"
+                      Content="Show TUMonline Token"
+                      Visibility="{x:Bind VIEW_MODEL.MODEL.Token, Mode=OneWay, Converter={StaticResource StringEmptyVisibilityValueConverter}}"/>
+        <TextBlock Margin="0,10,0,0"
+                   IsTextSelectionEnabled="True"
+                   Visibility="{x:Bind token_tbtn.IsChecked, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+            <Run FontWeight="Bold"
+                 Text="Token:"/>
+            <Run Text="{x:Bind VIEW_MODEL.MODEL.Token, Mode=OneWay}"/>
+        </TextBlock>
+        <StackPanel Margin="0,10,0,0"
+                    Orientation="Horizontal">
+            <controls1:IconButtonControl x:Name="setup_btn"
+                                         Click="setup_btn_Click"
+                                         Glyph="&#xE777;"
+                                         GlyphForeground="{ThemeResource TumBlueBrush}"
+                                         Text="Start Setup"/>
+            <controls1:IconButtonControl x:Name="delete_ibtn"
+                                         Margin="10,0,0,0"
+                                         Click="delete_ibtn_Click"
+                                         Foreground="Red"
+                                         Glyph="&#xE74D;"
+                                         Text="Delete"
+                                         Visibility="{x:Bind VIEW_MODEL.MODEL.SetupDone, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -79,7 +79,7 @@ namespace Storage.Classes
         public static void StoreCredentials(TumOnlineCredentials credentials)
         {
             // Delete existing password vaults:
-            DeletePassword(credentials.TUM_ID);
+            DeleteToken(credentials.TUM_ID);
 
             //removeAll();
 
@@ -94,17 +94,17 @@ namespace Storage.Classes
         /// Deletes the password vault for the given TUM ID, if one exists.
         /// </summary>
         /// <param name="tumId">The TUM ID for the corresponding vault that should get deleted.</param>
-        public static void DeletePassword(string tumId)
+        public static void DeleteToken(string tumId)
         {
             PasswordCredential passwordCredential = GetCredentials(tumId);
-            DeletePassword(passwordCredential);
+            DeleteToken(passwordCredential);
         }
 
         /// <summary>
         /// Deletes the given password vault.
         /// </summary>
         /// <param name="passwordCredential">The PasswordCredential that should get deleted.</param>
-        public static void DeletePassword(PasswordCredential passwordCredential)
+        public static void DeleteToken(PasswordCredential passwordCredential)
         {
             if (passwordCredential != null)
             {

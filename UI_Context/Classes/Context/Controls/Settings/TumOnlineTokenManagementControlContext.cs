@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using UI_Context.Classes.Templates.Pages.Settings;
-using Windows.Storage;
+﻿using Storage.Classes;
+using UI_Context.Classes.Context.Dialogs;
+using UI_Context.Classes.Templates.Controls.Settings;
 
-namespace UI_Context.Classes.Context.Pages.Settings
+namespace UI_Context.Classes.Context.Controls.Settings
 {
-    public class DebugSettingsPageContext
+    public class TumOnlineTokenManagementControlContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly DebugSettingsPageTemplate MODEL = new DebugSettingsPageTemplate();
+        public readonly TumOnlineTokenManagementControlTemplate MODEL = new TumOnlineTokenManagementControlTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,10 +23,13 @@ namespace UI_Context.Classes.Context.Pages.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task OpenAppDataFolderAsync()
+        public void DeleteTumOnlineTokenAndId(ConfirmDialogContext ctx)
         {
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            await Windows.System.Launcher.LaunchFolderAsync(folder);
+            if (ctx.MODEL.Confirmed)
+            {
+                Storage.Classes.Settings.SetSetting(SettingsConsts.TUM_ID, "");
+                Vault.DeleteAllVaults();
+            }
         }
 
         #endregion

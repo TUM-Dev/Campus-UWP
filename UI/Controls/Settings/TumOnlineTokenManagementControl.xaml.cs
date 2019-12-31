@@ -1,21 +1,24 @@
-﻿using Shared.Classes;
-using UI.Extensions;
-using UI_Context.Classes.Context.Pages.Settings;
+﻿using System;
+using Shared.Classes;
+using UI.Dialogs;
+using UI.Pages;
+using UI_Context.Classes;
+using UI_Context.Classes.Context.Controls.Settings;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
-namespace UI.Pages.Settings
+namespace UI.Controls.Settings
 {
-    public sealed partial class DebugSettingsPage: Page
+    public sealed partial class TumOnlineTokenManagementControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly DebugSettingsPageContext VIEW_MODEL = new DebugSettingsPageContext();
+        public readonly TumOnlineTokenManagementControlContext VIEW_MODEL = new TumOnlineTokenManagementControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public DebugSettingsPage()
+        public TumOnlineTokenManagementControl()
         {
             InitializeComponent();
         }
@@ -43,32 +46,21 @@ namespace UI.Pages.Settings
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void Main_nview_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void setup_btn_Click(IconButtonControl sender, RoutedEventArgs args)
         {
-            if (args.SelectedItem == misc_navItem)
+            Type curPage = null;
+            if (Window.Current.Content is Frame frame)
             {
-                ScrollViewerExtensions.ScrollIntoViewVertically(main_scv, misc_scp, false);
+                curPage = frame.CurrentSourcePageType;
             }
+            UiUtils.NavigateToPage(typeof(SetupPage), curPage);
         }
 
-        private void Main_nview_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void delete_ibtn_Click(IconButtonControl sender, RoutedEventArgs args)
         {
-            main_nview.SelectedItem = misc_navItem;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            titleBar.OnPageNavigatedTo();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            titleBar.OnPageNavigatedFrom();
-        }
-
-        private async void OpenAppDataFolder_btn_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await VIEW_MODEL.OpenAppDataFolderAsync().ConfAwaitFalse();
+            ConfirmDialog dialog = new ConfirmDialog("Delete TUM ID and Token", "Do you really want to **delete** the local copy of you TUM ID and TUMonline token?");
+            await UiUtils.ShowDialogAsync(dialog).ConfAwaitFalse();
+            VIEW_MODEL.DeleteTumOnlineTokenAndId(dialog.VIEW_MODEL);
         }
 
         #endregion

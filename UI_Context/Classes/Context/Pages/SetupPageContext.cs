@@ -22,7 +22,10 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public SetupPageContext()
+        {
+            LoadSettings();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -78,8 +81,9 @@ namespace UI_Context.Classes.Context.Pages
             return MODEL.IsTokenActivated;
         }
 
-        public void StoreToken()
+        public void StoreIdAndToken()
         {
+            Storage.Classes.Settings.SetSetting(SettingsConsts.TUM_ID, MODEL.TumId);
             Vault.StoreCredentials(new TumOnlineCredentials(MODEL.TumId, MODEL.Token));
         }
 
@@ -117,7 +121,10 @@ namespace UI_Context.Classes.Context.Pages
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private void LoadSettings()
+        {
+            MODEL.TumId = Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID, "");
+        }
 
         #endregion
 

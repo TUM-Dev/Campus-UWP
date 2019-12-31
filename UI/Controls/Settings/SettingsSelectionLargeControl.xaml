@@ -9,7 +9,7 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <ResourceDictionary Source="ms-appx:///Resources/Styles/SettingsButtonStyle.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Resources/Styles/Button/SettingsButtonStyle.xaml"/>
     </UserControl.Resources>
 
     <controls:DropShadowPanel HorizontalContentAlignment="Stretch"

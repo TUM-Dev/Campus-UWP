@@ -16,5 +16,7 @@
 
         public const string DISABLE_CRASH_REPORTING = "disable_crash_reporting";
         public const string DISABLE_ANALYTICS = "disable_analytics";
+
+        public const string TUM_ID = "tum_id";
     }
 }

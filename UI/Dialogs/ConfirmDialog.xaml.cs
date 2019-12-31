@@ -65,14 +65,16 @@ namespace UI.Dialogs
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            VIEW_MODEL.OnNegative();
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void positive_btn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
         {
             VIEW_MODEL.OnPositive();
+            Hide();
+        }
+
+        private void negative_btn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
+        {
+            VIEW_MODEL.OnNegative();
+            Hide();
         }
 
         private async void Text_mrkdwn_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)

@@ -26,4 +26,20 @@
     <Style TargetType="controls:DropShadowPanel">
         <Setter Property="Color" Value="{ThemeResource DropShadowColor}"/>
     </Style>
+
+    <Style TargetType="controls:MarkdownTextBlock">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style BasedOn="{StaticResource ButtonRevealStyle}"
+           TargetType="Button"/>
+
+    <Style BasedOn="{StaticResource ToggleButtonRevealStyle}"
+           TargetType="ToggleButton"/>
+
+    <Style x:Key="RevealContentDialogStyle"
+           TargetType="ContentDialog">
+        <Setter Property="Background" Value="{ThemeResource AppBackgroundAcrylicElementBrush}"/>
+        <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}"/>
+    </Style>
 </ResourceDictionary>

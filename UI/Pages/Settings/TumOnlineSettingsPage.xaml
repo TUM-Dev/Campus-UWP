@@ -1,13 +1,66 @@
-﻿<Page
-    x:Class="UI.Pages.Settings.TumOnlineSettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI.Pages.Settings"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="UI.Pages.Settings.TumOnlineSettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controlsComp="using:Microsoft.UI.Xaml.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:settings="using:UI.Controls.Settings"
+      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+      mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/SettingsNavigationViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--  Content:  -->
+        <controlsComp:NavigationView x:Name="main_nview"
+                                     Grid.Row="1"
+                                     Loaded="Main_nview_Loaded"
+                                     SelectionChanged="Main_nview_SelectionChanged"
+                                     Style="{StaticResource SettingsNavigationViewStyle}">
+            <controlsComp:NavigationView.MenuItems>
+                <controlsComp:NavigationViewItem x:Name="token_navItem"
+                                                 Content="Token">
+                    <controlsComp:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8D7;"/>
+                    </controlsComp:NavigationViewItem.Icon>
+                </controlsComp:NavigationViewItem>
+            </controlsComp:NavigationView.MenuItems>
+            <ScrollViewer x:Name="main_scv"
+                          HorizontalScrollMode="Disabled"
+                          VerticalScrollBarVisibility="Hidden"
+                          VerticalScrollMode="Auto">
+                <StackPanel>
+                    <!--  Token:  -->
+                    <settings:SettingsContentControl x:Name="token_scp"
+                                                     Header="Token:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <settings:TumOnlineTokenManagementControl/>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+                </StackPanel>
+            </ScrollViewer>
+        </controlsComp:NavigationView>
+
+        <!--  Header:  -->
+        <!--  Has to be bellow content to correctly draw the drop shadow.  -->
+        <settings:SettingsTitleBarControl x:Name="titleBar"
+                                          Grid.Row="0"
+                                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                                          Frame="{x:Bind Frame, Mode=OneWay}"
+                                          Glyph="&#xE774;"
+                                          Text="TUMonline"/>
     </Grid>
 </Page>
