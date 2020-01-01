@@ -75,7 +75,7 @@ namespace UI.Pages
             }
             else if (args.InvokedItemContainer == canteens_navItem)
             {
-
+                targetPage = typeof(CanteensPage);
             }
             else if (args.InvokedItemContainer == grades_navItem)
             {

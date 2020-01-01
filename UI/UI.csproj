@@ -160,6 +160,9 @@
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
+    <Compile Include="Pages\Content\CanteensPage.xaml.cs">
+      <DependentUpon>CanteensPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Content\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ConfirmDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\CanteensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

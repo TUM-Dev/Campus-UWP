@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{82960015-C6C1-4507-81DC-2D317A285394}</ProjectGuid>
+    <ProjectGuid>{EC4D9DD9-807B-4A0B-9FE2-41DE70F47160}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Storage</RootNamespace>
-    <AssemblyName>Storage</AssemblyName>
+    <RootNamespace>Canteens</RootNamespace>
+    <AssemblyName>Canteens</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -120,46 +120,31 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Contexts\Canteens\CanteensDbContext.cs" />
-    <Compile Include="Classes\Models\Canteens\Canteen.cs" />
-    <Compile Include="Classes\Models\Canteens\Location.cs" />
-    <Compile Include="Classes\Settings.cs" />
-    <Compile Include="Classes\SettingsConsts.cs" />
-    <Compile Include="Classes\TumOnlineCredentials.cs" />
-    <Compile Include="Classes\Vault.cs" />
+    <Compile Include="Classes\Manager\CanteenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Storage.rd.xml" />
+    <EmbeddedResource Include="Properties\Canteens.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>2.9.8</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
       <Version>3.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>3.1.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>6.0.0</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
+      <Project>{B1B74CB2-3E08-4FE7-876D-4F9C82A41C90}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Contexts\TumOnline\" />
-    <Folder Include="Classes\Models\TumOnline\" />
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{606760a5-8eb4-45d5-9de0-590b49e163de}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Storage\Storage.csproj">
+      <Project>{82960015-C6C1-4507-81DC-2D317A285394}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

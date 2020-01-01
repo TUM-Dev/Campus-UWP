@@ -1,0 +1,41 @@
+﻿<Page x:Class="UI.Pages.Content.CanteensPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:canteens="using:Storage.Classes.Models.Canteens"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="CanteenDataTemplate"
+                      x:DataType="canteens:Canteen">
+            <TextBlock Foreground="{ThemeResource TumBlueBrush}"
+                       Style="{ThemeResource BaseLineTextBlockStyle}"
+                       Text="{x:Bind Name}"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--  Loading:  -->
+        <ProgressBar Grid.Row="0"
+                     IsIndeterminate="True"
+                     Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+
+        <!--  Canteens:  -->
+        <ComboBox Grid.Row="1"
+                  HorizontalAlignment="Stretch"
+                  ItemTemplate="{StaticResource CanteenDataTemplate}"
+                  ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
+                  SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
+
+        <!--  Dishes:  -->
+        <ScrollViewer Grid.Row="2"/>
+    </Grid>
+</Page>
