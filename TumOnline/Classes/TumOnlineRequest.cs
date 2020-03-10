@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Xml;
 using Logging.Classes;
 using Microsoft.Toolkit.Uwp.Connectivity;
+using Microsoft.Toolkit.Uwp.Helpers;
 using TumOnline.Classes.Exceptions;
+using Windows.ApplicationModel;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
@@ -16,7 +18,7 @@ namespace TumOnline.Classes
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly string SERVICE_BASE_URL = "https://campus.tum.de/tumonline/wbservicesbasic.";
+        private const string SERVICE_BASE_URL = "https://campus.tum.de/tumonline/wbservicesbasic.";
         private readonly TumOnlineService SERVICE;
         private readonly Dictionary<string, string> QUERY = new Dictionary<string, string>();
 
@@ -31,7 +33,10 @@ namespace TumOnline.Classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        private static string GetUserAgent()
+        {
+            return "TCA UWP v." + Package.Current.Id.Version.ToFormattedString();
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -39,7 +44,7 @@ namespace TumOnline.Classes
         public async Task<XmlDocument> RequestDocumentAsync(bool checkCached = true)
         {
             Uri uri = BuildUri();
-            string result = await RequestStringAsync(uri, checkCached);
+            string result = await RequestStringAsync(uri, checkCached).ConfigureAwait(false);
             XmlDocument doc;
             try
             {
@@ -77,7 +82,7 @@ namespace TumOnline.Classes
         #region --Misc Methods (Private)--
         private Uri BuildUri()
         {
-            string query = string.Join("&", QUERY.Keys.Select(key => !string.IsNullOrWhiteSpace(QUERY[key]) ? string.Format("{0}={1}", WebUtility.UrlEncode(key), WebUtility.UrlEncode(QUERY[key])) : WebUtility.UrlEncode(key)));
+            string query = string.Join("&", QUERY.Keys.Select(key => !string.IsNullOrWhiteSpace(QUERY[key]) ? (WebUtility.UrlEncode(key) + '=' + WebUtility.UrlEncode(QUERY[key])) : WebUtility.UrlEncode(key)));
             UriBuilder builder = new UriBuilder(SERVICE_BASE_URL + SERVICE.NAME)
             {
                 Query = query
@@ -102,10 +107,7 @@ namespace TumOnline.Classes
             try
             {
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.TryAppendWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                client.DefaultRequestHeaders.TryAppendWithoutValidation("Connection", "keep-alive");
-                client.DefaultRequestHeaders.TryAppendWithoutValidation("Cookie", "TCAP=nr86sbfkrvv22b7i72gj0mq1lp5durn9dd53pm9p2v3rd6sko2ssjjk0gtvitam9ijv855bkt2de5k1gvf4rt3j6u03j92cuopkqe40");
-                client.DefaultRequestHeaders.TryAppendWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+                client.DefaultRequestHeaders.TryAppendWithoutValidation("User-Agent", GetUserAgent());
                 HttpResponseMessage response = await client.GetAsync(uri);
                 IHttpContent content = response.Content;
                 IBuffer buffer = await content.ReadAsBufferAsync();
