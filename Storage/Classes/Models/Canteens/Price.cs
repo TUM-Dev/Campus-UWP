@@ -1,28 +1,16 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using Storage.Classes.Models.Canteens;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace Storage.Classes.Models.Canteens
 {
-    public class CanteensPageTemplate: AbstractDataTemplate
+    public class Price
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<Canteen> CANTEENS = new CustomObservableCollection<Canteen>(true);
-        public readonly CustomObservableCollection<Dish> DISHES = new CustomObservableCollection<Dish>(true);
-
-        private Canteen _SelectedCanteen;
-        public Canteen SelectedCanteen
-        {
-            get => _SelectedCanteen;
-            set => SetProperty(ref _SelectedCanteen, value);
-        }
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
+        [Key]
+        public int PriceId { get; set; }
+        public string BasePrice { get; set; }
+        public string PerUnit { get; set; }
+        public string Unit { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

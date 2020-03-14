@@ -1,4 +1,5 @@
 ﻿using UI_Context.Classes.Context.Pages.Content;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace UI.Pages.Content
@@ -40,7 +41,20 @@ namespace UI.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void RefreshAll_mfi_Click(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.Refresh(true, true);
+        }
 
+        private void RefreshCanteens_mfi_Click(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.Refresh(true, false);
+        }
+
+        private void RefreshDishes_mfi_Click(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.Refresh(false, true);
+        }
 
         #endregion
     }

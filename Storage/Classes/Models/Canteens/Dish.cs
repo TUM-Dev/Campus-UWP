@@ -1,28 +1,30 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using Storage.Classes.Models.Canteens;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace Storage.Classes.Models.Canteens
 {
-    public class CanteensPageTemplate: AbstractDataTemplate
+    public class Dish
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<Canteen> CANTEENS = new CustomObservableCollection<Canteen>(true);
-        public readonly CustomObservableCollection<Dish> DISHES = new CustomObservableCollection<Dish>(true);
-
-        private Canteen _SelectedCanteen;
-        public Canteen SelectedCanteen
-        {
-            get => _SelectedCanteen;
-            set => SetProperty(ref _SelectedCanteen, value);
-        }
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
+        [Key]
+        public int DishId { get; set; }
+        [Required]
+        public string CanteenId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
+        [Required]
+        public string Type { get; set; }
+        [Required]
+#pragma warning disable CA2227 // Collection properties should be read only
+        public List<string> Ingredients { get; set; }
+#pragma warning restore CA2227 // Collection properties should be read only
+        public Price PriceStudents { get; set; }
+        public Price PriceStaff { get; set; }
+        public Price PriceGuests { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

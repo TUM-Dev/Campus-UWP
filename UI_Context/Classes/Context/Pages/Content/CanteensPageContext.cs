@@ -44,6 +44,36 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
         }
 
+        public void Refresh(bool canteens, bool dishes)
+        {
+            if (!MODEL.IsLoading)
+            {
+                if (canteens)
+                {
+                    Task.Run(async () =>
+                    {
+                        MODEL.IsLoading = true;
+                        IEnumerable<Canteen> tmp = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                        MODEL.CANTEENS.Clear();
+                        MODEL.CANTEENS.AddRange(tmp);
+                        MODEL.IsLoading = false;
+                    });
+                }
+
+                if (dishes)
+                {
+                    Task.Run(async () =>
+                    {
+                        MODEL.IsLoading = true;
+                        IEnumerable<Dish> tmp = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                        MODEL.DISHES.Clear();
+                        MODEL.DISHES.AddRange(tmp);
+                        MODEL.IsLoading = false;
+                    });
+                }
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--

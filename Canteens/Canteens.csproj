@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Manager\CanteenManager.cs" />
+    <Compile Include="Classes\Manager\DishManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Canteens.rd.xml" />
   </ItemGroup>

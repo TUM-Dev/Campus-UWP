@@ -29,11 +29,56 @@
                      Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
 
         <!--  Canteens:  -->
-        <ComboBox Grid.Row="1"
-                  HorizontalAlignment="Stretch"
-                  ItemTemplate="{StaticResource CanteenDataTemplate}"
-                  ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
-                  SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0"
+                      HorizontalAlignment="Stretch"
+                      CornerRadius="2,0,0,2"
+                      ItemTemplate="{StaticResource CanteenDataTemplate}"
+                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
+                      SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
+            <Button Grid.Column="1"
+                    Width="32"
+                    Height="32"
+                    Content="&#xE712;"
+                    CornerRadius="0,2,2,0"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    ToolTipService.ToolTip="More">
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="refreshAll_mfi"
+                                        Click="RefreshAll_mfi_Click"
+                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                                        Text="Refresh all">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE72C;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="refreshCanteens_mfi"
+                                        Click="RefreshCanteens_mfi_Click"
+                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                                        Text="Refresh canteens">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE72C;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Name="refreshDishes_mfi"
+                                        Click="RefreshDishes_mfi_Click"
+                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                                        Text="Refresh dishes">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE72C;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
 
         <!--  Dishes:  -->
         <ScrollViewer Grid.Row="2"/>
