@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using Canteens.Classes.Manager;
+using Windows.UI.Xaml.Data;
 
-namespace Storage.Classes.Models.Canteens
+namespace UI_Context.Classes.ValueConverter
 {
-    public class Price
+    public sealed class IngredientsStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key]
-        public int PriceId { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
-        public string Unit { get; set; }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,18 +24,29 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override string ToString()
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (PerUnit is null || Unit is null)
+            string result = "";
+            if (value is List<string> ingredients)
             {
-                return BasePrice + '€';
+                foreach (string s in ingredients)
+                {
+                    if (DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP.ContainsKey(s))
+                    {
+                        result += DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP[s] + ' ';
+                    }
+                    else
+                    {
+                        result += s + ' ';
+                    }
+                }
             }
+            return result;
+        }
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
-            {
-                return PerUnit + '/' + Unit + '€';
-            }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

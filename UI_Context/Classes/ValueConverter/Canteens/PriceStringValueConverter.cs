@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using Storage.Classes.Models.Canteens;
+using Windows.UI.Xaml.Data;
 
-namespace Storage.Classes.Models.Canteens
+namespace UI_Context.Classes.ValueConverter
 {
-    public class Price
+    public sealed class PriceStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key]
-        public int PriceId { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
-        public string Unit { get; set; }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,18 +23,14 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override string ToString()
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (PerUnit is null || Unit is null)
-            {
-                return BasePrice + '€';
-            }
+            return value is Price p ? p.ToString() : "";
+        }
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
-            {
-                return PerUnit + '/' + Unit + '€';
-            }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

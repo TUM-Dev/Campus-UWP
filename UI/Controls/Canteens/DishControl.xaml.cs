@@ -1,21 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Storage.Classes.Models.Canteens;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Models.Canteens
+namespace UI.Controls.Canteens
 {
-    public class Price
+    public sealed partial class DishControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key]
-        public int PriceId { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
-        public string Unit { get; set; }
+        public Dish Dish
+        {
+            get => (Dish)GetValue(DishProperty);
+            set => SetValue(DishProperty, value);
+        }
+        public static readonly DependencyProperty DishProperty = DependencyProperty.Register(nameof(Dish), typeof(Dish), typeof(DishControl), new PropertyMetadata(null));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public DishControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -25,19 +31,7 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override string ToString()
-        {
-            if (PerUnit is null || Unit is null)
-            {
-                return BasePrice + '€';
-            }
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
-            {
-                return PerUnit + '/' + Unit + '€';
-            }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
-        }
 
         #endregion
 

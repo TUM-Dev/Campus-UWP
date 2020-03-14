@@ -32,14 +32,92 @@ namespace Canteens.Classes.Manager
         private const string JSON_DISH_DATE = "date";
         private const string JSON_DISH_TYPE = "dish_type";
 
-
         private Task<IEnumerable<Dish>> updateTask;
 
         public static readonly DishManager INSTANCE = new DishManager();
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP = new Dictionary<string, string>()
+        {
+            { "1", "🎨" },
+            { "2", "🥫" },
+            { "3", "⚗" },
+            { "4", "🔬" },
+            { "5", "🔶" },
+            { "6", "⬛" },
+            { "7", "🐝" },
+            { "8", "🔷" },
+            { "9", "🍬" },
+            { "10", "💊" },
+            { "11", "🍡" },
+            { "13", "🍫" },
+            { "14", "🍮" },
+            { "99", "🍷" }
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALLERGENS_LOOKUP = new Dictionary<string, string>()
+        {
+            { "F", "🌽" },
+            { "V", "🥕" },
+            { "S", "🐖" },
+            { "R", "🐄" },
+            { "K", "🐂" },
+            { "G", "🐔" },
+            { "W", "🐗" },
+            { "L", "🐑" },
+            { "Kn", "Kn" },
+            { "Ei", "🥚" },
+            { "En", "🥜" },
+            { "Fi", "🐟" },
+            { "Gl", "🌾" },
+            { "GlW", "GlW" },
+            { "GlR", "GlR" },
+            { "GlG", "GlG" },
+            { "GlH", "GlH" },
+            { "GlD", "GlD" },
+            { "Kr", "🦀" },
+            { "Lu", "Lu" },
+            { "Mi", "🥛" },
+            { "Sc", "🥥" },
+            { "ScM", "ScM" },
+            { "ScH", "🌰" },
+            { "ScW", "ScW" },
+            { "ScC", "ScC" },
+            { "ScP", "ScP" },
+            { "Se", "Se" },
+            { "Sf", "Sf" },
+            { "Sl", "Sl" },
+            { "So", "So" },
+            { "Sw", "🔻" },
+            { "Wt", "🐙" }
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()
+        {
+            { "GQB", "GQB" },
+            { "MSC", "🎣" },
+        };
+
+        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALL_LOOKUP = new Dictionary<string, string>();
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
+        static DishManager()
+        {
+            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
 
+            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_ALLERGENS_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
+
+            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_MISC_LOOKUP)
+            {
+                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+            }
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -153,7 +231,7 @@ namespace Canteens.Classes.Manager
         private Price LoadPriceFromJson(JsonObject json)
         {
             string basePrice = LoadJsonStringSave(json.GetNamedValue(JSON_DISH_PRICE_BASE));
-            return basePrice is null || basePrice == "N/A" || basePrice == "\"N/A\""
+            return basePrice is null || basePrice == "N/A"
                 ? null
                 : new Price()
                 {

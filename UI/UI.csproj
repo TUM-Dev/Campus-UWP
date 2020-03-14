@@ -120,6 +120,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\SplashScreenImageScale.cs" />
+    <Compile Include="Controls\Canteens\DishControl.xaml.cs">
+      <DependentUpon>DishControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Canteens\MenuControl.xaml.cs">
+      <DependentUpon>MenuControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CustomTitleBarControl.xaml.cs">
       <DependentUpon>CustomTitleBarControl.xaml</DependentUpon>
     </Compile>
@@ -269,6 +275,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Canteens\DishControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Canteens\MenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CustomTitleBarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
