@@ -136,18 +136,15 @@
     <Compile Include="Classes\SQLite\AbstractDBManager.cs" />
     <Compile Include="Classes\SQLite\TSSQLiteConnection.cs" />
     <Compile Include="Classes\TaskExtensions.cs" />
+    <Compile Include="Classes\Threading\DebugSemaphoreSlim.cs" />
     <Compile Include="Classes\Threading\MySemaphoreSlim.cs" />
+    <Compile Include="Classes\Threading\SemaLock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Shared.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>3.3.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.10</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>6.1.1</Version>

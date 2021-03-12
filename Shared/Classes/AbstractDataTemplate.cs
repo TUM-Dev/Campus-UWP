@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Shared.Classes
@@ -54,14 +55,61 @@ namespace Shared.Classes
 
         protected virtual async void OnPropertyChanged([CallerMemberName] string name = "")
         {
+            // Prevent interrupting the dispatcher thread in case there is nothing to do:
+            if (PropertyChanged is null)
+            {
+                return;
+            }
+
             if (invokeInUiThread)
             {
                 // Make sure we call the PropertyChanged event from the UI thread:
-                await SharedUtils.CallDispatcherAsync(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)));
+                await SharedUtils.CallDispatcherAsync(() =>
+                {
+                    try
+                    {
+                        // Keep the null check since this can happen later:
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                });
             }
             else
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        protected virtual async void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            // Prevent interrupting the dispatcher thread in case there is nothing to do:
+            if (PropertyChanged is null)
+            {
+                return;
+            }
+
+            if (invokeInUiThread)
+            {
+                // Make sure we call the PropertyChanged event from the UI thread:
+                await SharedUtils.CallDispatcherAsync(() =>
+                {
+                    try
+                    {
+                        // Keep the null check since this can happen later:
+                        PropertyChanged?.Invoke(this, args);
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                });
+            }
+            else
+            {
+                PropertyChanged.Invoke(this, args);
             }
         }
 
