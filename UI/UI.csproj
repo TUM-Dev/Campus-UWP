@@ -169,6 +169,9 @@
     <Compile Include="Pages\Content\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Content\GradesPage.xaml.cs">
+      <DependentUpon>GradesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Content\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -336,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Content\CanteensPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\GradesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

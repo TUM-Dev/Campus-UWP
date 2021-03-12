@@ -79,7 +79,7 @@ namespace UI.Pages
             }
             else if (args.InvokedItemContainer == grades_navItem)
             {
-
+                targetPage = typeof(GradesPage);
             }
             else if (args.InvokedItemContainer == home_navItem)
             {
