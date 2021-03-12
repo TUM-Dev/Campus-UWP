@@ -17,6 +17,18 @@ namespace UI_Context.Classes.Templates.Pages.Content
             get => _SelectedCanteen;
             set => SetProperty(ref _SelectedCanteen, value);
         }
+        private bool _IsLoadingCanteens;
+        public bool IsLoadingCanteens
+        {
+            get => _IsLoadingCanteens;
+            set => SetProperty(ref _IsLoadingCanteens, value);
+        }
+        private bool _IsLoadingDishes;
+        public bool IsLoadingDishes
+        {
+            get => _IsLoadingDishes;
+            set => SetProperty(ref _IsLoadingDishes, value);
+        }
         private bool _IsLoading;
         public bool IsLoading
         {

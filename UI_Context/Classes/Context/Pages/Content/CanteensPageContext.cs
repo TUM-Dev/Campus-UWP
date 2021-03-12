@@ -31,46 +31,43 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Misc Methods (Public)--
         public void LoadCanteens()
         {
-            if (!MODEL.IsLoading)
+            if (!MODEL.IsLoadingCanteens)
             {
                 Task.Run(async () =>
                 {
-                    MODEL.IsLoading = true;
+                    MODEL.IsLoadingCanteens = true;
                     IEnumerable<Canteen> canteens = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
                     MODEL.CANTEENS.Clear();
                     MODEL.CANTEENS.AddRange(canteens);
-                    MODEL.IsLoading = false;
+                    MODEL.IsLoadingCanteens = false;
                 });
             }
         }
 
         public void Refresh(bool canteens, bool dishes)
         {
-            if (!MODEL.IsLoading)
+            if (canteens && !MODEL.IsLoadingCanteens)
             {
-                if (canteens)
+                Task.Run(async () =>
                 {
-                    Task.Run(async () =>
-                    {
-                        MODEL.IsLoading = true;
-                        IEnumerable<Canteen> tmp = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
-                        MODEL.CANTEENS.Clear();
-                        MODEL.CANTEENS.AddRange(tmp);
-                        MODEL.IsLoading = false;
-                    });
-                }
+                    MODEL.IsLoadingCanteens = true;
+                    IEnumerable<Canteen> tmp = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                    MODEL.CANTEENS.Clear();
+                    MODEL.CANTEENS.AddRange(tmp);
+                    MODEL.IsLoadingCanteens = false;
+                });
+            }
 
-                if (dishes)
+            if (dishes && !MODEL.IsLoadingDishes)
+            {
+                Task.Run(async () =>
                 {
-                    Task.Run(async () =>
-                    {
-                        MODEL.IsLoading = true;
-                        IEnumerable<Dish> tmp = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
-                        MODEL.DISHES.Clear();
-                        MODEL.DISHES.AddRange(tmp);
-                        MODEL.IsLoading = false;
-                    });
-                }
+                    MODEL.IsLoadingDishes = true;
+                    IEnumerable<Dish> tmp = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                    MODEL.DISHES.Clear();
+                    MODEL.DISHES.AddRange(tmp);
+                    MODEL.IsLoadingDishes = false;
+                });
             }
         }
 

@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:valueconverter="using:UI_Context.Classes.ValueConverter"
+             HorizontalAlignment="Stretch"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -11,27 +12,28 @@
         <valueconverter:PriceStringValueConverter x:Key="PriceStringValueConverter"/>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+    <Grid Padding="5"
+          HorizontalAlignment="Stretch"
+          Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+          CornerRadius="2">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Text="{x:Bind Dish.Name, Mode=OneWay}"/>
-        <TextBlock Grid.Row="0"
-                   Grid.Column="1"
-                   Margin="10,0,0,0"
+                   HorizontalAlignment="Center"
+                   Text="{x:Bind Dish.Name, Mode=OneWay}"
+                   TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="1"
+                   Margin="0,10,0,0"
                    FontWeight="Bold"
                    Foreground="Green"
-                   Text="{x:Bind Dish.PriceStudents, Mode=OneWay, Converter={StaticResource PriceStringValueConverter}}"/>
-        <TextBlock Grid.Row="1"
-                   Grid.RowSpan="2"
-                   Grid.Column="0"
-                   Text="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringValueConverter}}"/>
+                   Text="{x:Bind Dish.PriceStudents, Mode=OneWay, Converter={StaticResource PriceStringValueConverter}}"
+                   TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="2"
+                   Margin="0,10,0,0"
+                   Text="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringValueConverter}}"
+                   TextWrapping="Wrap"/>
     </Grid>
 </UserControl>
