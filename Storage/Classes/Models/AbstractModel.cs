@@ -1,17 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Threading;
+using Shared.Classes;
+using Shared.Classes.Threading;
+using Storage.Classes.Contexts;
 
-namespace Storage.Classes.Models.Canteens
+namespace Storage.Classes.Models
 {
-    public class Price: AbstractCanteensModel
+    public abstract class AbstractModel: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
-        public string Unit { get; set; }
+        protected readonly SemaphoreSlim LOCK_SEMA = new SemaphoreSlim(1);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -26,18 +24,24 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override string ToString()
-        {
-            if (PerUnit is null || Unit is null)
-            {
-                return BasePrice + '€';
-            }
+        /// <summary>
+        /// Updates the current model in the appropriate <see cref="AbstractDbContext"/>.
+        /// </summary>
+        public abstract void Update();
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
-            {
-                return PerUnit + '/' + Unit + '€';
-            }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
+        /// <summary>
+        /// Adds the current model to the appropriate <see cref="AbstractDbContext"/>.
+        /// </summary>
+        public abstract void Add();
+
+        /// <summary>
+        /// Returns a new locked <see cref="SemaLock"/>.
+        /// </summary>
+        public SemaLock NewSemaLock()
+        {
+            SemaLock l = new SemaLock(LOCK_SEMA);
+            l.Wait();
+            return l;
         }
 
         #endregion

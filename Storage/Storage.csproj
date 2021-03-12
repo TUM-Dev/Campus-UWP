@@ -120,7 +120,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\Contexts\Canteens\CanteensDbContext.cs" />
+    <Compile Include="Classes\Contexts\AbstractDbContext.cs" />
+    <Compile Include="Classes\Contexts\CanteensDbContext.cs" />
+    <Compile Include="Classes\Models\AbstractModel.cs" />
+    <Compile Include="Classes\Models\Canteens\AbstractCanteensModel.cs" />
     <Compile Include="Classes\Models\Canteens\Canteen.cs" />
     <Compile Include="Classes\Models\Canteens\Dish.cs" />
     <Compile Include="Classes\Models\Canteens\Location.cs" />
@@ -153,9 +156,12 @@
       <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
       <Name>Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{606760A5-8EB4-45D5-9DE0-590B49E163DE}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\Contexts\TumOnline\" />
     <Folder Include="Classes\Models\TumOnline\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

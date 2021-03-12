@@ -1,17 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Storage.Classes.Contexts;
 
 namespace Storage.Classes.Models.Canteens
 {
-    public class Price: AbstractCanteensModel
+    public class AbstractCanteensModel: AbstractModel
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
-        public string Unit { get; set; }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -26,18 +21,20 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public override string ToString()
+        public override void Add()
         {
-            if (PerUnit is null || Unit is null)
+            using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                return BasePrice + '€';
+                ctx.Add(this);
             }
+        }
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
+        public override void Update()
+        {
+            using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                return PerUnit + '/' + Unit + '€';
+                ctx.Update(this);
             }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
         }
 
         #endregion

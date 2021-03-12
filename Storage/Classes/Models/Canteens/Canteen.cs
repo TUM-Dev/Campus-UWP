@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Storage.Classes.Models.Canteens
 {
-    public class Canteen
+    public class Canteen: AbstractCanteensModel
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key]
-        public string CanteenId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
+        public string Id { get; set; }
         [Required]
         public Location Location { get; set; }
         [Required]

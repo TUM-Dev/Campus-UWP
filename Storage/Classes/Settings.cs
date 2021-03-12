@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.Storage;
 
 namespace Storage.Classes
 {
@@ -26,7 +28,13 @@ namespace Storage.Classes
         /// <param name="value">The value that should get stored.</param>
         public static void SetSetting(string token, object value)
         {
-            Windows.Storage.ApplicationData.Current.LocalSettings.Values[token] = value;
+            if (value is DateTime d)
+            {
+                SetSetting(token, d.ToFileTimeUtc());
+                return;
+            }
+
+            ApplicationData.Current.LocalSettings.Values[token] = value;
             SettingChanged?.Invoke(value, new PropertyChangedEventArgs(token));
         }
 
@@ -39,7 +47,7 @@ namespace Storage.Classes
         {
             try
             {
-                return Windows.Storage.ApplicationData.Current.LocalSettings.Values[token];
+                return ApplicationData.Current.LocalSettings.Values[token];
             }
             catch
             {
@@ -111,6 +119,17 @@ namespace Storage.Classes
         {
             object obj = GetSetting(token);
             return obj is null ? fallBackValue : (double)obj;
+        }
+
+        public static DateTime GetSettingDateTime(string token)
+        {
+            return GetSettingDateTime(token, DateTime.MinValue);
+        }
+
+        public static DateTime GetSettingDateTime(string token, DateTime fallBackValue)
+        {
+            object obj = GetSetting(token);
+            return obj is long l ? DateTime.FromFileTimeUtc(l) : fallBackValue;
         }
 
         #endregion

@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Logging.Classes;
 using Shared.Classes;
-using Storage.Classes.Contexts.Canteens;
+using Storage.Classes.Contexts;
 using Storage.Classes.Models.Canteens;
 using Windows.Data.Json;
 
@@ -120,7 +120,7 @@ namespace Canteens.Classes.Manager
         {
             return new Canteen()
             {
-                CanteenId = json.GetNamedString(JSON_CANTEEN_ID),
+                Id = json.GetNamedString(JSON_CANTEEN_ID),
                 Name = json.GetNamedString(JSON_CANTEEN_NAME),
                 Location = LoadLocationFromJson(json.GetNamedObject(JSON_LOCATION))
             };

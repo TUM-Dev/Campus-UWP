@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Storage.Classes.Models.Canteens
 {
-    public class Dish
+    public class Dish: AbstractCanteensModel
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key]
-        public int DishId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required]
         public string CanteenId { get; set; }
         [Required]
@@ -19,9 +20,7 @@ namespace Storage.Classes.Models.Canteens
         [Required]
         public string Type { get; set; }
         [Required]
-#pragma warning disable CA2227 // Collection properties should be read only
-        public List<string> Ingredients { get; set; }
-#pragma warning restore CA2227 // Collection properties should be read only
+        public List<string> Ingredients { get; set; } = new List<string>();
         public Price PriceStudents { get; set; }
         public Price PriceStaff { get; set; }
         public Price PriceGuests { get; set; }

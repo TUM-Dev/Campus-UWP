@@ -6,7 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Logging.Classes;
 using Shared.Classes;
-using Storage.Classes.Contexts.Canteens;
+using Storage.Classes.Contexts;
 using Storage.Classes.Models.Canteens;
 using Windows.Data.Json;
 

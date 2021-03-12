@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Storage.Classes.Models.Canteens;
-using Windows.Storage;
 
-namespace Storage.Classes.Contexts.Canteens
+namespace Storage.Classes.Contexts
 {
-    public class CanteensDbContext: DbContext
+    public class CanteensDbContext: AbstractDbContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly string DB_PATH = Path.Combine(ApplicationData.Current.LocalFolder.Path, "canteens.db");
-
         public DbSet<Canteen> Canteens { get; set; }
         public DbSet<Location> Locations { get; set; }
 
@@ -23,7 +20,7 @@ namespace Storage.Classes.Contexts.Canteens
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public CanteensDbContext()
+        public CanteensDbContext() : base("canteens.db")
         {
             // Disable change tracking since we always manually update them and only require them read only:
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -48,14 +45,6 @@ namespace Storage.Classes.Contexts.Canteens
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlite("Data Source=" + DB_PATH);
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Based on: https://entityframeworkcore.com/knowledge-base/37370476/how-to-persist-a-list-of-strings-with-entity-framework-core-
