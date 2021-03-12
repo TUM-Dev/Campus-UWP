@@ -88,7 +88,7 @@ namespace UI.Pages.Settings
 
             LastPopUpElement = VisualTreeHelper.GetParent(VisualTreeHelper.GetParent(settingsSelection) as FrameworkElement) as FrameworkElement;
             Canvas.SetZIndex(LastPopUpElement, 10);
-            LastPopUpElement.Scale(scaleX: 1.05f, scaleY: 1.05f, easingType: EasingType.Sine).Start();
+            AnimationBuilder.Create().Scale(to: 1.05, easingType: EasingType.Sine).Start(LastPopUpElement);
         }
 
         private void SettingsSelectionControl_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -99,7 +99,7 @@ namespace UI.Pages.Settings
             }
 
             Canvas.SetZIndex(LastPopUpElement, 0);
-            LastPopUpElement.Scale(easingType: EasingType.Sine).Start();
+            AnimationBuilder.Create().Scale(to: 1.0, easingType: EasingType.Sine).Start(LastPopUpElement);
             LastPopUpElement = null;
         }
 
