@@ -10,6 +10,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
     mc:Ignorable="d">
 
@@ -142,6 +143,7 @@
         <controls:GridSplitter
             Grid.Column="1"
             HorizontalAlignment="Center"
+            ui:FrameworkElementExtensions.Cursor="SizeWestEast"
             ResizeBehavior="BasedOnAlignment"
             Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
             <controls:GridSplitter.Element>
