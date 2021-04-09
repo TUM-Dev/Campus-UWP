@@ -130,6 +130,7 @@
     <Compile Include="Classes\Models\Canteens\Price.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\SettingsConsts.cs" />
+    <Compile Include="Classes\TokenReader.cs" />
     <Compile Include="Classes\TumOnlineCredentials.cs" />
     <Compile Include="Classes\Vault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\Models\TumOnline\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\MapToken.txt" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

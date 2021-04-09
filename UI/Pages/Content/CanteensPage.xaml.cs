@@ -1,4 +1,5 @@
-﻿using UI_Context.Classes.Context.Pages.Content;
+﻿using Storage.Classes;
+using UI_Context.Classes.Context.Pages.Content;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,6 +17,7 @@ namespace UI.Pages.Content
         public CanteensPage()
         {
             InitializeComponent();
+            LoadMapApiKey();
         }
 
         #endregion
@@ -31,7 +33,11 @@ namespace UI.Pages.Content
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private void LoadMapApiKey()
+        {
+            string token = TokenReader.LoadTokenFromFile(TokenReader.MAP_TOKEN_PATH);
+            canteens_map.MapServiceToken = token;
+        }
 
         #endregion
 

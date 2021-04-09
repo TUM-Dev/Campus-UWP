@@ -132,6 +132,7 @@
 
         <!--  MAP  -->
         <maps:MapControl Grid.Column="2"
+                         x:Name="canteens_map"
                          Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
 
         <controls:GridSplitter Grid.Column="1"
