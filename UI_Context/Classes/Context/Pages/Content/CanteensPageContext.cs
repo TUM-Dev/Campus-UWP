@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Canteens.Classes.Manager;
 using Shared.Classes;
@@ -19,7 +21,8 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Constructors--
         public CanteensPageContext()
         {
-            _ = LoadCanteensAsync();
+            Task.Run(async () => await LoadCanteensAsync(false));
+            MODEL.PropertyChanged += OnModelPropertyChanged;
         }
 
         #endregion
@@ -36,7 +39,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 Task.Run(async () =>
                 {
-                    await LoadCanteensAsync();
+                    await LoadCanteensAsync(true);
                 });
             }
 
@@ -44,11 +47,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 Task.Run(async () =>
                 {
-                    MODEL.IsLoadingDishes = true;
-                    IEnumerable<Dish> tmp = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
-                    MODEL.DISHES.Clear();
-                    MODEL.DISHES.AddRange(tmp);
-                    MODEL.IsLoadingDishes = false;
+                    await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, true);
                 });
             }
         }
@@ -59,28 +58,63 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void LoadLastSelectedCanteen()
         {
             string canteenId = Storage.Classes.Settings.GetSettingString(SettingsConsts.LAST_SELECTED_CANTEEN_ID);
-            if(string.Equals(MODEL.SelectedCanteen?.Id, canteenId))
+            if (string.Equals(MODEL.SelectedCanteen?.Id, canteenId))
             {
                 return;
             }
 
             foreach (Canteen canteen in MODEL.CANTEENS)
             {
-                if(string.Equals(canteen.Id, canteenId))
+                if (string.Equals(canteen.Id, canteenId))
                 {
                     MODEL.SelectedCanteen = canteen;
+                    return;
                 }
+            }
+
+            // By default load the first canteen:
+            if (MODEL.CANTEENS.Count > 0)
+            {
+                MODEL.SelectedCanteen = MODEL.CANTEENS[0];
             }
         }
 
-        private async Task LoadCanteensAsync()
+        private async Task LoadCanteensAsync(bool refresh)
         {
             MODEL.IsLoadingCanteens = true;
-            IEnumerable<Canteen> tmp = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+            IEnumerable<Canteen> canteens;
+            if (refresh)
+            {
+                canteens = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+            }
+            else
+            {
+                canteens = await CanteenManager.INSTANCE.LoadCanteensAsync().ConfAwaitFalse();
+            }
             MODEL.CANTEENS.Clear();
-            MODEL.CANTEENS.AddRange(tmp);
+            MODEL.CANTEENS.AddRange(canteens);
             LoadLastSelectedCanteen();
             MODEL.IsLoadingCanteens = false;
+        }
+
+        private async Task LoadDishesForCanteenAsync(Canteen canteen, bool refresh)
+        {
+            MODEL.IsLoadingDishes = true;
+            MODEL.DISHES.Clear();
+            if (!(canteen is null))
+            {
+                IEnumerable<Dish> dishes;
+                if (refresh)
+                {
+                    dishes = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                }
+                else
+                {
+                    dishes = await DishManager.INSTANCE.LoadDishesAsync(canteen.Id, DateTime.Now).ConfAwaitFalse();
+                }
+                MODEL.DISHES.AddRange(dishes);
+            }
+            MODEL.IsLoadingDishes = false;
         }
 
         #endregion
@@ -91,7 +125,13 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (string.Equals(e.PropertyName, nameof(MODEL.SelectedCanteen)))
+            {
+                Task.Run(async () => await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, false));
+            }
+        }
 
         #endregion
     }

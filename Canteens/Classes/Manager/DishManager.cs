@@ -144,7 +144,6 @@ namespace Canteens.Classes.Manager
                     {
                         ctx.RemoveRange(ctx.Dishes);
                         ctx.AddRange(dishes);
-                        ctx.SaveChanges();
                     }
                 }
                 return dishes;
@@ -152,7 +151,7 @@ namespace Canteens.Classes.Manager
             return await updateTask.ConfAwaitFalse();
         }
 
-        public async Task<IEnumerable<Dish>> LoadDishesAsync()
+        public async Task<IEnumerable<Dish>> LoadDishesAsync(string canteenId, DateTime date)
         {
             // Wait for the old update to finish first:
             if (!(updateTask is null) && !updateTask.IsCompleted)
@@ -162,7 +161,7 @@ namespace Canteens.Classes.Manager
 
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                return ctx.Dishes;
+                return ctx.Dishes.Where(d => string.Equals(d.CanteenId, canteenId) && d.Date.Date.CompareTo(date.Date) == 0).Include(ctx.GetIncludePaths(typeof(Dish))).ToList();
             }
         }
 

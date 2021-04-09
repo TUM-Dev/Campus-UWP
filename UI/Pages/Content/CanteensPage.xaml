@@ -1,27 +1,27 @@
-﻿<Page x:Class="UI.Pages.Content.CanteensPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-      xmlns:canteens="using:Storage.Classes.Models.Canteens"
-      xmlns:canteens1="using:UI.Controls.Canteens"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-      xmlns:controls1="using:UI.Controls"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-      mc:Ignorable="d">
+﻿<Page
+    x:Class="UI.Pages.Content.CanteensPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:canteens="using:Storage.Classes.Models.Canteens"
+    xmlns:canteens1="using:UI.Controls.Canteens"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls1="using:UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+    mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Key="CanteenDataTemplate"
-                      x:DataType="canteens:Canteen">
-            <TextBlock Foreground="{ThemeResource TumBlueBrush}"
-                       Style="{ThemeResource BaseLineTextBlockStyle}"
-                       Text="{x:Bind Name}"/>
+        <DataTemplate x:Key="CanteenDataTemplate" x:DataType="canteens:Canteen">
+            <TextBlock
+                Foreground="{ThemeResource TumBlueBrush}"
+                Style="{ThemeResource BaseLineTextBlockStyle}"
+                Text="{x:Bind Name}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="DishDataTemplate"
-                      x:DataType="canteens:Dish">
+        <DataTemplate x:Key="DishDataTemplate" x:DataType="canteens:Dish">
             <canteens1:DishControl Dish="{x:Bind}"/>
         </DataTemplate>
     </Page.Resources>
@@ -33,10 +33,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--  CANTEENS  -->
-        <Grid Grid.Column="0"
-              Margin="10"
-              Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+        <!--  Canteens:  -->
+        <Grid
+            Grid.Column="0"
+            Margin="10"
+            Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -45,42 +46,47 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0"
-                      HorizontalAlignment="Stretch"
-                      CornerRadius="2,0,0,2"
-                      ItemTemplate="{StaticResource CanteenDataTemplate}"
-                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
-                      SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
-            <Button Grid.Column="1"
-                    Width="32"
-                    Height="32"
-                    Content="&#xE712;"
-                    CornerRadius="0,2,2,0"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    ToolTipService.ToolTip="More">
+            <ComboBox
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                CornerRadius="2,0,0,2"
+                ItemTemplate="{StaticResource CanteenDataTemplate}"
+                ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
+                SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
+            <Button
+                Grid.Column="1"
+                Width="32"
+                Height="32"
+                Content="&#xE712;"
+                CornerRadius="0,2,2,0"
+                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                ToolTipService.ToolTip="More">
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Name="refreshAll_mfi"
-                                        Click="RefreshAll_mfi_Click"
-                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                        Text="Refresh all">
+                        <MenuFlyoutItem
+                            x:Name="refreshAll_mfi"
+                            Click="RefreshAll_mfi_Click"
+                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                            Text="Refresh all">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE72C;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="refreshCanteens_mfi"
-                                        Click="RefreshCanteens_mfi_Click"
-                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                        Text="Refresh canteens">
+                        <MenuFlyoutItem
+                            x:Name="refreshCanteens_mfi"
+                            Click="RefreshCanteens_mfi_Click"
+                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                            Text="Refresh canteens">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE72C;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem x:Name="refreshDishes_mfi"
-                                        Click="RefreshDishes_mfi_Click"
-                                        IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                        Text="Refresh dishes">
+                        <MenuFlyoutItem
+                            x:Name="refreshDishes_mfi"
+                            Click="RefreshDishes_mfi_Click"
+                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                            Text="Refresh dishes">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE72C;"/>
                             </MenuFlyoutItem.Icon>
@@ -90,71 +96,72 @@
             </Button>
 
             <!--  Dishes  -->
-            <GridView Grid.Row="1"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="2"
-                      Margin="0,10,0,10"
-                      HorizontalAlignment="Center"
-                      HorizontalContentAlignment="Stretch"
-                      animations:ItemsReorderAnimation.Duration="00:00:00.8"
-                      ItemTemplate="{StaticResource DishDataTemplate}"
-                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.DISHES}"
-                      SelectionMode="None">
-                <GridView.ItemContainerTransitions>
+            <ListView
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,10,0,10"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                animations:ItemsReorderAnimation.Duration="00:00:00.8"
+                ItemTemplate="{StaticResource DishDataTemplate}"
+                ItemsSource="{x:Bind VIEW_MODEL.MODEL.DISHES}"
+                ScrollViewer.HorizontalScrollMode="Disabled"
+                SelectionMode="None">
+                <ListView.ItemContainerTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
                         <RepositionThemeTransition/>
                         <AddDeleteThemeTransition/>
                     </TransitionCollection>
-                </GridView.ItemContainerTransitions>
-                <GridView.ItemContainerStyle>
-                    <Style TargetType="FrameworkElement">
-                        <Setter Property="Margin" Value="5,0,5,10"/>
+                </ListView.ItemContainerTransitions>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0,0,0,10"/>
                     </Style>
-                </GridView.ItemContainerStyle>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <controls:StaggeredPanel HorizontalAlignment="Center"
-                                                 ColumnSpacing="5"
-                                                 DesiredColumnWidth="300"
-                                                 RowSpacing="5"/>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-            </GridView>
-
-            <controls:Loading Grid.Column="0"
-                              Grid.ColumnSpan="2"
-                              Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                              IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Mode=OneWay}">
-                <controls1:LoadingContentControl Text="Loading dishes..."/>
-            </controls:Loading>
+                </ListView.ItemContainerStyle>
+            </ListView>
         </Grid>
 
-        <!--  MAP  -->
-        <maps:MapControl Grid.Column="2"
-                         x:Name="canteens_map"
-                         Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
+        <!--  Dishes Loading:  -->
+        <controls:Loading
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+            IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Mode=OneWay}">
+            <controls1:LoadingContentControl Text="Loading dishes..."/>
+        </controls:Loading>
 
-        <controls:GridSplitter Grid.Column="1"
-                               HorizontalAlignment="Center"
-                               ResizeBehavior="BasedOnAlignment"
-                               Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+        <!--  Map:  -->
+        <maps:MapControl
+            x:Name="canteens_map"
+            Grid.Column="2"
+            Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
+
+        <controls:GridSplitter
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            ResizeBehavior="BasedOnAlignment"
+            Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
             <controls:GridSplitter.Element>
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="Segoe MDL2 Assets"
-                               Foreground="Black"
-                               IsHitTestVisible="False"
-                               Text="&#xE784;"/>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="Segoe MDL2 Assets"
+                        Foreground="Black"
+                        IsHitTestVisible="False"
+                        Text="&#xE784;"/>
                 </Grid>
             </controls:GridSplitter.Element>
         </controls:GridSplitter>
 
-        <controls:Loading Grid.Column="0"
-                          Grid.ColumnSpan="3"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
+        <controls:Loading
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+            IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading canteens..."/>
         </controls:Loading>
     </Grid>

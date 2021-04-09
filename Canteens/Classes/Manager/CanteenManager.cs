@@ -58,7 +58,6 @@ namespace Canteens.Classes.Manager
                     {
                         ctx.RemoveRange(ctx.Canteens);
                         ctx.AddRange(canteens);
-                        ctx.SaveChanges();
                     }
                 }
                 return canteens;
@@ -76,7 +75,7 @@ namespace Canteens.Classes.Manager
 
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                return ctx.Canteens;
+                return ctx.Canteens.Include(ctx.GetIncludePaths(typeof(Canteen))).ToList();
             }
         }
 
