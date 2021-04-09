@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Windows.Devices.Geolocation;
 
 namespace Storage.Classes.Models.Canteens
 {
@@ -29,7 +30,14 @@ namespace Storage.Classes.Models.Canteens
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public Geopoint ToGeopoint()
+        {
+            return new Geopoint(new BasicGeoposition
+            {
+                Latitude = Latitude,
+                Longitude = Longitude
+            });
+        }
 
         #endregion
 

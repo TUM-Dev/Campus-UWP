@@ -1,7 +1,12 @@
-﻿using Storage.Classes;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using Storage.Classes;
 using UI_Context.Classes.Context.Pages.Content;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace UI.Pages.Content
 {
@@ -18,6 +23,9 @@ namespace UI.Pages.Content
         {
             InitializeComponent();
             LoadMapApiKey();
+
+            VIEW_MODEL.MODEL.CANTEENS.CollectionChanged += OnCanteensChanged;
+            VIEW_MODEL.MODEL.PropertyChanged += OnSelectedCanteenChanged;
         }
 
         #endregion
@@ -37,6 +45,46 @@ namespace UI.Pages.Content
         {
             string token = TokenReader.LoadTokenFromFile(TokenReader.MAP_TOKEN_PATH);
             canteens_map.MapServiceToken = token;
+        }
+
+        private void LoadMapIcons()
+        {
+            canteens_map.Layers.Clear();
+            if(VIEW_MODEL.MODEL.CANTEENS.Count > 0)
+            {
+                List<MapElement> mapElements = new List<MapElement>();
+                mapElements.AddRange(VIEW_MODEL.MODEL.CANTEENS.Select(c => new MapIcon
+                {
+                    Location = c.Location.ToGeopoint(),
+                    IsEnabled = true,
+                    Title = c.Name,
+                    Visible = true
+                }));
+
+                canteens_map.Layers.Add(new MapElementsLayer
+                {
+                    ZIndex = 1,
+                    MapElements = mapElements
+                });
+                if(VIEW_MODEL.MODEL.SelectedCanteen is null)
+                {
+                    canteens_map.Center = VIEW_MODEL.MODEL.CANTEENS[0].Location.ToGeopoint();
+                    canteens_map.ZoomLevel = 16;
+                }
+                else
+                {
+                    ZoomToSelectedCanteen();
+                }
+            }
+        }
+
+        private void ZoomToSelectedCanteen()
+        {
+            if(!(VIEW_MODEL.MODEL.SelectedCanteen is null))
+            {
+                canteens_map.Center = VIEW_MODEL.MODEL.SelectedCanteen.Location.ToGeopoint();
+                canteens_map.ZoomLevel = 16;
+            }
         }
 
         #endregion
@@ -60,6 +108,16 @@ namespace UI.Pages.Content
         private void RefreshDishes_mfi_Click(object sender, RoutedEventArgs e)
         {
             VIEW_MODEL.Refresh(false, true);
+        }
+
+        private void OnCanteensChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            LoadMapIcons();
+        }
+
+        private void OnSelectedCanteenChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ZoomToSelectedCanteen();
         }
 
         #endregion
