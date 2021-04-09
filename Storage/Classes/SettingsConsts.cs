@@ -18,5 +18,7 @@
         public const string DISABLE_ANALYTICS = "disable_analytics";
 
         public const string TUM_ID = "tum_id";
+
+        public const string LAST_SELECTED_CANTEEN_ID = "last_selected_canteen_id";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Shared.Classes;
 using Shared.Classes.Collections;
+using Storage.Classes;
 using Storage.Classes.Models.Canteens;
 
 namespace UI_Context.Classes.Templates.Pages.Content
@@ -15,7 +16,7 @@ namespace UI_Context.Classes.Templates.Pages.Content
         public Canteen SelectedCanteen
         {
             get => _SelectedCanteen;
-            set => SetProperty(ref _SelectedCanteen, value);
+            set => SetSelectedCanteen(value);
         }
         private bool _IsLoadingCanteens;
         public bool IsLoadingCanteens
@@ -44,7 +45,16 @@ namespace UI_Context.Classes.Templates.Pages.Content
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public void SetSelectedCanteen(Canteen value)
+        {
+            if(SetProperty(ref _SelectedCanteen, value, nameof(SelectedCanteen)))
+            {
+                if(!(value is null))
+                {
+                    Storage.Classes.Settings.SetSetting(SettingsConsts.LAST_SELECTED_CANTEEN_ID, value.Id);
+                }
+            }
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
