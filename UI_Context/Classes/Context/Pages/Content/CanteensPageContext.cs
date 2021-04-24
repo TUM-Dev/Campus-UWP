@@ -58,17 +58,20 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void LoadLastSelectedCanteen()
         {
             string canteenId = Storage.Classes.Settings.GetSettingString(SettingsConsts.LAST_SELECTED_CANTEEN_ID);
-            if (string.Equals(MODEL.SelectedCanteen?.Id, canteenId))
+            if (!(canteenId is null))
             {
-                return;
-            }
-
-            foreach (Canteen canteen in MODEL.CANTEENS)
-            {
-                if (string.Equals(canteen.Id, canteenId))
+                if (string.Equals(MODEL.SelectedCanteen?.Id, canteenId))
                 {
-                    MODEL.SelectedCanteen = canteen;
                     return;
+                }
+
+                foreach (Canteen canteen in MODEL.CANTEENS)
+                {
+                    if (string.Equals(canteen.Id, canteenId))
+                    {
+                        MODEL.SelectedCanteen = canteen;
+                        return;
+                    }
                 }
             }
 
