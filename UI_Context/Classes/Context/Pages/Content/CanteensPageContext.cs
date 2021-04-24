@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Canteens.Classes.Manager;
+using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.Canteens;
@@ -50,6 +51,44 @@ namespace UI_Context.Classes.Context.Pages.Content
                     await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, true);
                 });
             }
+        }
+
+        public void NextDate()
+        {
+            DateTime newDate = DateTime.MaxValue;
+            if (MODEL.DishDate >= DateTime.MaxValue || MODEL.DishDate < DateTime.Now.Date)
+            {
+                newDate = DishManager.INSTANCE.GetNextDate(MODEL.SelectedCanteen.Id, DateTime.Now.AddDays(-1));
+            }
+            else
+            {
+                newDate = DishManager.INSTANCE.GetNextDate(MODEL.SelectedCanteen.Id, MODEL.DishDate);
+                if (newDate == DateTime.MaxValue)
+                {
+                    newDate = DishManager.INSTANCE.GetNextDate(MODEL.SelectedCanteen.Id, DateTime.Now.AddDays(-1));
+                }
+            }
+            MODEL.DishDate = newDate;
+            Task.Run(async () => await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, false));
+        }
+
+        public void PrevDate()
+        {
+            DateTime newDate = DateTime.MinValue;
+            if (MODEL.DishDate <= DateTime.Now.Date)
+            {
+                newDate = DishManager.INSTANCE.GetPrevDate(MODEL.SelectedCanteen.Id, DateTime.MaxValue);
+            }
+            else
+            {
+                newDate = DishManager.INSTANCE.GetPrevDate(MODEL.SelectedCanteen.Id, MODEL.DishDate);
+                if (newDate == DateTime.MinValue || newDate < DateTime.Now.Date)
+                {
+                    newDate = DishManager.INSTANCE.GetPrevDate(MODEL.SelectedCanteen.Id, DateTime.MaxValue);
+                }
+            }
+            MODEL.DishDate = newDate;
+            Task.Run(async () => await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, false));
         }
 
         #endregion
@@ -109,12 +148,19 @@ namespace UI_Context.Classes.Context.Pages.Content
                 IEnumerable<Dish> dishes;
                 if (refresh)
                 {
-                    dishes = await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
+                    await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
                 }
-                else
+                if (MODEL.DishDate == DateTime.MaxValue)
                 {
-                    dishes = await DishManager.INSTANCE.LoadDishesAsync(canteen.Id, DateTime.Now).ConfAwaitFalse();
+                    MODEL.DishDate = DishManager.INSTANCE.GetNextDate(canteen.Id, DateTime.Now);
+                    if (MODEL.DishDate == DateTime.MaxValue)
+                    {
+                        Logger.Info($"No next dishes found for canteen '{canteen.Id}'.");
+                        MODEL.IsLoadingDishes = false;
+                        return;
+                    }
                 }
+                dishes = await DishManager.INSTANCE.LoadDishesAsync(canteen.Id, MODEL.DishDate).ConfAwaitFalse();
                 MODEL.DISHES.AddRange(dishes);
             }
             MODEL.IsLoadingDishes = false;

@@ -50,7 +50,7 @@ namespace UI.Pages.Content
         private void LoadMapIcons()
         {
             canteens_map.Layers.Clear();
-            if(VIEW_MODEL.MODEL.CANTEENS.Count > 0)
+            if (VIEW_MODEL.MODEL.CANTEENS.Count > 0)
             {
                 List<MapElement> mapElements = new List<MapElement>();
                 mapElements.AddRange(VIEW_MODEL.MODEL.CANTEENS.Select(c => new MapIcon
@@ -66,7 +66,7 @@ namespace UI.Pages.Content
                     ZIndex = 1,
                     MapElements = mapElements
                 });
-                if(VIEW_MODEL.MODEL.SelectedCanteen is null)
+                if (VIEW_MODEL.MODEL.SelectedCanteen is null)
                 {
                     canteens_map.Center = VIEW_MODEL.MODEL.CANTEENS[0].Location.ToGeopoint();
                     canteens_map.ZoomLevel = 16;
@@ -80,7 +80,7 @@ namespace UI.Pages.Content
 
         private void ZoomToSelectedCanteen()
         {
-            if(!(VIEW_MODEL.MODEL.SelectedCanteen is null))
+            if (!(VIEW_MODEL.MODEL.SelectedCanteen is null))
             {
                 canteens_map.Center = VIEW_MODEL.MODEL.SelectedCanteen.Location.ToGeopoint();
                 canteens_map.ZoomLevel = 16;
@@ -118,6 +118,16 @@ namespace UI.Pages.Content
         private void OnSelectedCanteenChanged(object sender, PropertyChangedEventArgs e)
         {
             ZoomToSelectedCanteen();
+        }
+
+        private void nextDate_btn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
+        {
+            VIEW_MODEL.NextDate();
+        }
+
+        private void prevDate_btn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
+        {
+            VIEW_MODEL.PrevDate();
         }
 
         #endregion

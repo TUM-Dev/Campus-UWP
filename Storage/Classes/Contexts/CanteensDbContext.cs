@@ -48,7 +48,7 @@ namespace Storage.Classes.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Based on: https://entityframeworkcore.com/knowledge-base/37370476/how-to-persist-a-list-of-strings-with-entity-framework-core-
-            ValueConverter<List<string>, string> splitStringConverter = new ValueConverter<List<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }).ToList());
+            ValueConverter<List<string>, string> splitStringConverter = new ValueConverter<List<string>, string>(v => string.Join(";", v), v => string.IsNullOrWhiteSpace(v) ? new List<string>() : v.Split(new[] { ';' }).ToList());
             // Make sure we can store a list of strings in the DB:
             modelBuilder.Entity<Dish>().Property(nameof(Dish.Ingredients)).HasConversion(splitStringConverter);
         }

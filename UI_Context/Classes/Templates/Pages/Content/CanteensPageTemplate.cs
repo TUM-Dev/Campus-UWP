@@ -1,4 +1,6 @@
-﻿using Shared.Classes;
+﻿using System;
+using Canteens.Classes.Manager;
+using Shared.Classes;
 using Shared.Classes.Collections;
 using Storage.Classes;
 using Storage.Classes.Models.Canteens;
@@ -36,22 +38,40 @@ namespace UI_Context.Classes.Templates.Pages.Content
             get => _IsLoading;
             set => SetProperty(ref _IsLoading, value);
         }
+        private DateTime _DishDate;
+        public DateTime DishDate
+        {
+            get => _DishDate;
+            set => SetProperty(ref _DishDate, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public CanteensPageTemplate()
+        {
+            DishDate = DateTime.MaxValue;
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
         public void SetSelectedCanteen(Canteen value)
         {
-            if(SetProperty(ref _SelectedCanteen, value, nameof(SelectedCanteen)))
+            if (SetProperty(ref _SelectedCanteen, value, nameof(SelectedCanteen)))
             {
-                if(!(value is null))
+                if (!(value is null))
                 {
                     Storage.Classes.Settings.SetSetting(SettingsConsts.LAST_SELECTED_CANTEEN_ID, value.Id);
+                }
+                DISHES.Clear();
+                if (value is null)
+                {
+                    DishDate = DishManager.INSTANCE.GetNextDate(value.Id, DateTime.Now.AddDays(-1));
+                }
+                else
+                {
+                    DishDate = DateTime.MaxValue;
                 }
             }
         }

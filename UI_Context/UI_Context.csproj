@@ -154,9 +154,12 @@
     <Compile Include="Classes\ValueConverter\BoolVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\PriceStringValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\DateTimeHasDishesBoolConverter.cs" />
     <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\IngredientsEmptyVisibilityValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\DateTimeCanteenDateValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\StringEmptyVisibilityValueConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UI_Context.rd.xml" />

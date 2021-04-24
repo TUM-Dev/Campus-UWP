@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             CornerRadius="{ThemeResource OverlayCornerRadius}"
              Foreground="{ThemeResource ButtonForegroundThemeBrush}"
              mc:Ignorable="d">
 
@@ -10,6 +11,7 @@
             HorizontalAlignment="{x:Bind HorizontalAlignment}"
             VerticalAlignment="{x:Bind VerticalAlignment, Mode=TwoWay}"
             Click="Button_Click"
+            CornerRadius="{x:Bind CornerRadius, Mode=OneWay}"
             Foreground="{x:Bind Foreground, Mode=OneWay}"
             Style="{StaticResource ButtonRevealStyle}">
         <Grid>
@@ -28,7 +30,8 @@
                        Grid.Column="1"
                        Margin="{x:Bind TextMargin, Mode=TwoWay}"
                        VerticalAlignment="Center"
-                       Text="{x:Bind Text, Mode=OneWay}"/>
+                       Text="{x:Bind Text, Mode=OneWay}"
+                       Visibility="{x:Bind Text, Mode=OneWay, Converter={StaticResource StringEmptyVisibilityValueConverter}}"/>
         </Grid>
     </Button>
 </UserControl>

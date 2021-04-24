@@ -32,7 +32,7 @@ namespace Canteens.Classes.Manager
         private const string JSON_DISH_DATE = "date";
         private const string JSON_DISH_TYPE = "dish_type";
 
-        private Task<IEnumerable<Dish>> updateTask;
+        private Task updateTask;
 
         public static readonly DishManager INSTANCE = new DishManager();
 
@@ -127,28 +127,25 @@ namespace Canteens.Classes.Manager
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task<IEnumerable<Dish>> UpdateAsync()
+        public async Task UpdateAsync()
         {
             // Wait for the old update to finish first:
-            if (!(updateTask is null) && !updateTask.IsCompleted)
+            if (updateTask is null || updateTask.IsCompleted)
             {
-                return await updateTask.ConfAwaitFalse();
-            }
-
-            updateTask = Task.Run(async () =>
-            {
-                IEnumerable<Dish> dishes = await DownloadDishesAsync();
-                if (!(dishes is null))
+                updateTask = Task.Run(async () =>
                 {
-                    using (CanteensDbContext ctx = new CanteensDbContext())
+                    IEnumerable<Dish> dishes = await DownloadDishesAsync();
+                    if (!(dishes is null))
                     {
-                        ctx.RemoveRange(ctx.Dishes);
-                        ctx.AddRange(dishes);
+                        using (CanteensDbContext ctx = new CanteensDbContext())
+                        {
+                            ctx.RemoveRange(ctx.Dishes);
+                            ctx.AddRange(dishes);
+                        }
                     }
-                }
-                return dishes;
-            });
-            return await updateTask.ConfAwaitFalse();
+                });
+            }
+            await updateTask.ConfAwaitFalse();
         }
 
         public async Task<IEnumerable<Dish>> LoadDishesAsync(string canteenId, DateTime date)
@@ -156,13 +153,41 @@ namespace Canteens.Classes.Manager
             // Wait for the old update to finish first:
             if (!(updateTask is null) && !updateTask.IsCompleted)
             {
-                return await updateTask.ConfAwaitFalse();
+                await updateTask.ConfAwaitFalse();
             }
 
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
                 return ctx.Dishes.Where(d => string.Equals(d.CanteenId, canteenId) && d.Date.Date.CompareTo(date.Date) == 0).Include(ctx.GetIncludePaths(typeof(Dish))).ToList();
             }
+        }
+
+        /// <summary>
+        /// Returns the next date a dish for the given <paramref name="canteenId"/> was found after the given <paramref name="date"/>.
+        /// In case no date was found. <see cref="DateTime.MaxValue"/> will be returned.
+        /// </summary>
+        public DateTime GetNextDate(string canteenId, DateTime date)
+        {
+            Dish dish = null;
+            using (CanteensDbContext ctx = new CanteensDbContext())
+            {
+                dish = ctx.Dishes.Where(d => d.Date > date && string.Equals(d.CanteenId, canteenId)).OrderBy(d => d.Date).FirstOrDefault();
+            }
+            return dish is null ? DateTime.MaxValue : dish.Date;
+        }
+
+        /// <summary>
+        /// Returns the previous date a dish for the given <paramref name="canteenId"/> was found after the given <paramref name="date"/>.
+        /// In case no date was found. <see cref="DateTime.MinValue"/> will be returned.
+        /// </summary>
+        public DateTime GetPrevDate(string canteenId, DateTime date)
+        {
+            Dish dish = null;
+            using (CanteensDbContext ctx = new CanteensDbContext())
+            {
+                dish = ctx.Dishes.Where(d => d.Date < date && string.Equals(d.CanteenId, canteenId)).OrderByDescending(d => d.Date).FirstOrDefault();
+            }
+            return dish is null ? DateTime.MinValue : dish.Date;
         }
 
         #endregion
@@ -242,7 +267,7 @@ namespace Canteens.Classes.Manager
 
         private List<string> LoadIngredientsFromJson(JsonArray ingredients)
         {
-            return ingredients.Select(x => x.GetString()).ToList();
+            return ingredients.Select(x => x.GetString()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
         }
 
         private string LoadJsonStringSave(JsonValue val)
