@@ -166,6 +166,11 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoadingDishes = false;
         }
 
+        public async Task ShowEatApiBugAsync()
+        {
+            await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("EatApiBugUrl")));
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--

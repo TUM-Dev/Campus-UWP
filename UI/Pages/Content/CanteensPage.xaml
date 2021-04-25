@@ -92,6 +92,21 @@
                                 <FontIcon Glyph="&#xE72C;"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="ingredients_mfi"
+                                        Click="Ingredients_mfi_Click"
+                                        Text="Ingredients">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEADF;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem x:Name="bug_mfi"
+                                        Click="Bug_mfi_Click"
+                                        Text="Wrong/Broken dishes?">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEBE8;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

@@ -9,6 +9,7 @@
 
     <UserControl.Resources>
         <valueconverter:IngredientsStringValueConverter x:Key="IngredientsStringValueConverter"/>
+        <valueconverter:IngredientsStringTooltipValueConverter x:Key="IngredientsStringTooltipValueConverter"/>
         <valueconverter:PriceStringValueConverter x:Key="PriceStringValueConverter"/>
         <valueconverter:IngredientsEmptyVisibilityValueConverter x:Key="IngredientsEmptyVisibilityValueConverter"/>
     </UserControl.Resources>
@@ -42,6 +43,7 @@
                    IsTextSelectionEnabled="True"
                    Text="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringValueConverter}}"
                    TextWrapping="Wrap"
+                   ToolTipService.ToolTip="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringTooltipValueConverter}}"
                    Visibility="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsEmptyVisibilityValueConverter}}"/>
     </Grid>
 </UserControl>

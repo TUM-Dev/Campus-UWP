@@ -3,6 +3,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using Storage.Classes;
+using UI.Dialogs;
+using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -128,6 +130,17 @@ namespace UI.Pages.Content
         private void prevDate_btn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
         {
             VIEW_MODEL.PrevDate();
+        }
+
+        private async void Ingredients_mfi_Click(object sender, RoutedEventArgs e)
+        {
+            IngredientsDialog dialog = new IngredientsDialog();
+            await UiUtils.ShowDialogAsync(dialog);
+        }
+
+        private async void Bug_mfi_Click(object sender, RoutedEventArgs e)
+        {
+            await VIEW_MODEL.ShowEatApiBugAsync();
         }
 
         #endregion

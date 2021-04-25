@@ -165,6 +165,9 @@
     <Compile Include="Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\IngredientsDialog.xaml.cs">
+      <DependentUpon>IngredientsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
@@ -338,6 +341,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\IngredientsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Content\CanteensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -434,6 +441,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Canteens\Canteens.csproj">
+      <Project>{EC4D9DD9-807B-4A0B-9FE2-41DE70F47160}</Project>
+      <Name>Canteens</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
       <Name>Logging</Name>
