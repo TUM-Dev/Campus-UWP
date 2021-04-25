@@ -87,7 +87,8 @@
         <!--  Header:  -->
         <controls:CustomTitleBarControl x:Name="titleBar"
                                         Grid.Row="0"
-                                        Frame="{x:Bind Frame, Mode=OneWay}"/>
+                                        Frame="{x:Bind Frame, Mode=OneWay}"
+                                        Text="Home"/>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

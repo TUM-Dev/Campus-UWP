@@ -69,43 +69,44 @@ namespace UI.Pages
                 TransitionInfoOverride = args.RecommendedNavigationTransitionInfo
             };
             Type targetPage = null;
-            if (args.InvokedItemContainer == calendar_navItem)
-            {
-
-            }
-            else if (args.InvokedItemContainer == canteens_navItem)
+            string pageName = "Home";
+            if (args.InvokedItemContainer == canteens_navItem)
             {
                 targetPage = typeof(CanteensPage);
+                pageName = "Canteens";
             }
             else if (args.InvokedItemContainer == grades_navItem)
             {
                 targetPage = typeof(GradesPage);
+                pageName = "Grades";
             }
             else if (args.InvokedItemContainer == home_navItem)
             {
                 targetPage = typeof(HomePage);
+                pageName = "Home";
             }
             else if (args.InvokedItemContainer == lectures_navItem)
             {
-
+                pageName = "Lectures";
             }
             else if (args.InvokedItemContainer == news_navItem)
             {
-
+                pageName = "News";
             }
             else if (args.InvokedItemContainer == calendar_navItem)
             {
-
+                pageName = "Calendar";
             }
             else if (args.InvokedItemContainer == tuitionFees_navItem)
             {
-
+                pageName = "Tuition Fees";
             }
 
             if (!(targetPage is null))
             {
                 contentFrame.NavigateToType(targetPage, null, navOptions);
             }
+            titleBar.Text = pageName;
         }
 
         private void NavigationView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

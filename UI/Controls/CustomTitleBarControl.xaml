@@ -28,12 +28,25 @@
                 </Grid.ColumnDefinitions>
             </Grid>
 
-            <Button x:Name="backRequest_btn"
-                    Grid.Row="0"
-                    HorizontalAlignment="Left"
-                    Click="BackRequest_btn_Click"
-                    Style="{ThemeResource NavigationBackButtonSmallStyle}"
-                    Visibility="{x:Bind BackRequestButtonVisibility, Mode=OneWay}"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="backRequest_btn"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Click="BackRequest_btn_Click"
+                        Style="{ThemeResource NavigationBackButtonSmallStyle}"
+                        Visibility="{x:Bind BackRequestButtonVisibility, Mode=OneWay}"/>
+
+                <TextBlock Grid.Column="1"
+                           Margin="10,0,0,2"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Text="{x:Bind Path=Text, Mode=OneWay}"/>
+            </Grid>
         </Grid>
     </controls:DropShadowPanel>
 </UserControl>

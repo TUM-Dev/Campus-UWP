@@ -21,6 +21,13 @@ namespace UI.Controls
         }
         public static readonly DependencyProperty FrameProperty = DependencyProperty.Register(nameof(Frame), typeof(Frame), typeof(CustomTitleBarControl), new PropertyMetadata(null, OnFrameChanged));
 
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(CustomTitleBarControl), new PropertyMetadata("Text"));
+
         public Visibility BackRequestButtonVisibility
         {
             get => (Visibility)GetValue(BackRequestButtonVisibilityProperty);
