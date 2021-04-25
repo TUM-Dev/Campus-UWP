@@ -17,8 +17,7 @@
     <Page.Resources>
         <DataTemplate x:Key="CanteenDataTemplate"
                       x:DataType="canteens:Canteen">
-            <TextBlock Foreground="{ThemeResource TumBlueBrush}"
-                       Style="{ThemeResource BaseLineTextBlockStyle}"
+            <TextBlock Style="{ThemeResource BaseLineTextBlockStyle}"
                        Text="{x:Bind Name}"/>
         </DataTemplate>
 
@@ -34,11 +33,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition/>
+            <ColumnDefinition x:Name="map_colDef"/>
         </Grid.ColumnDefinitions>
 
         <!--  Canteens:  -->
-        <Grid Grid.Column="0"
+        <Grid x:Name="canteens_grid"
+              Grid.Column="0"
               Margin="10"
               Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
             <Grid.RowDefinitions>
@@ -137,7 +137,6 @@
                     <TextBlock Margin="5,0,5,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="{ThemeResource TumBlueBrush}"
                                Style="{ThemeResource BaseLineTextBlockStyle}"
                                Text="{x:Bind VIEW_MODEL.MODEL.DishDate, Mode=OneWay, Converter={StaticResource DateTimeCanteenDateValueConverter}}"/>
                 </ContentPresenter>
@@ -187,10 +186,10 @@
 
         <!--  Map:  -->
         <maps:MapControl x:Name="canteens_map"
-                         Grid.Column="2"
-                         Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
+                         Grid.Column="2"/>
 
-        <controls:GridSplitter Grid.Column="1"
+        <controls:GridSplitter x:Name="map_gridSplitter"
+                               Grid.Column="1"
                                HorizontalAlignment="Center"
                                ui:FrameworkElementExtensions.Cursor="SizeWestEast"
                                ResizeBehavior="BasedOnAlignment"
@@ -213,5 +212,30 @@
                           IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading canteens..."/>
         </controls:Loading>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Uid="Large">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="canteens_map.Visibility" Value="Visible"/>
+                        <Setter Target="map_gridSplitter.Visibility" Value="Visible"/>
+                        <Setter Target="canteens_grid.Grid.ColumnSpan" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Uid="Small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="canteens_map.Visibility" Value="Collapsed"/>
+                        <Setter Target="map_gridSplitter.Visibility" Value="Collapsed"/>
+                        <Setter Target="canteens_grid.Grid.ColumnSpan" Value="3"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
