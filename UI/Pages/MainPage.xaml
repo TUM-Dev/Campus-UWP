@@ -16,11 +16,12 @@
         </Grid.RowDefinitions>
 
         <!--  Content:  -->
-        <controls1:NavigationView Grid.Row="1"
+        <controls1:NavigationView x:Name="main_navView"
+                                  Grid.Row="1"
                                   IsBackButtonVisible="Collapsed"
-                                  PaneDisplayMode="Left"
+                                  ItemInvoked="NavigationView_ItemInvoked"
                                   Loaded="NavigationView_Loaded"
-                                  ItemInvoked="NavigationView_ItemInvoked">
+                                  PaneDisplayMode="Left">
             <controls1:NavigationView.MenuItems>
                 <controls1:NavigationViewItemHeader Content="My TUM"
                                                     Foreground="{ThemeResource CaptionTextBrush}"/>
@@ -86,5 +87,26 @@
         <controls:CustomTitleBarControl x:Name="titleBar"
                                         Grid.Row="0"
                                         Frame="{x:Bind Frame, Mode=OneWay}"/>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Uid="Large">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="main_navView.PaneDisplayMode" Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Uid="Small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="main_navView.PaneDisplayMode" Value="LeftCompact"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
