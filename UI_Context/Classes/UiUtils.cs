@@ -16,6 +16,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 namespace UI_Context.Classes
 {
@@ -76,7 +77,15 @@ namespace UI_Context.Classes
 
         public static void RemoveLastBackStackEntry()
         {
-            if (Window.Current.Content is Frame frame && frame.BackStackDepth > 0)
+            if (Window.Current.Content is Frame frame)
+            {
+                RemoveLastBackStackEntry(frame);
+            }
+        }
+
+        public static void RemoveLastBackStackEntry(Frame frame)
+        {
+            if (frame.BackStackDepth > 0)
             {
                 frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
             }
@@ -84,31 +93,67 @@ namespace UI_Context.Classes
 
         public static bool NavigateToPage(Type pageType)
         {
-            return NavigateToPage(pageType, null);
+            if (Window.Current.Content is Frame frame)
+            {
+                return NavigateToPage(pageType, frame);
+            }
+            else
+            {
+                Logger.Error("Failed to navigate to " + pageType.ToString() + " - Window.Current.Content is not of type Frame!");
+                return false;
+            }
+        }
+
+        public static bool NavigateToPage(Type pageType, Frame frame)
+        {
+            return NavigateToPage(pageType, null, frame);
         }
 
         public static bool NavigateToPage(Type pageType, object parameter)
+        {
+            if (Window.Current.Content is Frame frame)
+            {
+                return NavigateToPage(pageType, parameter, frame);
+            }
+            else
+            {
+                Logger.Error("Failed to navigate to " + pageType.ToString() + " - Window.Current.Content is not of type Frame!");
+                return false;
+            }
+        }
+
+        public static bool NavigateToPage(Type pageType, object parameter, Frame frame)
         {
             if (pageType is null)
             {
                 Logger.Error("Failed to navigate to given page type - type is null!");
                 return false;
             }
-            if (Window.Current.Content is Frame frame)
+            if (frame.Content is null || frame.Content.GetType() != pageType)
             {
-                if (frame.Content is null || frame.Content.GetType() != pageType)
-                {
-                    return frame.Navigate(pageType, parameter);
-                }
-                else
-                {
-                    Logger.Warn("No need to navigate to page " + pageType.ToString() + " - already on it.");
-                    return false;
-                }
+                return frame.Navigate(pageType, parameter);
             }
             else
             {
-                Logger.Error("Failed to navigate to " + pageType.ToString() + " - Window.Current.Content is not of type Frame!");
+                Logger.Warn("No need to navigate to page " + pageType.ToString() + " - already on it.");
+                return false;
+            }
+        }
+
+        public static bool NavigateToType(Type pageType, object parameter, Frame frame, FrameNavigationOptions navigationOptions)
+        {
+            if (pageType is null)
+            {
+                Logger.Error("Failed to navigate to given page type - type is null!");
+                return false;
+            }
+            if (frame.Content is null || frame.Content.GetType() != pageType)
+            {
+                return frame.NavigateToType(pageType, parameter, navigationOptions);
+            }
+            else
+            {
+                Logger.Warn("No need to navigate to page " + pageType.ToString() + " - already on it.");
                 return false;
             }
         }

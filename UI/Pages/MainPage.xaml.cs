@@ -4,6 +4,7 @@ using UI.Pages.Settings;
 using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace UI.Pages
@@ -13,6 +14,7 @@ namespace UI.Pages
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public readonly HomePageContext VIEW_MODEL = new HomePageContext();
+        private readonly MainPageNavigationPage[] PAGES;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -21,6 +23,17 @@ namespace UI.Pages
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
+
+            PAGES = new MainPageNavigationPage[7]
+            {
+                new MainPageNavigationPage(typeof(HomePage), home_navItem, "Home"),
+                new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
+                new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
+                new MainPageNavigationPage(typeof(HomePage), lectures_navItem, "Lectures"),
+                new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
+                new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Calendar"),
+                new MainPageNavigationPage(typeof(CanteensPage), tuitionFees_navItem, "Tuition Fees")
+            };
         }
 
         #endregion
@@ -36,7 +49,36 @@ namespace UI.Pages
         #endregion
 
         #region --Misc Methods (Private)--
+        private void UpdateNavigationView(Type targetPage)
+        {
+            foreach (MainPageNavigationPage page in PAGES)
+            {
+                if (page.TARGET_PAGE == targetPage)
+                {
+                    main_navView.SelectedItem = page.NAV_ITEM;
+                    return;
+                }
+            }
+            throw new InvalidOperationException($"Failed to update main navigation view. Invalid target page ({targetPage})");
+        }
 
+        private void NavigateToPage(Microsoft.UI.Xaml.Controls.NavigationViewItemBase target, NavigationTransitionInfo info)
+        {
+            FrameNavigationOptions navOptions = new FrameNavigationOptions
+            {
+                TransitionInfoOverride = info
+            };
+
+            foreach (MainPageNavigationPage page in PAGES)
+            {
+                if (page.NAV_ITEM == target)
+                {
+                    UiUtils.NavigateToType(page.TARGET_PAGE, null, contentFrame, navOptions);
+                    titleBar.Text = page.PAGE_NAME;
+                    return;
+                }
+            }
+        }
 
         #endregion
 
@@ -56,60 +98,17 @@ namespace UI.Pages
             titleBar.OnPageNavigatedFrom();
         }
 
-        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private void OnNavigationViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked)
             {
                 UiUtils.NavigateToPage(typeof(SettingsPage));
                 return;
             }
-
-            FrameNavigationOptions navOptions = new FrameNavigationOptions
-            {
-                TransitionInfoOverride = args.RecommendedNavigationTransitionInfo
-            };
-            Type targetPage = null;
-            string pageName = "Home";
-            if (args.InvokedItemContainer == canteens_navItem)
-            {
-                targetPage = typeof(CanteensPage);
-                pageName = "Canteens";
-            }
-            else if (args.InvokedItemContainer == grades_navItem)
-            {
-                targetPage = typeof(GradesPage);
-                pageName = "Grades";
-            }
-            else if (args.InvokedItemContainer == home_navItem)
-            {
-                targetPage = typeof(HomePage);
-                pageName = "Home";
-            }
-            else if (args.InvokedItemContainer == lectures_navItem)
-            {
-                pageName = "Lectures";
-            }
-            else if (args.InvokedItemContainer == news_navItem)
-            {
-                pageName = "News";
-            }
-            else if (args.InvokedItemContainer == calendar_navItem)
-            {
-                pageName = "Calendar";
-            }
-            else if (args.InvokedItemContainer == tuitionFees_navItem)
-            {
-                pageName = "Tuition Fees";
-            }
-
-            if (!(targetPage is null))
-            {
-                contentFrame.NavigateToType(targetPage, null, navOptions);
-            }
-            titleBar.Text = pageName;
+            NavigateToPage(args.InvokedItemContainer, args.RecommendedNavigationTransitionInfo);
         }
 
-        private void NavigationView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnNavigationViewLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Navigate by default to the home page:
             if (sender is Microsoft.UI.Xaml.Controls.NavigationView navView)
@@ -117,6 +116,11 @@ namespace UI.Pages
                 navView.SelectedItem = home_navItem;
                 contentFrame.Navigate(typeof(HomePage));
             }
+        }
+
+        private void OnContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            UpdateNavigationView(e.SourcePageType);
         }
 
         #endregion

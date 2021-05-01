@@ -1,6 +1,6 @@
 ﻿using System;
 using Shared.Classes;
-using UI.Pages;
+using UI.Pages.Content;
 using UI_Context.Classes;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
@@ -40,7 +40,7 @@ namespace UI.Controls
             get => (Type)GetValue(NavigationFallbackPageProperty);
             set => SetValue(NavigationFallbackPageProperty, value);
         }
-        public static readonly DependencyProperty NavigationFallbackPageProperty = DependencyProperty.Register(nameof(NavigationFallbackPage), typeof(Type), typeof(CustomTitleBarControl), new PropertyMetadata(typeof(MainPage)));
+        public static readonly DependencyProperty NavigationFallbackPageProperty = DependencyProperty.Register(nameof(NavigationFallbackPage), typeof(Type), typeof(CustomTitleBarControl), new PropertyMetadata(typeof(HomePage)));
 
         public bool IsActive
         {
@@ -97,8 +97,8 @@ namespace UI.Controls
 
             if (!(NavigationFallbackPage is null))
             {
-                bool b = UiUtils.NavigateToPage(NavigationFallbackPage);
-                UiUtils.RemoveLastBackStackEntry();
+                bool b = UiUtils.NavigateToPage(NavigationFallbackPage, Frame);
+                UiUtils.RemoveLastBackStackEntry(Frame);
                 return b;
             }
             return true;

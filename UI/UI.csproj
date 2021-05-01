@@ -184,6 +184,7 @@
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MainPageNavigationPage.cs" />
     <Compile Include="Pages\Settings\DebugSettingsPage.xaml.cs">
       <DependentUpon>DebugSettingsPage.xaml</DependentUpon>
     </Compile>

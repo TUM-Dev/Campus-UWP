@@ -19,8 +19,8 @@
         <controls1:NavigationView x:Name="main_navView"
                                   Grid.Row="1"
                                   IsBackButtonVisible="Collapsed"
-                                  ItemInvoked="NavigationView_ItemInvoked"
-                                  Loaded="NavigationView_Loaded"
+                                  ItemInvoked="OnNavigationViewItemInvoked"
+                                  Loaded="OnNavigationViewLoaded"
                                   OpenPaneLength="150"
                                   PaneDisplayMode="Left">
             <controls1:NavigationView.MenuItems>
@@ -81,13 +81,14 @@
                 <controls1:NavigationViewItemHeader Content="Quick Links"
                                                     Foreground="{ThemeResource CaptionTextBrush}"/>
             </controls1:NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
+            <Frame x:Name="contentFrame"
+                   Navigating="OnContentFrameNavigating"/>
         </controls1:NavigationView>
 
         <!--  Header:  -->
         <controls:CustomTitleBarControl x:Name="titleBar"
                                         Grid.Row="0"
-                                        Frame="{x:Bind Frame, Mode=OneWay}"
+                                        Frame="{x:Bind contentFrame, Mode=OneWay}"
                                         Text="Home"/>
 
         <VisualStateManager.VisualStateGroups>
