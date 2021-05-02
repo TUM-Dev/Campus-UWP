@@ -15,18 +15,24 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Key="CanteenDataTemplate"
-                      x:DataType="canteens:Canteen">
-            <TextBlock Style="{ThemeResource BaseLineTextBlockStyle}"
-                       Text="{x:Bind Name}"/>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/CanteenStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <DataTemplate x:Key="DishDataTemplate"
-                      x:DataType="canteens:Dish">
-            <canteens1:DishControl Dish="{x:Bind}"/>
-        </DataTemplate>
-        <valueconverter:DateTimeCanteenDateValueConverter x:Key="DateTimeCanteenDateValueConverter"/>
-        <valueconverter:DateTimeHasDishesBoolConverter x:Key="DateTimeHasDishesBoolConverter"/>
+            <DataTemplate x:Key="CanteenDataTemplate"
+                          x:DataType="canteens:Canteen">
+                <TextBlock Style="{ThemeResource BaseLineTextBlockStyle}"
+                           Text="{x:Bind Name}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DishDataTemplate"
+                          x:DataType="canteens:Dish">
+                <canteens1:DishControl Dish="{x:Bind}"/>
+            </DataTemplate>
+            <valueconverter:DateTimeCanteenDateValueConverter x:Key="DateTimeCanteenDateValueConverter"/>
+            <valueconverter:DateTimeHasDishesBoolConverter x:Key="DateTimeHasDishesBoolConverter"/>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
@@ -51,13 +57,10 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="0"
-                      HorizontalAlignment="Stretch"
-                      Background="{ThemeResource ButtonRevealBackground}"
-                      BorderThickness="0"
-                      CornerRadius="2,0,0,2"
                       ItemTemplate="{StaticResource CanteenDataTemplate}"
                       ItemsSource="{x:Bind VIEW_MODEL.MODEL.CANTEENS}"
-                      SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"/>
+                      SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedCanteen, Mode=TwoWay}"
+                      Style="{StaticResource CanteensComboBoxStyle}"/>
             <Button Grid.Column="1"
                     Width="32"
                     Height="32"
@@ -176,13 +179,6 @@
             </ListView>
         </Grid>
 
-        <!--  Dishes Loading:  -->
-        <controls:Loading Grid.Row="0"
-                          Grid.RowSpan="2"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Mode=OneWay}">
-            <controls1:LoadingContentControl Text="Loading dishes..."/>
-        </controls:Loading>
 
         <!--  Map:  -->
         <maps:MapControl x:Name="canteens_map"
@@ -206,12 +202,6 @@
             </controls:GridSplitter.Element>
         </controls:GridSplitter>
 
-        <controls:Loading Grid.Column="0"
-                          Grid.ColumnSpan="3"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
-            <controls1:LoadingContentControl Text="Loading canteens..."/>
-        </controls:Loading>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
