@@ -52,7 +52,6 @@ namespace Canteens.Classes.Manager
 
             updateTask = Task.Run(async () =>
             {
-                await Task.Delay(10000);
                 if (!force && CacheDbContext.IsCacheEntryUpToDate(CANTEENS_URI.ToString(), MAX_TIME_IN_CACHE))
                 {
                     Logger.Info("No need to fetch canteens. Cache is still valid.");
