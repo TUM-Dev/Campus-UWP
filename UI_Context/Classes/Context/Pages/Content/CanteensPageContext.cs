@@ -125,14 +125,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoadingCanteens = true;
             IEnumerable<Canteen> canteens;
-            if (refresh)
-            {
-                canteens = await CanteenManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
-            }
-            else
-            {
-                canteens = await CanteenManager.INSTANCE.LoadCanteensAsync().ConfAwaitFalse();
-            }
+            canteens = await CanteenManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
             MODEL.CANTEENS.Clear();
             MODEL.CANTEENS.AddRange(canteens);
             LoadLastSelectedCanteen();
@@ -146,10 +139,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             if (!(canteen is null))
             {
                 IEnumerable<Dish> dishes;
-                if (refresh)
-                {
-                    await DishManager.INSTANCE.UpdateAsync().ConfAwaitFalse();
-                }
+                await DishManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
                 if (MODEL.DishDate == DateTime.MaxValue)
                 {
                     MODEL.DishDate = DishManager.INSTANCE.GetNextDate(canteen.Id, DateTime.Now);

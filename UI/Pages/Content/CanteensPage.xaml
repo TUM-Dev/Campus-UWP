@@ -179,6 +179,14 @@
             </ListView>
         </Grid>
 
+        <!--  Dishes Loading:  -->
+        <controls:Loading Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Mode=OneWay}">
+            <controls1:LoadingContentControl Text="Loading dishes..."/>
+        </controls:Loading>
+
 
         <!--  Map:  -->
         <maps:MapControl x:Name="canteens_map"
@@ -202,6 +210,12 @@
             </controls:GridSplitter.Element>
         </controls:GridSplitter>
 
+        <controls:Loading Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
+            <controls1:LoadingContentControl Text="Loading canteens..."/>
+        </controls:Loading>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

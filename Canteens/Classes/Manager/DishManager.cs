@@ -17,6 +17,7 @@ namespace Canteens.Classes.Manager
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private static readonly Uri DISHES_URI = new Uri("https://tum-dev.github.io/eat-api/all_ref.json");
+        private static readonly TimeSpan MAX_TIME_IN_CACHE = TimeSpan.FromDays(1);
 
         private const string JSON_CANTEEN_ID = "canteen_id";
         private const string JSON_DISHES = "dishes";
@@ -127,13 +128,18 @@ namespace Canteens.Classes.Manager
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task UpdateAsync()
+        public async Task UpdateAsync(bool force)
         {
             // Wait for the old update to finish first:
             if (updateTask is null || updateTask.IsCompleted)
             {
                 updateTask = Task.Run(async () =>
                 {
+                    if (!force && CacheDbContext.IsCacheEntryUpToDate(DISHES_URI.ToString(), MAX_TIME_IN_CACHE))
+                    {
+                        Logger.Info("No need to fetch dishes. Cache is still valid.");
+                        return;
+                    }
                     IEnumerable<Dish> dishes = await DownloadDishesAsync();
                     if (!(dishes is null))
                     {
@@ -142,6 +148,7 @@ namespace Canteens.Classes.Manager
                             ctx.RemoveRange(ctx.Dishes);
                             ctx.AddRange(dishes);
                         }
+                        CacheDbContext.UpdateCacheEntry(DISHES_URI.ToString(), DateTime.Now);
                     }
                 });
             }

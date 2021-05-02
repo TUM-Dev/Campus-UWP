@@ -121,8 +121,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Contexts\AbstractDbContext.cs" />
+    <Compile Include="Classes\Contexts\CacheDbContext.cs" />
     <Compile Include="Classes\Contexts\CanteensDbContext.cs" />
     <Compile Include="Classes\Models\AbstractModel.cs" />
+    <Compile Include="Classes\Models\Cache\AbstractCacheModel.cs" />
+    <Compile Include="Classes\Models\Cache\CacheEntry.cs" />
+    <Compile Include="Classes\Models\Cache\CacheLine.cs" />
     <Compile Include="Classes\Models\Canteens\AbstractCanteensModel.cs" />
     <Compile Include="Classes\Models\Canteens\Canteen.cs" />
     <Compile Include="Classes\Models\Canteens\Dish.cs" />

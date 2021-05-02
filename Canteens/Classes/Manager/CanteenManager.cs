@@ -16,6 +16,7 @@ namespace Canteens.Classes.Manager
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private static readonly Uri CANTEENS_URI = new Uri("https://tum-dev.github.io/eat-api/canteens.json");
+        private static readonly TimeSpan MAX_TIME_IN_CACHE = TimeSpan.FromDays(7);
 
         private const string JSON_LOCATION = "location";
         private const string JSON_LOCATION_ADDRESS = "address";
@@ -41,7 +42,7 @@ namespace Canteens.Classes.Manager
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task<IEnumerable<Canteen>> UpdateAsync()
+        public async Task<IEnumerable<Canteen>> UpdateAsync(bool force)
         {
             // Wait for the old update to finish first:
             if (!(updateTask is null) && !updateTask.IsCompleted)
@@ -51,6 +52,15 @@ namespace Canteens.Classes.Manager
 
             updateTask = Task.Run(async () =>
             {
+                await Task.Delay(10000);
+                if (!force && CacheDbContext.IsCacheEntryUpToDate(CANTEENS_URI.ToString(), MAX_TIME_IN_CACHE))
+                {
+                    Logger.Info("No need to fetch canteens. Cache is still valid.");
+                    using (CanteensDbContext ctx = new CanteensDbContext())
+                    {
+                        return ctx.Canteens.Include(ctx.GetIncludePaths(typeof(Canteen))).ToList();
+                    }
+                }
                 IEnumerable<Canteen> canteens = await DownloadCanteensAsync();
                 if (!(canteens is null))
                 {
@@ -59,24 +69,11 @@ namespace Canteens.Classes.Manager
                         ctx.RemoveRange(ctx.Canteens);
                         ctx.AddRange(canteens);
                     }
+                    CacheDbContext.UpdateCacheEntry(CANTEENS_URI.ToString(), DateTime.Now);
                 }
                 return canteens;
             });
             return await updateTask.ConfAwaitFalse();
-        }
-
-        public async Task<IEnumerable<Canteen>> LoadCanteensAsync()
-        {
-            // Wait for the old update to finish first:
-            if (!(updateTask is null) && !updateTask.IsCompleted)
-            {
-                return await updateTask.ConfAwaitFalse();
-            }
-
-            using (CanteensDbContext ctx = new CanteensDbContext())
-            {
-                return ctx.Canteens.Include(ctx.GetIncludePaths(typeof(Canteen))).ToList();
-            }
         }
 
         #endregion
