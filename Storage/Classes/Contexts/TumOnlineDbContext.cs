@@ -1,23 +1,23 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using Storage.Classes.Models.TumOnline;
 
-namespace Storage.Classes.Models.Cache
+namespace Storage.Classes.Contexts
 {
-    public class CacheLine: AbstractCacheModel
+    public class TumOnlineDbContext: AbstractDbContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
-        public string Id { get; set; }
-        [Required]
-        public DateTime ValidUntil { get; set; }
-        public string Data { get; set; }
+        public DbSet<Grade> Grades { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public TumOnlineDbContext() : base("tumOnline.db")
+        {
+            // Disable change tracking since we always manually update them and only require them read only:
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            Database.EnsureCreated();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

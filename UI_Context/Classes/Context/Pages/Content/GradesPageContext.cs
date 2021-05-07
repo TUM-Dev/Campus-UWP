@@ -1,23 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Threading.Tasks;
+using Shared.Classes;
+using Storage.Classes;
+using TumOnline.Classes.Managers;
+using UI_Context.Classes.Templates.Pages.Content;
 
-namespace Storage.Classes.Models.Cache
+namespace UI_Context.Classes.Context.Pages.Content
 {
-    public class CacheLine: AbstractCacheModel
+    public class GradesPageContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
-        public string Id { get; set; }
-        [Required]
-        public DateTime ValidUntil { get; set; }
-        public string Data { get; set; }
+        public readonly GradesPageDataTemplate MODEL = new GradesPageDataTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public GradesPageContext()
+        {
+            Task.Run(async () => await LoadGradesAsync(false));
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -27,12 +28,20 @@ namespace Storage.Classes.Models.Cache
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public void Refresh()
+        {
+            Task.Run(async () => await LoadGradesAsync(true));
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-
+        private async Task LoadGradesAsync(bool refresh)
+        {
+            MODEL.IsLoading = true;
+            await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            MODEL.IsLoading = false;
+        }
 
         #endregion
 

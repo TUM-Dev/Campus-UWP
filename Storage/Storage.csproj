@@ -123,6 +123,7 @@
     <Compile Include="Classes\Contexts\AbstractDbContext.cs" />
     <Compile Include="Classes\Contexts\CacheDbContext.cs" />
     <Compile Include="Classes\Contexts\CanteensDbContext.cs" />
+    <Compile Include="Classes\Contexts\TumOnlineDbContext.cs" />
     <Compile Include="Classes\Models\AbstractModel.cs" />
     <Compile Include="Classes\Models\Cache\AbstractCacheModel.cs" />
     <Compile Include="Classes\Models\Cache\CacheEntry.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Classes\Models\Canteens\Dish.cs" />
     <Compile Include="Classes\Models\Canteens\Location.cs" />
     <Compile Include="Classes\Models\Canteens\Price.cs" />
+    <Compile Include="Classes\Models\TumOnline\Grade.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\SettingsConsts.cs" />
     <Compile Include="Classes\TokenReader.cs" />
@@ -166,9 +168,7 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Models\TumOnline\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\MapToken.txt" />
   </ItemGroup>

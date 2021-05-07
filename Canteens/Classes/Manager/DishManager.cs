@@ -135,7 +135,7 @@ namespace Canteens.Classes.Manager
             {
                 updateTask = Task.Run(async () =>
                 {
-                    if (!force && CacheDbContext.IsCacheEntryUpToDate(DISHES_URI.ToString(), MAX_TIME_IN_CACHE))
+                    if (!force && CacheDbContext.IsCacheEntryValid(DISHES_URI.ToString()))
                     {
                         Logger.Info("No need to fetch dishes. Cache is still valid.");
                         return;
@@ -148,7 +148,7 @@ namespace Canteens.Classes.Manager
                             ctx.RemoveRange(ctx.Dishes);
                             ctx.AddRange(dishes);
                         }
-                        CacheDbContext.UpdateCacheEntry(DISHES_URI.ToString(), DateTime.Now);
+                        CacheDbContext.UpdateCacheEntry(DISHES_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
                     }
                 });
             }

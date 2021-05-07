@@ -52,7 +52,7 @@ namespace Canteens.Classes.Manager
 
             updateTask = Task.Run(async () =>
             {
-                if (!force && CacheDbContext.IsCacheEntryUpToDate(CANTEENS_URI.ToString(), MAX_TIME_IN_CACHE))
+                if (!force && CacheDbContext.IsCacheEntryValid(CANTEENS_URI.ToString()))
                 {
                     Logger.Info("No need to fetch canteens. Cache is still valid.");
                     using (CanteensDbContext ctx = new CanteensDbContext())
@@ -68,7 +68,7 @@ namespace Canteens.Classes.Manager
                         ctx.RemoveRange(ctx.Canteens);
                         ctx.AddRange(canteens);
                     }
-                    CacheDbContext.UpdateCacheEntry(CANTEENS_URI.ToString(), DateTime.Now);
+                    CacheDbContext.UpdateCacheEntry(CANTEENS_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
                 }
                 return canteens;
             });

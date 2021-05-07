@@ -1,18 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Shared.Classes;
 
-namespace Storage.Classes.Models.Cache
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public class CacheLine: AbstractCacheModel
+    public class GradesPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
-        public string Id { get; set; }
-        [Required]
-        public DateTime ValidUntil { get; set; }
-        public string Data { get; set; }
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

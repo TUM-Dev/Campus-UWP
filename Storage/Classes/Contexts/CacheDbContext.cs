@@ -36,12 +36,11 @@ namespace Storage.Classes.Contexts
 
         #region --Misc Methods (Private)--
         /// <summary>
-        /// Checks if there exists a <see cref="CacheEntry"/> for the given <paramref name="id"/> that is not older than <paramref name="maxAge"/>.
+        /// Checks if there exists a valid <see cref="CacheEntry"/> for the given <paramref name="id"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="CacheEntry"/>.</param>
-        /// <param name="maxAge">The maximum age, the <see cref="CacheEntry"/> is allowed to be.</param>
-        /// <returns>True in case there exists a valid <see cref="CacheEntry"/> which is not older than <paramref name="maxAge"/>.</returns>
-        public static bool IsCacheEntryUpToDate(string id, TimeSpan maxAge)
+        /// <returns>True in case there exists a valid <see cref="CacheEntry"/>.</returns>
+        public static bool IsCacheEntryValid(string id)
         {
             CacheEntry entry = null;
             using (CacheDbContext ctx = new CacheDbContext())
@@ -49,26 +48,25 @@ namespace Storage.Classes.Contexts
                 entry = ctx.CacheEntries.Where(e => string.Equals(e.Id, id)).FirstOrDefault();
             }
 
-            return !(entry is null) && (entry.LastUpdated.Add(maxAge) > DateTime.Now);
+            return !(entry is null) && (entry.ValidUntil > DateTime.Now);
         }
 
         /// <summary>
-        /// Checks if there exists a <see cref="CacheLine"/> for the given <paramref name="id"/> that is not older than <paramref name="maxAge"/>.
+        /// Checks if there exists a <see cref="CacheLine"/> for the given <paramref name="id"/> which is still valid.
         /// </summary>
         /// <param name="id">The ID of the <see cref="CacheLine"/>.</param>
-        /// <param name="maxAge">The maximum age, the <see cref="CacheLine"/> is allowed to be.</param>
-        /// <returns>The cached data in case there exists a valid <see cref="CacheLine"/> which is not older than <paramref name="maxAge"/>. Else, null.</returns>
-        public static string GetCacheLine(string id, TimeSpan maxAge)
+        /// <returns>The cached data in case there exists a valid <see cref="CacheLine"/>. Else, null.</returns>
+        public static string GetCacheLine(string id)
         {
             CacheLine line = null;
             using (CacheDbContext ctx = new CacheDbContext())
             {
                 line = ctx.CacheLines.Where(e => string.Equals(e.Id, id)).FirstOrDefault();
             }
-            return !(line is null) && (line.LastUpdated.Add(maxAge) > DateTime.Now) ? line.Data : null;
+            return !(line is null) && (line.ValidUntil > DateTime.Now) ? line.Data : null;
         }
 
-        public static void UpdateCacheEntry(string id, DateTime lastUpdated)
+        public static void UpdateCacheEntry(string id, DateTime validUntil)
         {
             CacheEntry entry = null;
             using (CacheDbContext ctx = new CacheDbContext())
@@ -80,18 +78,18 @@ namespace Storage.Classes.Contexts
                 entry = new CacheEntry
                 {
                     Id = id,
-                    LastUpdated = lastUpdated
+                    ValidUntil = validUntil
                 };
                 entry.Add();
             }
             else
             {
-                entry.LastUpdated = lastUpdated;
+                entry.ValidUntil = validUntil;
                 entry.Update();
             }
         }
 
-        public static void UpdateCacheLine(string id, DateTime lastUpdated, string data)
+        public static void UpdateCacheLine(string id, DateTime validUntil, string data)
         {
             CacheLine line = null;
             using (CacheDbContext ctx = new CacheDbContext())
@@ -103,14 +101,14 @@ namespace Storage.Classes.Contexts
                 line = new CacheLine
                 {
                     Id = id,
-                    LastUpdated = lastUpdated,
+                    ValidUntil = validUntil,
                     Data = data
                 };
                 line.Add();
             }
             else
             {
-                line.LastUpdated = lastUpdated;
+                line.ValidUntil = validUntil;
                 line.Data = data;
                 line.Update();
             }

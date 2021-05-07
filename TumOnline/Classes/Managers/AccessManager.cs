@@ -4,12 +4,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using Logging.Classes;
+using Storage.Classes;
 using TumOnline.Classes.Exceptions;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 
 namespace TumOnline.Classes.Managers
 {
-    public class AccessManager
+    public static class AccessManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -37,6 +38,11 @@ namespace TumOnline.Classes.Managers
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public static void AddToken(TumOnlineRequest request, TumOnlineCredentials credentials)
+        {
+            request.AddQuery(ATTRIBUTE_TOKEN, credentials.TOKEN);
+        }
+
         public static async Task<string> RequestNewTokenAsync(string tumId)
         {
             TumOnlineRequest request = new TumOnlineRequest(TumOnlineService.REQUEST_TOKEN);
@@ -55,7 +61,7 @@ namespace TumOnline.Classes.Managers
             {
                 XmlDocument doc = await request.RequestDocumentAsync();
                 XmlNode node = doc.SelectSingleNode("confirmed");
-                return node is null ? false : bool.Parse(node.InnerText);
+                return !(node is null) && bool.Parse(node.InnerText);
             }
             catch (Exception e)
             {

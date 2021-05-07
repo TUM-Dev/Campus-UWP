@@ -126,12 +126,16 @@
     <Compile Include="Classes\Exceptions\MalformedXmlTumOnlineException.cs" />
     <Compile Include="Classes\Exceptions\NoAccessTumOnlineException.cs" />
     <Compile Include="Classes\Managers\AccessManager.cs" />
+    <Compile Include="Classes\Managers\GradesManager.cs" />
     <Compile Include="Classes\TumOnlineRequest.cs" />
     <Compile Include="Classes\TumOnlineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\TumOnline.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>3.1.13</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
@@ -143,6 +147,14 @@
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{B1B74CB2-3E08-4FE7-876D-4F9C82A41C90}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{606760a5-8eb4-45d5-9de0-590b49e163de}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Storage\Storage.csproj">
+      <Project>{82960015-C6C1-4507-81DC-2D317A285394}</Project>
+      <Name>Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -125,6 +125,7 @@
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
     <Compile Include="Classes\Context\Dialogs\ConfirmDialogContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />
     <Compile Include="Classes\Context\Controls\Settings\LogLevelControlContext.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\ConfirmDialogTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\CanteensPageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\GradesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\GeneralSettingsPageTemplate.cs" />

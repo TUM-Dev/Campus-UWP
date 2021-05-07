@@ -11,7 +11,7 @@ namespace Storage.Classes.Models.Cache
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
         public string Id { get; set; }
         [Required]
-        public DateTime LastUpdated { get; set; }
+        public DateTime ValidUntil { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

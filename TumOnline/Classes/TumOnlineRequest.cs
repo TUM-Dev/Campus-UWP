@@ -7,6 +7,7 @@ using System.Xml;
 using Logging.Classes;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using Microsoft.Toolkit.Uwp.Helpers;
+using Storage.Classes.Contexts;
 using TumOnline.Classes.Exceptions;
 using Windows.ApplicationModel;
 using Windows.Storage.Streams;
@@ -92,10 +93,16 @@ namespace TumOnline.Classes
 
         private async Task<string> RequestStringAsync(Uri uri, bool checkCached)
         {
-            Logger.Debug("[" + nameof(TumOnlineRequest) + "] Request: " + uri.ToString());
-            if (checkCached)
+            Logger.Debug($"[{nameof(TumOnlineRequest)}] Request: {uri}");
+            if (checkCached && (SERVICE.VALIDITY != TumOnlineService.VALIDITY_NONE))
             {
-                // TODO check if the request has been cached
+                string result = CacheDbContext.GetCacheLine(uri.ToString());
+                if (!string.IsNullOrEmpty(result))
+                {
+                    Logger.Debug($"Loaded cached request for: '{uri}'");
+                    return result;
+                }
+                Logger.Debug($"No cached request found for: '{uri}'");
             }
 
             if (!NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable)
@@ -116,9 +123,9 @@ namespace TumOnline.Classes
                     string result = dataReader.ReadString(buffer.Length);
                     if (SERVICE.VALIDITY != TumOnlineService.VALIDITY_NONE)
                     {
-                        // TODO cache result
+                        CacheDbContext.UpdateCacheLine(uri.ToString(), DateTime.Now.Add(SERVICE.VALIDITY), result);
                     }
-                    Logger.Debug("[" + nameof(TumOnlineRequest) + "] Response: " + result);
+                    Logger.Debug($"[{nameof(TumOnlineRequest)}] Response: {result}");
                     return result;
                 }
             }
