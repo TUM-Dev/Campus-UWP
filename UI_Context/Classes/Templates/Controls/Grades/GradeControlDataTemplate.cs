@@ -1,21 +1,12 @@
 ﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using Storage.Classes.Models.TumOnline;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace UI_Context.Classes.Templates.Controls.Grades
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public class GradeControlDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<CustomObservableCollection<Grade>> GRADE_COLLECTIONS = new CustomObservableCollection<CustomObservableCollection<Grade>>(true);
 
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

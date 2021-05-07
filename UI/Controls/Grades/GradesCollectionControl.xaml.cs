@@ -1,26 +1,38 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
+﻿using Shared.Classes.Collections;
 using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes.Context.Controls.Grades;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace UI.Controls.Grades
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public sealed partial class GradesCollectionControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<CustomObservableCollection<Grade>> GRADE_COLLECTIONS = new CustomObservableCollection<CustomObservableCollection<Grade>>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
+        public CustomObservableCollection<Grade> Grades
         {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
+            get => (CustomObservableCollection<Grade>)GetValue(GradesProperty);
+            set => SetValue(GradesProperty, value);
         }
+        public static readonly DependencyProperty GradesProperty = DependencyProperty.Register(nameof(Grades), typeof(CustomObservableCollection<Grade>), typeof(GradesCollectionControl), new PropertyMetadata(null));
+
+        public bool Expanded
+        {
+            get => (bool)GetValue(ExpandedProperty);
+            set => SetValue(ExpandedProperty, value);
+        }
+        public static readonly DependencyProperty ExpandedProperty = DependencyProperty.Register(nameof(Expanded), typeof(bool), typeof(GradesCollectionControl), new PropertyMetadata(false));
+
+        public readonly GradesCollectionControlContext VIEW_MODEL = new GradesCollectionControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public GradesCollectionControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

@@ -2,9 +2,17 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:grades="using:UI.Controls.Grades"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
+
+    <!--<UserControl.Resources>
+        <DataTemplate x:Key="GardesCollectionTemplate"
+                      x:DataType="CustomObservableCollection">
+            <grades:GradesCollectionControl Grades="{x:Bind}"/>
+        </DataTemplate>
+    </UserControl.Resources>-->
 
     <ScrollViewer Grid.Row="1">
         <Grid>
@@ -19,6 +27,11 @@
                     Content="&#xE72C;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                     ToolTipService.ToolTip="Refresh grades"/>
+            <!--<ListView Grid.Row="1"
+                      ItemTemplate="{StaticResource GardesCollectionTemplate}"
+                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.GRADE_COLLECTIONS, Mode=OneWay}"
+                      ScrollViewer.HorizontalScrollMode="Disabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"/>-->
         </Grid>
     </ScrollViewer>
 </Page>

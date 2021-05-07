@@ -1,26 +1,30 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using Storage.Classes.Models.TumOnline;
+﻿using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes.Context.Controls.Grades;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace UI.Controls.Grades
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public sealed partial class GradeControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<CustomObservableCollection<Grade>> GRADE_COLLECTIONS = new CustomObservableCollection<CustomObservableCollection<Grade>>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
+        public Grade Grade
         {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
+            get => (Grade)GetValue(GradeProperty);
+            set => SetValue(GradeProperty, value);
         }
+        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(Grade), typeof(Grade), typeof(GradesCollectionControl), new PropertyMetadata(null));
+
+        public readonly GradeControlContext VIEW_MODEL = new GradeControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public GradeControl()
+        {
+            InitializeComponent();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

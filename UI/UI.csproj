@@ -129,6 +129,12 @@
     <Compile Include="Controls\CustomTitleBarControl.xaml.cs">
       <DependentUpon>CustomTitleBarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Grades\GradeControl.xaml.cs">
+      <DependentUpon>GradeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Grades\GradesCollectionControl.xaml.cs">
+      <DependentUpon>GradesCollectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconButtonControl.xaml.cs">
       <DependentUpon>IconButtonControl.xaml</DependentUpon>
     </Compile>
@@ -291,6 +297,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CustomTitleBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Grades\GradeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Grades\GradesCollectionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
