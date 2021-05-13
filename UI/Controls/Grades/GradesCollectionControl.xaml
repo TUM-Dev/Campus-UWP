@@ -11,14 +11,37 @@
     <UserControl.Resources>
         <DataTemplate x:Key="GardeTemplate"
                       x:DataType="tumonline:Grade">
-            <grades:GradeControl Grade="{x:Bind}"/>
+            <grades:GradeControl Margin="0,0,0,10"
+                                 Grade="{x:Bind}"/>
         </DataTemplate>
     </UserControl.Resources>
 
-    <controls:Expander>
-        <ListView ItemTemplate="{StaticResource GardeTemplate}"
-                  ItemsSource="{x:Bind Grades, Mode=OneWay}"
-                  ScrollViewer.HorizontalScrollMode="Disabled"
-                  ScrollViewer.VerticalScrollMode="Disabled"/>
-    </controls:Expander>
+    <controls:DropShadowPanel x:Name="step2Advanced_dsp"
+                              Grid.Row="2"
+                              HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}"
+                              HorizontalContentAlignment="Stretch">
+        <Border HorizontalAlignment="Stretch"
+                Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                CornerRadius="{ThemeResource OverlayCornerRadius}">
+            <controls:Expander HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                               Header="{x:Bind Grades.HEADER, Mode=OneWay}"
+                               IsExpanded="{x:Bind Grades.EXPANDED, Mode=OneWay}">
+                <ListView HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Left"
+                          ItemTemplate="{StaticResource GardeTemplate}"
+                          ItemsSource="{x:Bind Grades.GRADES_GROUP, Mode=OneWay}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollMode="Disabled"
+                          SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </controls:Expander>
+        </Border>
+    </controls:DropShadowPanel>
 </UserControl>

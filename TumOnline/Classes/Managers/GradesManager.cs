@@ -50,7 +50,15 @@ namespace TumOnline.Classes.Managers
                         return ctx.Grades.Include(ctx.GetIncludePaths(typeof(Grade))).ToList();
                     }
                 }
-                IEnumerable<Grade> grades = await DownloadGradesAsync(credentials, force);
+                IEnumerable<Grade> grades = null;
+                try
+                {
+                    grades = await DownloadGradesAsync(credentials, force);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Failed to request grades with:", e);
+                }
                 if (!(grades is null))
                 {
                     using (TumOnlineDbContext ctx = new TumOnlineDbContext())
@@ -59,6 +67,14 @@ namespace TumOnline.Classes.Managers
                         ctx.AddRange(grades);
                     }
                     CacheDbContext.UpdateCacheEntry(TumOnlineService.GRADES.NAME, DateTime.Now.Add(TumOnlineService.GRADES.VALIDITY));
+                }
+                else
+                {
+                    Logger.Info("Loading grades from DB.");
+                    using (TumOnlineDbContext ctx = new TumOnlineDbContext())
+                    {
+                        return ctx.Grades.Include(ctx.GetIncludePaths(typeof(Grade))).ToList();
+                    }
                 }
                 return grades;
             });

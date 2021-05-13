@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Logging.Classes;
 using Shared.Classes;
-using Shared.Classes.Collections;
 using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
 using TumOnline.Classes.Managers;
+using UI_Context.Classes.Templates.Controls.Grades;
 using UI_Context.Classes.Templates.Pages.Content;
 
 namespace UI_Context.Classes.Context.Pages.Content
@@ -47,7 +47,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             try
             {
                 IEnumerable<Grade> grades = await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                SortGrades(grades);
+                AddSortGrades(grades);
             }
             catch (Exception e)
             {
@@ -56,7 +56,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoading = false;
         }
 
-        private void SortGrades(IEnumerable<Grade> grades)
+        private void AddSortGrades(IEnumerable<Grade> grades)
         {
             MODEL.GRADE_COLLECTIONS.Clear();
             // Cache them in lists to prevent UI thread interrupts for each grade:
@@ -71,11 +71,11 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
 
             // Add them to the actual collections:
+            bool first = true;
             foreach (List<Grade> gradesList in tmp.Values)
             {
-                CustomObservableCollection<Grade> gradesGroup = new CustomObservableCollection<Grade>(true);
-                gradesGroup.AddRange(gradesList);
-                MODEL.GRADE_COLLECTIONS.Add(gradesGroup);
+                MODEL.GRADE_COLLECTIONS.Add(new GradesDataTemplate(gradesList, first));
+                first = false;
             }
         }
 

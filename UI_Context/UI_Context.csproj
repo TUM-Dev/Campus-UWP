@@ -130,6 +130,7 @@
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesCollectionControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Grades\GradesDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />
     <Compile Include="Classes\Context\Controls\Settings\LogLevelControlContext.cs" />

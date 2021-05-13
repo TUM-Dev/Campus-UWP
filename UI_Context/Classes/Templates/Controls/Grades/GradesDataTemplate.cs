@@ -1,26 +1,29 @@
-﻿using Shared.Classes;
+﻿using System.Collections.Generic;
+using Shared.Classes;
 using Shared.Classes.Collections;
-using UI_Context.Classes.Templates.Controls.Grades;
+using Storage.Classes.Models.TumOnline;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace UI_Context.Classes.Templates.Controls.Grades
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public class GradesDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<GradesDataTemplate> GRADE_COLLECTIONS = new CustomObservableCollection<GradesDataTemplate>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
+        public readonly string HEADER;
+        public readonly CustomObservableCollection<Grade> GRADES_GROUP;
+        public readonly bool EXPANDED;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public GradesDataTemplate(List<Grade> gradesList, bool expanded)
+        {
+            // There always has to be one grade:
+            HEADER = gradesList[0].LectureSemester;
+            GRADES_GROUP = new CustomObservableCollection<Grade>(true);
+            GRADES_GROUP.AddRange(gradesList);
+            EXPANDED = expanded;
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
