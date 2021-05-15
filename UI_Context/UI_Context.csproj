@@ -163,6 +163,7 @@
     <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\PriceStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\DateTimeHasDishesBoolConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Grades\GradeBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />

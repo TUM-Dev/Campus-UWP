@@ -69,8 +69,13 @@ namespace Canteens.Classes.Manager
                         ctx.AddRange(canteens);
                     }
                     CacheDbContext.UpdateCacheEntry(CANTEENS_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
+                    return canteens;
                 }
-                return canteens;
+                Logger.Info("Failed to retrieve canteens. Returning from DB.");
+                using (CanteensDbContext ctx = new CanteensDbContext())
+                {
+                    return ctx.Canteens.Include(ctx.GetIncludePaths(typeof(Canteen))).ToList();
+                }
             });
             return await updateTask.ConfAwaitFalse();
         }
