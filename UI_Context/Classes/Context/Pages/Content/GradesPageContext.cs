@@ -58,7 +58,6 @@ namespace UI_Context.Classes.Context.Pages.Content
 
         private void AddSortGrades(IEnumerable<Grade> grades)
         {
-            MODEL.GRADE_COLLECTIONS.Clear();
             // Cache them in lists to prevent UI thread interrupts for each grade:
             Dictionary<string, List<Grade>> tmp = new Dictionary<string, List<Grade>>();
             foreach (Grade grade in grades)
@@ -71,12 +70,18 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
 
             // Add them to the actual collections:
-            bool first = true;
-            foreach (List<Grade> gradesList in tmp.Values)
+            List<GradesDataTemplate> gradesList = new List<GradesDataTemplate>();
+            foreach (List<Grade> gList in tmp.Values)
             {
-                MODEL.GRADE_COLLECTIONS.Add(new GradesDataTemplate(gradesList, first));
-                first = false;
+                gradesList.Add(new GradesDataTemplate(gList));
             }
+            gradesList.Sort();
+            if (gradesList.Count > 0)
+            {
+                gradesList[0].expanded = true;
+            }
+            MODEL.GRADE_COLLECTIONS.Clear();
+            MODEL.GRADE_COLLECTIONS.AddRange(gradesList);
         }
 
         #endregion

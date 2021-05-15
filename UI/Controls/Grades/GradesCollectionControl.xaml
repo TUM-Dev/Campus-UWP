@@ -41,7 +41,7 @@
                                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                                Header="{x:Bind Grades, Mode=OneWay}"
                                HeaderTemplate="{StaticResource HeaderTemplate}"
-                               IsExpanded="{x:Bind Grades.EXPANDED, Mode=OneWay}">
+                               IsExpanded="{x:Bind Grades.expanded, Mode=OneWay}">
                 <ListView HorizontalAlignment="Stretch"
                           HorizontalContentAlignment="Left"
                           ItemTemplate="{StaticResource GardeTemplate}"

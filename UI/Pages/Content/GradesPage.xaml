@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="GardesCollectionTemplate"
                       x:DataType="dataTemplate:GradesDataTemplate">
-            <grades:GradesCollectionControl Margin="0,0,0,10"
+            <grades:GradesCollectionControl Margin="0,10,0,00"
                                             HorizontalAlignment="Stretch"
                                             Grades="{x:Bind}"/>
         </DataTemplate>
@@ -28,7 +28,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0"
-                        Margin="10"
+                        Margin="10,10,10,0"
                         HorizontalAlignment="Right"
                         Click="OnRefreshClicked"
                         Content="&#xE72C;"

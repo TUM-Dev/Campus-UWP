@@ -113,6 +113,10 @@ namespace Shared.Classes
             }
         }
 
+        public interface IComparable
+        {
+        }
+
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
