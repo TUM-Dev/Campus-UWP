@@ -1,32 +1,17 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Grades;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using UI_Context.Classes.Templates.Dialogs;
 
-namespace UI.Controls.Grades
+namespace UI_Context.Classes.Context.Dialogs
 {
-    public sealed partial class GradeControl: UserControl
+    public class GradeInfoDialogContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public Grade Grade
-        {
-            get => (Grade)GetValue(GradeProperty);
-            set => SetValue(GradeProperty, value);
-        }
-        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(Grade), typeof(Grade), typeof(GradesCollectionControl), new PropertyMetadata(null));
-
-        public readonly GradeControlContext VIEW_MODEL = new GradeControlContext();
+        public readonly GradeInfoDialogDataTemplate MODEL = new GradeInfoDialogDataTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public GradeControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -51,11 +36,7 @@ namespace UI.Controls.Grades
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            GradeInfoDialog dialog = new GradeInfoDialog(Grade);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

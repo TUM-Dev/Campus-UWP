@@ -1,32 +1,23 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Grades;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Shared.Classes;
+using Storage.Classes.Models.TumOnline;
 
-namespace UI.Controls.Grades
+namespace UI_Context.Classes.Templates.Dialogs
 {
-    public sealed partial class GradeControl: UserControl
+    public sealed class GradeInfoDialogDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        private Grade _Grade;
         public Grade Grade
         {
-            get => (Grade)GetValue(GradeProperty);
-            set => SetValue(GradeProperty, value);
+            get => _Grade;
+            set => SetProperty(ref _Grade, value);
         }
-        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(Grade), typeof(Grade), typeof(GradesCollectionControl), new PropertyMetadata(null));
-
-        public readonly GradeControlContext VIEW_MODEL = new GradeControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public GradeControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -51,11 +42,7 @@ namespace UI.Controls.Grades
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            GradeInfoDialog dialog = new GradeInfoDialog(Grade);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

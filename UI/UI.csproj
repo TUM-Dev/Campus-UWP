@@ -171,6 +171,9 @@
     <Compile Include="Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\GradeInfoDialog.xaml.cs">
+      <DependentUpon>GradeInfoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\IngredientsDialog.xaml.cs">
       <DependentUpon>IngredientsDialog.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ConfirmDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\GradeInfoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

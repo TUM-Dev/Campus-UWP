@@ -1,30 +1,21 @@
 ﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Grades;
-using Windows.UI.Xaml;
+using UI_Context.Classes.Context.Dialogs;
 using Windows.UI.Xaml.Controls;
 
-namespace UI.Controls.Grades
+namespace UI.Dialogs
 {
-    public sealed partial class GradeControl: UserControl
+    public sealed partial class GradeInfoDialog: ContentDialog
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public Grade Grade
-        {
-            get => (Grade)GetValue(GradeProperty);
-            set => SetValue(GradeProperty, value);
-        }
-        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(Grade), typeof(Grade), typeof(GradesCollectionControl), new PropertyMetadata(null));
-
-        public readonly GradeControlContext VIEW_MODEL = new GradeControlContext();
+        public readonly GradeInfoDialogContext VIEW_MODEL = new GradeInfoDialogContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public GradeControl()
+        public GradeInfoDialog(Grade grade)
         {
+            VIEW_MODEL.MODEL.Grade = grade;
             InitializeComponent();
         }
 
@@ -51,11 +42,7 @@ namespace UI.Controls.Grades
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            GradeInfoDialog dialog = new GradeInfoDialog(Grade);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

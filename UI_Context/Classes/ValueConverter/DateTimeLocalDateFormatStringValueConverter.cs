@@ -1,32 +1,18 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Grades;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Data;
 
-namespace UI.Controls.Grades
+namespace UI_Context.Classes.ValueConverter
 {
-    public sealed partial class GradeControl: UserControl
+    public class DateTimeLocalDateFormatStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public Grade Grade
-        {
-            get => (Grade)GetValue(GradeProperty);
-            set => SetValue(GradeProperty, value);
-        }
-        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(Grade), typeof(Grade), typeof(GradesCollectionControl), new PropertyMetadata(null));
 
-        public readonly GradeControlContext VIEW_MODEL = new GradeControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public GradeControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -36,7 +22,19 @@ namespace UI.Controls.Grades
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is DateTime date)
+            {
+                return date.ToString("d");
+            }
+            return "INVALID";
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
@@ -51,11 +49,7 @@ namespace UI.Controls.Grades
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            GradeInfoDialog dialog = new GradeInfoDialog(Grade);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

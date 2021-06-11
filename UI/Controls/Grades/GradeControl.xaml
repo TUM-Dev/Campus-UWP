@@ -60,6 +60,7 @@
                 Grid.Column="1"
                 Margin="10,0,0,0"
                 VerticalAlignment="Center"
+                Click="OnInfoClicked"
                 Style="{ThemeResource InfoButtonStyle}"
                 ToolTipService.ToolTip="More information"/>
 

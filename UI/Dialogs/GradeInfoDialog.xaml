@@ -1,0 +1,46 @@
+﻿<ContentDialog x:Class="UI.Dialogs.GradeInfoDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:valueconverter="using:UI_Context.Classes.ValueConverter"
+               xmlns:valueconverterGrades="using:UI_Context.Classes.ValueConverter.Grades"
+               Title="{x:Bind VIEW_MODEL.MODEL.Grade.LectureTite, Mode=OneWay}"
+               SecondaryButtonStyle="{ThemeResource ButtonRevealStyle}"
+               SecondaryButtonText="Close"
+               Style="{ThemeResource RevealContentDialogStyle}"
+               mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <valueconverterGrades:GradeBrushValueConverter x:Key="GradeBrushValueConverter"/>
+        <valueconverter:DateTimeLocalDateFormatStringValueConverter x:Key="DateTimeLocalDateFormatStringValueConverter"/>
+    </ContentDialog.Resources>
+
+    <TextBlock IsTextSelectionEnabled="True"
+               TextWrapping="Wrap">
+        <Run FontWeight="Bold"
+             Text="Lecture Number:"/>
+        <Run Text="{x:Bind VIEW_MODEL.MODEL.Grade.LectureNumber, Mode=OneWay}"/>
+        <LineBreak/>
+        <Run FontWeight="Bold"
+             Text="Date:"/>
+        <Run Text="{x:Bind VIEW_MODEL.MODEL.Grade.Date, Mode=OneWay, Converter={StaticResource DateTimeLocalDateFormatStringValueConverter}}"/>
+        <LineBreak/>
+        <Run FontWeight="Bold"
+             Text="Grade:"/>
+        <Run Foreground="{x:Bind VIEW_MODEL.MODEL.Grade.GradeShort, Mode=OneWay, Converter={StaticResource GradeBrushValueConverter}}"
+             Text="{x:Bind VIEW_MODEL.MODEL.Grade.GradeShort, Mode=OneWay}"/>
+        <LineBreak/>
+        <Run FontWeight="Bold"
+             Text="Examiner:"/>
+        <Run Text="{x:Bind VIEW_MODEL.MODEL.Grade.ExaminerSurname, Mode=OneWay}"/>
+        <LineBreak/>
+        <Run FontWeight="Bold"
+             Text="Mode:"/>
+        <Run Text="{x:Bind VIEW_MODEL.MODEL.Grade.ExamMode, Mode=OneWay}"/>
+        <LineBreak/>
+        <Run FontWeight="Bold"
+             Text="Type:"/>
+        <Run Text="{x:Bind VIEW_MODEL.MODEL.Grade.ExamType, Mode=OneWay}"/>
+    </TextBlock>
+</ContentDialog>
