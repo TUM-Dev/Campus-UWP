@@ -1,4 +1,4 @@
-# I've pulled the app from the Microsoft Store since it needs some general bug fixes and a complete UI overhaule to improve permormance and load times. You can continue using the app if you already downloaded it.
+# Moved to its new home:</br>https://github.com/TUM-Dev/Campus-UWP
 
 
 # UWP-TUM-Campus-App
