@@ -1,24 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Xml;
+using Storage.Classes;
 
-namespace Storage.Classes.Contexts
+namespace TumOnline.Classes.Managers
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class CalendarManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
+        public static readonly CalendarManager INSTANCE = new CalendarManager();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -28,7 +24,15 @@ namespace Storage.Classes.Contexts
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        private async Task<IEnumerable<int>> DownloadCalendarAsync(TumOnlineCredentials credentials, bool force)
+        {
+            TumOnlineRequest request = new TumOnlineRequest(TumOnlineService.CALENDAR);
+            AccessManager.AddToken(request, credentials);
+            request.AddQuery("pMonateVor", "2");
+            request.AddQuery("pMonateNach", "5");
+            XmlDocument doc = await request.RequestDocumentAsync(!force);
+            return new List<int>();
+        }
 
         #endregion
 

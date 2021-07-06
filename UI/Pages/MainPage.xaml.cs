@@ -32,7 +32,7 @@ namespace UI.Pages
                 new MainPageNavigationPage(typeof(HomePage), lectures_navItem, "Lectures"),
                 new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
                 new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Calendar"),
-                new MainPageNavigationPage(typeof(CanteensPage), tuitionFees_navItem, "Tuition Fees")
+                new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees")
             };
         }
 

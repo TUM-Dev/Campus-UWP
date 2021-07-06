@@ -1,24 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Shared.Classes;
+using Shared.Classes.Collections;
 using Storage.Classes.Models.TumOnline;
 
-namespace Storage.Classes.Contexts
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed class TuitionFeesPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
+
+        private bool _HasFees;
+        public bool HasFees
+        {
+            get => _HasFees;
+            set => SetProperty(ref _HasFees, value);
+        }
+
+        public readonly CustomObservableCollection<TuitionFee> TUITION_FEES = new CustomObservableCollection<TuitionFee>(true);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

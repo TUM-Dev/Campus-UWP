@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="UI.Controls.TuitionFees.TuitionFeeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <controls:DropShadowPanel MinWidth="200"
+                              MaxWidth="400"
+                              Margin="10"
+                              HorizontalContentAlignment="Stretch"
+                              Visibility="Visible">
+        <Border HorizontalAlignment="Stretch"
+                Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                CornerRadius="{ThemeResource OverlayCornerRadius}">
+            <StackPanel Padding="10">
+                <TextBlock HorizontalAlignment="Center"
+                           IsTextSelectionEnabled="True"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="{x:Bind TuitionFee.SemesterName, Mode=OneWay}"
+                           TextWrapping="Wrap"/>
+                <TextBlock FontWeight="Bold"
+                           Foreground="Red"
+                           Style="{ThemeResource BodyTextBlockStyle}"
+                           Text="{x:Bind TuitionFee.Amount, Mode=OneWay}"/>
+                <TextBlock IsTextSelectionEnabled="True"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           TextWrapping="Wrap">
+                    <Run FontWeight="Bold"
+                         Text="Deadline:"/>
+                    <Run Text="{x:Bind TuitionFee.Deadline, Mode=OneWay}"/>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </controls:DropShadowPanel>
+</UserControl>

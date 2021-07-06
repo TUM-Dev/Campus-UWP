@@ -246,6 +246,11 @@ namespace Shared.Classes.Collections
             }
         }
 
+        public bool IsEmpty()
+        {
+            return LIST.Count <= 0;
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--

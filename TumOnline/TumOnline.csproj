@@ -126,7 +126,9 @@
     <Compile Include="Classes\Exceptions\MalformedXmlTumOnlineException.cs" />
     <Compile Include="Classes\Exceptions\NoAccessTumOnlineException.cs" />
     <Compile Include="Classes\Managers\AccessManager.cs" />
+    <Compile Include="Classes\Managers\CalendarManager.cs" />
     <Compile Include="Classes\Managers\GradesManager.cs" />
+    <Compile Include="Classes\Managers\TuitionFeesManager.cs" />
     <Compile Include="Classes\TumOnlineRequest.cs" />
     <Compile Include="Classes\TumOnlineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

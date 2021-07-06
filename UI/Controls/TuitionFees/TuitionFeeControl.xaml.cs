@@ -1,23 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes.Context.Controls.TuitionFees;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Contexts
+namespace UI.Controls.TuitionFees
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed partial class TuitionFeeControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
+        public readonly TuitionFeeControlContext VIEW_MODEL = new TuitionFeeControlContext();
+
+        public TuitionFee TuitionFee
+        {
+            get => (TuitionFee)GetValue(GradeProperty);
+            set => SetValue(GradeProperty, value);
+        }
+        public static readonly DependencyProperty GradeProperty = DependencyProperty.Register(nameof(TuitionFee), typeof(TuitionFee), typeof(TuitionFeeControl), new PropertyMetadata(null));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public TuitionFeeControl()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            InitializeComponent();
         }
 
         #endregion
