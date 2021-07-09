@@ -66,19 +66,20 @@
                 </Grid>
             </ScrollViewer>
 
-            <StackPanel Grid.Row="0"
-                        Margin="10,0,10,20"
-                        Visibility="{x:Bind VIEW_MODEL.MODEL.HasFees, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
-                <TextBlock Margin="0,20,0,20"
-                           HorizontalAlignment="Center"
-                           FontFamily="Segoe MDL2 Assets"
-                           FontSize="150"
-                           Foreground="{StaticResource TumBlueBrush}"
-                           Text="&#xE001;"/>
-                <TextBlock HorizontalAlignment="Center"
-                           Text="All tuition fees are paid or no fees found!"
-                           TextWrapping="Wrap"/>
-            </StackPanel>
+            <TextBlock Grid.Row="0"
+                       Margin="10,0,10,20"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Visibility="{x:Bind VIEW_MODEL.MODEL.HasFees, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                <Run FontFamily="Segoe MDL2 Assets"
+                     FontSize="150"
+                     Foreground="{StaticResource TumBlueBrush}"
+                     Text="&#xE001;"/>
+                <LineBreak/>
+                <Run Text="All tuition fees are paid or no fees found!"/>
+            </TextBlock>
 
             <TextBlock Grid.Row="1"
                        MaxWidth="500"
