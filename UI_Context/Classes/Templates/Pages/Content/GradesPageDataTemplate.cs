@@ -17,6 +17,13 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _IsLoading, value);
         }
 
+        private bool _HasGrades;
+        public bool HasGrades
+        {
+            get => _HasGrades;
+            set => SetProperty(ref _HasGrades, value);
+        }
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--

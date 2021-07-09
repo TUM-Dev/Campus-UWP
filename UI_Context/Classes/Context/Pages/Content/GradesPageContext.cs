@@ -53,6 +53,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 Logger.Error("Failed to load grades!", e);
             }
+            MODEL.HasGrades = MODEL.GRADE_COLLECTIONS.Count > 0;
             MODEL.IsLoading = false;
         }
 

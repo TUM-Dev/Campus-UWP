@@ -21,7 +21,7 @@
 
     <Grid>
         <!--  Grades:  -->
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -40,20 +40,31 @@
                           ItemsSource="{x:Bind VIEW_MODEL.MODEL.GRADE_COLLECTIONS, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollMode="Disabled"
-                          SelectionMode="None">
+                          SelectionMode="None"
+                          Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
+
+                <TextBlock Grid.Row="1"
+                           Margin="10,0,10,20"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                    <Run FontSize="150"
+                         Text="🤷"/>
+                    <LineBreak/>
+                    <Run Text="No grades found!"/>
+                </TextBlock>
             </Grid>
         </ScrollViewer>
 
         <!--  Loading:  -->
-        <controls:Loading Grid.Column="0"
-                          Grid.ColumnSpan="3"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+        <controls:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
                           IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading grades..."/>
         </controls:Loading>
