@@ -48,7 +48,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <ListView Grid.Row="1"
+                    <GridView Grid.Row="1"
                               HorizontalAlignment="Center"
                               HorizontalContentAlignment="Stretch"
                               animations:ItemsReorderAnimation.Duration="00:00:00.8"
@@ -57,12 +57,12 @@
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollMode="Disabled"
                               SelectionMode="None">
-                        <ListView.ItemContainerStyle>
+                        <GridView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
+                        </GridView.ItemContainerStyle>
+                    </GridView>
                 </Grid>
             </ScrollViewer>
 

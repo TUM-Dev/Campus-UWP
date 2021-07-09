@@ -4,7 +4,13 @@
              xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tuitionfees="using:UI_Context.Classes.ValueConverter.TuitionFees"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <tuitionfees:DateTimeLocalDateStringValueConverter x:Key="DateTimeLocalDateStringValueConverter"/>
+        <tuitionfees:DoubleMoneyStringValueConverter x:Key="DoubleMoneyStringValueConverter"/>
+    </UserControl.Resources>
 
     <controls:DropShadowPanel MinWidth="200"
                               MaxWidth="400"
@@ -22,14 +28,15 @@
                            TextWrapping="Wrap"/>
                 <TextBlock FontWeight="Bold"
                            Foreground="Red"
+                           IsTextSelectionEnabled="True"
                            Style="{ThemeResource BodyTextBlockStyle}"
-                           Text="{x:Bind TuitionFee.Amount, Mode=OneWay}"/>
+                           Text="{x:Bind TuitionFee.Amount, Mode=OneWay, Converter={StaticResource DoubleMoneyStringValueConverter}}"/>
                 <TextBlock IsTextSelectionEnabled="True"
                            Style="{ThemeResource CaptionTextBlockStyle}"
                            TextWrapping="Wrap">
                     <Run FontWeight="Bold"
                          Text="Deadline:"/>
-                    <Run Text="{x:Bind TuitionFee.Deadline, Mode=OneWay}"/>
+                    <Run Text="{x:Bind TuitionFee.Deadline, Mode=OneWay, Converter={StaticResource DateTimeLocalDateStringValueConverter}}"/>
                 </TextBlock>
             </StackPanel>
         </Border>

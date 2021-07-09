@@ -1,30 +1,18 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI_Context.Classes.Context.Controls.TuitionFees;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Data;
 
-namespace UI.Controls.TuitionFees
+namespace UI_Context.Classes.ValueConverter.TuitionFees
 {
-    public sealed partial class TuitionFeeControl: UserControl
+    public sealed class DateTimeLocalDateStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly TuitionFeeControlContext VIEW_MODEL = new TuitionFeeControlContext();
 
-        public TuitionFee TuitionFee
-        {
-            get => (TuitionFee)GetValue(TuitionFeeProperty);
-            set => SetValue(TuitionFeeProperty, value);
-        }
-        public static readonly DependencyProperty TuitionFeeProperty = DependencyProperty.Register(nameof(TuitionFee), typeof(TuitionFee), typeof(TuitionFeeControl), new PropertyMetadata(null));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TuitionFeeControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -34,7 +22,22 @@ namespace UI.Controls.TuitionFees
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is DateTime date)
+            {
+                if (date != DateTime.MinValue && date != DateTime.MaxValue)
+                {
+                    return date.ToString("d");
+                }
+            }
+            return "-";
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 

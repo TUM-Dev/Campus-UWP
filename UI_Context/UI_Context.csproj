@@ -177,6 +177,8 @@
     <Compile Include="Classes\ValueConverter\Canteens\IngredientsEmptyVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\DateTimeCanteenDateValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\StringEmptyVisibilityValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\TuitionFees\DateTimeLocalDateStringValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\TuitionFees\DoubleMoneyStringValueConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UI_Context.rd.xml" />
   </ItemGroup>
