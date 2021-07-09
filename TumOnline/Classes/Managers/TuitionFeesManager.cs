@@ -63,7 +63,7 @@ namespace TumOnline.Classes.Managers
                 {
                     using (TumOnlineDbContext ctx = new TumOnlineDbContext())
                     {
-                        ctx.RemoveRange(ctx.Grades);
+                        ctx.RemoveRange(ctx.TuitionFees);
                         ctx.AddRange(fees);
                     }
                     CacheDbContext.UpdateCacheEntry(TumOnlineService.GRADES.NAME, DateTime.Now.Add(TumOnlineService.GRADES.VALIDITY));
