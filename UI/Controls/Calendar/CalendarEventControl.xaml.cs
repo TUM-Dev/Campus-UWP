@@ -1,24 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes.Context.Controls.Calendar;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Contexts
+namespace UI.Controls.Calendar
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed partial class CalendarEventControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public readonly CalendarEventControlContext VIEW_MODEL = new CalendarEventControlContext();
+
+        public CalendarEvent CalendarEvent
+        {
+            get => (CalendarEvent)GetValue(CalendarEventProperty);
+            set => SetValue(CalendarEventProperty, value);
+        }
+        public static readonly DependencyProperty CalendarEventProperty = DependencyProperty.Register(nameof(CalendarEvent), typeof(CalendarEvent), typeof(CalendarEventControl), new PropertyMetadata(null));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public CalendarEventControl()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            InitializeComponent();
         }
 
         #endregion

@@ -1,24 +1,38 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Shared.Classes;
+using Shared.Classes.Collections;
+using UI_Context.Classes.Templates.Controls.Calendar;
+using Windows.UI.Xaml.Data;
 
-namespace Storage.Classes.Contexts
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class CalendarPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public readonly CollectionViewSource EVENTS_VIEW = new CollectionViewSource();
+        public readonly CustomObservableCollection<CalendarEventGroupDataTemplate> EVENTS_COLLECTIONS = new CustomObservableCollection<CalendarEventGroupDataTemplate>(true);
+
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
+
+        private bool _HasEvents;
+        public bool HasEvents
+        {
+            get => _HasEvents;
+            set => SetProperty(ref _HasEvents, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public CalendarPageDataTemplate()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            EVENTS_VIEW.Source = EVENTS_COLLECTIONS;
+            EVENTS_VIEW.IsSourceGrouped = true;
         }
 
         #endregion

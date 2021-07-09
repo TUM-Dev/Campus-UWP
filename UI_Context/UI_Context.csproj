@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\AppUpdateHelper.cs" />
+    <Compile Include="Classes\Context\Controls\Calendar\CalendarEventControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradesCollectionControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
@@ -128,9 +129,12 @@
     <Compile Include="Classes\Context\Controls\TuitionFees\TuitionFeeControlContext.cs" />
     <Compile Include="Classes\Context\Dialogs\ConfirmDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\GradeInfoDialogContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\CalendarPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
+    <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesCollectionControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesDataTemplate.cs" />
@@ -151,6 +155,7 @@
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\ConfirmDialogTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\GradeInfoDialogDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\CalendarPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\CanteensPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\GradesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\TuitionFeesPageDataTemplate.cs" />

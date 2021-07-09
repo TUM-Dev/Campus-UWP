@@ -1,24 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using UI_Context.Classes.Context.Pages.Content;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Contexts
+namespace UI.Pages.Content
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed partial class CalendarPage: Page
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public readonly CalendarPageContext VIEW_MODEL = new CalendarPageContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public CalendarPage()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            InitializeComponent();
         }
 
         #endregion
@@ -44,7 +41,10 @@ namespace Storage.Classes.Contexts
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void OnRefreshClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.Refresh();
+        }
 
         #endregion
     }

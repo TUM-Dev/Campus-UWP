@@ -120,6 +120,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\SplashScreenImageScale.cs" />
+    <Compile Include="Controls\Calendar\CalendarEventControl.xaml.cs">
+      <DependentUpon>CalendarEventControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Canteens\DishControl.xaml.cs">
       <DependentUpon>DishControl.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,9 @@
       <DependentUpon>IngredientsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
+    <Compile Include="Pages\Content\CalendarPage.xaml.cs">
+      <DependentUpon>CalendarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Content\CanteensPage.xaml.cs">
       <DependentUpon>CanteensPage.xaml</DependentUpon>
     </Compile>
@@ -297,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Calendar\CalendarEventControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Canteens\DishControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -374,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\IngredientsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\CalendarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

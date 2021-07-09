@@ -133,6 +133,7 @@
     <Compile Include="Classes\Models\Canteens\Dish.cs" />
     <Compile Include="Classes\Models\Canteens\Location.cs" />
     <Compile Include="Classes\Models\Canteens\Price.cs" />
+    <Compile Include="Classes\Models\TumOnline\CalendarEvent.cs" />
     <Compile Include="Classes\Models\TumOnline\Grade.cs" />
     <Compile Include="Classes\Models\TumOnline\TuitionFee.cs" />
     <Compile Include="Classes\Settings.cs" />

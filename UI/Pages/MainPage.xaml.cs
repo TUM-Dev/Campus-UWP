@@ -31,7 +31,7 @@ namespace UI.Pages
                 new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
                 new MainPageNavigationPage(typeof(HomePage), lectures_navItem, "Lectures"),
                 new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
-                new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Calendar"),
+                new MainPageNavigationPage(typeof(CalendarPage), calendar_navItem, "Calendar"),
                 new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees")
             };
         }

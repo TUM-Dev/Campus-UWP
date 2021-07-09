@@ -1,25 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
 using Storage.Classes.Models.TumOnline;
 
-namespace Storage.Classes.Contexts
+namespace UI_Context.Classes.Templates.Controls.Calendar
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class CalendarEventGroupDataTemplate: List<CalendarEvent>
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public object Key { get; set; }
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+        public CalendarEventGroupDataTemplate(IEnumerable<CalendarEvent> events) : base(events) { }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
