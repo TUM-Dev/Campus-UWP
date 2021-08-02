@@ -49,7 +49,8 @@
                         ToolTipService.ToolTip="Refresh calendar events"/>
             </Grid>
 
-            <ListView Grid.Row="2"
+            <ListView x:Name="events_listView"
+                      Grid.Row="2"
                       HorizontalContentAlignment="Stretch"
                       ItemTemplate="{StaticResource CalendarEventDataTemplate}"
                       ItemsSource="{x:Bind VIEW_MODEL.MODEL.EVENTS_VIEW.View, Mode=OneWay}"
