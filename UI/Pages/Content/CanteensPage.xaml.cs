@@ -61,7 +61,7 @@ namespace UI.Pages.Content
                     IsEnabled = true,
                     Title = c.Name,
                     Visible = true
-                }));
+                }).ToArray());
 
                 canteens_map.Layers.Add(new MapElementsLayer
                 {
