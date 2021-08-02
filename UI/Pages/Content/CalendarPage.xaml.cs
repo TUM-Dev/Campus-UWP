@@ -46,6 +46,11 @@ namespace UI.Pages.Content
             VIEW_MODEL.Refresh();
         }
 
+        private void OnGoToTodayClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
     }
 }

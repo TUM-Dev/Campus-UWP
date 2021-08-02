@@ -55,12 +55,13 @@ namespace UI_Context.Classes.Context.Pages.Content
                 Logger.Error("Failed to load calendar events!", e);
             }
             MODEL.HasEvents = MODEL.EVENTS_COLLECTIONS.Count > 0;
+            MODEL.HasUpcomingEvents = MODEL.HasEvents && MODEL.EVENTS_COLLECTIONS[0].Key > DateTime.Now;
             MODEL.IsLoading = false;
         }
 
         private void AddSortedEvents(IEnumerable<CalendarEvent> events)
         {
-            IEnumerable<CalendarEventGroupDataTemplate> query = from ev in events group ev by ev.Start.Date into d orderby d.Key select new CalendarEventGroupDataTemplate(d) { Key = d.Key.ToString() };
+            IEnumerable<CalendarEventGroupDataTemplate> query = from ev in events group ev by ev.Start.Date into d orderby d.Key descending select new CalendarEventGroupDataTemplate(d) { Key = d.Key };
             MODEL.EVENTS_COLLECTIONS.Clear();
             MODEL.EVENTS_COLLECTIONS.AddRange(query);
         }

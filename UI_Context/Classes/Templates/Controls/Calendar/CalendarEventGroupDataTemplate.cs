@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Storage.Classes.Models.TumOnline;
 
 namespace UI_Context.Classes.Templates.Controls.Calendar
@@ -7,7 +8,7 @@ namespace UI_Context.Classes.Templates.Controls.Calendar
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public object Key { get; set; }
+        public DateTime Key { get; set; }
 
 
         #endregion

@@ -47,8 +47,7 @@
                 <controls1:NavigationViewItem x:Name="tuitionFees_navItem"
                                               Content="Tuition Fees">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe UI Symbol"
-                                  Glyph="&#x1F4B2;"/>
+                        <FontIcon Glyph="&#xE8C7;"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItemHeader Content="General TUM"
@@ -62,8 +61,7 @@
                 <controls1:NavigationViewItem x:Name="canteens_navItem"
                                               Content="Canteens">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe UI Symbol"
-                                  Glyph="&#x1F374;"/>
+                        <FontIcon Glyph="&#xED56;"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="news_navItem"

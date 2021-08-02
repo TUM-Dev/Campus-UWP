@@ -26,6 +26,13 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _HasEvents, value);
         }
 
+        private bool _HasUpcomingEvents;
+        public bool HasUpcomingEvents
+        {
+            get => _HasUpcomingEvents;
+            set => SetProperty(ref _HasUpcomingEvents, value);
+        }
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--

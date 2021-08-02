@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using Logging.Classes;
 using Shared.Classes;
@@ -122,17 +124,74 @@ namespace TumOnline.Classes.Managers
         {
             DateTime.TryParse(eventNode.SelectSingleNode("dtstart").InnerText, out DateTime start);
             DateTime.TryParse(eventNode.SelectSingleNode("dtend").InnerText, out DateTime end);
+            string location = eventNode.SelectSingleNode("location").InnerText;
             return new CalendarEvent
             {
-                Description = eventNode.SelectSingleNode("description").InnerText,
+                Description = ToCleanDescription(eventNode.SelectSingleNode("description").InnerText),
                 End = end,
-                Location = eventNode.SelectSingleNode("location").InnerText,
+                Location = location,
+                LocationUri = ToLocationUri(location),
                 Nr = eventNode.SelectSingleNode("nr").InnerText,
                 Start = start,
                 Status = eventNode.SelectSingleNode("status").InnerText,
                 Title = eventNode.SelectSingleNode("title").InnerText,
                 Url = eventNode.SelectSingleNode("url").InnerText
             };
+        }
+
+        private static string ToLocationUri(string location)
+        {
+            if (!string.IsNullOrEmpty(location))
+            {
+                location = location.ToLowerInvariant();
+                if (location.Contains("zoom"))
+                {
+                    return Localisation.GetLocalizedString("TumZoomUrl");
+                }
+                if (location.Contains("online:"))
+                {
+                    return Localisation.GetLocalizedString("TumLiveUrl");
+                }
+                int start = location.IndexOf('(');
+                int end = location.IndexOf(')');
+                if (start >= 0 && end >= 0 && start < end)
+                {
+
+                    location = location.Substring(start + 1, end - start - 1);
+                }
+                return "https://www.ph.tum.de/about/visit/roomfinder/?room=" + HttpUtility.UrlEncode(location);
+            }
+            return "";
+        }
+
+        private static string ToCleanDescription(string description)
+        {
+            string[] ignored = { "fix", "abhaltung", "abgesagt", "verschoben" };
+            string[] parts = description.Split(';');
+            StringBuilder result = new StringBuilder();
+            foreach (string part in parts)
+            {
+                string cleanPart = part.Trim().ToLowerInvariant();
+                if (string.IsNullOrEmpty(cleanPart))
+                {
+                    continue;
+                }
+                bool ignore = false;
+                foreach (string ignoredPart in ignored)
+                {
+                    if (cleanPart.Equals(ignoredPart))
+                    {
+                        ignore = true;
+                        break;
+                    }
+                }
+                if (!ignore)
+                {
+                    result.Append(cleanPart);
+                    result.Append('\n');
+                }
+            }
+            return result.ToString().Trim();
         }
 
         #endregion

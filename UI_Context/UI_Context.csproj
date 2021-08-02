@@ -170,6 +170,8 @@
     <Compile Include="Classes\ValueConverter\BoolInvertedVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\BoolInverterValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\BoolVisibilityValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Calendar\CalendarEventTimeStringValueConverter - Copy.cs" />
+    <Compile Include="Classes\ValueConverter\Calendar\CalendarEventDateStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringTooltipValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\PriceStringValueConverter.cs" />

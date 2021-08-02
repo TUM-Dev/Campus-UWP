@@ -1,7 +1,10 @@
-﻿using Storage.Classes.Models.TumOnline;
+﻿using System;
+using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes;
 using UI_Context.Classes.Context.Controls.Calendar;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 
 namespace UI.Controls.Calendar
 {
@@ -49,7 +52,23 @@ namespace UI.Controls.Calendar
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private async void OnLocationUriClicked(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (CalendarEvent is null || string.IsNullOrEmpty(CalendarEvent.LocationUri))
+            {
+                return;
+            }
+            await UiUtils.LaunchUriAsync(new Uri(CalendarEvent.LocationUri));
+        }
 
+        private async void OnEventUrlClicked(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (CalendarEvent is null || string.IsNullOrEmpty(CalendarEvent.Url))
+            {
+                return;
+            }
+            await UiUtils.LaunchUriAsync(new Uri(CalendarEvent.Url));
+        }
 
         #endregion
     }

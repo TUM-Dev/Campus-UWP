@@ -293,7 +293,13 @@ View the logs for more information.</value>
     <value>Token has not been activated yet.
 View the logs for more information.</value>
   </data>
+  <data name="TumLiveUrl" xml:space="preserve">
+    <value>https://live.rbg.tum.de/</value>
+  </data>
   <data name="TumOnlineUrl" xml:space="preserve">
     <value>https://campus.tum.de/</value>
+  </data>
+  <data name="TumZoomUrl" xml:space="preserve">
+    <value>https://tum-conf.zoom.us/</value>
   </data>
 </root>

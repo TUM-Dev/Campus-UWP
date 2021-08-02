@@ -1,12 +1,15 @@
-﻿using Windows.ApplicationModel.Resources;
+﻿using System;
+using System.Globalization;
+using Storage.Classes.Models.TumOnline;
+using Windows.UI.Xaml.Data;
 
-namespace Shared.Classes
+namespace UI_Context.Classes.ValueConverter.Calendar
 {
-    public static class Localisation
+    public sealed class CalendarEventTimeStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static ResourceLoader loader;
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -16,24 +19,28 @@ namespace Shared.Classes
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        /// <summary>
-        /// Returns a localized string for the given key.
-        /// </summary>
-        /// <param name="key">The key for the requested localized string.</param>
-        /// <returns>a localized string for the given key.</returns>
-        public static string GetLocalizedString(string key)
-        {
-            if (loader is null)
-            {
-                loader = ResourceLoader.GetForViewIndependentUse();
-            }
-            return loader.GetString(key);
-        }
+
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is CalendarEvent calendarEvent)
+            {
+                if (calendarEvent.Start.Date == calendarEvent.End.Date)
+                {
+                    return calendarEvent.Start.ToString("t", DateTimeFormatInfo.InvariantInfo) + " - " + calendarEvent.End.ToString("t", DateTimeFormatInfo.InvariantInfo);
+                }
+                return calendarEvent.Start.ToString("t", DateTimeFormatInfo.InvariantInfo) + " - " + calendarEvent.End.ToString("g", DateTimeFormatInfo.InvariantInfo);
+            }
+            return "-";
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
