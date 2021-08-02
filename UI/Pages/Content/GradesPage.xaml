@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:controls1="using:UI.Controls"
+      xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dataTemplate="using:UI_Context.Classes.Templates.Controls.Grades"
       xmlns:grades="using:UI.Controls.Grades"
@@ -21,47 +22,49 @@
 
     <Grid>
         <!--  Grades:  -->
-        <ScrollViewer>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0"
-                        Margin="10,10,10,0"
-                        HorizontalAlignment="Right"
-                        Click="OnRefreshClicked"
-                        Content="&#xE72C;"
-                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                        ToolTipService.ToolTip="Refresh grades"/>
-                <ListView Grid.Row="1"
-                          HorizontalContentAlignment="Stretch"
-                          ItemTemplate="{StaticResource GardesCollectionTemplate}"
-                          ItemsSource="{x:Bind VIEW_MODEL.MODEL.GRADE_COLLECTIONS, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollMode="Disabled"
-                          SelectionMode="None"
-                          Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls2:InfoBar IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                               Message="Failed to load grades. Please retry..."
+                               Severity="Error"/>
 
-                <TextBlock Grid.Row="1"
-                           Margin="10,0,10,20"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           TextAlignment="Center"
-                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
-                    <Run FontSize="150"
-                         Text="🤷"/>
-                    <LineBreak/>
-                    <Run Text="No grades found!"/>
-                </TextBlock>
-            </Grid>
-        </ScrollViewer>
+            <Button Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Click="OnRefreshClicked"
+                    Content="&#xE72C;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    ToolTipService.ToolTip="Refresh grades"/>
+
+            <ListView Grid.Row="2"
+                      HorizontalContentAlignment="Stretch"
+                      ItemTemplate="{StaticResource GardesCollectionTemplate}"
+                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.GRADE_COLLECTIONS, Mode=OneWay}"
+                      SelectionMode="None"
+                      Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <TextBlock Grid.Row="2"
+                       Margin="10,0,10,20"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                <Run FontSize="150"
+                     Text="🤷"/>
+                <LineBreak/>
+                <Run Text="No grades found!"/>
+            </TextBlock>
+        </Grid>
 
         <!--  Loading:  -->
         <controls:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"

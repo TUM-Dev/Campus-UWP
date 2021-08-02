@@ -44,6 +44,18 @@ namespace UI_Context.Classes.Templates.Pages.Content
             get => _DishDate;
             set => SetProperty(ref _DishDate, value);
         }
+        private bool _ShowCanteensError;
+        public bool ShowCanteensError
+        {
+            get => _ShowCanteensError;
+            set => SetProperty(ref _ShowCanteensError, value);
+        }
+        private bool _ShowDishesError;
+        public bool ShowDishesError
+        {
+            get => _ShowDishesError;
+            set => SetProperty(ref _ShowDishesError, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

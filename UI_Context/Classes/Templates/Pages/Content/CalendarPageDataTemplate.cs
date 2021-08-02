@@ -33,6 +33,13 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _HasUpcomingEvents, value);
         }
 
+        private bool _ShowError;
+        public bool ShowError
+        {
+            get => _ShowError;
+            set => SetProperty(ref _ShowError, value);
+        }
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--

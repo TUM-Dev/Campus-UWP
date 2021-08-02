@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Canteens.Classes.Events;
 using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes.Contexts;
@@ -11,7 +12,7 @@ using Windows.Data.Json;
 
 namespace Canteens.Classes.Manager
 {
-    public class CanteenManager
+    public class CanteenManager: AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -95,6 +96,7 @@ namespace Canteens.Classes.Manager
                 }
                 catch (Exception e)
                 {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
                     Logger.Error("Failed to download canteens string.", e);
                     return null;
                 }
@@ -111,6 +113,7 @@ namespace Canteens.Classes.Manager
             }
             catch (Exception e)
             {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
                 Logger.Error("Failed to parse downloaded canteens.", e);
                 return null;
             }

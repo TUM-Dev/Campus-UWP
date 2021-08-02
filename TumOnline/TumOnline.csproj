@@ -120,11 +120,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Events\RequestErrorEventArgs.cs" />
     <Compile Include="Classes\Exceptions\AbstractTumOnlineException.cs" />
     <Compile Include="Classes\Exceptions\InvalidTokenTumOnlineException.cs" />
     <Compile Include="Classes\Exceptions\InvalidTumOnlineResponseException.cs" />
     <Compile Include="Classes\Exceptions\MalformedXmlTumOnlineException.cs" />
     <Compile Include="Classes\Exceptions\NoAccessTumOnlineException.cs" />
+    <Compile Include="Classes\Managers\AbstractManager.cs" />
     <Compile Include="Classes\Managers\AccessManager.cs" />
     <Compile Include="Classes\Managers\CalendarManager.cs" />
     <Compile Include="Classes\Managers\GradesManager.cs" />

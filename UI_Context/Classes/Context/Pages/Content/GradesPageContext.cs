@@ -5,6 +5,7 @@ using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
+using TumOnline.Classes.Events;
 using TumOnline.Classes.Managers;
 using UI_Context.Classes.Templates.Controls.Grades;
 using UI_Context.Classes.Templates.Pages.Content;
@@ -22,6 +23,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Constructors--
         public GradesPageContext()
         {
+            CalendarManager.INSTANCE.OnRequestError += OnRequestError;
             Task.Run(async () => await LoadGradesAsync(false));
         }
 
@@ -44,6 +46,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private async Task LoadGradesAsync(bool refresh)
         {
             MODEL.IsLoading = true;
+            MODEL.ShowError = false;
             try
             {
                 IEnumerable<Grade> grades = await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
@@ -93,7 +96,10 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
+        {
+            MODEL.ShowError = true;
+        }
 
         #endregion
     }

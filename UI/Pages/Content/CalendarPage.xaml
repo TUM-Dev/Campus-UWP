@@ -5,6 +5,7 @@
       xmlns:calendar1="using:UI_Context.Classes.Templates.Controls.Calendar"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:controls1="using:UI.Controls"
+      xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
       xmlns:converter="using:UI_Context.Classes.ValueConverter.Calendar"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -28,7 +29,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
+
+            <controls2:InfoBar Grid.Row="0"
+                               IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                               Message="Failed to load calendar events. Please retry..."
+                               Severity="Error"/>
+
+            <Grid Grid.Row="1"
                   Margin="10"
                   HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>

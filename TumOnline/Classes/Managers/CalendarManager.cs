@@ -10,11 +10,12 @@ using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Contexts;
 using Storage.Classes.Models.TumOnline;
+using TumOnline.Classes.Events;
 using TumOnline.Classes.Exceptions;
 
 namespace TumOnline.Classes.Managers
 {
-    public class CalendarManager
+    public class CalendarManager: AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -56,6 +57,7 @@ namespace TumOnline.Classes.Managers
                 }
                 catch (Exception e)
                 {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
                     Logger.Error("Failed to request calendar events with:", e);
                 }
                 if (!(events is null))

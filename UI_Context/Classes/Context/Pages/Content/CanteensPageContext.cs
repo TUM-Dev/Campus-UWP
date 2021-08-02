@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Canteens.Classes.Events;
 using Canteens.Classes.Manager;
 using Logging.Classes;
 using Shared.Classes;
@@ -22,6 +23,8 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Constructors--
         public CanteensPageContext()
         {
+            DishManager.INSTANCE.OnRequestError += OnRequestDishesError;
+            CanteenManager.INSTANCE.OnRequestError += OnRequestCanteensError;
             Task.Run(async () => await LoadCanteensAsync(false));
             MODEL.PropertyChanged += OnModelPropertyChanged;
         }
@@ -124,6 +127,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private async Task LoadCanteensAsync(bool refresh)
         {
             MODEL.IsLoadingCanteens = true;
+            MODEL.ShowCanteensError = false;
             IEnumerable<Canteen> canteens;
             canteens = await CanteenManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
             MODEL.CANTEENS.Clear();
@@ -135,6 +139,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private async Task LoadDishesForCanteenAsync(Canteen canteen, bool refresh)
         {
             MODEL.IsLoadingDishes = true;
+            MODEL.ShowDishesError = false;
             MODEL.DISHES.Clear();
             if (!(canteen is null))
             {
@@ -177,6 +182,16 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 Task.Run(async () => await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, false));
             }
+        }
+
+        private void OnRequestCanteensError(AbstractManager sender, RequestErrorEventArgs e)
+        {
+            MODEL.ShowCanteensError = true;
+        }
+
+        private void OnRequestDishesError(AbstractManager sender, RequestErrorEventArgs e)
+        {
+            MODEL.ShowDishesError = true;
         }
 
         #endregion

@@ -1,34 +1,13 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using UI_Context.Classes.Templates.Controls.Grades;
+﻿using Canteens.Classes.Events;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace Canteens.Classes.Manager
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public abstract class AbstractManager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<GradesDataTemplate> GRADE_COLLECTIONS = new CustomObservableCollection<GradesDataTemplate>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
-
-        private bool _HasGrades;
-        public bool HasGrades
-        {
-            get => _HasGrades;
-            set => SetProperty(ref _HasGrades, value);
-        }
-        private bool _ShowError;
-        public bool ShowError
-        {
-            get => _ShowError;
-            set => SetProperty(ref _ShowError, value);
-        }
+        public delegate void OnRequestErrorEventHandler(AbstractManager sender, RequestErrorEventArgs e);
+        public event OnRequestErrorEventHandler OnRequestError;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -53,7 +32,10 @@ namespace UI_Context.Classes.Templates.Pages.Content
         #endregion
 
         #region --Misc Methods (Protected)--
-
+        protected void InvokeOnRequestError(RequestErrorEventArgs args)
+        {
+            OnRequestError?.Invoke(this, args);
+        }
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

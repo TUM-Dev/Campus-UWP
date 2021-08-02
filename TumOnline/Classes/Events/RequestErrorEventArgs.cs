@@ -1,39 +1,20 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
-using UI_Context.Classes.Templates.Controls.Grades;
+﻿using System;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace TumOnline.Classes.Events
 {
-    public class GradesPageDataTemplate: AbstractDataTemplate
+    public class RequestErrorEventArgs: EventArgs
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<GradesDataTemplate> GRADE_COLLECTIONS = new CustomObservableCollection<GradesDataTemplate>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
-
-        private bool _HasGrades;
-        public bool HasGrades
-        {
-            get => _HasGrades;
-            set => SetProperty(ref _HasGrades, value);
-        }
-        private bool _ShowError;
-        public bool ShowError
-        {
-            get => _ShowError;
-            set => SetProperty(ref _ShowError, value);
-        }
+        public readonly Exception EXCEPTION;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public RequestErrorEventArgs(Exception exception)
+        {
+            EXCEPTION = exception;
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
