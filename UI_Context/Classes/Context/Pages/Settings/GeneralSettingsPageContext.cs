@@ -31,13 +31,12 @@ namespace UI_Context.Classes.Context.Pages.Settings
             return Logger.ExportLogsAsync();
         }
 
-        public Task DeleteLogsAsync(ConfirmDialogContext viewModel)
+        public async Task DeleteLogsAsync(ConfirmDialogContext viewModel)
         {
             if (viewModel.MODEL.Confirmed)
             {
-                return Logger.DeleteLogsAsync();
+                await Logger.DeleteLogsAsync();
             }
-            return null;
         }
 
         public Task ShowAnalyticsCrashesMoreInformationAsync()
