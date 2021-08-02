@@ -29,6 +29,8 @@
 
     <Style TargetType="controls:DropShadowPanel">
         <Setter Property="Color" Value="{ThemeResource DropShadowColor}"/>
+        <Setter Property="BlurRadius" Value="10"/>
+        <Setter Property="ShadowOpacity" Value="0.25"/>
     </Style>
 
     <Style TargetType="controls:MarkdownTextBlock">
