@@ -28,6 +28,10 @@ namespace UI_Context.Classes.ValueConverter
             {
                 if (date != DateTime.MinValue && date != DateTime.MaxValue)
                 {
+                    if (date.Date == DateTime.Now.Date)
+                    {
+                        return "Today";
+                    }
                     if (date.Date == DateTime.Now.Date.AddDays(-1))
                     {
                         return "Yesterday";

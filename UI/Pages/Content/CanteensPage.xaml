@@ -131,7 +131,8 @@
                                              Click="prevDate_btn_Click"
                                              CornerRadius="2,0,0,2"
                                              Glyph="&#xE96F;"
-                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.DishDate, Mode=OneWay, Converter={StaticResource DateTimeHasDishesBoolConverter}}"/>
+                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.DishDate, Mode=OneWay, Converter={StaticResource DateTimeHasDishesBoolConverter}}"
+                                             ToolTipService.ToolTip="Previous"/>
                 <ContentPresenter Grid.Column="1"
                                   HorizontalContentAlignment="Stretch"
                                   VerticalContentAlignment="Stretch"
@@ -148,7 +149,8 @@
                                              Click="nextDate_btn_Click"
                                              CornerRadius="0,2,2,0"
                                              Glyph="&#xE970;"
-                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.DishDate, Mode=OneWay, Converter={StaticResource DateTimeHasDishesBoolConverter}}"/>
+                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.DishDate, Mode=OneWay, Converter={StaticResource DateTimeHasDishesBoolConverter}}"
+                                             ToolTipService.ToolTip="Next"/>
             </Grid>
 
             <!--  Dishes  -->

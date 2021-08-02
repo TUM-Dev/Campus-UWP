@@ -142,7 +142,9 @@ namespace UI_Context.Classes.Context.Pages.Content
                 await DishManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
                 if (MODEL.DishDate == DateTime.MaxValue)
                 {
-                    MODEL.DishDate = DishManager.INSTANCE.GetNextDate(canteen.Id, DateTime.Now);
+                    // Load dishes for the next day when canteens are closed already anyway:
+                    DateTime date = DateTime.Now.Hour >= 15 ? DateTime.Now : DateTime.Now.AddDays(-1);
+                    MODEL.DishDate = DishManager.INSTANCE.GetNextDate(canteen.Id, date);
                     if (MODEL.DishDate == DateTime.MaxValue)
                     {
                         Logger.Info($"No next dishes found for canteen '{canteen.Id}'.");

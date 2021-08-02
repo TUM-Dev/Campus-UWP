@@ -175,12 +175,12 @@ namespace Canteens.Classes.Manager
         /// </summary>
         public DateTime GetNextDate(string canteenId, DateTime date)
         {
-            Dish dish = null;
+            DateTime dish = DateTime.MaxValue;
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                dish = ctx.Dishes.Where(d => d.Date > date && string.Equals(d.CanteenId, canteenId)).OrderBy(d => d.Date).FirstOrDefault();
+                dish = ctx.Dishes.Where(d => d.Date.Date > date.Date && string.Equals(d.CanteenId, canteenId)).Select(d => d.Date).OrderBy(d => d).FirstOrDefault();
             }
-            return dish is null ? DateTime.MaxValue : dish.Date;
+            return dish == DateTime.MinValue ? DateTime.MaxValue : dish.Date;
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Canteens.Classes.Manager
             Dish dish = null;
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                dish = ctx.Dishes.Where(d => d.Date < date && string.Equals(d.CanteenId, canteenId)).OrderByDescending(d => d.Date).FirstOrDefault();
+                dish = ctx.Dishes.Where(d => d.Date.Date < date.Date && string.Equals(d.CanteenId, canteenId)).OrderByDescending(d => d.Date).FirstOrDefault();
             }
             return dish is null ? DateTime.MinValue : dish.Date;
         }
