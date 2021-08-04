@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BBBUrl" xml:space="preserve">
+    <value>https://bbb.rbg.tum.de/</value>
+  </data>
   <data name="BugReportsUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
   </data>
@@ -279,6 +282,9 @@
   <data name="LicenseUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/blob/v2/LICENSE</value>
   </data>
+  <data name="MoodleUrl" xml:space="preserve">
+    <value>https://www.moodle.tum.de/</value>
+  </data>
   <data name="PrivacyPolicyCrashReportsUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md#crash-reporting</value>
   </data>
@@ -299,7 +305,13 @@ View the logs for more information.</value>
   <data name="TumOnlineUrl" xml:space="preserve">
     <value>https://campus.tum.de/</value>
   </data>
+  <data name="TumSexyUrl" xml:space="preserve">
+    <value>https://tum.sexy/</value>
+  </data>
   <data name="TumZoomUrl" xml:space="preserve">
     <value>https://tum-conf.zoom.us/</value>
+  </data>
+  <data name="ZulipUrl" xml:space="preserve">
+    <value>https://zulip.in.tum.de</value>
   </data>
 </root>

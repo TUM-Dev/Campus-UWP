@@ -22,7 +22,8 @@
                                   ItemInvoked="OnNavigationViewItemInvoked"
                                   Loaded="OnNavigationViewLoaded"
                                   OpenPaneLength="160"
-                                  PaneDisplayMode="Left">
+                                  PaneDisplayMode="Left"
+                                  SelectionChanged="OnPageSelectionChanged">
             <controls1:NavigationView.MenuItems>
                 <controls1:NavigationViewItemHeader Content="My TUM"
                                                     Foreground="{ThemeResource CaptionTextBrush}"/>
@@ -78,6 +79,48 @@
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItemHeader Content="Quick Links"
                                                     Foreground="{ThemeResource CaptionTextBrush}"/>
+                <controls1:NavigationViewItem x:Name="tumOnline_navItem"
+                                              Content="TUMonline">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="tumLive_navItem"
+                                              Content="TUM Live">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="tumZoom_navItem"
+                                              Content="TUM Zoom">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="bbb_navItem"
+                                              Content="BBB">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="tumSexy_navItem"
+                                              Content="TUM.sexy">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="moodle_navItem"
+                                              Content="Moodle">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
+                <controls1:NavigationViewItem x:Name="zulip_navItem"
+                                              Content="Zulip">
+                    <controls1:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE774;"/>
+                    </controls1:NavigationViewItem.Icon>
+                </controls1:NavigationViewItem>
             </controls1:NavigationView.MenuItems>
             <Frame x:Name="contentFrame"
                    Navigating="OnContentFrameNavigating"/>

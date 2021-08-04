@@ -1,4 +1,5 @@
 ﻿using System;
+using Shared.Classes;
 using UI.Pages.Content;
 using UI.Pages.Settings;
 using UI_Context.Classes;
@@ -15,6 +16,7 @@ namespace UI.Pages
         #region --Attributes--
         public readonly HomePageContext VIEW_MODEL = new HomePageContext();
         private readonly MainPageNavigationPage[] PAGES;
+        private Microsoft.UI.Xaml.Controls.NavigationViewItem selectedItem;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -121,6 +123,56 @@ namespace UI.Pages
         private void OnContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
         {
             UpdateNavigationView(e.SourcePageType);
+        }
+
+        private async void OnPageSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            bool revert = false;
+            if (args.SelectedItem == tumOnline_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumOnlineUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == tumLive_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumLiveUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == tumZoom_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumZoomUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == bbb_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("BBBUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == tumSexy_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("TumSexyUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == moodle_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("MoodleUrl")));
+                revert = true;
+            }
+            else if (args.SelectedItem == zulip_navItem)
+            {
+                await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("ZulipUrl")));
+                revert = true;
+            }
+
+
+            if (revert)
+            {
+                main_navView.SelectedItem = selectedItem;
+            }
+            else if (args.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem)
+            {
+                selectedItem = navItem;
+            }
         }
 
         #endregion
