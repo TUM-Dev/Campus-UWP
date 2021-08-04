@@ -133,6 +133,10 @@ namespace TumOnline.Classes.Managers
             {
                 amount = -1;
             }
+            if (amount <= 0)
+            {
+                return null;
+            }
             return new TuitionFee
             {
                 Amount = amount,
