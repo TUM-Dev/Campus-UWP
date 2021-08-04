@@ -1,32 +1,17 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Lectures;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using UI_Context.Classes.Templates.Dialogs;
 
-namespace UI.Controls.Lectures
+namespace UI_Context.Classes.Context.Dialogs
 {
-    public sealed partial class LectureControl: UserControl
+    public class LectureInfoDialogContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public Lecture Lecture
-        {
-            get => (Lecture)GetValue(LectureProperty);
-            set => SetValue(LectureProperty, value);
-        }
-        public static readonly DependencyProperty LectureProperty = DependencyProperty.Register(nameof(Lecture), typeof(Lecture), typeof(LecturesCollectionControl), new PropertyMetadata(null));
-
-        public readonly LectureControlContext VIEW_MODEL = new LectureControlContext();
+        public readonly LectureInfoDialogDataTemplate MODEL = new LectureInfoDialogDataTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public LectureControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -51,11 +36,7 @@ namespace UI.Controls.Lectures
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            LectureInfoDialog dialog = new LectureInfoDialog(Lecture);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

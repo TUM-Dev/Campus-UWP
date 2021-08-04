@@ -55,7 +55,7 @@
             <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
                  Text="&#xF182;"
                  ToolTipService.ToolTip="SWS"/>
-            <Run Text="{x:Bind Lecture.Duration, Mode=OneWay}"/>
+            <Run Text="{x:Bind Lecture.SpSst, Mode=OneWay}"/>
         </TextBlock>
         <Button Grid.Row="0"
                 Grid.RowSpan="3"

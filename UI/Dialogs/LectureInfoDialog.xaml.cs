@@ -1,30 +1,21 @@
 ﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Lectures;
-using Windows.UI.Xaml;
+using UI_Context.Classes.Context.Dialogs;
 using Windows.UI.Xaml.Controls;
 
-namespace UI.Controls.Lectures
+namespace UI.Dialogs
 {
-    public sealed partial class LectureControl: UserControl
+    public sealed partial class LectureInfoDialog: ContentDialog
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public Lecture Lecture
-        {
-            get => (Lecture)GetValue(LectureProperty);
-            set => SetValue(LectureProperty, value);
-        }
-        public static readonly DependencyProperty LectureProperty = DependencyProperty.Register(nameof(Lecture), typeof(Lecture), typeof(LecturesCollectionControl), new PropertyMetadata(null));
-
-        public readonly LectureControlContext VIEW_MODEL = new LectureControlContext();
+        public readonly LectureInfoDialogContext VIEW_MODEL = new LectureInfoDialogContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public LectureControl()
+        public LectureInfoDialog(Lecture lecture)
         {
+            VIEW_MODEL.MODEL.Lecture = lecture;
             InitializeComponent();
         }
 
@@ -51,11 +42,7 @@ namespace UI.Controls.Lectures
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            LectureInfoDialog dialog = new LectureInfoDialog(Lecture);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }

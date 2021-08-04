@@ -1,32 +1,23 @@
-﻿using Storage.Classes.Models.TumOnline;
-using UI.Dialogs;
-using UI_Context.Classes;
-using UI_Context.Classes.Context.Controls.Lectures;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Shared.Classes;
+using Storage.Classes.Models.TumOnline;
 
-namespace UI.Controls.Lectures
+namespace UI_Context.Classes.Templates.Dialogs
 {
-    public sealed partial class LectureControl: UserControl
+    public class LectureInfoDialogDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        private Lecture _Lecture;
         public Lecture Lecture
         {
-            get => (Lecture)GetValue(LectureProperty);
-            set => SetValue(LectureProperty, value);
+            get => _Lecture;
+            set => SetProperty(ref _Lecture, value);
         }
-        public static readonly DependencyProperty LectureProperty = DependencyProperty.Register(nameof(Lecture), typeof(Lecture), typeof(LecturesCollectionControl), new PropertyMetadata(null));
-
-        public readonly LectureControlContext VIEW_MODEL = new LectureControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public LectureControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -51,11 +42,7 @@ namespace UI.Controls.Lectures
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            LectureInfoDialog dialog = new LectureInfoDialog(Lecture);
-            await UiUtils.ShowDialogAsync(dialog);
-        }
+
 
         #endregion
     }
