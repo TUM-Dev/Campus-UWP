@@ -35,6 +35,9 @@
                         <FontIcon Glyph="&#xE8D7;"/>
                     </controlsComp:NavigationViewItem.Icon>
                 </controlsComp:NavigationViewItem>
+                <controlsComp:NavigationViewItem x:Name="calendar_navItem"
+                                                 Content="Calendar"
+                                                 Icon="Calendar"/>
             </controlsComp:NavigationView.MenuItems>
             <ScrollViewer x:Name="main_scv"
                           HorizontalScrollMode="Disabled"
@@ -47,6 +50,18 @@
                         <settings:SettingsContentControl.MainContent>
                             <StackPanel>
                                 <settings:TumOnlineTokenManagementControl/>
+                            </StackPanel>
+                        </settings:SettingsContentControl.MainContent>
+                    </settings:SettingsContentControl>
+
+                    <!--  Misc:  -->
+                    <settings:SettingsContentControl x:Name="calendar_scp"
+                                                     Header="Calendar:">
+                        <settings:SettingsContentControl.MainContent>
+                            <StackPanel>
+                                <ToggleSwitch Margin="0,10,0,0"
+                                              Header="Add TUMonline calendar events to your Windows calendar"
+                                              IsOn="{x:Bind VIEW_MODEL.MODEL.EnableWindowsCalendarIntegration, Mode=TwoWay}"/>
                             </StackPanel>
                         </settings:SettingsContentControl.MainContent>
                     </settings:SettingsContentControl>

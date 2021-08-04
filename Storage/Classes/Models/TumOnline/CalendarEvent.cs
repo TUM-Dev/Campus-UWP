@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Windows.ApplicationModel.Appointments;
 
 namespace Storage.Classes.Models.TumOnline
 {
@@ -33,7 +34,19 @@ namespace Storage.Classes.Models.TumOnline
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public Appointment ToAppointment()
+        {
+            return new Appointment
+            {
+                Subject = Title,
+                Details = Description,
+                Location = Location ?? "",
+                StartTime = Start,
+                Duration = End.Subtract(Start),
+                BusyStatus = AppointmentBusyStatus.Busy,
+                IsOrganizedByUser = false
+            };
+        }
 
         #endregion
 

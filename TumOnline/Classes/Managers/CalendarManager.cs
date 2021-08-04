@@ -12,6 +12,7 @@ using Storage.Classes.Contexts;
 using Storage.Classes.Models.TumOnline;
 using TumOnline.Classes.Events;
 using TumOnline.Classes.Exceptions;
+using Windows.ApplicationModel.Appointments;
 
 namespace TumOnline.Classes.Managers
 {
@@ -68,6 +69,16 @@ namespace TumOnline.Classes.Managers
                         ctx.AddRange(events);
                     }
                     CacheDbContext.UpdateCacheEntry(TumOnlineService.CALENDAR.NAME, DateTime.Now.Add(TumOnlineService.CALENDAR.VALIDITY));
+
+                    // Update the Windows calendar:
+                    if (!Settings.GetSettingBoolean(SettingsConsts.DISABLE_WINDOWS_CALENDAR_INTEGRATION))
+                    {
+                        await UpdateWindowsCalendarAsync(events);
+                    }
+                    else
+                    {
+                        Logger.Debug("Not updating the Windows calendar. Setting disabled.");
+                    }
                 }
                 else
                 {
@@ -194,6 +205,53 @@ namespace TumOnline.Classes.Managers
                 }
             }
             return result.ToString().Trim();
+        }
+
+        private static async Task DeleteWindowsCalendarAsync()
+        {
+            AppointmentStore aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
+            IReadOnlyList<AppointmentCalendar> cal = await aS.FindAppointmentCalendarsAsync();
+            foreach (AppointmentCalendar c in cal)
+            {
+                await c.DeleteAsync();
+            }
+            Logger.Info("Deleted all existing calendars.");
+        }
+
+        private static async Task UpdateWindowsCalendarAsync(IEnumerable<CalendarEvent> events)
+        {
+            // 1. Get access to AppointmentStore:
+            AppointmentStore aS;
+            try
+            {
+                aS = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Logger.Info("No access to the AppointmentStore.");
+                return;
+            }
+            if (aS is null)
+            {
+                Logger.Info("No access to the AppointmentStore.");
+                return;
+            }
+
+            // 2. Delete the calendar if one exists:
+            await DeleteWindowsCalendarAsync();
+            // 3. Request a new one:
+            AppointmentCalendar calendar = await aS.CreateAppointmentCalendarAsync("TUM Online");
+
+            // 4. Insert appointments:
+            if (calendar != null)
+            {
+                calendar.DisplayColor = Windows.UI.Color.FromArgb(0, 101, 189, 1); // TUM blue
+                foreach (CalendarEvent entry in events)
+                {
+                    await calendar.SaveAppointmentAsync(entry.ToAppointment());
+                }
+            }
+            Logger.Info("Finished loading calendar.");
         }
 
         #endregion

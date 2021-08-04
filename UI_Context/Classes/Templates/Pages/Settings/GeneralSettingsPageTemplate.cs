@@ -86,6 +86,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
                 StorageFolder folder = await Logger.GetLogFolderAsync().ConfAwaitFalse();
                 LogFolderPath = folder is null ? "" : folder.Path;
             });
+            ShowWhatsNewDialogOnStartup = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.HIDE_WHATS_NEW_DIALOG);
         }
 
         #endregion

@@ -48,6 +48,10 @@ namespace UI.Pages.Settings
             {
                 ScrollViewerExtensions.ScrollIntoViewVertically(main_scv, token_scp, false);
             }
+            else if (args.SelectedItem == calendar_navItem)
+            {
+                ScrollViewerExtensions.ScrollIntoViewVertically(main_scv, calendar_scp, false);
+            }
         }
 
         private void Main_nview_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)

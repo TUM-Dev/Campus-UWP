@@ -20,5 +20,7 @@
         public const string TUM_ID = "tum_id";
 
         public const string LAST_SELECTED_CANTEEN_ID = "last_selected_canteen_id";
+
+        public const string DISABLE_WINDOWS_CALENDAR_INTEGRATION = "disable_windows_calendar_integration";
     }
 }
