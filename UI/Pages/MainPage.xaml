@@ -21,7 +21,7 @@
                                   IsBackButtonVisible="Collapsed"
                                   ItemInvoked="OnNavigationViewItemInvoked"
                                   Loaded="OnNavigationViewLoaded"
-                                  OpenPaneLength="150"
+                                  OpenPaneLength="160"
                                   PaneDisplayMode="Left">
             <controls1:NavigationView.MenuItems>
                 <controls1:NavigationViewItemHeader Content="My TUM"
