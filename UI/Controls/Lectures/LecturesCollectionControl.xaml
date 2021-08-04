@@ -1,32 +1,27 @@
-﻿<UserControl x:Class="UI.Controls.Grades.GradesCollectionControl"
+﻿<UserControl x:Class="UI.Controls.Lectures.LecturesCollectionControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:grades="using:UI.Controls.Grades"
-             xmlns:grades1="using:UI_Context.Classes.Templates.Controls.Grades"
+             xmlns:lectures="using:UI.Controls.Lectures"
+             xmlns:lectures1="using:UI_Context.Classes.Templates.Controls.Lectures"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tumonline="using:Storage.Classes.Models.TumOnline"
-             xmlns:valueconverter="using:UI_Context.Classes.ValueConverter.Grades"
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="GardeTemplate"
-                      x:DataType="tumonline:Grade">
-            <grades:GradeControl Margin="0,0,0,10"
-                                 Grade="{x:Bind}"/>
+        <DataTemplate x:Key="LectureTemplate"
+                      x:DataType="tumonline:Lecture">
+            <lectures:LectureControl Margin="0,0,0,10"
+                                     Lecture="{x:Bind}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="HeaderTemplate"
-                      x:DataType="grades1:GradesDataTemplate">
+                      x:DataType="lectures1:LecturesDataTemplate">
             <TextBlock>
-                <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                     Foreground="{x:Bind AVERAGE_GRADE, Mode=OneWay, Converter={StaticResource GradeBrushValueConverter}}"
-                     Text="&#xEA3B;"/>
                 <Run Text="{x:Bind HEADER, Mode=OneWay}"/>
             </TextBlock>
         </DataTemplate>
-        <valueconverter:GradeBrushValueConverter x:Key="GradeBrushValueConverter"/>
     </UserControl.Resources>
 
     <controls:DropShadowPanel HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}"
@@ -37,13 +32,13 @@
             <controls:Expander HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
-                               Header="{x:Bind Grades, Mode=OneWay}"
+                               Header="{x:Bind Lectures, Mode=OneWay}"
                                HeaderTemplate="{StaticResource HeaderTemplate}"
-                               IsExpanded="{x:Bind Grades.expanded, Mode=OneWay}">
+                               IsExpanded="{x:Bind Lectures.expanded, Mode=OneWay}">
                 <ListView HorizontalAlignment="Stretch"
                           HorizontalContentAlignment="Left"
-                          ItemTemplate="{StaticResource GardeTemplate}"
-                          ItemsSource="{x:Bind Grades.GRADES_GROUP, Mode=OneWay}"
+                          ItemTemplate="{StaticResource LectureTemplate}"
+                          ItemsSource="{x:Bind Lectures.LECTURES_GROUP, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollMode="Disabled"
                           ScrollViewer.VerticalScrollMode="Disabled"
                           SelectionMode="None">

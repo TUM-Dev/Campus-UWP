@@ -1,26 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Shared.Classes;
+using Shared.Classes.Collections;
+using UI_Context.Classes.Templates.Controls.Lectures;
 
-namespace Storage.Classes.Contexts
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class LecturesPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Lecture> Lectures { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public readonly CustomObservableCollection<LecturesDataTemplate> LECTURES_COLLECTIONS = new CustomObservableCollection<LecturesDataTemplate>(true);
+
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
+
+        private bool _HasLectures;
+        public bool HasLectures
+        {
+            get => _HasLectures;
+            set => SetProperty(ref _HasLectures, value);
+        }
+        private bool _ShowError;
+        public bool ShowError
+        {
+            get => _ShowError;
+            set => SetProperty(ref _ShowError, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

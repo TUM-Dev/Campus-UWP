@@ -147,6 +147,12 @@
     <Compile Include="Controls\IconTextBlockControl.xaml.cs">
       <DependentUpon>IconTextBlockControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Lectures\LectureControl.xaml.cs">
+      <DependentUpon>LectureControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Lectures\LecturesCollectionControl.xaml.cs">
+      <DependentUpon>LecturesCollectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoadingContentControl.xaml.cs">
       <DependentUpon>LoadingContentControl.xaml</DependentUpon>
     </Compile>
@@ -195,6 +201,9 @@
     </Compile>
     <Compile Include="Pages\Content\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\LecturesPage.xaml.cs">
+      <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Content\TuitionFeesPage.xaml.cs">
       <DependentUpon>TuitionFeesPage.xaml</DependentUpon>
@@ -339,6 +348,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Lectures\LectureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Lectures\LecturesCollectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\LoadingContentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -400,6 +417,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Content\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\LecturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

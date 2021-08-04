@@ -119,7 +119,7 @@ namespace TumOnline.Classes.Managers
         private static Grade ParseGrade(XmlNode gradeNode)
         {
             DateTime.TryParse(gradeNode.SelectSingleNode("datum").InnerText, out DateTime date);
-            if (!int.TryParse(gradeNode.SelectSingleNode("pv_kand_nr").InnerText, out int credits))
+            if (!int.TryParse(gradeNode.SelectSingleNode("lv_credits").InnerText, out int credits))
             {
                 credits = -1;
             }

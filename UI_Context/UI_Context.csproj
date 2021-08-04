@@ -124,6 +124,8 @@
     <Compile Include="Classes\Context\Controls\Calendar\CalendarEventControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradesCollectionControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\Lectures\LectureControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\Lectures\LecturesCollectionControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
     <Compile Include="Classes\Context\Controls\TuitionFees\TuitionFeeControlContext.cs" />
@@ -132,12 +134,16 @@
     <Compile Include="Classes\Context\Pages\Content\CalendarPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\LecturesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesCollectionControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Lectures\LectureControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Lectures\LecturesCollectionControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Lectures\LecturesDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />
     <Compile Include="Classes\Context\Controls\Settings\LogLevelControlContext.cs" />
@@ -158,6 +164,7 @@
     <Compile Include="Classes\Templates\Pages\Content\CalendarPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\CanteensPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\GradesPageDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\LecturesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\TuitionFeesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />

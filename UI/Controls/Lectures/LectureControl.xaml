@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="UI.Controls.Grades.GradeControl"
+﻿<UserControl x:Class="UI.Controls.Lectures.LectureControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:valueconverter="using:UI_Context.Classes.ValueConverter.Grades"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -11,12 +10,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Resources/Styles/Button/InfoButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <valueconverter:GradeBrushValueConverter x:Key="GradeBrushValueConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -30,30 +29,33 @@
                    IsTextSelectionEnabled="True"
                    MaxLines="3"
                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                   Text="{x:Bind Grade.LectureTite, Mode=OneWay}"
+                   Text="{x:Bind Lecture.Title, Mode=OneWay}"
+                   TextTrimming="CharacterEllipsis"
                    TextWrapping="Wrap"/>
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    IsTextSelectionEnabled="True"
-                   Style="{ThemeResource BodyLineTextBlockStyle}">
-            <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                 Foreground="{x:Bind Grade.GradeShort, Mode=OneWay, Converter={StaticResource GradeBrushValueConverter}}"
-                 Text="&#xEA3B;"/>
-            <Run Text="{x:Bind Grade.GradeShort, Mode=OneWay}"/>
+                   Style="{ThemeResource BodyTextBlockStyle}">
+            <Run FontWeight="Bold"
+                 Text="Supervisor:"/>
+            <Run Text="{x:Bind Lecture.FacultySupervisorName, Mode=OneWay}"/>
+            <LineBreak/>
+            <Run FontWeight="Bold"
+                 Text="Contributors:"/>
+            <Run Text="{x:Bind Lecture.Contributors, Mode=OneWay}"/>
         </TextBlock>
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
                    IsTextSelectionEnabled="True"
                    Style="{ThemeResource CaptionLineTextBlockStyle}">
             <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                 Text="&#xE70F;"/>
-            <Run Text="{x:Bind Grade.ExamMode, Mode=OneWay}"/>
+                 Text="&#xE70F;"
+                 ToolTipService.ToolTip="Type"/>
+            <Run Text="{x:Bind Lecture.TypeLong, Mode=OneWay}"/>
             <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                 Text="&#xE77B;"/>
-            <Run Text="{x:Bind Grade.ExaminerSurname, Mode=OneWay}"/>
-            <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                 Text="&#xE928;"/>
-            <Run Text="{x:Bind Grade.LectureNumber, Mode=OneWay}"/>
+                 Text="&#xF182;"
+                 ToolTipService.ToolTip="SWS"/>
+            <Run Text="{x:Bind Lecture.Duration, Mode=OneWay}"/>
         </TextBlock>
         <Button Grid.Row="0"
                 Grid.RowSpan="3"

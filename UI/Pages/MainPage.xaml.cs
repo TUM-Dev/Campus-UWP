@@ -29,7 +29,7 @@ namespace UI.Pages
                 new MainPageNavigationPage(typeof(HomePage), home_navItem, "Home"),
                 new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
                 new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
-                new MainPageNavigationPage(typeof(HomePage), lectures_navItem, "Lectures"),
+                new MainPageNavigationPage(typeof(LecturesPage), lectures_navItem, "Lectures"),
                 new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
                 new MainPageNavigationPage(typeof(CalendarPage), calendar_navItem, "Calendar"),
                 new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees")

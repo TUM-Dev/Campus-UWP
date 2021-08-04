@@ -1,25 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Storage.Classes.Models.TumOnline;
+using UI_Context.Classes.Context.Controls.Lectures;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Contexts
+namespace UI.Controls.Lectures
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed partial class LectureControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Lecture> Lectures { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public Lecture Lecture
+        {
+            get => (Lecture)GetValue(LectureProperty);
+            set => SetValue(LectureProperty, value);
+        }
+        public static readonly DependencyProperty LectureProperty = DependencyProperty.Register(nameof(Lecture), typeof(Lecture), typeof(LecturesCollectionControl), new PropertyMetadata(null));
+
+        public readonly LectureControlContext VIEW_MODEL = new LectureControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public LectureControl()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            InitializeComponent();
         }
 
         #endregion
@@ -45,7 +49,11 @@ namespace Storage.Classes.Contexts
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private async void OnInfoClicked(object sender, RoutedEventArgs e)
+        {
+            /*GradeInfoDialog dialog = new GradeInfoDialog(Grade);
+            await UiUtils.ShowDialogAsync(dialog);*/
+        }
 
         #endregion
     }

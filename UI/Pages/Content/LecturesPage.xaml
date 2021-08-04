@@ -1,0 +1,75 @@
+﻿<Page x:Class="UI.Pages.Content.LecturesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:controls1="using:UI.Controls"
+      xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dataTemplate="using:UI_Context.Classes.Templates.Controls.Lectures"
+      xmlns:lectures="using:UI.Controls.Lectures"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+      mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="LecturesCollectionTemplate"
+                      x:DataType="dataTemplate:LecturesDataTemplate">
+            <lectures:LecturesCollectionControl Margin="0,10,0,00"
+                                                HorizontalAlignment="Stretch"
+                                                Lectures="{x:Bind}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <!--  Lectures:  -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls2:InfoBar IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                               Message="Failed to load lectures. Please retry..."
+                               Severity="Error"/>
+
+            <Button Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Click="OnRefreshClicked"
+                    Content="&#xE72C;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    ToolTipService.ToolTip="Refresh grades"/>
+
+            <ListView Grid.Row="2"
+                      HorizontalContentAlignment="Stretch"
+                      ItemTemplate="{StaticResource LecturesCollectionTemplate}"
+                      ItemsSource="{x:Bind VIEW_MODEL.MODEL.LECTURES_COLLECTIONS, Mode=OneWay}"
+                      SelectionMode="None"
+                      Visibility="{x:Bind VIEW_MODEL.MODEL.HasLectures, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <TextBlock Grid.Row="2"
+                       Margin="10,0,10,20"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Visibility="{x:Bind VIEW_MODEL.MODEL.HasLectures, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                <Run FontSize="150"
+                     Text="🤷"/>
+                <LineBreak/>
+                <Run Text="No lectures found!"/>
+            </TextBlock>
+        </Grid>
+
+        <!--  Loading:  -->
+        <controls:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
+            <controls1:LoadingContentControl Text="Loading lectures..."/>
+        </controls:Loading>
+    </Grid>
+</Page>

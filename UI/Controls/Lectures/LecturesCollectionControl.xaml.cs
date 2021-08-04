@@ -1,25 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using UI_Context.Classes.Context.Controls.Lectures;
+using UI_Context.Classes.Templates.Controls.Lectures;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace Storage.Classes.Contexts
+namespace UI.Controls.Lectures
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public sealed partial class LecturesCollectionControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Lecture> Lectures { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public LecturesDataTemplate Lectures
+        {
+            get => (LecturesDataTemplate)GetValue(LecturesProperty);
+            set => SetValue(LecturesProperty, value);
+        }
+        public static readonly DependencyProperty LecturesProperty = DependencyProperty.Register(nameof(Lectures), typeof(LecturesDataTemplate), typeof(LecturesCollectionControl), new PropertyMetadata(null));
+
+        public readonly LecturesCollectionControlContext VIEW_MODEL = new LecturesCollectionControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
+        public LecturesCollectionControl()
         {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
+            InitializeComponent();
         }
 
         #endregion

@@ -1,26 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Storage.Classes.Contexts
+namespace Storage.Classes.Models.TumOnline
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class Lecture
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Lecture> Lectures { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public int SpNr { get; set; }
+        public int LvNr { get; set; }
+        public string Title { get; set; }
+        public double Duration { get; set; }
+        public double SpSst { get; set; }
+        public string TypeLong { get; set; }
+        public string TypeShort { get; set; }
+        public string SemesterYearName { get; set; }
+        public string Semester { get; set; }
+        public string SemesterName { get; set; }
+        public string SemesterId { get; set; }
+        public int FacultySupervisorId { get; set; }
+        public string FacultySupervisorName { get; set; }
+        public string FacultyId { get; set; }
+        public string Contributors { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

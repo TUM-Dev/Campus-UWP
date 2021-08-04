@@ -7,24 +7,24 @@ using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
 using TumOnline.Classes.Events;
 using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Controls.Grades;
+using UI_Context.Classes.Templates.Controls.Lectures;
 using UI_Context.Classes.Templates.Pages.Content;
 
 namespace UI_Context.Classes.Context.Pages.Content
 {
-    public class GradesPageContext
+    public class LecturesPageContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly GradesPageDataTemplate MODEL = new GradesPageDataTemplate();
+        public readonly LecturesPageDataTemplate MODEL = new LecturesPageDataTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public GradesPageContext()
+        public LecturesPageContext()
         {
             GradesManager.INSTANCE.OnRequestError += OnRequestError;
-            Task.Run(async () => await LoadGradesAsync(false));
+            Task.Run(async () => await LoadLecturesAsync(false));
         }
 
         #endregion
@@ -37,55 +37,55 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Misc Methods (Public)--
         public void Refresh()
         {
-            Task.Run(async () => await LoadGradesAsync(true));
+            Task.Run(async () => await LoadLecturesAsync(true));
         }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        private async Task LoadGradesAsync(bool refresh)
+        private async Task LoadLecturesAsync(bool refresh)
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
             try
             {
-                IEnumerable<Grade> grades = await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                AddSortGrades(grades);
+                IEnumerable<Lecture> lectures = await LecturesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+                AddSortLectures(lectures);
             }
             catch (Exception e)
             {
                 Logger.Error("Failed to load grades!", e);
             }
-            MODEL.HasGrades = MODEL.GRADE_COLLECTIONS.Count > 0;
+            MODEL.HasLectures = MODEL.LECTURES_COLLECTIONS.Count > 0;
             MODEL.IsLoading = false;
         }
 
-        private void AddSortGrades(IEnumerable<Grade> grades)
+        private void AddSortLectures(IEnumerable<Lecture> lectures)
         {
             // Cache them in lists to prevent UI thread interrupts for each grade:
-            Dictionary<string, List<Grade>> tmp = new Dictionary<string, List<Grade>>();
-            foreach (Grade grade in grades)
+            Dictionary<string, List<Lecture>> tmp = new Dictionary<string, List<Lecture>>();
+            foreach (Lecture lecture in lectures)
             {
-                if (!tmp.ContainsKey(grade.LectureSemester))
+                if (!tmp.ContainsKey(lecture.SemesterId))
                 {
-                    tmp[grade.LectureSemester] = new List<Grade>();
+                    tmp[lecture.SemesterId] = new List<Lecture>();
                 }
-                tmp[grade.LectureSemester].Add(grade);
+                tmp[lecture.SemesterId].Add(lecture);
             }
 
             // Add them to the actual collections:
-            List<GradesDataTemplate> gradesList = new List<GradesDataTemplate>();
-            foreach (List<Grade> gList in tmp.Values)
+            List<LecturesDataTemplate> lecturesList = new List<LecturesDataTemplate>();
+            foreach (List<Lecture> lList in tmp.Values)
             {
-                gradesList.Add(new GradesDataTemplate(gList));
+                lecturesList.Add(new LecturesDataTemplate(lList));
             }
-            gradesList.Sort();
-            if (gradesList.Count > 0)
+            lecturesList.Sort();
+            if (lecturesList.Count > 0)
             {
-                gradesList[0].expanded = true;
+                lecturesList[0].expanded = true;
             }
-            MODEL.GRADE_COLLECTIONS.Clear();
-            MODEL.GRADE_COLLECTIONS.AddRange(gradesList);
+            MODEL.LECTURES_COLLECTIONS.Clear();
+            MODEL.LECTURES_COLLECTIONS.AddRange(lecturesList);
         }
 
         #endregion
