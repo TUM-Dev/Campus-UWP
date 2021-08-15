@@ -80,45 +80,59 @@
                 <controls1:NavigationViewItemHeader Content="Quick Links"
                                                     Foreground="{ThemeResource CaptionTextBrush}"/>
                 <controls1:NavigationViewItem x:Name="tumOnline_navItem"
-                                              Content="TUMonline">
+                                              Content="TUMonline"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/tum.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="tumLive_navItem"
-                                              Content="TUM Live">
+                                              Content="TUM Live"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/tum.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="tumZoom_navItem"
-                                              Content="TUM Zoom">
+                                              Content="TUM Zoom"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/zoom.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="bbb_navItem"
-                                              Content="BBB">
+                                              Content="BBB"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/bbb.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="tumSexy_navItem"
-                                              Content="TUM.sexy">
+                                              Content="TUM.sexy"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/sexy.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="moodle_navItem"
-                                              Content="Moodle">
+                                              Content="Moodle"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/moodle.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="zulip_navItem"
-                                              Content="Zulip">
+                                              Content="Zulip"
+                                              ToolTipService.ToolTip="Open in browser.">
                     <controls1:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE774;"/>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="ms-appx:///Assets//Logos/zulip.png"/>
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
             </controls1:NavigationView.MenuItems>

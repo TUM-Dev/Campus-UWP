@@ -279,6 +279,12 @@
     <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-200.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-400.png" />
+    <Content Include="Assets\Logos\bbb.png" />
+    <Content Include="Assets\Logos\moodle.png" />
+    <Content Include="Assets\Logos\sexy.png" />
+    <Content Include="Assets\Logos\tum.png" />
+    <Content Include="Assets\Logos\zoom.png" />
+    <Content Include="Assets\Logos\zulip.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-100.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-125.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-150.png" />
