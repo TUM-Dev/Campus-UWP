@@ -26,15 +26,21 @@ namespace UI.Pages
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            PAGES = new MainPageNavigationPage[7]
+            PAGES = new MainPageNavigationPage[8]
             {
+                // Home:
                 new MainPageNavigationPage(typeof(HomePage), home_navItem, "Home"),
+
+                // My TUM:
                 new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
                 new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
                 new MainPageNavigationPage(typeof(LecturesPage), lectures_navItem, "Lectures"),
                 new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
                 new MainPageNavigationPage(typeof(CalendarPage), calendar_navItem, "Calendar"),
-                new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees")
+                new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees"),
+
+                // General TUM:
+                new MainPageNavigationPage(typeof(StudyRoomsPage), studyRooms_navItem, "Study Rooms")
             };
         }
 

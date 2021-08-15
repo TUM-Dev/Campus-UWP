@@ -208,6 +208,9 @@
     <Compile Include="Pages\Content\LecturesPage.xaml.cs">
       <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Content\StudyRoomsPage.xaml.cs">
+      <DependentUpon>StudyRoomsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Content\TuitionFeesPage.xaml.cs">
       <DependentUpon>TuitionFeesPage.xaml</DependentUpon>
     </Compile>
@@ -434,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Content\LecturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\StudyRoomsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
