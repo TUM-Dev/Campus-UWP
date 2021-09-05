@@ -18,6 +18,8 @@ namespace UI.Pages
         private readonly MainPageNavigationPage[] PAGES;
         private Microsoft.UI.Xaml.Controls.NavigationViewItem selectedItem;
 
+        private static Frame CONTENT_FRAME;
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -42,12 +44,20 @@ namespace UI.Pages
                 // General TUM:
                 new MainPageNavigationPage(typeof(StudyRoomsPage), studyRooms_navItem, "Study Rooms")
             };
+            CONTENT_FRAME = contentFrame;
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Returns the current content <see cref="Frame"/> so other controls and pages can change the content and navigate away.
+        /// </summary>
+        /// <returns></returns>
+        public static Frame GetContentFrame()
+        {
+            return CONTENT_FRAME;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

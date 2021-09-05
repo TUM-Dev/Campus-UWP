@@ -4,6 +4,7 @@
              xmlns:calendar="using:UI_Context.Classes.ValueConverter.Calendar"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -12,7 +13,7 @@
 
     <StackPanel Margin="0,0,0,10"
                 Padding="10"
-                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                Background="{x:Bind Background, Mode=OneWay}"
                 CornerRadius="{ThemeResource OverlayCornerRadius}">
         <TextBlock IsTextSelectionEnabled="True"
                    Style="{ThemeResource SubtitleTextBlockStyle}"

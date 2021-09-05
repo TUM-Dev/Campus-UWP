@@ -123,6 +123,9 @@
     <Compile Include="Controls\Calendar\CalendarEventControl.xaml.cs">
       <DependentUpon>CalendarEventControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Calendar\CalendarWidgetControl.xaml.cs">
+      <DependentUpon>CalendarWidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Canteens\DishControl.xaml.cs">
       <DependentUpon>DishControl.xaml</DependentUpon>
     </Compile>
@@ -325,6 +328,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\Calendar\CalendarEventControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Calendar\CalendarWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

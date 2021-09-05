@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="UI.Controls.Calendar.CalendarWidgetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:calendar="using:UI.Controls.Calendar"
+             xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+             xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:controls11="using:UI.Controls"
+             xmlns:converter="using:UI_Context.Classes.ValueConverter.Calendar"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tumonline="using:Storage.Classes.Models.TumOnline"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="CalendarEventDataTemplate"
+                      x:DataType="tumonline:CalendarEvent">
+            <StackPanel VerticalAlignment="Top"
+                        SizeChanged="OnCalendarEventSizeChanged">
+                <TextBlock Grid.Row="0"
+                           Margin="0,0,45,0"
+                           FontWeight="Normal"
+                           MaxLines="1"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Text="{x:Bind Start, Mode=OneWay, Converter={StaticResource CalendarEventDateStringValueConverter}}"
+                           TextAlignment="Center"/>
+                <calendar:CalendarEventControl Grid.Row="1"
+                                               Background="Transparent"
+                                               CalendarEvent="{x:Bind}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <converter:CalendarEventDateStringValueConverter x:Key="CalendarEventDateStringValueConverter"/>
+    </UserControl.Resources>
+
+    <controls1:DropShadowPanel HorizontalContentAlignment="Stretch">
+        <Border Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                CornerRadius="{ThemeResource OverlayCornerRadius}">
+            <Grid Padding="10"
+                  PointerReleased="OnPointerReleased"
+                  Background="{ThemeResource AppBackgroundAcrylicElementBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <FlipView x:Name="EventsFV"
+                          Grid.Row="0"
+                          MaxHeight="100"
+                          Background="Transparent"
+                          ItemTemplate="{StaticResource CalendarEventDataTemplate}"
+                          ItemsSource="{x:Bind VIEW_MODEL.MODEL.EVENTS, Mode=OneWay}"
+                          SelectionChanged="OnFlipViewSelectionChanged"
+                          Visibility="{x:Bind VIEW_MODEL.MODEL.HasUpcomingEvents, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+
+                <controls:PipsPager x:Name="EventsPP"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    NextButtonVisibility="Collapsed"
+                                    NumberOfPages="0"
+                                    PreviousButtonVisibility="Collapsed"
+                                    SelectedIndexChanged="OnPigsPagerSelectedIndexChanged"
+                                    Visibility="{x:Bind VIEW_MODEL.MODEL.HasUpcomingEvents, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+
+                <TextBlock Grid.Row="0"
+                           Grid.RowSpan="2"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasUpcomingEvents, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                    <Run FontSize="50"
+                         Text="😎"/>
+                    <LineBreak/>
+                    <Run Text="No upcoming events found."/>
+                </TextBlock>
+
+                <Button Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Content="&#xE712;"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        ToolTipService.ToolTip="More">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="OnRefreshClicked"
+                                            Text="Refresh">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE72C;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Click="OnSettingsClicked"
+                                            Text="Settings">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE713;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+                <!--  Loading:  -->
+                <controls1:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                                   IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
+                    <controls11:LoadingContentControl Text="Loading calendar..."/>
+                </controls1:Loading>
+            </Grid>
+        </Border>
+    </controls1:DropShadowPanel>
+</UserControl>
