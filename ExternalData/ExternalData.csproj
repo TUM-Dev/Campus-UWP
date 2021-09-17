@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC4D9DD9-807B-4A0B-9FE2-41DE70F47160}</ProjectGuid>
+    <ProjectGuid>{3FC2534E-93A6-4694-AF55-CF5F2D72DA2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Canteens</RootNamespace>
-    <AssemblyName>Canteens</AssemblyName>
+    <RootNamespace>ExternalData</RootNamespace>
+    <AssemblyName>ExternalData</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -124,8 +124,9 @@
     <Compile Include="Classes\Manager\AbstractManager.cs" />
     <Compile Include="Classes\Manager\CanteenManager.cs" />
     <Compile Include="Classes\Manager\DishManager.cs" />
+    <Compile Include="Classes\Manager\StudyRoomsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Canteens.rd.xml" />
+    <EmbeddedResource Include="Properties\ExternalData.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore">
@@ -135,9 +136,10 @@
       <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{B1B74CB2-3E08-4FE7-876D-4F9C82A41C90}</Project>
+      <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
       <Name>Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
@@ -145,7 +147,7 @@
       <Name>Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Storage\Storage.csproj">
-      <Project>{82960015-C6C1-4507-81DC-2D317A285394}</Project>
+      <Project>{82960015-c6c1-4507-81dc-2d317a285394}</Project>
       <Name>Storage</Name>
     </ProjectReference>
   </ItemGroup>

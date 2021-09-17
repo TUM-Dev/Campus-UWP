@@ -1,6 +1,7 @@
 ﻿using System;
 using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
@@ -43,7 +44,7 @@ namespace UI.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnRefreshClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnRefreshClicked(object sender, RoutedEventArgs e)
         {
             VIEW_MODEL.Refresh();
         }

@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using ExternalData.Classes.Manager;
-using Windows.UI.Xaml.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Storage.Classes.Models.External;
 
-namespace UI_Context.Classes.ValueConverter
+namespace Storage.Classes.Contexts
 {
-    public sealed class IngredientsStringValueConverter: IValueConverter
+    public class StudyRoomDbContext: AbstractDbContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        public DbSet<StudyRoomGroup> StudyRoomGroups { get; set; }
+        public DbSet<StudyRoom> StudyRooms { get; set; }
+        public DbSet<StudyRoomAttribute> StudyRoomAttributes { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public StudyRoomDbContext() : base("studyRooms.db")
+        {
+            // Disable change tracking since we always manually update them and only require them read only:
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            Database.EnsureCreated();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -24,30 +29,7 @@ namespace UI_Context.Classes.ValueConverter
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            string result = "";
-            if (value is List<string> ingredients)
-            {
-                foreach (string s in ingredients)
-                {
-                    if (DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP.ContainsKey(s))
-                    {
-                        result += DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP[s] + ' ';
-                    }
-                    else
-                    {
-                        result += s + ' ';
-                    }
-                }
-            }
-            return result;
-        }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 

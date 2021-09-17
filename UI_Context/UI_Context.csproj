@@ -136,6 +136,7 @@
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\LecturesPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\StudyRoomsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Classes\Templates\Pages\Content\CanteensPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\GradesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\LecturesPageDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\StudyRoomsPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\TuitionFeesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
@@ -210,9 +212,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Canteens\Canteens.csproj">
-      <Project>{EC4D9DD9-807B-4A0B-9FE2-41DE70F47160}</Project>
-      <Name>Canteens</Name>
+    <ProjectReference Include="..\ExternalData\ExternalData.csproj">
+      <Project>{3FC2534E-93A6-4694-AF55-CF5F2D72DA2E}</Project>
+      <Name>ExternalData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>

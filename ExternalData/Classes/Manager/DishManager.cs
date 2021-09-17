@@ -4,14 +4,14 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Canteens.Classes.Events;
+using ExternalData.Classes.Events;
 using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes.Contexts;
 using Storage.Classes.Models.Canteens;
 using Windows.Data.Json;
 
-namespace Canteens.Classes.Manager
+namespace ExternalData.Classes.Manager
 {
     public class DishManager: AbstractManager
     {

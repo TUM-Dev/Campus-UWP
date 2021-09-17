@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Canteens.Classes.Events;
-using Canteens.Classes.Manager;
+using ExternalData.Classes.Events;
+using ExternalData.Classes.Manager;
 using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;

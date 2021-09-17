@@ -1,5 +1,5 @@
 ﻿using System;
-using Canteens.Classes.Manager;
+using ExternalData.Classes.Manager;
 using Shared.Classes;
 using Shared.Classes.Collections;
 using Storage.Classes;

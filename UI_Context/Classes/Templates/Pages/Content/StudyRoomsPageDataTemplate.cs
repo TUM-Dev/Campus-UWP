@@ -1,13 +1,35 @@
-﻿using Canteens.Classes.Events;
+﻿using Shared.Classes;
+using Shared.Classes.Collections;
+using Storage.Classes.Models.External;
 
-namespace Canteens.Classes.Manager
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public abstract class AbstractManager
+    public class StudyRoomsPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public delegate void OnRequestErrorEventHandler(AbstractManager sender, RequestErrorEventArgs e);
-        public event OnRequestErrorEventHandler OnRequestError;
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
+
+        private bool _HasFees;
+        public bool HasGroups
+        {
+            get => _HasFees;
+            set => SetProperty(ref _HasFees, value);
+        }
+
+        private bool _ShowError;
+        public bool ShowError
+        {
+            get => _ShowError;
+            set => SetProperty(ref _ShowError, value);
+        }
+
+        public readonly CustomObservableCollection<StudyRoomGroup> ROOM_GROUPS = new CustomObservableCollection<StudyRoomGroup>(true);
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -32,10 +54,7 @@ namespace Canteens.Classes.Manager
         #endregion
 
         #region --Misc Methods (Protected)--
-        protected void InvokeOnRequestError(RequestErrorEventArgs args)
-        {
-            OnRequestError?.Invoke(this, args);
-        }
+
 
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\

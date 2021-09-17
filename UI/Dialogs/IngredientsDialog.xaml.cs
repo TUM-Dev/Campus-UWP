@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using Canteens.Classes.Manager;
+using ExternalData.Classes.Manager;
 using Shared.Classes;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

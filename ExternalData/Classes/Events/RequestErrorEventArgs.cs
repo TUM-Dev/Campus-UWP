@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Canteens.Classes.Events
+namespace ExternalData.Classes.Events
 {
     public class RequestErrorEventArgs: EventArgs
     {

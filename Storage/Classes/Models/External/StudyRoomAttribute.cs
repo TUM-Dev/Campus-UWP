@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using ExternalData.Classes.Manager;
-using Windows.UI.Xaml.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Storage.Classes.Models.Canteens;
 
-namespace UI_Context.Classes.ValueConverter
+namespace Storage.Classes.Models.External
 {
-    public sealed class IngredientsStringValueConverter: IValueConverter
+    public class StudyRoomAttribute: AbstractCanteensModel
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public string Details { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -24,30 +27,7 @@ namespace UI_Context.Classes.ValueConverter
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            string result = "";
-            if (value is List<string> ingredients)
-            {
-                foreach (string s in ingredients)
-                {
-                    if (DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP.ContainsKey(s))
-                    {
-                        result += DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP[s] + ' ';
-                    }
-                    else
-                    {
-                        result += s + ' ';
-                    }
-                }
-            }
-            return result;
-        }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 

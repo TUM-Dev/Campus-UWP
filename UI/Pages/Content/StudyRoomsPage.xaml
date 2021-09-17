@@ -1,10 +1,87 @@
 ﻿<Page x:Class="UI.Pages.Content.StudyRoomsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:controls1="using:UI.Controls"
+      xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
-    <Grid/>
+    <Page.Resources>
+        <DataTemplate x:Name="StuddyRoomDataTemplate"/>
+    </Page.Resources>
+
+    <Grid>
+        <!--  Tuition Fees:  -->
+        <Grid Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls2:InfoBar Grid.Row="0"
+                               IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                               Message="Failed to load study rooms. Please retry..."
+                               Severity="Error"/>
+
+            <Button Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    Click="OnRefreshClicked"
+                    Content="&#xE72C;"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    ToolTipService.ToolTip="Refresh tuition fees"/>
+
+            <Grid Grid.Row="2"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GridView Grid.Row="0"
+                          HorizontalAlignment="Center"
+                          HorizontalContentAlignment="Stretch"
+                          animations:ItemsReorderAnimation.Duration="00:00:00.8"
+                          ItemTemplate="{StaticResource StuddyRoomDataTemplate}"
+                          ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOM_GROUPS}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollMode="Enabled"
+                          SelectionMode="None"
+                          Visibility="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                </GridView>
+
+                <TextBlock Grid.Row="0"
+                           Margin="10,0,10,20"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                    <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                         FontSize="150"
+                         Foreground="{StaticResource TumBlueBrush}"
+                         Text="&#xE001;"/>
+                    <LineBreak/>
+                    <Run Text="No study rooms found!"/>
+                </TextBlock>
+            </Grid>
+        </Grid>
+
+
+        <!--  Loading:  -->
+        <controls:Loading Grid.Row="0"
+                          Grid.RowSpan="3"
+                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
+            <controls1:LoadingContentControl Text="Loading study rooms..."/>
+        </controls:Loading>
+    </Grid>
 </Page>

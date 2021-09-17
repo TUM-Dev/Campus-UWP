@@ -551,9 +551,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Canteens\Canteens.csproj">
-      <Project>{EC4D9DD9-807B-4A0B-9FE2-41DE70F47160}</Project>
-      <Name>Canteens</Name>
+    <ProjectReference Include="..\ExternalData\ExternalData.csproj">
+      <Project>{3fc2534e-93a6-4694-af55-cf5f2d72da2e}</Project>
+      <Name>ExternalData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{b1b74cb2-3e08-4fe7-876d-4f9c82a41c90}</Project>
