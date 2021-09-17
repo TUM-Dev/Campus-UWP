@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using ExternalData.Classes.Events;
 using ExternalData.Classes.Manager;
-using Logging.Classes;
+using Storage.Classes.Models.External;
 using UI_Context.Classes.Templates.Pages.Content;
 
 namespace UI_Context.Classes.Context.Pages.Content
@@ -42,16 +42,12 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            try
-            {
-                MODEL.ROOM_GROUPS.Clear();
-                MODEL.ROOM_GROUPS.AddRange(await StudyRoomsManager.INSTANCE.UpdateAsync(refresh));
-                MODEL.HasGroups = !MODEL.ROOM_GROUPS.IsEmpty();
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load study rooms!", e);
-            }
+            StudyRoomGroup oldSelected = MODEL.SelectedGroup;
+            MODEL.ROOM_GROUPS.Clear();
+            MODEL.ROOM_GROUPS.AddRange(await StudyRoomsManager.INSTANCE.UpdateAsync(refresh));
+            // Keep the old selection:
+            MODEL.SelectedGroup = oldSelected is null ? MODEL.ROOM_GROUPS.FirstOrDefault() : MODEL.ROOM_GROUPS.Where(g => g.Id == oldSelected.Id).FirstOrDefault();
+            MODEL.HasGroups = !MODEL.ROOM_GROUPS.IsEmpty();
             MODEL.IsLoading = false;
         }
 

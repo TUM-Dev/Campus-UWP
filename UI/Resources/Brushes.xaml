@@ -172,6 +172,17 @@
                                 TintOpacity="0.6"/>
             <SolidColorBrush x:Key="CaptionTextBrush"
                              Color="#99FFFFFF"/>
+
+            <!--  Source: https://github.com/microsoft/microsoft-ui-xaml/blob/0a65a71ebcd881a94541bd92296dfadac7a18f7a/dev/CommonStyles/Common_themeresources_any.xaml#L94-L105  -->
+            <Color x:Key="SystemFillColorCriticalBackground">#442726</Color>
+            <Color x:Key="SystemFillColorSuccessBackground">#435725</Color>
+            <Color x:Key="SystemFillColorCautionBackground">#433519</Color>
+            <SolidColorBrush x:Key="SystemFillColorSuccessBackgroundBrush"
+                             Color="{StaticResource SystemFillColorSuccessBackground}"/>
+            <SolidColorBrush x:Key="SystemFillColorCriticalBackgroundBrush"
+                             Color="{StaticResource SystemFillColorCriticalBackground}"/>
+            <SolidColorBrush x:Key="SystemFillColorCautionBackgroundBrush"
+                             Color="{StaticResource SystemFillColorCautionBackground}"/>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <ResourceDictionary.MergedDictionaries>
@@ -223,6 +234,16 @@
             <SolidColorBrush x:Key="CaptionTextBrush"
                              Color="#99000000"/>
 
+            <!--  Source: https://github.com/microsoft/microsoft-ui-xaml/blob/0a65a71ebcd881a94541bd92296dfadac7a18f7a/dev/CommonStyles/Common_themeresources_any.xaml#L338-L349  -->
+            <Color x:Key="SystemFillColorCriticalBackground">#FCB7B7</Color>
+            <Color x:Key="SystemFillColorSuccessBackground">#ABF6A5</Color>
+            <Color x:Key="SystemFillColorCautionBackground">#FCE9A6</Color>
+            <SolidColorBrush x:Key="SystemFillColorSuccessBackgroundBrush"
+                             Color="{StaticResource SystemFillColorSuccessBackground}"/>
+            <SolidColorBrush x:Key="SystemFillColorCriticalBackgroundBrush"
+                             Color="{StaticResource SystemFillColorCriticalBackground}"/>
+            <SolidColorBrush x:Key="SystemFillColorCautionBackgroundBrush"
+                             Color="{StaticResource SystemFillColorCautionBackground}"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

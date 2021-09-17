@@ -6,12 +6,23 @@
       xmlns:controls1="using:UI.Controls"
       xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:external="using:Storage.Classes.Models.External"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:studyrooms="using:UI.Controls.StudyRooms"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Name="StuddyRoomDataTemplate"/>
+        <DataTemplate x:Name="StuddyRoomDataTemplate"
+                      x:DataType="external:StudyRoom">
+            <studyrooms:StudyRoomControl Room="{x:Bind}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StudyRoomGroupDataTemplate"
+                      x:DataType="external:StudyRoomGroup">
+            <TextBlock Style="{ThemeResource BaseLineTextBlockStyle}"
+                       Text="{x:Bind Name}"/>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid>
@@ -27,48 +38,61 @@
                                Message="Failed to load study rooms. Please retry..."
                                Severity="Error"/>
 
-            <Button Grid.Row="1"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    Click="OnRefreshClicked"
-                    Content="&#xE72C;"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    ToolTipService.ToolTip="Refresh tuition fees"/>
+            <Grid Grid.Row="1"
+                  Margin="10"
+                  HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          IsEnabled="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay}"
+                          ItemTemplate="{StaticResource StudyRoomGroupDataTemplate}"
+                          ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOM_GROUPS}"
+                          PlaceholderText="No rooms found!"
+                          SelectedItem="{x:Bind VIEW_MODEL.MODEL.SelectedGroup, Mode=TwoWay}"/>
+                <Button Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        Click="OnRefreshClicked"
+                        Content="&#xE72C;"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        ToolTipService.ToolTip="Refresh study rooms"/>
+            </Grid>
 
             <Grid Grid.Row="2"
                   VerticalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <GridView Grid.Row="0"
-                          HorizontalAlignment="Center"
-                          HorizontalContentAlignment="Stretch"
-                          animations:ItemsReorderAnimation.Duration="00:00:00.8"
-                          ItemTemplate="{StaticResource StuddyRoomDataTemplate}"
-                          ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOM_GROUPS}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollMode="Enabled"
-                          SelectionMode="None"
-                          Visibility="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
-                    <GridView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </GridView.ItemContainerStyle>
-                </GridView>
+                <ScrollViewer Grid.Row="0"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollMode="Auto">
+                    <GridView HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Stretch"
+                              animations:ItemsReorderAnimation.Duration="00:00:00.8"
+                              ItemTemplate="{StaticResource StuddyRoomDataTemplate}"
+                              ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOMS}"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              SelectionMode="None"
+                              Visibility="{x:Bind VIEW_MODEL.MODEL.HasRooms, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                    </GridView>
+                </ScrollViewer>
 
-                <TextBlock Grid.Row="0"
+                <TextBlock Grid.Row="2"
                            Margin="10,0,10,20"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            TextAlignment="Center"
-                           TextWrapping="Wrap"
-                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
-                    <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                         FontSize="150"
-                         Foreground="{StaticResource TumBlueBrush}"
-                         Text="&#xE001;"/>
+                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasRooms, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                    <Run FontSize="150"
+                         Text="🤷"/>
                     <LineBreak/>
                     <Run Text="No study rooms found!"/>
                 </TextBlock>

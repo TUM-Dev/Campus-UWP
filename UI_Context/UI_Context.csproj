@@ -128,6 +128,7 @@
     <Compile Include="Classes\Context\Controls\Lectures\LecturesCollectionControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\StudyRooms\StudyRoomControlContext.cs" />
     <Compile Include="Classes\Context\Controls\TuitionFees\TuitionFeeControlContext.cs" />
     <Compile Include="Classes\Context\Dialogs\ConfirmDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\GradeInfoDialogContext.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Classes\Context\Pages\SetupPageContext.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelControlTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\TumOnlineTokenManagementControlTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\StudyRooms\StudyRoomControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\TuitionFees\TuitionFeeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\ConfirmDialogTemplate.cs" />
