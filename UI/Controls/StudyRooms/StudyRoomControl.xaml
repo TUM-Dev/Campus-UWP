@@ -1,31 +1,82 @@
 ﻿<UserControl x:Class="UI.Controls.StudyRooms.StudyRoomControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             MinWidth="200"
-             MinHeight="150"
+             Width="250"
+             Height="150"
              mc:Ignorable="d">
 
-    <Border Padding="10"
-            Background="{ThemeResource SystemFillColorSuccessBackgroundBrush}"
+    <UserControl.Resources>
+        <Style x:Key="MetadataControlTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border x:Name="RootBorder"
+            Padding="10"
+            Background="{ThemeResource SystemFillColorCautionBackground}"
             CornerRadius="{ThemeResource OverlayCornerRadius}">
-        <StackPanel>
-            <TextBlock IsTextSelectionEnabled="True"
-                       Style="{ThemeResource BodyTextBlockStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       IsTextSelectionEnabled="True"
+                       Style="{ThemeResource BodyTextBlockStyle}"
+                       TextWrapping="Wrap">
                 <Run FontWeight="Bold"
                      Text="{x:Bind Room.Name, Mode=OneWay}"/>
                 <LineBreak/>
                 <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
                      Text="&#xE707;"/>
                 <Run Text="{x:Bind Room.Code, Mode=OneWay}"/>
-                <Hyperlink>
+                <Hyperlink Click="OnLocationClicked">
                     <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
                          Text="&#xE8A7;"/>
                 </Hyperlink>
                 <LineBreak/>
                 <Run Text="{x:Bind Room.BuildingName, Mode=OneWay}"/>
+                <LineBreak/>
+                <Hyperlink Click="OnOccupiedInfoClicked"
+                           Foreground="{ThemeResource SystemControlFocusVisualPrimaryBrush}">
+                    <Run Text="{x:Bind VIEW_MODEL.MODEL.OccupiedInfo, Mode=OneWay}"/>
+                </Hyperlink>
             </TextBlock>
-        </StackPanel>
+
+            <controls:MetadataControl Grid.Row="2"
+                                      AccessibleSeparator=", "
+                                      Items="{x:Bind VIEW_MODEL.MODEL.ATTRIBUTES, Mode=OneWay}"
+                                      TextBlockStyle="{StaticResource MetadataControlTextBlockStyle}"/>
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Status">
+                <VisualState x:Name="Free">
+                    <VisualState.Setters>
+                        <Setter Target="RootBorder.Background" Value="{ThemeResource SystemFillColorSuccessBackground}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Occupied">
+                    <VisualState.Setters>
+                        <Setter Target="RootBorder.Background" Value="{ThemeResource SystemFillColorCriticalBackground}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SoonOccupied">
+                    <VisualState.Setters>
+                        <Setter Target="RootBorder.Background" Value="{ThemeResource SystemFillColorCautionBackground}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Unknown">
+                    <VisualState.Setters>
+                        <Setter Target="RootBorder.Background" Value="{ThemeResource SystemFillColorCautionBackground}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Border>
 </UserControl>

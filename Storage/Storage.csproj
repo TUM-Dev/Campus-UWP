@@ -137,6 +137,7 @@
     <Compile Include="Classes\Models\External\StudyRoom.cs" />
     <Compile Include="Classes\Models\External\StudyRoomAttribute.cs" />
     <Compile Include="Classes\Models\External\StudyRoomGroup.cs" />
+    <Compile Include="Classes\Models\External\StudyRoomStatus.cs" />
     <Compile Include="Classes\Models\TumOnline\CalendarEvent.cs" />
     <Compile Include="Classes\Models\TumOnline\Lecture.cs" />
     <Compile Include="Classes\Models\TumOnline\Grade.cs" />

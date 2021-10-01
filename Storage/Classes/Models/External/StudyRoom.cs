@@ -37,7 +37,7 @@ namespace Storage.Classes.Models.External
         [Required]
         public string BuildingName { get; set; }
         [Required]
-        public string Status { get; set; }
+        public StudyRoomStatus Status { get; set; }
         [Required]
         public int ResNumber { get; set; }
         [Required]
@@ -51,7 +51,10 @@ namespace Storage.Classes.Models.External
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public bool IsSoonOccupied()
+        {
+            return Status != StudyRoomStatus.OCCUPIED && BookedIn > 0;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

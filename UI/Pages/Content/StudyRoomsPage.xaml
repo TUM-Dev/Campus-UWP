@@ -26,7 +26,7 @@
     </Page.Resources>
 
     <Grid>
-        <!--  Tuition Fees:  -->
+        <!--  Study Rooms:  -->
         <Grid Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -46,6 +46,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0"
+                          CornerRadius="2,0,0,2"
                           IsEnabled="{x:Bind VIEW_MODEL.MODEL.HasGroups, Mode=OneWay}"
                           ItemTemplate="{StaticResource StudyRoomGroupDataTemplate}"
                           ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOM_GROUPS}"
@@ -55,6 +56,7 @@
                         VerticalAlignment="Stretch"
                         Click="OnRefreshClicked"
                         Content="&#xE72C;"
+                        CornerRadius="0,2,2,0"
                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
                         ToolTipService.ToolTip="Refresh study rooms"/>
             </Grid>

@@ -190,6 +190,22 @@ namespace ExternalData.Classes.Manager
 
         private static StudyRoom ParseStudyRoom(JsonObject json)
         {
+            StudyRoomStatus status;
+            switch (json.GetNamedString("status"))
+            {
+                case "frei":
+                    status = StudyRoomStatus.FREE;
+                    break;
+
+                case "belegt":
+                    status = StudyRoomStatus.OCCUPIED;
+                    break;
+
+                default:
+                    status = StudyRoomStatus.UNKNOWN;
+                    break;
+            }
+
             return new StudyRoom
             {
                 Id = (int)json.GetNamedNumber("raum_nr"),
@@ -205,7 +221,7 @@ namespace ExternalData.Classes.Manager
                 BuildingNumber = (int)json.GetNamedNumber("gebaeude_nr"),
                 BuildingCode = json.GetNamedString("gebaeude_code"),
                 BuildingName = json.GetNamedString("gebaeude_name"),
-                Status = json.GetNamedString("status"),
+                Status = status,
                 ResNumber = (int)json.GetNamedNumber("res_nr"),
                 Attributes = ParseStudyRoomAttributes(json.GetNamedArray("attribute"))
             };

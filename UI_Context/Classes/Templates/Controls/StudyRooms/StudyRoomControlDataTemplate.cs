@@ -1,4 +1,6 @@
-﻿using Shared.Classes;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using Shared.Classes;
+using Shared.Classes.Collections;
 
 namespace UI_Context.Classes.Templates.Controls.StudyRooms
 {
@@ -6,7 +8,14 @@ namespace UI_Context.Classes.Templates.Controls.StudyRooms
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        public readonly CustomObservableCollection<MetadataItem> ATTRIBUTES = new CustomObservableCollection<MetadataItem>(true);
 
+        private string _OccupiedInfo;
+        public string OccupiedInfo
+        {
+            get => _OccupiedInfo;
+            set => SetProperty(ref _OccupiedInfo, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExternalData.Classes.Events;
 using ExternalData.Classes.Manager;
@@ -44,7 +45,25 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.ShowError = false;
             StudyRoomGroup oldSelected = MODEL.SelectedGroup;
             MODEL.ROOM_GROUPS.Clear();
-            MODEL.ROOM_GROUPS.AddRange(await StudyRoomsManager.INSTANCE.UpdateAsync(refresh));
+            IEnumerable<StudyRoomGroup> groups = await StudyRoomsManager.INSTANCE.UpdateAsync(refresh);
+            foreach (StudyRoomGroup group in groups)
+            {
+                group.Rooms.Sort((l, r) =>
+                {
+                    StudyRoomStatus statusL = l.Status;
+                    if (l.IsSoonOccupied())
+                    {
+                        statusL = StudyRoomStatus.UNKNOWN;
+                    }
+                    StudyRoomStatus statusR = r.Status;
+                    if (r.IsSoonOccupied())
+                    {
+                        statusR = StudyRoomStatus.UNKNOWN;
+                    }
+                    return statusL.CompareTo(statusR);
+                });
+            }
+            MODEL.ROOM_GROUPS.AddRange(groups);
             // Keep the old selection:
             MODEL.SelectedGroup = oldSelected is null ? MODEL.ROOM_GROUPS.FirstOrDefault() : MODEL.ROOM_GROUPS.Where(g => g.Id == oldSelected.Id).FirstOrDefault();
             MODEL.HasGroups = !MODEL.ROOM_GROUPS.IsEmpty();
