@@ -57,7 +57,7 @@ namespace UI_Context.Classes.Context.Pages.Content
 
         private void AddSortedEvents(IEnumerable<CalendarEvent> events)
         {
-            IEnumerable<CalendarEventGroupDataTemplate> query = from ev in events group ev by ev.Start.Date into d orderby d.Key descending select new CalendarEventGroupDataTemplate(d) { Key = d.Key };
+            IEnumerable<CalendarEventGroupDataTemplate> query = from ev in events group ev by ev.Start.Date into d orderby d.Key ascending select new CalendarEventGroupDataTemplate(d) { Key = d.Key };
             MODEL.EVENTS_COLLECTIONS.Clear();
             MODEL.EVENTS_COLLECTIONS.AddRange(query);
         }
