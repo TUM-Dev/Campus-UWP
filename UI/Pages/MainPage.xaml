@@ -66,7 +66,8 @@
                     </controls1:NavigationViewItem.Icon>
                 </controls1:NavigationViewItem>
                 <controls1:NavigationViewItem x:Name="news_navItem"
-                                              Content="News">
+                                              Content="News"
+                                              IsEnabled="False">
                     <controls1:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE701;"/>
                     </controls1:NavigationViewItem.Icon>
