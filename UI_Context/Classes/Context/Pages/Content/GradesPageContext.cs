@@ -47,15 +47,8 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            try
-            {
-                IEnumerable<Grade> grades = await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                AddSortGrades(grades);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load grades!", e);
-            }
+            IEnumerable<Grade> grades = await GradesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            AddSortGrades(grades);
             MODEL.HasGrades = MODEL.GRADE_COLLECTIONS.Count > 0;
             MODEL.IsLoading = false;
         }
@@ -99,6 +92,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
         {
             MODEL.ShowError = true;
+            MODEL.ErrorMsg = "Failed to load grades.\n" + e.GenerateErrorMessage();
         }
 
         #endregion

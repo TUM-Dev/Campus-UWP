@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
@@ -46,17 +44,10 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            try
-            {
-                IEnumerable<TuitionFee> fees = await TuitionFeesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                MODEL.TUITION_FEES.Clear();
-                MODEL.TUITION_FEES.AddRange(fees);
-                MODEL.HasFees = !MODEL.TUITION_FEES.IsEmpty();
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load tuition fees!", e);
-            }
+            IEnumerable<TuitionFee> fees = await TuitionFeesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            MODEL.TUITION_FEES.Clear();
+            MODEL.TUITION_FEES.AddRange(fees);
+            MODEL.HasFees = !MODEL.TUITION_FEES.IsEmpty();
             MODEL.IsLoading = false;
         }
 
@@ -71,6 +62,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
         {
             MODEL.ShowError = true;
+            MODEL.ErrorMsg = "Failed to load tuition fees.\n" + e.GenerateErrorMessage();
         }
 
         #endregion

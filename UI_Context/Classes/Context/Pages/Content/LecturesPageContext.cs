@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
@@ -23,7 +21,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Constructors--
         public LecturesPageContext()
         {
-            GradesManager.INSTANCE.OnRequestError += OnRequestError;
+            LecturesManager.INSTANCE.OnRequestError += OnRequestError;
             Task.Run(async () => await LoadLecturesAsync(false));
         }
 
@@ -47,15 +45,8 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            try
-            {
-                IEnumerable<Lecture> lectures = await LecturesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                AddSortLectures(lectures);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load lectures!", e);
-            }
+            IEnumerable<Lecture> lectures = await LecturesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            AddSortLectures(lectures);
             MODEL.HasLectures = MODEL.LECTURES_COLLECTIONS.Count > 0;
             MODEL.IsLoading = false;
         }
@@ -99,6 +90,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
         {
             MODEL.ShowError = true;
+            MODEL.ErrorMsg = "Failed to load lectures.\n" + e.GenerateErrorMessage();
         }
 
         #endregion

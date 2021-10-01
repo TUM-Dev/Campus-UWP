@@ -23,11 +23,19 @@ namespace UI_Context.Classes.Templates.Pages.Content
             get => _HasGrades;
             set => SetProperty(ref _HasGrades, value);
         }
+
         private bool _ShowError;
         public bool ShowError
         {
             get => _ShowError;
             set => SetProperty(ref _ShowError, value);
+        }
+
+        private string _ErrorMsg;
+        public string ErrorMsg
+        {
+            get => _ErrorMsg;
+            set => SetProperty(ref _ErrorMsg, value);
         }
 
         #endregion

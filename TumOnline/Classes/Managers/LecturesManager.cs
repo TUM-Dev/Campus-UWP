@@ -38,7 +38,16 @@ namespace TumOnline.Classes.Managers
             // Wait for the old update to finish first:
             if (!(updateTask is null) && !updateTask.IsCompleted)
             {
-                return await updateTask.ConfAwaitFalse();
+                try
+                {
+                    return await updateTask.ConfAwaitFalse();
+                }
+                catch (Exception e)
+                {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
+                    Logger.Error("Awaiting for lecture task failed with:", e);
+                    return new List<Lecture>();
+                }
             }
 
             updateTask = Task.Run(async () =>
@@ -80,7 +89,16 @@ namespace TumOnline.Classes.Managers
                 }
                 return lectures;
             });
-            return await updateTask.ConfAwaitFalse();
+            try
+            {
+                return await updateTask.ConfAwaitFalse();
+            }
+            catch (Exception e)
+            {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
+                Logger.Error("Awaiting for lecture task failed with:", e);
+            }
+            return new List<Lecture>();
         }
 
         #endregion

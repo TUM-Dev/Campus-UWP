@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
             <controls2:InfoBar Grid.Row="0"
                                IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
-                               Message="Failed to load tuition fees. Please retry..."
+                               Message="{x:Bind VIEW_MODEL.MODEL.ErrorMsg, Mode=OneWay}"
                                Severity="Error"/>
 
             <Button Grid.Row="1"
@@ -41,7 +41,8 @@
                     ToolTipService.ToolTip="Refresh tuition fees"/>
 
             <Grid Grid.Row="2"
-                  VerticalAlignment="Center">
+                  VerticalAlignment="Center"
+                  Visibility="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -89,6 +90,18 @@
                     </Hyperlink>
                 </TextBlock>
             </Grid>
+
+            <TextBlock Grid.Row="2"
+                       Margin="10,0,10,20"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Visibility="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+                <Run FontSize="150"
+                     Text="🤷"/>
+                <LineBreak/>
+                <Run Text="No tuition fees found!"/>
+            </TextBlock>
         </Grid>
 
 

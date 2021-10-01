@@ -28,8 +28,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <controls2:InfoBar IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
-                               Message="Failed to load lectures. Please retry..."
+            <controls2:InfoBar Grid.Row="0"
+                               IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                               Message="{x:Bind VIEW_MODEL.MODEL.ErrorMsg, Mode=OneWay}"
                                Severity="Error"/>
 
             <Button Grid.Row="1"

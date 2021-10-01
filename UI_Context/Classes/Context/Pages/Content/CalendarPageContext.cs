@@ -48,15 +48,8 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            try
-            {
-                IEnumerable<CalendarEvent> events = await CalendarManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                AddSortedEvents(events);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load calendar events!", e);
-            }
+            IEnumerable<CalendarEvent> events = await CalendarManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            AddSortedEvents(events);
             MODEL.HasEvents = MODEL.EVENTS_COLLECTIONS.Count > 0;
             MODEL.HasUpcomingEvents = MODEL.HasEvents && MODEL.EVENTS_COLLECTIONS[0].Key > DateTime.Now;
             MODEL.IsLoading = false;
@@ -80,6 +73,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
         {
             MODEL.ShowError = true;
+            MODEL.ErrorMsg = "Failed to load calendar events.\n" + e.GenerateErrorMessage();
         }
 
         #endregion

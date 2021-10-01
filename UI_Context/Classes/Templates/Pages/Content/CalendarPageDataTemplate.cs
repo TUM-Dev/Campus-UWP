@@ -40,6 +40,13 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _ShowError, value);
         }
 
+        private string _ErrorMsg;
+        public string ErrorMsg
+        {
+            get => _ErrorMsg;
+            set => SetProperty(ref _ErrorMsg, value);
+        }
+
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
