@@ -54,7 +54,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to load grades!", e);
+                Logger.Error("Failed to load lectures!", e);
             }
             MODEL.HasLectures = MODEL.LECTURES_COLLECTIONS.Count > 0;
             MODEL.IsLoading = false;
