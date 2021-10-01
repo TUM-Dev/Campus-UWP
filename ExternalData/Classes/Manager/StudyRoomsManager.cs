@@ -235,7 +235,7 @@ namespace ExternalData.Classes.Manager
                 int roomId = (int)val.GetNumber();
                 if (!rooms.ContainsKey(roomId))
                 {
-                    Logger.Warn($"Failed to add room {roomId} to group. Room not found.");
+                    Logger.Warn($"Failed to add room '{roomId}' to group '{json.GetNamedString("name")}'. Room not found.");
                     continue;
                 }
                 localRooms.Add(rooms[roomId]);
