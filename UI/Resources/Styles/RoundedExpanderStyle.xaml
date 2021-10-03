@@ -377,7 +377,7 @@
                                   Grid.ColumnSpan="2"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
-                                  Background="Red"
+                                  Background="{TemplateBinding Background}"
                                   Visibility="{Binding ContentOverlay, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}">
                                 <ContentControl HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
@@ -397,7 +397,7 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="2"
                                   Background="{TemplateBinding Background}"
-                                  CornerRadius="4">
+                                  CornerRadius="0,0,4,4">
                                 <ContentPresenter x:Name="ContentPresenter"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
