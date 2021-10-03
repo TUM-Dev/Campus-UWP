@@ -7,6 +7,7 @@
              xmlns:lectures1="using:UI_Context.Classes.Templates.Controls.Lectures"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tumonline="using:Storage.Classes.Models.TumOnline"
+             xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -24,31 +25,25 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <controls:DropShadowPanel HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}"
-                              HorizontalContentAlignment="Stretch">
-        <Border HorizontalAlignment="Stretch"
-                Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                CornerRadius="{ThemeResource OverlayCornerRadius}">
-            <controls:Expander HorizontalAlignment="Stretch"
-                               HorizontalContentAlignment="Stretch"
-                               Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
-                               Header="{x:Bind Lectures, Mode=OneWay}"
-                               HeaderTemplate="{StaticResource HeaderTemplate}"
-                               IsExpanded="{x:Bind Lectures.expanded, Mode=OneWay}">
-                <ListView HorizontalAlignment="Stretch"
-                          HorizontalContentAlignment="Left"
-                          ItemTemplate="{StaticResource LectureTemplate}"
-                          ItemsSource="{x:Bind Lectures.LECTURES_GROUP, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollMode="Disabled"
-                          SelectionMode="None">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </controls:Expander>
-        </Border>
-    </controls:DropShadowPanel>
+    <controls:Expander HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Stretch"
+                       ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
+                       Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                       Header="{x:Bind Lectures, Mode=OneWay}"
+                       HeaderTemplate="{StaticResource HeaderTemplate}"
+                       IsExpanded="{x:Bind Lectures.expanded, Mode=OneWay}">
+        <ListView HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  ItemTemplate="{StaticResource LectureTemplate}"
+                  ItemsSource="{x:Bind Lectures.LECTURES_GROUP, Mode=OneWay}"
+                  ScrollViewer.HorizontalScrollMode="Disabled"
+                  ScrollViewer.VerticalScrollMode="Disabled"
+                  SelectionMode="None">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+    </controls:Expander>
 </UserControl>

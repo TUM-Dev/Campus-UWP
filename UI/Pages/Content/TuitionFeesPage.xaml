@@ -48,6 +48,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <GridView Grid.Row="0"
+                          Padding="20"
                           HorizontalAlignment="Center"
                           HorizontalContentAlignment="Stretch"
                           animations:ItemsReorderAnimation.Duration="00:00:00.8"

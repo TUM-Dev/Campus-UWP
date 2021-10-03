@@ -1,10 +1,11 @@
 ﻿<UserControl x:Class="UI.Controls.TuitionFees.TuitionFeeControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
              xmlns:tuitionfees="using:UI_Context.Classes.ValueConverter.TuitionFees"
+             xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -12,33 +13,36 @@
         <tuitionfees:DoubleMoneyStringValueConverter x:Key="DoubleMoneyStringValueConverter"/>
     </UserControl.Resources>
 
-    <controls:DropShadowPanel MinWidth="200"
-                              MaxWidth="400"
-                              Margin="10"
-                              HorizontalContentAlignment="Stretch"
-                              Visibility="Visible">
-        <Border HorizontalAlignment="Stretch"
-                Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                CornerRadius="{ThemeResource OverlayCornerRadius}">
-            <StackPanel Padding="10">
-                <TextBlock HorizontalAlignment="Center"
-                           IsTextSelectionEnabled="True"
-                           Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind TuitionFee.SemesterName, Mode=OneWay}"
-                           TextWrapping="Wrap"/>
-                <TextBlock FontWeight="Bold"
-                           Foreground="Red"
-                           IsTextSelectionEnabled="True"
-                           Style="{ThemeResource BodyTextBlockStyle}"
-                           Text="{x:Bind TuitionFee.Amount, Mode=OneWay, Converter={StaticResource DoubleMoneyStringValueConverter}}"/>
-                <TextBlock IsTextSelectionEnabled="True"
-                           Style="{ThemeResource CaptionTextBlockStyle}"
-                           TextWrapping="Wrap">
-                    <Run FontWeight="Bold"
-                         Text="Deadline:"/>
-                    <Run Text="{x:Bind TuitionFee.Deadline, Mode=OneWay, Converter={StaticResource DateTimeLocalDateStringValueConverter}}"/>
-                </TextBlock>
-            </StackPanel>
-        </Border>
-    </controls:DropShadowPanel>
+    <Border MinWidth="200"
+            MaxWidth="400"
+            Background="Transparent">
+        <StackPanel Padding="10"
+                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                    CornerRadius="{ThemeResource OverlayCornerRadius}">
+            <TextBlock HorizontalAlignment="Center"
+                       IsTextSelectionEnabled="True"
+                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                       Text="{x:Bind TuitionFee.SemesterName, Mode=OneWay}"
+                       TextWrapping="Wrap"/>
+            <TextBlock FontWeight="Bold"
+                       Foreground="Red"
+                       IsTextSelectionEnabled="True"
+                       Style="{ThemeResource BodyTextBlockStyle}"
+                       Text="{x:Bind TuitionFee.Amount, Mode=OneWay, Converter={StaticResource DoubleMoneyStringValueConverter}}"/>
+            <TextBlock IsTextSelectionEnabled="True"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       TextWrapping="Wrap">
+                <Run FontWeight="Bold"
+                     Text="Deadline:"/>
+                <Run Text="{x:Bind TuitionFee.Deadline, Mode=OneWay, Converter={StaticResource DateTimeLocalDateStringValueConverter}}"/>
+            </TextBlock>
+        </StackPanel>
+
+        <ui:Effects.Shadow>
+            <media:AttachedCardShadow BlurRadius="10"
+                                      CornerRadius="8"
+                                      Opacity="0.25"
+                                      Offset="4"/>
+        </ui:Effects.Shadow>
+    </Border>
 </UserControl>
