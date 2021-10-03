@@ -514,7 +514,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\RoundedExpanderHeaderStyle.xaml">
+    <Page Include="Resources\Styles\RoundedExpanderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

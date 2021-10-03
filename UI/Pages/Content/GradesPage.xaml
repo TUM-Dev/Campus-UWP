@@ -45,6 +45,8 @@
                       HorizontalContentAlignment="Stretch"
                       ItemTemplate="{StaticResource GardesCollectionTemplate}"
                       ItemsSource="{x:Bind VIEW_MODEL.MODEL.GRADE_COLLECTIONS, Mode=OneWay}"
+                      ScrollViewer.HorizontalScrollMode="Disabled"
+                      ScrollViewer.VerticalScrollMode="Auto"
                       SelectionMode="None"
                       Visibility="{x:Bind VIEW_MODEL.MODEL.HasGrades, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
                 <ListView.ItemContainerStyle>

@@ -7,6 +7,7 @@
              xmlns:grades1="using:UI_Context.Classes.Templates.Controls.Grades"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tumonline="using:Storage.Classes.Models.TumOnline"
+             xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
              xmlns:valueconverter="using:UI_Context.Classes.ValueConverter.Grades"
              mc:Ignorable="d">
 
@@ -29,31 +30,25 @@
         <valueconverter:GradeBrushValueConverter x:Key="GradeBrushValueConverter"/>
     </UserControl.Resources>
 
-    <controls:DropShadowPanel HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}"
-                              HorizontalContentAlignment="Stretch">
-        <Border HorizontalAlignment="Stretch"
-                Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
-                CornerRadius="{ThemeResource OverlayCornerRadius}">
-            <controls:Expander HorizontalAlignment="Stretch"
-                               HorizontalContentAlignment="Stretch"
-                               Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
-                               Header="{x:Bind Grades, Mode=OneWay}"
-                               HeaderTemplate="{StaticResource HeaderTemplate}"
-                               IsExpanded="{x:Bind Grades.expanded, Mode=OneWay}">
-                <ListView HorizontalAlignment="Stretch"
-                          HorizontalContentAlignment="Left"
-                          ItemTemplate="{StaticResource GardeTemplate}"
-                          ItemsSource="{x:Bind Grades.GRADES_GROUP, Mode=OneWay}"
-                          ScrollViewer.HorizontalScrollMode="Disabled"
-                          ScrollViewer.VerticalScrollMode="Disabled"
-                          SelectionMode="None">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </controls:Expander>
-        </Border>
-    </controls:DropShadowPanel>
+    <controls:Expander HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Stretch"
+                       ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
+                       Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                       Header="{x:Bind Grades, Mode=OneWay}"
+                       HeaderTemplate="{StaticResource HeaderTemplate}"
+                       IsExpanded="{x:Bind Grades.expanded, Mode=OneWay}">
+        <ListView HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  ItemTemplate="{StaticResource GardeTemplate}"
+                  ItemsSource="{x:Bind Grades.GRADES_GROUP, Mode=OneWay}"
+                  ScrollViewer.HorizontalScrollMode="Disabled"
+                  ScrollViewer.VerticalScrollMode="Disabled"
+                  SelectionMode="None">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+    </controls:Expander>
 </UserControl>
