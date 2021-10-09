@@ -12,6 +12,7 @@
     </UserControl.Resources>
 
     <Button HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
             ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
             Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
             Click="OnButtonClicked"
