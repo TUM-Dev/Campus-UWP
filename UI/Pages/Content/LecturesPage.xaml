@@ -42,6 +42,7 @@
                     ToolTipService.ToolTip="Refresh grades"/>
 
             <ListView Grid.Row="2"
+                      Margin="0,0,0,10"
                       HorizontalContentAlignment="Stretch"
                       ItemTemplate="{StaticResource LecturesCollectionTemplate}"
                       ItemsSource="{x:Bind VIEW_MODEL.MODEL.LECTURES_COLLECTIONS, Mode=OneWay}"
