@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Input;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Storage.Classes.Models.External;
 using UI_Context.Classes.Templates.Controls.StudyRooms;
