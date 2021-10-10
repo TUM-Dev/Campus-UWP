@@ -13,6 +13,11 @@
               SelectionMode="None">
         <calendar:CalendarWidgetControl/>
 
+        <TextBlock Foreground="{ThemeResource CaptionTextBrush}"
+                   HorizontalTextAlignment="Center"
+                   Text="More widgets will come in the future."
+                   TextWrapping="Wrap"/>
+
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
