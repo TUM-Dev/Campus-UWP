@@ -73,7 +73,8 @@
                 <ScrollViewer Grid.Row="0"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollMode="Auto">
-                    <muxc:ItemsRepeater HorizontalAlignment="Center"
+                    <muxc:ItemsRepeater Margin="0,0,0,10"
+                                        HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ItemTemplate="{StaticResource StuddyRoomDataTemplate}"
                                         ItemsSource="{x:Bind VIEW_MODEL.MODEL.ROOMS}"
