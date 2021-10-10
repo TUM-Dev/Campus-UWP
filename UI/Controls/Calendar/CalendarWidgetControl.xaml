@@ -99,7 +99,10 @@
             </Button>
 
             <!--  Loading:  -->
-            <controls1:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+            <controls1:Loading Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Margin="-10"
+                               Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                                IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
                 <controls11:LoadingContentControl Text="Loading calendar..."/>
             </controls1:Loading>

@@ -71,7 +71,7 @@
         </Grid>
 
         <!--  Loading:  -->
-        <controls:Loading Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+        <controls:Loading Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                           IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading grades..."/>
         </controls:Loading>

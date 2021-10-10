@@ -105,7 +105,7 @@
         <!--  Loading:  -->
         <controls:Loading Grid.Row="0"
                           Grid.RowSpan="3"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                           IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading study rooms..."/>
         </controls:Loading>

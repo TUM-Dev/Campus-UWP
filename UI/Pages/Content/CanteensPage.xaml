@@ -202,7 +202,7 @@
             <!--  Dishes Loading:  -->
             <controls:Loading Grid.Row="0"
                               Grid.RowSpan="2"
-                              Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                              Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                               IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingDishes, Mode=OneWay}">
                 <controls1:LoadingContentControl Text="Loading dishes..."/>
             </controls:Loading>
@@ -259,7 +259,7 @@
         <!--  Loading Canteens:  -->
         <controls:Loading Grid.Row="0"
                           Grid.RowSpan="3"
-                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
+                          Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                           IsLoading="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay}">
             <controls1:LoadingContentControl Text="Loading canteens..."/>
         </controls:Loading>
