@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
@@ -35,8 +37,10 @@ namespace UI
 
             InitializeComponent();
             Suspending += OnSuspending;
-            Resuming += App_Resuming;
-            UnhandledException += App_UnhandledException;
+            Resuming += OnAppResuming;
+            UnhandledException += OnAppUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
         #endregion
@@ -134,7 +138,7 @@ namespace UI
             deferral.Complete();
         }
 
-        private void App_Resuming(object sender, object e)
+        private void OnAppResuming(object sender, object e)
         {
             isRunning = true;
         }
@@ -144,8 +148,33 @@ namespace UI
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
-        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
+            Logger.Error("Unhanded exception: ", e.Exception);
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
+        }
+
+        private void OnAppDomainUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+        {
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
+            if (e.ExceptionObject is Exception ex)
+            {
+                Logger.Error("Unhanded exception: ", ex);
+            }
+        }
+
+        private void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
             Logger.Error("Unhanded exception: ", e.Exception);
         }
 
