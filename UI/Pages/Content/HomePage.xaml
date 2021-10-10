@@ -15,7 +15,7 @@
 
         <TextBlock Foreground="{ThemeResource CaptionTextBrush}"
                    HorizontalTextAlignment="Center"
-                   Text="More widgets will come in the future."
+                   Text="In the future there will be more widgets."
                    TextWrapping="Wrap"/>
 
         <ListView.ItemContainerStyle>
