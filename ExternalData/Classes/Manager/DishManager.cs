@@ -219,7 +219,6 @@ namespace ExternalData.Classes.Manager
                 }
             }
 
-            Logger.Debug("Downloaded dishes JSON string: " + jsonString);
             JsonArray json;
             try
             {
@@ -255,24 +254,27 @@ namespace ExternalData.Classes.Manager
                 Date = DateTime.ParseExact(json.GetNamedString(JSON_DISH_DATE), "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Ingredients = LoadIngredientsFromJson(json.GetNamedArray(JSON_DISH_INGREDIENTS)),
                 Name = json.GetNamedString(JSON_DISH_NAME),
-                PriceGuests = LoadPriceFromJson(prices.GetNamedObject(JSON_DISH_PRICE_GUESTS)),
-                PriceStaff = LoadPriceFromJson(prices.GetNamedObject(JSON_DISH_PRICE_STAFF)),
-                PriceStudents = LoadPriceFromJson(prices.GetNamedObject(JSON_DISH_PRICE_STUDENTS)),
+                PriceGuests = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_GUESTS)),
+                PriceStaff = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_STAFF)),
+                PriceStudents = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_STUDENTS)),
                 Type = json.GetNamedString(JSON_DISH_TYPE)
             };
         }
 
-        private Price LoadPriceFromJson(JsonObject json)
+        private Price LoadPriceFromJson(JsonValue value)
         {
-            string basePrice = LoadJsonStringSave(json.GetNamedValue(JSON_DISH_PRICE_BASE));
-            return basePrice is null || basePrice == "N/A"
-                ? null
-                : new Price()
-                {
-                    BasePrice = basePrice,
-                    PerUnit = LoadJsonStringSave(json.GetNamedValue(JSON_DISH_PRICE_PER_UNIT)),
-                    Unit = LoadJsonStringSave(json.GetNamedValue(JSON_DISH_PRICE_UNIT))
-                };
+            if (value.ValueType != JsonValueType.Object)
+            {
+                return null;
+            }
+            JsonObject obj = value.GetObject();
+            string basePrice = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_BASE));
+            return new Price()
+            {
+                BasePrice = basePrice,
+                PerUnit = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_PER_UNIT)),
+                Unit = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_UNIT))
+            };
         }
 
         private List<string> LoadIngredientsFromJson(JsonArray ingredients)

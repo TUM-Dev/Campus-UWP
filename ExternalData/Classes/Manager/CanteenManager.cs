@@ -102,7 +102,6 @@ namespace ExternalData.Classes.Manager
                 }
             }
 
-            Logger.Debug("Downloaded canteens JSON string: " + jsonString);
             JsonArray json;
             try
             {

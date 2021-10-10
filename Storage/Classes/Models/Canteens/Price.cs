@@ -35,9 +35,9 @@ namespace Storage.Classes.Models.Canteens
 
             if (double.TryParse(BasePrice, out double bp) && bp <= 0)
             {
-                return PerUnit + '/' + Unit + '€';
+                return PerUnit + "€/" + Unit;
             }
-            return BasePrice + "€ + " + PerUnit + '/' + Unit + '€';
+            return BasePrice + "€ + " + PerUnit + "€/" + Unit;
         }
 
         #endregion
