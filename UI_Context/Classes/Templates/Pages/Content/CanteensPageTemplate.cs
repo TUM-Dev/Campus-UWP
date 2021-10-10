@@ -77,7 +77,7 @@ namespace UI_Context.Classes.Templates.Pages.Content
                     Storage.Classes.Settings.SetSetting(SettingsConsts.LAST_SELECTED_CANTEEN_ID, value.Id);
                 }
                 DISHES.Clear();
-                if (value is null)
+                if (!(value is null))
                 {
                     DishDate = DishManager.INSTANCE.GetNextDate(value.Id, DateTime.Now.AddDays(-1));
                 }
