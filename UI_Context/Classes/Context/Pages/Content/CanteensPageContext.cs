@@ -39,21 +39,18 @@ namespace UI_Context.Classes.Context.Pages.Content
         #region --Misc Methods (Public)--
         public void Refresh(bool canteens, bool dishes)
         {
-            if (canteens && !MODEL.IsLoadingCanteens)
+            Task.Run(async () =>
             {
-                Task.Run(async () =>
+                if (canteens && !MODEL.IsLoadingCanteens)
                 {
                     await LoadCanteensAsync(true);
-                });
-            }
+                }
 
-            if (dishes && !MODEL.IsLoadingDishes)
-            {
-                Task.Run(async () =>
+                if (dishes && !MODEL.IsLoadingDishes)
                 {
                     await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, true);
-                });
-            }
+                }
+            });
         }
 
         public void NextDate()
