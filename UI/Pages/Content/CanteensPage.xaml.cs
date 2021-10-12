@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using Storage.Classes;
+using Storage.Classes.Models.Canteens;
 using UI.Dialogs;
 using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
@@ -54,14 +55,14 @@ namespace UI.Pages.Content
             canteens_map.Layers.Clear();
             if (VIEW_MODEL.MODEL.CANTEENS.Count > 0)
             {
-                List<MapElement> mapElements = new List<MapElement>();
-                mapElements.AddRange(VIEW_MODEL.MODEL.CANTEENS.Select(c => new MapIcon
+                Canteen[] canteens = VIEW_MODEL.MODEL.CANTEENS.ToArray();
+                List<MapElement> mapElements = canteens.Select(c => (MapElement)new MapIcon
                 {
                     Location = c.Location.ToGeopoint(),
                     IsEnabled = true,
                     Title = c.Name,
                     Visible = true
-                }).ToArray());
+                }).ToList();
 
                 canteens_map.Layers.Add(new MapElementsLayer
                 {
