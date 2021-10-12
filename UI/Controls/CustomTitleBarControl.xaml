@@ -1,52 +1,49 @@
 ﻿<UserControl x:Class="UI.Controls.CustomTitleBarControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
              mc:Ignorable="d">
 
-    <controls:DropShadowPanel HorizontalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
-                              BlurRadius="10">
-        <Grid Background="{ThemeResource TumBlueAcrylicWindowBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <Grid ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
+          Background="{ThemeResource TumBlueAcrylicWindowBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Grid x:Name="titleBar_grid"
-                  Grid.Row="0"
-                  VerticalAlignment="Stretch"
-                  Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition x:Name="leftPaddingColumn"
-                                      Width="0"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition x:Name="rightPaddingColumn"
-                                      Width="0"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
-
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="backRequest_btn"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        Click="BackRequest_btn_Click"
-                        Style="{ThemeResource NavigationBackButtonSmallStyle}"
-                        Visibility="{x:Bind BackRequestButtonVisibility, Mode=OneWay}"/>
-
-                <TextBlock Grid.Column="1"
-                           Margin="10,0,0,2"
-                           VerticalAlignment="Center"
-                           FontSize="16"
-                           Text="{x:Bind Path=Text, Mode=OneWay}"/>
-            </Grid>
+        <Grid x:Name="titleBar_grid"
+              Grid.Row="0"
+              VerticalAlignment="Stretch"
+              Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="leftPaddingColumn"
+                                  Width="0"/>
+                <ColumnDefinition/>
+                <ColumnDefinition x:Name="rightPaddingColumn"
+                                  Width="0"/>
+            </Grid.ColumnDefinitions>
         </Grid>
-    </controls:DropShadowPanel>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="backRequest_btn"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Click="BackRequest_btn_Click"
+                    Style="{ThemeResource NavigationBackButtonSmallStyle}"
+                    Visibility="{x:Bind BackRequestButtonVisibility, Mode=OneWay}"/>
+
+            <TextBlock Grid.Column="1"
+                       Margin="10,0,0,2"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       Text="{x:Bind Path=Text, Mode=OneWay}"/>
+        </Grid>
+    </Grid>
 </UserControl>
