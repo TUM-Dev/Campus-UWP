@@ -2,9 +2,9 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:UI.Controls"
-      xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
@@ -16,130 +16,130 @@
         </Grid.RowDefinitions>
 
         <!--  Content:  -->
-        <controls1:NavigationView x:Name="main_navView"
-                                  Grid.Row="1"
-                                  IsBackButtonVisible="Collapsed"
-                                  ItemInvoked="OnNavigationViewItemInvoked"
-                                  Loaded="OnNavigationViewLoaded"
-                                  OpenPaneLength="160"
-                                  PaneDisplayMode="Left"
-                                  SelectionChanged="OnPageSelectionChanged">
-            <controls1:NavigationView.MenuItems>
-                <controls1:NavigationViewItemHeader Content="My TUM"
-                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
-                <controls1:NavigationViewItem x:Name="calendar_navItem"
-                                              Content="Calendar">
-                    <controls1:NavigationViewItem.Icon>
+        <muxc:NavigationView x:Name="main_navView"
+                             Grid.Row="1"
+                             IsBackButtonVisible="Collapsed"
+                             ItemInvoked="OnNavigationViewItemInvoked"
+                             Loaded="OnNavigationViewLoaded"
+                             OpenPaneLength="160"
+                             PaneDisplayMode="Left"
+                             SelectionChanged="OnPageSelectionChanged">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItemHeader Content="My TUM"
+                                               Foreground="{ThemeResource CaptionTextBrush}"/>
+                <muxc:NavigationViewItem x:Name="calendar_navItem"
+                                         Content="Calendar">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE787;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="lectures_navItem"
-                                              Content="Lectures">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="lectures_navItem"
+                                         Content="Lectures">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEE56;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="grades_navItem"
-                                              Content="Grades">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="grades_navItem"
+                                         Content="Grades">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEADF;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="tuitionFees_navItem"
-                                              Content="Tuition Fees">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="tuitionFees_navItem"
+                                         Content="Tuition Fees">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8C7;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItemHeader Content="General TUM"
-                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
-                <controls1:NavigationViewItem x:Name="home_navItem"
-                                              Content="Home">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemHeader Content="General TUM"
+                                               Foreground="{ThemeResource CaptionTextBrush}"/>
+                <muxc:NavigationViewItem x:Name="home_navItem"
+                                         Content="Home">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE80F;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="canteens_navItem"
-                                              Content="Canteens">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="canteens_navItem"
+                                         Content="Canteens">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xED56;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="news_navItem"
-                                              Content="News"
-                                              IsEnabled="False">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="news_navItem"
+                                         Content="News"
+                                         IsEnabled="False">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE701;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="studyRooms_navItem"
-                                              Content="Study Rooms">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="studyRooms_navItem"
+                                         Content="Study Rooms">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE762;"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItemHeader Content="Quick Links"
-                                                    Foreground="{ThemeResource CaptionTextBrush}"/>
-                <controls1:NavigationViewItem x:Name="tumOnline_navItem"
-                                              Content="TUMonline"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemHeader Content="Quick Links"
+                                               Foreground="{ThemeResource CaptionTextBrush}"/>
+                <muxc:NavigationViewItem x:Name="tumOnline_navItem"
+                                         Content="TUMonline"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/tum.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="tumLive_navItem"
-                                              Content="TUM Live"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="tumLive_navItem"
+                                         Content="TUM Live"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/tum.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="tumZoom_navItem"
-                                              Content="TUM Zoom"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="tumZoom_navItem"
+                                         Content="TUM Zoom"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/zoom.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="bbb_navItem"
-                                              Content="BBB"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="bbb_navItem"
+                                         Content="BBB"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/bbb.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="tumSexy_navItem"
-                                              Content="TUM.sexy"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="tumSexy_navItem"
+                                         Content="TUM.sexy"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/sexy.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="moodle_navItem"
-                                              Content="Moodle"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="moodle_navItem"
+                                         Content="Moodle"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/moodle.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-                <controls1:NavigationViewItem x:Name="zulip_navItem"
-                                              Content="Zulip"
-                                              ToolTipService.ToolTip="Open in browser.">
-                    <controls1:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="zulip_navItem"
+                                         Content="Zulip"
+                                         ToolTipService.ToolTip="Open in browser.">
+                    <muxc:NavigationViewItem.Icon>
                         <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="ms-appx:///Assets//Logos/zulip.png"/>
-                    </controls1:NavigationViewItem.Icon>
-                </controls1:NavigationViewItem>
-            </controls1:NavigationView.MenuItems>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
             <Frame x:Name="contentFrame"
                    Navigating="OnContentFrameNavigating"/>
-        </controls1:NavigationView>
+        </muxc:NavigationView>
 
         <!--  Header:  -->
         <controls:CustomTitleBarControl x:Name="titleBar"
