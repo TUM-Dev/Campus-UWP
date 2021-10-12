@@ -34,6 +34,14 @@ steps:
   inputs:
     restoreSolution: '$(Solution)'
 
+# Ensure an empty map token file exists:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      New-Item Storage\Resources -ItemType Directory
+      New-Item Storage\Resources\MapToken.txt
+
 - task: VSBuild@1
   displayName: 'Build $(BuildPlatform) Debug'
   inputs:
