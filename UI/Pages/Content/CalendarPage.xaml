@@ -89,7 +89,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="calendar1:CalendarEventGroupDataTemplate">
-                                <TextBlock Text="{x:Bind Key, Mode=OneWay, Converter={StaticResource CalendarEventDateStringValueConverter}}"/>
+                                <TextBlock Text="{x:Bind Key, Converter={StaticResource CalendarEventDateStringValueConverter}}"/>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>

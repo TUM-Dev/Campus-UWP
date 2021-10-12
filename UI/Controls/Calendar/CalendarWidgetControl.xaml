@@ -23,7 +23,7 @@
                            FontWeight="Normal"
                            MaxLines="1"
                            Style="{ThemeResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind Start, Mode=OneWay, Converter={StaticResource CalendarEventDateStringValueConverter}}"
+                           Text="{x:Bind Start, Converter={StaticResource CalendarEventDateStringValueConverter}}"
                            TextAlignment="Center"/>
                 <calendar:CalendarEventControl Grid.Row="1"
                                                Background="Transparent"
