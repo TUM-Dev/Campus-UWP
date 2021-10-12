@@ -82,7 +82,7 @@ namespace UI_Context.Classes.Templates.Pages
         {
             if (SetProperty(ref _IsRequestingToken, value, nameof(IsRequestingToken)))
             {
-                CanRequestToken = value && !IsValidTumID;
+                CanRequestToken = !value && IsValidTumID;
             }
         }
 

@@ -291,11 +291,11 @@
   <data name="PrivacyPolicyUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md</value>
   </data>
-  <data name="SetupPage.RequestTokenFailed" xml:space="preserve">
+  <data name="SetupPage_RequestTokenFailed" xml:space="preserve">
     <value>Failed to request a new token. Please try again.
 View the logs for more information.</value>
   </data>
-  <data name="SetupPage.TokenActivationFailed" xml:space="preserve">
+  <data name="SetupPage_TokenActivationFailed" xml:space="preserve">
     <value>Token has not been activated yet.
 View the logs for more information.</value>
   </data>

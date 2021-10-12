@@ -50,7 +50,7 @@ namespace UI.Pages
                 return;
             }
 
-            if (newState == State_2)
+            if (curViewState == State_2)
             {
                 VIEW_MODEL.StopAutoActivationCheck();
             }
@@ -58,7 +58,18 @@ namespace UI.Pages
             curViewState = newState;
             if (newState == State_2)
             {
+                check2_ipbtn.Focus(FocusState.Programmatic);
                 VIEW_MODEL.StartAutoActivationCheck();
+            }
+
+            if (newState == State_1)
+            {
+                tumIdBox.Focus(FocusState.Programmatic);
+            }
+
+            if (newState == State_3)
+            {
+                done3_ibtn.Focus(FocusState.Programmatic);
             }
         }
 
@@ -91,7 +102,8 @@ namespace UI.Pages
             }
             else
             {
-                info_ian.Show(Localisation.GetLocalizedString("SetupPage.RequestTokenFailed.Text"));
+                statusBannerText.Text = Localisation.GetLocalizedString("SetupPage_RequestTokenFailed");
+                info_ian.Show();
             }
         }
 
@@ -103,7 +115,8 @@ namespace UI.Pages
             }
             else
             {
-                info_ian.Show(Localisation.GetLocalizedString("SetupPage.TokenActivationFailed.Text"));
+                statusBannerText.Text = Localisation.GetLocalizedString("SetupPage_TokenActivationFailed");
+                info_ian.Show();
             }
         }
 
@@ -196,6 +209,12 @@ namespace UI.Pages
                 default:
                     break;
             }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            // Initially focus the TUMonline id box:
+            tumIdBox.Focus(FocusState.Programmatic);
         }
 
         #endregion
