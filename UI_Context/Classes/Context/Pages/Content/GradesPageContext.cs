@@ -22,7 +22,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         public GradesPageContext()
         {
             GradesManager.INSTANCE.OnRequestError += OnRequestError;
-            Task.Run(async () => await LoadGradesAsync(false));
+            Refresh(false);
         }
 
         #endregion
@@ -33,9 +33,9 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void Refresh()
+        public void Refresh(bool refresh)
         {
-            Task.Run(async () => await LoadGradesAsync(true));
+            Task.Run(async () => await LoadGradesAsync(refresh));
         }
 
         #endregion

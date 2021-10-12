@@ -21,7 +21,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         public TuitionFeesPageContext()
         {
             TuitionFeesManager.INSTANCE.OnRequestError += OnRequestError;
-            Task.Run(async () => await LoadFeesAsync(false));
+            Refresh(false);
         }
 
         #endregion
@@ -32,9 +32,9 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void Refresh()
+        public void Refresh(bool refresh)
         {
-            Task.Run(async () => await LoadFeesAsync(true));
+            Task.Run(async () => await LoadFeesAsync(refresh));
         }
 
         #endregion

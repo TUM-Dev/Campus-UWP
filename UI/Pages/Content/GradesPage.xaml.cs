@@ -43,7 +43,7 @@ namespace UI.Pages.Content
         #region --Events--
         private void OnRefreshClicked(object sender, RoutedEventArgs e)
         {
-            VIEW_MODEL.Refresh();
+            VIEW_MODEL.Refresh(true);
         }
 
         #endregion

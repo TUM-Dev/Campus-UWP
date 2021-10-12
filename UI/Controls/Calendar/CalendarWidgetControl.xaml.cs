@@ -14,7 +14,7 @@ namespace UI.Controls.Calendar
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CalendarEventControlContext VIEW_MODEL = new CalendarEventControlContext();
+        public readonly CalendarWidgetControlContext VIEW_MODEL = new CalendarWidgetControlContext();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -50,7 +50,7 @@ namespace UI.Controls.Calendar
         #region --Events--
         private void OnRefreshClicked(object sender, RoutedEventArgs e)
         {
-            VIEW_MODEL.Refresh();
+            VIEW_MODEL.Refresh(true);
         }
 
         private void OnSettingsClicked(object sender, RoutedEventArgs e)

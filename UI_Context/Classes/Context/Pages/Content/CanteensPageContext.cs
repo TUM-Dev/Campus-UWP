@@ -104,7 +104,7 @@ namespace UI_Context.Classes.Context.Pages.Content
                     return;
                 }
 
-                foreach (Canteen canteen in MODEL.CANTEENS)
+                foreach (Canteen canteen in MODEL.CANTEENS2)
                 {
                     if (string.Equals(canteen.Id, canteenId))
                     {
@@ -115,9 +115,9 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
 
             // By default load the first canteen:
-            if (MODEL.CANTEENS.Count > 0)
+            if (MODEL.CANTEENS2.Count > 0)
             {
-                MODEL.SelectedCanteen = MODEL.CANTEENS[0];
+                MODEL.SelectedCanteen = MODEL.CANTEENS2[0];
             }
         }
 
@@ -127,8 +127,8 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.ShowCanteensError = false;
             IEnumerable<Canteen> canteens;
             canteens = await CanteenManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
-            MODEL.CANTEENS.Clear();
-            MODEL.CANTEENS.AddRange(canteens);
+            MODEL.CANTEENS2.Clear();
+            MODEL.CANTEENS2.AddRange(canteens);
             LoadLastSelectedCanteen();
             MODEL.IsLoadingCanteens = false;
         }

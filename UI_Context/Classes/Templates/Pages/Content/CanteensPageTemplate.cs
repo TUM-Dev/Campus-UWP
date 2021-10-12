@@ -12,6 +12,7 @@ namespace UI_Context.Classes.Templates.Pages.Content
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public readonly CustomObservableCollection<Canteen> CANTEENS = new CustomObservableCollection<Canteen>(true);
+        public readonly CustomObservableCollection<Canteen> CANTEENS2 = new CustomObservableCollection<Canteen>(true);
         public readonly CustomObservableCollection<Dish> DISHES = new CustomObservableCollection<Dish>(true);
 
         private Canteen _SelectedCanteen;

@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Logging.Classes;
 using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.TumOnline;
-using TumOnline.Classes.Events;
 using TumOnline.Classes.Managers;
 using UI_Context.Classes.Templates.Controls.Calendar;
-using UI_Context.Classes.Templates.Pages.Content;
 
-namespace UI_Context.Classes.Context.Pages.Content
+namespace UI_Context.Classes.Context.Controls.Calendar
 {
-    public class CalendarPageContext
+    public class CalendarWidgetControlContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CalendarPageDataTemplate MODEL = new CalendarPageDataTemplate();
+        public readonly CalendarWidgetControlDataTemplate MODEL = new CalendarWidgetControlDataTemplate();
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public CalendarPageContext()
+        public CalendarWidgetControlContext()
         {
-            CalendarManager.INSTANCE.OnRequestError += OnRequestError;
             Refresh(false);
         }
 
@@ -46,19 +44,18 @@ namespace UI_Context.Classes.Context.Pages.Content
         private async Task LoadEventsAsync(bool refresh)
         {
             MODEL.IsLoading = true;
-            MODEL.ShowError = false;
-            IEnumerable<CalendarEvent> events = await CalendarManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-            AddSortedEvents(events);
-            MODEL.HasEvents = MODEL.EVENTS_COLLECTIONS.Count > 0;
-            MODEL.HasUpcomingEvents = MODEL.HasEvents && MODEL.EVENTS_COLLECTIONS[0].Key > DateTime.Now;
+            try
+            {
+                IEnumerable<CalendarEvent> events = await CalendarManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+                MODEL.EVENTS.Clear();
+                MODEL.EVENTS.AddRange(events.Where(e => e.End > DateTime.Now).Take(5));
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to load calendar events!", e);
+            }
+            MODEL.HasUpcomingEvents = MODEL.EVENTS.Count > 0;
             MODEL.IsLoading = false;
-        }
-
-        private void AddSortedEvents(IEnumerable<CalendarEvent> events)
-        {
-            IEnumerable<CalendarEventGroupDataTemplate> query = from ev in events group ev by ev.Start.Date into d orderby d.Key ascending select new CalendarEventGroupDataTemplate(d) { Key = d.Key };
-            MODEL.EVENTS_COLLECTIONS.Clear();
-            MODEL.EVENTS_COLLECTIONS.AddRange(query);
         }
 
         #endregion
@@ -69,11 +66,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnRequestError(AbstractManager sender, RequestErrorEventArgs e)
-        {
-            MODEL.ShowError = true;
-            MODEL.ErrorMsg = "Failed to load calendar events.\n" + e.GenerateErrorMessage();
-        }
+
 
         #endregion
     }
