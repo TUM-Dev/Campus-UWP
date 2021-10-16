@@ -91,16 +91,18 @@
                             <MenuFlyoutItem x:Name="refreshAll_mfi"
                                             Click="RefreshAll_mfi_Click"
                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                            Text="Refresh all">
+                                            Text="Refresh all"
+                                            Visibility="Collapsed">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE72C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutSeparator Visibility="Collapsed"/>
                             <MenuFlyoutItem x:Name="refreshCanteens_mfi"
                                             Click="RefreshCanteens_mfi_Click"
                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                            Text="Refresh canteens">
+                                            Text="Refresh canteens"
+                                            Visibility="Collapsed">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE72C;"/>
                                 </MenuFlyoutItem.Icon>
