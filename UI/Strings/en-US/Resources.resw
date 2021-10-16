@@ -129,6 +129,13 @@
   <data name="FeedbackUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
   </data>
+  <data name="GeneralSettingsPage_automated_crash_reports_tooltip.Text" xml:space="preserve">
+    <value>**On**  
+Do not show the report "Something went wrong..." crash dialog, in case we cought an exception. Just report it.
+
+**Off**  
+In case we cought a crash, you will receive a dialog informing you about the crash and what will be reported.</value>
+  </data>
   <data name="GitHubUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2</value>
   </data>
@@ -290,6 +297,10 @@
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
     <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md</value>
+  </data>
+  <data name="ReportCrashDialog_always_report_tooltip.Text" xml:space="preserve">
+    <value>Do not show this dialog any more. Just report crashes automatically.
+You can disable this again by changing `Settings` -&gt; `Misc` -&gt; `Automatic extended crash reports` to false.</value>
   </data>
   <data name="SetupPage_RequestTokenFailed" xml:space="preserve">
     <value>Failed to request a new token. Please try again.

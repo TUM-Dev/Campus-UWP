@@ -206,6 +206,9 @@
     <Compile Include="Dialogs\LectureInfoDialog.xaml.cs">
       <DependentUpon>LectureInfoDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ReportCrashDialog.xaml.cs">
+      <DependentUpon>ReportCrashDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\CalendarPage.xaml.cs">
       <DependentUpon>CalendarPage.xaml</DependentUpon>
@@ -440,6 +443,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\LectureInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ReportCrashDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,7 +17,6 @@ namespace UI_Context.Classes.Templates.Pages.Settings
             get => _LogFolderPath;
             set => SetProperty(ref _LogFolderPath, value);
         }
-
         private bool _Analytics;
         public bool Analytics
         {
@@ -29,6 +28,12 @@ namespace UI_Context.Classes.Templates.Pages.Settings
         {
             get => _CrashReports;
             set => SetCrashReports(value);
+        }
+        private bool _AutomaticExtendedCrashReports;
+        public bool AutomaticExtendedCrashReports
+        {
+            get => _AutomaticExtendedCrashReports;
+            set => SetBoolProperty(ref _AutomaticExtendedCrashReports, value, SettingsConsts.ALWAYS_REPORT_CRASHES_WITHOUT_ASKING);
         }
         private bool _ShowWhatsNewDialogOnStartup;
         public bool ShowWhatsNewDialogOnStartup
@@ -63,7 +68,7 @@ namespace UI_Context.Classes.Templates.Pages.Settings
             if (SetProperty(ref _Analytics, value, nameof(Analytics)))
             {
                 Storage.Classes.Settings.SetSetting(SettingsConsts.DISABLE_ANALYTICS, !value);
-                // Task.Run(async () => await AppCenterHelper.SetAnalyticsEnabledAsync(value));
+                Task.Run(async () => await AppCenterHelper.SetAnalyticsEnabledAsync(value));
             }
         }
 
@@ -72,8 +77,18 @@ namespace UI_Context.Classes.Templates.Pages.Settings
             if (SetProperty(ref _CrashReports, value, nameof(CrashReports)))
             {
                 Storage.Classes.Settings.SetSetting(SettingsConsts.DISABLE_CRASH_REPORTING, !value);
-                // Task.Run(async () => await AppCenterHelper.SetCrashesEnabledAsync(value));
+                Task.Run(async () => await AppCenterHelper.SetCrashesEnabledAsync(value));
             }
+        }
+
+        private bool SetBoolProperty(ref bool storage, bool value, string settingsToken, [CallerMemberName] string propertyName = null)
+        {
+            if (SetProperty(ref storage, value, propertyName))
+            {
+                Storage.Classes.Settings.SetSetting(settingsToken, value);
+                return true;
+            }
+            return false;
         }
 
         #endregion
@@ -87,6 +102,9 @@ namespace UI_Context.Classes.Templates.Pages.Settings
                 LogFolderPath = folder is null ? "" : folder.Path;
             });
             ShowWhatsNewDialogOnStartup = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.HIDE_WHATS_NEW_DIALOG);
+            AutomaticExtendedCrashReports = Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.ALWAYS_REPORT_CRASHES_WITHOUT_ASKING);
+            CrashReports = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DISABLE_CRASH_REPORTING);
+            Analytics = !Storage.Classes.Settings.GetSettingBoolean(SettingsConsts.DISABLE_ANALYTICS);
         }
 
         #endregion

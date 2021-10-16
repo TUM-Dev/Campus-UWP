@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Logging.Classes;
+using Shared.Classes.AppCenter;
 using Storage.Classes;
+using UI.Dialogs;
 using UI.Pages;
 using UI_Context.Classes;
 using Windows.ApplicationModel;
@@ -21,7 +23,9 @@ namespace UI
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+#pragma warning disable IDE0052 // Remove unread private members
         private bool isRunning;
+#pragma warning restore IDE0052 // Remove unread private members
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -78,6 +82,9 @@ namespace UI
         {
             // Sets the log level:
             InitLogger();
+
+            // Register a handler to show a dialog when we catch a crash:
+            AppCenterCrashHelper.INSTANCE.OnTrackError += OnTrackError;
 
             isRunning = true;
 
@@ -169,6 +176,23 @@ namespace UI
                 Debugger.Break();
             }
             Logger.Error("Unhanded exception: ", e.Exception);
+        }
+
+        private static async Task OnTrackError(AppCenterCrashHelper sender, TrackErrorEventArgs args)
+        {
+            if (!Settings.GetSettingBoolean(SettingsConsts.ALWAYS_REPORT_CRASHES_WITHOUT_ASKING))
+            {
+                ReportCrashDialog dialog = new ReportCrashDialog(args);
+                await UiUtils.ShowDialogAsync(dialog);
+                if (!dialog.VIEW_MODEL.MODEL.Report)
+                {
+                    args.Cancel = true;
+                }
+                else if (dialog.AlwaysReport)
+                {
+                    Settings.SetSetting(SettingsConsts.ALWAYS_REPORT_CRASHES_WITHOUT_ASKING, true);
+                }
+            }
         }
 
         #endregion

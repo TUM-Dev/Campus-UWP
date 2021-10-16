@@ -137,13 +137,13 @@ namespace UI.Pages
             // Perform app update tasks if necessary:
             await AppUpdateHelper.OnAppStartAsync();
 
+            // Setup App Center crashes, push:
+            AppCenterHelper.SetupAppCenter();
+
             // Register background tasks:
             Logger.Info("Registering background tasks...");
             // TODO: Add background tasks here
             Logger.Info("Finished registering background tasks.");
-
-            // Init all db managers to force event subscriptions:
-            await InitDBManagersAsync();
 
             // Show initial start dialog:
             /*if (!Settings.getSettingBoolean(SettingsConsts.HIDE_INITIAL_START_DIALOG_ALPHA))
@@ -201,18 +201,6 @@ namespace UI.Pages
                 PerformInitialStartSetup();
                 ROOT_FRAME.Navigate(typeof(SetupPage), typeof(MainPage));
             }
-        }
-
-        /// <summary>
-        /// Inits all DB managers to force event subscriptions.
-        /// </summary>
-        private async Task InitDBManagersAsync()
-        {
-            // await AbstractDBManager.exportDBAsync();
-            await Task.Run(() =>
-            {
-                // TODO init DB manager
-            });
         }
 
         #endregion
