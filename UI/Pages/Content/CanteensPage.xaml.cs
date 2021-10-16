@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using Storage.Classes.Models.Canteens;
 using UI.Dialogs;
 using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Content;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
@@ -18,6 +20,16 @@ namespace UI.Pages.Content
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public readonly CanteensPageContext VIEW_MODEL = new CanteensPageContext();
+
+        private static readonly RandomAccessStreamReference MENSA_LABEL_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_mensa.png"));
+        private static readonly RandomAccessStreamReference CAFE_LABEL_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_cafe.png"));
+        private static readonly RandomAccessStreamReference BISTRO_LABEL_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_bistro.png"));
+        private static readonly RandomAccessStreamReference MISC_LABEL_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_misc.png"));
+
+        private static readonly RandomAccessStreamReference MENSA_LABEL_INVERTED_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_mensa_inverted.png"));
+        private static readonly RandomAccessStreamReference CAFE_LABEL_INVERTED_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_cafe_inverted.png"));
+        private static readonly RandomAccessStreamReference BISTRO_LABEL_INVERTED_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_bistro_inverted.png"));
+        private static readonly RandomAccessStreamReference MISC_LABEL_INVERTED_STREAM_REF = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Studentenwerk/map_label_misc_inverted.png"));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -34,7 +46,39 @@ namespace UI.Pages.Content
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
+        private RandomAccessStreamReference GetImageForCanteen(string name)
+        {
+            if (name.StartsWith("mensa"))
+            {
+                return MENSA_LABEL_STREAM_REF;
+            }
+            else if (name.StartsWith("stubistro"))
+            {
+                return BISTRO_LABEL_STREAM_REF;
+            }
+            else if (name.StartsWith("stucafe"))
+            {
+                return CAFE_LABEL_STREAM_REF;
+            }
+            return MISC_LABEL_STREAM_REF;
+        }
 
+        private RandomAccessStreamReference GetInvertedImageForCanteen(string name)
+        {
+            if (name.StartsWith("mensa"))
+            {
+                return MENSA_LABEL_INVERTED_STREAM_REF;
+            }
+            else if (name.StartsWith("stubistro"))
+            {
+                return BISTRO_LABEL_INVERTED_STREAM_REF;
+            }
+            else if (name.StartsWith("stucafe"))
+            {
+                return CAFE_LABEL_INVERTED_STREAM_REF;
+            }
+            return MISC_LABEL_INVERTED_STREAM_REF;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -61,7 +105,9 @@ namespace UI.Pages.Content
                     Location = c.Location.ToGeopoint(),
                     IsEnabled = true,
                     Title = c.Name,
-                    Visible = true
+                    Visible = true,
+                    Image = GetImageForCanteen(c.Id),
+                    Tag = c
                 }).ToList();
 
                 canteens_map.Layers.Add(new MapElementsLayer
@@ -142,6 +188,33 @@ namespace UI.Pages.Content
         private async void Bug_mfi_Click(object sender, RoutedEventArgs e)
         {
             await VIEW_MODEL.ShowEatApiBugAsync();
+        }
+
+        private void OnMapElementClicked(MapControl sender, MapElementClickEventArgs args)
+        {
+            foreach (MapElement element in args.MapElements)
+            {
+                if (element.Tag is Canteen c)
+                {
+                    VIEW_MODEL.MODEL.SelectedCanteen = c;
+                }
+            }
+        }
+
+        private void OnMapElementPointerEntered(MapControl sender, MapElementPointerEnteredEventArgs args)
+        {
+            if (args.MapElement is MapIcon mapIcon && args.MapElement.Tag is Canteen c)
+            {
+                mapIcon.Image = GetInvertedImageForCanteen(c.Id);
+            }
+        }
+
+        private void OnMapElementPointerExited(MapControl sender, MapElementPointerExitedEventArgs args)
+        {
+            if (args.MapElement is MapIcon mapIcon && args.MapElement.Tag is Canteen c)
+            {
+                mapIcon.Image = GetImageForCanteen(c.Id);
+            }
         }
 
         #endregion

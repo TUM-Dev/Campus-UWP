@@ -326,6 +326,14 @@
     <Content Include="Assets\Store\StoreLogo.scale-150.png" />
     <Content Include="Assets\Store\StoreLogo.scale-200.png" />
     <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Studentenwerk\map_label_bistro.png" />
+    <Content Include="Assets\Studentenwerk\map_label_bistro_inverted.png" />
+    <Content Include="Assets\Studentenwerk\map_label_cafe.png" />
+    <Content Include="Assets\Studentenwerk\map_label_cafe_inverted.png" />
+    <Content Include="Assets\Studentenwerk\map_label_mensa.png" />
+    <Content Include="Assets\Studentenwerk\map_label_mensa_inverted.png" />
+    <Content Include="Assets\Studentenwerk\map_label_misc.png" />
+    <Content Include="Assets\Studentenwerk\map_label_misc_inverted.png" />
     <Content Include="Assets\TUMonline\TUMonline_Token_Activation.png" />
     <Content Include="Assets\TUMonline\TUMonline_Token_Activation_2.png" />
     <Content Include="Assets\TUMonline\TUMonline_Token_Management_Section.png" />

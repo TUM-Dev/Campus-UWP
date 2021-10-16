@@ -212,7 +212,10 @@
 
             <!--  Map:  -->
             <maps:MapControl x:Name="canteens_map"
-                             Grid.Column="2"/>
+                             Grid.Column="2"
+                             MapElementClick="OnMapElementClicked"
+                             MapElementPointerEntered="OnMapElementPointerEntered"
+                             MapElementPointerExited="OnMapElementPointerExited"/>
 
             <controls:GridSplitter x:Name="map_gridSplitter"
                                    Grid.Column="1"
