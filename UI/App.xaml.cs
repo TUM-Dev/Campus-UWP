@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Logging.Classes;
-using Shared.Classes;
 using Storage.Classes;
 using UI.Pages;
 using UI_Context.Classes;
@@ -79,12 +78,6 @@ namespace UI
         {
             // Sets the log level:
             InitLogger();
-
-            // Override resources to increase the UI performance on mobile devices:
-            if (DeviceFamilyHelper.GetDeviceFamilyType() == DeviceFamilyType.Mobile)
-            {
-                ThemeUtils.OverrideThemeResources();
-            }
 
             isRunning = true;
 
