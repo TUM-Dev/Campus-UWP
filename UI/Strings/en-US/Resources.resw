@@ -121,13 +121,13 @@
     <value>https://bbb.rbg.tum.de/</value>
   </data>
   <data name="BugReportsUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP/issues</value>
   </data>
   <data name="EatApiBugUrl" xml:space="preserve">
     <value>https://github.com/TUM-Dev/eat-api/issues</value>
   </data>
   <data name="FeedbackUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/issues</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP/issues</value>
   </data>
   <data name="GeneralSettingsPage_automated_crash_reports_tooltip.Text" xml:space="preserve">
     <value>**On**  
@@ -137,7 +137,7 @@ Do not show the report "Something went wrong..." crash dialog, in case we cought
 In case we cought a crash, you will receive a dialog informing you about the crash and what will be reported.</value>
   </data>
   <data name="GitHubUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP</value>
   </data>
   <data name="Ingredient_1" xml:space="preserve">
     <value>with dyestuff</value>
@@ -287,16 +287,16 @@ In case we cought a crash, you will receive a dialog informing you about the cra
     <value>with mollusks</value>
   </data>
   <data name="LicenseUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/blob/v2/LICENSE</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP/blob/master/LICENSE</value>
   </data>
   <data name="MoodleUrl" xml:space="preserve">
     <value>https://www.moodle.tum.de/</value>
   </data>
   <data name="PrivacyPolicyCrashReportsUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md#crash-reporting</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP/blob/master/PRIVACY_POLICY.md#crash-reporting</value>
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
-    <value>https://github.com/COM8/TUM_Campus_App_UWP/tree/v2/PRIVACY_POLICY.md</value>
+    <value>https://github.com/TUM-Dev/Campus-UWP/blob/master/PRIVACY_POLICY.md</value>
   </data>
   <data name="ReportCrashDialog_always_report_tooltip.Text" xml:space="preserve">
     <value>Do not show this dialog any more. Just report crashes automatically.
