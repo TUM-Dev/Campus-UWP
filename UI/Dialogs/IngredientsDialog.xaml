@@ -12,6 +12,7 @@
     <ScrollViewer Grid.Row="0"
                   HorizontalScrollMode="Disabled">
         <TextBlock Margin="0,0,20,0"
+                   IsTextSelectionEnabled="True"
                    Text="{x:Bind Ingredients, Mode=OneWay}"
                    TextWrapping="Wrap"/>
     </ScrollViewer>
