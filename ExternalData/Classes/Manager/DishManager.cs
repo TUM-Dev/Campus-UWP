@@ -66,7 +66,7 @@ namespace ExternalData.Classes.Manager
             { "G", "🐔" },
             { "W", "🐗" },
             { "L", "🐑" },
-            { "Kn", "Kn" },
+            { "Kn", "🧄" },
             { "Ei", "🥚" },
             { "En", "🥜" },
             { "Fi", "🐟" },
