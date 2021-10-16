@@ -32,12 +32,6 @@
         <Setter Property="Background" Value="Transparent"/>
     </Style>
 
-    <Style BasedOn="{StaticResource ButtonRevealStyle}"
-           TargetType="Button"/>
-
-    <Style BasedOn="{StaticResource ToggleButtonRevealStyle}"
-           TargetType="ToggleButton"/>
-
     <Style x:Key="RevealContentDialogStyle"
            TargetType="ContentDialog">
         <Setter Property="Background" Value="{ThemeResource AppBackgroundAcrylicElementBrush}"/>

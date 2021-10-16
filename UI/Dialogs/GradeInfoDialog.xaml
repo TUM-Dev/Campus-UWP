@@ -6,7 +6,6 @@
                xmlns:valueconverter="using:UI_Context.Classes.ValueConverter"
                xmlns:valueconverterGrades="using:UI_Context.Classes.ValueConverter.Grades"
                Title="{x:Bind VIEW_MODEL.MODEL.Grade.LectureTite, Mode=OneWay}"
-               SecondaryButtonStyle="{ThemeResource ButtonRevealStyle}"
                SecondaryButtonText="Close"
                Style="{ThemeResource RevealContentDialogStyle}"
                mc:Ignorable="d">

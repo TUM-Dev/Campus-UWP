@@ -111,10 +111,10 @@
                         <settings:SettingsContentControl.MainContent>
                             <StackPanel>
                                 <StackPanel.Resources>
-                                    <Style BasedOn="{StaticResource ButtonRevealStyle}"
-                                           TargetType="Button">
+                                    <Style TargetType="Button">
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="Margin" Value="0,0,0,0"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
                                     </Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="VerticalAlignment" Value="Center"/>

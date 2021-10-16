@@ -76,7 +76,7 @@
                         </TransitionCollection>
                     </GridView.ItemContainerTransitions>
                     <GridView.ItemContainerStyle>
-                        <Style TargetType="FrameworkElement">
+                        <Style TargetType="GridViewItem">
                             <Setter Property="Margin" Value="10,5,10,15"/>
                         </Style>
                     </GridView.ItemContainerStyle>
