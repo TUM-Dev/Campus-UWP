@@ -74,6 +74,7 @@ namespace UI.Pages
                 if (page.TARGET_PAGE == targetPage)
                 {
                     main_navView.SelectedItem = page.NAV_ITEM;
+                    titleBar.Text = page.PAGE_NAME;
                     return;
                 }
             }
@@ -131,8 +132,15 @@ namespace UI.Pages
             // Navigate by default to the home page:
             if (sender is Microsoft.UI.Xaml.Controls.NavigationView navView)
             {
-                navView.SelectedItem = home_navItem;
-                contentFrame.Navigate(typeof(HomePage));
+                if (navView.SelectedItem is null)
+                {
+                    navView.SelectedItem = home_navItem;
+                    contentFrame.Navigate(typeof(HomePage));
+                }
+                else if (navView.SelectedItem == navView.SettingsItem)
+                {
+                    navView.SelectedItem = selectedItem;
+                }
             }
         }
 
@@ -180,12 +188,11 @@ namespace UI.Pages
                 revert = true;
             }
 
-
             if (revert)
             {
                 main_navView.SelectedItem = selectedItem;
             }
-            else if (args.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem)
+            else if (args.SelectedItem is Microsoft.UI.Xaml.Controls.NavigationViewItem navItem && main_navView.SettingsItem != navItem)
             {
                 selectedItem = navItem;
             }
