@@ -120,7 +120,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Classes\ConsoleTarget.cs" />
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\LogLevel.cs" />
