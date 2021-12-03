@@ -65,7 +65,7 @@ namespace Storage.Classes
             PasswordCredential passwordCredential = GetCredentials(tumId);
             if (passwordCredential is null)
             {
-                Logger.Warn("No token found for: " + tumId);
+                Logger.Warn("No token found for: " + (string.IsNullOrEmpty(tumId) ? "Not setup" : tumId));
                 return new TumOnlineCredentials(tumId);
             }
             passwordCredential.RetrievePassword();
