@@ -196,6 +196,7 @@
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             <Setter Property="Margin" Value="0,0,0,10"/>
+                            <Setter Property="MinHeight" Value="0"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
