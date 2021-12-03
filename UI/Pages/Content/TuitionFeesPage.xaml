@@ -59,7 +59,7 @@
                           SelectionMode="None"
                           Visibility="{x:Bind VIEW_MODEL.MODEL.HasFees, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
                     <GridView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
+                        <Style TargetType="GridViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </GridView.ItemContainerStyle>
