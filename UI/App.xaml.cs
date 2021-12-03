@@ -150,11 +150,12 @@ namespace UI
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            Logger.Error("Unhanded exception: ", e.Exception);
             if (Debugger.IsAttached)
             {
                 Debugger.Break();
             }
+            AppCenterCrashHelper.INSTANCE.TrackError(e.Exception, nameof(OnAppUnhandledException));
+            Logger.Error("Unhanded exception: ", e.Exception);
         }
 
         private void OnAppDomainUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
@@ -165,6 +166,7 @@ namespace UI
             }
             if (e.ExceptionObject is Exception ex)
             {
+                AppCenterCrashHelper.INSTANCE.TrackError(ex, nameof(OnAppDomainUnhandledException));
                 Logger.Error("Unhanded exception: ", ex);
             }
         }
@@ -175,6 +177,7 @@ namespace UI
             {
                 Debugger.Break();
             }
+            AppCenterCrashHelper.INSTANCE.TrackError(e.Exception, nameof(OnUnobservedTaskException));
             Logger.Error("Unhanded exception: ", e.Exception);
         }
 
