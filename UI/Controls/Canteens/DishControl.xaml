@@ -27,7 +27,8 @@
             <TextBlock Grid.Column="0"
                        IsTextSelectionEnabled="True"
                        Text="{x:Bind Dish.Name, Mode=OneWay}"
-                       TextWrapping="Wrap"/>
+                       TextWrapping="Wrap"
+                       ToolTipService.ToolTip="{x:Bind Dish.Type, Mode=OneWay}"/>
             <TextBlock Grid.Column="1"
                        Margin="10,0,0,0"
                        HorizontalAlignment="Right"
@@ -39,7 +40,6 @@
                        TextWrapping="Wrap"/>
         </Grid>
         <TextBlock Grid.Row="1"
-                   Margin="0,5,0,0"
                    IsTextSelectionEnabled="True"
                    Text="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringValueConverter}}"
                    TextWrapping="Wrap"
