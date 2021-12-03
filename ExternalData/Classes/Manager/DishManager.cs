@@ -164,10 +164,31 @@ namespace ExternalData.Classes.Manager
                 await updateTask.ConfAwaitFalse();
             }
 
+            List<Dish> dishes;
             using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                return ctx.Dishes.Where(d => string.Equals(d.CanteenId, canteenId) && d.Date.Date.CompareTo(date.Date) == 0).Include(ctx.GetIncludePaths(typeof(Dish))).ToList();
+                dishes = ctx.Dishes.Where(d => string.Equals(d.CanteenId, canteenId) && d.Date.Date.CompareTo(date.Date) == 0).Include(ctx.GetIncludePaths(typeof(Dish))).ToList();
             }
+
+            // Sort dishes, so side dishes are at the end:
+            dishes.Sort((a, b) =>
+            {
+                if (a.IsSideDish && b.IsSideDish)
+                {
+                    return 0;
+                }
+                if (a.IsSideDish)
+                {
+                    return 1;
+                }
+
+                if (b.IsSideDish)
+                {
+                    return -1;
+                }
+                return 0;
+            });
+            return dishes;
         }
 
         /// <summary>
@@ -248,6 +269,7 @@ namespace ExternalData.Classes.Manager
         private Dish LoadDishFromJson(JsonObject json, string canteenId)
         {
             JsonObject prices = json.GetNamedObject(JSON_DISH_PRICES);
+            string type = json.GetNamedString(JSON_DISH_TYPE);
             return new Dish()
             {
                 CanteenId = canteenId,
@@ -257,7 +279,8 @@ namespace ExternalData.Classes.Manager
                 PriceGuests = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_GUESTS)),
                 PriceStaff = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_STAFF)),
                 PriceStudents = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_STUDENTS)),
-                Type = json.GetNamedString(JSON_DISH_TYPE)
+                Type = type,
+                IsSideDish = string.Equals(type, "Beilagen")
             };
         }
 

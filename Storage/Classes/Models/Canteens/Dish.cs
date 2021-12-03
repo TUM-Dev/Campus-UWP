@@ -20,6 +20,8 @@ namespace Storage.Classes.Models.Canteens
         [Required]
         public string Type { get; set; }
         [Required]
+        public bool IsSideDish { get; set; }
+        [Required]
         public List<string> Ingredients { get; set; } = new List<string>();
         public Price PriceStudents { get; set; }
         public Price PriceStaff { get; set; }
