@@ -124,7 +124,10 @@
     <Compile Include="Classes\Manager\AbstractManager.cs" />
     <Compile Include="Classes\Manager\CanteenManager.cs" />
     <Compile Include="Classes\Manager\DishManager.cs" />
+    <Compile Include="Classes\Manager\MvgManager.cs" />
     <Compile Include="Classes\Manager\StudyRoomsManager.cs" />
+    <Compile Include="Classes\Mvg\Departure.cs" />
+    <Compile Include="Classes\Mvg\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\ExternalData.rd.xml" />
   </ItemGroup>

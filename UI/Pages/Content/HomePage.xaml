@@ -4,6 +4,7 @@
       xmlns:calendar="using:UI.Controls.Calendar"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mvg="using:UI.Controls.Mvg"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
@@ -12,6 +13,8 @@
               ScrollViewer.VerticalScrollMode="Enabled"
               SelectionMode="None">
         <calendar:CalendarWidgetControl/>
+
+        <mvg:MvgWidgetControl/>
 
         <TextBlock Foreground="{ThemeResource CaptionTextBrush}"
                    HorizontalTextAlignment="Center"

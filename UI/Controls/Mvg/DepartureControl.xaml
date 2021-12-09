@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="UI.Controls.Mvg.DepartureControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="using:UI.Extensions"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvgValueConverter="using:UI_Context.Classes.ValueConverter.Mvg"
+             xmlns:valueConverter="using:UI_Context.Classes.ValueConverter"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <valueConverter:HexColorToSolidColorBrushValueConverter x:Key="HexColorToSolidColorBrushValueConverter"/>
+        <mvgValueConverter:DateTimeToTimeStringValueConverter x:Key="DateTimeToTimeStringValueConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Padding="5,0,5,0"
+                    Background="{x:Bind Departure.lineBackgroundColor, Mode=OneWay, Converter={StaticResource HexColorToSolidColorBrushValueConverter}}"
+                    CornerRadius="{ThemeResource ControlCornerRadius}">
+                <TextBlock Text="{x:Bind Departure.label, Mode=OneWay}"/>
+            </Border>
+
+            <TextBlock Grid.Column="1"
+                       Margin="5,0,0,0"
+                       Text="{x:Bind Departure.destination, Mode=OneWay}"
+                       TextTrimming="CharacterEllipsis"/>
+        </Grid>
+
+        <TextBlock Grid.Row="1"
+                   extensions:TextBlockMvgDepartureInFormatExtension.Departure="{x:Bind Departure, Mode=OneWay}"
+                   ToolTipService.ToolTip="{x:Bind Departure.departureTime, Mode=OneWay, Converter={StaticResource DateTimeToTimeStringValueConverter}}"/>
+    </Grid>
+</UserControl>

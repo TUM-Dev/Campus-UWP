@@ -167,6 +167,12 @@
     <Compile Include="Controls\LoadingContentControl.xaml.cs">
       <DependentUpon>LoadingContentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Mvg\DepartureControl.xaml.cs">
+      <DependentUpon>DepartureControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Mvg\MvgWidgetControl.xaml.cs">
+      <DependentUpon>MvgWidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SeperatorControl.xaml.cs">
       <DependentUpon>SeperatorControl.xaml</DependentUpon>
     </Compile>
@@ -209,6 +215,7 @@
     <Compile Include="Dialogs\ReportCrashDialog.xaml.cs">
       <DependentUpon>ReportCrashDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\TextBlockMvgDepartureInFormatExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\CalendarPage.xaml.cs">
       <DependentUpon>CalendarPage.xaml</DependentUpon>
@@ -399,6 +406,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LoadingContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Mvg\DepartureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Mvg\MvgWidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
