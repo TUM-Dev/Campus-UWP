@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <valueConverter:HexColorToSolidColorBrushValueConverter x:Key="HexColorToSolidColorBrushValueConverter"/>
         <mvgValueConverter:DateTimeToTimeStringValueConverter x:Key="DateTimeToTimeStringValueConverter"/>
+        <mvgValueConverter:BoolToTextDecorationsValueConverter x:Key="BoolToTextDecorationsValueConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -22,23 +23,34 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
+            <TextBlock Grid.Column="0"
+                       Margin="0,0,5,0"
+                       VerticalAlignment="Center"
+                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                       Foreground="Red"
+                       Text="&#xE711;"
+                       ToolTipService.ToolTip="Canceled"
+                       Visibility="{x:Bind Departure.canceled, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+            <Border Grid.Column="1"
                     Padding="5,0,5,0"
                     Background="{x:Bind Departure.lineBackgroundColor, Mode=OneWay, Converter={StaticResource HexColorToSolidColorBrushValueConverter}}"
                     CornerRadius="{ThemeResource ControlCornerRadius}">
                 <TextBlock Text="{x:Bind Departure.label, Mode=OneWay}"/>
             </Border>
 
-            <TextBlock Grid.Column="1"
+            <TextBlock Grid.Column="2"
                        Margin="5,0,0,0"
                        Text="{x:Bind Departure.destination, Mode=OneWay}"
+                       TextDecorations="{x:Bind Departure.canceled, Mode=OneWay, Converter={StaticResource BoolToTextDecorationsValueConverter}}"
                        TextTrimming="CharacterEllipsis"/>
         </Grid>
 
         <TextBlock Grid.Row="1"
                    extensions:TextBlockMvgDepartureInFormatExtension.Departure="{x:Bind Departure, Mode=OneWay}"
-                   ToolTipService.ToolTip="{x:Bind Departure.departureTime, Mode=OneWay, Converter={StaticResource DateTimeToTimeStringValueConverter}}"/>
+                   ToolTipService.ToolTip="{x:Bind Departure.departureTime, Mode=OneWay, Converter={StaticResource DateTimeToTimeStringValueConverter}}"
+                   Visibility="{x:Bind Departure.canceled, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
     </Grid>
 </UserControl>

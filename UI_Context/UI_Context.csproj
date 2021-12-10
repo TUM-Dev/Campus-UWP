@@ -130,6 +130,7 @@
     <Compile Include="Classes\Context\Controls\Lectures\LecturesCollectionControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Mvg\DepartureControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Mvg\MvgWidgetControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\Mvg\StationSearchControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
     <Compile Include="Classes\Context\Controls\StudyRooms\StudyRoomControlContext.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Classes\Templates\Controls\Lectures\LecturesDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Mvg\DepartureControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Mvg\MvgWidgetControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Mvg\StationSearchControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />
     <Compile Include="Classes\Context\Controls\Settings\LogLevelControlContext.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Classes\ValueConverter\Grades\GradeBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\HexColorToSolidColorBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Mvg\BoolToTextDecorationsValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Mvg\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />

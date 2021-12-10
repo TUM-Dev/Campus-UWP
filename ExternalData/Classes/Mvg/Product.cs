@@ -5,6 +5,7 @@
         UNKNOWN,
         U_BAHN,
         BUS,
+        REGIONAL_BUS,
         S_BAHN,
         TRAM
     }

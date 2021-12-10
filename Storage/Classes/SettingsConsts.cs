@@ -23,5 +23,8 @@
         public const string LAST_SELECTED_CANTEEN_ID = "last_selected_canteen_id";
 
         public const string DISABLE_WINDOWS_CALENDAR_INTEGRATION = "disable_windows_calendar_integration";
+
+        public const string MVG_DEFAULT_STATION_NAME = "mvg_default_station_name";
+        public const string MVG_DEFAULT_STATION_ID = "mvg_default_station_id";
     }
 }

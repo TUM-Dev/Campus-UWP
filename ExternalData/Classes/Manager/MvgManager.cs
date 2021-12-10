@@ -14,7 +14,8 @@ namespace ExternalData.Classes.Manager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly string BASE_URI = "https://www.mvg.de/api/fahrinfo/departure/";
+        private static readonly string BASE_DEPARTURE_URI = "https://www.mvg.de/api/fahrinfo/departure/";
+        private static readonly string BASE_STATION_QUERY_URI = "https://www.mvg.de/api/fahrinfo/location/queryWeb";
 
         private const string JSON_DEPARTURES = "departures";
         private const string JSON_DEPARTURE_TIME = "departureTime";
@@ -25,6 +26,11 @@ namespace ExternalData.Classes.Manager
         private const string JSON_DEPARTURE_CANCELED = "cancelled";
         private const string JSON_DEPARTURE_LINE_BACKGROUND_COLOR = "lineBackgroundColor";
         private const string JSON_DEPARTURE_PLATFORM = "platform";
+
+        private const string JSON_STATION_ID = "id";
+        private const string JSON_STATION_NAME = "name";
+        private const string JSON_STATION_LOCATIONS = "locations";
+        private const string JSON_STATION_TYPE = "type";
         // private const string JSON_DEPARTURE_LINE_BACKGROUND_INFO_MESSAGE = "infoMessages";
 
         public static readonly MvgManager INSTANCE = new MvgManager();
@@ -50,13 +56,13 @@ namespace ExternalData.Classes.Manager
             {
                 try
                 {
-                    jsonString = await wc.DownloadStringTaskAsync(BuildUri(stationId, bus, ubahn, sbahn, tram));
+                    jsonString = await wc.DownloadStringTaskAsync(BuildDepartureUri(stationId, bus, ubahn, sbahn, tram));
                 }
                 catch (Exception e)
                 {
                     InvokeOnRequestError(new RequestErrorEventArgs(e));
                     Logger.Error($"Failed to download departures string for '{stationId}'.", e);
-                    return null;
+                    return new List<Departure>();
                 }
             }
 
@@ -81,27 +87,85 @@ namespace ExternalData.Classes.Manager
             }
         }
 
+        public async Task<IEnumerable<Station>> FindStationAsync(string query)
+        {
+            Logger.Info($"Finding stations for '{query}' ...");
+            string jsonString;
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    jsonString = await wc.DownloadStringTaskAsync(BuildStationQueryUri(query));
+                }
+                catch (Exception e)
+                {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
+                    Logger.Error($"Failed to download stations string for '{query}'.", e);
+                    return new List<Station>();
+                }
+            }
+
+            JsonObject json;
+            try
+            {
+                json = JsonObject.Parse(jsonString);
+                JsonArray stationsArr = json.GetObject().GetNamedArray(JSON_STATION_LOCATIONS);
+                List<Station> stations = new List<Station>();
+                foreach (IJsonValue item in stationsArr)
+                {
+                    // Ignore everything that is not a station:
+                    if (string.Equals(item.GetObject().GetNamedString(JSON_STATION_TYPE), "station"))
+                    {
+                        stations.Add(ParseStation(item.GetObject()));
+                    }
+                }
+                Logger.Info($"Successfully downloaded {stations.Count()} stations for '{query}'.");
+                return stations;
+            }
+            catch (Exception e)
+            {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
+                Logger.Error($"Failed to parse downloaded stations for '{query}'.", e);
+                return new List<Station>();
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
-        private static Uri BuildUri(string stationId, bool bus, bool ubahn, bool sbahn, bool tram)
+        private static Uri BuildDepartureUri(string stationId, bool bus, bool ubahn, bool sbahn, bool tram)
         {
-            return new Uri(BASE_URI + stationId + "?footway=0" + "&bus=" + (bus ? "true" : "false") + "&ubahn=" + (ubahn ? "true" : "false") + "&sbahn=" + (sbahn ? "true" : "false") + "&tram=" + (tram ? "true" : "false"));
+            return new Uri(BASE_DEPARTURE_URI + stationId + "?footway=0" + "&bus=" + (bus ? "true" : "false") + "&ubahn=" + (ubahn ? "true" : "false") + "&sbahn=" + (sbahn ? "true" : "false") + "&tram=" + (tram ? "true" : "false"));
+        }
+
+        private static Uri BuildStationQueryUri(string query)
+        {
+            return new Uri(BASE_STATION_QUERY_URI + "?limit=10" + "&q=" + query);
         }
 
         private Departure ParseDeparture(JsonObject json)
         {
+            int delay = json.ContainsKey(JSON_DEPARTURE_DELAY) ? (int)json.GetNamedNumber(JSON_DEPARTURE_DELAY) : 0;
             return new Departure
             {
                 canceled = json.GetNamedBoolean(JSON_DEPARTURE_CANCELED),
-                delay = json.ContainsKey(JSON_DEPARTURE_DELAY) ? (int)json.GetNamedNumber(JSON_DEPARTURE_DELAY) : 0,
+                delay = delay,
                 destination = json.GetNamedString(JSON_DEPARTURE_DESTINATION),
                 infoMessage = "",
                 label = json.GetNamedString(JSON_DEPARTURE_LABEL),
                 platform = json.GetNamedString(JSON_DEPARTURE_PLATFORM),
                 lineBackgroundColor = json.GetNamedString(JSON_DEPARTURE_LINE_BACKGROUND_COLOR),
                 productType = ParseProduct(json.GetNamedString(JSON_DEPARTURE_PRODUCT)),
-                departureTime = ParseDepartureTime(json.GetNamedNumber(JSON_DEPARTURE_TIME))
+                departureTime = ParseDepartureTime(json.GetNamedNumber(JSON_DEPARTURE_TIME), delay)
+            };
+        }
+
+        private Station ParseStation(JsonObject json)
+        {
+            return new Station
+            {
+                id = json.GetNamedString(JSON_STATION_ID),
+                name = json.GetNamedString(JSON_STATION_NAME)
             };
         }
 
@@ -114,6 +178,9 @@ namespace ExternalData.Classes.Manager
 
                 case "BUS":
                     return Product.BUS;
+
+                case "REGIONAL_BUS":
+                    return Product.REGIONAL_BUS;
 
                 case "TRAM":
                     return Product.TRAM;
@@ -131,10 +198,11 @@ namespace ExternalData.Classes.Manager
         /// Parses the given UNIX time stamp to a <see cref="DateTime"/> object in local time.
         /// </summary>
         /// <param name="departureTime">The UNIX time of the departure in ms.</param>
+        /// <param name="delay">The delay in minutes that will be added to the departure time.</param>
         /// <returns>A <see cref="DateTime"/> object representing the local departure time.</returns>
-        private DateTime ParseDepartureTime(double departureTime)
+        private DateTime ParseDepartureTime(double departureTime, int delay)
         {
-            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(departureTime).ToLocalTime();
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(departureTime).AddMinutes(delay).ToLocalTime();
         }
 
         #endregion

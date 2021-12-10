@@ -1,22 +1,24 @@
-﻿using Logging.Classes;
-using Storage.Classes;
+﻿using ExternalData.Classes.Mvg;
 using UI.Classes.Events.Mvg;
 using UI_Context.Classes.Context.Controls.Mvg;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace UI.Controls.Mvg
 {
-    public sealed partial class MvgWidgetControl: UserControl
+    public sealed partial class StationSearchControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly MvgWidgetControlContext VIEW_MODEL = new MvgWidgetControlContext();
+        public readonly StationSearchControlContext VIEW_MODEL = new StationSearchControlContext();
+
+        public delegate void StationSelectionChangedHandler(StationSearchControl sender, StationSelectionChangedEventArgs args);
+        public event StationSelectionChangedHandler StationSelectionChanged;
+        private Station curStation;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public MvgWidgetControl()
+        public StationSearchControl()
         {
             InitializeComponent();
         }
@@ -34,10 +36,7 @@ namespace UI.Controls.Mvg
         #endregion
 
         #region --Misc Methods (Private)--
-        private void UpdateViewState(VisualState newState)
-        {
-            VisualStateManager.GoToState(this, newState.Name, true);
-        }
+
 
         #endregion
 
@@ -47,15 +46,29 @@ namespace UI.Controls.Mvg
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnStationSelectionChanged(StationSearchControl sender, StationSelectionChangedEventArgs args)
+        private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            VIEW_MODEL.ChangeStation(args.STATION);
-            UpdateViewState(View_State);
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                VIEW_MODEL.Search(sender.Text.ToLower().Trim());
+            }
         }
 
-        private void OnEditStationClicked(object sender, RoutedEventArgs e)
+        private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            UpdateViewState(Edit_State);
+
+            if (args.ChosenSuggestion is Station station)
+            {
+                curStation = station;
+                StationSelectionChanged?.Invoke(this, new StationSelectionChangedEventArgs(station));
+            }
+            else if (!(curStation is null))
+            {
+                if (string.Equals(args.QueryText, curStation.name))
+                {
+                    StationSelectionChanged?.Invoke(this, new StationSelectionChangedEventArgs(curStation));
+                }
+            }
         }
 
         #endregion

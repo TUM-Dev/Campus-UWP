@@ -1,25 +1,23 @@
-﻿using Logging.Classes;
-using Storage.Classes;
-using UI.Classes.Events.Mvg;
-using UI_Context.Classes.Context.Controls.Mvg;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.UI.Text;
+using Windows.UI.Xaml.Data;
 
-namespace UI.Controls.Mvg
+namespace UI_Context.Classes.ValueConverter.Mvg
 {
-    public sealed partial class MvgWidgetControl: UserControl
+    public class BoolToTextDecorationsValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly MvgWidgetControlContext VIEW_MODEL = new MvgWidgetControlContext();
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public MvgWidgetControl()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -29,15 +27,24 @@ namespace UI.Controls.Mvg
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is bool b && b)
+            {
+                return TextDecorations.Strikethrough;
+            }
+            return TextDecorations.None;
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
         #region --Misc Methods (Private)--
-        private void UpdateViewState(VisualState newState)
-        {
-            VisualStateManager.GoToState(this, newState.Name, true);
-        }
+
 
         #endregion
 
@@ -47,16 +54,7 @@ namespace UI.Controls.Mvg
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnStationSelectionChanged(StationSearchControl sender, StationSelectionChangedEventArgs args)
-        {
-            VIEW_MODEL.ChangeStation(args.STATION);
-            UpdateViewState(View_State);
-        }
 
-        private void OnEditStationClicked(object sender, RoutedEventArgs e)
-        {
-            UpdateViewState(Edit_State);
-        }
 
         #endregion
     }

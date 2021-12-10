@@ -127,6 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Events\Mvg\StationSelectionChangedEventArgs.cs" />
     <Compile Include="Classes\SplashScreenImageScale.cs" />
     <Compile Include="Controls\Calendar\CalendarEventControl.xaml.cs">
       <DependentUpon>CalendarEventControl.xaml</DependentUpon>
@@ -172,6 +173,9 @@
     </Compile>
     <Compile Include="Controls\Mvg\MvgWidgetControl.xaml.cs">
       <DependentUpon>MvgWidgetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Mvg\StationSearchControl.xaml.cs">
+      <DependentUpon>StationSearchControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SeperatorControl.xaml.cs">
       <DependentUpon>SeperatorControl.xaml</DependentUpon>
@@ -414,6 +418,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Mvg\MvgWidgetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Mvg\StationSearchControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
