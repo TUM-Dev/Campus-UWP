@@ -81,8 +81,7 @@ namespace UI_Context.Classes.Context.Controls.Mvg
                 departures = new List<Departure>();
             }
 
-            MODEL.DEPARTURES.Clear();
-            MODEL.DEPARTURES.AddRange(departures);
+            MODEL.DEPARTURES.Replace(departures);
             MODEL.HasDepartures = !MODEL.DEPARTURES.IsEmpty();
             MODEL.LastUpdate = DateTime.Now;
             TIMER.Start();

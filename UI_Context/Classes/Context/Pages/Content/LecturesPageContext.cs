@@ -75,8 +75,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 lecturesList[0].expanded = true;
             }
-            MODEL.LECTURES_COLLECTIONS.Clear();
-            MODEL.LECTURES_COLLECTIONS.AddRange(lecturesList);
+            MODEL.LECTURES_COLLECTIONS.Replace(lecturesList);
         }
 
         #endregion

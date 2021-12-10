@@ -44,7 +44,6 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
             StudyRoomGroup oldSelected = MODEL.SelectedGroup;
-            MODEL.ROOM_GROUPS.Clear();
             IEnumerable<StudyRoomGroup> groups = await StudyRoomsManager.INSTANCE.UpdateAsync(refresh);
             foreach (StudyRoomGroup group in groups)
             {
@@ -63,7 +62,7 @@ namespace UI_Context.Classes.Context.Pages.Content
                     return statusL.CompareTo(statusR);
                 });
             }
-            MODEL.ROOM_GROUPS.AddRange(groups);
+            MODEL.ROOM_GROUPS.Replace(groups);
             // Keep the old selection:
             MODEL.SelectedGroup = oldSelected is null ? MODEL.ROOM_GROUPS.FirstOrDefault() : MODEL.ROOM_GROUPS.Where(g => g.Id == oldSelected.Id).FirstOrDefault();
             MODEL.HasGroups = !MODEL.ROOM_GROUPS.IsEmpty();

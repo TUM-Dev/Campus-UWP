@@ -47,8 +47,7 @@ namespace UI_Context.Classes.Context.Controls.Calendar
             try
             {
                 IEnumerable<CalendarEvent> events = await CalendarManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-                MODEL.EVENTS.Clear();
-                MODEL.EVENTS.AddRange(events.Where(e => e.End > DateTime.Now).Take(5));
+                MODEL.EVENTS.Replace(events.Where(e => e.End > DateTime.Now).Take(5));
             }
             catch (Exception e)
             {

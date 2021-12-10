@@ -59,10 +59,13 @@ namespace UI_Context.Classes.Templates.Pages.Content
             if (SetProperty(ref _SelectedGroup, value, nameof(SelectedGroup)))
             {
                 HasRooms = !(value is null) && value.Rooms.Count > 0;
-                ROOMS.Clear();
                 if (!(value is null))
                 {
-                    ROOMS.AddRange(value.Rooms);
+                    ROOMS.Replace(value.Rooms);
+                }
+                else
+                {
+                    ROOMS.Clear();
                 }
             }
         }

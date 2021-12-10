@@ -79,12 +79,31 @@ namespace Shared.Classes.Collections
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
         /// <summary>
-        /// Adds the elements of the specified collection to the end of the ObservableCollection.
+        /// Adds the elements of the specified collection to the end of the <see cref="ObservableCollection"/>.
         /// </summary>
         /// <param name="collection">A collection of items to add.</param>
         public void AddRange(IEnumerable<T> collection)
         {
             deferNotifyCollectionChanged = true;
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
+            deferNotifyCollectionChanged = false;
+            NotifyProperties();
+            // Broken. Throws an invalid index exception
+            //OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection is IList ? collection : collection.ToList()));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset)); // Workaround
+        }
+
+        /// <summary>
+        /// Adds the elements of the specified collection to the end of the <see cref="ObservableCollection"/>. Clears the list bevor doing that.
+        /// </summary>
+        /// <param name="collection">A collection of items to add.</param>
+        public void Replace(IEnumerable<T> collection)
+        {
+            deferNotifyCollectionChanged = true;
+            Clear();
             foreach (T item in collection)
             {
                 Add(item);

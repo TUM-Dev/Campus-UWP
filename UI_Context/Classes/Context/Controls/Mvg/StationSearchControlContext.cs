@@ -52,11 +52,10 @@ namespace UI_Context.Classes.Context.Controls.Mvg
 
             do
             {
-                if(!string.Equals(curQuery, query))
+                if (!string.Equals(curQuery, query))
                 {
                     IEnumerable<Station> stations = await MvgManager.INSTANCE.FindStationAsync(query);
-                    MODEL.STATIONS.Clear();
-                    MODEL.STATIONS.AddRange(stations);
+                    MODEL.STATIONS.Replace(stations);
                     curQuery = query;
                 }
 

@@ -127,8 +127,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.ShowCanteensError = false;
             IEnumerable<Canteen> canteens;
             canteens = await CanteenManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
-            MODEL.CANTEENS.Clear();
-            MODEL.CANTEENS.AddRange(canteens);
+            MODEL.CANTEENS.Replace(canteens);
             LoadLastSelectedCanteen();
             MODEL.IsLoadingCanteens = false;
         }
@@ -137,7 +136,6 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoadingDishes = true;
             MODEL.ShowDishesError = false;
-            MODEL.DISHES.Clear();
             if (!(canteen is null))
             {
                 IEnumerable<Dish> dishes;
@@ -155,7 +153,11 @@ namespace UI_Context.Classes.Context.Pages.Content
                     }
                 }
                 dishes = await DishManager.INSTANCE.LoadDishesAsync(canteen.Id, MODEL.DishDate).ConfAwaitFalse();
-                MODEL.DISHES.AddRange(dishes);
+                MODEL.DISHES.Replace(dishes);
+            }
+            else
+            {
+                MODEL.DISHES.Clear();
             }
             MODEL.IsLoadingDishes = false;
         }

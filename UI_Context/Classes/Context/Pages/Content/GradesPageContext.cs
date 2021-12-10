@@ -75,8 +75,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             {
                 gradesList[0].expanded = true;
             }
-            MODEL.GRADE_COLLECTIONS.Clear();
-            MODEL.GRADE_COLLECTIONS.AddRange(gradesList);
+            MODEL.GRADE_COLLECTIONS.Replace(gradesList);
         }
 
         #endregion

@@ -45,8 +45,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
             IEnumerable<TuitionFee> fees = await TuitionFeesManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-            MODEL.TUITION_FEES.Clear();
-            MODEL.TUITION_FEES.AddRange(fees);
+            MODEL.TUITION_FEES.Replace(fees);
             MODEL.HasFees = !MODEL.TUITION_FEES.IsEmpty();
             MODEL.IsLoading = false;
         }

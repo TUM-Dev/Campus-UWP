@@ -27,10 +27,9 @@ namespace UI_Context.Classes.Context.Controls.StudyRooms
         #region --Misc Methods (Public)--
         public void UpdateView(StudyRoom room, DelegateCommand<object> command)
         {
-            MODEL.ATTRIBUTES.Clear();
             if (!(room is null))
             {
-                MODEL.ATTRIBUTES.AddRange(room.Attributes.Select(a =>
+                MODEL.ATTRIBUTES.Replace(room.Attributes.Select(a =>
                 {
                     MetadataItem item = new MetadataItem { Label = a.Name };
                     if (!string.IsNullOrEmpty(a.Details))
@@ -103,6 +102,10 @@ namespace UI_Context.Classes.Context.Controls.StudyRooms
                 {
                     MODEL.OccupiedInfo = "";
                 }
+            }
+            else
+            {
+                MODEL.ATTRIBUTES.Clear();
             }
         }
 
