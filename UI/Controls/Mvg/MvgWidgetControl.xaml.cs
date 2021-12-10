@@ -56,6 +56,7 @@ namespace UI.Controls.Mvg
         private void OnEditStationClicked(object sender, RoutedEventArgs e)
         {
             UpdateViewState(Edit_State);
+            StationSearch.SetStation(VIEW_MODEL.MODEL.CurStation);
         }
 
         #endregion

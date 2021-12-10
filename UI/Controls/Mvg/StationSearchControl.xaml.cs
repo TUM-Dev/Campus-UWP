@@ -26,7 +26,11 @@ namespace UI.Controls.Mvg
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public void SetStation(Station station)
+        {
+            stationAsb.Text = station.name;
+            curStation = station;
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

@@ -13,7 +13,8 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <AutoSuggestBox ItemTemplate="{StaticResource StationTemplate}"
+    <AutoSuggestBox x:Name="stationAsb"
+                    ItemTemplate="{StaticResource StationTemplate}"
                     ItemsSource="{x:Bind VIEW_MODEL.MODEL.STATIONS, Mode=OneWay}"
                     PlaceholderText="Enter station name..."
                     QueryIcon="Save"
