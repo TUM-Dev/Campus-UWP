@@ -94,7 +94,7 @@ namespace ExternalData.Classes.Manager
             return new Departure
             {
                 canceled = json.GetNamedBoolean(JSON_DEPARTURE_CANCELED),
-                delay = (int)json.GetNamedNumber(JSON_DEPARTURE_DELAY),
+                delay = json.ContainsKey(JSON_DEPARTURE_DELAY) ? (int)json.GetNamedNumber(JSON_DEPARTURE_DELAY) : 0,
                 destination = json.GetNamedString(JSON_DEPARTURE_DESTINATION),
                 infoMessage = "",
                 label = json.GetNamedString(JSON_DEPARTURE_LABEL),
