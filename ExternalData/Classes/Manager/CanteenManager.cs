@@ -16,7 +16,7 @@ namespace ExternalData.Classes.Manager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly Uri CANTEENS_URI = new Uri("https://tum-dev.github.io/eat-api/canteens.json");
+        private static readonly Uri CANTEENS_URI = new Uri("https://tum-dev.github.io/eat-api/enums/canteens.json");
         private static readonly TimeSpan MAX_TIME_IN_CACHE = TimeSpan.FromDays(7);
 
         private const string JSON_LOCATION = "location";
