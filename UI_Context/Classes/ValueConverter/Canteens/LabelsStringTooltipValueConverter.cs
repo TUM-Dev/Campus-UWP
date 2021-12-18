@@ -37,7 +37,7 @@ namespace UI_Context.Classes.ValueConverter
                     {
                         sb.Append(DishManager.LABELS_EMOJI_ALL_LOOKUP[s]);
                         sb.Append('\t');
-                        sb.Append(Localisation.GetLocalizedString("Labels_" + s));
+                        sb.Append(Localisation.GetLocalizedString("Label_" + s));
                         sb.Append('\n');
                     }
                     else

@@ -57,7 +57,7 @@ namespace UI.Dialogs
             {
                 sb.Append(pair.Value);
                 sb.Append('\t');
-                sb.Append(Localisation.GetLocalizedString("Ingredient_" + pair.Key));
+                sb.Append(Localisation.GetLocalizedString("Label_" + pair.Key));
                 sb.Append('\n');
             }
         }

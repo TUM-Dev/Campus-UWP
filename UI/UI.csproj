@@ -210,8 +210,8 @@
     <Compile Include="Dialogs\GradeInfoDialog.xaml.cs">
       <DependentUpon>GradeInfoDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\IngredientsDialog.xaml.cs">
-      <DependentUpon>IngredientsDialog.xaml</DependentUpon>
+    <Compile Include="Dialogs\LabelsDialog.xaml.cs">
+      <DependentUpon>LabelsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\LectureInfoDialog.xaml.cs">
       <DependentUpon>LectureInfoDialog.xaml</DependentUpon>
@@ -469,7 +469,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\IngredientsDialog.xaml">
+    <Page Include="Dialogs\LabelsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

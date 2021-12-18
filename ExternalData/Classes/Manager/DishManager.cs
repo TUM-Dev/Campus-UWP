@@ -73,10 +73,11 @@ namespace ExternalData.Classes.Manager
             { "CEREAL", "🌾" },
             { "GLUTEN", "🌿" },
             { "WHEAT", "GlW" },
-            { "RYW", "GlR" },
+            { "RYE", "GlR" },
             { "BARLEY", "GlG" },
             { "OAT", "GlH" },
             { "SPELT", "GlD" },
+            { "HYBRIDS", "GlHy" },
             { "SHELLFISH", "🦀" },
             { "LUPIN", "Lu" },
             { "LACTOSE", "La" },
@@ -93,8 +94,7 @@ namespace ExternalData.Classes.Manager
             { "MUSTARD", "Sf" },
             { "CELERY", "Sl" },
             { "SOY", "So" },
-            { "MOLLUSCS", "🐙" },
-            { "HYBRIDS", "🔗" }
+            { "MOLLUSCS", "🐙" }
         };
 
         public static readonly Dictionary<string, string> LABELS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()

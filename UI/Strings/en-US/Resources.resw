@@ -139,152 +139,164 @@ In case we cought a crash, you will receive a dialog informing you about the cra
   <data name="GitHubUrl" xml:space="preserve">
     <value>https://github.com/TUM-Dev/Campus-UWP</value>
   </data>
-  <data name="Ingredient_1" xml:space="preserve">
+  <data name="Label_DYESTUFF" xml:space="preserve">
     <value>with dyestuff</value>
   </data>
-  <data name="Ingredient_10" xml:space="preserve">
-    <value>with a source of phenylalanine</value>
-  </data>
-  <data name="Ingredient_11" xml:space="preserve">
-    <value>with sugar and sweeteners</value>
-  </data>
-  <data name="Ingredient_13" xml:space="preserve">
-    <value>with cocoa-containing grease</value>
-  </data>
-  <data name="Ingredient_14" xml:space="preserve">
-    <value>with gelatin</value>
-  </data>
-  <data name="Ingredient_2" xml:space="preserve">
+  <data name="Label_PRESERVATIVES" xml:space="preserve">
     <value>with preservative</value>
   </data>
-  <data name="Ingredient_3" xml:space="preserve">
+  <data name="Label_ANTIOXIDANTS" xml:space="preserve">
     <value>with antioxidant</value>
   </data>
-  <data name="Ingredient_4" xml:space="preserve">
+  <data name="Label_FLAVOR_ENHANCER" xml:space="preserve">
     <value>with flavor enhancers</value>
   </data>
-  <data name="Ingredient_5" xml:space="preserve">
-    <value>sulphured</value>
+  <data name="Label_SULPHURS" xml:space="preserve">
+    <value>with sulfur dioxide</value>
   </data>
-  <data name="Ingredient_6" xml:space="preserve">
-    <value>blackened olive</value>
+  <data name="Label_SULFITES" xml:space="preserve">
+    <value>with sulfites</value>
   </data>
-  <data name="Ingredient_7" xml:space="preserve">
+  <data name="Label_WAXED" xml:space="preserve">
     <value>waxed</value>
   </data>
-  <data name="Ingredient_8" xml:space="preserve">
+  <data name="Label_PHOSPATES" xml:space="preserve">
     <value>with phosphate</value>
   </data>
-  <data name="Ingredient_9" xml:space="preserve">
+  <data name="Label_SWEETENERS" xml:space="preserve">
     <value>with sweeteners</value>
   </data>
-  <data name="Ingredient_99" xml:space="preserve">
+  <data name="Label_PHENYLALANINE" xml:space="preserve">
+    <value>with a source of phenylalanine</value>
+  </data>
+  <data name="Label_COCOA_CONTAINING_GREASE" xml:space="preserve">
+    <value>with cocoa-containing grease</value>
+  </data>
+  <data name="Label_GELATIN" xml:space="preserve">
+    <value>with gelatin</value>
+  </data>
+  <data name="Label_ALCOHOL" xml:space="preserve">
     <value>with alcohol</value>
   </data>
-  <data name="Ingredient_Ei" xml:space="preserve">
-    <value>with chicken egg</value>
-  </data>
-  <data name="Ingredient_En" xml:space="preserve">
-    <value>with peanut</value>
-  </data>
-  <data name="Ingredient_F" xml:space="preserve">
-    <value>meatless dish</value>
-  </data>
-  <data name="Ingredient_Fi" xml:space="preserve">
-    <value>with fish</value>
-  </data>
-  <data name="Ingredient_G" xml:space="preserve">
-    <value>with poultry</value>
-  </data>
-  <data name="Ingredient_Gl" xml:space="preserve">
-    <value>with gluten-containing cereals</value>
-  </data>
-  <data name="Ingredient_GlD" xml:space="preserve">
-    <value>with spelt</value>
-  </data>
-  <data name="Ingredient_GlG" xml:space="preserve">
-    <value>with barley</value>
-  </data>
-  <data name="Ingredient_GlH" xml:space="preserve">
-    <value>with oats</value>
-  </data>
-  <data name="Ingredient_GlR" xml:space="preserve">
-    <value>with rye</value>
-  </data>
-  <data name="Ingredient_GlW" xml:space="preserve">
-    <value>with wheat</value>
-  </data>
-  <data name="Ingredient_GQB" xml:space="preserve">
+  <data name="Label_BAVARIA" xml:space="preserve">
     <value>Certified Quality - Bavaria</value>
   </data>
-  <data name="Ingredient_K" xml:space="preserve">
-    <value>with veal</value>
-  </data>
-  <data name="Ingredient_Kn" xml:space="preserve">
-    <value>with garlic</value>
-  </data>
-  <data name="Ingredient_Kr" xml:space="preserve">
-    <value>with crustaceans</value>
-  </data>
-  <data name="Ingredient_L" xml:space="preserve">
-    <value>with lamb</value>
-  </data>
-  <data name="Ingredient_Lu" xml:space="preserve">
-    <value>with lupines</value>
-  </data>
-  <data name="Ingredient_Mi" xml:space="preserve">
-    <value>with milk and lactose</value>
-  </data>
-  <data name="Ingredient_MSC" xml:space="preserve">
+  <data name="Label_MSC" xml:space="preserve">
     <value>Marine Stewardship Council</value>
   </data>
-  <data name="Ingredient_R" xml:space="preserve">
-    <value>with beef</value>
+  <data name="Label_VEGETARIAN" xml:space="preserve">
+    <value>vegetarian</value>
   </data>
-  <data name="Ingredient_S" xml:space="preserve">
+  <data name="Label_VEGAN" xml:space="preserve">
+    <value>vegan</value>
+  </data>
+  <data name="Label_MEAT" xml:space="preserve">
+    <value>with meat</value>
+  </data>
+  <data name="Label_PORK" xml:space="preserve">
     <value>with pork</value>
   </data>
-  <data name="Ingredient_Sc" xml:space="preserve">
-    <value>with shell fruits</value>
+  <data name="Label_BEEF" xml:space="preserve">
+    <value>with  beef</value>
   </data>
-  <data name="Ingredient_ScC" xml:space="preserve">
-    <value>with cashew nuts</value>
+  <data name="Label_VEAL" xml:space="preserve">
+    <value>with veal</value>
   </data>
-  <data name="Ingredient_ScH" xml:space="preserve">
-    <value>with hazelnuts</value>
+  <data name="Label_POULTRY" xml:space="preserve">
+    <value>with poultry</value>
   </data>
-  <data name="Ingredient_ScM" xml:space="preserve">
-    <value>with almonds</value>
-  </data>
-  <data name="Ingredient_ScP" xml:space="preserve">
-    <value>with pistachios</value>
-  </data>
-  <data name="Ingredient_ScW" xml:space="preserve">
-    <value>with Walnuts</value>
-  </data>
-  <data name="Ingredient_Se" xml:space="preserve">
-    <value>with sesame seeds</value>
-  </data>
-  <data name="Ingredient_Sf" xml:space="preserve">
-    <value>with mustard</value>
-  </data>
-  <data name="Ingredient_Sl" xml:space="preserve">
-    <value>with celery</value>
-  </data>
-  <data name="Ingredient_So" xml:space="preserve">
-    <value>with soy</value>
-  </data>
-  <data name="Ingredient_Sw" xml:space="preserve">
-    <value>with sulfur dioxide and sulfites</value>
-  </data>
-  <data name="Ingredient_V" xml:space="preserve">
-    <value>vegan dish</value>
-  </data>
-  <data name="Ingredient_W" xml:space="preserve">
+  <data name="Label_WILD_MEAT" xml:space="preserve">
     <value>with wild meat</value>
   </data>
-  <data name="Ingredient_Wt" xml:space="preserve">
-    <value>with mollusks</value>
+  <data name="Label_LAMB" xml:space="preserve">
+    <value>with lamb</value>
+  </data>
+  <data name="Label_GARLIC" xml:space="preserve">
+    <value>with garlic</value>
+  </data>
+  <data name="Label_CHICKEN_EGGS" xml:space="preserve">
+    <value>with (chicken) eggs</value>
+  </data>
+  <data name="Label_PEANUTS" xml:space="preserve">
+    <value>with peanuts</value>
+  </data>
+  <data name="Label_FISH" xml:space="preserve">
+    <value>with fish</value>
+  </data>
+  <data name="Label_CEREAL" xml:space="preserve">
+    <value>with cereal</value>
+  </data>
+  <data name="Label_GLUTEN" xml:space="preserve">
+    <value>with gluten</value>
+  </data>
+  <data name="Label_WHEAT" xml:space="preserve">
+    <value>with wheat</value>
+  </data>
+  <data name="Label_RYE" xml:space="preserve">
+    <value>with rye</value>
+  </data>
+  <data name="Label_BARLEY" xml:space="preserve">
+    <value>with barley</value>
+  </data>
+  <data name="Label_OAT" xml:space="preserve">
+    <value>with oat</value>
+  </data>
+  <data name="Label_SPELT" xml:space="preserve">
+    <value>with spelt</value>
+  </data>
+  <data name="Label_SHELLFISH" xml:space="preserve">
+    <value>with shellfish</value>
+  </data>
+  <data name="Label_LUPIN" xml:space="preserve">
+    <value>with lupin</value>
+  </data>
+  <data name="Label_LACTOSE" xml:space="preserve">
+    <value>with lactose</value>
+  </data>
+  <data name="Label_MILK" xml:space="preserve">
+    <value>with (cow) milk</value>
+  </data>
+  <data name="Label_SHELL_FRUITS" xml:space="preserve">
+    <value>with shell fruits</value>
+  </data>
+  <data name="Label_ALMONDS" xml:space="preserve">
+    <value>with almonds</value>
+  </data>
+  <data name="Label_HAZELNUTS" xml:space="preserve">
+    <value>with hazenuts</value>
+  </data>
+  <data name="Label_MACADAMIA" xml:space="preserve">
+    <value>with macadamia</value>
+  </data>
+  <data name="Label_PECAN" xml:space="preserve">
+    <value>with pecan</value>
+  </data>
+  <data name="Label_WALNUTS" xml:space="preserve">
+    <value>with walnuts</value>
+  </data>
+  <data name="Label_CASHEWS" xml:space="preserve">
+    <value>with cashews</value>
+  </data>
+  <data name="Label_PISTACHIOES" xml:space="preserve">
+    <value>with pistachioes</value>
+  </data>
+  <data name="Label_SESAME" xml:space="preserve">
+    <value>with sesame</value>
+  </data>
+  <data name="Label_MUSTARD" xml:space="preserve">
+    <value>with mustard</value>
+  </data>
+  <data name="Label_CELERY" xml:space="preserve">
+    <value>with celery</value>
+  </data>
+  <data name="Label_SOY" xml:space="preserve">
+    <value>with soy</value>
+  </data>
+  <data name="Label_MOLLUSCS" xml:space="preserve">
+    <value>with molluscs</value>
+  </data>
+  <data name="Label_HYBRIDS" xml:space="preserve">
+    <value>with hybrid strains</value>
   </data>
   <data name="LicenseUrl" xml:space="preserve">
     <value>https://github.com/TUM-Dev/Campus-UWP/blob/master/LICENSE</value>
