@@ -7,24 +7,24 @@ using Windows.UI.Xaml.Controls;
 
 namespace UI.Dialogs
 {
-    public sealed partial class IngredientsDialog: ContentDialog
+    public sealed partial class LabelsDialog: ContentDialog
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string Ingredients
+        public string Labels
         {
-            get => (string)GetValue(IngredientsProperty);
-            set => SetValue(IngredientsProperty, value);
+            get => (string)GetValue(LabelsProperty);
+            set => SetValue(LabelsProperty, value);
         }
-        public static readonly DependencyProperty IngredientsProperty = DependencyProperty.Register(nameof(Ingredients), typeof(string), typeof(IngredientsDialog), new PropertyMetadata(""));
+        public static readonly DependencyProperty LabelsProperty = DependencyProperty.Register(nameof(Labels), typeof(string), typeof(LabelsDialog), new PropertyMetadata(""));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public IngredientsDialog()
+        public LabelsDialog()
         {
             InitializeComponent();
-            LoadIngredients();
+            LoadLabels();
         }
 
         #endregion
@@ -40,20 +40,20 @@ namespace UI.Dialogs
         #endregion
 
         #region --Misc Methods (Private)--
-        private void LoadIngredients()
+        private void LoadLabels()
         {
             StringBuilder sb = new StringBuilder();
-            AddIngredients(sb, DishManager.INGREDIENTS_EMOJI_MISC_LOOKUP);
+            AddLabels(sb, DishManager.LABELS_EMOJI_MISC_LOOKUP);
             sb.Append('\n');
-            AddIngredients(sb, DishManager.INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP);
+            AddLabels(sb, DishManager.LABELS_EMOJI_ADDITIONALS_LOOKUP);
             sb.Append('\n');
-            AddIngredients(sb, DishManager.INGREDIENTS_EMOJI_ALLERGENS_LOOKUP);
-            Ingredients = sb.ToString();
+            AddLabels(sb, DishManager.LABELS_EMOJI_ALLERGENS_LOOKUP);
+            Labels = sb.ToString();
         }
 
-        private void AddIngredients(StringBuilder sb, Dictionary<string, string> ingredients)
+        private void AddLabels(StringBuilder sb, Dictionary<string, string> labels)
         {
-            foreach (KeyValuePair<string, string> pair in ingredients)
+            foreach (KeyValuePair<string, string> pair in labels)
             {
                 sb.Append(pair.Value);
                 sb.Append('\t');

@@ -8,10 +8,10 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <valueconverter:IngredientsStringValueConverter x:Key="IngredientsStringValueConverter"/>
-        <valueconverter:IngredientsStringTooltipValueConverter x:Key="IngredientsStringTooltipValueConverter"/>
+        <valueconverter:LabelsStringValueConverter x:Key="LabelsStringValueConverter"/>
+        <valueconverter:LabelsStringTooltipValueConverter x:Key="LabelsStringTooltipValueConverter"/>
         <valueconverter:PriceStringValueConverter x:Key="PriceStringValueConverter"/>
-        <valueconverter:IngredientsEmptyVisibilityValueConverter x:Key="IngredientsEmptyVisibilityValueConverter"/>
+        <valueconverter:LabelsEmptyVisibilityValueConverter x:Key="LabelsEmptyVisibilityValueConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -41,9 +41,9 @@
         </Grid>
         <TextBlock Grid.Row="1"
                    IsTextSelectionEnabled="True"
-                   Text="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringValueConverter}}"
+                   Text="{x:Bind Dish.Labels, Mode=OneWay, Converter={StaticResource LabelsStringValueConverter}}"
                    TextWrapping="Wrap"
-                   ToolTipService.ToolTip="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsStringTooltipValueConverter}}"
-                   Visibility="{x:Bind Dish.Ingredients, Mode=OneWay, Converter={StaticResource IngredientsEmptyVisibilityValueConverter}}"/>
+                   ToolTipService.ToolTip="{x:Bind Dish.Labels, Mode=OneWay, Converter={StaticResource LabelsStringTooltipValueConverter}}"
+                   Visibility="{x:Bind Dish.Labels, Mode=OneWay, Converter={StaticResource LabelsEmptyVisibilityValueConverter}}"/>
     </Grid>
 </UserControl>

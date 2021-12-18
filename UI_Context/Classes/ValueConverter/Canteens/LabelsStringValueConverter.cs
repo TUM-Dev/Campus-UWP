@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 
 namespace UI_Context.Classes.ValueConverter
 {
-    public sealed class IngredientsStringValueConverter: IValueConverter
+    public sealed class LabelsStringValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -27,17 +27,17 @@ namespace UI_Context.Classes.ValueConverter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string result = "";
-            if (value is List<string> ingredients)
+            if (value is List<string> labels)
             {
-                foreach (string s in ingredients)
+                foreach (string lable in labels)
                 {
-                    if (DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP.ContainsKey(s))
+                    if (DishManager.LABELS_EMOJI_ALL_LOOKUP.ContainsKey(lable))
                     {
-                        result += DishManager.INGREDIENTS_EMOJI_ALL_LOOKUP[s] + ' ';
+                        result += DishManager.LABELS_EMOJI_ALL_LOOKUP[lable] + ' ';
                     }
                     else
                     {
-                        result += s + ' ';
+                        result += lable + ' ';
                     }
                 }
             }

@@ -22,7 +22,7 @@ namespace Storage.Classes.Models.Canteens
         [Required]
         public bool IsSideDish { get; set; }
         [Required]
-        public List<string> Ingredients { get; set; } = new List<string>();
+        public List<string> Labels { get; set; } = new List<string>();
         public Price PriceStudents { get; set; }
         public Price PriceStaff { get; set; }
         public Price PriceGuests { get; set; }

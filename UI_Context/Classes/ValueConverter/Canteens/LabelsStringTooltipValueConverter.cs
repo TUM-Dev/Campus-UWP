@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Windows.UI.Xaml;
+using System.Text;
+using ExternalData.Classes.Manager;
+using Shared.Classes;
 using Windows.UI.Xaml.Data;
 
 namespace UI_Context.Classes.ValueConverter
 {
-    public sealed class IngredientsEmptyVisibilityValueConverter: IValueConverter
+    public sealed class LabelsStringTooltipValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -26,11 +28,26 @@ namespace UI_Context.Classes.ValueConverter
         #region --Misc Methods (Public)--
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is List<string> l && l.Count > 0)
+            StringBuilder sb = new StringBuilder("Labels:\n");
+            if (value is List<string> labels)
             {
-                return Visibility.Visible;
+                foreach (string s in labels)
+                {
+                    if (DishManager.LABELS_EMOJI_ALL_LOOKUP.ContainsKey(s))
+                    {
+                        sb.Append(DishManager.LABELS_EMOJI_ALL_LOOKUP[s]);
+                        sb.Append('\t');
+                        sb.Append(Localisation.GetLocalizedString("Labels_" + s));
+                        sb.Append('\n');
+                    }
+                    else
+                    {
+                        sb.Append(s);
+                        sb.Append('\n');
+                    }
+                }
             }
-            return Visibility.Collapsed;
+            return sb.ToString().TrimEnd();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

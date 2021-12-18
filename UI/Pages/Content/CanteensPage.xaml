@@ -116,9 +116,9 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                             <MenuFlyoutSeparator/>
-                            <MenuFlyoutItem x:Name="ingredients_mfi"
-                                            Click="Ingredients_mfi_Click"
-                                            Text="Ingredients">
+                            <MenuFlyoutItem x:Name="labels_mfi"
+                                            Click="Labels_mfi_Click"
+                                            Text="Labels">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEADF;"/>
                                 </MenuFlyoutItem.Icon>

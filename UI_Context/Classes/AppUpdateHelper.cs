@@ -85,7 +85,7 @@ namespace UI_Context.Classes
                         Logger.Info("Finished updating to version 2.0.0.0.");
                     }
 
-                    // Total refactoring in version 2.0.0.0:
+                    // DB layout for dishes changed in 2.1.0.0:
                     if (versionLastStart.Major <= 2 && versionLastStart.Minor < 1)
                     {
                         Logger.Info("Started updating to version 2.1.0.0.");
@@ -107,6 +107,30 @@ namespace UI_Context.Classes
                         await DishManager.INSTANCE.UpdateAsync(true);
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.1.0.0.");
+                    }
+
+                    // DB layout for dishes changed in 2.2.0.0:
+                    if (versionLastStart.Major <= 2 && versionLastStart.Minor < 2)
+                    {
+                        Logger.Info("Started updating to version 2.2.0.0.");
+                        Logger.Info("Resetting canteens DB...");
+                        try
+                        {
+                            StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync("canteens.db");
+                            if (!(file is null))
+                            {
+                                await file.DeleteAsync();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error("Failed to remove old canteens DB with:", e);
+                        }
+                        Logger.Info("Updating canteens and dishes...");
+                        await CanteenManager.INSTANCE.UpdateAsync(true);
+                        await DishManager.INSTANCE.UpdateAsync(true);
+                        Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
+                        Logger.Info("Finished updating to version 2.2.0.0.");
                     }
                 }
             }

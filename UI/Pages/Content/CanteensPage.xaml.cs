@@ -179,9 +179,9 @@ namespace UI.Pages.Content
             VIEW_MODEL.PrevDate();
         }
 
-        private async void Ingredients_mfi_Click(object sender, RoutedEventArgs e)
+        private async void Labels_mfi_Click(object sender, RoutedEventArgs e)
         {
-            IngredientsDialog dialog = new IngredientsDialog();
+            LabelsDialog dialog = new LabelsDialog();
             await UiUtils.ShowDialogAsync(dialog);
         }
 

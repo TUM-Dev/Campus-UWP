@@ -30,7 +30,7 @@ namespace ExternalData.Classes.Manager
         private const string JSON_DISH_PRICE_STUDENTS = "students";
         private const string JSON_DISH_PRICE_STAFF = "staff";
         private const string JSON_DISH_PRICE_GUESTS = "guests";
-        private const string JSON_DISH_INGREDIENTS = "ingredients";
+        private const string JSON_DISH_LABELS = "labels";
         private const string JSON_DISH_DATE = "date";
         private const string JSON_DISH_TYPE = "dish_type";
 
@@ -38,86 +38,90 @@ namespace ExternalData.Classes.Manager
 
         public static readonly DishManager INSTANCE = new DishManager();
 
-        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP = new Dictionary<string, string>()
+        public static readonly Dictionary<string, string> LABELS_EMOJI_ADDITIONALS_LOOKUP = new Dictionary<string, string>()
         {
-            { "1", "🎨" },
-            { "2", "🥫" },
-            { "3", "⚗" },
-            { "4", "🔬" },
-            { "5", "🔶" },
-            { "6", "⬛" },
-            { "7", "🐝" },
-            { "8", "🔷" },
-            { "9", "🍬" },
-            { "10", "💊" },
-            { "11", "🍡" },
-            { "13", "🍫" },
-            { "14", "🍮" },
-            { "99", "🍷" }
+            { "DYESTUFF", "🎨" },
+            { "PRESERVATIVES", "🥫" },
+            { "ANTIOXIDANTS", "⚗" },
+            { "FLAVOR_ENHANCER", "🔬" },
+            { "SULPHURS", "🔻" },
+            { "SULFITES", "🔺" },
+            { "WAXED", "🐝" },
+            { "PHOSPATES", "🔷" },
+            { "SWEETENERS", "🍬" },
+            { "PHENYLALANINE", "💊" },
+            { "COCOA_CONTAINING_GREASE", "🍫" },
+            { "GELATIN", "🍮" },
+            { "ALCOHOL", "🍷" }
         };
 
-        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALLERGENS_LOOKUP = new Dictionary<string, string>()
+        public static readonly Dictionary<string, string> LABELS_EMOJI_ALLERGENS_LOOKUP = new Dictionary<string, string>()
         {
-            { "F", "🌽" },
-            { "V", "🥕" },
-            { "S", "🐖" },
-            { "R", "🐄" },
-            { "K", "🐂" },
-            { "G", "🐔" },
-            { "W", "🐗" },
-            { "L", "🐑" },
-            { "Kn", "🧄" },
-            { "Ei", "🥚" },
-            { "En", "🥜" },
-            { "Fi", "🐟" },
-            { "Gl", "🌾" },
-            { "GlW", "GlW" },
-            { "GlR", "GlR" },
-            { "GlG", "GlG" },
-            { "GlH", "GlH" },
-            { "GlD", "GlD" },
-            { "Kr", "🦀" },
-            { "Lu", "Lu" },
-            { "Mi", "🥛" },
-            { "Sc", "🥥" },
-            { "ScM", "ScM" },
-            { "ScH", "🌰" },
-            { "ScW", "ScW" },
-            { "ScC", "ScC" },
-            { "ScP", "ScP" },
-            { "Se", "Se" },
-            { "Sf", "Sf" },
-            { "Sl", "Sl" },
-            { "So", "So" },
-            { "Sw", "🔻" },
-            { "Wt", "🐙" }
+            { "VEGETARIAN", "🌽" },
+            { "VEGAN", "🥕" },
+            { "MEAT", "🍖" },
+            { "PORK", "🐖" },
+            { "BEEF", "🐄" },
+            { "VEAL", "🐂" },
+            { "POULTRY", "🐔" },
+            { "WILD_MEAT", "🐗" },
+            { "LAMB", "🐑" },
+            { "GARLIC", "🧄" },
+            { "CHICKEN_EGGS", "🥚" },
+            { "PEANUTS", "🥜" },
+            { "FISH", "🐟" },
+            { "CEREAL", "🌾" },
+            { "GLUTEN", "🌿" },
+            { "WHEAT", "GlW" },
+            { "RYW", "GlR" },
+            { "BARLEY", "GlG" },
+            { "OAT", "GlH" },
+            { "SPELT", "GlD" },
+            { "SHELLFISH", "🦀" },
+            { "LUPIN", "Lu" },
+            { "LACTOSE", "La" },
+            { "MILK", "🥛" },
+            { "SHELL_FRUITS", "🥥" },
+            { "ALMONDS", "ScM" },
+            { "HAZELNUTS", "🌰" },
+            { "MACADAMIA", "ScMa" },
+            { "PECAN", "ScP" },
+            { "WALNUTS", "ScW" },
+            { "CASHEWS", "ScC" },
+            { "PISTACHIOES", "ScP" },
+            { "SESAME", "Se" },
+            { "MUSTARD", "Sf" },
+            { "CELERY", "Sl" },
+            { "SOY", "So" },
+            { "MOLLUSCS", "🐙" },
+            { "HYBRIDS", "🔗" }
         };
 
-        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()
+        public static readonly Dictionary<string, string> LABELS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()
         {
-            { "GQB", "GQB" },
+            { "BAVARIA", "GQB" },
             { "MSC", "🎣" },
         };
 
-        public static readonly Dictionary<string, string> INGREDIENTS_EMOJI_ALL_LOOKUP = new Dictionary<string, string>();
+        public static readonly Dictionary<string, string> LABELS_EMOJI_ALL_LOOKUP = new Dictionary<string, string>();
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
         static DishManager()
         {
-            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_ADDITIONALS_LOOKUP)
+            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_ADDITIONALS_LOOKUP)
             {
-                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
             }
 
-            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_ALLERGENS_LOOKUP)
+            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_ALLERGENS_LOOKUP)
             {
-                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
             }
 
-            foreach (KeyValuePair<string, string> pair in INGREDIENTS_EMOJI_MISC_LOOKUP)
+            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_MISC_LOOKUP)
             {
-                INGREDIENTS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
+                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
             }
         }
 
@@ -274,7 +278,7 @@ namespace ExternalData.Classes.Manager
             {
                 CanteenId = canteenId,
                 Date = DateTime.ParseExact(json.GetNamedString(JSON_DISH_DATE), "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                Ingredients = LoadIngredientsFromJson(json.GetNamedArray(JSON_DISH_INGREDIENTS)),
+                Labels = LoadLabelsFromJson(json),
                 Name = json.GetNamedString(JSON_DISH_NAME),
                 PriceGuests = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_GUESTS)),
                 PriceStaff = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_STAFF)),
@@ -300,9 +304,14 @@ namespace ExternalData.Classes.Manager
             };
         }
 
-        private List<string> LoadIngredientsFromJson(JsonArray ingredients)
+        private List<string> LoadLabelsFromJson(JsonObject json)
         {
-            return ingredients.Select(x => x.GetString()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            if (json.ContainsKey(JSON_DISH_LABELS))
+            {
+                JsonArray labels = json.GetNamedArray(JSON_DISH_LABELS);
+                return labels.Select(x => x.GetString()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            }
+            return new List<string>();
         }
 
         private string LoadJsonStringSave(JsonValue val)

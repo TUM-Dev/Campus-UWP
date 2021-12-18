@@ -197,8 +197,8 @@
     <Compile Include="Classes\ValueConverter\BoolVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Calendar\CalendarEventTimeStringValueConverter - Copy.cs" />
     <Compile Include="Classes\ValueConverter\Calendar\CalendarEventDateStringValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringTooltipValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\Canteens\IngredientsStringValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Canteens\LabelsStringTooltipValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Canteens\LabelsStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\PriceStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\DateTimeHasDishesBoolConverter.cs" />
     <Compile Include="Classes\ValueConverter\DateTimeLocalDateFormatStringValueConverter.cs" />
@@ -209,7 +209,7 @@
     <Compile Include="Classes\ValueConverter\Mvg\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />
-    <Compile Include="Classes\ValueConverter\Canteens\IngredientsEmptyVisibilityValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Canteens\LabelsEmptyVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\DateTimeCanteenDateValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\StringEmptyVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\TuitionFees\DateTimeLocalDateStringValueConverter.cs" />
