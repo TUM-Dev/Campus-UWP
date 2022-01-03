@@ -2,7 +2,7 @@
 
 namespace ExternalData.Classes.Mvg
 {
-    public class Departure
+    public class Departure: IComparable<Departure>
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
@@ -29,7 +29,10 @@ namespace ExternalData.Classes.Mvg
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public int CompareTo(Departure other)
+        {
+            return departureTime.AddMinutes(delay).CompareTo(other.departureTime.AddMinutes(other.delay));
+        }
 
         #endregion
 
