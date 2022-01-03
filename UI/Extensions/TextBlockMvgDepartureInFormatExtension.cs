@@ -60,7 +60,7 @@ namespace UI.Extensions
                 textBlock.Inlines.Clear();
                 if (args.NewValue is Departure departure)
                 {
-                    int inMinutes = (departure.departureTime - DateTime.Now).Minutes;
+                    int inMinutes = (int)Math.Round((departure.departureTime - DateTime.Now).TotalMinutes, 0);
                     if (inMinutes <= 0)
                     {
                         textBlock.Inlines.Add(new Run
