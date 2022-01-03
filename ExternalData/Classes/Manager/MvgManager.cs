@@ -76,6 +76,7 @@ namespace ExternalData.Classes.Manager
                 {
                     departures.Add(ParseDeparture(item.GetObject()));
                 }
+                departures.Sort();
                 Logger.Info($"Successfully downloaded {departures.Count()} departures for '{stationId}'.");
                 return departures;
             }
