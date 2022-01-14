@@ -62,7 +62,7 @@ namespace UI_Context.Classes.Templates.Pages.Content
         public MapStyle MapStyle
         {
             get => _MapStyle;
-            set => SetProperty(ref _MapStyle, value);
+            set => SetMapStyleProperty(value);
         }
 
         #endregion
