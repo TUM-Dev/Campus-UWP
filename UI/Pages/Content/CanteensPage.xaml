@@ -216,7 +216,46 @@
                              Grid.Column="2"
                              MapElementClick="OnMapElementClicked"
                              MapElementPointerEntered="OnMapElementPointerEntered"
-                             MapElementPointerExited="OnMapElementPointerExited"/>
+                             MapElementPointerExited="OnMapElementPointerExited"
+                             Style="{x:Bind VIEW_MODEL.MODEL.MapStyle, Mode=OneWay}"/>
+
+            <Border Grid.Column="2"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                    CornerRadius="{ThemeResource ControlCornerRadius}">
+                <Button Content="&#xE81E;"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        ToolTipService.ToolTip="Change view">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="OnAerial3DViewClicked"
+                                            Text="Aerial 3D"
+                                            ToolTipService.ToolTip="Switch to aerial 3D view">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE809;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Click="OnAerialViewClicked"
+                                            Text="Aerial"
+                                            ToolTipService.ToolTip="Switch to aerial view">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE80A;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Click="OnTerrainViewClicked"
+                                            Text="Terrain"
+                                            ToolTipService.ToolTip="Switch to terrain view">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE913;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+            </Border>
 
             <controls:GridSplitter x:Name="map_gridSplitter"
                                    Grid.Column="1"

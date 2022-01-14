@@ -217,6 +217,21 @@ namespace UI.Pages.Content
             }
         }
 
+        private void OnTerrainViewClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.MODEL.MapStyle = MapStyle.Terrain;
+        }
+
+        private void OnAerialViewClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.MODEL.MapStyle = MapStyle.AerialWithRoads;
+        }
+
+        private void OnAerial3DViewClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.MODEL.MapStyle = MapStyle.Aerial3DWithRoads;
+        }
+
         #endregion
     }
 }

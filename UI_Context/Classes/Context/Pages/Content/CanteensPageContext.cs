@@ -9,6 +9,7 @@ using Shared.Classes;
 using Storage.Classes;
 using Storage.Classes.Models.Canteens;
 using UI_Context.Classes.Templates.Pages.Content;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace UI_Context.Classes.Context.Pages.Content
 {
@@ -27,6 +28,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             CanteenManager.INSTANCE.OnRequestError += OnRequestCanteensError;
             Task.Run(async () => await LoadCanteensAsync(false));
             MODEL.PropertyChanged += OnModelPropertyChanged;
+            LoadSettings();
         }
 
         #endregion
@@ -89,6 +91,11 @@ namespace UI_Context.Classes.Context.Pages.Content
             }
             MODEL.DishDate = newDate;
             Task.Run(async () => await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, false));
+        }
+
+        public async Task ShowEatApiBugAsync()
+        {
+            await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("EatApiBugUrl")));
         }
 
         #endregion
@@ -162,9 +169,18 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoadingDishes = false;
         }
 
-        public async Task ShowEatApiBugAsync()
+        private void LoadSettings()
         {
-            await UiUtils.LaunchUriAsync(new Uri(Localisation.GetLocalizedString("EatApiBugUrl")));
+            int mapStyle = Storage.Classes.Settings.GetSettingInt(SettingsConsts.CANTEENS_MAP_STYLE, (int)MapStyle.Terrain);
+            try
+            {
+                MODEL.MapStyle = (MapStyle)mapStyle;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Failed to parse MapStyle from {mapStyle}.", e);
+                MODEL.MapStyle = MapStyle.Terrain;
+            }
         }
 
         #endregion

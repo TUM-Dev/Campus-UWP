@@ -4,6 +4,7 @@ using Shared.Classes;
 using Shared.Classes.Collections;
 using Storage.Classes;
 using Storage.Classes.Models.Canteens;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace UI_Context.Classes.Templates.Pages.Content
 {
@@ -57,6 +58,12 @@ namespace UI_Context.Classes.Templates.Pages.Content
             get => _ShowDishesError;
             set => SetProperty(ref _ShowDishesError, value);
         }
+        private MapStyle _MapStyle;
+        public MapStyle MapStyle
+        {
+            get => _MapStyle;
+            set => SetProperty(ref _MapStyle, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -87,6 +94,12 @@ namespace UI_Context.Classes.Templates.Pages.Content
                     DishDate = DateTime.MaxValue;
                 }
             }
+        }
+
+        private void SetMapStyleProperty(MapStyle mapStyle)
+        {
+            SetProperty(ref _MapStyle, mapStyle, nameof(MapStyle));
+            Storage.Classes.Settings.SetSetting(SettingsConsts.CANTEENS_MAP_STYLE, (int)mapStyle);
         }
 
         #endregion
