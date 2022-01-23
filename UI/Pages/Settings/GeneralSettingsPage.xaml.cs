@@ -22,6 +22,7 @@ namespace UI.Pages.Settings
         public GeneralSettingsPage()
         {
             InitializeComponent();
+            UiUtils.ApplyBackground(this);
         }
 
         #endregion

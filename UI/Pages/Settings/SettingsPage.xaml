@@ -7,7 +7,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:datatemplates="using:UI_Context.Classes.Templates.Controls.Settings"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -34,7 +33,6 @@
         <!--  Header:  -->
         <controlsSettings:SettingsTitleBarControl x:Name="titleBar"
                                                   Grid.Row="0"
-                                                  Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
                                                   Frame="{x:Bind Frame, Mode=OneWay}"
                                                   Glyph="&#xE713;"
                                                   Text="Settings"/>

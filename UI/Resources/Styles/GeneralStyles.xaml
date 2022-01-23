@@ -47,6 +47,18 @@
                               Opacity="0.25"
                               Offset="4"/>
 
+    <media:AttachedCardShadow x:Key="DefaultAttachedCardShadowOverlay"
+                              BlurRadius="10"
+                              CornerRadius="8"
+                              Opacity="0.25"
+                              Offset="4"/>
+
+    <media:AttachedCardShadow x:Key="DefaultAttachedCardShadowControl"
+                              BlurRadius="10"
+                              CornerRadius="4"
+                              Opacity="0.25"
+                              Offset="4"/>
+
     <Style TargetType="muxc:ProgressRing">
         <Setter Property="Foreground" Value="{ThemeResource TumBlueBrush}"/>
     </Style>

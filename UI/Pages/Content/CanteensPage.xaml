@@ -223,8 +223,9 @@
                     Margin="10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
-                    CornerRadius="{ThemeResource ControlCornerRadius}">
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    CornerRadius="{ThemeResource OverlayCornerRadius}">
                 <Button Content="&#xE81E;"
                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
                         ToolTipService.ToolTip="Change view">

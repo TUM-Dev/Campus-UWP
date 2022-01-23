@@ -14,10 +14,10 @@
     </UserControl.Resources>
 
     <Border MinWidth="200"
-            MaxWidth="400"
-            Background="Transparent">
+            MaxWidth="400">
         <StackPanel Padding="10"
-                    Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     CornerRadius="{ThemeResource OverlayCornerRadius}">
             <TextBlock HorizontalAlignment="Center"
                        IsTextSelectionEnabled="True"

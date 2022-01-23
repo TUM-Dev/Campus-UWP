@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Logging.Classes;
+using Microsoft.Toolkit.Uwp.Helpers;
+using Shared.Classes;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Metadata;
@@ -278,6 +280,37 @@ namespace UI_Context.Classes
                     statusBar.BackgroundColor = ThemeUtils.GetThemeResource<SolidColorBrush>("AppBackgroundAcrylicElementBrush", application.Resources).Color;
                     statusBar.BackgroundOpacity = 1.0d;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns true in case the operating system supports the Mica effect.
+        /// This is true for Windows 11 (>= 10.0.22000.0) and if the device is no Xbox or HoloLense.
+        /// <para/>
+        /// See: https://docs.microsoft.com/en-us/windows/apps/design/style/mica
+        /// </summary>
+        public static bool IsMicaSupported()
+        {
+            OSVersion version = SystemInformation.Instance.OperatingSystemVersion;
+            bool validVersion = version.Major >= 10 && version.Minor >= 0 && version.Build >= 22000;
+            DeviceFamilyType deviceFamilyType = DeviceFamilyHelper.GetDeviceFamilyType();
+            bool validDeviceFamily = deviceFamilyType != DeviceFamilyType.Mobile && deviceFamilyType != DeviceFamilyType.HoloLens && deviceFamilyType != DeviceFamilyType.Xbox;
+            return validVersion && validDeviceFamily;
+        }
+
+        /// <summary>
+        /// Applies the Mica background effect in case it's available. Else it will fall back to the "AppBackgroundAcrylicWindowBrush" brush.
+        /// </summary>
+        /// <param name="control">The <see cref="Control"/> the background should be set.</param>
+        public static void ApplyBackground(Control control)
+        {
+            if (IsMicaSupported())
+            {
+                Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(control, true);
+            }
+            else
+            {
+                control.Background = ThemeUtils.GetThemeResource<Brush>("AppBackgroundAcrylicWindowBrush");
             }
         }
 

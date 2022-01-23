@@ -12,11 +12,13 @@
     </UserControl.Resources>
 
     <Button HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             HorizontalContentAlignment="Left"
-            ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
-            Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+            ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadowControl}"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             Click="OnButtonClicked"
-            Style="{ThemeResource SettingsButtonStyle}">
+            CornerRadius="{ThemeResource OverlayCornerRadius}">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -33,7 +35,7 @@
                       Margin="10"
                       VerticalAlignment="Center"
                       FontSize="30"
-                      Foreground="{ThemeResource TumBlueBrush}"
+                      Foreground="{ThemeResource SystemAccentColor}"
                       Glyph="{x:Bind Model.Glyph, Mode=OneWay}"/>
             <TextBlock Grid.Row="0"
                        Grid.Column="1"

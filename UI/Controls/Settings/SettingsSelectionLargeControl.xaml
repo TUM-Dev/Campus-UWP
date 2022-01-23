@@ -12,10 +12,13 @@
         <ResourceDictionary Source="ms-appx:///Resources/Styles/Button/SettingsButtonStyle.xaml"/>
     </UserControl.Resources>
 
-    <Button ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
-            Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+    <Button HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadowControl}"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             Click="OnButtonClicked"
-            Style="{ThemeResource SettingsButtonStyle}">
+            CornerRadius="{ThemeResource OverlayCornerRadius}">
         <Grid Margin="5,5,5,0"
               VerticalAlignment="Center">
             <Grid.RowDefinitions>
@@ -26,7 +29,7 @@
             <FontIcon Margin="0,0,0,10"
                       HorizontalAlignment="Center"
                       FontSize="50"
-                      Foreground="{ThemeResource TumBlueBrush}"
+                      Foreground="{ThemeResource SystemAccentColor}"
                       Glyph="{x:Bind Model.Glyph, Mode=OneWay}"/>
             <TextBlock Grid.Row="1"
                        HorizontalAlignment="Center"

@@ -6,7 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:settings="using:UI.Controls.Settings"
-      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -187,7 +186,6 @@
         <!--  Has to be bellow content to correctly draw the drop shadow.  -->
         <settings:SettingsTitleBarControl x:Name="titleBar"
                                           Grid.Row="0"
-                                          Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
                                           Frame="{x:Bind Frame, Mode=OneWay}"
                                           Glyph="&#xE9E9;"
                                           Text="General"/>

@@ -27,6 +27,7 @@ namespace UI.Pages
         public SetupPage()
         {
             InitializeComponent();
+            UiUtils.ApplyBackground(this);
             VIEW_MODEL.MODEL.PropertyChanged += MODEL_PropertyChanged;
         }
 

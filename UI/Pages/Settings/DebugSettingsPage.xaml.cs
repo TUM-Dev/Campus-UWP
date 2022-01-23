@@ -1,5 +1,6 @@
 ﻿using Shared.Classes;
 using UI.Extensions;
+using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Settings;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -18,6 +19,7 @@ namespace UI.Pages.Settings
         public DebugSettingsPage()
         {
             InitializeComponent();
+            UiUtils.ApplyBackground(this);
         }
 
         #endregion

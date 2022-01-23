@@ -27,7 +27,8 @@
 
     <Border>
         <Grid Padding="10"
-              Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
               CornerRadius="{ThemeResource OverlayCornerRadius}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

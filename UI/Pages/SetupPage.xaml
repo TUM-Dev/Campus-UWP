@@ -8,7 +8,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
       xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-      Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       Loaded="OnLoaded"
       mc:Ignorable="d">
 
@@ -80,7 +79,8 @@
 
                     <StackPanel Padding="10"
                                 HorizontalAlignment="Stretch"
-                                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                 CornerRadius="{ThemeResource OverlayCornerRadius}">
                         <TextBlock Foreground="{ThemeResource TumBlueBrush}"
                                    Style="{ThemeResource SubtitleTextBlockStyle}"
@@ -171,7 +171,8 @@
 
                     <StackPanel Padding="10"
                                 HorizontalAlignment="Stretch"
-                                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                 CornerRadius="{ThemeResource OverlayCornerRadius}">
 
                         <TextBlock Foreground="{ThemeResource TumBlueBrush}"
@@ -295,7 +296,8 @@
 
                     <StackPanel Padding="10"
                                 HorizontalAlignment="Stretch"
-                                Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                 CornerRadius="{ThemeResource OverlayCornerRadius}">
                         <Grid Margin="0,10,0,0"
                               Padding="20"

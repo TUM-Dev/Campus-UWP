@@ -117,10 +117,15 @@
                                Amount="6.0"/>
 
     <!--  Navigation View Pane Background  -->
+    <!--  Allow us to define our own cards:  -->
     <StaticResource x:Key="NavigationViewExpandedPaneBackground"
                     ResourceKey="AppBackgroundAcrylicElementBrush"/>
     <StaticResource x:Key="NavigationViewDefaultPaneBackground"
                     ResourceKey="AppBackgroundAcrylicElementBrush"/>
+    <SolidColorBrush x:Key="NavigationViewContentBackground"
+                     Color="Transparent"/>
+    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
+                     Color="Transparent"/>
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">

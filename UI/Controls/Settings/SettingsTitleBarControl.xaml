@@ -15,9 +15,9 @@
     </UserControl.Resources>
 
     <Grid ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
-          Background="{ThemeResource TumBlueAcrylicWindowBrush}">
+          Background="{ThemeResource TumBlueAcrylicWindowBrush}"
+          CornerRadius="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 

@@ -26,6 +26,7 @@ namespace UI.Pages
         public MainPage()
         {
             InitializeComponent();
+            UiUtils.ApplyBackground(this);
             NavigationCacheMode = NavigationCacheMode.Required;
 
             PAGES = new MainPageNavigationPage[8]

@@ -27,6 +27,7 @@
                            TextAlignment="Center"/>
                 <calendar:CalendarEventControl Grid.Row="1"
                                                Background="Transparent"
+                                               BorderBrush="Transparent"
                                                CalendarEvent="{x:Bind}"/>
             </StackPanel>
         </DataTemplate>
@@ -36,7 +37,8 @@
 
     <Border>
         <Grid Padding="10"
-              Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
               CornerRadius="{ThemeResource OverlayCornerRadius}"
               PointerReleased="OnPointerReleased">
             <Grid.RowDefinitions>

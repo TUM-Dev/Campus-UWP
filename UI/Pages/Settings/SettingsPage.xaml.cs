@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Shared.Classes;
 using UI.Controls.Settings;
+using UI_Context.Classes;
 using UI_Context.Classes.Context.Pages.Settings;
 using UI_Context.Classes.Templates.Controls.Settings;
 using UI_Context.Classes.Templates.Pages.Settings;
@@ -34,6 +35,7 @@ namespace UI.Pages.Settings
         public SettingsPage()
         {
             InitializeComponent();
+            UiUtils.ApplyBackground(this);
             LoadAppVersion();
             VIEW_MODEL.MODEL.PropertyChanged += MODEL_PropertyChanged;
 

@@ -28,7 +28,6 @@
     <controls:Expander HorizontalAlignment="Stretch"
                        HorizontalContentAlignment="Stretch"
                        ui:Effects.Shadow="{StaticResource DefaultAttachedCardShadow}"
-                       Background="{ThemeResource AppBackgroundAcrylicElementBrush}"
                        Header="{x:Bind Lectures, Mode=OneWay}"
                        HeaderTemplate="{StaticResource HeaderTemplate}"
                        IsExpanded="{x:Bind Lectures.expanded, Mode=OneWay}">
