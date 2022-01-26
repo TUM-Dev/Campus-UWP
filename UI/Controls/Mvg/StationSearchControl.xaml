@@ -16,6 +16,7 @@
     <AutoSuggestBox x:Name="stationAsb"
                     ItemTemplate="{StaticResource StationTemplate}"
                     ItemsSource="{x:Bind VIEW_MODEL.MODEL.STATIONS, Mode=OneWay}"
+                    KeyUp="OnKeyUp"
                     PlaceholderText="Enter station name..."
                     QueryIcon="Save"
                     QuerySubmitted="OnQuerySubmitted"

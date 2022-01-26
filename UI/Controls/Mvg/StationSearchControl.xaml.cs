@@ -1,7 +1,10 @@
 ﻿using ExternalData.Classes.Mvg;
 using UI.Classes.Events.Mvg;
 using UI_Context.Classes.Context.Controls.Mvg;
+using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace UI.Controls.Mvg
 {
@@ -72,6 +75,15 @@ namespace UI.Controls.Mvg
                 {
                     StationSelectionChanged?.Invoke(this, new StationSelectionChangedEventArgs(curStation));
                 }
+            }
+        }
+
+        private void OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Escape)
+            {
+                StationSelectionChanged?.Invoke(this, new StationSelectionChangedEventArgs(curStation));
+                e.Handled = true;
             }
         }
 

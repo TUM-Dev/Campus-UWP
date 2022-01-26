@@ -47,7 +47,9 @@
                         Grid.Row="0"
                         Margin="0,0,0,5"
                         Orientation="Horizontal">
-                <TextBlock FontWeight="Bold"
+                <TextBlock ui:FrameworkElementExtensions.Cursor="IBeam"
+                           FontWeight="Bold"
+                           Tapped="OnStationTitleTapped"
                            Text="{x:Bind VIEW_MODEL.MODEL.CurStation.name, Mode=OneWay}"/>
                 <Button Margin="10,-6,0,0"
                         Padding="0"

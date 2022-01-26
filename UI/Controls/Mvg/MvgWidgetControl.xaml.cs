@@ -4,6 +4,7 @@ using UI.Classes.Events.Mvg;
 using UI_Context.Classes.Context.Controls.Mvg;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace UI.Controls.Mvg
 {
@@ -39,6 +40,13 @@ namespace UI.Controls.Mvg
             VisualStateManager.GoToState(this, newState.Name, true);
         }
 
+        private void SwitchToStationSearch()
+        {
+            UpdateViewState(Edit_State);
+            StationSearch.SetStation(VIEW_MODEL.MODEL.CurStation);
+            StationSearch.Focus(FocusState.Programmatic);
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -55,8 +63,12 @@ namespace UI.Controls.Mvg
 
         private void OnEditStationClicked(object sender, RoutedEventArgs e)
         {
-            UpdateViewState(Edit_State);
-            StationSearch.SetStation(VIEW_MODEL.MODEL.CurStation);
+            SwitchToStationSearch();
+        }
+
+        private void OnStationTitleTapped(object sender, TappedRoutedEventArgs e)
+        {
+            SwitchToStationSearch();
         }
 
         #endregion
