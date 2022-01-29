@@ -112,6 +112,21 @@
                         TintColor="{ThemeResource TumLightGrayColor}"
                         TintOpacity="0.8"/>
 
+    <StaticResource x:Key="SystemAccentColor"
+                    ResourceKey="TumBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorDark1"
+                    ResourceKey="TumBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorDark2"
+                    ResourceKey="TumBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorDark3"
+                    ResourceKey="TumDarkBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorLight1"
+                    ResourceKey="TumBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorLight2"
+                    ResourceKey="TumBlueColor"/>
+    <StaticResource x:Key="SystemAccentColorLight3"
+                    ResourceKey="TumLightBlueColor"/>
+
     <!--  ContentDialog background backdrop  -->
     <toolkit:BackdropBlurBrush x:Key="SystemControlPageBackgroundMediumAltMediumBrush"
                                Amount="6.0"/>
