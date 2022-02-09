@@ -145,6 +145,7 @@
     <Compile Include="Classes\Context\Pages\Content\LecturesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\StudyRoomsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\UserPageContext.cs" />
     <Compile Include="Classes\DelegateCommand.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Classes\Templates\Pages\Content\LecturesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\StudyRoomsPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\TuitionFeesPageDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\UserPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\GeneralSettingsPageTemplate.cs" />

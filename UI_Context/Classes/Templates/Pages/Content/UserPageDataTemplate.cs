@@ -1,29 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Storage.Classes.Models.TumOnline;
+﻿using Shared.Classes;
 
-namespace Storage.Classes.Contexts
+namespace UI_Context.Classes.Templates.Pages.Content
 {
-    public class TumOnlineDbContext: AbstractDbContext
+    public class UserPageDataTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Lecture> Lectures { get; set; }
-        public DbSet<TuitionFee> TuitionFees { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
-        public DbSet<Identity> Identities { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserGroup> UserGroups { get; set; }
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
+
+        private bool _ShowError;
+        public bool ShowError
+        {
+            get => _ShowError;
+            set => SetProperty(ref _ShowError, value);
+        }
+
+        private string _ErrorMsg;
+        public string ErrorMsg
+        {
+            get => _ErrorMsg;
+            set => SetProperty(ref _ErrorMsg, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public TumOnlineDbContext() : base("tumOnline.db")
-        {
-            // Disable change tracking since we always manually update them and only require them read only:
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            Database.EnsureCreated();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\

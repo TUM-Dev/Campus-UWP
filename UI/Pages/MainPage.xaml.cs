@@ -29,12 +29,13 @@ namespace UI.Pages
             UiUtils.ApplyBackground(this);
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            PAGES = new MainPageNavigationPage[8]
+            PAGES = new MainPageNavigationPage[9]
             {
                 // Home:
                 new MainPageNavigationPage(typeof(HomePage), home_navItem, "Home"),
 
                 // My TUM:
+                new MainPageNavigationPage(typeof(UserPage), user_navItem, "My TUM"),
                 new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
                 new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
                 new MainPageNavigationPage(typeof(LecturesPage), lectures_navItem, "Lectures"),

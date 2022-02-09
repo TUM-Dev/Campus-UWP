@@ -24,8 +24,23 @@
                              PaneDisplayMode="Left"
                              SelectionChanged="OnPageSelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader Content="My TUM"
-                                               Foreground="{ThemeResource CaptionTextBrush}"/>
+                <muxc:NavigationViewItem x:Name="user_navItem">
+                    <NavigationViewItemPresenter>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <muxc:PersonPicture Grid.Column="0"
+                                                MaxHeight="25"
+                                                Margin="0,0,0,0"/>
+                            <TextBlock Grid.Column="1"
+                                       Margin="7,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Text="My TUM"/>
+                        </Grid>
+                    </NavigationViewItemPresenter>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="calendar_navItem"
                                          Content="Calendar">
                     <muxc:NavigationViewItem.Icon>

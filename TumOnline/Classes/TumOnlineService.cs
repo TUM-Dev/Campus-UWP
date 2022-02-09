@@ -30,6 +30,7 @@ namespace TumOnline.Classes
         public static readonly TumOnlineService PERSON_DETAILS = new TumOnlineService("personenDetails", VALIDITY_FIVE_DAYS);
         public static readonly TumOnlineService PERSON_SEARCH = new TumOnlineService("personenSuche", VALIDITY_NONE);
         public static readonly TumOnlineService GRADES = new TumOnlineService("noten", VALIDITY_FIVE_DAYS);
+        public static readonly TumOnlineService ID = new TumOnlineService("id", VALIDITY_TEN_DAYS);
 
         public readonly string NAME;
         public readonly TimeSpan VALIDITY;

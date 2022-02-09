@@ -139,9 +139,12 @@
     <Compile Include="Classes\Models\External\StudyRoomGroup.cs" />
     <Compile Include="Classes\Models\External\StudyRoomStatus.cs" />
     <Compile Include="Classes\Models\TumOnline\CalendarEvent.cs" />
+    <Compile Include="Classes\Models\TumOnline\User.cs" />
     <Compile Include="Classes\Models\TumOnline\Lecture.cs" />
     <Compile Include="Classes\Models\TumOnline\Grade.cs" />
     <Compile Include="Classes\Models\TumOnline\TuitionFee.cs" />
+    <Compile Include="Classes\Models\TumOnline\Identity.cs" />
+    <Compile Include="Classes\Models\TumOnline\UserGroup.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\SettingsConsts.cs" />
     <Compile Include="Classes\TokenReader.cs" />
