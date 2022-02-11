@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Shared.Classes.Image;
 
 namespace Storage.Classes.Models.TumOnline
 {
@@ -17,6 +18,7 @@ namespace Storage.Classes.Models.TumOnline
         public string Email { get; set; }
         public string Gender { get; set; }
         public byte[] Image { get; set; }
+        public MediaType ImageType { get; set; } = MediaType.None;
         [Required]
         public List<UserGroup> Groups { get; set; } = new List<UserGroup>();
 

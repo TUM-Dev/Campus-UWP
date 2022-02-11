@@ -5,9 +5,37 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      xmlns:tumonline="using:Storage.Classes.Models.TumOnline"
       xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
       Background="{ThemeResource AppBackgroundAcrylicWindowBrush}"
       mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="UserGroupDataTemplate"
+                      x:DataType="tumonline:UserGroup">
+            <StackPanel Padding="10"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        CornerRadius="{ThemeResource OverlayCornerRadius}">
+                <TextBlock Foreground="{ThemeResource TumBlueBrush}"
+                           IsTextSelectionEnabled="True"
+                           Style="{ThemeResource BaseTextBlockStyle}"
+                           Text="{x:Bind Organization}"
+                           TextWrapping="Wrap"/>
+                <TextBlock IsTextSelectionEnabled="True"
+                           TextWrapping="Wrap">
+                    <Run Text="{x:Bind Title}"/>
+                    <Run Text="("/>
+                    <Run Text="{x:Bind Identifier}"/>
+                    <Run Text=")"/>
+                </TextBlock>
+                <TextBlock IsTextSelectionEnabled="True"
+                           Text="{x:Bind Description}"
+                           TextWrapping="Wrap"
+                           Visibility="{x:Bind Description, Converter={StaticResource StringEmptyVisibilityValueConverter}}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Border Grid.Row="1"
@@ -15,25 +43,62 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Visibility="Visible">
-
             <Grid Padding="10"
                   HorizontalAlignment="Stretch"
                   Background="{ThemeResource LayerFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                   CornerRadius="{ThemeResource OverlayCornerRadius}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <muxc:PersonPicture Grid.Column="0"
-                                    Width="150"
-                                    Height="150"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="1">
-                    <TextBlock HorizontalAlignment="Center"
-                               Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="Fabian Sauter"/>
-                </StackPanel>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <muxc:PersonPicture Grid.Column="0"
+                                        Width="150"
+                                        Height="150"
+                                        ProfilePicture="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"
+                                        Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       IsTextSelectionEnabled="True"
+                                       MaxLines="2"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="{x:Bind VIEW_MODEL.MODEL.Name, Mode=OneWay}"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="Wrap"/>
+                            <TextBlock HorizontalAlignment="Center"
+                                       IsTextSelectionEnabled="True"
+                                       Style="{ThemeResource CaptionLineTextBlockStyle}"
+                                       Text="{x:Bind VIEW_MODEL.MODEL.Identity.Id, Mode=OneWay}"/>
+                            <TextBlock HorizontalAlignment="Center"
+                                       IsTextSelectionEnabled="True">
+                                <Hyperlink NavigateUri="{x:Bind VIEW_MODEL.MODEL.MailUri, Mode=OneWay}">
+                                    <Run Text="{x:Bind VIEW_MODEL.MODEL.Mail, Mode=OneWay}"/>
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
+                </Grid>
+
+                <muxc:ItemsRepeater Grid.Row="1"
+                                    Margin="0,10,0,0"
+                                    ItemTemplate="{StaticResource UserGroupDataTemplate}"
+                                    ItemsSource="{x:Bind VIEW_MODEL.MODEL.User.Groups, Mode=OneWay}"
+                                    ScrollViewer.HorizontalScrollMode="Disabled"
+                                    ScrollViewer.VerticalScrollMode="Disabled"/>
             </Grid>
 
             <ui:Effects.Shadow>

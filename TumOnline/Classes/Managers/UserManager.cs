@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Logging.Classes;
 using Shared.Classes;
+using Shared.Classes.Image;
 using Storage.Classes;
 using Storage.Classes.Contexts;
 using Storage.Classes.Models.TumOnline;
@@ -134,6 +135,49 @@ namespace TumOnline.Classes.Managers
                 {
                     throw new MalformedXmlTumOnlineException(null, $"Missing 'nr' field when parsing an user.", person.ToString());
                 }
+
+                // Parse image:
+                byte[] image = null;
+                MediaType imageType = MediaType.None;
+                XmlNode imageNode = person.SelectSingleNode("image_data");
+                if (!(imageNode is null))
+                {
+                    bool isNull = false;
+                    foreach (XmlAttribute att in imageNode.Attributes)
+                    {
+                        if (string.Equals(att.Name, "isnull"))
+                        {
+                            if (string.Equals(att.Value, "true"))
+                            {
+                                isNull = true;
+                            }
+                            break;
+                        }
+                    }
+
+                    if (!isNull)
+                    {
+                        try
+                        {
+                            imageType = ImageUtils.ParseMediaType(imageNode.Attributes["contenttype"].Value);
+                            if (imageType == MediaType.None)
+                            {
+                                Logger.Error($"Unknown media type for TUMonline user image '{imageNode.Attributes["contenttype"].Value}'.");
+                            }
+                            else
+                            {
+
+                                image = Convert.FromBase64String(imageNode.InnerText);
+
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error("Failed to parse TUMonline user image node: " + image.ToString(), e);
+                        }
+                    }
+                }
+
                 return new User
                 {
                     Id = nr,
@@ -143,7 +187,8 @@ namespace TumOnline.Classes.Managers
                     Gender = person.SelectSingleNode("geschlecht").InnerText,
                     ObfuscatedId = person.SelectSingleNode("obfuscated_id").InnerText,
                     Title = person.SelectSingleNode("titel").InnerText,
-                    Image = null,
+                    Image = image,
+                    ImageType = imageType,
                     Groups = ParseUserGroups(person.SelectSingleNode("gruppen"))
                 };
             }
@@ -166,7 +211,6 @@ namespace TumOnline.Classes.Managers
 
         private static UserGroup ParseUserGroup(XmlNode groupNode)
         {
-
             return new UserGroup
             {
                 Identifier = groupNode.SelectSingleNode("kennung").InnerText,

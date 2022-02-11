@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Shared.Classes;
 using Storage.Classes;
-using Storage.Classes.Models.TumOnline;
 using TumOnline.Classes.Events;
 using TumOnline.Classes.Managers;
 using UI_Context.Classes.Templates.Pages.Content;
@@ -20,7 +19,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         public UserPageContext()
         {
             IdentityManager.INSTANCE.OnRequestError += OnRequestError;
-            Refresh(true);
+            Refresh(false);
         }
 
         #endregion
@@ -43,8 +42,15 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             MODEL.IsLoading = true;
             MODEL.ShowError = false;
-            Identity identity = await IdentityManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
-            User user = await UserManager.INSTANCE.UpdateUserAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), identity.ObfuscatedId, refresh).ConfAwaitFalse();
+            MODEL.Identity = await IdentityManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), refresh).ConfAwaitFalse();
+            if (MODEL.Identity is null)
+            {
+                MODEL.User = null;
+            }
+            else
+            {
+                MODEL.User = await UserManager.INSTANCE.UpdateUserAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), MODEL.Identity.ObfuscatedId, refresh).ConfAwaitFalse();
+            }
             MODEL.IsLoading = false;
         }
 
