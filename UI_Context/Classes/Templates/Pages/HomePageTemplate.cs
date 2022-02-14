@@ -1,4 +1,5 @@
 ﻿using Shared.Classes;
+using Storage.Classes.Models.TumOnline;
 
 namespace UI_Context.Classes.Templates.Pages.Content
 {
@@ -6,7 +7,12 @@ namespace UI_Context.Classes.Templates.Pages.Content
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private Identity _Identity;
+        public Identity Identity
+        {
+            get => _Identity;
+            set => SetProperty(ref _Identity, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

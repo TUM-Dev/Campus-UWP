@@ -1,6 +1,7 @@
 ﻿<Page x:Class="UI.Pages.Content.UserPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:UI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
@@ -58,11 +59,11 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <muxc:PersonPicture Grid.Column="0"
-                                        Width="150"
-                                        Height="150"
-                                        ProfilePicture="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"
-                                        Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
+                    <controls:TumOnlineUserImageControl Grid.Column="0"
+                                                        Width="150"
+                                                        Height="150"
+                                                        ObfuscatedId="{x:Bind VIEW_MODEL.MODEL.Identity.ObfuscatedId, Mode=OneWay}"
+                                                        Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}"/>
 
                     <StackPanel Grid.Column="1"
                                 Margin="10,0,0,0"

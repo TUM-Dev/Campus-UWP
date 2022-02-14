@@ -1,22 +1,29 @@
-﻿using System.Threading.Tasks;
-using Storage.Classes;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages.Content;
+﻿using System.ComponentModel;
+using UI_Context.Classes.Context.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-namespace UI_Context.Classes.Context.Pages.Content
+namespace UI.Controls
 {
-    public class HomePageContext
+    public sealed partial class TumOnlineUserImageControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly HomePageTemplate MODEL = new HomePageTemplate();
+        public readonly TumOnlineUserImageControlContext VIEW_MODEL = new TumOnlineUserImageControlContext();
+
+        public string ObfuscatedId
+        {
+            get => (string)GetValue(ObfuscatedIdProperty);
+            set => SetValue(ObfuscatedIdProperty, value);
+        }
+        public static readonly DependencyProperty ObfuscatedIdProperty = DependencyProperty.Register(nameof(ObfuscatedId), typeof(string), typeof(TumOnlineUserImageControl), new PropertyMetadata(null, OnObfuscatedIdChanged));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public HomePageContext()
+        public TumOnlineUserImageControl()
         {
-            Task.Run(async () => await LoadIdentityAsync());
+            InitializeComponent();
         }
 
         #endregion
@@ -27,10 +34,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task LoadIdentityAsync()
-        {
-            MODEL.Identity = await IdentityManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), false);
-        }
+
 
         #endregion
 
@@ -45,7 +49,13 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private static void OnObfuscatedIdChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is TumOnlineUserImageControl control)
+            {
+                control.VIEW_MODEL.UpdateView(control.ObfuscatedId);
+            }
+        }
 
         #endregion
     }

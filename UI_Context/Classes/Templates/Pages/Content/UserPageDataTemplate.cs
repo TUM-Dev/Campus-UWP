@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Logging.Classes;
 using Shared.Classes;
-using Shared.Classes.Image;
 using Storage.Classes.Models.TumOnline;
-using Windows.Graphics.Imaging;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace UI_Context.Classes.Templates.Pages.Content
 {
@@ -69,13 +64,6 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _Identity, value);
         }
 
-        private SoftwareBitmapSource _Image;
-        public SoftwareBitmapSource Image
-        {
-            get => _Image;
-            set => SetProperty(ref _Image, value);
-        }
-
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
@@ -101,32 +89,6 @@ namespace UI_Context.Classes.Templates.Pages.Content
                     {
                         Name += " " + value.Title;
                     }
-                }
-                if (!(value.Image is null))
-                {
-                    Task.Run(async () =>
-                    {
-                        try
-                        {
-                            SoftwareBitmap img = await ImageUtils.ToSoftwareBitmapImageAsync(value.Image);
-                            await SharedUtils.CallDispatcherAsync(async () =>
-                            {
-                                try
-                                {
-                                    Image = new SoftwareBitmapSource();
-                                    await Image.SetBitmapAsync(img);
-                                }
-                                catch (Exception e)
-                                {
-                                    Logger.Error("Failed to set TUMonlie user image as SoftwareBitmapSource.", e);
-                                }
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            Logger.Error("Failed to load TUMonline user image from bytes.", e);
-                        }
-                    });
                 }
             }
         }

@@ -1,23 +1,30 @@
-﻿using System.Threading.Tasks;
-using Storage.Classes;
-using TumOnline.Classes.Managers;
-using UI_Context.Classes.Templates.Pages.Content;
+﻿using Shared.Classes;
+using Windows.UI.Xaml.Media.Imaging;
 
-namespace UI_Context.Classes.Context.Pages.Content
+namespace UI_Context.Classes.Templates.Controls
 {
-    public class HomePageContext
+    public class TumOnlineUserImageControlTemplate: AbstractDataTemplate
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly HomePageTemplate MODEL = new HomePageTemplate();
+        private SoftwareBitmapSource _Image;
+        public SoftwareBitmapSource Image
+        {
+            get => _Image;
+            set => SetProperty(ref _Image, value);
+        }
+
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => SetProperty(ref _IsLoading, value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public HomePageContext()
-        {
-            Task.Run(async () => await LoadIdentityAsync());
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -27,10 +34,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task LoadIdentityAsync()
-        {
-            MODEL.Identity = await IdentityManager.INSTANCE.UpdateAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), false);
-        }
+
 
         #endregion
 

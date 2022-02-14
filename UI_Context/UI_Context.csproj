@@ -135,6 +135,7 @@
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
     <Compile Include="Classes\Context\Controls\StudyRooms\StudyRoomControlContext.cs" />
     <Compile Include="Classes\Context\Controls\TuitionFees\TuitionFeeControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\TumOnlineUserImageControlContext.cs" />
     <Compile Include="Classes\Context\Dialogs\ConfirmDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\GradeInfoDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\LectureInfoDialogContext.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Classes\Templates\Controls\StudyRooms\StudyRoomControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\TuitionFees\TuitionFeeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\TumIdTextBoxControlTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\TumOnlineUserImageControlTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\ConfirmDialogTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\GradeInfoDialogDataTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\LectureInfoDialogDataTemplate.cs" />

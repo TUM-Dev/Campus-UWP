@@ -204,6 +204,9 @@
     <Compile Include="Controls\TumIdTextBoxControl.xaml.cs">
       <DependentUpon>TumIdTextBoxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TumOnlineUserImageControl.xaml.cs">
+      <DependentUpon>TumOnlineUserImageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
@@ -461,6 +464,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TumIdTextBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TumOnlineUserImageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
