@@ -132,6 +132,18 @@ namespace UI_Context.Classes
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.2.0.0.");
                     }
+
+                    // DB layout for dishes changed in 2.3.0.0:
+                    if (versionLastStart.Major <= 2 && versionLastStart.Minor < 3)
+                    {
+                        Logger.Info("Started updating to version 2.3.0.0.");
+                        using (TumOnlineDbContext ctx = new TumOnlineDbContext())
+                        {
+                            await ctx.RecreateDbAsync();
+                        }
+                        CacheDbContext.ClearCache();
+                        Logger.Info("Finished updating to version 2.2.0.0.");
+                    }
                 }
             }
             SetVersion(GetPackageVersion());
