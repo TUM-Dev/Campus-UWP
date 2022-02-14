@@ -125,6 +125,7 @@
     <Compile Include="Classes\Contexts\CacheDbContext.cs" />
     <Compile Include="Classes\Contexts\CanteensDbContext.cs" />
     <Compile Include="Classes\Contexts\TumOnlineDbContext.cs" />
+    <Compile Include="Classes\Migrations\AbstractSqlMigration.cs" />
     <Compile Include="Classes\Models\AbstractModel.cs" />
     <Compile Include="Classes\Models\Cache\AbstractCacheModel.cs" />
     <Compile Include="Classes\Models\Cache\CacheEntry.cs" />

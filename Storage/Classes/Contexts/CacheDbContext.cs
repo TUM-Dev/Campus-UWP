@@ -30,7 +30,17 @@ namespace Storage.Classes.Contexts
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        /// <summary>
+        /// Removes all cache lines and cache entries from the DB.
+        /// </summary>
+        public static void ClearCache()
+        {
+            using (CacheDbContext ctx = new CacheDbContext())
+            {
+                ctx.CacheLines.RemoveRange(ctx.CacheLines);
+                ctx.CacheEntries.RemoveRange(ctx.CacheEntries);
+            }
+        }
 
         #endregion
 

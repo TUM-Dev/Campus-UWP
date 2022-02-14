@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Logging.Classes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Storage.Classes.Migrations;
 using Windows.Storage;
 
 namespace Storage.Classes.Contexts
@@ -36,30 +38,37 @@ namespace Storage.Classes.Contexts
         #region --Misc Methods (Public)--
         public override void Dispose()
         {
-            bool saved = false;
-            while (!saved)
+            try
             {
-                try
+                SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Logger.Error("DB inconsistency found: ", ex);
+                Logger.Error($"TRACE:\n{Environment.StackTrace}");
+                foreach (EntityEntry entry in ex.Entries)
                 {
-                    SaveChanges();
-                    saved = true;
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    Logger.Error("DB inconsistency found: ", ex);
-                    foreach (EntityEntry entry in ex.Entries)
+                    try
                     {
+                        entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                        SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error($"DB inconsistency fix failed for '{entry.Entity.GetType()}'. Trying the other way around.", e);
                         try
                         {
-                            entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                            entry.OriginalValues.SetValues(entry.CurrentValues);
+                            SaveChanges();
                         }
-                        catch (Exception e)
+                        catch (Exception exc)
                         {
-                            Logger.Error($"DB inconsistency fix failed for: {entry.Entity.GetType()}", e);
-                            if (Debugger.IsAttached)
-                            {
-                                Debugger.Break();
-                            }
+                            Logger.Error($"Second DB inconsistency fix failed for '{entry.Entity.GetType()}'.", exc);
+                            break;
+                        }
+                        if (Debugger.IsAttached)
+                        {
+                            Debugger.Break();
                         }
                     }
                 }
@@ -76,6 +85,32 @@ namespace Storage.Classes.Contexts
             HashSet<string> paths = new HashSet<string>();
             GetIncludePathsRec(navHirar, navHirarProps, entityType, paths, 0, maxDepth);
             return paths;
+        }
+
+        public bool ApplyMigration(AbstractSqlMigration migration)
+        {
+            try
+            {
+                migration.ApplyMigration(Database);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to apply DB migration.", e);
+#if DEBUG
+                if (Debugger.IsAttached)
+                {
+                    Debugger.Break();
+                }
+#endif
+            }
+            return false;
+        }
+
+        public async Task RecreateDbAsync()
+        {
+            await Database.EnsureDeletedAsync();
+            await Database.EnsureCreatedAsync();
         }
 
         #endregion
