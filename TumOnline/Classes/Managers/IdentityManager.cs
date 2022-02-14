@@ -51,7 +51,7 @@ namespace TumOnline.Classes.Managers
 
             updateTask = Task.Run(async () =>
             {
-                if (!force && CacheDbContext.IsCacheEntryValid(TumOnlineService.LECTURES_PERSONAL.NAME))
+                if (!force && CacheDbContext.IsCacheEntryValid(TumOnlineService.ID.NAME))
                 {
                     Logger.Info("No need to fetch identity. Cache is still valid.");
                     using (TumOnlineDbContext ctx = new TumOnlineDbContext())
@@ -76,7 +76,7 @@ namespace TumOnline.Classes.Managers
                         ctx.RemoveRange(ctx.Identities);
                         ctx.Add(identity);
                     }
-                    CacheDbContext.UpdateCacheEntry(TumOnlineService.LECTURES_PERSONAL.NAME, DateTime.Now.Add(TumOnlineService.LECTURES_PERSONAL.VALIDITY));
+                    CacheDbContext.UpdateCacheEntry(TumOnlineService.ID.NAME, DateTime.Now.Add(TumOnlineService.ID.VALIDITY));
                 }
                 else
                 {
