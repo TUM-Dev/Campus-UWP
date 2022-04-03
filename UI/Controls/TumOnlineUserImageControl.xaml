@@ -17,12 +17,14 @@
                             Height="{x:Bind Height, Mode=OneWay}"
                             MaxWidth="{x:Bind MaxWidth, Mode=OneWay}"
                             MaxHeight="{x:Bind MaxHeight, Mode=OneWay}"
-                            ProfilePicture="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"/>
+                            ProfilePicture="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"
+                            SizeChanged="OnPersonPictureSizeChnaged"/>
 
-        <muxc:ProgressRing Width="{x:Bind Width, Mode=OneWay}"
-                           Height="{x:Bind Height, Mode=OneWay}"
+        <muxc:ProgressRing x:Name="loading_pgr"
+                           Grid.Row="0"
                            MaxWidth="40"
                            MaxHeight="40"
+                           IsActive="True"
                            Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}"/>
     </Grid>
 </UserControl>

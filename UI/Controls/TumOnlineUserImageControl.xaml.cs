@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using UI_Context.Classes.Context.Controls;
+﻿using UI_Context.Classes.Context.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -54,6 +53,29 @@ namespace UI.Controls
             if (d is TumOnlineUserImageControl control)
             {
                 control.VIEW_MODEL.UpdateView(control.ObfuscatedId);
+            }
+        }
+
+        private void OnPersonPictureSizeChnaged(object sender, SizeChangedEventArgs e)
+        {
+            double size = e.NewSize.Height > e.NewSize.Width ? e.NewSize.Width : e.NewSize.Height;
+
+            if (size > loading_pgr.MaxWidth)
+            {
+                loading_pgr.Width = loading_pgr.MaxWidth;
+            }
+            else
+            {
+                loading_pgr.Width = size;
+            }
+
+            if (size > loading_pgr.MaxHeight)
+            {
+                loading_pgr.Height = loading_pgr.MaxHeight;
+            }
+            else
+            {
+                loading_pgr.Height = size;
             }
         }
 
