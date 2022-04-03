@@ -1,9 +1,9 @@
 # UWP TUM Campus-App
-| Platform | Branch | Build Status | Latest Version - Store | Latest Version - Sideload |
-| :---: | :---: | :---: | :---: | :---: |
-| x64 | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20x64?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=19&branchName=v2) | -  | - |
-| x86 | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20x86?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=21&branchName=v2) | - | - |
-| ARM | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20ARM?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=20&branchName=v2) | - | - |
+| Platform | Branch | Build Status | Latest Version |
+| :---: | :---: | :---: | :---: |
+| x64 | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20x64?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=19&branchName=v2) | v.2.3.0 |
+| x86 | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20x86?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=21&branchName=v2) | v.2.3.0 |
+| ARM | [master](https://github.com/TUM-Dev/Campus-UWP/tree/master) | [![Build Status](https://dev.azure.com/uwpx/Campus%20UWP/_apis/build/status/CI%20ARM?branchName=master)](https://dev.azure.com/uwpx/Campus%20UWP/_build/latest?definitionId=20&branchName=v2) | v.2.3.0 |
 
 This is an unofficial TUM Campus App for all devices of the UWP (Windows 10 and 11) family.
 
