@@ -140,6 +140,7 @@
     <Compile Include="Classes\Context\Dialogs\GradeInfoDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\LectureInfoDialogContext.cs" />
     <Compile Include="Classes\Context\Dialogs\ReportCrashDialogContext.cs" />
+    <Compile Include="Classes\Context\Dialogs\ReportLastCrashDialogContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\CalendarPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\UserPageContext.cs" />
     <Compile Include="Classes\DelegateCommand.cs" />
+    <Compile Include="Classes\DummyAppCenterException.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarWidgetControlDataTemplate.cs" />
@@ -181,6 +183,7 @@
     <Compile Include="Classes\Templates\Dialogs\GradeInfoDialogDataTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\LectureInfoDialogDataTemplate.cs" />
     <Compile Include="Classes\Templates\Dialogs\ReportCrashDialogDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Dialogs\ReportLastCrashDialogTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\CalendarPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\CanteensPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\GradesPageDataTemplate.cs" />

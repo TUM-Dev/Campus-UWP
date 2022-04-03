@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Logging.Classes;
 using Microsoft.AppCenter.Analytics;
@@ -93,6 +94,43 @@ namespace UI_Context.Classes
                 throw e;
             }
             Logger.Info("App Center crash reporting registered.");
+        }
+
+        public static string GenerateCrashReport(ErrorReport crashReport)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("--------------------UWPX-Crash-Report--------------------");
+            sb.Append("ID: ");
+            sb.AppendLine(crashReport.Id);
+            sb.Append("Time: ");
+            sb.AppendLine(crashReport.AppErrorTime.ToString("dd/MM/yyyy HH:mm:ss"));
+            sb.Append("App Build: ");
+            sb.AppendLine(crashReport.Device.AppBuild);
+            sb.Append("Device: ");
+            sb.Append(crashReport.Device.OemName);
+            sb.Append(" - ");
+            sb.AppendLine(crashReport.Device.Model);
+            sb.AppendLine(crashReport.StackTrace);
+            sb.AppendLine("---------------------------------------------------------");
+            return sb.ToString();
+        }
+
+        public static void ReportCrashDetails(string details, string report)
+        {
+            try
+            {
+                ErrorAttachmentLog[] attachmentLogs = new ErrorAttachmentLog[]
+                {
+                    ErrorAttachmentLog.AttachmentWithText(details, "details.txt"),
+                    ErrorAttachmentLog.AttachmentWithText(report, "report.txt")
+                };
+                Crashes.TrackError(new DummyAppCenterException(), new Dictionary<string, string> { { nameof(details), details }, { nameof(report), report } }, attachmentLogs);
+                Logger.Info($"Crash reported: {report}\n{details}");
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to report crash.", e);
+            }
         }
 
         #endregion

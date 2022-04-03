@@ -222,6 +222,9 @@
     <Compile Include="Dialogs\ReportCrashDialog.xaml.cs">
       <DependentUpon>ReportCrashDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ReportLastCrashDialog.xaml.cs">
+      <DependentUpon>ReportLastCrashDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\TextBlockMvgDepartureInFormatExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\CalendarPage.xaml.cs">
@@ -488,6 +491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ReportCrashDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ReportLastCrashDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

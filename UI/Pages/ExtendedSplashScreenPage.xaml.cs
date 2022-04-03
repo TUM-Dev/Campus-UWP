@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Logging.Classes;
+using Microsoft.AppCenter.Crashes;
 using Shared.Classes;
 using Storage.Classes;
 using UI.Classes;
+using UI.Dialogs;
 using UI_Context.Classes;
 using Windows.ApplicationModel.Activation;
 using Windows.Graphics.Display;
@@ -139,6 +141,7 @@ namespace UI.Pages
 
             // Setup App Center crashes, push:
             AppCenterHelper.SetupAppCenter();
+            await ShowReportCrashIfNeeded();
 
             // Register background tasks:
             Logger.Info("Registering background tasks...");
@@ -200,6 +203,17 @@ namespace UI.Pages
             {
                 PerformInitialStartSetup();
                 ROOT_FRAME.Navigate(typeof(SetupPage), typeof(MainPage));
+            }
+        }
+
+        private async Task ShowReportCrashIfNeeded()
+        {
+            if (await Crashes.IsEnabledAsync() && await Crashes.HasCrashedInLastSessionAsync())
+            {
+                ErrorReport crashReport = await Crashes.GetLastSessionCrashReportAsync();
+                Logger.Error("Detected a crash in the last session: " + crashReport.StackTrace);
+                ReportLastCrashDialog dialog = new ReportLastCrashDialog(AppCenterHelper.GenerateCrashReport(crashReport));
+                await UiUtils.ShowDialogAsync(dialog);
             }
         }
 
