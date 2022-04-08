@@ -145,6 +145,7 @@
     <Compile Include="Classes\Context\Pages\Content\CanteensPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\GradesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\LecturesPageContext.cs" />
+    <Compile Include="Classes\Context\Pages\Content\NewsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\StudyRoomsPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\TuitionFeesPageContext.cs" />
     <Compile Include="Classes\Context\Pages\Content\UserPageContext.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Classes\Templates\Pages\Content\TuitionFeesPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Content\UserPageDataTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\HomePageTemplate.cs" />
+    <Compile Include="Classes\Templates\Pages\Content\NewsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\DebugSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\GeneralSettingsPageTemplate.cs" />
     <Compile Include="Classes\Templates\Pages\Settings\SettingsPageTemplate.cs" />

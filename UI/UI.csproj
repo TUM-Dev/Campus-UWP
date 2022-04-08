@@ -242,6 +242,9 @@
     <Compile Include="Pages\Content\LecturesPage.xaml.cs">
       <DependentUpon>LecturesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Content\NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Content\StudyRoomsPage.xaml.cs">
       <DependentUpon>StudyRoomsPage.xaml</DependentUpon>
     </Compile>
@@ -518,6 +521,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Content\NewsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Content\StudyRoomsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -624,7 +631,9 @@
       <Version>2.7.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\News\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExternalData\ExternalData.csproj">
       <Project>{3fc2534e-93a6-4694-af55-cf5f2d72da2e}</Project>
