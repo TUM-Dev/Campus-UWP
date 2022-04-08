@@ -57,19 +57,26 @@ namespace UI_Context.Classes.Context.Controls
                     User user = await UserManager.INSTANCE.UpdateUserAsync(Vault.LoadCredentials(Storage.Classes.Settings.GetSettingString(SettingsConsts.TUM_ID)), obfuscatedId, false).ConfAwaitFalse();
                     try
                     {
-                        SoftwareBitmap img = await ImageUtils.ToSoftwareBitmapImageAsync(user.Image);
-                        await SharedUtils.CallDispatcherAsync(async () =>
+                        SoftwareBitmap img = null;
+                        if (!(user.Image is null) && user.Image.Length > 0)
                         {
-                            try
+                            img = await ImageUtils.ToSoftwareBitmapImageAsync(user.Image);
+                        }
+                        if (!(img is null))
+                        {
+                            await SharedUtils.CallDispatcherAsync(async () =>
                             {
-                                MODEL.Image = new SoftwareBitmapSource();
-                                await MODEL.Image.SetBitmapAsync(img);
-                            }
-                            catch (Exception e)
-                            {
-                                Logger.Error("Failed to set TUMonlie user image as SoftwareBitmapSource.", e);
-                            }
-                        });
+                                try
+                                {
+                                    MODEL.Image = new SoftwareBitmapSource();
+                                    await MODEL.Image.SetBitmapAsync(img);
+                                }
+                                catch (Exception e)
+                                {
+                                    Logger.Error("Failed to set TUMonlie user image as SoftwareBitmapSource.", e);
+                                }
+                            });
+                        }
                     }
                     catch (Exception e)
                     {
