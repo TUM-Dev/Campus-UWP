@@ -36,14 +36,14 @@ namespace UI.Pages
 
                 // My TUM:
                 new MainPageNavigationPage(typeof(UserPage), user_navItem, "My TUM"),
-                new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
                 new MainPageNavigationPage(typeof(GradesPage), grades_navItem, "Grades"),
                 new MainPageNavigationPage(typeof(LecturesPage), lectures_navItem, "Lectures"),
-                new MainPageNavigationPage(typeof(CanteensPage), news_navItem, "News"),
                 new MainPageNavigationPage(typeof(CalendarPage), calendar_navItem, "Calendar"),
                 new MainPageNavigationPage(typeof(TuitionFeesPage), tuitionFees_navItem, "Tuition Fees"),
 
                 // General TUM:
+                new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
+                new MainPageNavigationPage(typeof(NewsPage), news_navItem, "News"),
                 new MainPageNavigationPage(typeof(StudyRoomsPage), studyRooms_navItem, "Study Rooms")
             };
             CONTENT_FRAME = contentFrame;

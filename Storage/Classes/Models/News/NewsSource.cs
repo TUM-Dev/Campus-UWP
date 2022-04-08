@@ -1,22 +1,24 @@
-﻿using UI_Context.Classes.Context.Pages.Content;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Storage.Classes.Models.Canteens;
 
-namespace UI.Pages.Content
+namespace Storage.Classes.Models.News
 {
-    public sealed partial class NewsPage: Page
+    public class NewsSource: AbstractCanteensModel
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly NewsPageContext VIEW_MODEL = new NewsPageContext();
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // Do not automatically let the DB generate this ID
+        public string Id { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public string Icon { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public NewsPage()
-        {
-            InitializeComponent();
-        }
+
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -41,10 +43,7 @@ namespace UI.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnRefreshClicked(object sender, RoutedEventArgs e)
-        {
-            VIEW_MODEL.Refresh(true);
-        }
+
 
         #endregion
     }

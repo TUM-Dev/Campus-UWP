@@ -1,54 +1,24 @@
-﻿using Shared.Classes;
-using Shared.Classes.Collections;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Storage.Classes.Models.News;
 
-namespace UI_Context.Classes.Templates.Pages.Content
+namespace Storage.Classes.Contexts
 {
-    public class NewsPageTemplate: AbstractDataTemplate
+    public class NewsDbContext: AbstractDbContext
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly CustomObservableCollection<NewsSource> NEWS_SOURCES_COLLECTIONS = new CustomObservableCollection<NewsSource>(true);
-
-        private bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => SetProperty(ref _IsLoading, value);
-        }
-
-        private bool _HasNews;
-        public bool HasNews
-        {
-            get => _HasNews;
-            set => SetProperty(ref _HasNews, value);
-        }
-
-        private bool _HasNewsSources;
-        public bool HasNewsSources
-        {
-            get => _HasNewsSources;
-            set => SetProperty(ref _HasNewsSources, value);
-        }
-
-        private bool _ShowError;
-        public bool ShowError
-        {
-            get => _ShowError;
-            set => SetProperty(ref _ShowError, value);
-        }
-
-        private string _ErrorMsg;
-        public string ErrorMsg
-        {
-            get => _ErrorMsg;
-            set => SetProperty(ref _ErrorMsg, value);
-        }
+        public DbSet<NewsSource> NewsSources { get; set; }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-
+        public NewsDbContext() : base("news.db")
+        {
+            // Disable change tracking since we always manually update them and only require them read only:
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            Database.EnsureCreated();
+        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
