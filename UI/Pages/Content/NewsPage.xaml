@@ -37,7 +37,7 @@
                        TextAlignment="Center"
                        Visibility="{x:Bind VIEW_MODEL.MODEL.HasNewsSources, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
                 <Run FontSize="150"
-                     Text="🤷"/>
+                     Text="📰"/>
                 <LineBreak/>
                 <Run Text="No news found!"/>
             </TextBlock>
