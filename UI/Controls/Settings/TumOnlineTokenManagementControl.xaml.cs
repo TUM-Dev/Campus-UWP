@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Shared.Classes;
 using UI.Dialogs;
 using UI.Pages;
@@ -36,7 +37,13 @@ namespace UI.Controls.Settings
         #endregion
 
         #region --Misc Methods (Private)--
+        private async Task ShowRestartDialogAsync()
+        {
+            await SharedUtils.CallDispatcherAsync(() =>
+            {
 
+            });
+        }
 
         #endregion
 
@@ -59,8 +66,21 @@ namespace UI.Controls.Settings
         private async void delete_ibtn_Click(IconButtonControl sender, RoutedEventArgs args)
         {
             ConfirmDialog dialog = new ConfirmDialog("Delete TUM ID and Token", "Do you really want to **delete** the local copy of you TUM ID and TUMonline token?");
-            await UiUtils.ShowDialogAsync(dialog).ConfAwaitFalse();
-            VIEW_MODEL.DeleteTumOnlineTokenAndId(dialog.VIEW_MODEL);
+            await UiUtils.ShowDialogAsync(dialog);
+            await VIEW_MODEL.DeleteTumOnlineTokenAndIdAsync(dialog.VIEW_MODEL);
+
+            // Show the info dialog:
+            ContentDialog restartingDialog = new ContentDialog
+            {
+                Title = "Restart Required",
+                Content = "The app will restart shortly to apply those changes...",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close
+            };
+            await restartingDialog.ShowAsync();
+
+            // Restart App:
+            SharedUtils.RequestAppRestart();
         }
 
         #endregion

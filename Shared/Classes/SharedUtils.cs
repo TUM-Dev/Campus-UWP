@@ -170,6 +170,15 @@ namespace Shared.Classes
             Logger.Debug("Vibration not supported.");
         }
 
+        /// <summary>
+        /// Requests the App to restart.
+        /// </summary>
+        public static void RequestAppRestart()
+        {
+            Logger.Info("Restarting app...");
+            _ = CoreApplication.RequestRestartAsync("");
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--

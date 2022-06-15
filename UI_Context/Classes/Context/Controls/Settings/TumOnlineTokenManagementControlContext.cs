@@ -1,4 +1,6 @@
-﻿using Storage.Classes;
+﻿using System.Threading.Tasks;
+using Storage.Classes;
+using Storage.Classes.Contexts;
 using UI_Context.Classes.Context.Dialogs;
 using UI_Context.Classes.Templates.Controls.Settings;
 
@@ -23,12 +25,20 @@ namespace UI_Context.Classes.Context.Controls.Settings
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void DeleteTumOnlineTokenAndId(ConfirmDialogContext ctx)
+        public async Task DeleteTumOnlineTokenAndIdAsync(ConfirmDialogContext ctx)
         {
             if (ctx.MODEL.Confirmed)
             {
+                // Delete token:
                 Storage.Classes.Settings.SetSetting(SettingsConsts.TUM_ID, "");
                 Vault.DeleteAllVaults();
+
+                // Delete DB:
+                using (TumOnlineDbContext dbCtx = new TumOnlineDbContext())
+                {
+                    await dbCtx.Database.EnsureDeletedAsync();
+                    await dbCtx.Database.EnsureCreatedAsync();
+                }
             }
         }
 
