@@ -39,11 +39,13 @@
     </Page.Resources>
 
     <Grid>
-        <Border Grid.Row="1"
-                MaxWidth="400"
+        <muxc:InfoBar IsOpen="{x:Bind VIEW_MODEL.MODEL.ShowError, Mode=OneWay}"
+                      Message="{x:Bind VIEW_MODEL.MODEL.ErrorMsg, Mode=OneWay}"
+                      Severity="Error"/>
+        <Border MaxWidth="400"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                Visibility="Visible">
+                Visibility="{x:Bind VIEW_MODEL.MODEL.User, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityValueConverter}}">
             <Grid Padding="10"
                   HorizontalAlignment="Stretch"
                   Background="{ThemeResource LayerFillColorDefaultBrush}"
@@ -109,5 +111,18 @@
                                           Offset="4"/>
             </ui:Effects.Shadow>
         </Border>
+
+        <TextBlock Grid.Row="1"
+                   Grid.RowSpan="2"
+                   Margin="10,0,10,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Visibility="{x:Bind VIEW_MODEL.MODEL.User, Mode=OneWay, Converter={StaticResource IsNullVisibilityValueConverter}}">
+            <Run FontSize="150"
+                 Text="🤷"/>
+            <LineBreak/>
+            <Run Text="No user found!"/>
+        </TextBlock>
     </Grid>
 </Page>

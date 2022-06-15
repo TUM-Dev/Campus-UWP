@@ -214,6 +214,8 @@
     <Compile Include="Classes\ValueConverter\Grades\GradeBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\HexColorToSolidColorBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\IsNullBoolValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\IsNotNullVisibilityValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\IsNullVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Mvg\BoolToTextDecorationsValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Mvg\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />

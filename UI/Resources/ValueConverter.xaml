@@ -8,4 +8,6 @@
     <valueConverter:BoolInvertedVisibilityValueConverter x:Key="BoolInvertedVisibilityValueConverter"/>
     <valueConverter:IsNullBoolValueConverter x:Key="IsNullBoolValueConverter"/>
     <valueConverter:NullableBoolBoolValueConverter x:Key="NullableBoolBoolValueConverter"/>
+    <valueConverter:IsNotNullVisibilityValueConverter x:Key="IsNotNullVisibilityValueConverter"/>
+    <valueConverter:IsNullVisibilityValueConverter x:Key="IsNullVisibilityValueConverter"/>
 </ResourceDictionary>
