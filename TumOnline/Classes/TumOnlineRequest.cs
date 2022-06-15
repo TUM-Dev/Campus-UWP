@@ -39,6 +39,11 @@ namespace TumOnline.Classes
             return "TCA UWP v." + Package.Current.Id.Version.ToFormattedString();
         }
 
+        public string GetRequestUrl()
+        {
+            return SERVICE_BASE_URL + SERVICE.NAME;
+        }
+
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
@@ -84,7 +89,7 @@ namespace TumOnline.Classes
         private Uri BuildUri()
         {
             string query = string.Join("&", QUERY.Keys.Select(key => !string.IsNullOrWhiteSpace(QUERY[key]) ? (WebUtility.UrlEncode(key) + '=' + WebUtility.UrlEncode(QUERY[key])) : WebUtility.UrlEncode(key)));
-            UriBuilder builder = new UriBuilder(SERVICE_BASE_URL + SERVICE.NAME)
+            UriBuilder builder = new UriBuilder(GetRequestUrl())
             {
                 Query = query
             };

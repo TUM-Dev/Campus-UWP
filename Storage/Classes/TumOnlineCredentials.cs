@@ -21,7 +21,13 @@
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        /// <summary>
+        /// Returns true in case the TUMonline credentials stored here are valid and contain a valid TUM-ID and token.
+        /// </summary>
+        public bool IsValid()
+        {
+            return !string.IsNullOrEmpty(TUM_ID) && !string.IsNullOrEmpty(TOKEN);
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

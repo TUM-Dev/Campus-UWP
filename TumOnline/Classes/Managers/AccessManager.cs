@@ -40,6 +40,10 @@ namespace TumOnline.Classes.Managers
         #region --Misc Methods (Public)--
         public static void AddToken(TumOnlineRequest request, TumOnlineCredentials credentials)
         {
+            if (!credentials.IsValid())
+            {
+                throw new InvalidTokenTumOnlineException(request.GetRequestUrl(), "Please login first.");
+            }
             request.AddQuery(ATTRIBUTE_TOKEN, credentials.TOKEN);
         }
 
