@@ -39,6 +39,13 @@ namespace UI_Context.Classes.Context.Controls.Settings
                     await dbCtx.Database.EnsureDeletedAsync();
                     await dbCtx.Database.EnsureCreatedAsync();
                 }
+
+                // Remove all the cached stuff:
+                using (CacheDbContext dbCtx = new CacheDbContext())
+                {
+                    await dbCtx.Database.EnsureDeletedAsync();
+                    await dbCtx.Database.EnsureCreatedAsync();
+                }
             }
         }
 
