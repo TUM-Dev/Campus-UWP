@@ -14,7 +14,10 @@
         <valueconverter:LabelsEmptyVisibilityValueConverter x:Key="LabelsEmptyVisibilityValueConverter"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="{x:Bind Margin}"
+          Padding="{x:Bind Padding}"
+          Background="{x:Bind Background}"
+          CornerRadius="{x:Bind CornerRadius}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
