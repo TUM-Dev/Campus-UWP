@@ -99,7 +99,7 @@
                     <Button.Flyout>
                         <MenuFlyout>
                             <MenuFlyoutItem x:Name="refreshAll_mfi"
-                                            Click="RefreshAll_mfi_Click"
+                                            Click="OnRefreshAllClicked"
                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoading, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
                                             Text="Refresh all"
                                             Visibility="Collapsed">
@@ -107,12 +107,18 @@
                                     <FontIcon Glyph="&#xE72C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutSeparator Visibility="Collapsed"/>
+                            <MenuFlyoutItem x:Name="refreshLanguages_mfi"
+                                            Click="OnRefreshLanguagesClicked"
+                                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingLanguages, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                                            Text="Refresh languages">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE72C;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem x:Name="refreshCanteens_mfi"
                                             Click="RefreshCanteens_mfi_Click"
                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
-                                            Text="Refresh canteens"
-                                            Visibility="Collapsed">
+                                            Text="Refresh canteens">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE72C;"/>
                                 </MenuFlyoutItem.Icon>
@@ -126,6 +132,9 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                             <MenuFlyoutSeparator/>
+                            <MenuFlyoutSubItem x:Name="language_mfsi"
+                                               IsEnabled="False"
+                                               Text="Language"/>
                             <MenuFlyoutItem x:Name="labels_mfi"
                                             Click="Labels_mfi_Click"
                                             Text="Labels">

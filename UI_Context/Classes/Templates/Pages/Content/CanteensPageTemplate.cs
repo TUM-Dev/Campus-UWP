@@ -13,8 +13,8 @@ namespace UI_Context.Classes.Templates.Pages.Content
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public readonly CustomObservableCollection<Canteen> CANTEENS = new CustomObservableCollection<Canteen>(true);
-        public readonly CustomObservableCollection<Canteen> CANTEENS2 = new CustomObservableCollection<Canteen>(true);
         public readonly CustomObservableCollection<Dish> DISHES = new CustomObservableCollection<Dish>(true);
+        public readonly CustomObservableCollection<Language> LANGUAGES = new CustomObservableCollection<Language>(true);
 
         private Canteen _SelectedCanteen;
         public Canteen SelectedCanteen
@@ -29,6 +29,12 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _IsLoadingCanteens, value);
         }
         private bool _IsLoadingDishes;
+        public bool IsLoadingLanguages
+        {
+            get => _IsLoadingLanguages;
+            set => SetProperty(ref _IsLoadingLanguages, value);
+        }
+        private bool _IsLoadingLanguages;
         public bool IsLoadingDishes
         {
             get => _IsLoadingDishes;
