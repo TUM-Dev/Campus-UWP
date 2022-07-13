@@ -26,7 +26,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             DishManager.INSTANCE.OnRequestError += OnRequestDishesError;
             CanteenManager.INSTANCE.OnRequestError += OnRequestCanteensError;
-            Task.Run(async () => await LoadCanteensAsync(false));
+            Load();
             MODEL.PropertyChanged += OnModelPropertyChanged;
             LoadSettings();
         }
@@ -51,6 +51,17 @@ namespace UI_Context.Classes.Context.Pages.Content
                 if (dishes && !MODEL.IsLoadingDishes)
                 {
                     await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, true);
+                }
+            });
+        }
+
+        public void RefreshLanguages()
+        {
+            Task.Run(async () =>
+            {
+                if (!MODEL.IsLoadingLanguages)
+                {
+                    await LoadLanguagesAsync(true);
                 }
             });
         }
@@ -133,10 +144,19 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoadingCanteens = true;
             MODEL.ShowCanteensError = false;
             IEnumerable<Canteen> canteens;
-            canteens = await CanteenManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
+            canteens = await CanteenManager.INSTANCE.UpdateCanteensAsync(refresh).ConfAwaitFalse();
             MODEL.CANTEENS.Replace(canteens);
             LoadLastSelectedCanteen();
             MODEL.IsLoadingCanteens = false;
+        }
+
+        private async Task LoadLanguagesAsync(bool refresh)
+        {
+            MODEL.IsLoadingLanguages = true;
+            IEnumerable<Language> languages;
+            languages = await CanteenManager.INSTANCE.UpdateLanguagesAsync(refresh).ConfAwaitFalse();
+            MODEL.LANGUAGES.Replace(languages);
+            MODEL.IsLoadingLanguages = false;
         }
 
         private async Task LoadDishesForCanteenAsync(Canteen canteen, bool refresh)
@@ -181,6 +201,23 @@ namespace UI_Context.Classes.Context.Pages.Content
                 Logger.Error($"Failed to parse MapStyle from {mapStyle}.", e);
                 MODEL.MapStyle = MapStyle.Terrain;
             }
+        }
+
+        private void Load()
+        {
+            Task.Run(async () =>
+            {
+                await LoadLanguagesAsync(false);
+
+                if (MODEL.LANGUAGES.IsEmpty())
+                {
+                    MODEL.ShowCanteensError = true;
+                    MODEL.CANTEENS.Clear();
+                    return;
+                }
+
+                await LoadCanteensAsync(false);
+            });
         }
 
         #endregion

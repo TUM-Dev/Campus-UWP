@@ -103,7 +103,7 @@ namespace UI_Context.Classes
                             Logger.Error("Failed to remove old canteens DB with:", e);
                         }
                         Logger.Info("Updating canteens and dishes...");
-                        await CanteenManager.INSTANCE.UpdateAsync(true);
+                        await CanteenManager.INSTANCE.UpdateCanteensAsync(true);
                         await DishManager.INSTANCE.UpdateAsync(true);
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.1.0.0.");
@@ -127,13 +127,13 @@ namespace UI_Context.Classes
                             Logger.Error("Failed to remove old canteens DB with:", e);
                         }
                         Logger.Info("Updating canteens and dishes...");
-                        await CanteenManager.INSTANCE.UpdateAsync(true);
+                        await CanteenManager.INSTANCE.UpdateCanteensAsync(true);
                         await DishManager.INSTANCE.UpdateAsync(true);
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.2.0.0.");
                     }
 
-                    // DB layout for dishes changed in 2.3.0.0:
+                    // DB layout for TUMonline changed in 2.3.0.0:
                     if (versionLastStart.Major <= 2 && versionLastStart.Minor < 3)
                     {
                         Logger.Info("Started updating to version 2.3.0.0.");
@@ -143,6 +143,18 @@ namespace UI_Context.Classes
                         }
                         CacheDbContext.ClearCache();
                         Logger.Info("Finished updating to version 2.2.0.0.");
+                    }
+
+                    // New tables for the canteen DB in 2.4.0.0:
+                    if (versionLastStart.Major <= 2 && versionLastStart.Minor < 4)
+                    {
+                        Logger.Info("Started updating to version 2.4.0.0.");
+                        using (CanteensDbContext ctx = new CanteensDbContext())
+                        {
+                            await ctx.RecreateDbAsync();
+                        }
+                        CacheDbContext.ClearCache();
+                        Logger.Info("Finished updating to version 2.4.0.0.");
                     }
                 }
             }

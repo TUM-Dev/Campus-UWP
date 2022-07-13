@@ -12,6 +12,7 @@ namespace Storage.Classes.Contexts
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         public DbSet<Canteen> Canteens { get; set; }
+        public DbSet<Language> Languages { get; set; }
         public DbSet<Location> Locations { get; set; }
 
         public DbSet<Dish> Dishes { get; set; }
@@ -30,7 +31,13 @@ namespace Storage.Classes.Contexts
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public static Language GetActiveLanguage()
+        {
+            using (CanteensDbContext ctx = new CanteensDbContext())
+            {
+                return ctx.Languages.Where(l => l.Active).FirstOrDefault();
+            }
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

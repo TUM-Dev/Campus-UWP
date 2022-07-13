@@ -41,6 +41,7 @@ namespace UI.Pages.Content
 
             VIEW_MODEL.MODEL.CANTEENS.CollectionChanged += OnCanteensChanged;
             VIEW_MODEL.MODEL.PropertyChanged += OnSelectedCanteenChanged;
+            VIEW_MODEL.MODEL.LANGUAGES.CollectionChanged += OnLanguagesChanged;
         }
 
         #endregion
@@ -136,6 +137,23 @@ namespace UI.Pages.Content
             }
         }
 
+        private void LoadLanguages()
+        {
+            language_mfsi.Items.Clear();
+            language_mfsi.IsEnabled = !VIEW_MODEL.MODEL.LANGUAGES.IsEmpty();
+            foreach (Language lang in VIEW_MODEL.MODEL.LANGUAGES)
+            {
+                ToggleMenuFlyoutItem tmfi = new ToggleMenuFlyoutItem
+                {
+                    Text = lang.Label,
+                    IsChecked = lang.Active,
+                    Tag = lang
+                };
+                tmfi.Click += OnLanguageSelectionChanged;
+                language_mfsi.Items.Add(tmfi);
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Protected)--
@@ -144,7 +162,7 @@ namespace UI.Pages.Content
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void RefreshAll_mfi_Click(object sender, RoutedEventArgs e)
+        private void OnRefreshAllClicked(object sender, RoutedEventArgs e)
         {
             VIEW_MODEL.Refresh(true, true);
         }
@@ -152,6 +170,11 @@ namespace UI.Pages.Content
         private void RefreshCanteens_mfi_Click(object sender, RoutedEventArgs e)
         {
             VIEW_MODEL.Refresh(true, false);
+        }
+
+        private void OnRefreshLanguagesClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.RefreshLanguages();
         }
 
         private void RefreshDishes_mfi_Click(object sender, RoutedEventArgs e)
@@ -230,6 +253,40 @@ namespace UI.Pages.Content
         private void OnAerial3DViewClicked(object sender, RoutedEventArgs e)
         {
             VIEW_MODEL.MODEL.MapStyle = MapStyle.Aerial3DWithRoads;
+        }
+
+        private void OnLanguagesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            LoadLanguages();
+        }
+
+        private void OnLanguageSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is ToggleMenuFlyoutItem tmfi && tmfi.Tag is Language langClicked)
+            {
+                // Prevent unselecting all languages:
+                if (!tmfi.IsChecked)
+                {
+                    tmfi.IsChecked = true;
+                    return;
+                }
+
+                // Update the selected language:
+                foreach (Language lang in VIEW_MODEL.MODEL.LANGUAGES)
+                {
+                    if (lang.Active)
+                    {
+                        lang.Active = false;
+                        lang.Update();
+                    }
+                    else if (string.Equals(lang.Label, langClicked.Label))
+                    {
+                        lang.Active = true;
+                        lang.Update();
+                    }
+                }
+                LoadLanguages();
+            }
         }
 
         #endregion
