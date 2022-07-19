@@ -17,6 +17,7 @@ namespace ExternalData.Classes.Manager
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private static readonly Uri LANGUAGES_URI = new Uri("https://tum-dev.github.io/eat-api/enums/languages.json");
+        private static readonly Uri LABELS_URI = new Uri("https://tum-dev.github.io/eat-api/enums/labels.json");
         private static readonly string BASE_URI_PREFIX = "https://tum-dev.github.io/eat-api/";
         private static readonly string CANTEENS_URI_POSTDIX = "/enums/canteens.json";
         private static readonly TimeSpan MAX_TIME_IN_CACHE = TimeSpan.FromDays(7);
@@ -33,9 +34,14 @@ namespace ExternalData.Classes.Manager
         private const string JSON_CANTEEN_LANGUAGE_FLAG = "flag";
         private const string JSON_CANTEEN_LANGUAGE_LABEL = "label";
 
+        private const string JSON_LABEL_ENUM_NAME = "enum_name";
+        private const string JSON_LABEL_TEXT = "text";
+        private const string JSON_LABEL_ABBREVIATION = "abbreviation";
+
 
         private Task<IEnumerable<Canteen>> updateCanteensTask;
         private Task<IEnumerable<Language>> updateLanguagesTask;
+        private Task<IEnumerable<Label>> updateLabelsTask;
 
         public static readonly CanteenManager INSTANCE = new CanteenManager();
         #endregion
@@ -46,12 +52,21 @@ namespace ExternalData.Classes.Manager
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-        private void MigrateActiveLanguage(IEnumerable<Language> languages)
+        private void MigrateActiveLanguage(List<Language> languages)
         {
             Language activeLang = CanteensDbContext.GetActiveLanguage();
             if (activeLang is null)
             {
                 bool foundEnglish = false;
+                for (int i = 0; i < languages.Count(); i++)
+                {
+                    if (string.Equals(languages[i].Name, "EN"))
+                    {
+                        languages[i].Active = true;
+                        foundEnglish = true;
+                        break;
+                    }
+                }
                 foreach (Language lang in languages)
                 {
                     if (string.Equals(lang.Name, "EN"))
@@ -102,7 +117,16 @@ namespace ExternalData.Classes.Manager
 
             updateCanteensTask = Task.Run(async () =>
             {
-                if (!force && CacheDbContext.IsCacheEntryValid(CANTEENS_URI_POSTDIX))
+                // Get current language:
+                Language lang = CanteensDbContext.GetActiveLanguage();
+                if (lang is null)
+                {
+                    Logger.Error("Failed to download canteens. No language available.");
+                    return new List<Canteen>();
+                }
+                Logger.Debug($"Canteen language: {lang.Name}");
+
+                if (!force && CacheDbContext.IsCacheEntryValid(CANTEENS_URI_POSTDIX + '_' + lang.BaseUrl))
                 {
                     Logger.Info("No need to fetch canteens. Cache is still valid.");
                     using (CanteensDbContext ctx = new CanteensDbContext())
@@ -110,7 +134,7 @@ namespace ExternalData.Classes.Manager
                         return ctx.Canteens.Include(ctx.GetIncludePaths(typeof(Canteen))).ToList();
                     }
                 }
-                IEnumerable<Canteen> canteens = await DownloadCanteensAsync();
+                IEnumerable<Canteen> canteens = await DownloadCanteensAsync(lang);
                 if (!(canteens is null))
                 {
                     using (CanteensDbContext ctx = new CanteensDbContext())
@@ -118,7 +142,7 @@ namespace ExternalData.Classes.Manager
                         ctx.RemoveRange(ctx.Canteens);
                         ctx.AddRange(canteens);
                     }
-                    CacheDbContext.UpdateCacheEntry(CANTEENS_URI_POSTDIX, DateTime.Now.Add(MAX_TIME_IN_CACHE));
+                    CacheDbContext.UpdateCacheEntry(CANTEENS_URI_POSTDIX + '_' + lang.BaseUrl, DateTime.Now.Add(MAX_TIME_IN_CACHE));
                     return canteens;
                 }
                 Logger.Info("Failed to retrieve canteens. Returning from DB.");
@@ -152,15 +176,16 @@ namespace ExternalData.Classes.Manager
                 if (!(languages is null))
                 {
                     // Keep currently selected language or select english per default:
-                    MigrateActiveLanguage(languages);
+                    List<Language> langList = languages.ToList();
+                    MigrateActiveLanguage(langList);
 
                     using (CanteensDbContext ctx = new CanteensDbContext())
                     {
                         ctx.RemoveRange(ctx.Languages);
-                        ctx.AddRange(languages);
+                        ctx.AddRange(langList);
                     }
                     CacheDbContext.UpdateCacheEntry(LANGUAGES_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
-                    return languages;
+                    return (IEnumerable<Language>)langList;
                 }
                 Logger.Info("Failed to retrieve canteen languages. Returning from DB.");
                 using (CanteensDbContext ctx = new CanteensDbContext())
@@ -171,23 +196,51 @@ namespace ExternalData.Classes.Manager
             return await updateLanguagesTask.ConfAwaitFalse();
         }
 
+        public async Task<IEnumerable<Label>> UpdateLabelsAsync(bool force)
+        {
+            // Wait for the old update to finish first:
+            if (!(updateLabelsTask is null) && !updateLabelsTask.IsCompleted)
+            {
+                return await updateLabelsTask.ConfAwaitFalse();
+            }
+
+            updateLabelsTask = Task.Run(async () =>
+            {
+                if (!force && CacheDbContext.IsCacheEntryValid(LABELS_URI.ToString()))
+                {
+                    Logger.Info("No need to fetch labels. Cache is still valid.");
+                    using (CanteensDbContext ctx = new CanteensDbContext())
+                    {
+                        return ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
+                    }
+                }
+                IEnumerable<Label> labels = await DownloadLabelsAsync();
+                if (!(labels is null))
+                {
+                    using (CanteensDbContext ctx = new CanteensDbContext())
+                    {
+                        ctx.RemoveRange(ctx.Labels);
+                        ctx.RemoveRange(ctx.LabelTranslations);
+                        ctx.AddRange(labels);
+                    }
+                    CacheDbContext.UpdateCacheEntry(LABELS_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
+                    return labels;
+                }
+                Logger.Info("Failed to retrieve labels. Returning from DB.");
+                using (CanteensDbContext ctx = new CanteensDbContext())
+                {
+                    return ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
+                }
+            });
+            return await updateLabelsTask.ConfAwaitFalse();
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
-        private async Task<IEnumerable<Canteen>> DownloadCanteensAsync()
+        private async Task<IEnumerable<Canteen>> DownloadCanteensAsync(Language lang)
         {
             Logger.Info("Downloading canteen...");
-
-            // Get current language:
-            Language lang = CanteensDbContext.GetActiveLanguage();
-            if (lang is null)
-            {
-                Logger.Error("Failed to download canteens. No language available.");
-                return null;
-            }
-
-            Logger.Debug($"Canteen language: {lang.Name}");
-
             string uri = BASE_URI_PREFIX + lang.BaseUrl + CANTEENS_URI_POSTDIX;
 
             string jsonString;
@@ -255,6 +308,41 @@ namespace ExternalData.Classes.Manager
             }
         }
 
+        private async Task<IEnumerable<Label>> DownloadLabelsAsync()
+        {
+            Logger.Info("Downloading labels...");
+
+            string jsonString;
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    jsonString = await wc.DownloadStringTaskAsync(LABELS_URI.ToString());
+                }
+                catch (Exception e)
+                {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
+                    Logger.Error("Failed to download labels string.", e);
+                    return null;
+                }
+            }
+
+            JsonArray json;
+            try
+            {
+                json = JsonArray.Parse(jsonString);
+                IEnumerable<Label> labels = json.Select(x => LoadLablesFromJson(x.GetObject()));
+                Logger.Info("Successfully downloaded " + labels.Count() + " labels.");
+                return labels;
+            }
+            catch (Exception e)
+            {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
+                Logger.Error("Failed to parse downloaded labels.", e);
+                return null;
+            }
+        }
+
         private Canteen LoadCanteenFromJson(JsonObject json)
         {
             return new Canteen()
@@ -262,6 +350,27 @@ namespace ExternalData.Classes.Manager
                 Id = json.GetNamedString(JSON_CANTEEN_ID),
                 Name = json.GetNamedString(JSON_CANTEEN_NAME),
                 Location = LoadLocationFromJson(json.GetNamedObject(JSON_LOCATION))
+            };
+        }
+
+        private Label LoadLablesFromJson(JsonObject json)
+        {
+            JsonObject text = json.GetNamedObject(JSON_LABEL_TEXT);
+            List<LabelTranslation> translations = new List<LabelTranslation>();
+            foreach (string lang in text.Keys)
+            {
+                translations.Add(new LabelTranslation
+                {
+                    Text = text.GetNamedString(lang),
+                    Lang = lang
+                });
+            }
+
+            return new Label()
+            {
+                EnumName = json.GetNamedString(JSON_LABEL_ENUM_NAME),
+                Abbreviation = json.GetNamedString(JSON_LABEL_ABBREVIATION),
+                Translations = translations
             };
         }
 

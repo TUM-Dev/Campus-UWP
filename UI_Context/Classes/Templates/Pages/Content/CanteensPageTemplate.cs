@@ -35,6 +35,12 @@ namespace UI_Context.Classes.Templates.Pages.Content
             set => SetProperty(ref _IsLoadingLanguages, value);
         }
         private bool _IsLoadingLanguages;
+        public bool IsLoadingLabels
+        {
+            get => _IsLoadingLabels;
+            set => SetProperty(ref _IsLoadingLabels, value);
+        }
+        private bool _IsLoadingLabels;
         public bool IsLoadingDishes
         {
             get => _IsLoadingDishes;

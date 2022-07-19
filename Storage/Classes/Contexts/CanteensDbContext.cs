@@ -15,6 +15,8 @@ namespace Storage.Classes.Contexts
         public DbSet<Language> Languages { get; set; }
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<LabelTranslation> LabelTranslations { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Price> Prices { get; set; }
 

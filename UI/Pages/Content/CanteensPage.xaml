@@ -115,6 +115,14 @@
                                     <FontIcon Glyph="&#xE72C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
+                            <MenuFlyoutItem x:Name="refreshLabels_mfi"
+                                            Click="OnRefreshLabelsClicked"
+                                            IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingLabels, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"
+                                            Text="Refresh labels">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE72C;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem x:Name="refreshCanteens_mfi"
                                             Click="RefreshCanteens_mfi_Click"
                                             IsEnabled="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Converter={StaticResource BoolInverterValueConverter}, Mode=OneWay}"

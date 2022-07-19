@@ -133,6 +133,8 @@
     <Compile Include="Classes\Models\Cache\CacheLine.cs" />
     <Compile Include="Classes\Models\Canteens\AbstractCanteensModel.cs" />
     <Compile Include="Classes\Models\Canteens\Canteen.cs" />
+    <Compile Include="Classes\Models\Canteens\LabelTranslation.cs" />
+    <Compile Include="Classes\Models\Canteens\Label.cs" />
     <Compile Include="Classes\Models\Canteens\Language.cs" />
     <Compile Include="Classes\Models\Canteens\Dish.cs" />
     <Compile Include="Classes\Models\Canteens\Location.cs" />

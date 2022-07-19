@@ -164,12 +164,13 @@ namespace UI.Pages.Content
         #region --Events--
         private void OnRefreshAllClicked(object sender, RoutedEventArgs e)
         {
-            VIEW_MODEL.Refresh(true, true);
+            // TODO: Refresh all
+            throw new NotImplementedException("Refreshing all is not implemented right now");
         }
 
         private void RefreshCanteens_mfi_Click(object sender, RoutedEventArgs e)
         {
-            VIEW_MODEL.Refresh(true, false);
+            VIEW_MODEL.RefreshCanteens();
         }
 
         private void OnRefreshLanguagesClicked(object sender, RoutedEventArgs e)
@@ -177,9 +178,14 @@ namespace UI.Pages.Content
             VIEW_MODEL.RefreshLanguages();
         }
 
+        private void OnRefreshLabelsClicked(object sender, RoutedEventArgs e)
+        {
+            VIEW_MODEL.RefreshLabels();
+        }
+
         private void RefreshDishes_mfi_Click(object sender, RoutedEventArgs e)
         {
-            VIEW_MODEL.Refresh(false, true);
+            VIEW_MODEL.RefreshDishes();
         }
 
         private void OnCanteensChanged(object sender, NotifyCollectionChangedEventArgs e)

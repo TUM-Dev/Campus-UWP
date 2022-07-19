@@ -39,16 +39,22 @@ namespace UI_Context.Classes.Context.Pages.Content
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void Refresh(bool canteens, bool dishes)
+        public void RefreshCanteens()
         {
             Task.Run(async () =>
             {
-                if (canteens && !MODEL.IsLoadingCanteens)
+                if (!MODEL.IsLoadingCanteens)
                 {
                     await LoadCanteensAsync(true);
                 }
+            });
+        }
 
-                if (dishes && !MODEL.IsLoadingDishes)
+        public void RefreshDishes()
+        {
+            Task.Run(async () =>
+            {
+                if (!MODEL.IsLoadingCanteens)
                 {
                     await LoadDishesForCanteenAsync(MODEL.SelectedCanteen, true);
                 }
@@ -62,6 +68,17 @@ namespace UI_Context.Classes.Context.Pages.Content
                 if (!MODEL.IsLoadingLanguages)
                 {
                     await LoadLanguagesAsync(true);
+                }
+            });
+        }
+
+        public void RefreshLabels()
+        {
+            Task.Run(async () =>
+            {
+                if (!MODEL.IsLoadingLabels)
+                {
+                    await LoadLabelsAsync(true);
                 }
             });
         }
@@ -159,6 +176,13 @@ namespace UI_Context.Classes.Context.Pages.Content
             MODEL.IsLoadingLanguages = false;
         }
 
+        private async Task LoadLabelsAsync(bool refresh)
+        {
+            MODEL.IsLoadingLabels = true;
+            await CanteenManager.INSTANCE.UpdateLabelsAsync(refresh).ConfAwaitFalse();
+            MODEL.IsLoadingLabels = false;
+        }
+
         private async Task LoadDishesForCanteenAsync(Canteen canteen, bool refresh)
         {
             MODEL.IsLoadingDishes = true;
@@ -207,6 +231,7 @@ namespace UI_Context.Classes.Context.Pages.Content
         {
             Task.Run(async () =>
             {
+                await LoadLabelsAsync(false);
                 await LoadLanguagesAsync(false);
 
                 if (MODEL.LANGUAGES.IsEmpty())
