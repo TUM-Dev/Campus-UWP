@@ -324,6 +324,9 @@ namespace ExternalData.Classes.Manager
                 case JsonValueType.Null:
                     return null;
 
+                case JsonValueType.Number:
+                    return val.GetNumber().ToString("n2");
+
                 default:
                     return val.Stringify();
             }
