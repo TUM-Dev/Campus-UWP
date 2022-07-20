@@ -190,7 +190,7 @@ namespace UI_Context.Classes.Context.Pages.Content
             if (!(canteen is null))
             {
                 IEnumerable<Dish> dishes;
-                await DishManager.INSTANCE.UpdateAsync(refresh).ConfAwaitFalse();
+                await DishManager.INSTANCE.UpdateAsync(canteen.Id, refresh).ConfAwaitFalse();
                 if (MODEL.DishDate == DateTime.MaxValue)
                 {
                     // Load dishes for the next day when canteens are closed already anyway:

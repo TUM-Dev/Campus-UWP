@@ -17,10 +17,13 @@ namespace ExternalData.Classes.Manager
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        private static readonly Uri DISHES_URI = new Uri("https://tum-dev.github.io/eat-api/all_ref.json");
+        private static readonly string BASE_URI_PREFIX = "https://tum-dev.github.io/eat-api/";
+        private static readonly string DISHES_URI_POSTDIX = "combined/combined.json";
         private static readonly TimeSpan MAX_TIME_IN_CACHE = TimeSpan.FromDays(1);
 
         private const string JSON_CANTEEN_ID = "canteen_id";
+        private const string JSON_DISH_WEEKS = "weeks";
+        private const string JSON_DISH_DAYS = "days";
         private const string JSON_DISHES = "dishes";
         private const string JSON_DISH_NAME = "name";
         private const string JSON_DISH_PRICES = "prices";
@@ -45,32 +48,44 @@ namespace ExternalData.Classes.Manager
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        private string BuildCanteenDishUrl(string canteenId, Language lang)
+        {
+            return $"{BASE_URI_PREFIX}{lang.BaseUrl}{canteenId}/{DISHES_URI_POSTDIX}";
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public async Task UpdateAsync(bool force)
+        public async Task UpdateAsync(string canteenId, bool force)
         {
             // Wait for the old update to finish first:
             if (updateTask is null || updateTask.IsCompleted)
             {
                 updateTask = Task.Run(async () =>
                 {
-                    if (!force && CacheDbContext.IsCacheEntryValid(DISHES_URI.ToString()))
+                    // Get current language:
+                    Language lang = CanteensDbContext.GetActiveLanguage();
+                    if (lang is null)
+                    {
+                        Logger.Error("Failed to download dishes. No language available.");
+                        return;
+                    }
+                    Logger.Debug($"Dish language: {lang.Name}");
+
+                    if (!force && CacheDbContext.IsCacheEntryValid(BuildCanteenDishUrl(canteenId, lang)))
                     {
                         Logger.Info("No need to fetch dishes. Cache is still valid.");
                         return;
                     }
-                    IEnumerable<Dish> dishes = await DownloadDishesAsync();
+                    IEnumerable<Dish> dishes = await DownloadDishesAsync(canteenId, lang);
                     if (!(dishes is null))
                     {
                         using (CanteensDbContext ctx = new CanteensDbContext())
                         {
-                            ctx.RemoveRange(ctx.Dishes);
+                            ctx.RemoveRange(ctx.Dishes.Where(d => string.Equals(d.CanteenId, canteenId)));
                             ctx.AddRange(dishes);
                         }
-                        CacheDbContext.UpdateCacheEntry(DISHES_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
+                        CacheDbContext.UpdateCacheEntry(BuildCanteenDishUrl(canteenId, lang), DateTime.Now.Add(MAX_TIME_IN_CACHE));
                     }
                 });
             }
@@ -151,58 +166,67 @@ namespace ExternalData.Classes.Manager
         #endregion
 
         #region --Misc Methods (Private)--
-        private async Task<IEnumerable<Dish>> DownloadDishesAsync()
+        private async Task<IEnumerable<Dish>> DownloadDishesAsync(string canteenId, Language lang)
         {
-            Logger.Info("Downloading dishes...");
+            Logger.Info($"Downloading dishes for '{canteenId}'...");
             string jsonString;
             using (WebClient wc = new WebClient())
             {
                 try
                 {
-                    jsonString = await wc.DownloadStringTaskAsync(DISHES_URI);
+                    jsonString = await wc.DownloadStringTaskAsync(BuildCanteenDishUrl(canteenId, lang));
                 }
                 catch (Exception e)
                 {
                     InvokeOnRequestError(new RequestErrorEventArgs(e));
-                    Logger.Error("Failed to download dishes string.", e);
+                    Logger.Error($"Failed to download dishes string for '{canteenId}'.", e);
                     return null;
                 }
             }
 
-            JsonArray json;
+            JsonObject json;
             try
             {
                 List<Dish> dishes = new List<Dish>();
-                json = JsonArray.Parse(jsonString);
-                foreach (IJsonValue canteen in json)
+                json = JsonObject.Parse(jsonString);
+                string canteenIdResponse = json.GetNamedString(JSON_CANTEEN_ID);
+                if (!string.Equals(canteenId, canteenIdResponse, StringComparison.OrdinalIgnoreCase))
                 {
-                    JsonObject obj = canteen.GetObject();
-                    string canteenId = obj.GetNamedString(JSON_CANTEEN_ID);
-                    JsonArray dishesJson = obj.GetNamedArray(JSON_DISHES);
-                    foreach (IJsonValue dish in dishesJson)
+                    Logger.Error($"Requested canteen ID ('{canteenId}') and respons canteen ID ('{canteenIdResponse}') do not match.");
+                    return null;
+                }
+
+                foreach (JsonValue week in json.GetNamedArray(JSON_DISH_WEEKS))
+                {
+                    foreach (JsonValue day in week.GetObject().GetNamedArray(JSON_DISH_DAYS))
                     {
-                        dishes.Add(LoadDishFromJson(dish.GetObject(), canteenId));
+                        DateTime date = DateTime.ParseExact(day.GetObject().GetNamedString(JSON_DISH_DATE), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        foreach (JsonValue dish in day.GetObject().GetNamedArray(JSON_DISHES))
+                        {
+                            dishes.Add(LoadDishFromJson(dish.GetObject(), canteenId, date));
+                        }
                     }
                 }
-                Logger.Info("Successfully downloaded " + dishes.Count() + " dishes.");
+
+                Logger.Info($"Successfully downloaded {dishes.Count()} dishes for '{canteenId}'.");
                 return dishes;
             }
             catch (Exception e)
             {
                 InvokeOnRequestError(new RequestErrorEventArgs(e));
-                Logger.Error("Failed to parse downloaded dishes.", e);
+                Logger.Error($"Failed to parse downloaded dishes for '{canteenId}'.", e);
                 return null;
             }
         }
 
-        private Dish LoadDishFromJson(JsonObject json, string canteenId)
+        private Dish LoadDishFromJson(JsonObject json, string canteenId, DateTime date)
         {
             JsonObject prices = json.GetNamedObject(JSON_DISH_PRICES);
             string type = json.GetNamedString(JSON_DISH_TYPE);
             return new Dish()
             {
                 CanteenId = canteenId,
-                Date = DateTime.ParseExact(json.GetNamedString(JSON_DISH_DATE), "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                Date = date,
                 Labels = LoadLabelsFromJson(json),
                 Name = json.GetNamedString(JSON_DISH_NAME),
                 PriceGuests = LoadPriceFromJson(prices.GetNamedValue(JSON_DISH_PRICE_GUESTS)),

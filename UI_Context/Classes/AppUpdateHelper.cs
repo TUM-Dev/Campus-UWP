@@ -104,7 +104,6 @@ namespace UI_Context.Classes
                         }
                         Logger.Info("Updating canteens and dishes...");
                         await CanteenManager.INSTANCE.UpdateCanteensAsync(true);
-                        await DishManager.INSTANCE.UpdateAsync(true);
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.1.0.0.");
                     }
@@ -128,7 +127,6 @@ namespace UI_Context.Classes
                         }
                         Logger.Info("Updating canteens and dishes...");
                         await CanteenManager.INSTANCE.UpdateCanteensAsync(true);
-                        await DishManager.INSTANCE.UpdateAsync(true);
                         Settings.SetSetting(SettingsConsts.INITIALLY_STARTED, false);
                         Logger.Info("Finished updating to version 2.2.0.0.");
                     }
