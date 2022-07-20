@@ -37,93 +37,10 @@ namespace ExternalData.Classes.Manager
         private Task updateTask;
 
         public static readonly DishManager INSTANCE = new DishManager();
-
-        public static readonly Dictionary<string, string> LABELS_EMOJI_ADDITIONALS_LOOKUP = new Dictionary<string, string>()
-        {
-            { "DYESTUFF", "🎨" },
-            { "PRESERVATIVES", "🥫" },
-            { "ANTIOXIDANTS", "⚗" },
-            { "FLAVOR_ENHANCER", "🔬" },
-            { "SULPHURS", "🔻" },
-            { "SULFITES", "🔺" },
-            { "WAXED", "🐝" },
-            { "PHOSPATES", "🔷" },
-            { "SWEETENERS", "🍬" },
-            { "PHENYLALANINE", "💊" },
-            { "COCOA_CONTAINING_GREASE", "🍫" },
-            { "GELATIN", "🍮" },
-            { "ALCOHOL", "🍷" }
-        };
-
-        public static readonly Dictionary<string, string> LABELS_EMOJI_ALLERGENS_LOOKUP = new Dictionary<string, string>()
-        {
-            { "VEGETARIAN", "🌽" },
-            { "VEGAN", "🥕" },
-            { "MEAT", "🍖" },
-            { "PORK", "🐖" },
-            { "BEEF", "🐄" },
-            { "VEAL", "🐂" },
-            { "POULTRY", "🐔" },
-            { "WILD_MEAT", "🐗" },
-            { "LAMB", "🐑" },
-            { "GARLIC", "🧄" },
-            { "CHICKEN_EGGS", "🥚" },
-            { "PEANUTS", "🥜" },
-            { "FISH", "🐟" },
-            { "CEREAL", "🌾" },
-            { "GLUTEN", "🌿" },
-            { "WHEAT", "GlW" },
-            { "RYE", "GlR" },
-            { "BARLEY", "GlG" },
-            { "OAT", "GlH" },
-            { "SPELT", "GlD" },
-            { "HYBRIDS", "GlHy" },
-            { "SHELLFISH", "🦀" },
-            { "LUPIN", "Lu" },
-            { "LACTOSE", "La" },
-            { "MILK", "🥛" },
-            { "SHELL_FRUITS", "🥥" },
-            { "ALMONDS", "ScM" },
-            { "HAZELNUTS", "🌰" },
-            { "MACADAMIA", "ScMa" },
-            { "PECAN", "ScP" },
-            { "WALNUTS", "ScW" },
-            { "CASHEWS", "ScC" },
-            { "PISTACHIOES", "ScP" },
-            { "SESAME", "Se" },
-            { "MUSTARD", "Sf" },
-            { "CELERY", "Sl" },
-            { "SOY", "So" },
-            { "MOLLUSCS", "🐙" }
-        };
-
-        public static readonly Dictionary<string, string> LABELS_EMOJI_MISC_LOOKUP = new Dictionary<string, string>()
-        {
-            { "BAVARIA", "GQB" },
-            { "MSC", "🎣" },
-        };
-
-        public static readonly Dictionary<string, string> LABELS_EMOJI_ALL_LOOKUP = new Dictionary<string, string>();
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        static DishManager()
-        {
-            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_ADDITIONALS_LOOKUP)
-            {
-                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
-            }
 
-            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_ALLERGENS_LOOKUP)
-            {
-                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
-            }
-
-            foreach (KeyValuePair<string, string> pair in LABELS_EMOJI_MISC_LOOKUP)
-            {
-                LABELS_EMOJI_ALL_LOOKUP[pair.Key] = pair.Value;
-            }
-        }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
@@ -221,6 +138,14 @@ namespace ExternalData.Classes.Manager
                 dish = ctx.Dishes.Where(d => d.Date.Date < date.Date && string.Equals(d.CanteenId, canteenId)).OrderByDescending(d => d.Date).FirstOrDefault();
             }
             return dish is null ? DateTime.MinValue : dish.Date;
+        }
+
+        public static Label LookupLabel(string labelStr)
+        {
+            using (CanteensDbContext ctx = new CanteensDbContext())
+            {
+                return ctx.Labels.Where(l => string.Equals(l.EnumName, labelStr)).FirstOrDefault();
+            }
         }
 
         #endregion

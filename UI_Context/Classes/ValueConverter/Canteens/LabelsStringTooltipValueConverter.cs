@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using ExternalData.Classes.Manager;
-using Shared.Classes;
+using Logging.Classes;
+using Storage.Classes.Models.Canteens;
 using Windows.UI.Xaml.Data;
 
 namespace UI_Context.Classes.ValueConverter
@@ -33,16 +34,16 @@ namespace UI_Context.Classes.ValueConverter
             {
                 foreach (string s in labels)
                 {
-                    if (DishManager.LABELS_EMOJI_ALL_LOOKUP.ContainsKey(s))
+                    Label label = DishManager.LookupLabel(s);
+                    if (label is null)
                     {
-                        sb.Append(DishManager.LABELS_EMOJI_ALL_LOOKUP[s]);
-                        sb.Append('\t');
-                        sb.Append(Localisation.GetLocalizedString("Label_" + s));
-                        sb.Append('\n');
+                        Logger.Error($"Unknown label canteen dish found: {s}");
                     }
                     else
                     {
-                        sb.Append(s);
+                        sb.Append(label.Abbreviation);
+                        sb.Append('\t');
+                        sb.Append(label.GetTranslatedName());
                         sb.Append('\n');
                     }
                 }

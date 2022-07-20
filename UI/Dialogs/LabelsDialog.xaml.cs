@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using ExternalData.Classes.Manager;
-using Shared.Classes;
+﻿using System.Text;
+using Storage.Classes.Contexts;
+using Storage.Classes.Models.Canteens;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -43,23 +42,17 @@ namespace UI.Dialogs
         private void LoadLabels()
         {
             StringBuilder sb = new StringBuilder();
-            AddLabels(sb, DishManager.LABELS_EMOJI_MISC_LOOKUP);
-            sb.Append('\n');
-            AddLabels(sb, DishManager.LABELS_EMOJI_ADDITIONALS_LOOKUP);
-            sb.Append('\n');
-            AddLabels(sb, DishManager.LABELS_EMOJI_ALLERGENS_LOOKUP);
-            Labels = sb.ToString();
-        }
-
-        private void AddLabels(StringBuilder sb, Dictionary<string, string> labels)
-        {
-            foreach (KeyValuePair<string, string> pair in labels)
+            using (CanteensDbContext ctx = new CanteensDbContext())
             {
-                sb.Append(pair.Value);
-                sb.Append('\t');
-                sb.Append(Localisation.GetLocalizedString("Label_" + pair.Key));
-                sb.Append('\n');
+                foreach (Label label in ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))))
+                {
+                    sb.Append(label.Abbreviation);
+                    sb.Append('\t');
+                    sb.Append(label.GetTranslatedName());
+                    sb.Append('\n');
+                }
             }
+            Labels = sb.ToString();
         }
 
         #endregion

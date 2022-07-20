@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExternalData.Classes.Manager;
+using Storage.Classes.Models.Canteens;
 using Windows.UI.Xaml.Data;
 
 namespace UI_Context.Classes.ValueConverter
@@ -29,16 +30,10 @@ namespace UI_Context.Classes.ValueConverter
             string result = "";
             if (value is List<string> labels)
             {
-                foreach (string lable in labels)
+                foreach (string label in labels)
                 {
-                    if (DishManager.LABELS_EMOJI_ALL_LOOKUP.ContainsKey(lable))
-                    {
-                        result += DishManager.LABELS_EMOJI_ALL_LOOKUP[lable] + ' ';
-                    }
-                    else
-                    {
-                        result += lable + ' ';
-                    }
+                    Label l = DishManager.LookupLabel(label);
+                    result += (l?.Abbreviation ?? label) + ' ';
                 }
             }
             return result;
