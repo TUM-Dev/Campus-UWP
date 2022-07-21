@@ -124,6 +124,7 @@
     <Compile Include="Classes\AppUpdateHelper.cs" />
     <Compile Include="Classes\Context\Controls\Calendar\CalendarEventControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Calendar\CalendarWidgetControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\Canteens\DishRatingControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Grades\GradesCollectionControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Lectures\LectureControlContext.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarEventGroupDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Calendar\CalendarWidgetControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\Canteens\DishRatingControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesCollectionControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Grades\GradesDataTemplate.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Classes\ValueConverter\Canteens\LabelsStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\PriceStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Canteens\DateTimeHasDishesBoolConverter.cs" />
+    <Compile Include="Classes\ValueConverter\Canteens\RatingCountStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\DateTimeLocalDateFormatStringValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Grades\GradeBrushValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\HexColorToSolidColorBrushValueConverter.cs" />

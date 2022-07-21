@@ -139,6 +139,7 @@
     <Compile Include="Classes\Models\Canteens\Dish.cs" />
     <Compile Include="Classes\Models\Canteens\Location.cs" />
     <Compile Include="Classes\Models\Canteens\Price.cs" />
+    <Compile Include="Classes\Models\Canteens\Rating.cs" />
     <Compile Include="Classes\Models\External\StudyRoom.cs" />
     <Compile Include="Classes\Models\External\StudyRoomAttribute.cs" />
     <Compile Include="Classes\Models\External\StudyRoomGroup.cs" />

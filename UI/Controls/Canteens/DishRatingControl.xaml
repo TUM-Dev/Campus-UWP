@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="UI.Controls.Canteens.DishRatingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:UI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+             xmlns:valueconverter="using:UI_Context.Classes.ValueConverter.Canteens"
+             Height="30"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/Button/InfoButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <valueconverter:RatingCountStringValueConverter x:Key="RatingCountStringValueConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Height="{x:Bind Height, Mode=OneWay}">
+        <Grid Visibility="{x:Bind VIEW_MODEL.MODEL.HasValidRating, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <controls:IconButtonControl Grid.Column="0"
+                                        VerticalAlignment="Top"
+                                        Glyph="&#xE710;"
+                                        ToolTipService.ToolTip="Add rating"/>
+            <RatingControl Grid.Column="1"
+                           Margin="10,0,0,0"
+                           IsReadOnly="True"
+                           ToolTipService.ToolTip="{x:Bind VIEW_MODEL.MODEL.Rating.AveragePoints, Mode=OneWay}"
+                           Value="{x:Bind VIEW_MODEL.MODEL.Rating.AveragePoints, Mode=OneWay}"/>
+            <TextBlock Grid.Column="2"
+                       Margin="5,3,0,0"
+                       Text="{x:Bind VIEW_MODEL.MODEL.Rating.RatingCount, Mode=OneWay, Converter={StaticResource RatingCountStringValueConverter}}"/>
+            <Button Grid.Column="3"
+                    Margin="0,-2,0,0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    FontSize="17"
+                    Style="{StaticResource InfoButtonStyle}"
+                    ToolTipService.ToolTip="Rating details"/>
+        </Grid>
+        <Grid Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoading, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <muxc:ProgressRing Grid.Column="0"
+                               Width="15"
+                               Height="15"
+                               VerticalAlignment="Center"
+                               IsActive="True"/>
+            <TextBlock Grid.Column="1"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource CaptionTextBrush}"
+                       Style="{ThemeResource CaptionLineTextBlockStyle}"
+                       Text="Loading rating..."/>
+        </Grid>
+        <Grid Visibility="{x:Bind VIEW_MODEL.MODEL.IsUnavailable, Mode=OneWay, Converter={StaticResource BoolVisibilityValueConverter}}">
+            <TextBlock Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource CaptionTextBrush}"
+                       Style="{ThemeResource CaptionLineTextBlockStyle}"
+                       Text="Rating not available."/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -138,6 +138,9 @@
     <Compile Include="Controls\Canteens\DishControl.xaml.cs">
       <DependentUpon>DishControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Canteens\DishRatingControl.xaml.cs">
+      <DependentUpon>DishRatingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Canteens\MenuControl.xaml.cs">
       <DependentUpon>MenuControl.xaml</DependentUpon>
     </Compile>
@@ -382,6 +385,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Canteens\DishControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Canteens\DishRatingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
