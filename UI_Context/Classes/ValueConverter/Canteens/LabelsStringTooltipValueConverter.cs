@@ -34,7 +34,7 @@ namespace UI_Context.Classes.ValueConverter
             {
                 foreach (string s in labels)
                 {
-                    Label label = DishManager.LookupLabel(s);
+                    Label label = CanteenManager.INSTANCE.LookupLabel(s);
                     if (label is null)
                     {
                         Logger.Error($"Unknown label canteen dish found: {s}");

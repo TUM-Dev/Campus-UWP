@@ -32,7 +32,7 @@ namespace UI_Context.Classes.ValueConverter
             {
                 foreach (string label in labels)
                 {
-                    Label l = DishManager.LookupLabel(label);
+                    Label l = CanteenManager.INSTANCE.LookupLabel(label);
                     result += (l?.Abbreviation ?? label) + ' ';
                 }
             }

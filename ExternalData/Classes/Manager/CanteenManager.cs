@@ -43,6 +43,8 @@ namespace ExternalData.Classes.Manager
         private Task<IEnumerable<Language>> updateLanguagesTask;
         private Task<IEnumerable<Label>> updateLabelsTask;
 
+        private readonly Dictionary<string, Label> LABEL_CACHE = new Dictionary<string, Label>();
+
         public static readonly CanteenManager INSTANCE = new CanteenManager();
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -206,15 +208,20 @@ namespace ExternalData.Classes.Manager
 
             updateLabelsTask = Task.Run(async () =>
             {
+                IEnumerable<Label> labels = null;
                 if (!force && CacheDbContext.IsCacheEntryValid(LABELS_URI.ToString()))
                 {
                     Logger.Info("No need to fetch labels. Cache is still valid.");
                     using (CanteensDbContext ctx = new CanteensDbContext())
                     {
-                        return ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
+                        labels = ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
+                    }
+                    if (LABEL_CACHE.Count <= 0)
+                    {
+                        UpdateLabelCache(labels);
                     }
                 }
-                IEnumerable<Label> labels = await DownloadLabelsAsync();
+                labels = await DownloadLabelsAsync();
                 if (!(labels is null))
                 {
                     using (CanteensDbContext ctx = new CanteensDbContext())
@@ -224,15 +231,30 @@ namespace ExternalData.Classes.Manager
                         ctx.AddRange(labels);
                     }
                     CacheDbContext.UpdateCacheEntry(LABELS_URI.ToString(), DateTime.Now.Add(MAX_TIME_IN_CACHE));
+                    UpdateLabelCache(labels);
                     return labels;
                 }
                 Logger.Info("Failed to retrieve labels. Returning from DB.");
                 using (CanteensDbContext ctx = new CanteensDbContext())
                 {
-                    return ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
+                    labels = ctx.Labels.Include(ctx.GetIncludePaths(typeof(Label))).ToList();
                 }
+                if (LABEL_CACHE.Count <= 0)
+                {
+                    UpdateLabelCache(labels);
+                }
+                return labels;
             });
             return await updateLabelsTask.ConfAwaitFalse();
+        }
+
+        public Label LookupLabel(string labelStr)
+        {
+            if (LABEL_CACHE.ContainsKey(labelStr))
+            {
+                return LABEL_CACHE[labelStr];
+            }
+            return null;
         }
 
         #endregion
@@ -394,6 +416,15 @@ namespace ExternalData.Classes.Manager
                 Latitude = json.GetNamedNumber(JSON_LOCATION_LATITUDE),
                 Longitude = json.GetNamedNumber(JSON_LOCATION_LONGITUDE)
             };
+        }
+
+        private void UpdateLabelCache(IEnumerable<Label> labels)
+        {
+            LABEL_CACHE.Clear();
+            foreach (Label label in labels)
+            {
+                LABEL_CACHE.Add(label.EnumName, label);
+            }
         }
 
         #endregion

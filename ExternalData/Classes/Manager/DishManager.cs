@@ -155,14 +155,6 @@ namespace ExternalData.Classes.Manager
             return dish is null ? DateTime.MinValue : dish.Date;
         }
 
-        public static Label LookupLabel(string labelStr)
-        {
-            using (CanteensDbContext ctx = new CanteensDbContext())
-            {
-                return ctx.Labels.Where(l => string.Equals(l.EnumName, labelStr)).FirstOrDefault();
-            }
-        }
-
         #endregion
 
         #region --Misc Methods (Private)--
