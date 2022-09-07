@@ -186,7 +186,9 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\.gitkeep" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\MapToken.txt" />
   </ItemGroup>
