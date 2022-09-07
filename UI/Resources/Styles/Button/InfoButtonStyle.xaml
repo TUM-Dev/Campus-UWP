@@ -4,7 +4,7 @@
     <Style x:Key="InfoButtonStyle"
            TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrandBrush}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="ToolTipService.ToolTip" Value="Info"/>
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>

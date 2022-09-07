@@ -15,14 +15,14 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UI.App">
-      <uap:VisualElements DisplayName="TUM-Campus-App" Square150x150Logo="assets\Medium\Medium150x150Logo.png" Square44x44Logo="assets\AppList\AppList.png" Description="This is an unofficial TUM Campus App for all devices of the UWP familie. It's layout and functionality is based on the TUM Campus App for Android." BackgroundColor="#0065bd">
+      <uap:VisualElements DisplayName="TUM-Campus-App" Square150x150Logo="assets\Medium\Medium150x150Logo.png" Square44x44Logo="assets\AppList\AppList.png" Description="This is an unofficial TUM Campus App for all devices of the UWP familie. It's layout and functionality is based on the TUM Campus App for Android." BackgroundColor="#3070B3">
         <uap:LockScreen Notification="badge" BadgeLogo="assets\Badge\Badge.png" />
         <uap:DefaultTile Wide310x150Logo="assets\Wide\Wide310x150Logo.png" Square310x310Logo="assets\Large\Large310x310Logo.png" Square71x71Logo="assets\Small\Small71x71Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square310x310Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="assets\SplashScreen\SplashScreen.png" BackgroundColor="#0065bd" />
+        <uap:SplashScreen Image="assets\SplashScreen\SplashScreen.png" BackgroundColor="#3070B3" />
       </uap:VisualElements>
     </Application>
   </Applications>

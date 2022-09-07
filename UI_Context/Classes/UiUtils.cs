@@ -260,11 +260,12 @@ namespace UI_Context.Classes
                 }
 
                 //Dye title bar buttons:
-                ApplicationTheme actualTheme = ThemeUtils.GetActualTheme();
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                appView.TitleBar.ButtonInactiveForegroundColor = actualTheme == ApplicationTheme.Dark ? HexStringToColor("#19FFFFFF") : HexStringToColor("#19000000");
+                appView.TitleBar.ButtonInactiveForegroundColor = HexStringToColor("#19FFFFFF");
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-                appView.TitleBar.ButtonForegroundColor = actualTheme == ApplicationTheme.Dark ? HexStringToColor("#FFFFFFFF") : HexStringToColor("#FF000000");
+                appView.TitleBar.ButtonForegroundColor = HexStringToColor("#FFFFFFFF");
+                appView.TitleBar.ButtonHoverBackgroundColor = HexStringToColor("#FF1A1A1A");
+                appView.TitleBar.ButtonHoverForegroundColor = HexStringToColor("#FFFFFFFF");
 
                 // Extend window:
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;

@@ -74,7 +74,7 @@
                            Visibility="{x:Bind VIEW_MODEL.MODEL.HasFees, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
                     <Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
                          FontSize="150"
-                         Foreground="{StaticResource TumBlueBrush}"
+                         Foreground="{StaticResource TumBlueBrandColor}"
                          Text="&#xE001;"/>
                     <LineBreak/>
                     <Run Text="All tuition fees are paid or no fees found!"/>

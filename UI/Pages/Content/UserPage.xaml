@@ -18,7 +18,7 @@
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         CornerRadius="{ThemeResource OverlayCornerRadius}">
-                <TextBlock Foreground="{ThemeResource TumBlueBrush}"
+                <TextBlock Foreground="{ThemeResource TumBlueBrandBrush}"
                            IsTextSelectionEnabled="True"
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Text="{x:Bind Organization}"

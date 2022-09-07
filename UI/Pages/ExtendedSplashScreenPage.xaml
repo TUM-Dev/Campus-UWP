@@ -5,7 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource TumBlueBrush}"
+    <Grid Background="{ThemeResource TumBlueBrandBrush}"
           SizeChanged="Grid_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

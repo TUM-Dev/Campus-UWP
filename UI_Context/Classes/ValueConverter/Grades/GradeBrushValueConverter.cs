@@ -49,7 +49,7 @@ namespace UI_Context.Classes.ValueConverter.Grades
                     return new SolidColorBrush(Colors.DarkGreen);
                 }
             }
-            return ThemeUtils.GetThemeResource<SolidColorBrush>("TumBlueBrush");
+            return ThemeUtils.GetThemeResource<SolidColorBrush>("TumBlueBrandColor");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

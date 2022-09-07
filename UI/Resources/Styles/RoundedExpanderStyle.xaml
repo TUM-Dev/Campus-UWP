@@ -67,7 +67,6 @@
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           ContentTransitions="{TemplateBinding ContentTransitions}"
-                                          Foreground="{TemplateBinding Foreground}"
                                           RenderTransformOrigin="0.5,0.5"/>
 
                         <VisualStateManager.VisualStateGroups>
@@ -81,13 +80,17 @@
                                                          To="0.0"
                                                          Duration="0:0:0.1"/>
                                     </Storyboard>
+                                    <VisualState.Setters>
+                                        <Setter Target="Arrow.Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+                                    </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel"
                                                                        Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource TumBlueBrush}"/>
+                                                                    Value="{ThemeResource TumBlueDark1Brush}"/>
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
@@ -99,6 +102,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,4,4"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -106,7 +111,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel"
                                                                        Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource TumBlueBrush}"/>
+                                                                    Value="{ThemeResource TumBlueDark2Brush}"/>
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0"
@@ -137,7 +142,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel"
                                                                        Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource TumBlueAcrylicElementBrush}"/>
+                                                                    Value="{ThemeResource TumBlueDarkBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
@@ -149,6 +154,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="CheckedPointerOver">
@@ -156,7 +163,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel"
                                                                        Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource TumBlueBrush}"/>
+                                                                    Value="{ThemeResource TumBlueDark1Brush}"/>
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
@@ -168,6 +175,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="CheckedPressed">
@@ -175,7 +184,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel"
                                                                        Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource TumBlueBrush}"/>
+                                                                    Value="{ThemeResource TumBlueDark2Brush}"/>
                                         </ObjectAnimationUsingKeyFrames>
 
                                         <DoubleAnimation BeginTime="0:0:0"
@@ -187,6 +196,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="CheckedDisabled">
@@ -216,6 +227,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Indeterminate">
@@ -224,6 +237,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="IndeterminatePointerOver">
@@ -249,6 +264,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="IndeterminatePressed">
@@ -294,6 +311,8 @@
                                     </Storyboard>
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.CornerRadius" Value="4,4,0,0"/>
+                                        <Setter Target="Arrow.Foreground" Value="White"/>
+                                        <Setter Target="ContentPresenter.Foreground" Value="White"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

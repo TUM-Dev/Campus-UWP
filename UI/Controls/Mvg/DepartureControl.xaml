@@ -38,7 +38,8 @@
                     Padding="5,0,5,0"
                     Background="{x:Bind Departure.lineBackgroundColor, Mode=OneWay, Converter={StaticResource HexColorToSolidColorBrushValueConverter}}"
                     CornerRadius="{ThemeResource ControlCornerRadius}">
-                <TextBlock Text="{x:Bind Departure.label, Mode=OneWay}"/>
+                <TextBlock Foreground="White"
+                           Text="{x:Bind Departure.label, Mode=OneWay}"/>
             </Border>
 
             <TextBlock Grid.Column="2"

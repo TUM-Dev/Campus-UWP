@@ -60,10 +60,10 @@
                               Offset="4"/>
 
     <Style TargetType="muxc:ProgressRing">
-        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrandBrush}"/>
     </Style>
 
     <Style TargetType="muxc:ProgressBar">
-        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TumBlueBrandBrush}"/>
     </Style>
 </ResourceDictionary>

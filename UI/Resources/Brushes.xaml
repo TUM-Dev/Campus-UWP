@@ -4,128 +4,231 @@
                     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Media">
 
     <!--  Source: https://gist.github.com/lnksz/51e3566af2df5c7aa678cd4dfc8305f7  -->
-    <Color x:Key="TumBlueColor">#FF0065bd</Color>
-    <Color x:Key="TumDarkBlueColor">#FF005293</Color>
-    <Color x:Key="TumLightBlueColor">#FF64a0c8</Color>
-    <Color x:Key="TumLighterBlueColor">#FF98c6ea</Color>
-    <Color x:Key="TumGrayColor">#FF999999</Color>
-    <Color x:Key="TumOrangeColor">#FFe37222</Color>
-    <Color x:Key="TumGreenColor">#FFa2ad00</Color>
-    <Color x:Key="TumLightGrayColor">#FFdad7cb</Color>
+    <Color x:Key="TumBlueBrandColor">#3070B3</Color>
 
-    <SolidColorBrush x:Key="TumBlueBrush"
-                     Color="{ThemeResource TumBlueColor}"/>
-    <SolidColorBrush x:Key="TumDarkBlueBrush"
-                     Color="{ThemeResource TumDarkBlueColor}"/>
-    <SolidColorBrush x:Key="TumLightBlueBrush"
-                     Color="{ThemeResource TumLightBlueColor}"/>
-    <SolidColorBrush x:Key="TumLighterBlueBrush"
-                     Color="{ThemeResource TumLighterBlueColor}"/>
-    <SolidColorBrush x:Key="TumGrayBrush"
-                     Color="{ThemeResource TumGrayColor}"/>
+    <Color x:Key="TumBlueDarkColor">#072140</Color>
+    <Color x:Key="TumBlueDark1Color">#0A2D57</Color>
+    <Color x:Key="TumBlueDark2Color">#0E396E</Color>
+    <Color x:Key="TumBlueDark3Color">#114584</Color>
+    <Color x:Key="TumBlueDark4Color">#14519A</Color>
+    <Color x:Key="TumBlueDark5Color">#165DB1</Color>
+
+    <Color x:Key="TumBlueLightColor">#5E94D4</Color>
+    <Color x:Key="TumBlueLight1Color">#9ABCE4</Color>
+    <Color x:Key="TumBlueLight2Color">#C2D7EF</Color>
+    <Color x:Key="TumBlueLight3Color">#D7E4F4</Color>
+    <Color x:Key="TumBlueLight4Color">#E3EEFA</Color>
+    <Color x:Key="TumBlueLight5Color">#F0F5FA</Color>
+
+    <Color x:Key="TumYellowColor">#FED702</Color>
+    <Color x:Key="TumYellowDarkColor">#CBAB01</Color>
+    <Color x:Key="TumYellow1Color">#FEDE34</Color>
+    <Color x:Key="TumYellow2Color">#FEE667</Color>
+    <Color x:Key="TumYellow3Color">#FEEE9A</Color>
+    <Color x:Key="TumYellow4Color">#FEF6CD</Color>
+
+    <Color x:Key="TumOrangeColor">#F7B11E</Color>
+    <Color x:Key="TumOrangeDarkColor">#D99208</Color>
+    <Color x:Key="TumOrange1Color">#F9BF4E</Color>
+    <Color x:Key="TumOrange2Color">#FAD080</Color>
+    <Color x:Key="TumOrange3Color">#FCE2B0</Color>
+    <Color x:Key="TumOrange4Color">#FEF4E1</Color>
+
+    <Color x:Key="TumPinkColor">#B55CA5</Color>
+    <Color x:Key="TumPinkDarkColor">#9B468D</Color>
+    <Color x:Key="TumPink1Color">#C680BB</Color>
+    <Color x:Key="TumPink2Color">#D6A4CE</Color>
+    <Color x:Key="TumPink3Color">#E6C7E1</Color>
+    <Color x:Key="TumPink4Color">#F6EAF4</Color>
+
+    <Color x:Key="TumBlueBrightColor">#8F81EA</Color>
+    <Color x:Key="TumBlueBrightDarkColor">#6955E2</Color>
+    <Color x:Key="TumBlueBright1Color">#B6ACF1</Color>
+    <Color x:Key="TumBlueBright2Color">#C9C2F5</Color>
+    <Color x:Key="TumBlueBright3Color">#DCD8F9</Color>
+    <Color x:Key="TumBlueBright4Color">#EFEDFC</Color>
+
+    <Color x:Key="TumRedColor">#EA7237</Color>
+    <Color x:Key="TumRedDarkColor">#D95117</Color>
+    <Color x:Key="TumRed1Color">#EF9067</Color>
+    <Color x:Key="TumRed2Color">#F3B295</Color>
+    <Color x:Key="TumRed3Color">#F6C2AC</Color>
+    <Color x:Key="TumRed4Color">#FBE4DA</Color>
+
+    <Color x:Key="TumGreenColor">#9FBA36</Color>
+    <Color x:Key="TumGreenDarkColor">#7D922A</Color>
+    <Color x:Key="TumGreen1Color">#B6CE55</Color>
+    <Color x:Key="TumGreen2Color">#C7D97D</Color>
+    <Color x:Key="TumGreen3Color">#D8E5A4</Color>
+    <Color x:Key="TumGreen4Color">#E9F1CB</Color>
+
+    <Color x:Key="TumGrey1Color">#20252A</Color>
+    <Color x:Key="TumGrey2Color">#333A41</Color>
+    <Color x:Key="TumGrey3Color">#475058</Color>
+    <Color x:Key="TumGrey4Color">#6A757E</Color>
+    <Color x:Key="TumGrey5Color">#ABB5BE</Color>
+    <Color x:Key="TumGrey6Color">#CDD4DB</Color>
+    <Color x:Key="TumGrey7Color">#DDE2E6</Color>
+    <Color x:Key="TumGrey8Color">#E8ECEF</Color>
+    <Color x:Key="TumGrey9Color">#F8F9FA</Color>
+
+    <Color x:Key="TumWhiteColor">#FFFF</Color>
+
+    <SolidColorBrush x:Key="TumBlueBrandBrush"
+                     Color="{ThemeResource TumBlueBrandColor}"/>
+
+    <SolidColorBrush x:Key="TumBlueDarkBrush"
+                     Color="{ThemeResource TumBlueDarkColor}"/>
+    <SolidColorBrush x:Key="TumBlueDark1Brush"
+                     Color="{ThemeResource TumBlueDark1Color}"/>
+    <SolidColorBrush x:Key="TumBlueDark2Brush"
+                     Color="{ThemeResource TumBlueDark2Color}"/>
+    <SolidColorBrush x:Key="TumBlueDark3Brush"
+                     Color="{ThemeResource TumBlueDark3Color}"/>
+    <SolidColorBrush x:Key="TumBlueDark4Brush"
+                     Color="{ThemeResource TumBlueDark4Color}"/>
+    <SolidColorBrush x:Key="TumBlueDark5Brush"
+                     Color="{ThemeResource TumBlueDark5Color}"/>
+
+    <SolidColorBrush x:Key="TumBlueLightBrush"
+                     Color="{ThemeResource TumBlueLightColor}"/>
+    <SolidColorBrush x:Key="TumBlueLight1Brush"
+                     Color="{ThemeResource TumBlueLight1Color}"/>
+    <SolidColorBrush x:Key="TumBlueLight2Brush"
+                     Color="{ThemeResource TumBlueLight2Color}"/>
+    <SolidColorBrush x:Key="TumBlueLight3Brush"
+                     Color="{ThemeResource TumBlueLight3Color}"/>
+    <SolidColorBrush x:Key="TumBlueLight4Brush"
+                     Color="{ThemeResource TumBlueLight4Color}"/>
+    <SolidColorBrush x:Key="TumBlueLight5Brush"
+                     Color="{ThemeResource TumBlueLight5Color}"/>
+
+    <SolidColorBrush x:Key="TumYellowBrush"
+                     Color="{ThemeResource TumYellowColor}"/>
+    <SolidColorBrush x:Key="TumYellowDarkBrush"
+                     Color="{ThemeResource TumYellowDarkColor}"/>
+    <SolidColorBrush x:Key="TumYellow1Brush"
+                     Color="{ThemeResource TumYellow1Color}"/>
+    <SolidColorBrush x:Key="TumYellow2Brush"
+                     Color="{ThemeResource TumYellow2Color}"/>
+    <SolidColorBrush x:Key="TumYellow3Brush"
+                     Color="{ThemeResource TumYellow3Color}"/>
+    <SolidColorBrush x:Key="TumYellow4Brush"
+                     Color="{ThemeResource TumYellow4Color}"/>
+
     <SolidColorBrush x:Key="TumOrangeBrush"
                      Color="{ThemeResource TumOrangeColor}"/>
+    <SolidColorBrush x:Key="TumOrangeDarkBrush"
+                     Color="{ThemeResource TumOrangeDarkColor}"/>
+    <SolidColorBrush x:Key="TumOrange1Brush"
+                     Color="{ThemeResource TumOrange1Color}"/>
+    <SolidColorBrush x:Key="TumOrange2Brush"
+                     Color="{ThemeResource TumOrange2Color}"/>
+    <SolidColorBrush x:Key="TumOrange3Brush"
+                     Color="{ThemeResource TumOrange3Color}"/>
+    <SolidColorBrush x:Key="TumOrange4Brush"
+                     Color="{ThemeResource TumOrange4Color}"/>
+
+    <SolidColorBrush x:Key="TumPinkBrush"
+                     Color="{ThemeResource TumPinkColor}"/>
+    <SolidColorBrush x:Key="TumPinkDarkBrush"
+                     Color="{ThemeResource TumPinkDarkColor}"/>
+    <SolidColorBrush x:Key="TumPink1Brush"
+                     Color="{ThemeResource TumPink1Color}"/>
+    <SolidColorBrush x:Key="TumPink2Brush"
+                     Color="{ThemeResource TumPink2Color}"/>
+    <SolidColorBrush x:Key="TumPink3Brush"
+                     Color="{ThemeResource TumPink3Color}"/>
+    <SolidColorBrush x:Key="TumPink4Brush"
+                     Color="{ThemeResource TumPink4Color}"/>
+
+    <SolidColorBrush x:Key="TumBlueBrightBrush"
+                     Color="{ThemeResource TumBlueBrightColor}"/>
+    <SolidColorBrush x:Key="TumBlueBrightDarkBrush"
+                     Color="{ThemeResource TumBlueBrightDarkColor}"/>
+    <SolidColorBrush x:Key="TumBlueBright1Brush"
+                     Color="{ThemeResource TumBlueBright1Color}"/>
+    <SolidColorBrush x:Key="TumBlueBright2Brush"
+                     Color="{ThemeResource TumBlueBright2Color}"/>
+    <SolidColorBrush x:Key="TumBlueBright3Brush"
+                     Color="{ThemeResource TumBlueBright3Color}"/>
+    <SolidColorBrush x:Key="TumBlueBright4Brush"
+                     Color="{ThemeResource TumBlueBright4Color}"/>
+
+    <SolidColorBrush x:Key="TumRedBrush"
+                     Color="{ThemeResource TumRedColor}"/>
+    <SolidColorBrush x:Key="TumRedDarkBrush"
+                     Color="{ThemeResource TumRedDarkColor}"/>
+    <SolidColorBrush x:Key="TumRed1Brush"
+                     Color="{ThemeResource TumRed1Color}"/>
+    <SolidColorBrush x:Key="TumRed2Brush"
+                     Color="{ThemeResource TumRed2Color}"/>
+    <SolidColorBrush x:Key="TumRed3Brush"
+                     Color="{ThemeResource TumRed3Color}"/>
+    <SolidColorBrush x:Key="TumRed4Brush"
+                     Color="{ThemeResource TumRed4Color}"/>
+
     <SolidColorBrush x:Key="TumGreenBrush"
                      Color="{ThemeResource TumGreenColor}"/>
-    <SolidColorBrush x:Key="TumLightGrayBrush"
-                     Color="{ThemeResource TumLightGrayColor}"/>
+    <SolidColorBrush x:Key="TumGreenDarkBrush"
+                     Color="{ThemeResource TumGreenDarkColor}"/>
+    <SolidColorBrush x:Key="TumGreen1Brush"
+                     Color="{ThemeResource TumGreen1Color}"/>
+    <SolidColorBrush x:Key="TumGreen2Brush"
+                     Color="{ThemeResource TumGreen2Color}"/>
+    <SolidColorBrush x:Key="TumGreen3Brush"
+                     Color="{ThemeResource TumGreen3Color}"/>
+    <SolidColorBrush x:Key="TumGreen4Brush"
+                     Color="{ThemeResource TumGreen4Color}"/>
 
-    <media:AcrylicBrush x:Key="TumBlueAcrylicElementBrush"
+    <SolidColorBrush x:Key="TumGrey1Brush"
+                     Color="{ThemeResource TumGrey1Color}"/>
+    <SolidColorBrush x:Key="TumGrey2Brush"
+                     Color="{ThemeResource TumGrey2Color}"/>
+    <SolidColorBrush x:Key="TumGrey3Brush"
+                     Color="{ThemeResource TumGrey3Color}"/>
+    <SolidColorBrush x:Key="TumGrey4Brush"
+                     Color="{ThemeResource TumGrey4Color}"/>
+    <SolidColorBrush x:Key="TumGrey5Brush"
+                     Color="{ThemeResource TumGrey5Color}"/>
+    <SolidColorBrush x:Key="TumGrey6Brush"
+                     Color="{ThemeResource TumGrey6Color}"/>
+    <SolidColorBrush x:Key="TumGrey7Brush"
+                     Color="{ThemeResource TumGrey7Color}"/>
+    <SolidColorBrush x:Key="TumGrey8Brush"
+                     Color="{ThemeResource TumGrey8Color}"/>
+    <SolidColorBrush x:Key="TumGrey9Brush"
+                     Color="{ThemeResource TumGrey9Color}"/>
+
+    <SolidColorBrush x:Key="TumWhiteBrush"
+                     Color="{ThemeResource TumWhiteColor}"/>
+
+    <media:AcrylicBrush x:Key="TumBlueBrandAcrylicElementBrush"
                         BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumBlueColor}"
-                        TintColor="{ThemeResource TumBlueColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumDarkBlueAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumDarkBlueColor}"
-                        TintColor="{ThemeResource TumDarkBlueColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumLightBlueAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumLightBlueColor}"
-                        TintColor="{ThemeResource TumLightBlueColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumLighterBlueAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumLighterBlueColor}"
-                        TintColor="{ThemeResource TumLighterBlueColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumGrayAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumGrayColor}"
-                        TintColor="{ThemeResource TumGrayColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumOrangeAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumOrangeColor}"
-                        TintColor="{ThemeResource TumOrangeColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumGreenAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumGreenColor}"
-                        TintColor="{ThemeResource TumGreenColor}"
-                        TintOpacity="0.6"/>
-    <media:AcrylicBrush x:Key="TumLightGrayAcrylicElementBrush"
-                        BackgroundSource="Backdrop"
-                        FallbackColor="{ThemeResource TumLightGrayColor}"
-                        TintColor="{ThemeResource TumLightGrayColor}"
+                        FallbackColor="{ThemeResource TumBlueDarkColor}"
+                        TintColor="{ThemeResource TumBlueDarkColor}"
                         TintOpacity="0.6"/>
 
-    <media:AcrylicBrush x:Key="TumBlueAcrylicWindowBrush"
+    <media:AcrylicBrush x:Key="TumBlueBrandAcrylicWindowBrush"
                         BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumBlueColor}"
-                        TintColor="{ThemeResource TumBlueColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumDarkBlueAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumDarkBlueColor}"
-                        TintColor="{ThemeResource TumDarkBlueColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumLightBlueAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumLightBlueColor}"
-                        TintColor="{ThemeResource TumLightBlueColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumLighterBlueAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumLighterBlueColor}"
-                        TintColor="{ThemeResource TumLighterBlueColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumGrayAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumGrayColor}"
-                        TintColor="{ThemeResource TumGrayColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumOrangeAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumOrangeColor}"
-                        TintColor="{ThemeResource TumOrangeColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumGreenAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumGreenColor}"
-                        TintColor="{ThemeResource TumGreenColor}"
-                        TintOpacity="0.8"/>
-    <media:AcrylicBrush x:Key="TumLightGrayAcrylicWindowBrush"
-                        BackgroundSource="HostBackdrop"
-                        FallbackColor="{ThemeResource TumLightGrayColor}"
-                        TintColor="{ThemeResource TumLightGrayColor}"
+                        FallbackColor="{ThemeResource TumBlueDarkColor}"
+                        TintColor="{ThemeResource TumBlueDarkColor}"
                         TintOpacity="0.8"/>
 
     <StaticResource x:Key="SystemAccentColor"
-                    ResourceKey="TumBlueColor"/>
+                    ResourceKey="TumBlueBrandColor"/>
     <StaticResource x:Key="SystemAccentColorDark1"
-                    ResourceKey="TumBlueColor"/>
+                    ResourceKey="TumBlueDark1Color"/>
     <StaticResource x:Key="SystemAccentColorDark2"
-                    ResourceKey="TumBlueColor"/>
+                    ResourceKey="TumBlueDark2Color"/>
     <StaticResource x:Key="SystemAccentColorDark3"
-                    ResourceKey="TumDarkBlueColor"/>
+                    ResourceKey="TumBlueDark3Color"/>
     <StaticResource x:Key="SystemAccentColorLight1"
-                    ResourceKey="TumBlueColor"/>
+                    ResourceKey="TumBlueBrandColor"/>
     <StaticResource x:Key="SystemAccentColorLight2"
-                    ResourceKey="TumBlueColor"/>
+                    ResourceKey="TumBlueBrandColor"/>
     <StaticResource x:Key="SystemAccentColorLight3"
-                    ResourceKey="TumLightBlueColor"/>
+                    ResourceKey="TumBlueBrandColor"/>
 
     <!--  ContentDialog background backdrop  -->
     <toolkit:BackdropBlurBrush x:Key="SystemControlPageBackgroundMediumAltMediumBrush"
@@ -146,7 +249,7 @@
         <ResourceDictionary x:Key="Default">
             <ResourceDictionary.MergedDictionaries>
                 <!--  Replaces the default system accent color with TUMBlue as accent color  -->
-                <ColorPaletteResources Accent="{ThemeResource TumBlueColor}"
+                <ColorPaletteResources Accent="{ThemeResource TumBlueBrandColor}"
                                        AltHigh="#FF000000"
                                        AltLow="#FF000000"
                                        AltMedium="#FF000000"
@@ -206,7 +309,7 @@
         <ResourceDictionary x:Key="Light">
             <ResourceDictionary.MergedDictionaries>
                 <!--  Replaces the default system accent color with TUMBlue as accent color  -->
-                <ColorPaletteResources Accent="{ThemeResource TumBlueColor}"
+                <ColorPaletteResources Accent="{ThemeResource TumBlueBrandColor}"
                                        AltHigh="#FFFFFFFF"
                                        AltLow="#FFFFFFFF"
                                        AltMedium="#FFFFFFFF"

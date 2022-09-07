@@ -29,7 +29,7 @@
             <controls1:IconButtonControl x:Name="setup_btn"
                                          Click="setup_btn_Click"
                                          Glyph="&#xE777;"
-                                         GlyphForeground="{ThemeResource TumBlueBrush}"
+                                         GlyphForeground="{ThemeResource TumBlueBrandBrush}"
                                          Text="Start Setup"/>
             <controls1:IconButtonControl x:Name="delete_ibtn"
                                          Margin="10,0,0,0"
