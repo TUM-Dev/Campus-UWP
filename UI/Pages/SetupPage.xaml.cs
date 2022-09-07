@@ -44,7 +44,7 @@ namespace UI.Pages
         #endregion
 
         #region --Misc Methods (Private)--
-        private void UpdateViewState(VisualState newState)
+        private async Task UpdateViewStateAsync(VisualState newState)
         {
             if (newState == curViewState)
             {
@@ -71,6 +71,7 @@ namespace UI.Pages
             if (newState == State_3)
             {
                 done3_ibtn.Focus(FocusState.Programmatic);
+                await successAnimation.PlayAsync(0, 1, false);
             }
         }
 
@@ -99,7 +100,7 @@ namespace UI.Pages
         {
             if (await VIEW_MODEL.RequestNewTokenAsync())
             {
-                UpdateViewState(State_2);
+                await UpdateViewStateAsync(State_2);
             }
             else
             {
@@ -112,7 +113,7 @@ namespace UI.Pages
         {
             if (await VIEW_MODEL.CheckIfTokenIsActivatedAsync())
             {
-                OnTokenActivated();
+                await OnTokenActivatedAsync();
             }
             else
             {
@@ -121,10 +122,10 @@ namespace UI.Pages
             }
         }
 
-        private void OnTokenActivated()
+        private async Task OnTokenActivatedAsync()
         {
             VIEW_MODEL.StoreIdAndToken();
-            UpdateViewState(State_3);
+            await UpdateViewStateAsync(State_3);
         }
 
         #endregion
@@ -184,9 +185,9 @@ namespace UI.Pages
             NavigateAway();
         }
 
-        private void back2_ibtn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
+        private async void back2_ibtn_Click(Controls.IconButtonControl sender, RoutedEventArgs args)
         {
-            UpdateViewState(State_1);
+            await UpdateViewStateAsync(State_1);
         }
 
         private async void check2_ipbtn_Click(Controls.IconProgressButtonControl sender, RoutedEventArgs args)
@@ -199,12 +200,12 @@ namespace UI.Pages
             NavigateAway();
         }
 
-        private void MODEL_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void MODEL_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(SetupPageTemplate.IsTokenActivated) when VIEW_MODEL.MODEL.IsTokenActivated:
-                    OnTokenActivated();
+                    await OnTokenActivatedAsync();
                     break;
 
                 default:
@@ -212,7 +213,7 @@ namespace UI.Pages
             }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             // Initially focus the TUMonline id box:
             tumIdBox.Focus(FocusState.Programmatic);

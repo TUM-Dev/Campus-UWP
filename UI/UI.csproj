@@ -286,12 +286,15 @@
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Lottie\Success.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <PRIResource Include="Strings\en-US\Resources.resw" />
+    <None Include="Resources\Lottie\gen.ps1" />
+    <None Include="Resources\Lottie\Success.json" />
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

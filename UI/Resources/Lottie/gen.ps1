@@ -1,0 +1,1 @@
+LottieGen -InputFile .\Success.json -Language cs -o . -WinUIVersion 2.8
