@@ -284,13 +284,13 @@
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
-
             </Border>
 
             <controls:GridSplitter x:Name="map_gridSplitter"
                                    Grid.Column="1"
                                    HorizontalAlignment="Center"
-                                   ui:FrameworkElementExtensions.Cursor="SizeWestEast"
+                                   CursorBehavior="ChangeOnSplitterHover"
+                                   GripperCursor="Default"
                                    ResizeBehavior="BasedOnAlignment"
                                    Visibility="{x:Bind VIEW_MODEL.MODEL.IsLoadingCanteens, Mode=OneWay, Converter={StaticResource BoolInvertedVisibilityValueConverter}}">
                 <controls:GridSplitter.Element>
