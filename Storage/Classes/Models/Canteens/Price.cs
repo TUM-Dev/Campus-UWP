@@ -9,8 +9,8 @@ namespace Storage.Classes.Models.Canteens
         #region --Attributes--
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string BasePrice { get; set; }
-        public string PerUnit { get; set; }
+        public double BasePrice { get; set; }
+        public double PerUnit { get; set; }
         public string Unit { get; set; }
 
         #endregion
@@ -28,16 +28,12 @@ namespace Storage.Classes.Models.Canteens
         #region --Misc Methods (Public)--
         public override string ToString()
         {
-            if (PerUnit is null || Unit is null)
+            if (PerUnit <= 0)
             {
-                return BasePrice + '€';
+                return BasePrice.ToString("n2") + '€';
             }
 
-            if (double.TryParse(BasePrice, out double bp) && bp <= 0)
-            {
-                return PerUnit + "€/" + Unit;
-            }
-            return BasePrice + "€ + " + PerUnit + "€/" + Unit;
+            return BasePrice.ToString("n2") + "€ + " + PerUnit.ToString("n2") + "€/" + Unit;
         }
 
         #endregion

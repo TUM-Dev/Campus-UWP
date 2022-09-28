@@ -236,11 +236,10 @@ namespace ExternalData.Classes.Manager
                 return null;
             }
             JsonObject obj = value.GetObject();
-            string basePrice = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_BASE));
             return new Price()
             {
-                BasePrice = basePrice,
-                PerUnit = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_PER_UNIT)),
+                BasePrice = LoadJsonDoubleSave(obj.GetNamedValue(JSON_DISH_PRICE_BASE)),
+                PerUnit = LoadJsonDoubleSave(obj.GetNamedValue(JSON_DISH_PRICE_PER_UNIT)),
                 Unit = LoadJsonStringSave(obj.GetNamedValue(JSON_DISH_PRICE_UNIT))
             };
         }
@@ -271,6 +270,11 @@ namespace ExternalData.Classes.Manager
                 default:
                     return val.Stringify();
             }
+        }
+
+        private double LoadJsonDoubleSave(JsonValue val)
+        {
+            return val.ValueType == JsonValueType.Number ? val.GetNumber() : 0;
         }
 
         #endregion
