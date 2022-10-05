@@ -50,8 +50,8 @@
                    TextWrapping="Wrap"
                    ToolTipService.ToolTip="{x:Bind Dish.Labels, Mode=OneWay, Converter={StaticResource LabelsStringTooltipValueConverter}}"
                    Visibility="{x:Bind Dish.Labels, Mode=OneWay, Converter={StaticResource LabelsEmptyVisibilityValueConverter}}"/>
-        <canteens:DishRatingControl Grid.Row="2"
+        <!--<canteens:DishRatingControl Grid.Row="2"
                                     Margin="0,5,0,0"
-                                    Dish="{x:Bind Dish, Mode=OneWay}"/>
+                                    Dish="{x:Bind Dish, Mode=OneWay}"/>-->
     </Grid>
 </UserControl>

@@ -81,7 +81,8 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="news_navItem"
-                                         Content="News">
+                                         Content="News"
+                                         IsEnabled="False">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE701;"/>
                     </muxc:NavigationViewItem.Icon>
