@@ -134,6 +134,29 @@ namespace TumOnline.Classes.Managers
             return null;
         }
 
+        private static readonly Random GRADE_RANDOM = new Random();
+        private static readonly string[] GRADES = new string[]
+            {
+                "B",
+                "1,0",
+                "1,3",
+                "1,7",
+                "2,0",
+                "2,3",
+                "2,7",
+                "3,0",
+                "3,3",
+                "3,7",
+                "4,0",
+                "4,3",
+                "4,7",
+                "5,0"
+            };
+        private static string GetRandomGrade()
+        {
+            return GRADES[GRADE_RANDOM.Next(0, GRADES.Length)];
+        }
+
         private static Grade ParseGrade(XmlNode gradeNode)
         {
             DateTime.TryParse(gradeNode.SelectSingleNode("datum").InnerText, out DateTime date);
@@ -148,7 +171,7 @@ namespace TumOnline.Classes.Managers
                 ExaminerSurname = gradeNode.SelectSingleNode("pruefer_nachname").InnerText,
                 ExamMode = gradeNode.SelectSingleNode("modus").InnerText,
                 ExamType = gradeNode.SelectSingleNode("exam_typ_name").InnerText,
-                GradeShort = gradeNode.SelectSingleNode("uninotenamekurz").InnerText,
+                GradeShort = GetRandomGrade(),
                 LectureCredits = credits,
                 LectureNumber = gradeNode.SelectSingleNode("lv_nummer").InnerText,
                 LectureSemester = gradeNode.SelectSingleNode("lv_semester").InnerText,
