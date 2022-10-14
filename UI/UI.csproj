@@ -295,6 +295,7 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <None Include="Resources\Lottie\gen.ps1" />
     <None Include="Resources\Lottie\Success.json" />
+    <None Include="Scripts\setupFont.ps1" />
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -670,6 +671,9 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "$(SolutionDir)$(ProjectName)\Scripts\setupFont.ps1" "$(SolutionDir)$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

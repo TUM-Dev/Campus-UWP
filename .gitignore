@@ -355,3 +355,7 @@ MigrationBackup/
 # Access tokens:
 ## Map access key:
 /Storage/Resources/MapToken.txt
+
+# Fonts are copied during build time
+/UI/Assets/Fonts/seguiemj.ttf
+/UI/Assets/Fonts/segmdl2.ttf
