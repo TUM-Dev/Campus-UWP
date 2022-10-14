@@ -32,6 +32,10 @@ namespace Storage.Classes.Models.Canteens
             {
                 return BasePrice.ToString("n2") + '€';
             }
+            else if (BasePrice <= 0)
+            {
+                return PerUnit.ToString("n2") + "€/" + Unit;
+            }
 
             return BasePrice.ToString("n2") + "€ + " + PerUnit.ToString("n2") + "€/" + Unit;
         }
