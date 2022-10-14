@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -28,7 +29,7 @@ namespace UI_Context.Classes.ValueConverter.Grades
         {
             if (value is string s)
             {
-                if (double.TryParse(s, out double grade))
+                if (double.TryParse(s, NumberStyles.Float, CultureInfo.CreateSpecificCulture("de-DE"), out double grade))
                 {
                     if (grade < 2)
                     {
