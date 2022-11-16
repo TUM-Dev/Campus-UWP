@@ -213,7 +213,7 @@ namespace UI.Pages
             }
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             // Initially focus the TUMonline id box:
             tumIdBox.Focus(FocusState.Programmatic);
