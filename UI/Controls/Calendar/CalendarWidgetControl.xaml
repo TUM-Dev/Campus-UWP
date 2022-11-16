@@ -81,7 +81,8 @@
                     VerticalAlignment="Top"
                     Content="&#xE712;"
                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    ToolTipService.ToolTip="More">
+                    ToolTipService.ToolTip="More"
+                    Visibility="Collapsed">
                 <Button.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Click="OnRefreshClicked"
