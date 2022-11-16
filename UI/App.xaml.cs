@@ -24,7 +24,9 @@ namespace UI
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
 #pragma warning disable IDE0052 // Remove unread private members
+#pragma warning disable CS0414 // Assigned but never used
         private bool isRunning;
+#pragma warning restore CS0414 // Assigned but never used
 #pragma warning restore IDE0052 // Remove unread private members
 
         #endregion

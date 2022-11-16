@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="StationTemplate"
                       x:DataType="mvg:Station">
-            <TextBlock Text="{x:Bind name, Mode=OneWay}"/>
+            <TextBlock Text="{x:Bind name}"/>
         </DataTemplate>
     </UserControl.Resources>
 
