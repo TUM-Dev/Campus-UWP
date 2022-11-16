@@ -28,6 +28,13 @@ namespace UI_Context.Classes
             }
         }
         private static ElementTheme _RootTheme;
+
+        public static ApplicationTheme SystemTheme
+        {
+            get;
+            private set;
+        }
+
         public static ThemeListener ThemeListener
         {
             get;
@@ -68,7 +75,7 @@ namespace UI_Context.Classes
         }
 
         /// <summary>
-        /// Returns the resource for the given key from the <see cref="Application.Current.Resources"/> for the current theme specified in <see cref="ActualTheme"/>./>
+        /// Returns the resource for the given key from the <see cref="Application.Current.Resources"/> for the current theme specified in <see cref="SystemTheme"/>./>
         /// </summary>
         /// <param name="key">The key for the resource you want to retrieve.</param>
         public static T GetThemeResource<T>(string key)
@@ -77,7 +84,7 @@ namespace UI_Context.Classes
         }
 
         /// <summary>
-        /// Returns the resource for the given key from the given <see cref="ResourceDictionary"/> for the current theme specified in <see cref="ActualTheme"/>./>
+        /// Returns the resource for the given key from the given <see cref="ResourceDictionary"/> for the current theme specified in <see cref="SystemTheme"/>./>
         /// </summary>
         /// <param name="resources">The <see cref="ResourceDictionary"/> you want to get the resource from.</param>
         /// <param name="key">The key for the resource you want to retrieve.</param>
@@ -169,6 +176,7 @@ namespace UI_Context.Classes
                 Enum.TryParse(themeString, out theme);
             }
             RootTheme = theme;
+            SystemTheme = GetActualTheme(RootTheme);
             return RootTheme;
         }
 
@@ -177,7 +185,7 @@ namespace UI_Context.Classes
             if (ThemeListener is null)
             {
                 ThemeListener = new ThemeListener();
-                ThemeListener.ThemeChanged += ThemeListener_ThemeChanged;
+                ThemeListener.ThemeChanged += OnThemeChanged;
             }
         }
 
@@ -194,12 +202,10 @@ namespace UI_Context.Classes
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private static void ThemeListener_ThemeChanged(ThemeListener sender)
+        private static void OnThemeChanged(ThemeListener sender)
         {
-            if (RootTheme == ElementTheme.Default)
-            {
-                RootTheme = GetElementTheme(sender.CurrentTheme);
-            }
+            SystemTheme = sender.CurrentTheme;
+            Settings.SetSetting(SettingsConsts.APP_REQUESTED_THEME, null);
             UiUtils.SetupWindow(Application.Current);
         }
 

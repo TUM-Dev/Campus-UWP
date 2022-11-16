@@ -154,6 +154,14 @@ namespace UI_Context.Classes
                         CacheDbContext.ClearCache();
                         Logger.Info("Finished updating to version 2.4.0.0.");
                     }
+
+                    // Theme settings fix for 2.5.0.0:
+                    if (versionLastStart.Major <= 2 && versionLastStart.Minor < 5)
+                    {
+                        Logger.Info("Started updating to version 2.5.0.0.");
+                        Settings.SetSetting(SettingsConsts.APP_REQUESTED_THEME, null);
+                        Logger.Info("Finished updating to version 2.5.0.0.");
+                    }
                 }
             }
             SetVersion(GetPackageVersion());

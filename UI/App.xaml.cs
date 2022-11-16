@@ -36,7 +36,10 @@ namespace UI
 
             // Set requested theme:
             ElementTheme theme = ThemeUtils.LoadRequestedTheme();
-            RequestedTheme = ThemeUtils.GetActualTheme(theme);
+            if (theme != ElementTheme.Default)
+            {
+                RequestedTheme = ThemeUtils.GetActualTheme(theme);
+            }
 
             InitializeComponent();
             Suspending += OnSuspending;
