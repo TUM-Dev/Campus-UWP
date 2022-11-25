@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
@@ -147,7 +148,7 @@ namespace TumOnline.Classes.Managers
             {
                 deadline = DateTime.MaxValue;
             }
-            if (!double.TryParse(gradeNode.SelectSingleNode("soll").InnerText, out double amount))
+            if (!double.TryParse(gradeNode.SelectSingleNode("soll").InnerText, NumberStyles.Float, new CultureInfo("de-DE"), out double amount))
             {
                 amount = -1;
             }
