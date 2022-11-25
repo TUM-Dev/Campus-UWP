@@ -28,7 +28,7 @@ If you want to help, feel free to do so. Help is allways appreciated 🥓.
 * [MORE NOTES TO COME]
 
 ## Get it from the Windows Store:
-[<img src="https://getbadgecdn.azureedge.net/images/English_L.png" width="150">](https://www.microsoft.com/store/apps/9n3p75398fkb?ocid=badge)
+[<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="150">](https://www.microsoft.com/store/apps/9n3p75398fkb?ocid=badge)
 
 ## Installation (build it by your own):
 1. Clone the repo with Visual Studio
