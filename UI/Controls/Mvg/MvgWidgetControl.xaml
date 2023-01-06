@@ -66,6 +66,7 @@
             <ListView Grid.Row="1"
                       MaxHeight="300"
                       HorizontalContentAlignment="Stretch"
+                      CornerRadius="0,0,4,4"
                       ItemTemplate="{StaticResource DepartureTemplate}"
                       ItemsSource="{x:Bind VIEW_MODEL.MODEL.DEPARTURES, Mode=OneWay}"
                       ScrollViewer.HorizontalScrollMode="Disabled"
