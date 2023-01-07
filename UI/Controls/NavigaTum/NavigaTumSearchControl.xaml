@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="UI.Controls.NavigaTum.NavigaTumSearchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:navigatum="using:ExternalData.Classes.NavigaTum"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="SearchResultTemplate"
+                      x:DataType="navigatum:AbstractSearchResultItem">
+            <TextBlock Text="{x:Bind name}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <AutoSuggestBox x:Name="searchAsb"
+                    ItemTemplate="{StaticResource SearchResultTemplate}"
+                    ItemsSource="{x:Bind VIEW_MODEL.MODEL.RESULTS, Mode=OneWay}"
+                    KeyUp="OnKeyUp"
+                    PlaceholderText="Type to search..."
+                    QueryIcon="Find"
+                    QuerySubmitted="OnQuerySubmitted"
+                    GotFocus="OnGotFocus"
+                    TextChanged="OnTextChanged"/>
+</UserControl>

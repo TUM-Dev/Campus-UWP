@@ -180,6 +180,9 @@
     <Compile Include="Controls\Mvg\StationSearchControl.xaml.cs">
       <DependentUpon>StationSearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumSearchControl.xaml.cs">
+      <DependentUpon>NavigaTumSearchControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SeperatorControl.xaml.cs">
       <DependentUpon>SeperatorControl.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,9 @@
     </Compile>
     <Compile Include="Pages\Content\LecturesPage.xaml.cs">
       <DependentUpon>LecturesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\NavigaTumPage.xaml.cs">
+      <DependentUpon>NavigaTumPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Content\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
@@ -448,6 +454,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumSearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SeperatorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -529,6 +539,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Content\LecturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\NavigaTumPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

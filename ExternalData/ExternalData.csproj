@@ -125,12 +125,16 @@
     <Compile Include="Classes\Manager\CanteenManager.cs" />
     <Compile Include="Classes\Manager\CanteenRatingManager.cs" />
     <Compile Include="Classes\Manager\DishManager.cs" />
+    <Compile Include="Classes\Manager\NavigaTumManager.cs" />
     <Compile Include="Classes\Manager\NewsManager.cs" />
     <Compile Include="Classes\Manager\MvgManager.cs" />
     <Compile Include="Classes\Manager\StudyRoomsManager.cs" />
     <Compile Include="Classes\Mvg\Departure.cs" />
     <Compile Include="Classes\Mvg\Product.cs" />
     <Compile Include="Classes\Mvg\Station.cs" />
+    <Compile Include="Classes\NavigaTum\AbstractSearchResultItem.cs" />
+    <Compile Include="Classes\NavigaTum\BuildingSearchResultItem.cs" />
+    <Compile Include="Classes\NavigaTum\RoomSearchResultItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\ExternalData.rd.xml" />
   </ItemGroup>

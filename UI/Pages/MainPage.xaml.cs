@@ -29,7 +29,7 @@ namespace UI.Pages
             UiUtils.ApplyBackground(this);
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            PAGES = new MainPageNavigationPage[9]
+            PAGES = new MainPageNavigationPage[10]
             {
                 // Home:
                 new MainPageNavigationPage(typeof(HomePage), home_navItem, "Home"),
@@ -44,7 +44,8 @@ namespace UI.Pages
                 // General TUM:
                 new MainPageNavigationPage(typeof(CanteensPage), canteens_navItem, "Canteens"),
                 new MainPageNavigationPage(typeof(NewsPage), news_navItem, "News"),
-                new MainPageNavigationPage(typeof(StudyRoomsPage), studyRooms_navItem, "Study Rooms")
+                new MainPageNavigationPage(typeof(StudyRoomsPage), studyRooms_navItem, "Study Rooms"),
+                new MainPageNavigationPage(typeof(NavigaTumPage), navigaTum_navItem, "NavigaTUM")
             };
             CONTENT_FRAME = contentFrame;
         }

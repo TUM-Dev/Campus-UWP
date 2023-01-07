@@ -93,6 +93,12 @@
                         <FontIcon Glyph="&#xE762;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="navigaTum_navItem"
+                                         Content="NavigaTUM">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE707;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="Quick Links"
                                                Foreground="{ThemeResource CaptionTextBrush}"/>
                 <muxc:NavigationViewItem x:Name="tumOnline_navItem"
