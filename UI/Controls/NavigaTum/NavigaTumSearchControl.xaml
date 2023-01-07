@@ -4,22 +4,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:navigatum="using:ExternalData.Classes.NavigaTum"
+             xmlns:navigatum1="using:UI.Controls.NavigaTum"
              mc:Ignorable="d">
 
     <UserControl.Resources>
         <DataTemplate x:Key="SearchResultTemplate"
                       x:DataType="navigatum:AbstractSearchResultItem">
-            <TextBlock Text="{x:Bind name}"/>
+            <navigatum1:SearchResultItemControl Item="{x:Bind}"/>
         </DataTemplate>
     </UserControl.Resources>
 
     <AutoSuggestBox x:Name="searchAsb"
+                    GotFocus="OnGotFocus"
                     ItemTemplate="{StaticResource SearchResultTemplate}"
                     ItemsSource="{x:Bind VIEW_MODEL.MODEL.RESULTS, Mode=OneWay}"
                     KeyUp="OnKeyUp"
                     PlaceholderText="Type to search..."
                     QueryIcon="Find"
                     QuerySubmitted="OnQuerySubmitted"
-                    GotFocus="OnGotFocus"
                     TextChanged="OnTextChanged"/>
 </UserControl>

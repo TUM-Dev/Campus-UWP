@@ -1,20 +1,26 @@
-﻿using UI_Context.Classes.Context.Controls.NavigaTum;
+﻿using System.Diagnostics;
+using ExternalData.Classes.NavigaTum;
+using UI.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace UI.Controls.NavigaTum
 {
-    public sealed partial class NavigaTumSearchControl: UserControl
+    public sealed partial class SearchResultItemControl: UserControl
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly NavigaTumSearchControlContext VIEW_MODEL = new NavigaTumSearchControlContext();
+        public AbstractSearchResultItem Item
+        {
+            get => (AbstractSearchResultItem)GetValue(ItemProperty);
+            set => SetValue(ItemProperty, value);
+        }
+        public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(AbstractSearchResultItem), typeof(SearchResultItemControl), new PropertyMetadata(null, OnItemChanged));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
-        public NavigaTumSearchControl()
+        public SearchResultItemControl()
         {
             InitializeComponent();
         }
@@ -32,9 +38,12 @@ namespace UI.Controls.NavigaTum
         #endregion
 
         #region --Misc Methods (Private)--
-        private void UpdateSuggestions()
+        private void UpdateView(AbstractSearchResultItem item)
         {
-            VIEW_MODEL.Search(searchAsb.Text.Trim());
+            Debug.Assert(!(item is null));
+
+            NavigaTumSearchResultNameFormatExtension.SetFormattedText(name_tbx, item.name);
+            icon_ficon.Glyph = item is RoomSearchResultItem ? "\uE707" : "\uE80F";
         }
 
         #endregion
@@ -45,28 +54,12 @@ namespace UI.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private static void OnItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UpdateSuggestions();
-        }
-
-        private void OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            UpdateSuggestions();
-            searchAsb.IsSuggestionListOpen = true;
-        }
-
-        private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            if (d is SearchResultItemControl control && e.NewValue is AbstractSearchResultItem item)
             {
-                VIEW_MODEL.Search(sender.Text.Trim());
+                control.UpdateView(item);
             }
-        }
-
-        private void OnKeyUp(object sender, KeyRoutedEventArgs e)
-        {
-
         }
 
         #endregion

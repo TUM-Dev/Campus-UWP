@@ -183,6 +183,9 @@
     <Compile Include="Controls\NavigaTum\NavigaTumSearchControl.xaml.cs">
       <DependentUpon>NavigaTumSearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigaTum\SearchResultItemControl.xaml.cs">
+      <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SeperatorControl.xaml.cs">
       <DependentUpon>SeperatorControl.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,7 @@
     <Compile Include="Dialogs\ReportLastCrashDialog.xaml.cs">
       <DependentUpon>ReportLastCrashDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\NavigaTumSearchResultNameFormatExtension.cs" />
     <Compile Include="Extensions\TextBlockMvgDepartureInFormatExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Pages\Content\CalendarPage.xaml.cs">
@@ -455,6 +459,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NavigaTum\NavigaTumSearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\SearchResultItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,9 +15,8 @@
 
         <!--  Header  -->
         <navigatum:NavigaTumSearchControl Grid.Row="0"
-                                          MinWidth="200"
                                           Margin="10"
-                                          HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Stretch"/>
 
         <!--  Content  -->
     </Grid>

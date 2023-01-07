@@ -20,9 +20,11 @@ namespace ExternalData.Classes.Manager
         private const string JSON_TIME_MS = "time_ms";
         private const string JSON_FACET = "facet";
         private const string JSON_ID = "id";
-        private const string JSON_TYPE = "type";
         private const string JSON_NAME = "name";
         private const string JSON_SUBTEXT = "subtext";
+
+        public const string PRE_HIGHLIGHT = "/u0019";
+        public const string POST_HIGHLIGHT = "/u0017";
 
         public static readonly NavigaTumManager INSTANCE = new NavigaTumManager();
 
@@ -78,7 +80,7 @@ namespace ExternalData.Classes.Manager
         #region --Misc Methods (Private)--
         private static Uri BuildSearchQueryUri(string query)
         {
-            return new Uri(BASE_SEARCH_URI + "?q=" + query + "&limit_all=15&limit_rooms=15&limit_buildings=15");
+            return new Uri($"{BASE_SEARCH_URI}?q={query}&limit_all=15&limit_rooms=7&limit_buildings=7&pre_highlight={PRE_HIGHLIGHT}&post_highlight={POST_HIGHLIGHT}");
         }
 
         private static List<AbstractSearchResultItem> ParseSearchResults(JsonObject json)
