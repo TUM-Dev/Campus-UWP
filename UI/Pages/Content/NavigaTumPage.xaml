@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--  Header  -->
@@ -19,5 +20,25 @@
                                           HorizontalAlignment="Stretch"/>
 
         <!--  Content  -->
+        <TextBlock Grid.Row="1"
+                   Margin="10,0,10,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center">
+            <Run FontSize="150"
+                 Text="🗺️"/>
+            <LineBreak/>
+            <Run Text="Start typing to search rooms, buildings, ..."/>
+        </TextBlock>
+
+        <TextBlock Grid.Row="2"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   Foreground="{ThemeResource CaptionTextBrush}">
+            <Run Text="Powered by"/>
+            <Hyperlink NavigateUri="https://nav.tum.de/">
+                <Run Text="NavigaTUM"/>
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Page>
