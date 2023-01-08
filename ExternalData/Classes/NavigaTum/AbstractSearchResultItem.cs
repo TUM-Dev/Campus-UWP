@@ -1,4 +1,6 @@
-﻿namespace ExternalData.Classes.NavigaTum
+﻿using ExternalData.Classes.Manager;
+
+namespace ExternalData.Classes.NavigaTum
 {
     public abstract class AbstractSearchResultItem
     {
@@ -23,7 +25,7 @@
         #region --Misc Methods (Public)--
         public override string ToString()
         {
-            return name;
+            return name.Replace(NavigaTumManager.POST_HIGHLIGHT, "").Replace(NavigaTumManager.PRE_HIGHLIGHT, "");
         }
 
         #endregion
