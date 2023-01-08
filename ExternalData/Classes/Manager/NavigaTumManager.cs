@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using ExternalData.Classes.Events;
 using ExternalData.Classes.NavigaTum;
 using Logging.Classes;
 using Windows.Data.Json;
+using Windows.Devices.Geolocation;
 
 namespace ExternalData.Classes.Manager
 {
@@ -14,6 +16,7 @@ namespace ExternalData.Classes.Manager
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
         private const string BASE_SEARCH_URI = "https://nav.tum.de/api/search";
+        private const string BASE_GET_URI = "https://nav.tum.de/api/get";
 
         private const string JSON_SECTIONS = "sections";
         private const string JSON_ENTITIES = "entries";
@@ -22,6 +25,15 @@ namespace ExternalData.Classes.Manager
         private const string JSON_ID = "id";
         private const string JSON_NAME = "name";
         private const string JSON_SUBTEXT = "subtext";
+        private const string JSON_ARCH_NAME = "arch_name";
+        private const string JSON_PROPS = "props";
+        private const string JSON_COMPUTED = "computed";
+        private const string JSON_COORDS = "coords";
+        private const string JSON_LAT = "lat";
+        private const string JSON_LON = "lon";
+        private const string JSON_TEXT = "text";
+        private const string JSON_TYPE = "type";
+        private const string JSON_TYPE_COMMON_NAME = "type_common_name";
 
         public const string PRE_HIGHLIGHT = "/u0019";
         public const string POST_HIGHLIGHT = "/u0017";
@@ -75,12 +87,60 @@ namespace ExternalData.Classes.Manager
             }
         }
 
+        public async Task<Location> GetLocationInfoAsync(string id)
+        {
+            Debug.Assert(!(id is null));
+
+            Logger.Info($"NavigaTUM querying location info for '{id}' ...");
+            string jsonString;
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    jsonString = await wc.DownloadStringTaskAsync(BuildLocationInfoQueryUri(id));
+                }
+                catch (Exception e)
+                {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
+                    Logger.Error($"NavigaTUM querying location failed for '{id}'.", e);
+                    return null;
+                }
+            }
+
+            JsonObject json;
+            try
+            {
+                json = JsonObject.Parse(jsonString);
+                Location location = ParseLocationResult(json);
+                if (location is null)
+                {
+                    Logger.Error($"Failed to parse NavigaTUM location query result for '{id}'. No valid location found in response JSON: {jsonString}");
+                }
+                else
+                {
+                    Logger.Info($"Found valid NavigaTUM location for: {id}");
+                }
+                return location;
+            }
+            catch (Exception e)
+            {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
+                Logger.Error($"Failed to parse NavigaTUM location query result for '{id}'.", e);
+                return null;
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
         private static Uri BuildSearchQueryUri(string query)
         {
             return new Uri($"{BASE_SEARCH_URI}?q={query}&limit_all=15&limit_rooms=7&limit_buildings=7&pre_highlight={PRE_HIGHLIGHT}&post_highlight={POST_HIGHLIGHT}");
+        }
+
+        private static Uri BuildLocationInfoQueryUri(string id)
+        {
+            return new Uri($"{BASE_GET_URI}/{id}?lang=en");
         }
 
         private static List<AbstractSearchResultItem> ParseSearchResults(JsonObject json)
@@ -135,6 +195,58 @@ namespace ExternalData.Classes.Manager
                     subtext = entityItem.GetObject().GetNamedString(JSON_SUBTEXT),
                 });
             }
+        }
+
+        private static Location ParseLocationResult(JsonObject json)
+        {
+            // Position:
+            JsonObject coordsJson = json.GetNamedObject(JSON_COORDS);
+            Geopoint pos = new Geopoint(new BasicGeoposition
+            {
+                Latitude = coordsJson.GetNamedNumber(JSON_LAT),
+                Longitude = coordsJson.GetNamedNumber(JSON_LON),
+            });
+
+            // Properties:
+            List<LocationProperty> properties = new List<LocationProperty>();
+            if (json.ContainsKey(JSON_PROPS))
+            {
+                JsonObject propsJson = json.GetNamedObject(JSON_PROPS);
+                JsonArray propsComputedArr = propsJson.GetNamedArray(JSON_COMPUTED);
+                foreach (IJsonValue prop in propsComputedArr)
+                {
+                    JsonObject propJson = prop.GetObject();
+                    if (propJson.ContainsKey(JSON_NAME) && propJson.ContainsKey(JSON_TEXT))
+                    {
+                        properties.Add(new LocationProperty
+                        {
+                            name = propJson.GetNamedString(JSON_NAME),
+                            text = propJson.GetNamedString(JSON_TEXT)
+                        });
+                    }
+                }
+            }
+
+            // Combine:
+            return new Location
+            {
+                id = json.GetNamedString(JSON_ID),
+                archName = TryGetString(json, JSON_ARCH_NAME),
+                name = json.GetNamedString(JSON_NAME),
+                type = json.GetNamedString(JSON_TYPE),
+                typeCommonName = json.GetNamedString(JSON_TYPE_COMMON_NAME),
+                pos = pos,
+                properties = properties
+            };
+        }
+
+        private static string TryGetString(JsonObject json, string key)
+        {
+            if (json.ContainsKey(key) && json.TryGetValue(key, out IJsonValue value) && value.ValueType == JsonValueType.String)
+            {
+                return value.GetString();
+            }
+            return null;
         }
 
         #endregion

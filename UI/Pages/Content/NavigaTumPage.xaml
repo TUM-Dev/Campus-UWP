@@ -15,21 +15,14 @@
         </Grid.RowDefinitions>
 
         <!--  Header  -->
-        <navigatum:NavigaTumSearchControl Grid.Row="0"
+        <navigatum:NavigaTumSearchControl x:Name="search_ctrl"
+                                          Grid.Row="0"
                                           Margin="10"
                                           HorizontalAlignment="Stretch"/>
 
         <!--  Content  -->
-        <TextBlock Grid.Row="1"
-                   Margin="10,0,10,20"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center">
-            <Run FontSize="150"
-                 Text="🗺️"/>
-            <LineBreak/>
-            <Run Text="Start typing to search rooms, buildings, ..."/>
-        </TextBlock>
+        <navigatum:NavigaTumLocationControl Grid.Row="1"
+                                            Item="{x:Bind search_ctrl.SelectedItem, Mode=OneWay}"/>
 
         <TextBlock Grid.Row="2"
                    Margin="10"

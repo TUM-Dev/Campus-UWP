@@ -134,6 +134,8 @@
     <Compile Include="Classes\Mvg\Station.cs" />
     <Compile Include="Classes\NavigaTum\AbstractSearchResultItem.cs" />
     <Compile Include="Classes\NavigaTum\BuildingSearchResultItem.cs" />
+    <Compile Include="Classes\NavigaTum\Location.cs" />
+    <Compile Include="Classes\NavigaTum\LocationProperty.cs" />
     <Compile Include="Classes\NavigaTum\RoomSearchResultItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\ExternalData.rd.xml" />

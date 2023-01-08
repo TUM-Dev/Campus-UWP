@@ -18,9 +18,9 @@
                     GotFocus="OnGotFocus"
                     ItemTemplate="{StaticResource SearchResultTemplate}"
                     ItemsSource="{x:Bind VIEW_MODEL.MODEL.RESULTS, Mode=OneWay}"
-                    KeyUp="OnKeyUp"
                     PlaceholderText="Type to search..."
                     QueryIcon="Find"
                     QuerySubmitted="OnQuerySubmitted"
+                    SuggestionChosen="OnSuggestionChosen"
                     TextChanged="OnTextChanged"/>
 </UserControl>

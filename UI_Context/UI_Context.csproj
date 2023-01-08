@@ -132,6 +132,11 @@
     <Compile Include="Classes\Context\Controls\Mvg\DepartureControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Mvg\MvgWidgetControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Mvg\StationSearchControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumLocationControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumLocationGeneralControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumLocationImageControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumLocationImagesControlContext.cs" />
+    <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumLocationMapControlContext.cs" />
     <Compile Include="Classes\Context\Controls\NavigaTum\NavigaTumSearchControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\FolderSizeControlContext.cs" />
     <Compile Include="Classes\Context\Controls\Settings\TumOnlineTokenManagementControlContext.cs" />
@@ -167,6 +172,11 @@
     <Compile Include="Classes\Templates\Controls\Mvg\DepartureControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Mvg\MvgWidgetControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Mvg\StationSearchControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumLocationControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumLocationGeneralControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumLocationImageControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumLocationImagesControlDataTemplate.cs" />
+    <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumLocationMapControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\NavigaTum\NavigaTumSearchControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\FolderSizeControlDataTemplate.cs" />
     <Compile Include="Classes\Templates\Controls\Settings\LogLevelTemplate.cs" />

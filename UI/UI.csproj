@@ -180,6 +180,21 @@
     <Compile Include="Controls\Mvg\StationSearchControl.xaml.cs">
       <DependentUpon>StationSearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumLocationControl.xaml.cs">
+      <DependentUpon>NavigaTumLocationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumLocationGeneralControl.xaml.cs">
+      <DependentUpon>NavigaTumLocationGeneralControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumLocationImageControl.xaml.cs">
+      <DependentUpon>NavigaTumLocationImageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumLocationImagesControl.xaml.cs">
+      <DependentUpon>NavigaTumLocationImagesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavigaTum\NavigaTumLocationMapControl.xaml.cs">
+      <DependentUpon>NavigaTumLocationMapControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NavigaTum\NavigaTumSearchControl.xaml.cs">
       <DependentUpon>NavigaTumSearchControl.xaml</DependentUpon>
     </Compile>
@@ -455,6 +470,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Mvg\StationSearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumLocationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumLocationGeneralControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumLocationImageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumLocationImagesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigaTum\NavigaTumLocationMapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

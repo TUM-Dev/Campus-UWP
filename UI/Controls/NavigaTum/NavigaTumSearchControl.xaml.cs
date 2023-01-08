@@ -1,7 +1,7 @@
-﻿using UI_Context.Classes.Context.Controls.NavigaTum;
+﻿using ExternalData.Classes.NavigaTum;
+using UI_Context.Classes.Context.Controls.NavigaTum;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace UI.Controls.NavigaTum
 {
@@ -9,6 +9,13 @@ namespace UI.Controls.NavigaTum
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
+        public AbstractSearchResultItem SelectedItem
+        {
+            get => (AbstractSearchResultItem)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(AbstractSearchResultItem), typeof(NavigaTumSearchControl), new PropertyMetadata(null));
+
         public readonly NavigaTumSearchControlContext VIEW_MODEL = new NavigaTumSearchControlContext();
 
         #endregion
@@ -64,9 +71,12 @@ namespace UI.Controls.NavigaTum
             }
         }
 
-        private void OnKeyUp(object sender, KeyRoutedEventArgs e)
+        private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-
+            if (args.SelectedItem is AbstractSearchResultItem item)
+            {
+                SelectedItem = item;
+            }
         }
 
         #endregion
