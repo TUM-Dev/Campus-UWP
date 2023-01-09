@@ -1,4 +1,5 @@
 ﻿using ExternalData.Classes.NavigaTum;
+using UI_Context.Classes.Context.Controls.NavigaTum;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,6 +16,7 @@ namespace UI.Controls.NavigaTum
         }
         public static readonly DependencyProperty CurLocationProperty = DependencyProperty.Register(nameof(CurLocation), typeof(Location), typeof(NavigaTumLocationImagesControl), new PropertyMetadata(null, OnCurLocationChanged));
 
+        public readonly NavigaTumLocationImagesControlContext VIEW_MODEL = new NavigaTumLocationImagesControlContext();
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
         #region --Constructors--
