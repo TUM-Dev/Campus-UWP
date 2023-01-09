@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ExternalData.Classes.CampusBackend;
 using ExternalData.Classes.Events;
 using Logging.Classes;
 using Shared.Classes;
@@ -37,6 +39,11 @@ namespace ExternalData.Classes.Manager
         private const string JSON_LABEL_ENUM_NAME = "enum_name";
         private const string JSON_LABEL_TEXT = "text";
         private const string JSON_LABEL_ABBREVIATION = "abbreviation";
+
+        private const string JSON_COUNT = "count";
+        private const string JSON_MAX_COUNT = "maxCount";
+        private const string JSON_PERCENT = "percent";
+        private const string JSON_TIMESTAMP = "timestamp";
 
 
         private Task<IEnumerable<Canteen>> updateCanteensTask;
@@ -257,9 +264,64 @@ namespace ExternalData.Classes.Manager
             return null;
         }
 
+        public async Task<CanteenHeadCount> GetHeadCountAsync(string canteenId)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(canteenId));
+
+            Logger.Info($"Requesting canteen head count for '{canteenId}' ...");
+            string jsonString;
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    jsonString = await wc.DownloadStringTaskAsync(new Uri($"https://api.tum.app/v1/canteen/headCount/{canteenId}"));
+                }
+                catch (Exception e)
+                {
+                    InvokeOnRequestError(new RequestErrorEventArgs(e));
+                    Logger.Error($"Requesting canteen head count failed for '{canteenId}'.", e);
+                    return null;
+                }
+            }
+
+            JsonObject json;
+            try
+            {
+                json = JsonObject.Parse(jsonString);
+                CanteenHeadCount headCount = ParseCanteenHeadCountResult(json);
+                if (headCount is null)
+                {
+                    Logger.Error($"Failed to parse canteen head count result for '{canteenId}'. No valid head cound found in response JSON: {jsonString}");
+                }
+                else
+                {
+                    Logger.Info($"Found valid canteen head count for: {canteenId}");
+                    Logger.Debug($"Canteen head count is {headCount.count} for: {canteenId}");
+                }
+                return headCount;
+            }
+            catch (Exception e)
+            {
+                InvokeOnRequestError(new RequestErrorEventArgs(e));
+                Logger.Error($"Failed to parse canteen head count result for '{canteenId}'.", e);
+                return null;
+            }
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
+        private static CanteenHeadCount ParseCanteenHeadCountResult(JsonObject json)
+        {
+            return new CanteenHeadCount
+            {
+                count = (int)json.GetNamedNumber(JSON_COUNT),
+                maxCount = (int)json.GetNamedNumber(JSON_MAX_COUNT),
+                percent = json.GetNamedNumber(JSON_PERCENT),
+                timestamp = DateTime.Parse(json.GetNamedString(JSON_TIMESTAMP))
+            };
+        }
+
         private async Task<IEnumerable<Canteen>> DownloadCanteensAsync(Language lang)
         {
             Logger.Info("Downloading canteen...");

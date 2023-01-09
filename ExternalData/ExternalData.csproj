@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\CampusBackend\CanteenHeadCount.cs" />
     <Compile Include="Classes\Events\RequestErrorEventArgs.cs" />
     <Compile Include="Classes\Manager\AbstractManager.cs" />
     <Compile Include="Classes\Manager\CanteenManager.cs" />
