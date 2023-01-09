@@ -12,6 +12,7 @@ namespace ExternalData.Classes.NavigaTum
         public string name;
         public string typeCommonName;
         public string type;
+        public string address;
         public Geopoint pos;
         public List<LocationProperty> properties;
 

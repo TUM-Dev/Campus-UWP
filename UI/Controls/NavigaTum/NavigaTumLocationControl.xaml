@@ -19,7 +19,8 @@
 
         <!--  Content:  -->
         <ScrollViewer x:Name="content_scoll"
-                      Grid.Row="0">
+                      Grid.Row="0"
+                      Padding="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -27,7 +28,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <local:NavigaTumLocationGeneralControl Grid.Row="0"/>
+                <local:NavigaTumLocationGeneralControl Grid.Row="0"
+                                                       CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
                 <local:NavigaTumLocationMapControl Grid.Row="1"/>
                 <local:NavigaTumLocationImagesControl Grid.Row="2"/>
             </Grid>

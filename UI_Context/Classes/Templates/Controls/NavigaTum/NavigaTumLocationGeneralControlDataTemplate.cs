@@ -1,4 +1,6 @@
 ﻿using Shared.Classes;
+using Storage.Classes;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace UI_Context.Classes.Templates.Controls.NavigaTum
 {
@@ -6,7 +8,12 @@ namespace UI_Context.Classes.Templates.Controls.NavigaTum
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        private MapStyle _MapStyle;
+        public MapStyle MapStyle
+        {
+            get => _MapStyle;
+            set => SetMapStyleProperty(value);
+        }
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -16,7 +23,11 @@ namespace UI_Context.Classes.Templates.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        private void SetMapStyleProperty(MapStyle mapStyle)
+        {
+            SetProperty(ref _MapStyle, mapStyle, nameof(MapStyle));
+            Storage.Classes.Settings.SetSetting(SettingsConsts.NAVIGATUM_MAP_STYLE, (int)mapStyle);
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\

@@ -27,5 +27,7 @@
 
         public const string MVG_DEFAULT_STATION_NAME = "mvg_default_station_name";
         public const string MVG_DEFAULT_STATION_ID = "mvg_default_station_id";
+
+        public const string NAVIGATUM_MAP_STYLE = "navigatum_map_style";
     }
 }
