@@ -17,6 +17,7 @@ namespace ExternalData.Classes.Manager
         #region --Attributes--
         private const string BASE_SEARCH_URI = "https://nav.tum.de/api/search";
         private const string BASE_GET_URI = "https://nav.tum.de/api/get";
+        private const string BASE_IAMGE_URI = "https://nav.tum.de/cdn";
 
         private const string JSON_SECTIONS = "sections";
         private const string JSON_ENTITIES = "entries";
@@ -34,9 +35,16 @@ namespace ExternalData.Classes.Manager
         private const string JSON_TEXT = "text";
         private const string JSON_TYPE = "type";
         private const string JSON_TYPE_COMMON_NAME = "type_common_name";
+        private const string JSON_IMGS = "imgs";
+        private const string JSON_AUTHOR = "author";
+        private const string JSON_SOURCE = "source";
+        private const string JSON_LICENSE = "license";
+        private const string JSON_URL = "url";
 
         public const string PRE_HIGHLIGHT = "/u0019";
         public const string POST_HIGHLIGHT = "/u0017";
+
+        public const string IMAGE_TYPE = "sm";
 
         public static readonly NavigaTumManager INSTANCE = new NavigaTumManager();
 
@@ -48,7 +56,10 @@ namespace ExternalData.Classes.Manager
         #endregion
         //--------------------------------------------------------Set-, Get- Methods:---------------------------------------------------------\\
         #region --Set-, Get- Methods--
-
+        public static string GetImageUrl(string imageName)
+        {
+            return $"{BASE_IAMGE_URI}/{IMAGE_TYPE}/{imageName}";
+        }
 
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
@@ -227,6 +238,29 @@ namespace ExternalData.Classes.Manager
                 }
             }
 
+            // Images:
+            List<LocationImage> images = new List<LocationImage>();
+            if (json.ContainsKey(JSON_IMGS))
+            {
+                JsonArray imagesJsonArr = json.GetNamedArray(JSON_IMGS);
+                foreach (IJsonValue image in imagesJsonArr)
+                {
+                    JsonObject imageJson = image.GetObject();
+                    string name = imageJson.GetNamedString(JSON_NAME);
+                    images.Add(new LocationImage
+                    {
+                        name = name,
+                        url = GetImageUrl(name),
+                        authorName = imageJson.GetNamedObject(JSON_AUTHOR).GetNamedString(JSON_TEXT),
+                        authorUrl = TryGetString(imageJson.GetNamedObject(JSON_AUTHOR), JSON_URL),
+                        sourceName = imageJson.GetNamedObject(JSON_SOURCE).GetNamedString(JSON_TEXT),
+                        sourceUrl = TryGetString(imageJson.GetNamedObject(JSON_SOURCE), JSON_URL),
+                        licenseName = imageJson.GetNamedObject(JSON_LICENSE).GetNamedString(JSON_TEXT),
+                        licenseUrl = TryGetString(imageJson.GetNamedObject(JSON_LICENSE), JSON_URL),
+                    });
+                }
+            }
+
             // Combine:
             return new Location
             {
@@ -236,7 +270,8 @@ namespace ExternalData.Classes.Manager
                 type = json.GetNamedString(JSON_TYPE),
                 typeCommonName = json.GetNamedString(JSON_TYPE_COMMON_NAME),
                 pos = pos,
-                properties = properties
+                properties = properties,
+                images = images
             };
         }
 

@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
-using Windows.Devices.Geolocation;
-
-namespace ExternalData.Classes.NavigaTum
+﻿namespace ExternalData.Classes.NavigaTum
 {
-    public class Location
+    public class LocationImage
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string id;
-        public string archName;
         public string name;
-        public string typeCommonName;
-        public string type;
-        public Geopoint pos;
-        public List<LocationProperty> properties;
-        public List<LocationImage> images;
+        public string url;
+        public string authorName;
+        public string authorUrl;
+        public string sourceName;
+        public string sourceUrl;
+        public string licenseName;
+        public string licenseUrl;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

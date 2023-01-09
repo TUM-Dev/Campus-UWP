@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using ExternalData.Classes.NavigaTum;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace UI.Controls.NavigaTum
 {
@@ -19,7 +8,12 @@ namespace UI.Controls.NavigaTum
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        public Location CurLocation
+        {
+            get => (Location)GetValue(CurLocationProperty);
+            set => SetValue(CurLocationProperty, value);
+        }
+        public static readonly DependencyProperty CurLocationProperty = DependencyProperty.Register(nameof(CurLocation), typeof(Location), typeof(NavigaTumLocationImagesControl), new PropertyMetadata(null, OnCurLocationChanged));
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -52,7 +46,10 @@ namespace UI.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private static void OnCurLocationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
 
+        }
 
         #endregion
     }

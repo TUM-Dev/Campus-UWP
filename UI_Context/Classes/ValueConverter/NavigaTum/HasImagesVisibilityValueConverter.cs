@@ -1,20 +1,15 @@
-﻿using System.Collections.Generic;
-using Windows.Devices.Geolocation;
+﻿using System;
+using ExternalData.Classes.NavigaTum;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
-namespace ExternalData.Classes.NavigaTum
+namespace UI_Context.Classes.ValueConverter.NavigaTum
 {
-    public class Location
+    public class HasImagesVisibilityValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public string id;
-        public string archName;
-        public string name;
-        public string typeCommonName;
-        public string type;
-        public Geopoint pos;
-        public List<LocationProperty> properties;
-        public List<LocationImage> images;
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -29,7 +24,15 @@ namespace ExternalData.Classes.NavigaTum
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return value is Location location && location.images.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 

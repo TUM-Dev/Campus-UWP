@@ -38,15 +38,7 @@
                     <Run Text="{x:Bind CurLocation.typeCommonName, Mode=OneWay}"/>
                 </TextBlock>
                 <TextBlock x:Name="info_tbx"
-                           Margin="0,5,0,0">
-                    <Run FontWeight="Bold"
-                         Text="Architecture Name:"/>
-                    <Run Text="{x:Bind CurLocation.archName, Mode=OneWay, FallbackValue='-'}"/>
-                    <LineBreak/>
-                    <Run FontWeight="Bold"
-                         Text="Address:"/>
-                    <Run Text="{x:Bind CurLocation.address, Mode=OneWay, FallbackValue='-'}"/>
-                </TextBlock>
+                           Margin="0,5,0,0"/>
             </StackPanel>
 
             <Border Grid.Column="1"
