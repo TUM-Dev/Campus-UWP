@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Logging.Classes;
+using SixLabors.ImageSharp;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
@@ -92,10 +94,38 @@ namespace Shared.Classes.Image
             }
         }
 
+        /// <summary>
+        /// Downloads a WebP image from the given URL and returns it as a <see cref="WriteableBitmap"/> in the PNG format.
+        /// </summary>
+        /// <param name="url">Target URL for downloading a WebP image.</param>
+        /// <returns><see cref="WriteableBitmap"/> in the PNG format.</returns>
+        public static async Task<WriteableBitmap> DownloadWebPAsync(string url)
+        {
+            byte[] data = await new HttpClient().GetByteArrayAsync(url);
+            return await DecodeWebPAsync(data);
+        }
+
         #endregion
 
         #region --Misc Methods (Private)--
+        /// <summary>
+        /// Decodes the given WebP data byte array and stores it as a PNG inside the returned <see cref="WriteableBitmap"/>.
+        /// </summary>
+        /// <param name="data">Byte array for a WebP image.</param>
+        /// <returns><see cref="WriteableBitmap"/> in the PNG format.</returns>
+        public static async Task<WriteableBitmap> DecodeWebPAsync(byte[] data)
+        {
+            SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(data, new SixLabors.ImageSharp.Formats.Webp.WebpDecoder());
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await image.SaveAsPngAsync(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
 
+                WriteableBitmap writeableBitmap = new WriteableBitmap(image.Width, image.Height);
+                await writeableBitmap.SetSourceAsync(memoryStream.AsRandomAccessStream());
+                return writeableBitmap;
+            }
+        }
 
         #endregion
 
