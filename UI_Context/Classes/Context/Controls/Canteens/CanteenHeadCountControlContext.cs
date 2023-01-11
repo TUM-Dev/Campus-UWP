@@ -37,17 +37,17 @@ namespace UI_Context.Classes.Context.Controls.Canteens
                     return;
                 }
 
-                MODEL.Percent = headCount.percent;
+                MODEL.Percent = Math.Round(headCount.percent); // Round to full numbers since precision is not required and it makes it easier displaying the number
                 MODEL.HasData = true;
                 MODEL.Tooltip = $"Guests: {headCount.count} - {Math.Round(headCount.percent)}%";
 
-                if (headCount.percent > 50)
-                {
-                    MODEL.StatusEmoji = "⚠️";
-                }
-                else if (headCount.percent > 75)
+                if (headCount.percent > 75)
                 {
                     MODEL.StatusEmoji = "❌";
+                }
+                else if (headCount.percent > 50)
+                {
+                    MODEL.StatusEmoji = "⚠️";
                 }
                 else
                 {

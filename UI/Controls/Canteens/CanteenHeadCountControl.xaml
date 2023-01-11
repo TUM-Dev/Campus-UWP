@@ -12,12 +12,26 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <muxc:ProgressBar Grid.Column="0"
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock>
+            <Run Text="Current Canteen Utilization:"/>
+            <Run Text="{x:Bind VIEW_MODEL.MODEL.Percent, Mode=OneWay}"/>
+            <Run Text="%"/>
+        </TextBlock>
+
+        <muxc:ProgressBar Grid.Row="1"
+                          Grid.Column="0"
                           HorizontalAlignment="{x:Bind HorizontalAlignment, Mode=OneWay}"
                           VerticalAlignment="{x:Bind VerticalAlignment, Mode=OneWay}"
                           ToolTipService.ToolTip="{x:Bind VIEW_MODEL.MODEL.Tooltip, Mode=OneWay}"
                           Value="{x:Bind VIEW_MODEL.MODEL.Percent, Mode=OneWay}"/>
-        <TextBlock Grid.Column="1"
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
                    Margin="5,0,0,0"
                    Text="{x:Bind VIEW_MODEL.MODEL.StatusEmoji, Mode=OneWay}"
                    ToolTipService.ToolTip="{x:Bind VIEW_MODEL.MODEL.Tooltip, Mode=OneWay}"/>
