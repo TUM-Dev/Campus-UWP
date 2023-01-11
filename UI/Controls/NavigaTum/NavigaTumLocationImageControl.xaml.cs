@@ -14,7 +14,7 @@ namespace UI.Controls.NavigaTum
             get => (LocationImage)GetValue(ImageProperty);
             set => SetValue(ImageProperty, value);
         }
-        public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image), typeof(LocationImage), typeof(NavigaTumLocationImagesControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image), typeof(LocationImage), typeof(NavigaTumLocationImageControl), new PropertyMetadata(null, OnImageChanged));
 
         public readonly NavigaTumLocationImageControlContext VIEW_MODEL = new NavigaTumLocationImageControlContext();
         #endregion
@@ -33,7 +33,10 @@ namespace UI.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-
+        public void UpdateView(LocationImage image)
+        {
+            VIEW_MODEL.UpdateView(image);
+        }
 
         #endregion
 
@@ -48,7 +51,20 @@ namespace UI.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
+        private static void OnImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is NavigaTumLocationImageControl control)
+            {
+                if (e.NewValue is LocationImage image)
+                {
+                    control.UpdateView(image);
+                }
+                else
+                {
+                    control.UpdateView(null);
+                }
+            }
+        }
 
         #endregion
     }

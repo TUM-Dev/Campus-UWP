@@ -20,7 +20,9 @@
         <!--  Content:  -->
         <ScrollViewer x:Name="content_scoll"
                       Grid.Row="0"
-                      Padding="10">
+                      Padding="10"
+                      HorizontalScrollMode="Disabled"
+                      Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -28,11 +30,18 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
                 <local:NavigaTumLocationGeneralControl Grid.Row="0"
+                                                       Grid.Column="0"
                                                        CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
                 <local:NavigaTumLocationMapControl Grid.Row="1"
+                                                   Grid.Column="0"
                                                    Margin="0,10,0,0"/>
                 <local:NavigaTumLocationImagesControl Grid.Row="2"
+                                                      Grid.Column="0"
                                                       Margin="0,10,0,0"
                                                       CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
             </Grid>

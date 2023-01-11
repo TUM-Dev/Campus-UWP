@@ -6,6 +6,7 @@
              xmlns:navigatum="using:ExternalData.Classes.NavigaTum"
              xmlns:navigatum1="using:UI.Controls.NavigaTum"
              xmlns:navigatum2="using:UI_Context.Classes.ValueConverter.NavigaTum"
+             Visibility="{x:Bind CurLocation, Mode=OneWay, Converter={StaticResource HasImagesVisibilityValueConverter}}"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -17,10 +18,16 @@
         <navigatum2:HasImagesVisibilityValueConverter x:Key="HasImagesVisibilityValueConverter"/>
     </UserControl.Resources>
 
-    <GridView Background="{ThemeResource LayerFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-              CornerRadius="{ThemeResource OverlayCornerRadius}"
+    <ListView Padding="0"
               ItemTemplate="{StaticResource ImageDataTemplate}"
               ItemsSource="{x:Bind CurLocation.images, Mode=OneWay}"
-              Visibility="{x:Bind CurLocation, Mode=OneWay, Converter={StaticResource HasImagesVisibilityValueConverter}}"/>
+              ScrollViewer.HorizontalScrollMode="Enabled"
+              SelectionMode="None">
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsStackPanel Background="Transparent"
+                                 Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+    </ListView>
 </UserControl>
