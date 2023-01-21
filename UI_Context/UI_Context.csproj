@@ -237,6 +237,7 @@
     <Compile Include="Classes\ValueConverter\IsNullVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Mvg\BoolToTextDecorationsValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Mvg\DateTimeToTimeStringValueConverter.cs" />
+    <Compile Include="Classes\ValueConverter\NavigaTum\HasMapsVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NavigaTum\HasImagesVisibilityValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\NullableBoolBoolValueConverter.cs" />
     <Compile Include="Classes\ValueConverter\Settings\LogLevelStringValueConverter.cs" />

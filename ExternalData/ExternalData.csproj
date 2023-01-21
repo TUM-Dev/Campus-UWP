@@ -137,6 +137,7 @@
     <Compile Include="Classes\NavigaTum\BuildingSearchResultItem.cs" />
     <Compile Include="Classes\NavigaTum\Location.cs" />
     <Compile Include="Classes\NavigaTum\LocationImage.cs" />
+    <Compile Include="Classes\NavigaTum\LocationMap.cs" />
     <Compile Include="Classes\NavigaTum\LocationProperty.cs" />
     <Compile Include="Classes\NavigaTum\RoomSearchResultItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

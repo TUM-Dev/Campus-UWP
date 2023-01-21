@@ -1,16 +1,15 @@
-﻿using ExternalData.Classes.NavigaTum;
-using Logging.Classes;
-using Shared.Classes;
-using Shared.Classes.Image;
-using UI_Context.Classes.Templates.Controls.NavigaTum;
+﻿using System;
+using ExternalData.Classes.NavigaTum;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
-namespace UI_Context.Classes.Context.Controls.NavigaTum
+namespace UI_Context.Classes.ValueConverter.NavigaTum
 {
-    public class NavigaTumLocationImageControlContext
+    public class HasMapsVisibilityValueConverter: IValueConverter
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly NavigaTumLocationImageControlDataTemplate MODEL = new NavigaTumLocationImageControlDataTemplate();
+
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,27 +24,14 @@ namespace UI_Context.Classes.Context.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void UpdateView(LocationImage image)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (image is null)
-            {
-                MODEL.Image = null;
-                return;
-            }
+            return value is Location location && location.maps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-            _ = SharedUtils.CallDispatcherAsync(async () =>
-            {
-                try
-                {
-                    MODEL.Image = await ImageUtils.DownloadWebPAsync(image.url);
-                    Logger.Debug($"NavigaTUM WebP image downloaded from: {image.url}");
-                }
-                catch (System.Exception e)
-                {
-                    Logger.Error($"Failed to download NavigaTUM WebP image from: {image.url}", e);
-                    MODEL.Image = null;
-                }
-            });
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

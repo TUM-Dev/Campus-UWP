@@ -1,16 +1,14 @@
-﻿using ExternalData.Classes.NavigaTum;
-using Logging.Classes;
-using Shared.Classes;
-using Shared.Classes.Image;
-using UI_Context.Classes.Templates.Controls.NavigaTum;
-
-namespace UI_Context.Classes.Context.Controls.NavigaTum
+﻿namespace ExternalData.Classes.NavigaTum
 {
-    public class NavigaTumLocationImageControlContext
+    public class LocationMap
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-        public readonly NavigaTumLocationImageControlDataTemplate MODEL = new NavigaTumLocationImageControlDataTemplate();
+        public string id;
+        public string name;
+        public string url;
+        public double x;
+        public double y;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\
@@ -25,27 +23,9 @@ namespace UI_Context.Classes.Context.Controls.NavigaTum
         #endregion
         //--------------------------------------------------------Misc Methods:---------------------------------------------------------------\\
         #region --Misc Methods (Public)--
-        public void UpdateView(LocationImage image)
+        public override string ToString()
         {
-            if (image is null)
-            {
-                MODEL.Image = null;
-                return;
-            }
-
-            _ = SharedUtils.CallDispatcherAsync(async () =>
-            {
-                try
-                {
-                    MODEL.Image = await ImageUtils.DownloadWebPAsync(image.url);
-                    Logger.Debug($"NavigaTUM WebP image downloaded from: {image.url}");
-                }
-                catch (System.Exception e)
-                {
-                    Logger.Error($"Failed to download NavigaTUM WebP image from: {image.url}", e);
-                    MODEL.Image = null;
-                }
-            });
+            return name;
         }
 
         #endregion

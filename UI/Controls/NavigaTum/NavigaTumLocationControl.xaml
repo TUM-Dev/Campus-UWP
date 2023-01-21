@@ -35,13 +35,14 @@
                 <local:NavigaTumLocationGeneralControl Grid.Row="0"
                                                        Grid.Column="0"
                                                        CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
-                <local:NavigaTumLocationMapControl Grid.Row="1"
-                                                   Grid.Column="0"
-                                                   Margin="0,10,0,0"/>
-                <local:NavigaTumLocationImagesControl Grid.Row="2"
+                <local:NavigaTumLocationImagesControl Grid.Row="1"
                                                       Grid.Column="0"
                                                       Margin="0,10,0,0"
                                                       CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
+                <local:NavigaTumLocationMapControl Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Margin="0,10,0,0"
+                                                   CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
             </Grid>
         </ScrollViewer>
 

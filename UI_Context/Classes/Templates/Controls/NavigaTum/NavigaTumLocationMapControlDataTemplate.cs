@@ -1,4 +1,5 @@
 ﻿using Shared.Classes;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace UI_Context.Classes.Templates.Controls.NavigaTum
 {
@@ -6,7 +7,12 @@ namespace UI_Context.Classes.Templates.Controls.NavigaTum
     {
         //--------------------------------------------------------Attributes:-----------------------------------------------------------------\\
         #region --Attributes--
-
+        public WriteableBitmap Image
+        {
+            get => _Image;
+            set => SetProperty(ref _Image, value);
+        }
+        private WriteableBitmap _Image;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

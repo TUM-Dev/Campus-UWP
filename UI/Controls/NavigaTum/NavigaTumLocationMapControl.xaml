@@ -1,13 +1,40 @@
-﻿<UserControl
-    x:Class="UI.Controls.NavigaTum.NavigaTumLocationMapControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI.Controls.NavigaTum"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="UI.Controls.NavigaTum.NavigaTumLocationMapControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:navigatum="using:UI_Context.Classes.ValueConverter.NavigaTum"
+             Visibility="{x:Bind CurLocation, Mode=OneWay, Converter={StaticResource HasMapsVisibilityValueConverter}}"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <navigatum:HasMapsVisibilityValueConverter x:Key="HasMapsVisibilityValueConverter"/>
+    </UserControl.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <ComboBox x:Name="maps_cbx"
+                  Grid.Row="0"
+                  HorizontalAlignment="Stretch"
+                  CornerRadius="4,4,0,0"
+                  ItemsSource="{x:Bind CurLocation.maps, Mode=OneWay}"
+                  SelectionChanged="OnSelectionChanged"/>
+
+        <controls:ImageEx x:Name="map_img"
+                          Grid.Row="1"
+                          HorizontalAlignment="Stretch"
+                          CornerRadius="0,0,4,4"
+                          ImageExFailed="OnImageOpenFailed"
+                          ImageExOpened="OnImageOpened"
+                          SizeChanged="OnImageSizeChanged"
+                          Source="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"/>
+        <Canvas x:Name="overlay_canvas"
+                Grid.Row="1"
+                Background="Transparent"/>
     </Grid>
 </UserControl>

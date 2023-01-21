@@ -15,6 +15,8 @@ namespace ExternalData.Classes.NavigaTum
         public Geopoint pos;
         public List<LocationProperty> properties;
         public List<LocationImage> images;
+        public string defaultMap;
+        public List<LocationMap> maps;
 
         #endregion
         //--------------------------------------------------------Constructor:----------------------------------------------------------------\\

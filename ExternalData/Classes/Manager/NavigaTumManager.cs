@@ -17,7 +17,8 @@ namespace ExternalData.Classes.Manager
         #region --Attributes--
         private const string BASE_SEARCH_URI = "https://nav.tum.de/api/search";
         private const string BASE_GET_URI = "https://nav.tum.de/api/get";
-        private const string BASE_IAMGE_URI = "https://nav.tum.de/cdn";
+        private const string BASE_IMAGE_URI = "https://nav.tum.de/cdn";
+        private const string BASE_MAP_URI = "https://nav.tum.de/cdn/maps";
 
         private const string JSON_SECTIONS = "sections";
         private const string JSON_ENTITIES = "entries";
@@ -41,11 +42,19 @@ namespace ExternalData.Classes.Manager
         private const string JSON_SOURCE = "source";
         private const string JSON_LICENSE = "license";
         private const string JSON_URL = "url";
+        private const string JSON_MAPS = "maps";
+        private const string JSON_ROOMFINDER = "roomfinder";
+        private const string JSON_AVAILABLE = "available";
+        private const string JSON_DEFAULT = "default";
+        private const string JSON_X = "x";
+        private const string JSON_Y = "y";
 
         public const string PRE_HIGHLIGHT = "/u0019";
         public const string POST_HIGHLIGHT = "/u0017";
 
         public const string IMAGE_TYPE = "sm";
+
+        public const string MAP_SOURCE = "roomfinder";
 
         public static readonly NavigaTumManager INSTANCE = new NavigaTumManager();
 
@@ -59,7 +68,12 @@ namespace ExternalData.Classes.Manager
         #region --Set-, Get- Methods--
         public static string GetImageUrl(string imageName)
         {
-            return $"{BASE_IAMGE_URI}/{IMAGE_TYPE}/{imageName}";
+            return $"{BASE_IMAGE_URI}/{IMAGE_TYPE}/{imageName}";
+        }
+
+        public static string GetMapUrl(string mapId)
+        {
+            return $"{BASE_MAP_URI}/{MAP_SOURCE}/{mapId}.webp";
         }
 
         #endregion
@@ -263,6 +277,32 @@ namespace ExternalData.Classes.Manager
                 }
             }
 
+            // Maps:
+            string defaultMap = null;
+            List<LocationMap> maps = new List<LocationMap>();
+            JsonObject mapsJson = json.GetNamedObject(JSON_MAPS);
+            if (mapsJson.ContainsKey(JSON_ROOMFINDER))
+            {
+                JsonObject roomfinderJson = mapsJson.GetNamedObject(JSON_ROOMFINDER);
+                defaultMap = roomfinderJson.GetNamedString(JSON_DEFAULT);
+                Debug.Assert(!string.IsNullOrEmpty(defaultMap));
+
+                JsonArray availableJsonArr = roomfinderJson.GetNamedArray(JSON_AVAILABLE);
+                foreach (IJsonValue map in availableJsonArr)
+                {
+                    JsonObject mapJson = map.GetObject();
+                    string id = mapJson.GetNamedString(JSON_ID);
+                    maps.Add(new LocationMap
+                    {
+                        id = id,
+                        name = mapJson.GetNamedString(JSON_NAME),
+                        url = GetMapUrl(id),
+                        x = mapJson.GetNamedNumber(JSON_X),
+                        y = mapJson.GetNamedNumber(JSON_Y)
+                    });
+                }
+            }
+
             // Combine:
             return new Location
             {
@@ -273,7 +313,9 @@ namespace ExternalData.Classes.Manager
                 typeCommonName = json.GetNamedString(JSON_TYPE_COMMON_NAME),
                 pos = pos,
                 properties = properties,
-                images = images
+                images = images,
+                defaultMap = defaultMap,
+                maps = maps
             };
         }
 
