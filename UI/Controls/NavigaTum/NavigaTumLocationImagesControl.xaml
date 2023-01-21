@@ -19,12 +19,19 @@
     </UserControl.Resources>
 
     <ListView Padding="0,0,0,10"
+              CornerRadius="{ThemeResource OverlayCornerRadius}"
               ItemTemplate="{StaticResource ImageDataTemplate}"
               ItemsSource="{x:Bind CurLocation.images, Mode=OneWay}"
               ScrollViewer.HorizontalScrollBarVisibility="Auto"
               ScrollViewer.HorizontalScrollMode="Enabled"
               ScrollViewer.VerticalScrollMode="Disabled"
               SelectionMode="None">
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="Padding" Value="0,0,10,0"/>
+            </Style>
+        </ListView.ItemContainerStyle>
+
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
                 <ItemsStackPanel Background="Transparent"

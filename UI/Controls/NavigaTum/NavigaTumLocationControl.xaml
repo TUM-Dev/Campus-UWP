@@ -41,7 +41,7 @@
                                                       CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
                 <local:NavigaTumLocationMapControl Grid.Row="2"
                                                    Grid.Column="0"
-                                                   Margin="0,10,0,0"
+                                                   Margin="0,10,10,0"
                                                    CurLocation="{x:Bind VIEW_MODEL.MODEL.CurLocation, Mode=OneWay}"/>
             </Grid>
         </ScrollViewer>
