@@ -7,6 +7,63 @@
              MaxHeight="250"
              mc:Ignorable="d">
 
-    <controls:ImageEx CornerRadius="{ThemeResource OverlayCornerRadius}"
-                      Source="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <controls:ImageEx x:Name="image"
+                          Grid.Column="0"
+                          HorizontalAlignment="Left"
+                          CornerRadius="{ThemeResource OverlayCornerRadius}"
+                          SizeChanged="OnImageSizeChanged"
+                          Source="{x:Bind VIEW_MODEL.MODEL.Image, Mode=OneWay}"/>
+
+        <Grid x:Name="text_grid"
+              Grid.Column="0"
+              Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--  Author  -->
+            <Border x:Name="author_border"
+                    Grid.Column="0"
+                    Padding="10,3,10,3"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{ThemeResource AppBackgroundAcrylicElementLightBrush}"
+                    CornerRadius="4"
+                    ToolTipService.ToolTip="{x:Bind Image.authorName, Mode=OneWay}">
+                <TextBlock x:Name="author_tbx"
+                           HorizontalAlignment="Left"
+                           Foreground="{ThemeResource CaptionTextBrush}"
+                           IsTextSelectionEnabled="True"
+                           MaxLines="2"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap"/>
+            </Border>
+
+            <!--  License  -->
+            <Border x:Name="license_border"
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    Padding="10,3,10,3"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{ThemeResource AppBackgroundAcrylicElementLightBrush}"
+                    CornerRadius="4"
+                    ToolTipService.ToolTip="{x:Bind Image.licenseName, Mode=OneWay}">
+                <TextBlock x:Name="license_tbx"
+                           HorizontalAlignment="Left"
+                           Foreground="{ThemeResource CaptionTextBrush}"
+                           IsTextSelectionEnabled="True"
+                           MaxLines="2"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap"/>
+            </Border>
+        </Grid>
+    </Grid>
 </UserControl>
