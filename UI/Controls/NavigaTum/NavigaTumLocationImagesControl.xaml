@@ -18,10 +18,12 @@
         <navigatum2:HasImagesVisibilityValueConverter x:Key="HasImagesVisibilityValueConverter"/>
     </UserControl.Resources>
 
-    <ListView Padding="0"
+    <ListView Padding="0,0,0,10"
               ItemTemplate="{StaticResource ImageDataTemplate}"
               ItemsSource="{x:Bind CurLocation.images, Mode=OneWay}"
+              ScrollViewer.HorizontalScrollBarVisibility="Auto"
               ScrollViewer.HorizontalScrollMode="Enabled"
+              ScrollViewer.VerticalScrollMode="Disabled"
               SelectionMode="None">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>

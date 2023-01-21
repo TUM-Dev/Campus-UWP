@@ -14,12 +14,10 @@
 
         <!--  Searching:  -->
         <controls:LoadingContentControl x:Name="loading_ctrl"
-                                        Grid.Row="0"
                                         Text="Searching..."/>
 
         <!--  Content:  -->
         <ScrollViewer x:Name="content_scoll"
-                      Grid.Row="0"
                       Padding="10"
                       HorizontalScrollMode="Disabled"
                       Visibility="Collapsed">
@@ -49,7 +47,6 @@
 
         <!--  Placeholder  -->
         <TextBlock x:Name="placeholder_tbx"
-                   Grid.Row="0"
                    Margin="10,0,10,20"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
