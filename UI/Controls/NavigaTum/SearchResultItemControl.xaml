@@ -12,17 +12,35 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
         <FontIcon x:Name="icon_ficon"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   Foreground="{ThemeResource TumBlueBrandBrush}"
                   Glyph="&#xE707;"/>
         <TextBlock x:Name="name_tbx"
+                   Grid.Row="0"
                    Grid.Column="1"
                    Margin="10,0,0,0"
                    VerticalAlignment="Center"
                    MaxLines="3"
                    Text="Loading..."
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="Wrap"/>
+        <TextBlock x:Name="caption_tbx"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="10,0,0,0"
+                   VerticalAlignment="Center"
+                   Foreground="{ThemeResource CaptionTextBrush}"
+                   MaxLines="3"
+                   Style="{ThemeResource CaptionTextBlockStyle}"
                    TextTrimming="CharacterEllipsis"
                    TextWrapping="Wrap"/>
     </Grid>

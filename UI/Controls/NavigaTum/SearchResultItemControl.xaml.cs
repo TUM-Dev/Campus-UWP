@@ -44,6 +44,7 @@ namespace UI.Controls.NavigaTum
 
             NavigaTumSearchResultNameFormatExtension.SetFormattedText(name_tbx, item.name);
             icon_ficon.Glyph = item is RoomSearchResultItem ? "\uE707" : "\uE80F";
+            caption_tbx.Text = item is RoomSearchResultItem roomItem ? $"{roomItem.subtextBold} - {roomItem.subtext}" : item.subtext;
         }
 
         #endregion

@@ -26,6 +26,7 @@ namespace ExternalData.Classes.Manager
         private const string JSON_ID = "id";
         private const string JSON_NAME = "name";
         private const string JSON_SUBTEXT = "subtext";
+        private const string JSON_SUBTEXT_BOLD = "subtext_bold";
         private const string JSON_ARCH_NAME = "arch_name";
         private const string JSON_PROPS = "props";
         private const string JSON_COMPUTED = "computed";
@@ -204,6 +205,7 @@ namespace ExternalData.Classes.Manager
                     id = entityItem.GetObject().GetNamedString(JSON_ID),
                     name = entityItem.GetObject().GetNamedString(JSON_NAME),
                     subtext = entityItem.GetObject().GetNamedString(JSON_SUBTEXT),
+                    subtextBold = entityItem.GetObject().GetNamedString(JSON_SUBTEXT_BOLD),
                 });
             }
         }
