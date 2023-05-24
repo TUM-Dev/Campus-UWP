@@ -24,6 +24,8 @@
               ItemsSource="{x:Bind CurLocation.images, Mode=OneWay}"
               ScrollViewer.HorizontalScrollBarVisibility="Auto"
               ScrollViewer.HorizontalScrollMode="Enabled"
+              ScrollViewer.IsVerticalRailEnabled="False"
+              ScrollViewer.IsVerticalScrollChainingEnabled="False"
               ScrollViewer.VerticalScrollMode="Disabled"
               SelectionMode="None">
         <ListView.ItemContainerStyle>
