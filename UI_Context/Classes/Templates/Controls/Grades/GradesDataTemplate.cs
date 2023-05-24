@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Shared.Classes;
 using Shared.Classes.Collections;
@@ -49,7 +50,7 @@ namespace UI_Context.Classes.Templates.Controls.Grades
             int count = 0;
             foreach (Grade grade in gradesList)
             {
-                if (double.TryParse(grade.GradeShort, out double g))
+                if (double.TryParse(grade.GradeShort, NumberStyles.Float, new CultureInfo("de-DE"), out double g))
                 {
                     sum += g;
                     ++count;
@@ -62,7 +63,7 @@ namespace UI_Context.Classes.Templates.Controls.Grades
             }
             if (count > 0)
             {
-                return (sum / count).ToString();
+                return (sum / count).ToString(CultureInfo.CreateSpecificCulture("de-DE"));
             }
             return "no_grades";
         }
